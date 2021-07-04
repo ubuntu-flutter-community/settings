@@ -32,6 +32,14 @@ class _AppearancePageState extends State<AppearancePage> {
     bool _alwaysShowDock = _settings.boolValue('dock-fixed');
     bool _extendHeight = _settings.boolValue('extend-height');
     bool _unityBacklidItems = _settings.boolValue('unity-backlit-items');
+    int _dashMaxIconSize = _settings.intValue('dash-max-icon-size');
+    String _dockPosition = _settings.stringValue('dock-position');
+
+    final List<bool> _dockPositions = [
+      _dockPosition.contains('LEFT'),
+      _dockPosition.contains('RIGHT'),
+      _dockPosition.contains('BOTTOM')
+    ];
 
     final theme = context.watch<AppTheme>();
     return SingleChildScrollView(
@@ -43,7 +51,7 @@ class _AppearancePageState extends State<AppearancePage> {
               child: ChoseYourLookPage(theme: theme),
             ),
             SizedBox(
-              width: 300,
+              width: 500,
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Row(
@@ -65,7 +73,7 @@ class _AppearancePageState extends State<AppearancePage> {
               ),
             ),
             SizedBox(
-              width: 300,
+              width: 500,
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Row(
@@ -86,7 +94,7 @@ class _AppearancePageState extends State<AppearancePage> {
               ),
             ),
             SizedBox(
-              width: 300,
+              width: 500,
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Row(
@@ -107,7 +115,7 @@ class _AppearancePageState extends State<AppearancePage> {
               ),
             ),
             SizedBox(
-              width: 300,
+              width: 500,
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Row(
@@ -126,7 +134,87 @@ class _AppearancePageState extends State<AppearancePage> {
                   ],
                 ),
               ),
-            )
+            ),
+            SizedBox(
+              width: 500,
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    const Text('Icon size'),
+                    Expanded(
+                      child: Slider(
+                        label: '$_dashMaxIconSize',
+                        min: 16,
+                        max: 64,
+                        value: _dashMaxIconSize + .0,
+                        divisions: 24,
+                        onChanged: (double newValue) {
+                          _settings.setValue(
+                              'dash-max-icon-size', newValue.round());
+                          setState(() {
+                            _dashMaxIconSize = newValue.round();
+                          });
+                        },
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            SizedBox(
+              width: 500,
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    const Text('Dock position'),
+                    ButtonTheme(
+                      minWidth: double.infinity,
+                      child: ToggleButtons(
+                        children: const <Widget>[
+                          Padding(
+                            padding: EdgeInsets.all(8.0),
+                            child: Text('Left'),
+                          ),
+                          Padding(
+                            padding: EdgeInsets.all(8.0),
+                            child: Text('Right'),
+                          ),
+                          Padding(
+                            padding: EdgeInsets.all(8.0),
+                            child: Text('Bottom'),
+                          ),
+                        ],
+                        onPressed: (int index) {
+                          setState(() {
+                            for (int buttonIndex = 0;
+                                buttonIndex < _dockPositions.length;
+                                buttonIndex++) {
+                              if (buttonIndex == index) {
+                                _dockPositions[buttonIndex] = true;
+                              } else {
+                                _dockPositions[buttonIndex] = false;
+                              }
+                            }
+                            if (_dockPositions[0] == true) {
+                              _settings.setValue('dock-position', 'LEFT');
+                            } else if (_dockPositions[1] == true) {
+                              _settings.setValue('dock-position', 'RIGHT');
+                            } else if (_dockPositions[2] == true) {
+                              _settings.setValue('dock-position', 'BOTTOM');
+                            }
+                          });
+                        },
+                        isSelected: _dockPositions,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
           ],
         ),
       ),
