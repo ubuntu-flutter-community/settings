@@ -17,7 +17,7 @@ class AppearancePage extends StatelessWidget {
             scrollDirection: Axis.horizontal,
             children: <Widget>[
               Padding(
-                padding: const EdgeInsets.all(8.0),
+                padding: const EdgeInsets.only(right: 12),
                 child: OptionCard(
                   imageAsset: 'assets/images/Theme_thumbnails-Light.png',
                   titleText: 'Light',
@@ -29,7 +29,7 @@ class AppearancePage extends StatelessWidget {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.all(8.0),
+                padding: const EdgeInsets.only(right: 12),
                 child: OptionCard(
                   imageAsset: 'assets/images/Theme_thumbnails-Dark.png',
                   titleText: 'Dark',

@@ -33,7 +33,7 @@ class OptionCardState extends State<OptionCard> {
   Widget build(BuildContext context) {
     return Card(
       color: widget.selected
-          ? Theme.of(context).primaryColor.withAlpha(70)
+          ? Theme.of(context).primaryColor.withOpacity(0.15)
           : Theme.of(context).cardColor,
       elevation: 1,
       child: InkWell(
@@ -45,14 +45,15 @@ class OptionCardState extends State<OptionCard> {
               flex: 2,
               child: widget.imageAsset != null
                   ? Image.asset(widget.imageAsset!)
-                  : SizedBox.shrink(),
+                  : const SizedBox.shrink(),
             ),
             const SizedBox(height: 40),
             Align(
               alignment: Alignment.centerLeft,
               child: Text(
                 widget.titleText ?? '',
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 19),
+                style:
+                    const TextStyle(fontWeight: FontWeight.bold, fontSize: 19),
               ),
             ),
             const SizedBox(height: 10),
