@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:settings/view/pages/appearance_page.dart';
 import 'package:settings/view/widgets/detail_page.dart';
 import 'package:settings/view/widgets/detail_route.dart';
 import 'package:settings/view/widgets/menu_item.dart';
@@ -29,7 +30,7 @@ class MasterPageState extends State<MasterPage> {
     const MenuItem(
         name: 'Appearance',
         iconData: Icons.theater_comedy,
-        details: Text('Appearance')),
+        details: AppearancePage()),
     const MenuItem(
         name: 'Notifications',
         iconData: Icons.notifications,
