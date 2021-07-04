@@ -7,10 +7,8 @@ class MouseAndTouchpadPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-        child: Center(
-            child: Column(
+    return Column(
       children: const [MouseSection(), TouchpadSection()],
-    )));
+    );
   }
 }

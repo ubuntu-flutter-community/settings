@@ -10,11 +10,9 @@ class AppearancePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = context.watch<AppTheme>();
-    return SingleChildScrollView(
-      child: Center(
-        child: Column(
-          children: [ChoseYourLookSection(theme: theme), const DockSection()],
-        ),
+    return Center(
+      child: Column(
+        children: [ChoseYourLookSection(theme: theme), const DockSection()],
       ),
     );
   }

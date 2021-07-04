@@ -16,16 +16,12 @@ class DetailPage extends StatelessWidget {
             style: const TextStyle(fontWeight: FontWeight.normal)),
         leading: isTablet(context) ? null : const BackButton(),
       ),
-      body: Center(
-        child: item.details,
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.only(top: 22.0),
+          child: item.details,
+        ),
       ),
-      // floatingActionButton: isTablet(context)
-      //     ? null
-      //     : FloatingActionButton(
-      //         onPressed: Navigator.of(context).pop,
-      //         child: const Icon(Icons.arrow_back),
-      //       ),
-      // floatingActionButtonLocation: FloatingActionButtonLocation.miniStartFloat,
     );
   }
 }
