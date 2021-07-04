@@ -32,7 +32,14 @@ class OptionCardState extends State<OptionCard> {
   @override
   Widget build(BuildContext context) {
     return Card(
-      elevation: 1,
+      shape: RoundedRectangleBorder(
+          side: BorderSide(
+              color: widget.selected
+                  ? Theme.of(context).primaryColor.withOpacity(0.4)
+                  : Theme.of(context).colorScheme.onSurface.withAlpha(20),
+              width: 1),
+          borderRadius: BorderRadius.circular(4.0)),
+      elevation: widget.selected ? 0 : 1,
       child: InkWell(
         child: Container(
           padding: const EdgeInsets.all(20),
