@@ -7,18 +7,16 @@ class MasterDetailContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-        color: Colors.white,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: <Widget>[
-            SizedBox(
-                width: isTablet(context)
-                    ? kTabletMasterContainerWidth
-                    : MediaQuery.of(context).size.width,
-                height: MediaQuery.of(context).size.height,
-                child: const MasterPage()),
-          ],
-        ));
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: <Widget>[
+        SizedBox(
+            width: isTablet(context)
+                ? kTabletMasterContainerWidth
+                : MediaQuery.of(context).size.width,
+            height: MediaQuery.of(context).size.height,
+            child: const MasterPage()),
+      ],
+    );
   }
 }

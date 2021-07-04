@@ -27,8 +27,23 @@ class DetailRoute<T> extends TransitionRoute<T> with LocalHistoryRoute<T> {
   }
 
   @override
+  void install() {
+    super.install();
+  }
+
+  @override
+  bool didPop(T? result) {
+    final bool returnValue = super.didPop(result);
+    assert(returnValue);
+    if (finishedWhenPopped) {
+      navigator!.finalizeRoute(this);
+    }
+    return returnValue;
+  }
+
+  @override
   bool get opaque => false;
 
   @override
-  Duration get transitionDuration => const Duration(milliseconds: 250);
+  Duration get transitionDuration => const Duration(milliseconds: 4);
 }

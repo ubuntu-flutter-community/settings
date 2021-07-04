@@ -92,7 +92,14 @@ class MasterPageState extends State<MasterPage> {
     const MenuItem(name: 'Info', iconData: Icons.info, details: Text('Info')),
   ];
 
-  late MenuItem selectedMenuItem = menuItems.first;
+  late MenuItem selectedMenuItem;
+
+  @override
+  void initState() {
+    selectedMenuItem = menuItems.first;
+    super.initState();
+    // goToDetail(menuItems.indexOf(selectedMenuItem));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -111,19 +118,20 @@ class MasterPageState extends State<MasterPage> {
                     selected: menuItems[index] == selectedMenuItem,
                     title: Text(menuItems[index].name),
                     onTap: () {
-                      setState(() => switchDetail(index));
+                      setState(() => goToDetail(index));
                     });
               }),
         ));
   }
 
-  void switchDetail(int index) {
+  void goToDetail(int index) {
     selectedMenuItem = menuItems[index];
     while (Navigator.of(context).canPop()) {
       Navigator.of(context).pop();
     }
-    Navigator.of(context).push(DetailRoute(builder: (context) {
-      return DetailPage(item: selectedMenuItem);
-    }));
+    Navigator.of(context).push(DetailRoute(
+        builder: (context) => DetailPage(
+              item: selectedMenuItem,
+            )));
   }
 }
