@@ -27,7 +27,6 @@ class _DockSectionState extends State<DockSection> {
 
   @override
   Widget build(BuildContext context) {
-    int _dashMaxIconSize = _settings.intValue('dash-max-icon-size');
     String _dockPosition = _settings.stringValue('dock-position');
 
     final List<bool> _dockPositions = [
@@ -53,33 +52,10 @@ class _DockSectionState extends State<DockSection> {
           actionLabel: 'Active app glow',
           settingsKey: 'unity-backlit-items',
           settings: _settings),
-      SizedBox(
-        width: 500,
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              const Text('Icon size'),
-              Expanded(
-                child: Slider(
-                  label: '$_dashMaxIconSize',
-                  min: 16,
-                  max: 64,
-                  value: _dashMaxIconSize + .0,
-                  divisions: 24,
-                  onChanged: (double newValue) {
-                    _settings.setValue('dash-max-icon-size', newValue.round());
-                    setState(() {
-                      _dashMaxIconSize = newValue.round();
-                    });
-                  },
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
+      DiscreteSlider(
+          actionLabel: 'Max icon size',
+          settingsKey: 'dash-max-icon-size',
+          settings: _settings),
       SizedBox(
         width: 500,
         child: Padding(

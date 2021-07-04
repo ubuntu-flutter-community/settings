@@ -27,33 +27,9 @@ class _MouseSectionState extends State<MouseSection> {
 
   @override
   Widget build(BuildContext context) {
-    double _mouseSpeed = _settings.doubleValue('speed');
-
     return SettingsSection(headline: 'Mouse', children: [
-      SizedBox(
-        width: 500,
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              const Text('Speed'),
-              Expanded(
-                child: Slider(
-                  label: '$_mouseSpeed',
-                  value: _mouseSpeed,
-                  onChanged: (double newValue) {
-                    _settings.setValue('speed', newValue);
-                    setState(() {
-                      _mouseSpeed = newValue;
-                    });
-                  },
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
+      SliderRow(
+          actionLabel: 'Speed', settingsKey: 'speed', settings: _settings),
       BoolSettingsRow(
           actionLabel: 'Natural Scrolling',
           settingsKey: 'natural-scroll',

@@ -27,32 +27,9 @@ class _TouchpadSectionState extends State<TouchpadSection> {
 
   @override
   Widget build(BuildContext context) {
-    double _touchpadSpeed = _settings.doubleValue('speed');
-
     return SettingsSection(headline: 'Touchpad', children: [
-      SizedBox(
-        width: 500,
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              const Text('Speed'),
-              Expanded(
-                child: Slider(
-                  value: _touchpadSpeed,
-                  onChanged: (double newValue) {
-                    _settings.setValue('speed', newValue);
-                    setState(() {
-                      _touchpadSpeed = newValue;
-                    });
-                  },
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
+      SliderRow(
+          actionLabel: 'Speed', settingsKey: 'speed', settings: _settings),
       BoolSettingsRow(
           actionLabel: 'Natural Scrolling',
           settingsKey: 'natural-scroll',
