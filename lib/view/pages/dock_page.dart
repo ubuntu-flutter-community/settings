@@ -177,15 +177,15 @@ class _DockPageState extends State<DockPage> {
                       child: ToggleButtons(
                         children: const <Widget>[
                           Padding(
-                            padding: EdgeInsets.all(8.0),
+                            padding: EdgeInsets.only(left: 14, right: 14),
                             child: Text('Left'),
                           ),
                           Padding(
-                            padding: EdgeInsets.all(8.0),
+                            padding: EdgeInsets.only(left: 14, right: 14),
                             child: Text('Right'),
                           ),
                           Padding(
-                            padding: EdgeInsets.all(8.0),
+                            padding: EdgeInsets.only(left: 14, right: 14),
                             child: Text('Bottom'),
                           ),
                         ],
