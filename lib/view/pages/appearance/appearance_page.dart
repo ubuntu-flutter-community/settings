@@ -10,10 +10,8 @@ class AppearancePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = context.watch<AppTheme>();
-    return Center(
-      child: Column(
-        children: [ChoseYourLookSection(theme: theme), const DockSection()],
-      ),
+    return Column(
+      children: [ChoseYourLookSection(theme: theme), const DockSection()],
     );
   }
 }

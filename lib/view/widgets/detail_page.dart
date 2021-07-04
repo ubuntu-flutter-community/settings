@@ -19,7 +19,7 @@ class DetailPage extends StatelessWidget {
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.only(top: 22.0),
-          child: item.details,
+          child: Center(child: item.details),
         ),
       ),
     );
