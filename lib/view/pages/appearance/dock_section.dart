@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:gsettings/gsettings.dart';
 
-class DockPage extends StatefulWidget {
-  const DockPage({Key? key}) : super(key: key);
+class DockSection extends StatefulWidget {
+  const DockSection({Key? key}) : super(key: key);
 
   @override
-  State<DockPage> createState() => _DockPageState();
+  State<DockSection> createState() => _DockSectionState();
 }
 
-class _DockPageState extends State<DockPage> {
+class _DockSectionState extends State<DockSection> {
   late GSettings _settings;
 
   @override

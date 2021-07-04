@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:settings/view/widgets/app_theme.dart';
 import 'package:settings/view/widgets/option_card.dart';
 
-class ChoseYourLookPage extends StatelessWidget {
-  const ChoseYourLookPage({
+class ChoseYourLookSection extends StatelessWidget {
+  const ChoseYourLookSection({
     Key? key,
     required this.theme,
   }) : super(key: key);

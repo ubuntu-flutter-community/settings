@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/src/provider.dart';
-import 'package:settings/view/pages/chose_your_look_page.dart';
-import 'package:settings/view/pages/dock_page.dart';
+import 'package:settings/view/pages/appearance/chose_your_look_section.dart';
+import 'package:settings/view/pages/appearance/dock_section.dart';
 import 'package:settings/view/widgets/app_theme.dart';
 
 class AppearancePage extends StatelessWidget {
@@ -16,11 +16,11 @@ class AppearancePage extends StatelessWidget {
           children: [
             Padding(
               padding: const EdgeInsets.all(12.0),
-              child: ChoseYourLookPage(theme: theme),
+              child: ChoseYourLookSection(theme: theme),
             ),
             const Padding(
               padding: EdgeInsets.all(12.0),
-              child: DockPage(),
+              child: DockSection(),
             )
           ],
         ),

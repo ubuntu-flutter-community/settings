@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:settings/view/pages/appearance_page.dart';
+import 'package:settings/view/pages/appearance/appearance_page.dart';
 import 'package:settings/view/widgets/menu_item.dart';
 
 final menuItems = <MenuItem>[
