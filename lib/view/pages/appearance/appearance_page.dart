@@ -13,16 +13,7 @@ class AppearancePage extends StatelessWidget {
     return SingleChildScrollView(
       child: Center(
         child: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(12.0),
-              child: ChoseYourLookSection(theme: theme),
-            ),
-            const Padding(
-              padding: EdgeInsets.all(12.0),
-              child: DockSection(),
-            )
-          ],
+          children: [ChoseYourLookSection(theme: theme), const DockSection()],
         ),
       ),
     );

@@ -10,17 +10,20 @@ class SettingsSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(children: [
-      SizedBox(
-          width: 500,
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Text(
-              headline,
-              style: Theme.of(context).textTheme.headline6,
-            ),
-          )),
-      Column(children: children)
-    ]);
+    return Padding(
+      padding: const EdgeInsets.all(12.0),
+      child: Column(children: [
+        SizedBox(
+            width: 500,
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(
+                headline,
+                style: Theme.of(context).textTheme.headline6,
+              ),
+            )),
+        Column(children: children)
+      ]),
+    );
   }
 }
