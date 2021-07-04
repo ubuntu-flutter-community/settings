@@ -32,9 +32,6 @@ class OptionCardState extends State<OptionCard> {
   @override
   Widget build(BuildContext context) {
     return Card(
-      color: widget.selected
-          ? Theme.of(context).primaryColor.withOpacity(0.15)
-          : Theme.of(context).cardColor,
       elevation: 1,
       child: InkWell(
         child: Container(
@@ -52,15 +49,28 @@ class OptionCardState extends State<OptionCard> {
               alignment: Alignment.centerLeft,
               child: Text(
                 widget.titleText ?? '',
-                style:
-                    const TextStyle(fontWeight: FontWeight.bold, fontSize: 19),
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 19,
+                  color: widget.selected
+                      ? Theme.of(context).primaryColor.withOpacity(0.8)
+                      : Theme.of(context).colorScheme.onSurface.withAlpha(190),
+                ),
               ),
             ),
             const SizedBox(height: 10),
             Expanded(
               child: Opacity(
                 opacity: 0.9,
-                child: Text(widget.bodyText ?? ''),
+                child: Text(widget.bodyText ?? '',
+                    style: TextStyle(
+                      color: widget.selected
+                          ? Theme.of(context).primaryColor.withOpacity(0.8)
+                          : Theme.of(context)
+                              .colorScheme
+                              .onSurface
+                              .withAlpha(190),
+                    )),
               ),
             ),
           ]),
