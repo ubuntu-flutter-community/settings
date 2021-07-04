@@ -12,7 +12,8 @@ class DetailPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         elevation: 1,
-        title: Text(item.name),
+        title: Text(item.name,
+            style: const TextStyle(fontWeight: FontWeight.normal)),
         leading: isTablet(context) ? null : const BackButton(),
       ),
       body: Center(

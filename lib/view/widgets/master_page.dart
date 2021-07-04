@@ -28,7 +28,8 @@ class MasterPageState extends State<MasterPage> {
         appBar: AppBar(
           elevation: 1,
           leading: const Icon(Icons.search),
-          title: const Text('Settings'),
+          title: const Text('Settings',
+              style: TextStyle(fontWeight: FontWeight.normal)),
         ),
         body: Center(
           child: ListView.builder(
@@ -37,7 +38,8 @@ class MasterPageState extends State<MasterPage> {
                 return ListTile(
                     leading: Icon(menuItems[index].iconData),
                     selected: menuItems[index] == selectedMenuItem,
-                    title: Text(menuItems[index].name),
+                    title: Text(menuItems[index].name,
+                        style: const TextStyle(fontWeight: FontWeight.normal)),
                     onTap: () {
                       setState(() => goToDetail(index));
                     });
