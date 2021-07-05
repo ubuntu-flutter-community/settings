@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:provider/src/provider.dart';
+import 'package:provider/provider.dart';
 import 'package:settings/view/pages/appearance/chose_your_look_section.dart';
 import 'package:settings/view/pages/appearance/dock_section.dart';
 import 'package:settings/view/widgets/app_theme.dart';
