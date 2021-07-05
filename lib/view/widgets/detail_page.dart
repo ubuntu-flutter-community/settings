@@ -10,11 +10,19 @@ class DetailPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        elevation: 1,
-        title: Text(item.name,
-            style: const TextStyle(fontWeight: FontWeight.normal)),
-        leading: isTablet(context) ? null : const BackButton(),
+      appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(50.0),
+        child: AppBar(
+          elevation: 1,
+          title: Text(item.name,
+              style: const TextStyle(fontWeight: FontWeight.normal)),
+          leading: isTablet(context)
+              ? null
+              : BackButton(
+                  onPressed: () =>
+                      Navigator.of(context).popUntil((route) => route.isFirst),
+                ),
+        ),
       ),
       body: SingleChildScrollView(
         child: Padding(

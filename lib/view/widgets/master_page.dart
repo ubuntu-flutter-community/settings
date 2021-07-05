@@ -25,11 +25,14 @@ class MasterPageState extends State<MasterPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          elevation: 1,
-          leading: const Icon(Icons.search),
-          title: const Text('Settings',
-              style: TextStyle(fontWeight: FontWeight.normal)),
+        appBar: PreferredSize(
+          preferredSize: const Size.fromHeight(50.0),
+          child: AppBar(
+            elevation: 1,
+            leading: const Icon(Icons.search),
+            title: const Text('Settings',
+                style: TextStyle(fontWeight: FontWeight.normal)),
+          ),
         ),
         body: Center(
           child: ListView.builder(
