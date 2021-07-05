@@ -13,6 +13,7 @@ class AppNotificationsSection extends StatefulWidget {
 
 class _AppNotificationsSectionState extends State<AppNotificationsSection> {
   late GSettings _settings;
+  late GSettings _appNotifcationSettings;
   late List<String?> _applicationChildren;
 
   @override
@@ -24,6 +25,7 @@ class _AppNotificationsSectionState extends State<AppNotificationsSection> {
   @override
   void dispose() {
     _settings.dispose();
+    _appNotifcationSettings.dispose();
     super.dispose();
   }
 
@@ -34,7 +36,7 @@ class _AppNotificationsSectionState extends State<AppNotificationsSection> {
     return SettingsSection(
       headline: 'App notifications',
       children: _applicationChildren.map((appString) {
-        final GSettings _appNotifcationSettings = GSettings(
+        _appNotifcationSettings = GSettings(
             schemaId: _settings.schemaId + '.application',
             path: '/' + appString.toString() + '/');
         return BoolSettingsRow(
