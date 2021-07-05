@@ -63,7 +63,7 @@ class _DockSectionState extends State<DockSection> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Text('Dock position'),
+              const Flexible(child: Text('Dock position')),
               ButtonTheme(
                 minWidth: double.infinity,
                 child: ToggleButtons(
