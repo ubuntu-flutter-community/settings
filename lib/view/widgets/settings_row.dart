@@ -128,7 +128,11 @@ class SettingsRow extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(actionLabel),
+            Flexible(
+              child: Text(
+                actionLabel,
+              ),
+            ),
             secondChild,
           ],
         ),

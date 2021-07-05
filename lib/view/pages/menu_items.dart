@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:settings/view/pages/appearance/appearance_page.dart';
 import 'package:settings/view/pages/mouse_and_touchpad/mouse_and_touchpad_page.dart';
+import 'package:settings/view/pages/notifications_page.dart/notifications_page.dart';
 import 'package:settings/view/widgets/menu_item.dart';
 
 final menuItems = <MenuItem>[
@@ -21,7 +22,7 @@ final menuItems = <MenuItem>[
   const MenuItem(
       name: 'Notifications',
       iconData: Icons.notifications,
-      details: Text('Notifications')),
+      details: NotificationsPage()),
   const MenuItem(
       name: 'Search', iconData: Icons.search, details: Text('Search')),
   const MenuItem(name: 'Apps', iconData: Icons.apps, details: Text('Apps')),
