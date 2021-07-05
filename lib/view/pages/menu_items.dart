@@ -4,77 +4,78 @@ import 'package:settings/view/pages/appearance/appearance_page.dart';
 import 'package:settings/view/pages/mouse_and_touchpad/mouse_and_touchpad_page.dart';
 import 'package:settings/view/pages/notifications_page.dart/notifications_page.dart';
 import 'package:settings/view/widgets/menu_item.dart';
+import 'package:yaru_icons/widgets/yaru_icons.dart';
 
 final menuItems = <MenuItem>[
   const MenuItem(name: 'WIFI', iconData: Icons.wifi, details: Text('WIFI')),
   const MenuItem(
       name: 'Network',
-      iconData: Icons.settings_ethernet,
+      iconData: YaruIcons.network,
       details: Text('Network')),
   const MenuItem(
-      name: 'Bluetooth', iconData: Icons.bluetooth, details: Text('Bluetooth')),
+      name: 'Bluetooth', iconData: YaruIcons.bluetooth, details: Text('Bluetooth')),
   const MenuItem(
-      name: 'Wallpaper', iconData: Icons.wallpaper, details: Text('Wallpaper')),
+      name: 'Wallpaper', iconData: YaruIcons.desktop_wallpaper, details: Text('Wallpaper')),
   const MenuItem(
       name: 'Appearance',
       iconData: Icons.theater_comedy,
       details: AppearancePage()),
   const MenuItem(
       name: 'Notifications',
-      iconData: Icons.notifications,
+      iconData: YaruIcons.notification,
       details: NotificationsPage()),
   const MenuItem(
-      name: 'Search', iconData: Icons.search, details: Text('Search')),
-  const MenuItem(name: 'Apps', iconData: Icons.apps, details: Text('Apps')),
+      name: 'Search', iconData: YaruIcons.search, details: Text('Search')),
+  const MenuItem(name: 'Apps', iconData: YaruIcons.app_grid, details: Text('Apps')),
   const MenuItem(
-      name: 'Security', iconData: Icons.lock, details: Text('Security')),
+      name: 'Security', iconData: YaruIcons.lock, details: Text('Security')),
   const MenuItem(
       name: 'Online Accounts',
-      iconData: Icons.cloud,
+      iconData: YaruIcons.desktop_online_accounts,
       details: Text('Online Accounts')),
   const MenuItem(
-      name: 'Sharing', iconData: Icons.share, details: Text('Sharing')),
+      name: 'Sharing', iconData: YaruIcons.share, details: Text('Sharing')),
   const MenuItem(
-      name: 'Sound', iconData: Icons.music_note, details: Text('Sound')),
+      name: 'Sound', iconData: YaruIcons.audio, details: Text('Sound')),
   const MenuItem(
-      name: 'Energy', iconData: Icons.power, details: Text('Energy')),
+      name: 'Energy', iconData: YaruIcons.power, details: Text('Energy')),
   const MenuItem(
-      name: 'Displays', iconData: Icons.monitor, details: Text('Displays')),
+      name: 'Displays', iconData: YaruIcons.desktop_display, details: Text('Displays')),
   const MenuItem(
       name: 'Mouse and touchpad',
-      iconData: Icons.mouse,
+      iconData: YaruIcons.input_mouse,
       details: MouseAndTouchpadPage()),
   const MenuItem(
       name: 'Keyboard shortcuts',
-      iconData: Icons.keyboard,
+      iconData: YaruIcons.input_keyboard,
       details: Text('Keyboard shortcuts')),
   const MenuItem(
-      name: 'Printers', iconData: Icons.print, details: Text('Printers')),
+      name: 'Printers', iconData: YaruIcons.printer, details: Text('Printers')),
   const MenuItem(
       name: 'Shared devices',
-      iconData: Icons.usb,
+      iconData: YaruIcons.media_removable,
       details: Text('Shared devices')),
   const MenuItem(
-      name: 'Color', iconData: Icons.settings_display, details: Text('Color')),
+      name: 'Color', iconData: YaruIcons.colors, details: Text('Color')),
   const MenuItem(
       name: 'Region and language',
-      iconData: Icons.language,
+      iconData: YaruIcons.localization,
       details: Text('Region and language')),
   const MenuItem(
       name: 'Accessability',
-      iconData: Icons.settings_accessibility,
+      iconData: YaruIcons.accessibility,
       details: Text('Accessability')),
   const MenuItem(
       name: 'Users',
-      iconData: Icons.supervisor_account,
+      iconData: YaruIcons.users,
       details: Text('Users')),
   const MenuItem(
       name: 'Preferred Apps',
-      iconData: Icons.star,
+      iconData: YaruIcons.star,
       details: Text('Preferred Apps')),
   const MenuItem(
       name: 'Date and time',
-      iconData: Icons.access_time,
+      iconData: YaruIcons.clock,
       details: Text('Date and time')),
-  const MenuItem(name: 'Info', iconData: Icons.info, details: Text('Info')),
+  const MenuItem(name: 'Info', iconData: YaruIcons.information, details: Text('Info')),
 ];
