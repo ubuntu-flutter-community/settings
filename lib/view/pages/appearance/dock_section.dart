@@ -64,45 +64,42 @@ class _DockSectionState extends State<DockSection> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               const Flexible(child: Text('Dock position')),
-              ButtonTheme(
-                minWidth: double.infinity,
-                child: ToggleButtons(
-                  children: const <Widget>[
-                    Padding(
-                      padding: EdgeInsets.only(left: 14, right: 14),
-                      child: Text('Left'),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(left: 14, right: 14),
-                      child: Text('Right'),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(left: 14, right: 14),
-                      child: Text('Bottom'),
-                    ),
-                  ],
-                  onPressed: (int index) {
-                    setState(() {
-                      for (int buttonIndex = 0;
-                          buttonIndex < _dockPositions.length;
-                          buttonIndex++) {
-                        if (buttonIndex == index) {
-                          _dockPositions[buttonIndex] = true;
-                        } else {
-                          _dockPositions[buttonIndex] = false;
-                        }
+              ToggleButtons(
+                children: const <Widget>[
+                  Padding(
+                    padding: EdgeInsets.only(left: 14, right: 14),
+                    child: Text('Left'),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(left: 14, right: 14),
+                    child: Text('Right'),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(left: 14, right: 14),
+                    child: Text('Bottom'),
+                  ),
+                ],
+                onPressed: (int index) {
+                  setState(() {
+                    for (int buttonIndex = 0;
+                        buttonIndex < _dockPositions.length;
+                        buttonIndex++) {
+                      if (buttonIndex == index) {
+                        _dockPositions[buttonIndex] = true;
+                      } else {
+                        _dockPositions[buttonIndex] = false;
                       }
-                      if (_dockPositions[0] == true) {
-                        _settings.setValue('dock-position', 'LEFT');
-                      } else if (_dockPositions[1] == true) {
-                        _settings.setValue('dock-position', 'RIGHT');
-                      } else if (_dockPositions[2] == true) {
-                        _settings.setValue('dock-position', 'BOTTOM');
-                      }
-                    });
-                  },
-                  isSelected: _dockPositions,
-                ),
+                    }
+                    if (_dockPositions[0]) {
+                      _settings.setValue('dock-position', 'LEFT');
+                    } else if (_dockPositions[1]) {
+                      _settings.setValue('dock-position', 'RIGHT');
+                    } else if (_dockPositions[2]) {
+                      _settings.setValue('dock-position', 'BOTTOM');
+                    }
+                  });
+                },
+                isSelected: _dockPositions,
               ),
             ],
           ),
