@@ -29,8 +29,7 @@ class MasterPageState extends State<MasterPage> {
         appBar: PreferredSize(
           preferredSize: const Size.fromHeight(50.0),
           child: AppBar(
-            elevation: 1,
-            leading: const Icon(YaruIcons.search),
+            leading: const Icon(Icons.search),
             title: const Text('Settings',
                 style: TextStyle(fontWeight: FontWeight.normal)),
           ),
