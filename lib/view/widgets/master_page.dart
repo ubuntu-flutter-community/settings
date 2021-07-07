@@ -4,6 +4,7 @@ import 'package:settings/view/pages/menu_items.dart';
 import 'package:settings/view/widgets/detail_page.dart';
 import 'package:settings/view/widgets/detail_route.dart';
 import 'package:settings/view/widgets/menu_item.dart';
+import 'package:yaru_icons/widgets/yaru_icons.dart';
 
 class MasterPage extends StatefulWidget {
   const MasterPage({Key? key}) : super(key: key);
@@ -28,7 +29,7 @@ class MasterPageState extends State<MasterPage> {
         appBar: PreferredSize(
           preferredSize: const Size.fromHeight(50.0),
           child: AppBar(
-            leading: const Icon(Icons.search),
+            leading: const Icon(YaruIcons.search),
             title: const Text('Settings',
                 style: TextStyle(fontWeight: FontWeight.normal)),
           ),
