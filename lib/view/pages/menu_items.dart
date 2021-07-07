@@ -7,7 +7,7 @@ import 'package:settings/view/widgets/menu_item.dart';
 import 'package:yaru_icons/widgets/yaru_icons.dart';
 
 final menuItems = <MenuItem>[
-  const MenuItem(name: 'WIFI', iconData: Icons.wifi, details: Text('WIFI')),
+  const MenuItem(name: 'WIFI', iconData: YaruIcons.network_wireless, details: Text('WIFI')),
   const MenuItem(
       name: 'Network',
       iconData: YaruIcons.network,
@@ -18,7 +18,7 @@ final menuItems = <MenuItem>[
       name: 'Wallpaper', iconData: YaruIcons.desktop_wallpaper, details: Text('Wallpaper')),
   const MenuItem(
       name: 'Appearance',
-      iconData: Icons.theater_comedy,
+      iconData: YaruIcons.desktop_panel_look,
       details: AppearancePage()),
   const MenuItem(
       name: 'Notifications',
