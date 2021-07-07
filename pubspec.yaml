@@ -13,7 +13,7 @@ dependencies:
     sdk: flutter
 
   yaru: ^0.0.7
-  yaru_icons: ^0.0.1
+  yaru_icons: ^0.0.2
   gsettings: ^0.1.2+1
   responsive_scaffold_nullsafe: ^1.0.0
   provider: ^5.0.0
