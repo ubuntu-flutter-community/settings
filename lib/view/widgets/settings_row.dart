@@ -20,6 +20,11 @@ class BoolSettingsRow extends StatefulWidget {
 class _BoolSettingsRowState extends State<BoolSettingsRow> {
   @override
   Widget build(BuildContext context) {
+    if (GSettingsSchema.lookup(widget.settings.schemaId) == null) {
+      return SettingsRow(
+          actionLabel: 'Schema not installed:',
+          secondChild: Text(widget.settings.schemaId));
+    }
     bool _switchValue = widget.settings.boolValue(widget.settingsKey);
     return SettingsRow(
         actionLabel: widget.actionLabel,
