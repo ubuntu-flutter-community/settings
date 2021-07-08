@@ -11,23 +11,11 @@ class MouseSection extends StatefulWidget {
 }
 
 class _MouseSectionState extends State<MouseSection> {
-  late GSettings _settings;
-
-  @override
-  void initState() {
-    _settings = GSettings(schemaId: 'org.gnome.desktop.peripherals.mouse');
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    _settings.dispose();
-    super.dispose();
-  }
-
   @override
   Widget build(BuildContext context) {
-    return SettingsSection(headline: 'Mouse', children: [
+    const _schemaId = 'org.gnome.desktop.peripherals.mouse';
+    final _settings = GSettings(schemaId: _schemaId);
+    return SettingsSection(schemaId: _schemaId, headline: 'Mouse', children: [
       SliderRow(
           min: -1.0,
           actionLabel: 'Speed',

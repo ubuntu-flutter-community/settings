@@ -13,23 +13,12 @@ class GlobalNotificationsSection extends StatefulWidget {
 
 class _GlobalNotificationsSectionState
     extends State<GlobalNotificationsSection> {
-  late GSettings _settings;
-
-  @override
-  void initState() {
-    _settings = GSettings(schemaId: 'org.gnome.desktop.notifications');
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    _settings.dispose();
-    super.dispose();
-  }
-
   @override
   Widget build(BuildContext context) {
-    return SettingsSection(headline: 'Global', children: [
+    const _schemaId = 'org.gnome.desktop.notifications';
+    final _settings = GSettings(schemaId: _schemaId);
+
+    return SettingsSection(schemaId: _schemaId, headline: 'Global', children: [
       BoolSettingsRow(
           actionLabel: 'Do not disturb',
           settingsKey: 'show-banners',

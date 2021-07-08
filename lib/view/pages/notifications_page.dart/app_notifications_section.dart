@@ -12,38 +12,31 @@ class AppNotificationsSection extends StatefulWidget {
 }
 
 class _AppNotificationsSectionState extends State<AppNotificationsSection> {
-  late GSettings _settings;
-  late GSettings _appNotifcationSettings;
   late List<String?> _applicationChildren;
 
   @override
-  void initState() {
-    _settings = GSettings(schemaId: 'org.gnome.desktop.notifications');
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    _settings.dispose();
-    _appNotifcationSettings.dispose();
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
-    _applicationChildren = _settings.stringArrayValue('application-children');
+    const _notificationSchemaId = 'org.gnome.desktop.notifications';
+
+    if (GSettingsSchema.lookup(_notificationSchemaId) != null) {
+      _applicationChildren = GSettings(schemaId: _notificationSchemaId)
+          .stringArrayValue('application-children');
+    }
 
     return SettingsSection(
+      schemaId: _notificationSchemaId + '.application',
       headline: 'App notifications',
-      children: _applicationChildren.map((appString) {
-        _appNotifcationSettings = GSettings(
-            schemaId: _settings.schemaId + '.application',
-            path: '/' + appString.toString() + '/');
-        return BoolSettingsRow(
-            actionLabel: appString.toString(),
-            settingsKey: 'enable',
-            settings: _appNotifcationSettings);
-      }).toList(),
+      children: GSettingsSchema.lookup(_notificationSchemaId) != null
+          ? _applicationChildren.map((appString) {
+              final _appNotificationSettings = GSettings(
+                  schemaId: _notificationSchemaId + '.application',
+                  path: '/' + appString.toString() + '/');
+              return BoolSettingsRow(
+                  actionLabel: appString.toString(),
+                  settingsKey: 'enable',
+                  settings: _appNotificationSettings);
+            }).toList()
+          : const [Text('Schema not installed ')],
     );
   }
 }
