@@ -3,19 +3,13 @@ import 'package:gsettings/gsettings.dart';
 import 'package:settings/view/widgets/settings_row.dart';
 import 'package:settings/view/widgets/settings_section.dart';
 
-class AppNotificationsSection extends StatefulWidget {
+class AppNotificationsSection extends StatelessWidget {
   const AppNotificationsSection({Key? key}) : super(key: key);
 
   @override
-  _AppNotificationsSectionState createState() =>
-      _AppNotificationsSectionState();
-}
-
-class _AppNotificationsSectionState extends State<AppNotificationsSection> {
-  late List<String?> _applicationChildren;
-
-  @override
   Widget build(BuildContext context) {
+    late List<String?> _applicationChildren;
+
     const _notificationSchemaId = 'org.gnome.desktop.notifications';
 
     if (GSettingsSchema.lookup(_notificationSchemaId) != null) {

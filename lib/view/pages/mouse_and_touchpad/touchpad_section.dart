@@ -3,14 +3,9 @@ import 'package:gsettings/gsettings.dart';
 import 'package:settings/view/widgets/settings_section.dart';
 import 'package:settings/view/widgets/settings_row.dart';
 
-class TouchpadSection extends StatefulWidget {
+class TouchpadSection extends StatelessWidget {
   const TouchpadSection({Key? key}) : super(key: key);
 
-  @override
-  State<TouchpadSection> createState() => _TouchpadSectionState();
-}
-
-class _TouchpadSectionState extends State<TouchpadSection> {
   @override
   Widget build(BuildContext context) {
     const _schemaId = 'org.gnome.desktop.peripherals.touchpad';

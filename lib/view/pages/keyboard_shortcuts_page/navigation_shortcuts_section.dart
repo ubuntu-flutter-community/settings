@@ -3,16 +3,9 @@ import 'package:flutter/widgets.dart';
 import 'package:settings/view/pages/keyboard_shortcuts_page/keyboard_shortcut_row.dart';
 import 'package:settings/view/widgets/settings_section.dart';
 
-class NavigationShortcutsSection extends StatefulWidget {
+class NavigationShortcutsSection extends StatelessWidget {
   const NavigationShortcutsSection({Key? key}) : super(key: key);
 
-  @override
-  _NavigationShortcutsSectionState createState() =>
-      _NavigationShortcutsSectionState();
-}
-
-class _NavigationShortcutsSectionState
-    extends State<NavigationShortcutsSection> {
   @override
   Widget build(BuildContext context) {
     const _schemaId = 'org.gnome.desktop.wm.keybindings';

@@ -3,14 +3,9 @@ import 'package:gsettings/gsettings.dart';
 import 'package:settings/view/widgets/settings_section.dart';
 import 'package:settings/view/widgets/settings_row.dart';
 
-class MouseSection extends StatefulWidget {
+class MouseSection extends StatelessWidget {
   const MouseSection({Key? key}) : super(key: key);
 
-  @override
-  State<MouseSection> createState() => _MouseSectionState();
-}
-
-class _MouseSectionState extends State<MouseSection> {
   @override
   Widget build(BuildContext context) {
     const _schemaId = 'org.gnome.desktop.peripherals.mouse';
