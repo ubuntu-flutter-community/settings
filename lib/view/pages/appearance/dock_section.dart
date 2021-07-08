@@ -11,22 +11,26 @@ class DockSection extends StatefulWidget {
 }
 
 class _DockSectionState extends State<DockSection> {
-  late GSettings _settings;
-
-  @override
-  void initState() {
-    _settings = GSettings(schemaId: 'org.gnome.shell.extensions.dash-to-dock');
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    _settings.dispose();
-    super.dispose();
-  }
-
   @override
   Widget build(BuildContext context) {
+    const _schemaId = 'org.gnome.shell.extensions.dash-to-dock';
+
+    if (GSettingsSchema.lookup(_schemaId) == null) {
+      return SettingsSection(headline: 'Schema not installed', children: [
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: const [
+              Text(_schemaId),
+            ],
+          ),
+        )
+      ]);
+    }
+
+    final GSettings _settings = GSettings(schemaId: _schemaId);
+
     String _dockPosition = _settings.stringValue('dock-position');
 
     final List<bool> _dockPositions = [
