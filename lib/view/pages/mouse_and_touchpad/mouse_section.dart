@@ -29,7 +29,10 @@ class _MouseSectionState extends State<MouseSection> {
   Widget build(BuildContext context) {
     return SettingsSection(headline: 'Mouse', children: [
       SliderRow(
-          actionLabel: 'Speed', settingsKey: 'speed', settings: _settings),
+          min: -1.0,
+          actionLabel: 'Speed',
+          settingsKey: 'speed',
+          settings: _settings),
       BoolSettingsRow(
           actionLabel: 'Natural Scrolling',
           settingsKey: 'natural-scroll',

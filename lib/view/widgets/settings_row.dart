@@ -40,11 +40,16 @@ class SliderRow extends StatefulWidget {
   final String actionLabel;
   final String settingsKey;
   final GSettings settings;
+  final double? min;
+  final double? max;
+
   const SliderRow(
       {Key? key,
       required this.actionLabel,
       required this.settingsKey,
-      required this.settings})
+      required this.settings,
+      this.min,
+      this.max})
       : super(key: key);
 
   @override
@@ -54,17 +59,19 @@ class SliderRow extends StatefulWidget {
 class _SliderRowState extends State<SliderRow> {
   @override
   Widget build(BuildContext context) {
-    double _touchpadSpeed = widget.settings.doubleValue(widget.settingsKey);
+    double _speed = widget.settings.doubleValue(widget.settingsKey);
     return SettingsRow(
         actionLabel: widget.actionLabel,
         secondChild: Expanded(
           child: Slider(
-            label: '$_touchpadSpeed',
-            value: _touchpadSpeed,
+            min: widget.min ?? 0.0,
+            max: widget.max ?? 1.0,
+            label: '$_speed',
+            value: _speed,
             onChanged: (double newValue) {
               widget.settings.setValue('speed', newValue);
               setState(() {
-                _touchpadSpeed = newValue;
+                _speed = newValue;
               });
             },
           ),

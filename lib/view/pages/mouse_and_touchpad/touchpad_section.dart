@@ -29,7 +29,10 @@ class _TouchpadSectionState extends State<TouchpadSection> {
   Widget build(BuildContext context) {
     return SettingsSection(headline: 'Touchpad', children: [
       SliderRow(
-          actionLabel: 'Speed', settingsKey: 'speed', settings: _settings),
+          min: -1.0,
+          actionLabel: 'Speed',
+          settingsKey: 'speed',
+          settings: _settings),
       BoolSettingsRow(
           actionLabel: 'Natural Scrolling',
           settingsKey: 'natural-scroll',
