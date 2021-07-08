@@ -3,40 +3,28 @@ import 'package:gsettings/gsettings.dart';
 import 'package:settings/view/widgets/settings_section.dart';
 import 'package:settings/view/widgets/settings_row.dart';
 
-class MouseSection extends StatefulWidget {
+class MouseSection extends StatelessWidget {
   const MouseSection({Key? key}) : super(key: key);
 
   @override
-  State<MouseSection> createState() => _MouseSectionState();
-}
-
-class _MouseSectionState extends State<MouseSection> {
-  late GSettings _settings;
-
-  @override
-  void initState() {
-    _settings = GSettings(schemaId: 'org.gnome.desktop.peripherals.mouse');
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    _settings.dispose();
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
-    return SettingsSection(headline: 'Mouse', children: [
-      SliderRow(
-          min: -1.0,
-          actionLabel: 'Speed',
-          settingsKey: 'speed',
-          settings: _settings),
-      BoolSettingsRow(
-          actionLabel: 'Natural Scrolling',
-          settingsKey: 'natural-scroll',
-          settings: _settings)
-    ]);
+    const _schemaId = 'org.gnome.desktop.peripherals.mouse';
+
+    return const SettingsSection(
+        schemaId: _schemaId,
+        headline: 'Mouse',
+        children: [
+          SliderRow(
+            min: -1.0,
+            actionLabel: 'Speed',
+            settingsKey: 'speed',
+            schemaId: _schemaId,
+          ),
+          BoolSettingsRow(
+            actionLabel: 'Natural Scrolling',
+            settingsKey: 'natural-scroll',
+            schemaId: _schemaId,
+          )
+        ]);
   }
 }
