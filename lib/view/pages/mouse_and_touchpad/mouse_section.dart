@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:gsettings/gsettings.dart';
-import 'package:settings/view/widgets/settings_section.dart';
 import 'package:settings/view/widgets/settings_row.dart';
+import 'package:settings/view/widgets/settings_section.dart';
 
 class MouseSection extends StatelessWidget {
   const MouseSection({Key? key}) : super(key: key);
