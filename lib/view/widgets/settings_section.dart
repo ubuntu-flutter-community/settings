@@ -15,16 +15,14 @@ class SettingsSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const _schemaId = 'org.gnome.shell.extensions.dash-to-dock';
-
-    if (GSettingsSchema.lookup(_schemaId) == null) {
+    if (GSettingsSchema.lookup(schemaId) == null) {
       return Column(children: [
         Padding(
           padding: const EdgeInsets.all(8.0),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
-            children: const [
-              Text('Schema not installed' + _schemaId),
+            children: [
+              Text('Schema not installed: ' + schemaId),
             ],
           ),
         )

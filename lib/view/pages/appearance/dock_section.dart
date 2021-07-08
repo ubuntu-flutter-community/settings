@@ -14,6 +14,14 @@ class _DockSectionState extends State<DockSection> {
   @override
   Widget build(BuildContext context) {
     const _schemaId = 'org.gnome.shell.extensions.dash-to-dock';
+
+    if (GSettingsSchema.lookup(_schemaId) == null) {
+      return const SettingsSection(
+          headline: 'Dock Settings - Schema not installed!',
+          children: [],
+          schemaId: _schemaId);
+    }
+
     final GSettings _settings = GSettings(schemaId: _schemaId);
     String _dockPosition = _settings.stringValue('dock-position');
 
