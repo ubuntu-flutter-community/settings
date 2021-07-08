@@ -27,26 +27,31 @@ class _DockSectionState extends State<DockSection> {
         schemaId: _schemaId,
         headline: 'Dock Settings',
         children: [
-          BoolSettingsRow(
-              actionLabel: 'Show trash',
-              settingsKey: 'show-trash',
-              settings: _settings),
-          BoolSettingsRow(
-              actionLabel: 'Always show the dock',
-              settingsKey: 'dock-fixed',
-              settings: _settings),
-          BoolSettingsRow(
-              actionLabel: 'Extend the height of the dock',
-              settingsKey: 'extend-height',
-              settings: _settings),
-          BoolSettingsRow(
-              actionLabel: 'Active app glow',
-              settingsKey: 'unity-backlit-items',
-              settings: _settings),
-          DiscreteSlider(
-              actionLabel: 'Max icon size',
-              settingsKey: 'dash-max-icon-size',
-              settings: _settings),
+          const BoolSettingsRow(
+            actionLabel: 'Show trash',
+            settingsKey: 'show-trash',
+            schemaId: _schemaId,
+          ),
+          const BoolSettingsRow(
+            actionLabel: 'Always show the dock',
+            settingsKey: 'dock-fixed',
+            schemaId: _schemaId,
+          ),
+          const BoolSettingsRow(
+            actionLabel: 'Extend the height of the dock',
+            settingsKey: 'extend-height',
+            schemaId: _schemaId,
+          ),
+          const BoolSettingsRow(
+            actionLabel: 'Active app glow',
+            settingsKey: 'unity-backlit-items',
+            schemaId: _schemaId,
+          ),
+          const DiscreteSlider(
+            actionLabel: 'Max icon size',
+            settingsKey: 'dash-max-icon-size',
+            schemaId: _schemaId,
+          ),
           SizedBox(
             width: 500,
             child: Padding(

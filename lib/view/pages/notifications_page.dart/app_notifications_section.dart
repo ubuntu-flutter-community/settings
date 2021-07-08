@@ -22,13 +22,13 @@ class AppNotificationsSection extends StatelessWidget {
       headline: 'App notifications',
       children: GSettingsSchema.lookup(_notificationSchemaId) != null
           ? _applicationChildren.map((appString) {
-              final _appNotificationSettings = GSettings(
-                  schemaId: _notificationSchemaId + '.application',
-                  path: '/' + appString.toString() + '/');
+              const _appSchemaId = _notificationSchemaId + '.application';
+              final _path = '/' + appString.toString() + '/';
               return BoolSettingsRow(
                   actionLabel: appString.toString(),
                   settingsKey: 'enable',
-                  settings: _appNotificationSettings);
+                  schemaId: _appSchemaId,
+                  path: _path);
             }).toList()
           : const [Text('Schema not installed ')],
     );
