@@ -1,4 +1,4 @@
-# Ubuntu Desktop Settings App made with Flutter - WIP
+# unofficial Ubuntu Desktop Settings App made with Flutter - WIP
 
 ![](.github/images/wip.gif)
 
