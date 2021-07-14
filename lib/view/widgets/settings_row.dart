@@ -40,15 +40,13 @@ class _BoolSettingsRowState extends State<BoolSettingsRow> {
 
     _settings = GSettings(schemaId: widget.schemaId, path: widget.path);
     bool _switchValue = _settings.boolValue(widget.settingsKey);
-    if (widget.invertedValue) _switchValue = !_switchValue;
 
     return SettingsRow(
         actionLabel: widget.actionLabel,
         secondChild: Switch(
-          value: _switchValue,
+          value: widget.invertedValue ? !_switchValue : _switchValue,
           onChanged: (bool newValue) {
-            if (widget.invertedValue) newValue = !newValue;
-            _settings.setValue(widget.settingsKey, newValue);
+            _settings.setValue(widget.settingsKey, widget.invertedValue ? !newValue : newValue);
 
             setState(() {
               _switchValue = newValue;
