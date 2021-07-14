@@ -6,13 +6,15 @@ class BoolSettingsRow extends StatefulWidget {
   final String settingsKey;
   final String schemaId;
   final String? path;
+  final bool invertedValue;
 
   const BoolSettingsRow(
       {Key? key,
       required this.actionLabel,
       required this.settingsKey,
       required this.schemaId,
-      this.path})
+      this.path,
+      this.invertedValue = false})
       : super(key: key);
 
   @override
@@ -38,12 +40,14 @@ class _BoolSettingsRowState extends State<BoolSettingsRow> {
 
     _settings = GSettings(schemaId: widget.schemaId, path: widget.path);
     bool _switchValue = _settings.boolValue(widget.settingsKey);
+    if (widget.invertedValue) _switchValue = !_switchValue;
 
     return SettingsRow(
         actionLabel: widget.actionLabel,
         secondChild: Switch(
           value: _switchValue,
           onChanged: (bool newValue) {
+            if (widget.invertedValue) newValue = !newValue;
             _settings.setValue(widget.settingsKey, newValue);
 
             setState(() {
