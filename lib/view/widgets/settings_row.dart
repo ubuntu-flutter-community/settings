@@ -48,9 +48,7 @@ class _BoolSettingsRowState extends State<BoolSettingsRow> {
           onChanged: (bool newValue) {
             _settings.setValue(widget.settingsKey, widget.invertedValue ? !newValue : newValue);
 
-            setState(() {
-              _switchValue = newValue;
-            });
+            setState(() {});
           },
         ));
   }
