@@ -17,6 +17,7 @@ class GlobalNotificationsSection extends StatelessWidget {
             actionLabel: 'Do not disturb',
             settingsKey: 'show-banners',
             schemaId: _schemaId,
+            invertedValue: true,
           ),
           BoolSettingsRow(
             actionLabel: 'Show notifications on lockscreen',
