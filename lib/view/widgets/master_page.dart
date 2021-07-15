@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:settings/view/pages/menu_items.dart';
@@ -38,14 +40,46 @@ class MasterPageState extends State<MasterPage> {
           child: ListView.builder(
               itemCount: menuItems.length,
               itemBuilder: (context, index) {
-                return ListTile(
-                    leading: Icon(menuItems[index].iconData),
-                    selected: menuItems[index] == selectedMenuItem,
-                    title: Text(menuItems[index].name,
-                        style: const TextStyle(fontWeight: FontWeight.normal)),
-                    onTap: () {
-                      setState(() => goToDetail(index));
-                    });
+                return Container(
+                  decoration: BoxDecoration(
+                      gradient: menuItems[index] == selectedMenuItem
+                          ? LinearGradient(stops: const [
+                              0.02,
+                              0.0
+                            ], colors: [
+                              Theme.of(context).primaryColor,
+                              Theme.of(context).colorScheme.onSurface.withOpacity(0.07)
+                            ])
+                          : null,
+                      borderRadius: const BorderRadius.only(
+                          topRight: Radius.circular(4.0),
+                          bottomRight: Radius.circular(4.0)),
+                      color: menuItems[index] == selectedMenuItem
+                          ? Theme.of(context)
+                              .colorScheme
+                              .onSurface
+                          : null),
+                  child: ListTile(
+                      // dense: true,
+                      leading: Icon(
+                        menuItems[index].iconData,
+                        color: Theme.of(context)
+                            .colorScheme
+                            .onSurface
+                            .withOpacity(0.8),
+                      ),
+                      selected: menuItems[index] == selectedMenuItem,
+                      title: Text(menuItems[index].name,
+                          style: TextStyle(
+                              fontWeight: FontWeight.normal,
+                              color: Theme.of(context)
+                                  .colorScheme
+                                  .onSurface
+                                  .withOpacity(0.8))),
+                      onTap: () {
+                        setState(() => goToDetail(index));
+                      }),
+                );
               }),
         ));
   }
