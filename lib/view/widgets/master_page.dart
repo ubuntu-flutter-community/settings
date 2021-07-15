@@ -37,50 +37,41 @@ class MasterPageState extends State<MasterPage> {
           ),
         ),
         body: Center(
-          child: ListView.builder(
-              itemCount: menuItems.length,
-              itemBuilder: (context, index) {
-                return Container(
-                  decoration: BoxDecoration(
-                      gradient: menuItems[index] == selectedMenuItem
-                          ? LinearGradient(stops: const [
-                              0.02,
-                              0.0
-                            ], colors: [
-                              Theme.of(context).primaryColor,
-                              Theme.of(context).colorScheme.onSurface.withOpacity(0.07)
-                            ])
-                          : null,
-                      borderRadius: const BorderRadius.only(
-                          topRight: Radius.circular(4.0),
-                          bottomRight: Radius.circular(4.0)),
-                      color: menuItems[index] == selectedMenuItem
-                          ? Theme.of(context)
+          child: Container(
+            padding: const EdgeInsets.all(8.0),
+            child: ListView.builder(
+                itemCount: menuItems.length,
+                itemBuilder: (context, index) {
+                  return Container(
+                    decoration: BoxDecoration(
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(4.0)),
+                        color: menuItems[index] == selectedMenuItem
+                            ? Theme.of(context)
+                                .colorScheme
+                                .onSurface
+                                .withOpacity(0.07)
+                            : null),
+                    child: ListTile(
+                        leading: Icon(
+                          menuItems[index].iconData,
+                          color: Theme.of(context)
                               .colorScheme
                               .onSurface
-                          : null),
-                  child: ListTile(
-                      // dense: true,
-                      leading: Icon(
-                        menuItems[index].iconData,
-                        color: Theme.of(context)
-                            .colorScheme
-                            .onSurface
-                            .withOpacity(0.8),
-                      ),
-                      selected: menuItems[index] == selectedMenuItem,
-                      title: Text(menuItems[index].name,
-                          style: TextStyle(
-                              fontWeight: FontWeight.normal,
-                              color: Theme.of(context)
-                                  .colorScheme
-                                  .onSurface
-                                  .withOpacity(0.8))),
-                      onTap: () {
-                        setState(() => goToDetail(index));
-                      }),
-                );
-              }),
+                              .withOpacity(0.8),
+                        ),
+                        selected: menuItems[index] == selectedMenuItem,
+                        title: Text(menuItems[index].name,
+                            style: TextStyle(
+                                fontWeight: FontWeight.normal,
+                                color:
+                                    Theme.of(context).colorScheme.onSurface)),
+                        onTap: () {
+                          setState(() => goToDetail(index));
+                        }),
+                  );
+                }),
+          ),
         ));
   }
 

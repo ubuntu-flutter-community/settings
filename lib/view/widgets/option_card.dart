@@ -41,7 +41,7 @@ class OptionCardState extends State<OptionCard> {
                   : Theme.of(context)
                       .colorScheme
                       .onSurface
-                      .withAlpha(hovered ? 60 : 20),
+                      .withAlpha(hovered ? 60 : 0),
               width: 2),
           borderRadius: BorderRadius.circular(6)),
       elevation: 0,
