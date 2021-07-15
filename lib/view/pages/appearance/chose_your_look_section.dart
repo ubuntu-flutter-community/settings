@@ -1,28 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:settings/view/widgets/app_theme.dart';
 import 'package:settings/view/widgets/option_card.dart';
+import 'package:settings/view/widgets/settings_section.dart';
 
 class ChoseYourLookSection extends StatelessWidget {
-  const ChoseYourLookSection({
-    Key? key,
-    required this.theme,
-  }) : super(key: key);
-
-  final AppTheme theme;
+  const ChoseYourLookSection({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Column(
+    final theme = context.watch<AppTheme>();
+    return SettingsSection(
+      headline: 'Select a theme',
       children: [
-        SizedBox(
-            width: 500,
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text(
-                'Select a theme',
-                style: Theme.of(context).textTheme.headline6,
-              ),
-            )),
         SizedBox(
           height: 300,
           child: ListView(
@@ -41,15 +31,12 @@ class ChoseYourLookSection extends StatelessWidget {
                     },
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(right: 12),
-                  child: OptionCard(
-                    imageAsset: 'assets/images/Theme_thumbnails-Dark.png',
-                    titleText: 'Dark',
-                    bodyText: 'Hello darkness my old friend',
-                    selected: Theme.of(context).brightness == Brightness.dark,
-                    onSelected: () => theme.apply(Brightness.dark),
-                  ),
+                OptionCard(
+                  imageAsset: 'assets/images/Theme_thumbnails-Dark.png',
+                  titleText: 'Dark',
+                  bodyText: 'Hello darkness my old friend',
+                  selected: Theme.of(context).brightness == Brightness.dark,
+                  onSelected: () => theme.apply(Brightness.dark),
                 )
               ]),
         )
