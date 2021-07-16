@@ -67,20 +67,20 @@ class OptionCardState extends State<OptionCard> {
   @override
   Widget build(BuildContext context) {
     return Card(
-      color: Theme.of(context).cardColor,
+      color: widget.selected
+          ? Theme.of(context).colorScheme.onSurface.withAlpha(7)
+          : Theme.of(context).cardColor,
       shape: RoundedRectangleBorder(
           side: BorderSide(
-              color: widget.selected
-                  ? Theme.of(context).primaryColor.withOpacity(0.5)
-                  : Theme.of(context)
+              color: Theme.of(context)
                       .colorScheme
                       .onSurface
-                      .withAlpha(hovered ? 60 : 20),
+                      .withAlpha(hovered || widget.selected ? 60 : 20),
               width: 2),
           borderRadius: BorderRadius.circular(6)),
       elevation: 0,
       child: InkWell(
-        hoverColor: Theme.of(context).cardColor,
+        hoverColor: Theme.of(context).cardColor.withAlpha(0),
         borderRadius: BorderRadius.circular(6),
         child: Container(
           padding: const EdgeInsets.all(20),
