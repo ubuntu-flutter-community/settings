@@ -106,7 +106,7 @@ class _SliderRowState extends State<SliderRow> {
         actionLabel: widget.actionLabel,
         secondChild: Expanded(
           child: Slider(
-            label: '$_value',
+            label: widget.discrete ? '$_value'.replaceAll('.0', '') : '$_value',
             min: widget.min ?? 0.0,
             max: widget.max ?? 1.0,
             divisions: widget.divisions,
