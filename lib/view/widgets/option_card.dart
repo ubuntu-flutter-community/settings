@@ -1,7 +1,30 @@
 import 'package:flutter/material.dart';
-import 'package:yaru/yaru.dart';
 
+/// A card widget that presents a toggleable option.
+///
+/// For example:
+/// ```dart
+/// Row(
+///   children: [
+///     OptionCard(
+///       imageAsset: 'assets/foo.png',
+///       titleText: 'Foo',
+///       bodyText: 'Description...',
+///       selected: model.option == MyOption.foo,
+///       onSelected: () => model.option = Option.foo,
+///     ),
+///     OptionCard(
+///       imageAsset: 'assets/bar.png',
+///       titleText: 'Bar',
+///       bodyText: 'Description...',
+///       selected: model.option == MyOption.bar,
+///       onSelected: () => model.option = MyOption.bar,
+///     ),
+///   ],
+/// )
+/// ```
 class OptionCard extends StatefulWidget {
+  /// Creates an option card with the given properties.
   const OptionCard({
     Key? key,
     this.imageAsset,
@@ -11,19 +34,30 @@ class OptionCard extends StatefulWidget {
     required this.onSelected,
   }) : super(key: key);
 
+  /// An image asset that illustrates the option.
   final String? imageAsset;
+
+  /// A short title below the image.
   final String? titleText;
+
+  /// A longer descriptive body text below the title.
   final String? bodyText;
+
+  /// Whether the option is currently selected.
   final bool selected;
+
+  /// Called when the option is selected.
   final VoidCallback onSelected;
 
   @override
   OptionCardState createState() => OptionCardState();
 }
 
+@visibleForTesting
+// ignore: public_member_api_docs
 class OptionCardState extends State<OptionCard> {
   bool _hovered = false;
-  bool get hovered => _hovered;
+  bool get hovered => _hovered; // ignore: public_member_api_docs
 
   void _setHovered(bool hovered) {
     if (_hovered == hovered) return;
@@ -41,7 +75,7 @@ class OptionCardState extends State<OptionCard> {
                   : Theme.of(context)
                       .colorScheme
                       .onSurface
-                      .withAlpha(hovered ? 60 : 0),
+                      .withAlpha(hovered ? 60 : 20),
               width: 2),
           borderRadius: BorderRadius.circular(6)),
       elevation: 0,
@@ -66,26 +100,12 @@ class OptionCardState extends State<OptionCard> {
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 19,
-                  color: widget.selected
-                      ? Theme.of(context).colorScheme.onSurface
-                      : Theme.of(context)
-                          .colorScheme
-                          .onSurface
-                          .withOpacity(0.5),
                 ),
               ),
             ),
             const SizedBox(height: 10),
             Expanded(
-              child: Text(widget.bodyText ?? '',
-                  style: TextStyle(
-                    color: widget.selected
-                        ? Theme.of(context).colorScheme.onSurface
-                        : Theme.of(context)
-                            .colorScheme
-                            .onSurface
-                            .withOpacity(0.5),
-                  )),
+              child: Text(widget.bodyText ?? ''),
             ),
           ]),
         ),

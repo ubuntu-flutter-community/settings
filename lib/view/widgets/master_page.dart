@@ -38,6 +38,9 @@ class MasterPageState extends State<MasterPage> {
         ),
         body: Center(
           child: Container(
+            decoration: BoxDecoration(
+                border: Border(
+                    right: BorderSide(color: Colors.black.withOpacity(0.1)))),
             padding: const EdgeInsets.all(8.0),
             child: ListView.builder(
                 itemCount: menuItems.length,
