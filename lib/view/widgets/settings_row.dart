@@ -46,7 +46,8 @@ class _BoolSettingsRowState extends State<BoolSettingsRow> {
         secondChild: Switch(
           value: widget.invertedValue ? !_switchValue : _switchValue,
           onChanged: (bool newValue) {
-            _settings.setValue(widget.settingsKey, widget.invertedValue ? !newValue : newValue);
+            _settings.setValue(widget.settingsKey,
+                widget.invertedValue ? !newValue : newValue);
 
             setState(() {});
           },
@@ -60,6 +61,8 @@ class SliderRow extends StatefulWidget {
   final String schemaId;
   final double? min;
   final double? max;
+  final int? divisions;
+  final bool discrete;
 
   const SliderRow(
       {Key? key,
@@ -67,7 +70,9 @@ class SliderRow extends StatefulWidget {
       required this.settingsKey,
       required this.schemaId,
       this.min,
-      this.max})
+      this.max,
+      this.divisions,
+      required this.discrete})
       : super(key: key);
 
   @override
@@ -93,74 +98,23 @@ class _SliderRowState extends State<SliderRow> {
 
     _settings = GSettings(schemaId: widget.schemaId);
 
-    double _speed = _settings.doubleValue(widget.settingsKey);
+    final _value = widget.discrete
+        ? _settings.intValue(widget.settingsKey) + .0
+        : _settings.doubleValue(widget.settingsKey);
+
     return SettingsRow(
         actionLabel: widget.actionLabel,
         secondChild: Expanded(
           child: Slider(
+            label: '$_value',
             min: widget.min ?? 0.0,
             max: widget.max ?? 1.0,
-            label: '$_speed',
-            value: _speed,
+            divisions: widget.divisions,
+            value: _value,
             onChanged: (double newValue) {
-              _settings.setValue('speed', newValue);
-              setState(() {
-                _speed = newValue;
-              });
-            },
-          ),
-        ));
-  }
-}
-
-class DiscreteSlider extends StatefulWidget {
-  final String actionLabel;
-  final String settingsKey;
-  final String schemaId;
-  const DiscreteSlider(
-      {Key? key,
-      required this.actionLabel,
-      required this.settingsKey,
-      required this.schemaId})
-      : super(key: key);
-
-  @override
-  _DiscreteSliderState createState() => _DiscreteSliderState();
-}
-
-class _DiscreteSliderState extends State<DiscreteSlider> {
-  late GSettings _settings;
-
-  @override
-  void dispose() {
-    _settings.dispose();
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    if (GSettingsSchema.lookup(widget.schemaId) == null) {
-      return SettingsRow(
-          actionLabel: 'Schema not installed:',
-          secondChild: Text(widget.schemaId));
-    }
-
-    _settings = GSettings(schemaId: widget.schemaId);
-    int _dashMaxIconSize = _settings.intValue(widget.settingsKey);
-    return SettingsRow(
-        actionLabel: widget.actionLabel,
-        secondChild: Expanded(
-          child: Slider(
-            label: '$_dashMaxIconSize',
-            min: 16,
-            max: 64,
-            value: _dashMaxIconSize + .0,
-            divisions: 24,
-            onChanged: (double newValue) {
-              _settings.setValue('dash-max-icon-size', newValue.round());
-              setState(() {
-                _dashMaxIconSize = newValue.round();
-              });
+              _settings.setValue(widget.settingsKey,
+                  widget.discrete ? newValue.round() : newValue);
+              setState(() {});
             },
           ),
         ));
