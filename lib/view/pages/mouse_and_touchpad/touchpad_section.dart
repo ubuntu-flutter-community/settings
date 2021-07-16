@@ -15,6 +15,8 @@ class TouchpadSection extends StatelessWidget {
         children: [
           SliderRow(
             min: -1.0,
+            max: 1.0,
+            discrete: false,
             actionLabel: 'Speed',
             settingsKey: 'speed',
             schemaId: _schemaId,

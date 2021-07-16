@@ -55,10 +55,14 @@ class _DockSectionState extends State<DockSection> {
             settingsKey: 'unity-backlit-items',
             schemaId: _schemaId,
           ),
-          const DiscreteSlider(
+          const SliderRow(
             actionLabel: 'Max icon size',
             settingsKey: 'dash-max-icon-size',
             schemaId: _schemaId,
+            min: 16,
+            max: 64,
+            divisions: 24,
+            discrete: true,
           ),
           SizedBox(
             width: 500,
