@@ -41,37 +41,45 @@ class MasterPageState extends State<MasterPage> {
             decoration: BoxDecoration(
                 border: Border(
                     right: BorderSide(color: Colors.black.withOpacity(0.1)))),
-            padding: const EdgeInsets.all(8.0),
             child: ListView.builder(
+                padding: const EdgeInsets.only(top: 8),
                 itemCount: menuItems.length,
                 itemBuilder: (context, index) {
-                  return Container(
-                    decoration: BoxDecoration(
-                        borderRadius:
-                            const BorderRadius.all(Radius.circular(4.0)),
-                        color: menuItems[index] == selectedMenuItem
-                            ? Theme.of(context)
+                  return Padding(
+                    padding:
+                        const EdgeInsets.only(right: 8, left: 8, bottom: 8),
+                    child: Container(
+                      decoration: BoxDecoration(
+                          borderRadius:
+                              const BorderRadius.all(Radius.circular(4.0)),
+                          color: menuItems[index] == selectedMenuItem
+                              ? Theme.of(context)
+                                  .colorScheme
+                                  .onSurface
+                                  .withOpacity(0.07)
+                              : null),
+                      child: ListTile(
+                          shape: const RoundedRectangleBorder(
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(4.0)),
+                          ),
+                          leading: Icon(
+                            menuItems[index].iconData,
+                            color: Theme.of(context)
                                 .colorScheme
                                 .onSurface
-                                .withOpacity(0.07)
-                            : null),
-                    child: ListTile(
-                        leading: Icon(
-                          menuItems[index].iconData,
-                          color: Theme.of(context)
-                              .colorScheme
-                              .onSurface
-                              .withOpacity(0.8),
-                        ),
-                        selected: menuItems[index] == selectedMenuItem,
-                        title: Text(menuItems[index].name,
-                            style: TextStyle(
-                                fontWeight: FontWeight.normal,
-                                color:
-                                    Theme.of(context).colorScheme.onSurface)),
-                        onTap: () {
-                          setState(() => goToDetail(index));
-                        }),
+                                .withOpacity(0.8),
+                          ),
+                          selected: menuItems[index] == selectedMenuItem,
+                          title: Text(menuItems[index].name,
+                              style: TextStyle(
+                                  fontWeight: FontWeight.normal,
+                                  color:
+                                      Theme.of(context).colorScheme.onSurface)),
+                          onTap: () {
+                            setState(() => goToDetail(index));
+                          }),
+                    ),
                   );
                 }),
           ),
