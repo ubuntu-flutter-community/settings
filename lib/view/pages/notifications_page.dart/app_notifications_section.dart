@@ -1,7 +1,7 @@
 import 'package:flutter/widgets.dart';
 import 'package:gsettings/gsettings.dart';
-import 'package:settings/view/widgets/settings_row.dart';
 import 'package:settings/view/widgets/settings_section.dart';
+import 'package:settings/view/widgets/single_gsetting_row.dart';
 
 class AppNotificationsSection extends StatelessWidget {
   const AppNotificationsSection({Key? key}) : super(key: key);
@@ -24,7 +24,7 @@ class AppNotificationsSection extends StatelessWidget {
           ? _applicationChildren.map((appString) {
               const _appSchemaId = _notificationSchemaId + '.application';
               final _path = '/' + appString.toString() + '/';
-              return BoolSettingsRow(
+              return SingleGsettingRow(
                   actionLabel: appString.toString(),
                   settingsKey: 'enable',
                   schemaId: _appSchemaId,

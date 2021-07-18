@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:settings/view/widgets/settings_row.dart';
 import 'package:settings/view/widgets/settings_section.dart';
+import 'package:settings/view/widgets/single_gsetting_row.dart';
+import 'package:settings/view/widgets/slider_gsetting_row.dart';
 
 class MouseSection extends StatelessWidget {
   const MouseSection({Key? key}) : super(key: key);
@@ -13,7 +14,7 @@ class MouseSection extends StatelessWidget {
         schemaId: _schemaId,
         headline: 'Mouse',
         children: [
-          SliderRow(
+          SliderGsettingRow(
             min: -1.0,
             max: 1.0,
             discrete: false,
@@ -21,7 +22,7 @@ class MouseSection extends StatelessWidget {
             settingsKey: 'speed',
             schemaId: _schemaId,
           ),
-          BoolSettingsRow(
+          SingleGsettingRow(
             actionLabel: 'Natural Scrolling',
             settingsKey: 'natural-scroll',
             schemaId: _schemaId,

@@ -13,12 +13,12 @@
 - [ ] Wallpaper page
 - [X] Appearance page
 - [X] Notifications page
-- [X] Search page
+- [ ] Search page
 - [ ] Apps page
 - [ ] Security page
 - [ ] Online Accounts page
 - [ ] Sharing page
-- [ ] Sound page
+- [ ] Sound page - WIP
 - [ ] Energy page
 - [ ] Displays page
 - [X] Mouse and touchpad page
