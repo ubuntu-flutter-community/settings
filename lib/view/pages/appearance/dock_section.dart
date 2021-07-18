@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:gsettings/gsettings.dart';
 import 'package:settings/view/widgets/settings_section.dart';
-import 'package:settings/view/widgets/settings_row.dart';
+import 'package:settings/view/widgets/single_gsetting_row.dart';
+import 'package:settings/view/widgets/slider_gsetting_row.dart';
 
 class DockSection extends StatefulWidget {
   const DockSection({Key? key}) : super(key: key);
@@ -35,27 +36,27 @@ class _DockSectionState extends State<DockSection> {
         schemaId: _schemaId,
         headline: 'Dock Settings',
         children: [
-          const BoolSettingsRow(
+          const SingleGsettingRow(
             actionLabel: 'Show trash',
             settingsKey: 'show-trash',
             schemaId: _schemaId,
           ),
-          const BoolSettingsRow(
+          const SingleGsettingRow(
             actionLabel: 'Always show the dock',
             settingsKey: 'dock-fixed',
             schemaId: _schemaId,
           ),
-          const BoolSettingsRow(
+          const SingleGsettingRow(
             actionLabel: 'Extend the height of the dock',
             settingsKey: 'extend-height',
             schemaId: _schemaId,
           ),
-          const BoolSettingsRow(
+          const SingleGsettingRow(
             actionLabel: 'Active app glow',
             settingsKey: 'unity-backlit-items',
             schemaId: _schemaId,
           ),
-          const SliderRow(
+          const SliderGsettingRow(
             actionLabel: 'Max icon size',
             settingsKey: 'dash-max-icon-size',
             schemaId: _schemaId,

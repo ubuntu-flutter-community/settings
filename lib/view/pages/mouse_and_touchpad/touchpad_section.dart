@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:settings/view/widgets/settings_row.dart';
 import 'package:settings/view/widgets/settings_section.dart';
+import 'package:settings/view/widgets/single_gsetting_row.dart';
+import 'package:settings/view/widgets/slider_gsetting_row.dart';
 
 class TouchpadSection extends StatelessWidget {
   const TouchpadSection({Key? key}) : super(key: key);
@@ -13,7 +14,7 @@ class TouchpadSection extends StatelessWidget {
         schemaId: _schemaId,
         headline: 'Touchpad',
         children: [
-          SliderRow(
+          SliderGsettingRow(
             min: -1.0,
             max: 1.0,
             discrete: false,
@@ -21,17 +22,17 @@ class TouchpadSection extends StatelessWidget {
             settingsKey: 'speed',
             schemaId: _schemaId,
           ),
-          BoolSettingsRow(
+          SingleGsettingRow(
             actionLabel: 'Natural Scrolling',
             settingsKey: 'natural-scroll',
             schemaId: _schemaId,
           ),
-          BoolSettingsRow(
+          SingleGsettingRow(
             actionLabel: 'Tap to click',
             settingsKey: 'tap-to-click',
             schemaId: _schemaId,
           ),
-          BoolSettingsRow(
+          SingleGsettingRow(
             actionLabel: 'Disable while typing',
             settingsKey: 'disable-while-typing',
             schemaId: _schemaId,

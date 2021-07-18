@@ -1,6 +1,6 @@
 import 'package:flutter/widgets.dart';
-import 'package:settings/view/widgets/settings_row.dart';
 import 'package:settings/view/widgets/settings_section.dart';
+import 'package:settings/view/widgets/single_gsetting_row.dart';
 
 class GlobalNotificationsSection extends StatelessWidget {
   const GlobalNotificationsSection({Key? key}) : super(key: key);
@@ -13,13 +13,13 @@ class GlobalNotificationsSection extends StatelessWidget {
         schemaId: _schemaId,
         headline: 'Global',
         children: [
-          BoolSettingsRow(
+          SingleGsettingRow(
             actionLabel: 'Do not disturb',
             settingsKey: 'show-banners',
             schemaId: _schemaId,
             invertedValue: true,
           ),
-          BoolSettingsRow(
+          SingleGsettingRow(
             actionLabel: 'Show notifications on lockscreen',
             settingsKey: 'show-in-lock-screen',
             schemaId: _schemaId,
