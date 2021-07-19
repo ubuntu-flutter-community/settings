@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:yaru_icons/widgets/yaru_icons.dart';
 
 /// A card widget that presents a toggleable option.
 ///
@@ -67,48 +68,56 @@ class OptionCardState extends State<OptionCard> {
   @override
   Widget build(BuildContext context) {
     return Card(
-      color: widget.selected
-          ? Theme.of(context).colorScheme.onSurface.withAlpha(7)
-          : Theme.of(context).cardColor,
+      color: Theme.of(context).colorScheme.onSurface.withAlpha(widget.selected ? 7 : 0),
       shape: RoundedRectangleBorder(
           side: BorderSide(
               color: Theme.of(context)
                       .colorScheme
                       .onSurface
-                      .withAlpha(hovered || widget.selected ? 60 : 20),
+                      .withAlpha(widget.selected ? 60 : 0),
               width: 2),
           borderRadius: BorderRadius.circular(6)),
       elevation: 0,
       child: InkWell(
-        hoverColor: Theme.of(context).cardColor.withAlpha(0),
+        hoverColor: Theme.of(context).colorScheme.onSurface.withAlpha(10),
         borderRadius: BorderRadius.circular(6),
-        child: Container(
-          padding: const EdgeInsets.all(20),
-          child: Column(children: <Widget>[
-            const SizedBox(height: 20),
-            Expanded(
-              flex: 2,
-              child: widget.imageAsset != null
-                  ? Image.asset(widget.imageAsset!)
-                  : const SizedBox.shrink(),
+        child: Stack(children: <Widget>[
+            Positioned(
+              top: 10,
+              right: 10,
+              child: Icon(
+                YaruIcons.ok,
+                color: Theme.of(context).colorScheme.onSurface.withAlpha(widget.selected ? 255 : 0),
+              )
             ),
-            const SizedBox(height: 40),
-            Align(
-              alignment: Alignment.centerLeft,
-              child: Text(
-                widget.titleText ?? '',
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 19,
+            Container(
+              padding: const EdgeInsets.all(20),
+              child: Column(children: <Widget>[
+                const SizedBox(height: 20),
+                Expanded(
+                  flex: 2,
+                  child: widget.imageAsset != null
+                      ? Image.asset(widget.imageAsset!)
+                      : const SizedBox.shrink(),
                 ),
-              ),
+                const SizedBox(height: 30),
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    widget.titleText ?? '',
+                    style: const TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 19,
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 10),
+                Expanded(
+                  child: Text(widget.bodyText ?? ''),
+                ),
+              ]),
             ),
-            const SizedBox(height: 10),
-            Expanded(
-              child: Text(widget.bodyText ?? ''),
-            ),
-          ]),
-        ),
+          ],),
         onHover: _setHovered,
         onTap: widget.onSelected,
       ),
