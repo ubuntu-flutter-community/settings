@@ -12,51 +12,68 @@ class DockSection extends StatefulWidget {
 }
 
 class _DockSectionState extends State<DockSection> {
+  final _schemaId = 'org.gnome.shell.extensions.dash-to-dock';
+  late GSettings _settings;
+
+  @override
+  void initState() {
+    _settings = GSettings(schemaId: _schemaId);
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _settings.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
-    const _schemaId = 'org.gnome.shell.extensions.dash-to-dock';
-
     if (GSettingsSchema.lookup(_schemaId) == null) {
-      return const SettingsSection(
+      return SettingsSection(
           headline: 'Dock Settings - Schema not installed!',
-          children: [],
+          children: const [],
           schemaId: _schemaId);
     }
 
-    final GSettings _settings = GSettings(schemaId: _schemaId);
     String _dockPosition = _settings.stringValue('dock-position');
-
     final List<bool> _dockPositions = [
       _dockPosition.contains('LEFT'),
       _dockPosition.contains('RIGHT'),
       _dockPosition.contains('BOTTOM')
     ];
 
+    final _clickBehavior = _settings.stringValue('click-action');
+    final List<bool> _clickBehaviors = [
+      _clickBehavior.contains('minimize'),
+      _clickBehavior.contains('focus-or-previews')
+    ];
+
     return SettingsSection(
         schemaId: _schemaId,
         headline: 'Dock Settings',
         children: [
-          const SingleGsettingRow(
+          SingleGsettingRow(
             actionLabel: 'Show trash',
             settingsKey: 'show-trash',
             schemaId: _schemaId,
           ),
-          const SingleGsettingRow(
+          SingleGsettingRow(
             actionLabel: 'Always show the dock',
             settingsKey: 'dock-fixed',
             schemaId: _schemaId,
           ),
-          const SingleGsettingRow(
+          SingleGsettingRow(
             actionLabel: 'Extend the height of the dock',
             settingsKey: 'extend-height',
             schemaId: _schemaId,
           ),
-          const SingleGsettingRow(
+          SingleGsettingRow(
             actionLabel: 'Active app glow',
             settingsKey: 'unity-backlit-items',
             schemaId: _schemaId,
           ),
-          const SliderGsettingRow(
+          SliderGsettingRow(
             actionLabel: 'Max icon size',
             settingsKey: 'dash-max-icon-size',
             schemaId: _schemaId,
@@ -109,6 +126,50 @@ class _DockSectionState extends State<DockSection> {
                       });
                     },
                     isSelected: _dockPositions,
+                  ),
+                ],
+              ),
+            ),
+          ),
+          SizedBox(
+            width: 500,
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  const Flexible(child: Text('App icon click behavior')),
+                  ToggleButtons(
+                    children: const <Widget>[
+                      Padding(
+                        padding: EdgeInsets.only(left: 14, right: 14),
+                        child: Text('Minimize'),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(left: 14, right: 14),
+                        child: Text('Focus or previews'),
+                      ),
+                    ],
+                    onPressed: (int index) {
+                      setState(() {
+                        for (int buttonIndex = 0;
+                            buttonIndex < _clickBehaviors.length;
+                            buttonIndex++) {
+                          if (buttonIndex == index) {
+                            _clickBehaviors[buttonIndex] = true;
+                          } else {
+                            _clickBehaviors[buttonIndex] = false;
+                          }
+                        }
+                        if (_clickBehaviors[0]) {
+                          _settings.setValue('click-action', 'minimize');
+                        } else if (_clickBehaviors[1]) {
+                          _settings.setValue(
+                              'click-action', 'focus-or-previews');
+                        }
+                      });
+                    },
+                    isSelected: _clickBehaviors,
                   ),
                 ],
               ),
