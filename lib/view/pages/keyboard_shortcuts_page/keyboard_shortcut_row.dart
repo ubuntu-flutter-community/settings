@@ -47,6 +47,7 @@ class _KeyboardShortcutRowState extends State<KeyboardShortcutRow> {
           )),
       borderRadius: BorderRadius.circular(4.0),
       onTap: () => showDialog(
+          barrierDismissible: false,
           context: context,
           builder: (_) => StatefulBuilder(builder: (context, setState) {
                 return RawKeyboardListener(
@@ -84,7 +85,7 @@ class _KeyboardShortcutRowState extends State<KeyboardShortcutRow> {
                                 .toList(),
                           ),
                           Text(
-                            keys.isEmpty ? '' : 'Press ESC or cancel to cancel',
+                            keys.isEmpty ? '' : 'Press cancel to cancel',
                             style: Theme.of(context).textTheme.subtitle2,
                           )
                         ],
@@ -102,9 +103,20 @@ class _KeyboardShortcutRowState extends State<KeyboardShortcutRow> {
                         onPressed: () {
                           // TODO: How to prevent gnome shell
                           // from executing key combos while typing?
-                          // TODO: get the real VALUE here to set
-                          // setState(() => _settings
-                          //     .setValue('switch-windows', ["<Alt>Tab"]));
+
+                          final keyBuffer = StringBuffer();
+                          keys.forEach((element) {
+                            var keyLabel = element.keyLabel;
+                            if (keyLabel == 'Alt Left' ||
+                                keyLabel == 'Control Left' ||
+                                keyLabel == 'Shift Left') {
+                              keyLabel =
+                                  '<' + keyLabel.replaceAll(' Left', '') + '>';
+                            }
+                            keyBuffer.write(keyLabel);
+                          });
+                          setState(() => _settings.setValue(
+                              widget.settingsKey, [keyBuffer.toString()]));
                           keys.clear();
                           Navigator.of(context).pop();
                         },
