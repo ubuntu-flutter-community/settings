@@ -91,6 +91,7 @@ class _DockSectionState extends State<DockSection> {
                 children: [
                   const Flexible(child: Text('Dock position')),
                   ToggleButtons(
+                    constraints: const BoxConstraints(minHeight: 35),
                     children: const <Widget>[
                       Padding(
                         padding: EdgeInsets.only(left: 14, right: 14),
@@ -140,6 +141,7 @@ class _DockSectionState extends State<DockSection> {
                 children: [
                   const Flexible(child: Text('App icon click behavior')),
                   ToggleButtons(
+                    constraints: const BoxConstraints(minHeight: 35),
                     children: const <Widget>[
                       Padding(
                         padding: EdgeInsets.only(left: 14, right: 14),
