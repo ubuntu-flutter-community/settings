@@ -13,6 +13,7 @@ class DockSection extends StatefulWidget {
 
 class _DockSectionState extends State<DockSection> {
   final _schemaId = 'org.gnome.shell.extensions.dash-to-dock';
+  final toggleButtonHeight = 40.0;
   late GSettings _settings;
 
   @override
@@ -91,7 +92,7 @@ class _DockSectionState extends State<DockSection> {
                 children: [
                   const Flexible(child: Text('Dock position')),
                   ToggleButtons(
-                    constraints: const BoxConstraints(minHeight: 35),
+                    constraints: BoxConstraints(minHeight: toggleButtonHeight),
                     children: const <Widget>[
                       Padding(
                         padding: EdgeInsets.only(left: 14, right: 14),
@@ -141,7 +142,7 @@ class _DockSectionState extends State<DockSection> {
                 children: [
                   const Flexible(child: Text('App icon click behavior')),
                   ToggleButtons(
-                    constraints: const BoxConstraints(minHeight: 35),
+                    constraints: BoxConstraints(minHeight: toggleButtonHeight),
                     children: const <Widget>[
                       Padding(
                         padding: EdgeInsets.only(left: 14, right: 14),
