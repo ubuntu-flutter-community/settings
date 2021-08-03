@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:settings/view/pages/appearance/appearance_page.dart';
+import 'package:settings/view/pages/info/info_page.dart';
 import 'package:settings/view/pages/keyboard_shortcuts_page/keyboard_shortcuts_page.dart';
 import 'package:settings/view/pages/mouse_and_touchpad/mouse_and_touchpad_page.dart';
 import 'package:settings/view/pages/notifications_page.dart/notifications_page.dart';
@@ -86,5 +87,5 @@ final menuItems = <MenuItem>[
       iconData: YaruIcons.clock,
       details: Text('Date and time')),
   const MenuItem(
-      name: 'Info', iconData: YaruIcons.information, details: Text('Info')),
+      name: 'Info', iconData: YaruIcons.information, details: InfoPage()),
 ];
