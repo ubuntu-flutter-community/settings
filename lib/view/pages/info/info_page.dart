@@ -11,7 +11,7 @@ class InfoPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final String osNameVersion = (SystemInfo().os_name ?? '') + ' ' + (SystemInfo().os_version ?? '');
+    final String osNameVersion = SystemInfo().os_name + ' ' + SystemInfo().os_version;
 
     return Column(
       children: [

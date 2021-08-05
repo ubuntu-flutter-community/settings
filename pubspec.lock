@@ -108,7 +108,7 @@ packages:
       name: linux_system_info
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.0.5"
+    version: "0.0.6"
   matcher:
     dependency: transitive
     description:
@@ -260,7 +260,7 @@ packages:
       name: yaru_icons
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.0.3"
+    version: "0.0.4-dev"
 sdks:
   dart: ">=2.13.0 <3.0.0"
   flutter: ">=2.2.0"

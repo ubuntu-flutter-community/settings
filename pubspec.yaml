@@ -13,11 +13,11 @@ dependencies:
     sdk: flutter
 
   yaru: ^0.1.0
-  yaru_icons: ^0.0.3
+  yaru_icons: ^0.0.4-dev
   gsettings: ^0.1.2+1
   responsive_scaffold_nullsafe: ^1.0.0
   provider: ^5.0.0
-  linux_system_info: ^0.0.5
+  linux_system_info: ^0.0.6
 
 dev_dependencies:
   flutter_test:
