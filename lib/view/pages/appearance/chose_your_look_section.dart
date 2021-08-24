@@ -16,30 +16,29 @@ class ChoseYourLookSection extends StatelessWidget {
         SizedBox(
           height: 300,
           child: ListView(
-              shrinkWrap: true,
-              scrollDirection: Axis.horizontal,
-              children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.only(right: 12),
-                  child: OptionCard(
-                    imageAsset: 'assets/images/Theme_thumbnails-Light.png',
-                    titleText: 'Light',
-                    bodyText: 'Everything is bright and light',
-                    selected: Theme.of(context).brightness == Brightness.light,
-                    onSelected: () {
-                      theme.apply(Brightness.light);
-                    },
-                  ),
+            shrinkWrap: true,
+            scrollDirection: Axis.horizontal,
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(right: 12),
+                child: OptionCard(
+                  imageAsset: 'assets/images/Theme_thumbnails-Light.png',
+                  titleText: 'Light',
+                  bodyText: 'Everything is bright and light',
+                  selected: Theme.of(context).brightness == Brightness.light,
+                  onSelected: () => theme.apply(Brightness.light),
                 ),
-                OptionCard(
-                  imageAsset: 'assets/images/Theme_thumbnails-Dark.png',
-                  titleText: 'Dark',
-                  bodyText: 'Hello darkness my old friend',
-                  selected: Theme.of(context).brightness == Brightness.dark,
-                  onSelected: () => theme.apply(Brightness.dark),
-                )
-              ]),
-        )
+              ),
+              OptionCard(
+                imageAsset: 'assets/images/Theme_thumbnails-Dark.png',
+                titleText: 'Dark',
+                bodyText: 'Hello darkness my old friend',
+                selected: Theme.of(context).brightness == Brightness.dark,
+                onSelected: () => theme.apply(Brightness.dark),
+              ),
+            ],
+          ),
+        ),
       ],
     );
   }

@@ -8,7 +8,10 @@ class MouseAndTouchpadPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
-      children: const [MouseSection(), TouchpadSection()],
+      children: const [
+        MouseSection(),
+        TouchpadSection(),
+      ],
     );
   }
 }

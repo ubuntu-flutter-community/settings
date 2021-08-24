@@ -8,14 +8,16 @@ import 'package:yaru/yaru.dart' as yaru;
 
 void main() {
   final themeSettings = GSettings(schemaId: 'org.gnome.desktop.interface');
-  runApp(MultiProvider(
-    providers: [
-      ChangeNotifierProvider(
-        create: (_) => AppTheme(themeSettings),
-      ),
-    ],
-    child: const UbuntuSettingsApp(),
-  ));
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          create: (_) => AppTheme(themeSettings),
+        ),
+      ],
+      child: const UbuntuSettingsApp(),
+    ),
+  );
 }
 
 class UbuntuSettingsApp extends StatelessWidget {

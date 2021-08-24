@@ -20,70 +20,79 @@ class MasterPageState extends State<MasterPage> {
 
   @override
   void initState() {
-    selectedMenuItem = menuItems.first;
     super.initState();
+    selectedMenuItem = menuItems.first;
     // goToDetail(menuItems.indexOf(selectedMenuItem));
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: PreferredSize(
-          preferredSize: const Size.fromHeight(50.0),
-          child: AppBar(
-            leading: const Icon(YaruIcons.search),
-            title: const Text('Settings',
-                style: TextStyle(fontWeight: FontWeight.normal)),
+      appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(50.0),
+        child: AppBar(
+          leading: const Icon(YaruIcons.search),
+          title: const Text(
+            'Settings',
+            style: TextStyle(fontWeight: FontWeight.normal),
           ),
         ),
-        body: Center(
-          child: Container(
-            decoration: BoxDecoration(
-                border: Border(
-                    right: BorderSide(color: Colors.black.withOpacity(0.1)))),
-            child: ListView.builder(
-                padding: const EdgeInsets.only(top: 8),
-                itemCount: menuItems.length,
-                itemBuilder: (context, index) {
-                  return Padding(
-                    padding:
-                        const EdgeInsets.only(right: 8, left: 8, bottom: 8),
-                    child: Container(
-                      decoration: BoxDecoration(
-                          borderRadius:
-                              const BorderRadius.all(Radius.circular(4.0)),
-                          color: menuItems[index] == selectedMenuItem
-                              ? Theme.of(context)
-                                  .colorScheme
-                                  .onSurface
-                                  .withOpacity(0.07)
-                              : null),
-                      child: ListTile(
-                          shape: const RoundedRectangleBorder(
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(4.0)),
-                          ),
-                          leading: Icon(
-                            menuItems[index].iconData,
-                            color: Theme.of(context)
-                                .colorScheme
-                                .onSurface
-                                .withOpacity(0.8),
-                          ),
-                          selected: menuItems[index] == selectedMenuItem,
-                          title: Text(menuItems[index].name,
-                              style: TextStyle(
-                                  fontWeight: FontWeight.normal,
-                                  color:
-                                      Theme.of(context).colorScheme.onSurface)),
-                          onTap: () {
-                            setState(() => goToDetail(index));
-                          }),
-                    ),
-                  );
-                }),
+      ),
+      body: Center(
+        child: Container(
+          decoration: BoxDecoration(
+            border: Border(
+              right: BorderSide(color: Colors.black.withOpacity(0.1)),
+            ),
           ),
-        ));
+          child: ListView.builder(
+              padding: const EdgeInsets.only(top: 8),
+              itemCount: menuItems.length,
+              itemBuilder: (context, index) {
+                return Padding(
+                  padding: const EdgeInsets.only(
+                    right: 8,
+                    left: 8,
+                    bottom: 8,
+                  ),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      borderRadius:
+                          const BorderRadius.all(Radius.circular(4.0)),
+                      color: menuItems[index] == selectedMenuItem
+                          ? Theme.of(context)
+                              .colorScheme
+                              .onSurface
+                              .withOpacity(0.07)
+                          : null,
+                    ),
+                    child: ListTile(
+                        shape: const RoundedRectangleBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(4.0)),
+                        ),
+                        leading: Icon(
+                          menuItems[index].iconData,
+                          color: Theme.of(context)
+                              .colorScheme
+                              .onSurface
+                              .withOpacity(0.8),
+                        ),
+                        selected: menuItems[index] == selectedMenuItem,
+                        title: Text(
+                          menuItems[index].name,
+                          style: TextStyle(
+                              fontWeight: FontWeight.normal,
+                              color: Theme.of(context).colorScheme.onSurface),
+                        ),
+                        onTap: () {
+                          setState(() => goToDetail(index));
+                        }),
+                  ),
+                );
+              }),
+        ),
+      ),
+    );
   }
 
   void goToDetail(int index) {
@@ -91,9 +100,12 @@ class MasterPageState extends State<MasterPage> {
     while (Navigator.of(context).canPop()) {
       Navigator.of(context).pop();
     }
-    Navigator.of(context).push(DetailRoute(
+    Navigator.of(context).push(
+      DetailRoute(
         builder: (context) => DetailPage(
-              item: selectedMenuItem,
-            )));
+          item: selectedMenuItem,
+        ),
+      ),
+    );
   }
 }
