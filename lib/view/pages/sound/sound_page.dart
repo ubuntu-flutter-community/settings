@@ -9,23 +9,26 @@ class SoundPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: const [
-        SettingsSection(headline: 'System', children: [
-          SingleGsettingRow(
-            actionLabel: 'Allow Volume above 100%',
-            settingsKey: 'allow-volume-above-100-percent',
-            schemaId: 'org.gnome.desktop.sound',
-          ),
-          SingleGsettingRow(
-            actionLabel: 'Event sounds',
-            settingsKey: 'event-sounds',
-            schemaId: 'org.gnome.desktop.sound',
-          ),
-          SingleGsettingRow(
-            actionLabel: 'Input feedback sounds',
-            settingsKey: 'input-feedback-sounds',
-            schemaId: 'org.gnome.desktop.sound',
-          ),
-        ]),
+        SettingsSection(
+          headline: 'System',
+          children: [
+            SingleGsettingRow(
+              actionLabel: 'Allow Volume above 100%',
+              settingsKey: 'allow-volume-above-100-percent',
+              schemaId: 'org.gnome.desktop.sound',
+            ),
+            SingleGsettingRow(
+              actionLabel: 'Event sounds',
+              settingsKey: 'event-sounds',
+              schemaId: 'org.gnome.desktop.sound',
+            ),
+            SingleGsettingRow(
+              actionLabel: 'Input feedback sounds',
+              settingsKey: 'input-feedback-sounds',
+              schemaId: 'org.gnome.desktop.sound',
+            ),
+          ],
+        ),
       ],
     );
   }

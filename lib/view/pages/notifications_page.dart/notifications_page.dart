@@ -8,7 +8,10 @@ class NotificationsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
-      children: const [GlobalNotificationsSection(), AppNotificationsSection()],
+      children: const [
+        GlobalNotificationsSection(),
+        AppNotificationsSection(),
+      ],
     );
   }
 }

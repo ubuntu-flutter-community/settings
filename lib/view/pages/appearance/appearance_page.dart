@@ -8,7 +8,10 @@ class AppearancePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
-      children: const [ChoseYourLookSection(), DockSection()],
+      children: const [
+        ChoseYourLookSection(),
+        DockSection(),
+      ],
     );
   }
 }
