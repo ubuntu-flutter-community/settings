@@ -61,6 +61,7 @@ class _ToggleButtonsGsettingRowState extends State<ToggleButtonsGsettingRow> {
 
     return SettingsRow(
       actionLabel: widget.actionLabel,
+      actionDescription: widget.actionDescription,
       secondChild: ToggleButtons(
         constraints: const BoxConstraints(minHeight: 40.0),
         isSelected: _availableValues,
