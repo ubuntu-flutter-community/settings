@@ -7,6 +7,7 @@ class SingleGsettingRow extends StatefulWidget {
   const SingleGsettingRow({
     Key? key,
     required this.actionLabel,
+    this.actionDescription,
     required this.settingsKey,
     required this.schemaId,
     this.path,
@@ -14,6 +15,7 @@ class SingleGsettingRow extends StatefulWidget {
   }) : super(key: key);
 
   final String actionLabel;
+  final String? actionDescription;
   final String settingsKey;
   final String schemaId;
   final String? path;
@@ -45,6 +47,7 @@ class _SingleGsettingRowState extends State<SingleGsettingRow> {
 
     return SettingsRow(
       actionLabel: widget.actionLabel,
+      actionDescription: widget.actionDescription,
       secondChild: Switch(
         value: widget.invertedValue ? !_switchValue : _switchValue,
         onChanged: (bool newValue) {

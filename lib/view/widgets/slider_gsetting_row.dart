@@ -7,6 +7,7 @@ class SliderGsettingRow extends StatefulWidget {
   const SliderGsettingRow({
     Key? key,
     required this.actionLabel,
+    this.actionDescription,
     required this.settingsKey,
     required this.schemaId,
     this.min,
@@ -16,6 +17,7 @@ class SliderGsettingRow extends StatefulWidget {
   }) : super(key: key);
 
   final String actionLabel;
+  final String? actionDescription;
   final String settingsKey;
   final String schemaId;
   final double? min;
@@ -53,6 +55,7 @@ class _SliderGsettingRowState extends State<SliderGsettingRow> {
 
     return SettingsRow(
       actionLabel: widget.actionLabel,
+      actionDescription: widget.actionDescription,
       secondChild: Expanded(
         child: Slider(
           label: widget.discrete ? '$_value'.replaceAll('.0', '') : '$_value',

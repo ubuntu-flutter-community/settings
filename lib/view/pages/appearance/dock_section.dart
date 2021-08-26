@@ -3,6 +3,7 @@ import 'package:gsettings/gsettings.dart';
 import 'package:settings/view/widgets/settings_section.dart';
 import 'package:settings/view/widgets/single_gsetting_row.dart';
 import 'package:settings/view/widgets/slider_gsetting_row.dart';
+import 'package:settings/view/widgets/toggle_buttons_gsetting_row.dart';
 
 class DockSection extends StatefulWidget {
   const DockSection({Key? key}) : super(key: key);
@@ -13,7 +14,6 @@ class DockSection extends StatefulWidget {
 
 class _DockSectionState extends State<DockSection> {
   final _schemaId = 'org.gnome.shell.extensions.dash-to-dock';
-  final toggleButtonHeight = 40.0;
   late GSettings _settings;
 
   @override
@@ -37,19 +37,6 @@ class _DockSectionState extends State<DockSection> {
         schemaId: _schemaId,
       );
     }
-
-    String _dockPosition = _settings.stringValue('dock-position');
-    final List<bool> _dockPositions = [
-      _dockPosition.contains('LEFT'),
-      _dockPosition.contains('RIGHT'),
-      _dockPosition.contains('BOTTOM'),
-    ];
-
-    final _clickBehavior = _settings.stringValue('click-action');
-    final List<bool> _clickBehaviors = [
-      _clickBehavior.contains('minimize'),
-      _clickBehavior.contains('focus-or-previews'),
-    ];
 
     return SettingsSection(
       schemaId: _schemaId,
@@ -84,99 +71,33 @@ class _DockSectionState extends State<DockSection> {
           divisions: 24,
           discrete: true,
         ),
-        SizedBox(
-          width: 500,
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                const Flexible(child: Text('Dock position')),
-                ToggleButtons(
-                  constraints: BoxConstraints(minHeight: toggleButtonHeight),
-                  children: const [
-                    Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 14.0),
-                      child: Text('Left'),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 14.0),
-                      child: Text('Right'),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 14.0),
-                      child: Text('Bottom'),
-                    ),
-                  ],
-                  onPressed: (int index) {
-                    setState(() {
-                      for (int buttonIndex = 0;
-                          buttonIndex < _dockPositions.length;
-                          buttonIndex++) {
-                        if (buttonIndex == index) {
-                          _dockPositions[buttonIndex] = true;
-                        } else {
-                          _dockPositions[buttonIndex] = false;
-                        }
-                      }
-                      if (_dockPositions[0]) {
-                        _settings.setValue('dock-position', 'LEFT');
-                      } else if (_dockPositions[1]) {
-                        _settings.setValue('dock-position', 'RIGHT');
-                      } else if (_dockPositions[2]) {
-                        _settings.setValue('dock-position', 'BOTTOM');
-                      }
-                    });
-                  },
-                  isSelected: _dockPositions,
-                ),
-              ],
-            ),
-          ),
+        ToggleButtonsGsettingRow(
+          actionLabel: 'Dock position',
+          settingsKey: 'dock-position',
+          schemaId: _schemaId,
+          settingsValues: const [
+            'LEFT',
+            'RIGHT',
+            'BOTTOM',
+          ],
+          buttonLabels: const [
+            'Left',
+            'Right',
+            'Bottom',
+          ],
         ),
-        SizedBox(
-          width: 500,
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                const Flexible(child: Text('App icon click behavior')),
-                ToggleButtons(
-                  constraints: BoxConstraints(minHeight: toggleButtonHeight),
-                  children: const [
-                    Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 14.0),
-                      child: Text('Minimize'),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 14.0),
-                      child: Text('Focus or previews'),
-                    ),
-                  ],
-                  onPressed: (int index) {
-                    setState(() {
-                      for (int buttonIndex = 0;
-                          buttonIndex < _clickBehaviors.length;
-                          buttonIndex++) {
-                        if (buttonIndex == index) {
-                          _clickBehaviors[buttonIndex] = true;
-                        } else {
-                          _clickBehaviors[buttonIndex] = false;
-                        }
-                      }
-                      if (_clickBehaviors[0]) {
-                        _settings.setValue('click-action', 'minimize');
-                      } else if (_clickBehaviors[1]) {
-                        _settings.setValue('click-action', 'focus-or-previews');
-                      }
-                    });
-                  },
-                  isSelected: _clickBehaviors,
-                ),
-              ],
-            ),
-          ),
+        ToggleButtonsGsettingRow(
+          actionLabel: 'App icon click behavior',
+          settingsKey: 'click-action',
+          schemaId: _schemaId,
+          settingsValues: const [
+            'minimize',
+            'focus-or-previews',
+          ],
+          buttonLabels: const [
+            'Minimize',
+            'Focus or previews',
+          ],
         ),
       ],
     );
