@@ -1,29 +1,29 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:settings/view/pages/accessibility/accessibility_model.dart';
 import 'package:settings/view/widgets/settings_section.dart';
-import 'package:settings/view/widgets/single_gsetting_row.dart';
+import 'package:settings/view/widgets/switch_settings_row.dart';
 
 class SeeingSection extends StatelessWidget {
   const SeeingSection({Key? key}) : super(key: key);
 
-  final _schemaA11yApps = 'org.gnome.desktop.a11y.applications';
-  final _schemaA11yKeyboard = 'org.gnome.desktop.a11y.keyboard';
-
   @override
   Widget build(BuildContext context) {
+    final _model = Provider.of<AccessibilityModel>(context);
     return SettingsSection(
       headline: 'Seeing',
       children: [
-        SingleGsettingRow(
+        SwitchSettingsRow(
           actionLabel: 'Screen Reader',
-          settingsKey: 'screen-reader-enabled',
-          schemaId: _schemaA11yApps,
+          value: _model.getScreenReader,
+          onChanged: (value) => _model.setScreenReader(value),
         ),
-        SingleGsettingRow(
+        SwitchSettingsRow(
           actionLabel: 'Sound Keys',
           actionDescription:
               'Beep when Num Lock or Caps Lock are turned on or off',
-          settingsKey: 'togglekeys-enable',
-          schemaId: _schemaA11yKeyboard,
+          value: _model.getToggleKeys,
+          onChanged: (value) => _model.setToggleKeys(value),
         ),
       ],
     );
