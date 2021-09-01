@@ -12,6 +12,7 @@ class AccessibilityModel extends ChangeNotifier {
   static const _visualBellKey = 'visual-bell';
   static const _visualBellTypeKey = 'visual-bell-type';
   static const _toggleKeysKey = 'togglekeys-enable';
+  static const _screenKeyboardKey = 'screen-keyboard-enabled';
   final _desktopA11Settings = GSettings(schemaId: _schemaDesktopA11y);
   final _a11yAppsSettings = GSettings(schemaId: _schemaA11yApps);
   final _a11yKeyboardSettings = GSettings(schemaId: _schemaA11yKeyboard);
@@ -50,6 +51,13 @@ class AccessibilityModel extends ChangeNotifier {
 
   void setVisualAlertsType(String value) {
     _settings.setValue(_visualBellTypeKey, value);
+    notifyListeners();
+  }
+
+  bool get getScreenKeyboard => _a11yAppsSettings.boolValue(_screenKeyboardKey);
+
+  void setScreenKeyboard(bool value) {
+    _a11yAppsSettings.setValue(_screenKeyboardKey, value);
     notifyListeners();
   }
 }

@@ -1,21 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:settings/view/pages/accessibility/accessibility_model.dart';
 import 'package:settings/view/widgets/settings_section.dart';
-import 'package:settings/view/widgets/single_gsetting_row.dart';
+import 'package:settings/view/widgets/switch_settings_row.dart';
 
 class TypingSection extends StatelessWidget {
   const TypingSection({Key? key}) : super(key: key);
 
-  final _schemaA11yApps = 'org.gnome.desktop.a11y.applications';
-
   @override
   Widget build(BuildContext context) {
+    final _model = Provider.of<AccessibilityModel>(context);
     return SettingsSection(
       headline: 'Typing',
       children: [
-        SingleGsettingRow(
+        SwitchSettingsRow(
           actionLabel: 'Screen Keyboard',
-          schemaId: _schemaA11yApps,
-          settingsKey: 'screen-keyboard-enabled',
+          value: _model.getScreenKeyboard,
+          onChanged: (value) => _model.setScreenKeyboard(value),
         ),
       ],
     );
