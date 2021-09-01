@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:settings/view/pages/accessibility/accessibility_model.dart';
 import 'package:settings/view/widgets/settings_row.dart';
 import 'package:settings/view/widgets/settings_section.dart';
+import 'package:settings/view/widgets/switch_settings_row.dart';
 
 class HearingSection extends StatelessWidget {
   const HearingSection({Key? key}) : super(key: key);
@@ -12,14 +13,14 @@ class HearingSection extends StatelessWidget {
     return const SettingsSection(
       headline: 'Hearing',
       children: [
-        VisualAlerts(),
+        _VisualAlerts(),
       ],
     );
   }
 }
 
-class VisualAlerts extends StatelessWidget {
-  const VisualAlerts({Key? key}) : super(key: key);
+class _VisualAlerts extends StatelessWidget {
+  const _VisualAlerts({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -57,12 +58,10 @@ class _VisualAlertsSettings extends StatelessWidget {
           padding: EdgeInsets.all(8.0),
           child: Text('Use a visual indication when an alert sound occurs.'),
         ),
-        SettingsRow(
+        SwitchSettingsRow(
           actionLabel: 'Visual Alerts',
-          secondChild: Switch(
-            value: _model.getVisualAlerts,
-            onChanged: (value) => _model.setVisualAlerts(value),
-          ),
+          value: _model.getVisualAlerts,
+          onChanged: (value) => _model.setVisualAlerts(value),
         ),
         RadioListTile(
           title: const Text('Flash the entire window'),
