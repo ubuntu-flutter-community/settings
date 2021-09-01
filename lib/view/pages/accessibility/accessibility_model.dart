@@ -22,6 +22,8 @@ class AccessibilityModel extends ChangeNotifier {
   static const _repeatKeyboardKey = 'repeat';
   static const _delayKeyboardKey = 'delay';
   static const _repeatIntervalKeyboardKey = 'repeat-interval';
+  static const _cursorBlinkKey = 'cursor-blink';
+  static const _cursorBlinkTimeKey = 'cursor-blink-time';
   static const _mouseKeysKey = 'mousekeys-enable';
   static const _locatePointerKey = 'locate-pointer';
   static const _doubleClickDelayKey = 'double-click';
@@ -109,6 +111,21 @@ class AccessibilityModel extends ChangeNotifier {
 
   void setInterval(double value) {
     _peripheralsKeyboard.setValue(_repeatIntervalKeyboardKey, value.toInt());
+    notifyListeners();
+  }
+
+  bool get getCursorBlink => _interfaceSettings.boolValue(_cursorBlinkKey);
+
+  void setCursorBlink(bool value) {
+    _interfaceSettings.setValue(_cursorBlinkKey, value);
+    notifyListeners();
+  }
+
+  double get getCursorBlinkTime =>
+      _interfaceSettings.intValue(_cursorBlinkTimeKey).toDouble();
+
+  void setCursorBlinkTime(double value) {
+    _interfaceSettings.setValue(_cursorBlinkTimeKey, value.toInt());
     notifyListeners();
   }
 

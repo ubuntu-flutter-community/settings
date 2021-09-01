@@ -20,6 +20,7 @@ class TypingSection extends StatelessWidget {
           onChanged: (value) => _model.setScreenKeyboard(value),
         ),
         const _RepeatKeys(),
+        const _CursorBlinking(),
       ],
     );
   }
@@ -62,7 +63,7 @@ class _RepeatKeysSettings extends StatelessWidget {
       children: [
         SwitchSettingsRow(
           actionLabel: 'Repeat Keys',
-          actionDescription: 'Key presses repeat when key is held down.',
+          actionDescription: 'Key presses repeat when key is held down',
           value: _model.getKeyboardRepeat,
           onChanged: (value) => _model.setKeyboardRepeat(value),
         ),
@@ -90,6 +91,66 @@ class _RepeatKeysSettings extends StatelessWidget {
               value: _model.getInterval,
               onChanged: (value) {
                 _model.setInterval(value);
+              },
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class _CursorBlinking extends StatelessWidget {
+  const _CursorBlinking({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final _model = Provider.of<AccessibilityModel>(context);
+    return InkWell(
+      onTap: () {
+        showDialog(
+          context: context,
+          builder: (_) => ChangeNotifierProvider.value(
+            value: _model,
+            child: const _CursorBlinkingSettings(),
+          ),
+        );
+      },
+      child: SettingsRow(
+        actionLabel: 'Cursor Blinking',
+        secondChild:
+            _model.getCursorBlink ? const Text('On') : const Text('Off'),
+      ),
+    );
+  }
+}
+
+class _CursorBlinkingSettings extends StatelessWidget {
+  const _CursorBlinkingSettings({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final _model = Provider.of<AccessibilityModel>(context);
+    return SimpleDialog(
+      title: const Center(child: Text('Cursor Blinking')),
+      contentPadding: const EdgeInsets.all(8.0),
+      children: [
+        SwitchSettingsRow(
+          actionLabel: 'Cursor Blinking',
+          actionDescription: 'Cursor blinks in text fields',
+          value: _model.getCursorBlink,
+          onChanged: (value) => _model.setCursorBlink(value),
+        ),
+        SettingsRow(
+          actionLabel: 'Cursor Blink Time',
+          actionDescription: 'Length of the cursor blink cycle',
+          secondChild: Expanded(
+            child: Slider(
+              min: 100,
+              max: 2500,
+              value: _model.getCursorBlinkTime,
+              onChanged: (value) {
+                _model.setCursorBlinkTime(value);
               },
             ),
           ),
