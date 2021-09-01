@@ -2,18 +2,32 @@ import 'package:flutter/foundation.dart';
 import 'package:gsettings/gsettings.dart';
 
 class AccessibilityModel extends ChangeNotifier {
+  static const _schemaDesktopA11y = 'org.gnome.desktop.a11y';
   static const _schemaId = 'org.gnome.desktop.wm.preferences';
+  static const _universalAccessStatusKey =
+      'always-show-universal-access-status';
   static const _visualBellKey = 'visual-bell';
   static const _visualBellTypeKey = 'visual-bell-type';
+  final _desktopA11Settings = GSettings(schemaId: _schemaDesktopA11y);
   final _settings = GSettings(schemaId: _schemaId);
 
+  bool get getUniversalAccessStatus =>
+      _desktopA11Settings.boolValue(_universalAccessStatusKey);
+
+  void setUniversalAccessStatus(bool value) {
+    _desktopA11Settings.setValue(_universalAccessStatusKey, value);
+    notifyListeners();
+  }
+
   bool get getVisualAlerts => _settings.boolValue(_visualBellKey);
+
   void setVisualAlerts(bool value) {
     _settings.setValue(_visualBellKey, value);
     notifyListeners();
   }
 
   String get getVisualAlertsType => _settings.stringValue(_visualBellTypeKey);
+
   void setVisualAlertsType(String value) {
     _settings.setValue(_visualBellTypeKey, value);
     notifyListeners();
