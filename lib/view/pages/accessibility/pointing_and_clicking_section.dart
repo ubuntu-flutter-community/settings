@@ -24,6 +24,7 @@ class PointingAndClickingSection extends StatelessWidget {
           value: _model.getLocatePointer,
           onChanged: (value) => _model.setLocatePointer(value),
         ),
+        const _ClickAssist(),
         SettingsRow(
           actionLabel: 'Double-Click Delay',
           secondChild: Expanded(
@@ -33,6 +34,98 @@ class PointingAndClickingSection extends StatelessWidget {
               value: _model.getDoubleClickDelay,
               onChanged: (double value) {
                 _model.setDoubleClickDelay(value);
+              },
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class _ClickAssist extends StatelessWidget {
+  const _ClickAssist({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final _model = Provider.of<AccessibilityModel>(context);
+    return InkWell(
+      onTap: () {
+        showDialog(
+          context: context,
+          builder: (_) => ChangeNotifierProvider.value(
+            value: _model,
+            child: const _ClickAssistSettings(),
+          ),
+        );
+      },
+      child: SettingsRow(
+        actionLabel: 'Click Assist',
+        secondChild:
+            _model.getClickAssist ? const Text('On') : const Text('Off'),
+      ),
+    );
+  }
+}
+
+class _ClickAssistSettings extends StatelessWidget {
+  const _ClickAssistSettings({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final _model = Provider.of<AccessibilityModel>(context);
+    return SimpleDialog(
+      title: const Center(child: Text('Click Assist')),
+      contentPadding: const EdgeInsets.all(8.0),
+      children: [
+        SwitchSettingsRow(
+          actionLabel: 'Simulated Secondary Click',
+          actionDescription:
+              'Trigger a secondary click by holding down the primary button.',
+          value: _model.getSimulatedSecondaryClick,
+          onChanged: (value) => _model.setSimulatedSecondaryClick(value),
+        ),
+        SettingsRow(
+          actionLabel: 'Delay',
+          secondChild: Expanded(
+            child: Slider(
+              min: 0.5,
+              max: 3.0,
+              value: _model.getSecondaryClickTime,
+              onChanged: (double value) {
+                _model.setSecondaryClickTime(value);
+              },
+            ),
+          ),
+        ),
+        SwitchSettingsRow(
+          actionLabel: 'Hover Click',
+          actionDescription: 'Trigger a click when the pointer hovers',
+          value: _model.getDwellClick,
+          onChanged: (value) => _model.setDwellClick(value),
+        ),
+        SettingsRow(
+          actionLabel: 'Delay',
+          secondChild: Expanded(
+            child: Slider(
+              min: 0.2,
+              max: 3.0,
+              value: _model.getDwellTime,
+              onChanged: (double value) {
+                _model.setDwellTime(value);
+              },
+            ),
+          ),
+        ),
+        SettingsRow(
+          actionLabel: 'Motion threshold',
+          secondChild: Expanded(
+            child: Slider(
+              min: 0.0,
+              max: 30.0,
+              value: _model.getDwellThreshold,
+              onChanged: (double value) {
+                _model.setDwellThreshold(value);
               },
             ),
           ),
