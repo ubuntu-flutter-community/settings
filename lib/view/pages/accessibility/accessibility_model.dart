@@ -8,6 +8,8 @@ class AccessibilityModel extends ChangeNotifier {
   static const _schemaA11yMouse = 'org.gnome.desktop.a11y.mouse';
   static const _schemaWmPreferences = 'org.gnome.desktop.wm.preferences';
   static const _schemaInterface = 'org.gnome.desktop.interface';
+  static const _schemaPeripheralsKeyboard =
+      'org.gnome.desktop.peripherals.keyboard';
   static const _schemaPeripheralsMouse =
       'org.gnome.settings-daemon.peripherals.mouse';
   static const _screenReaderKey = 'screen-reader-enabled';
@@ -17,6 +19,9 @@ class AccessibilityModel extends ChangeNotifier {
   static const _visualBellTypeKey = 'visual-bell-type';
   static const _toggleKeysKey = 'togglekeys-enable';
   static const _screenKeyboardKey = 'screen-keyboard-enabled';
+  static const _repeatKeyboardKey = 'repeat';
+  static const _delayKeyboardKey = 'delay';
+  static const _repeatIntervalKeyboardKey = 'repeat-interval';
   static const _mouseKeysKey = 'mousekeys-enable';
   static const _locatePointerKey = 'locate-pointer';
   static const _doubleClickDelayKey = 'double-click';
@@ -31,8 +36,11 @@ class AccessibilityModel extends ChangeNotifier {
   final _a11yMouseSettings = GSettings(schemaId: _schemaA11yMouse);
   final _wmPreferencesSettings = GSettings(schemaId: _schemaWmPreferences);
   final _interfaceSettings = GSettings(schemaId: _schemaInterface);
-  final _peripheralMouseSettings = GSettings(schemaId: _schemaPeripheralsMouse);
+  final _peripheralsMouseSettings =
+      GSettings(schemaId: _schemaPeripheralsMouse);
+  final _peripheralsKeyboard = GSettings(schemaId: _schemaPeripheralsKeyboard);
 
+  // Global section
   bool get getUniversalAccessStatus =>
       _desktopA11Settings.boolValue(_universalAccessStatusKey);
 
@@ -41,6 +49,7 @@ class AccessibilityModel extends ChangeNotifier {
     notifyListeners();
   }
 
+  // Seeing section
   bool get getScreenReader => _a11yAppsSettings.boolValue(_screenReaderKey);
 
   void setScreenReader(bool value) {
@@ -55,6 +64,7 @@ class AccessibilityModel extends ChangeNotifier {
     notifyListeners();
   }
 
+  // Hearing section
   bool get getVisualAlerts => _wmPreferencesSettings.boolValue(_visualBellKey);
 
   void setVisualAlerts(bool value) {
@@ -70,6 +80,7 @@ class AccessibilityModel extends ChangeNotifier {
     notifyListeners();
   }
 
+  // Typing section
   bool get getScreenKeyboard => _a11yAppsSettings.boolValue(_screenKeyboardKey);
 
   void setScreenKeyboard(bool value) {
@@ -77,6 +88,31 @@ class AccessibilityModel extends ChangeNotifier {
     notifyListeners();
   }
 
+  bool get getKeyboardRepeat =>
+      _peripheralsKeyboard.boolValue(_repeatKeyboardKey);
+
+  void setKeyboardRepeat(bool value) {
+    _peripheralsKeyboard.setValue(_repeatKeyboardKey, value);
+    notifyListeners();
+  }
+
+  double get getDelay =>
+      _peripheralsKeyboard.intValue(_delayKeyboardKey).toDouble();
+
+  void setDelay(double value) {
+    _peripheralsKeyboard.setValue(_delayKeyboardKey, value.toInt());
+    notifyListeners();
+  }
+
+  double get getInterval =>
+      _peripheralsKeyboard.intValue(_repeatIntervalKeyboardKey).toDouble();
+
+  void setInterval(double value) {
+    _peripheralsKeyboard.setValue(_repeatIntervalKeyboardKey, value.toInt());
+    notifyListeners();
+  }
+
+  // Pointing & Clicking section
   bool get getMouseKeys => _a11yKeyboardSettings.boolValue(_mouseKeysKey);
 
   void setMouseKeys(bool value) {
@@ -92,10 +128,10 @@ class AccessibilityModel extends ChangeNotifier {
   }
 
   double get getDoubleClickDelay =>
-      _peripheralMouseSettings.intValue(_doubleClickDelayKey).toDouble();
+      _peripheralsMouseSettings.intValue(_doubleClickDelayKey).toDouble();
 
   void setDoubleClickDelay(double value) {
-    _peripheralMouseSettings.setValue(_doubleClickDelayKey, value.toInt());
+    _peripheralsMouseSettings.setValue(_doubleClickDelayKey, value.toInt());
     notifyListeners();
   }
 

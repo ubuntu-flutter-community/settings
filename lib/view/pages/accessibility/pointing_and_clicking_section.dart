@@ -32,7 +32,7 @@ class PointingAndClickingSection extends StatelessWidget {
               min: 100,
               max: 1000,
               value: _model.getDoubleClickDelay,
-              onChanged: (double value) {
+              onChanged: (value) {
                 _model.setDoubleClickDelay(value);
               },
             ),
@@ -92,7 +92,7 @@ class _ClickAssistSettings extends StatelessWidget {
               min: 0.5,
               max: 3.0,
               value: _model.getSecondaryClickTime,
-              onChanged: (double value) {
+              onChanged: (value) {
                 _model.setSecondaryClickTime(value);
               },
             ),
@@ -111,7 +111,7 @@ class _ClickAssistSettings extends StatelessWidget {
               min: 0.2,
               max: 3.0,
               value: _model.getDwellTime,
-              onChanged: (double value) {
+              onChanged: (value) {
                 _model.setDwellTime(value);
               },
             ),
@@ -124,7 +124,7 @@ class _ClickAssistSettings extends StatelessWidget {
               min: 0.0,
               max: 30.0,
               value: _model.getDwellThreshold,
-              onChanged: (double value) {
+              onChanged: (value) {
                 _model.setDwellThreshold(value);
               },
             ),
