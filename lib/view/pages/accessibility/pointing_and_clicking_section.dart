@@ -1,37 +1,41 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:settings/view/pages/accessibility/accessibility_model.dart';
+import 'package:settings/view/widgets/settings_row.dart';
 import 'package:settings/view/widgets/settings_section.dart';
-import 'package:settings/view/widgets/single_gsetting_row.dart';
-import 'package:settings/view/widgets/slider_gsetting_row.dart';
+import 'package:settings/view/widgets/switch_settings_row.dart';
 
 class PointingAndClickingSection extends StatelessWidget {
   const PointingAndClickingSection({Key? key}) : super(key: key);
 
-  final _schemaA11yKeyboard = 'org.gnome.desktop.a11y.keyboard';
-  final _schemaInterface = 'org.gnome.desktop.interface';
-  final _schemaPeripheralsMouse = 'org.gnome.settings-daemon.peripherals.mouse';
-
   @override
   Widget build(BuildContext context) {
+    final _model = Provider.of<AccessibilityModel>(context);
     return SettingsSection(
       headline: 'Pointing & Clicking',
       children: [
-        SingleGsettingRow(
+        SwitchSettingsRow(
           actionLabel: 'Mouse Keys',
-          settingsKey: 'mousekeys-enable',
-          schemaId: _schemaA11yKeyboard,
+          value: _model.getMouseKeys,
+          onChanged: (value) => _model.setMouseKeys(value),
         ),
-        SingleGsettingRow(
+        SwitchSettingsRow(
           actionLabel: 'Locate Pointer',
-          settingsKey: 'locate-pointer',
-          schemaId: _schemaInterface,
+          value: _model.getLocatePointer,
+          onChanged: (value) => _model.setLocatePointer(value),
         ),
-        SliderGsettingRow(
+        SettingsRow(
           actionLabel: 'Double-Click Delay',
-          settingsKey: 'double-click',
-          schemaId: _schemaPeripheralsMouse,
-          discrete: true,
-          min: 100,
-          max: 1000,
+          secondChild: Expanded(
+            child: Slider(
+              min: 100,
+              max: 1000,
+              value: _model.getDoubleClickDelay,
+              onChanged: (double value) {
+                _model.setDoubleClickDelay(value);
+              },
+            ),
+          ),
         ),
       ],
     );
