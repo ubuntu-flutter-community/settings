@@ -4,6 +4,7 @@ import 'package:settings/view/pages/accessibility/accessibility_model.dart';
 import 'package:settings/view/widgets/settings_row.dart';
 import 'package:settings/view/widgets/settings_section.dart';
 import 'package:settings/view/widgets/switch_settings_row.dart';
+import 'package:yaru_icons/widgets/yaru_icons.dart';
 
 class PointingAndClickingSection extends StatelessWidget {
   const PointingAndClickingSection({Key? key}) : super(key: key);
@@ -49,20 +50,28 @@ class _ClickAssist extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final _model = Provider.of<AccessibilityModel>(context);
-    return InkWell(
-      onTap: () {
-        showDialog(
-          context: context,
-          builder: (_) => ChangeNotifierProvider.value(
-            value: _model,
-            child: const _ClickAssistSettings(),
+    return SettingsRow(
+      actionLabel: 'Click Assist',
+      secondChild: Row(
+        children: [
+          _model.getClickAssist ? const Text('On') : const Text('Off'),
+          const SizedBox(width: 24.0),
+          SizedBox(
+            width: 40,
+            height: 40,
+            child: OutlinedButton(
+              style: OutlinedButton.styleFrom(padding: const EdgeInsets.all(0)),
+              onPressed: () => showDialog(
+                context: context,
+                builder: (_) => ChangeNotifierProvider.value(
+                  value: _model,
+                  child: const _ClickAssistSettings(),
+                ),
+              ),
+              child: const Icon(YaruIcons.settings),
+            ),
           ),
-        );
-      },
-      child: SettingsRow(
-        actionLabel: 'Click Assist',
-        secondChild:
-            _model.getClickAssist ? const Text('On') : const Text('Off'),
+        ],
       ),
     );
   }
