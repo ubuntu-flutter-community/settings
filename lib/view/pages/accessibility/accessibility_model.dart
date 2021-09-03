@@ -13,6 +13,8 @@ class AccessibilityModel extends ChangeNotifier {
   static const _schemaPeripheralsMouse =
       'org.gnome.settings-daemon.peripherals.mouse';
 
+  static const _gtkThemeKey = 'gtk-theme';
+  static const _iconThemeKey = 'icon-theme';
   static const _textScalingFactorKey = 'text-scaling-factor';
   static const _cursorSizeKey = 'cursor-size';
   static const _screenReaderKey = 'screen-reader-enabled';
@@ -68,6 +70,23 @@ class AccessibilityModel extends ChangeNotifier {
   }
 
   // Seeing section
+
+  static const _highContrastTheme = 'HighContrast';
+
+  bool get getHighContrast =>
+      _interfaceSettings.stringValue(_gtkThemeKey) == _highContrastTheme;
+
+  void setHighContrast(bool value) {
+    if (value) {
+      _interfaceSettings.setValue(_gtkThemeKey, _highContrastTheme);
+      _interfaceSettings.setValue(_iconThemeKey, _highContrastTheme);
+    } else {
+      _interfaceSettings.resetValue(_gtkThemeKey);
+      _interfaceSettings.resetValue(_iconThemeKey);
+    }
+    notifyListeners();
+  }
+
   double get _getTextScalingFactor =>
       _interfaceSettings.doubleValue(_textScalingFactorKey);
 

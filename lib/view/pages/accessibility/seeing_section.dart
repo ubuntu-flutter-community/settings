@@ -16,6 +16,11 @@ class SeeingSection extends StatelessWidget {
       headline: 'Seeing',
       children: [
         SwitchSettingsRow(
+          actionLabel: 'High Contrast',
+          value: _model.getHighContrast,
+          onChanged: (value) => _model.setHighContrast(value),
+        ),
+        SwitchSettingsRow(
           actionLabel: 'Large Text',
           value: _model.getLargeText,
           onChanged: (value) => _model.setLargeText(value),
