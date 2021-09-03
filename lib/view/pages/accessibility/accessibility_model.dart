@@ -12,6 +12,8 @@ class AccessibilityModel extends ChangeNotifier {
       'org.gnome.desktop.peripherals.keyboard';
   static const _schemaPeripheralsMouse =
       'org.gnome.settings-daemon.peripherals.mouse';
+
+  static const _cursorSizeKey = 'cursor-size';
   static const _screenReaderKey = 'screen-reader-enabled';
   static const _universalAccessStatusKey =
       'always-show-universal-access-status';
@@ -36,7 +38,6 @@ class AccessibilityModel extends ChangeNotifier {
   static const _bounceKeysKey = 'bouncekeys-enable';
   static const _bounceKeysDelayKey = 'bouncekeys-delay';
   static const _bounceKeysBeepRejectKey = 'bouncekeys-beep-reject';
-
   static const _mouseKeysKey = 'mousekeys-enable';
   static const _locatePointerKey = 'locate-pointer';
   static const _doubleClickDelayKey = 'double-click';
@@ -45,6 +46,7 @@ class AccessibilityModel extends ChangeNotifier {
   static const _dwellClickEnabledKey = 'dwell-click-enabled';
   static const _dwellTimeKey = 'dwell-time';
   static const _dwellThresholdKey = 'dwell-threshold';
+
   final _desktopA11Settings = GSettings(schemaId: _schemaDesktopA11y);
   final _a11yAppsSettings = GSettings(schemaId: _schemaA11yApps);
   final _a11yKeyboardSettings = GSettings(schemaId: _schemaA11yKeyboard);
@@ -65,6 +67,37 @@ class AccessibilityModel extends ChangeNotifier {
   }
 
   // Seeing section
+  int get getCursorSize => _interfaceSettings.intValue(_cursorSizeKey);
+
+  String cursorSize() {
+    String value = '';
+    switch (getCursorSize) {
+      case 24:
+        value = 'Default';
+        break;
+      case 32:
+        value = 'Medium';
+        break;
+      case 48:
+        value = 'Large';
+        break;
+      case 64:
+        value = 'Larger';
+        break;
+      case 96:
+        value = 'Largest';
+        break;
+      default:
+        value = '$getCursorSize pixels';
+    }
+    return value;
+  }
+
+  void setCursorSize(int value) {
+    _interfaceSettings.setValue(_cursorSizeKey, value);
+    notifyListeners();
+  }
+
   bool get getScreenReader => _a11yAppsSettings.boolValue(_screenReaderKey);
 
   void setScreenReader(bool value) {
