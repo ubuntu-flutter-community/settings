@@ -24,6 +24,19 @@ class AccessibilityModel extends ChangeNotifier {
   static const _repeatIntervalKeyboardKey = 'repeat-interval';
   static const _cursorBlinkKey = 'cursor-blink';
   static const _cursorBlinkTimeKey = 'cursor-blink-time';
+  static const _enableA11yKeyboardKey = 'enable';
+  static const _stickyKeysKey = 'stickykeys-enable';
+  static const _stickyKeysTwoKeyOffKey = 'stickykeys-two-key-off';
+  static const _stickyKeysModifierBeepKey = 'stickykeys-modifier-beep';
+  static const _slowKeysKey = 'slowkeys-enable';
+  static const _slowKeysDelayKey = 'slowkeys-delay';
+  static const _slowKeysBeepPressKey = 'slowkeys-beep-press';
+  static const _slowKeysBeepAcceptKey = 'slowkeys-beep-accept';
+  static const _slowKeysBeepRejectKey = 'slowkeys-beep-reject';
+  static const _bounceKeysKey = 'bouncekeys-enable';
+  static const _bounceKeysDelayKey = 'bouncekeys-delay';
+  static const _bounceKeysBeepRejectKey = 'bouncekeys-beep-reject';
+
   static const _mouseKeysKey = 'mousekeys-enable';
   static const _locatePointerKey = 'locate-pointer';
   static const _doubleClickDelayKey = 'double-click';
@@ -126,6 +139,101 @@ class AccessibilityModel extends ChangeNotifier {
 
   void setCursorBlinkTime(double value) {
     _interfaceSettings.setValue(_cursorBlinkTimeKey, value.toInt());
+    notifyListeners();
+  }
+
+  bool get getTypingAssist => getStickyKeys || getSlowKeys || getBounceKeys;
+
+  bool get getKeyboardEnable =>
+      _a11yKeyboardSettings.boolValue(_enableA11yKeyboardKey);
+
+  void setKeyboardEnable(bool value) {
+    _a11yKeyboardSettings.setValue(_enableA11yKeyboardKey, value);
+    notifyListeners();
+  }
+
+  bool get getStickyKeys => _a11yKeyboardSettings.boolValue(_stickyKeysKey);
+
+  void setStickyKeys(bool value) {
+    _a11yKeyboardSettings.setValue(_stickyKeysKey, value);
+    notifyListeners();
+  }
+
+  bool get getStickyKeysTwoKey =>
+      _a11yKeyboardSettings.boolValue(_stickyKeysTwoKeyOffKey);
+
+  void setStickyKeysTwoKey(bool value) {
+    _a11yKeyboardSettings.setValue(_stickyKeysTwoKeyOffKey, value);
+    notifyListeners();
+  }
+
+  bool get getStickyKeysBeep =>
+      _a11yKeyboardSettings.boolValue(_stickyKeysModifierBeepKey);
+
+  void setStickyKeysBeep(bool value) {
+    _a11yKeyboardSettings.setValue(_stickyKeysModifierBeepKey, value);
+    notifyListeners();
+  }
+
+  bool get getSlowKeys => _a11yKeyboardSettings.boolValue(_slowKeysKey);
+
+  void setSlowKeys(bool value) {
+    _a11yKeyboardSettings.setValue(_slowKeysKey, value);
+    notifyListeners();
+  }
+
+  double get getSlowKeysDelay =>
+      _a11yKeyboardSettings.intValue(_slowKeysDelayKey).toDouble();
+
+  void setSlowKeysDelay(double value) {
+    _a11yKeyboardSettings.setValue(_slowKeysDelayKey, value.toInt());
+    notifyListeners();
+  }
+
+  bool get getSlowKeysBeepPress =>
+      _a11yKeyboardSettings.boolValue(_slowKeysBeepPressKey);
+
+  void setSlowKeysBeepPress(bool value) {
+    _a11yKeyboardSettings.setValue(_slowKeysBeepPressKey, value);
+    notifyListeners();
+  }
+
+  bool get getSlowKeysBeepAccept =>
+      _a11yKeyboardSettings.boolValue(_slowKeysBeepAcceptKey);
+
+  void setSlowKeysBeepAccept(bool value) {
+    _a11yKeyboardSettings.setValue(_slowKeysBeepAcceptKey, value);
+    notifyListeners();
+  }
+
+  bool get getSlowKeysBeepReject =>
+      _a11yKeyboardSettings.boolValue(_slowKeysBeepRejectKey);
+
+  void setSlowKeysBeepReject(bool value) {
+    _a11yKeyboardSettings.setValue(_slowKeysBeepRejectKey, value);
+    notifyListeners();
+  }
+
+  bool get getBounceKeys => _a11yKeyboardSettings.boolValue(_bounceKeysKey);
+
+  void setBounceKeys(bool value) {
+    _a11yKeyboardSettings.setValue(_bounceKeysKey, value);
+    notifyListeners();
+  }
+
+  double get getBounceKeysDelay =>
+      _a11yKeyboardSettings.intValue(_bounceKeysDelayKey).toDouble();
+
+  void setBounceKeysDelay(double value) {
+    _a11yKeyboardSettings.setValue(_bounceKeysDelayKey, value.toInt());
+    notifyListeners();
+  }
+
+  bool get getBounceKeysBeepReject =>
+      _a11yKeyboardSettings.boolValue(_bounceKeysBeepRejectKey);
+
+  void setBounceKeysBeepReject(bool value) {
+    _a11yKeyboardSettings.setValue(_bounceKeysBeepRejectKey, value);
     notifyListeners();
   }
 
