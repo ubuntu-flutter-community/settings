@@ -15,6 +15,8 @@ class SeeingSection extends StatelessWidget {
       children: [
         SwitchSettingsRow(
           actionLabel: 'Screen Reader',
+          actionDescription:
+              'The screen reader reads displayed text as you move the focus',
           value: _model.getScreenReader,
           onChanged: (value) => _model.setScreenReader(value),
         ),
