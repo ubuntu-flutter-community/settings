@@ -15,6 +15,11 @@ class SeeingSection extends StatelessWidget {
     return SettingsSection(
       headline: 'Seeing',
       children: [
+        SwitchSettingsRow(
+          actionLabel: 'Large Text',
+          value: _model.getLargeText,
+          onChanged: (value) => _model.setLargeText(value),
+        ),
         const _CursorSize(),
         SwitchSettingsRow(
           actionLabel: 'Screen Reader',

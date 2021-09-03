@@ -13,6 +13,7 @@ class AccessibilityModel extends ChangeNotifier {
   static const _schemaPeripheralsMouse =
       'org.gnome.settings-daemon.peripherals.mouse';
 
+  static const _textScalingFactorKey = 'text-scaling-factor';
   static const _cursorSizeKey = 'cursor-size';
   static const _screenReaderKey = 'screen-reader-enabled';
   static const _universalAccessStatusKey =
@@ -67,6 +68,17 @@ class AccessibilityModel extends ChangeNotifier {
   }
 
   // Seeing section
+  double get _getTextScalingFactor =>
+      _interfaceSettings.doubleValue(_textScalingFactorKey);
+
+  bool get getLargeText => _getTextScalingFactor > 1.0;
+
+  void setLargeText(bool value) {
+    double factor = value ? 1.25 : 1.0;
+    _interfaceSettings.setValue(_textScalingFactorKey, factor);
+    notifyListeners();
+  }
+
   int get getCursorSize => _interfaceSettings.intValue(_cursorSizeKey);
 
   String cursorSize() {
