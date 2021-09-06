@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:settings/view/pages/accessibility/accessibility_model.dart';
+import 'package:settings/view/widgets/checkbox_row.dart';
 import 'package:settings/view/widgets/extra_options_gsettings_row.dart';
 import 'package:settings/view/widgets/settings_row.dart';
 import 'package:settings/view/widgets/settings_section.dart';
@@ -234,13 +235,13 @@ class _StickyKeysSettings extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 14.0),
       child: Column(
         children: [
-          _CheckboxRow(
+          CheckboxRow(
             enabled: _model.getStickyKeys,
             value: _model.getStickyKeysTwoKey,
             onChanged: (value) => _model.setStickyKeysTwoKey(value!),
             text: 'Disable if two keys are pressed at the same time',
           ),
-          _CheckboxRow(
+          CheckboxRow(
             enabled: _model.getStickyKeys,
             value: _model.getStickyKeysBeep,
             onChanged: (value) => _model.setStickyKeysBeep(value!),
@@ -286,19 +287,19 @@ class _SlowKeysSettings extends StatelessWidget {
               ),
             ],
           ),
-          _CheckboxRow(
+          CheckboxRow(
             enabled: _model.getSlowKeys,
             value: _model.getSlowKeysBeepPress,
             onChanged: (value) => _model.setSlowKeysBeepPress(value!),
             text: 'Beep when a key is pressed',
           ),
-          _CheckboxRow(
+          CheckboxRow(
             enabled: _model.getSlowKeys,
             value: _model.getSlowKeysBeepAccept,
             onChanged: (value) => _model.setSlowKeysBeepAccept(value!),
             text: 'Beep when a key is accepted',
           ),
-          _CheckboxRow(
+          CheckboxRow(
             enabled: _model.getSlowKeys,
             value: _model.getSlowKeysBeepReject,
             onChanged: (value) => _model.setSlowKeysBeepReject(value!),
@@ -342,7 +343,7 @@ class _BounceKeysSettings extends StatelessWidget {
               ),
             ],
           ),
-          _CheckboxRow(
+          CheckboxRow(
             enabled: _model.getBounceKeys,
             value: _model.getBounceKeysBeepReject,
             onChanged: (value) => _model.setBounceKeysBeepReject(value!),
@@ -350,42 +351,6 @@ class _BounceKeysSettings extends StatelessWidget {
           ),
         ],
       ),
-    );
-  }
-}
-
-class _CheckboxRow extends StatelessWidget {
-  const _CheckboxRow({
-    Key? key,
-    required this.enabled,
-    required this.value,
-    required this.onChanged,
-    required this.text,
-  }) : super(key: key);
-
-  final bool enabled;
-  final bool value;
-  final Function(bool?) onChanged;
-  final String text;
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Checkbox(
-          value: value,
-          onChanged: enabled ? onChanged : null,
-        ),
-        const SizedBox(width: 4),
-        Expanded(
-          child: Text(
-            text,
-            style: enabled
-                ? null
-                : TextStyle(color: Theme.of(context).disabledColor),
-          ),
-        ),
-      ],
     );
   }
 }

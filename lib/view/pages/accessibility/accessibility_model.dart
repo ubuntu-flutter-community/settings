@@ -5,6 +5,7 @@ class AccessibilityModel extends ChangeNotifier {
   static const _schemaDesktopA11y = 'org.gnome.desktop.a11y';
   static const _schemaA11yApps = 'org.gnome.desktop.a11y.applications';
   static const _schemaA11yKeyboard = 'org.gnome.desktop.a11y.keyboard';
+  static const _schemaA11yMagnifier = 'org.gnome.desktop.a11y.magnifier';
   static const _schemaA11yMouse = 'org.gnome.desktop.a11y.mouse';
   static const _schemaWmPreferences = 'org.gnome.desktop.wm.preferences';
   static const _schemaInterface = 'org.gnome.desktop.interface';
@@ -17,6 +18,15 @@ class AccessibilityModel extends ChangeNotifier {
   static const _iconThemeKey = 'icon-theme';
   static const _textScalingFactorKey = 'text-scaling-factor';
   static const _cursorSizeKey = 'cursor-size';
+  static const _zoomKey = 'screen-magnifier-enabled';
+  static const _crossHairsKey = 'show-cross-hairs';
+  static const _crossHairsClipKey = 'cross-hairs-clip';
+
+  static const _inverseLightnessKey = 'invert-lightness';
+  static const _brightnessRed = 'brightness-red';
+  static const _brightnessGreen = 'brightness-green';
+  static const _brightnessBlue = 'brightness-blue';
+
   static const _screenReaderKey = 'screen-reader-enabled';
   static const _universalAccessStatusKey =
       'always-show-universal-access-status';
@@ -53,6 +63,7 @@ class AccessibilityModel extends ChangeNotifier {
   final _desktopA11Settings = GSettings(schemaId: _schemaDesktopA11y);
   final _a11yAppsSettings = GSettings(schemaId: _schemaA11yApps);
   final _a11yKeyboardSettings = GSettings(schemaId: _schemaA11yKeyboard);
+  final _a11yMagnifierSettings = GSettings(schemaId: _schemaA11yMagnifier);
   final _a11yMouseSettings = GSettings(schemaId: _schemaA11yMouse);
   final _wmPreferencesSettings = GSettings(schemaId: _schemaWmPreferences);
   final _interfaceSettings = GSettings(schemaId: _schemaInterface);
@@ -126,6 +137,36 @@ class AccessibilityModel extends ChangeNotifier {
 
   void setCursorSize(int value) {
     _interfaceSettings.setValue(_cursorSizeKey, value);
+    notifyListeners();
+  }
+
+  bool get getZoom => _a11yAppsSettings.boolValue(_zoomKey);
+
+  void setZoom(bool value) {
+    _a11yAppsSettings.setValue(_zoomKey, value);
+    notifyListeners();
+  }
+
+  bool get getCrossHairs => _a11yMagnifierSettings.boolValue(_crossHairsKey);
+
+  void setCrossHairs(bool value) {
+    _a11yMagnifierSettings.setValue(_crossHairsKey, value);
+    notifyListeners();
+  }
+
+  bool get getCrossHairsClip =>
+      !_a11yMagnifierSettings.boolValue(_crossHairsClipKey);
+
+  void setCrossHairsClip(bool value) {
+    _a11yMagnifierSettings.setValue(_crossHairsClipKey, !value);
+    notifyListeners();
+  }
+
+  bool get getInverseLightness =>
+      _a11yMagnifierSettings.boolValue(_inverseLightnessKey);
+
+  void setInverseLightness(bool value) {
+    _a11yMagnifierSettings.setValue(_inverseLightnessKey, value);
     notifyListeners();
   }
 

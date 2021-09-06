@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:settings/view/pages/accessibility/accessibility_model.dart';
+import 'package:settings/view/widgets/checkbox_row.dart';
+import 'package:settings/view/widgets/extra_options_gsettings_row.dart';
 import 'package:settings/view/widgets/settings_row.dart';
 import 'package:settings/view/widgets/settings_section.dart';
 import 'package:settings/view/widgets/switch_settings_row.dart';
@@ -26,6 +28,18 @@ class SeeingSection extends StatelessWidget {
           onChanged: (value) => _model.setLargeText(value),
         ),
         const _CursorSize(),
+        ExtraOptionsGsettingsRow(
+          actionLabel: 'Zoom',
+          value: _model.getZoom,
+          onChanged: (value) => _model.setZoom(value),
+          onPressed: () => showDialog(
+            context: context,
+            builder: (_) => ChangeNotifierProvider.value(
+              value: _model,
+              child: const _ZoomSettings(),
+            ),
+          ),
+        ),
         SwitchSettingsRow(
           actionLabel: 'Screen Reader',
           actionDescription:
@@ -153,6 +167,167 @@ class _CursorButton extends StatelessWidget {
           ),
         ),
       ),
+    );
+  }
+}
+
+class _ZoomSettings extends StatelessWidget {
+  const _ZoomSettings({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final _model = Provider.of<AccessibilityModel>(context);
+    return SimpleDialog(
+      title: const Center(child: Text('Zoom Options')),
+      contentPadding: const EdgeInsets.symmetric(vertical: 8.0),
+      children: [
+        const Text('Magnification'), // TODO use real widget
+        const Text('Magnifier Position'),
+        const _MagnifierPositionOptions(),
+        SwitchSettingsRow(
+          actionLabel: 'Crosshairs',
+          value: _model.getCrossHairs,
+          onChanged: (value) => _model.setCrossHairs(value),
+        ),
+        const _CrosshairsOptions(),
+        const Text('Color Effects'),
+        const _ColorEffectsOptions(),
+      ],
+    );
+  }
+}
+
+class _MagnifierPositionOptions extends StatelessWidget {
+  const _MagnifierPositionOptions({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container();
+  }
+}
+
+class _CrosshairsOptions extends StatelessWidget {
+  const _CrosshairsOptions({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final _model = Provider.of<AccessibilityModel>(context);
+
+    return Column(
+      children: [
+        CheckboxRow(
+          enabled: true,
+          value: _model.getCrossHairsClip,
+          onChanged: (value) => _model.setCrossHairsClip(value!),
+          text: 'Overlaps mouse cursor',
+        ),
+        Row(
+          children: [
+            const Expanded(
+              child: Text('Thickness'),
+            ),
+            Expanded(
+              child: Slider(
+                min: 0,
+                max: 900,
+                value: 0, // TODO,
+                onChanged: (_) {}, // TODO
+              ),
+            ),
+          ],
+        ),
+        Row(
+          children: [
+            const Expanded(
+              child: Text('Length'),
+            ),
+            Expanded(
+              child: Slider(
+                min: 0,
+                max: 900,
+                value: 0, // TODO,
+                onChanged: (_) {}, // TODO
+              ),
+            ),
+          ],
+        ),
+        Row(
+          children: const [
+            Expanded(
+              child: Text('Color'),
+            ),
+            OutlinedButton(
+              onPressed: null,
+              child: Text('FIX ME'),
+            ),
+          ],
+        ),
+      ],
+    );
+  }
+}
+
+class _ColorEffectsOptions extends StatelessWidget {
+  const _ColorEffectsOptions({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final _model = Provider.of<AccessibilityModel>(context);
+
+    return Column(
+      children: [
+        CheckboxRow(
+          enabled: true,
+          value: _model.getInverseLightness,
+          onChanged: (value) => _model.setInverseLightness(value!),
+          text: 'White on black',
+        ),
+        Row(
+          children: [
+            const Expanded(
+              child: Text('Brightness'),
+            ),
+            Expanded(
+              child: Slider(
+                min: 0,
+                max: 900,
+                value: 0, // TODO,
+                onChanged: (_) {}, // TODO
+              ),
+            ),
+          ],
+        ),
+        Row(
+          children: [
+            const Expanded(
+              child: Text('Contrast'),
+            ),
+            Expanded(
+              child: Slider(
+                min: 0,
+                max: 900,
+                value: 0, // TODO,
+                onChanged: (_) {}, // TODO
+              ),
+            ),
+          ],
+        ),
+        Row(
+          children: [
+            const Expanded(
+              child: Text('Color'),
+            ),
+            Expanded(
+              child: Slider(
+                min: 0,
+                max: 900,
+                value: 0, // TODO,
+                onChanged: (_) {}, // TODO
+              ),
+            ),
+          ],
+        )
+      ],
     );
   }
 }
