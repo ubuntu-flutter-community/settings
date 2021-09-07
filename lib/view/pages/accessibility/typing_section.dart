@@ -157,7 +157,7 @@ class _TypingAssist extends StatelessWidget {
       actionLabel: 'Typing Assist (AccessX)',
       secondChild: Row(
         children: [
-          _model.getTypingAssist ? const Text('On') : const Text('Off'),
+          Text(_model.getTypingAssistString),
           const SizedBox(width: 24.0),
           SizedBox(
             width: 40,

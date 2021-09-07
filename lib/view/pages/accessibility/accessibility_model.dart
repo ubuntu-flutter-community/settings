@@ -356,6 +356,8 @@ class AccessibilityModel extends ChangeNotifier {
 
   bool get getTypingAssist => getStickyKeys || getSlowKeys || getBounceKeys;
 
+  String get getTypingAssistString => getTypingAssist ? 'On' : 'Off';
+
   bool get getKeyboardEnable =>
       _a11yKeyboardSettings.boolValue(_enableA11yKeyboardKey);
 
@@ -473,6 +475,8 @@ class AccessibilityModel extends ChangeNotifier {
   }
 
   bool get getClickAssist => getSimulatedSecondaryClick || getDwellClick;
+
+  String get getClickAssistString => getClickAssist ? 'On' : 'Off';
 
   bool get getSimulatedSecondaryClick =>
       _a11yMouseSettings.boolValue(_secondaryClickEnabledKey);

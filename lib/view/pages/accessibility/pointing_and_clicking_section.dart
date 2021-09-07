@@ -54,7 +54,7 @@ class _ClickAssist extends StatelessWidget {
       actionLabel: 'Click Assist',
       secondChild: Row(
         children: [
-          _model.getClickAssist ? const Text('On') : const Text('Off'),
+          Text(_model.getClickAssistString),
           const SizedBox(width: 24.0),
           SizedBox(
             width: 40,
