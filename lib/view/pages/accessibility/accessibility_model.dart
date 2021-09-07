@@ -19,6 +19,7 @@ class AccessibilityModel extends ChangeNotifier {
   static const _textScalingFactorKey = 'text-scaling-factor';
   static const _cursorSizeKey = 'cursor-size';
   static const _zoomKey = 'screen-magnifier-enabled';
+  static const _magFactorKey = 'mag-factor';
   static const _lensModeKey = 'lens-mode';
   static const _screenPositionKey = 'screen-position';
   static const _scrollAtEdgesKey = 'scroll-at-edges';
@@ -158,11 +159,10 @@ class AccessibilityModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  String get getScreenPosition =>
-      _a11yMagnifierSettings.stringValue(_screenPositionKey);
+  double get getMagFactor => _a11yMagnifierSettings.doubleValue(_magFactorKey);
 
-  void setScreenPosition(String value) {
-    _a11yMagnifierSettings.setValue(_screenPositionKey, value);
+  void setMagFactor(double value) {
+    _a11yMagnifierSettings.setValue(_magFactorKey, value);
     notifyListeners();
   }
 
@@ -170,6 +170,14 @@ class AccessibilityModel extends ChangeNotifier {
 
   void setLensMode(bool value) {
     _a11yMagnifierSettings.setValue(_lensModeKey, value);
+    notifyListeners();
+  }
+
+  String get getScreenPosition =>
+      _a11yMagnifierSettings.stringValue(_screenPositionKey);
+
+  void setScreenPosition(String value) {
+    _a11yMagnifierSettings.setValue(_screenPositionKey, value);
     notifyListeners();
   }
 
@@ -225,6 +233,26 @@ class AccessibilityModel extends ChangeNotifier {
 
   void setInverseLightness(bool value) {
     _a11yMagnifierSettings.setValue(_inverseLightnessKey, value);
+    notifyListeners();
+  }
+
+  double get getColorBrightness =>
+      _a11yMagnifierSettings.doubleValue(_brightnessRedKey);
+
+  void setColorBrightness(double value) {
+    _a11yMagnifierSettings.setValue(_brightnessRedKey, value);
+    _a11yMagnifierSettings.setValue(_brightnessGreenKey, value);
+    _a11yMagnifierSettings.setValue(_brightnessBlueKey, value);
+    notifyListeners();
+  }
+
+  double get getColorContrast =>
+      _a11yMagnifierSettings.doubleValue(_contrastRedKey);
+
+  void setColorContrast(double value) {
+    _a11yMagnifierSettings.setValue(_contrastRedKey, value);
+    _a11yMagnifierSettings.setValue(_contrastGreenKey, value);
+    _a11yMagnifierSettings.setValue(_contrastBlueKey, value);
     notifyListeners();
   }
 

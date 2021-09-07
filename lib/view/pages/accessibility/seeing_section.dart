@@ -205,14 +205,30 @@ class _MagnifierOptions extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final _model = Provider.of<AccessibilityModel>(context);
     return Padding(
       padding: const EdgeInsets.only(left: 16.0, right: 16.0, bottom: 16.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
-        children: const [
-          Text('Magnification'), // TODO use real widget
-          Text('Magnifier Position'),
-          _MagnifierPositionOptions(),
+        children: [
+          Row(
+            children: [
+              const Expanded(
+                child: Text('Magnification'),
+              ),
+              Expanded(
+                // TODO it'd be better to use SpinBox instead of Slider
+                child: Slider(
+                  min: 1,
+                  max: 20,
+                  value: _model.getMagFactor,
+                  onChanged: (value) => _model.setMagFactor(value),
+                ),
+              ),
+            ],
+          ),
+          const Text('Magnifier Position'),
+          const _MagnifierPositionOptions(),
         ],
       ),
     );
@@ -406,9 +422,10 @@ class _CrosshairsOptions extends StatelessWidget {
               Expanded(
                 child: Text('Color'),
               ),
+              // TODO We need Color selector widget
               OutlinedButton(
                 onPressed: null,
-                child: Text('FIX ME'),
+                child: Text('Color'),
               ),
             ],
           ),
@@ -442,10 +459,10 @@ class _ColorEffectsOptions extends StatelessWidget {
               ),
               Expanded(
                 child: Slider(
-                  min: 0,
-                  max: 900,
-                  value: 0, // TODO,
-                  onChanged: (_) {}, // TODO
+                  min: -0.75,
+                  max: 0.75,
+                  value: _model.getColorBrightness,
+                  onChanged: (value) => _model.setColorBrightness(value),
                 ),
               ),
             ],
@@ -457,10 +474,10 @@ class _ColorEffectsOptions extends StatelessWidget {
               ),
               Expanded(
                 child: Slider(
-                  min: 0,
-                  max: 900,
-                  value: 0, // TODO,
-                  onChanged: (_) {}, // TODO
+                  min: -0.75,
+                  max: 0.75,
+                  value: _model.getColorContrast,
+                  onChanged: (value) => _model.setColorContrast(value),
                 ),
               ),
             ],
