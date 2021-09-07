@@ -176,23 +176,45 @@ class _ZoomSettings extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _model = Provider.of<AccessibilityModel>(context);
     return SimpleDialog(
       title: const Center(child: Text('Zoom Options')),
-      contentPadding: const EdgeInsets.symmetric(vertical: 8.0),
+      contentPadding: const EdgeInsets.symmetric(horizontal: 20.0),
       children: [
-        const Text('Magnification'), // TODO use real widget
-        const Text('Magnifier Position'),
-        const _MagnifierPositionOptions(),
-        SwitchSettingsRow(
-          actionLabel: 'Crosshairs',
-          value: _model.getCrossHairs,
-          onChanged: (value) => _model.setCrossHairs(value),
+        Text(
+          'Magnifier',
+          style: Theme.of(context).textTheme.headline6,
+        ),
+        const _MagnifierOptions(),
+        Text(
+          'Crosshairs',
+          style: Theme.of(context).textTheme.headline6,
         ),
         const _CrosshairsOptions(),
-        const Text('Color Effects'),
+        Text(
+          'Color Effects',
+          style: Theme.of(context).textTheme.headline6,
+        ),
         const _ColorEffectsOptions(),
       ],
+    );
+  }
+}
+
+class _MagnifierOptions extends StatelessWidget {
+  const _MagnifierOptions({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(left: 16.0, right: 16.0, bottom: 16.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: const [
+          Text('Magnification'), // TODO use real widget
+          Text('Magnifier Position'),
+          _MagnifierPositionOptions(),
+        ],
+      ),
     );
   }
 }
@@ -202,7 +224,127 @@ class _MagnifierPositionOptions extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container();
+    final _model = Provider.of<AccessibilityModel>(context);
+    return Column(
+      children: [
+        _RadioRow(
+          title: 'Follow mouse cursor',
+          value: true,
+          groupValue: _model.getLensMode,
+          onChanged: (bool? value) => _model.setLensMode(value!),
+        ),
+        _RadioRow(
+          title: 'Screen part',
+          value: false,
+          groupValue: _model.getLensMode,
+          onChanged: (bool? value) => _model.setLensMode(value!),
+          secondary: DropdownButton<String>(
+            onChanged: _model.getLensMode
+                ? null
+                : (value) => _model.setScreenPosition(value!),
+            value: _model.getScreenPosition,
+            items: const [
+              DropdownMenuItem(
+                value: 'full-screen',
+                child: Text('Full Screen'),
+              ),
+              DropdownMenuItem(
+                value: 'top-half',
+                child: Text('Top Half'),
+              ),
+              DropdownMenuItem(
+                value: 'bottom-half',
+                child: Text('Bottom Half'),
+              ),
+              DropdownMenuItem(
+                value: 'left-half',
+                child: Text('Left Half'),
+              ),
+              DropdownMenuItem(
+                value: 'right-half',
+                child: Text('Right Half'),
+              ),
+            ],
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16.0),
+          child: Column(
+            children: [
+              CheckboxRow(
+                enabled: !_model.getLensMode,
+                value: _model.getScrollAtEdges,
+                onChanged: (value) => _model.setScrollAtEdges(value!),
+                text: 'Magnifier extends outside of screen',
+              ),
+              _RadioRow(
+                title: 'Keep magnifier cursor centered',
+                value: 'centered',
+                groupValue: _model.getMouseTracking,
+                onChanged: (String? value) => _model.setMouseTracking(value!),
+                enabled: !_model.getLensMode,
+              ),
+              _RadioRow(
+                title: 'Magnifier cursor pushes contents around',
+                value: 'push',
+                groupValue: _model.getMouseTracking,
+                onChanged: (String? value) => _model.setMouseTracking(value!),
+                enabled: !_model.getLensMode,
+              ),
+              _RadioRow(
+                title: 'Magnifier cursor moves with contents',
+                value: 'proportional',
+                groupValue: _model.getMouseTracking,
+                onChanged: (String? value) => _model.setMouseTracking(value!),
+                enabled: !_model.getLensMode,
+              ),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class _RadioRow<T> extends StatelessWidget {
+  const _RadioRow({
+    Key? key,
+    required this.title,
+    required this.value,
+    required this.groupValue,
+    required this.onChanged,
+    this.enabled = true,
+    this.secondary,
+  }) : super(key: key);
+
+  final String title;
+  final T value;
+  final T? groupValue;
+  final ValueChanged<T?>? onChanged;
+  final bool enabled;
+  final Widget? secondary;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        Radio(
+          value: value,
+          groupValue: groupValue,
+          onChanged: enabled ? onChanged : null,
+        ),
+        const SizedBox(width: 4),
+        Expanded(
+          child: Text(
+            title,
+            style: enabled
+                ? null
+                : TextStyle(color: Theme.of(context).disabledColor),
+          ),
+        ),
+        if (secondary != null) secondary!,
+      ],
+    );
   }
 }
 
@@ -213,56 +355,65 @@ class _CrosshairsOptions extends StatelessWidget {
   Widget build(BuildContext context) {
     final _model = Provider.of<AccessibilityModel>(context);
 
-    return Column(
-      children: [
-        CheckboxRow(
-          enabled: true,
-          value: _model.getCrossHairsClip,
-          onChanged: (value) => _model.setCrossHairsClip(value!),
-          text: 'Overlaps mouse cursor',
-        ),
-        Row(
-          children: [
-            const Expanded(
-              child: Text('Thickness'),
-            ),
-            Expanded(
-              child: Slider(
-                min: 0,
-                max: 900,
-                value: 0, // TODO,
-                onChanged: (_) {}, // TODO
+    return Padding(
+      padding: const EdgeInsets.only(left: 16.0, right: 16.0, bottom: 16.0),
+      child: Column(
+        children: [
+          CheckboxRow(
+            enabled: true,
+            value: _model.getCrossHairs,
+            onChanged: (value) => _model.setCrossHairs(value!),
+            text: 'Visible',
+          ),
+          CheckboxRow(
+            enabled: true,
+            value: _model.getCrossHairsClip,
+            onChanged: (value) => _model.setCrossHairsClip(value!),
+            text: 'Overlaps mouse cursor',
+          ),
+          Row(
+            children: [
+              const Expanded(
+                child: Text('Thickness'),
               ),
-            ),
-          ],
-        ),
-        Row(
-          children: [
-            const Expanded(
-              child: Text('Length'),
-            ),
-            Expanded(
-              child: Slider(
-                min: 0,
-                max: 900,
-                value: 0, // TODO,
-                onChanged: (_) {}, // TODO
+              Expanded(
+                child: Slider(
+                  min: 1,
+                  max: 100,
+                  value: _model.getCrossHairsThickness,
+                  onChanged: (value) => _model.setCrossHairsThickness(value),
+                ),
               ),
-            ),
-          ],
-        ),
-        Row(
-          children: const [
-            Expanded(
-              child: Text('Color'),
-            ),
-            OutlinedButton(
-              onPressed: null,
-              child: Text('FIX ME'),
-            ),
-          ],
-        ),
-      ],
+            ],
+          ),
+          Row(
+            children: [
+              const Expanded(
+                child: Text('Length'),
+              ),
+              Expanded(
+                child: Slider(
+                  min: 20,
+                  max: 4096,
+                  value: _model.getCrossHairsLength,
+                  onChanged: (value) => _model.setCrossHairsLength(value),
+                ),
+              ),
+            ],
+          ),
+          Row(
+            children: const [
+              Expanded(
+                child: Text('Color'),
+              ),
+              OutlinedButton(
+                onPressed: null,
+                child: Text('FIX ME'),
+              ),
+            ],
+          ),
+        ],
+      ),
     );
   }
 }
@@ -274,60 +425,63 @@ class _ColorEffectsOptions extends StatelessWidget {
   Widget build(BuildContext context) {
     final _model = Provider.of<AccessibilityModel>(context);
 
-    return Column(
-      children: [
-        CheckboxRow(
-          enabled: true,
-          value: _model.getInverseLightness,
-          onChanged: (value) => _model.setInverseLightness(value!),
-          text: 'White on black',
-        ),
-        Row(
-          children: [
-            const Expanded(
-              child: Text('Brightness'),
-            ),
-            Expanded(
-              child: Slider(
-                min: 0,
-                max: 900,
-                value: 0, // TODO,
-                onChanged: (_) {}, // TODO
+    return Padding(
+      padding: const EdgeInsets.only(left: 16.0, right: 16.0, bottom: 16.0),
+      child: Column(
+        children: [
+          CheckboxRow(
+            enabled: true,
+            value: _model.getInverseLightness,
+            onChanged: (value) => _model.setInverseLightness(value!),
+            text: 'White on black',
+          ),
+          Row(
+            children: [
+              const Expanded(
+                child: Text('Brightness'),
               ),
-            ),
-          ],
-        ),
-        Row(
-          children: [
-            const Expanded(
-              child: Text('Contrast'),
-            ),
-            Expanded(
-              child: Slider(
-                min: 0,
-                max: 900,
-                value: 0, // TODO,
-                onChanged: (_) {}, // TODO
+              Expanded(
+                child: Slider(
+                  min: 0,
+                  max: 900,
+                  value: 0, // TODO,
+                  onChanged: (_) {}, // TODO
+                ),
               ),
-            ),
-          ],
-        ),
-        Row(
-          children: [
-            const Expanded(
-              child: Text('Color'),
-            ),
-            Expanded(
-              child: Slider(
-                min: 0,
-                max: 900,
-                value: 0, // TODO,
-                onChanged: (_) {}, // TODO
+            ],
+          ),
+          Row(
+            children: [
+              const Expanded(
+                child: Text('Contrast'),
               ),
-            ),
-          ],
-        )
-      ],
+              Expanded(
+                child: Slider(
+                  min: 0,
+                  max: 900,
+                  value: 0, // TODO,
+                  onChanged: (_) {}, // TODO
+                ),
+              ),
+            ],
+          ),
+          Row(
+            children: [
+              const Expanded(
+                child: Text('Saturation'),
+              ),
+              Expanded(
+                child: Slider(
+                  min: 0,
+                  max: 1,
+                  value: _model.getColorSaturation,
+                  onChanged: (value) => _model.setColorSaturation(value),
+                ),
+              ),
+            ],
+          )
+        ],
+      ),
     );
   }
 }

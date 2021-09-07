@@ -19,13 +19,24 @@ class AccessibilityModel extends ChangeNotifier {
   static const _textScalingFactorKey = 'text-scaling-factor';
   static const _cursorSizeKey = 'cursor-size';
   static const _zoomKey = 'screen-magnifier-enabled';
+  static const _lensModeKey = 'lens-mode';
+  static const _screenPositionKey = 'screen-position';
+  static const _scrollAtEdgesKey = 'scroll-at-edges';
+  static const _mouseTrackingKey = 'mouse-tracking';
+
   static const _crossHairsKey = 'show-cross-hairs';
   static const _crossHairsClipKey = 'cross-hairs-clip';
+  static const _crossHairsThicknessKey = 'cross-hairs-thickness';
+  static const _crossHairsLengthKey = 'cross-hairs-length';
 
   static const _inverseLightnessKey = 'invert-lightness';
-  static const _brightnessRed = 'brightness-red';
-  static const _brightnessGreen = 'brightness-green';
-  static const _brightnessBlue = 'brightness-blue';
+  static const _brightnessRedKey = 'brightness-red';
+  static const _brightnessGreenKey = 'brightness-green';
+  static const _brightnessBlueKey = 'brightness-blue';
+  static const _contrastRedKey = 'contrast-red';
+  static const _contrastGreenKey = 'contrast-green';
+  static const _contrastBlueKey = 'contrast-blue';
+  static const _colorSaturationKey = 'color-saturation';
 
   static const _screenReaderKey = 'screen-reader-enabled';
   static const _universalAccessStatusKey =
@@ -147,6 +158,37 @@ class AccessibilityModel extends ChangeNotifier {
     notifyListeners();
   }
 
+  String get getScreenPosition =>
+      _a11yMagnifierSettings.stringValue(_screenPositionKey);
+
+  void setScreenPosition(String value) {
+    _a11yMagnifierSettings.setValue(_screenPositionKey, value);
+    notifyListeners();
+  }
+
+  bool get getLensMode => _a11yMagnifierSettings.boolValue(_lensModeKey);
+
+  void setLensMode(bool value) {
+    _a11yMagnifierSettings.setValue(_lensModeKey, value);
+    notifyListeners();
+  }
+
+  bool get getScrollAtEdges =>
+      _a11yMagnifierSettings.boolValue(_scrollAtEdgesKey);
+
+  void setScrollAtEdges(bool value) {
+    _a11yMagnifierSettings.setValue(_scrollAtEdgesKey, value);
+    notifyListeners();
+  }
+
+  String get getMouseTracking =>
+      _a11yMagnifierSettings.stringValue(_mouseTrackingKey);
+
+  void setMouseTracking(String value) {
+    _a11yMagnifierSettings.setValue(_mouseTrackingKey, value);
+    notifyListeners();
+  }
+
   bool get getCrossHairs => _a11yMagnifierSettings.boolValue(_crossHairsKey);
 
   void setCrossHairs(bool value) {
@@ -162,11 +204,35 @@ class AccessibilityModel extends ChangeNotifier {
     notifyListeners();
   }
 
+  double get getCrossHairsThickness =>
+      _a11yMagnifierSettings.intValue(_crossHairsThicknessKey).toDouble();
+
+  void setCrossHairsThickness(double value) {
+    _a11yMagnifierSettings.setValue(_crossHairsThicknessKey, value.toInt());
+    notifyListeners();
+  }
+
+  double get getCrossHairsLength =>
+      _a11yMagnifierSettings.intValue(_crossHairsLengthKey).toDouble();
+
+  void setCrossHairsLength(double value) {
+    _a11yMagnifierSettings.setValue(_crossHairsLengthKey, value.toInt());
+    notifyListeners();
+  }
+
   bool get getInverseLightness =>
       _a11yMagnifierSettings.boolValue(_inverseLightnessKey);
 
   void setInverseLightness(bool value) {
     _a11yMagnifierSettings.setValue(_inverseLightnessKey, value);
+    notifyListeners();
+  }
+
+  double get getColorSaturation =>
+      _a11yMagnifierSettings.doubleValue(_colorSaturationKey);
+
+  void setColorSaturation(double value) {
+    _a11yMagnifierSettings.setValue(_colorSaturationKey, value);
     notifyListeners();
   }
 

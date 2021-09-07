@@ -232,7 +232,7 @@ class _StickyKeysSettings extends StatelessWidget {
   Widget build(BuildContext context) {
     final _model = Provider.of<AccessibilityModel>(context);
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 14.0),
+      padding: const EdgeInsets.symmetric(horizontal: 16.0),
       child: Column(
         children: [
           CheckboxRow(
@@ -260,7 +260,7 @@ class _SlowKeysSettings extends StatelessWidget {
   Widget build(BuildContext context) {
     final _model = Provider.of<AccessibilityModel>(context);
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 14.0),
+      padding: const EdgeInsets.symmetric(horizontal: 16.0),
       child: Column(
         children: [
           Row(
@@ -318,7 +318,7 @@ class _BounceKeysSettings extends StatelessWidget {
   Widget build(BuildContext context) {
     final _model = Provider.of<AccessibilityModel>(context);
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 14.0),
+      padding: const EdgeInsets.symmetric(horizontal: 16.0),
       child: Column(
         children: [
           Row(
