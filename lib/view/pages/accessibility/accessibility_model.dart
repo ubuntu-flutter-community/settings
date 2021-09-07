@@ -24,12 +24,10 @@ class AccessibilityModel extends ChangeNotifier {
   static const _screenPositionKey = 'screen-position';
   static const _scrollAtEdgesKey = 'scroll-at-edges';
   static const _mouseTrackingKey = 'mouse-tracking';
-
   static const _crossHairsKey = 'show-cross-hairs';
   static const _crossHairsClipKey = 'cross-hairs-clip';
   static const _crossHairsThicknessKey = 'cross-hairs-thickness';
   static const _crossHairsLengthKey = 'cross-hairs-length';
-
   static const _inverseLightnessKey = 'invert-lightness';
   static const _brightnessRedKey = 'brightness-red';
   static const _brightnessGreenKey = 'brightness-green';
@@ -38,7 +36,6 @@ class AccessibilityModel extends ChangeNotifier {
   static const _contrastGreenKey = 'contrast-green';
   static const _contrastBlueKey = 'contrast-blue';
   static const _colorSaturationKey = 'color-saturation';
-
   static const _screenReaderKey = 'screen-reader-enabled';
   static const _universalAccessStatusKey =
       'always-show-universal-access-status';
@@ -81,9 +78,23 @@ class AccessibilityModel extends ChangeNotifier {
   final _interfaceSettings = GSettings(schemaId: _schemaInterface);
   final _peripheralsMouseSettings =
       GSettings(schemaId: _schemaPeripheralsMouse);
-  final _peripheralsKeyboard = GSettings(schemaId: _schemaPeripheralsKeyboard);
+  final _peripheralsKeyboardSettings =
+      GSettings(schemaId: _schemaPeripheralsKeyboard);
 
-  // Global section
+  @override
+  void dispose() {
+    _desktopA11Settings.dispose();
+    _a11yAppsSettings.dispose();
+    _a11yKeyboardSettings.dispose();
+    _a11yMagnifierSettings.dispose();
+    _a11yMouseSettings.dispose();
+    _wmPreferencesSettings.dispose();
+    _interfaceSettings.dispose();
+    _peripheralsMouseSettings.dispose();
+    _peripheralsKeyboardSettings.dispose();
+    super.dispose();
+  } // Global section
+
   bool get getUniversalAccessStatus =>
       _desktopA11Settings.boolValue(_universalAccessStatusKey);
 
@@ -303,26 +314,28 @@ class AccessibilityModel extends ChangeNotifier {
   }
 
   bool get getKeyboardRepeat =>
-      _peripheralsKeyboard.boolValue(_repeatKeyboardKey);
+      _peripheralsKeyboardSettings.boolValue(_repeatKeyboardKey);
 
   void setKeyboardRepeat(bool value) {
-    _peripheralsKeyboard.setValue(_repeatKeyboardKey, value);
+    _peripheralsKeyboardSettings.setValue(_repeatKeyboardKey, value);
     notifyListeners();
   }
 
   double get getDelay =>
-      _peripheralsKeyboard.intValue(_delayKeyboardKey).toDouble();
+      _peripheralsKeyboardSettings.intValue(_delayKeyboardKey).toDouble();
 
   void setDelay(double value) {
-    _peripheralsKeyboard.setValue(_delayKeyboardKey, value.toInt());
+    _peripheralsKeyboardSettings.setValue(_delayKeyboardKey, value.toInt());
     notifyListeners();
   }
 
-  double get getInterval =>
-      _peripheralsKeyboard.intValue(_repeatIntervalKeyboardKey).toDouble();
+  double get getInterval => _peripheralsKeyboardSettings
+      .intValue(_repeatIntervalKeyboardKey)
+      .toDouble();
 
   void setInterval(double value) {
-    _peripheralsKeyboard.setValue(_repeatIntervalKeyboardKey, value.toInt());
+    _peripheralsKeyboardSettings.setValue(
+        _repeatIntervalKeyboardKey, value.toInt());
     notifyListeners();
   }
 
