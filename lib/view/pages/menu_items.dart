@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:provider/provider.dart';
+import 'package:settings/view/pages/accessibility/accessibility_model.dart';
+import 'package:settings/view/pages/accessibility/accessibility_page.dart';
 import 'package:settings/view/pages/appearance/appearance_page.dart';
 import 'package:settings/view/pages/keyboard_shortcuts_page/keyboard_shortcuts_page.dart';
 import 'package:settings/view/pages/mouse_and_touchpad/mouse_and_touchpad_page.dart';
@@ -109,10 +112,13 @@ final menuItems = <MenuItem>[
     iconData: YaruIcons.localization,
     details: Text('Region and language'),
   ),
-  const MenuItem(
+  MenuItem(
     name: 'Accessibility',
     iconData: YaruIcons.accessibility,
-    details: Text('Accessibility'),
+    details: ChangeNotifierProvider<AccessibilityModel>(
+      create: (_) => AccessibilityModel(),
+      child: const AccessibilityPage(),
+    ),
   ),
   const MenuItem(
     name: 'Users',
