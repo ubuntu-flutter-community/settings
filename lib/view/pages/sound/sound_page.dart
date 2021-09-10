@@ -22,11 +22,15 @@ class SoundPage extends StatelessWidget {
             ),
             SwitchSettingsRow(
               actionLabel: 'Event Sounds',
+              actionDescription:
+                  'Notify of a system action, notification or event',
               value: _model.getEventSounds,
               onChanged: (value) => _model.setEventSounds(value),
             ),
             SwitchSettingsRow(
               actionLabel: 'Input Feedback Sounds',
+              actionDescription:
+                  'Feedback for user input events, such as mouse clicks, or key presses',
               value: _model.getInputFeedbackSounds,
               onChanged: (value) => _model.setInputFeedbackSounds(value),
             ),
