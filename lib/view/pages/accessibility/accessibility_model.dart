@@ -83,8 +83,8 @@ class AccessibilityModel extends ChangeNotifier {
       ? GSettings(schemaId: schemaInterface)
       : null;
   final _peripheralsMouseSettings =
-      GSettingsSchema.lookup(schemaPeripheralsMouse) != null
-          ? GSettings(schemaId: schemaPeripheralsMouse)
+      GSettingsSchema.lookup(schemaSettingsPeripheralsMouse) != null
+          ? GSettings(schemaId: schemaSettingsPeripheralsMouse)
           : null;
   final _peripheralsKeyboardSettings =
       GSettingsSchema.lookup(schemaPeripheralsKeyboard) != null
