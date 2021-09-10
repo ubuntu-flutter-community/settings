@@ -5,6 +5,8 @@ import 'package:settings/view/widgets/checkbox_row.dart';
 import 'package:settings/view/widgets/extra_options_gsettings_row.dart';
 import 'package:settings/view/widgets/settings_row.dart';
 import 'package:settings/view/widgets/settings_section.dart';
+import 'package:settings/view/widgets/slider_settings_row.dart';
+import 'package:settings/view/widgets/slider_settings_secondary.dart';
 import 'package:settings/view/widgets/switch_settings_row.dart';
 import 'package:yaru_icons/widgets/yaru_icons.dart';
 
@@ -62,33 +64,21 @@ class _RepeatKeysSettings extends StatelessWidget {
       title: const Center(child: Text('Repeat Keys')),
       contentPadding: const EdgeInsets.all(8.0),
       children: [
-        SettingsRow(
+        SliderSettingsRow(
           actionLabel: 'Delay',
           actionDescription: 'Initial key repeat delay',
-          secondChild: Expanded(
-            child: Slider(
-              min: 100,
-              max: 2000,
-              value: _model.getDelay,
-              onChanged: (value) {
-                _model.setDelay(value);
-              },
-            ),
-          ),
+          value: _model.getDelay,
+          min: 100,
+          max: 2000,
+          onChanged: (value) => _model.setDelay(value),
         ),
-        SettingsRow(
+        SliderSettingsRow(
           actionLabel: 'Interval',
           actionDescription: 'Delay between repeats',
-          secondChild: Expanded(
-            child: Slider(
-              min: 0.0,
-              max: 110.0,
-              value: _model.getInterval,
-              onChanged: (value) {
-                _model.setInterval(value);
-              },
-            ),
-          ),
+          value: _model.getInterval,
+          min: 0,
+          max: 110,
+          onChanged: (value) => _model.setInterval(value),
         ),
       ],
     );
@@ -127,19 +117,13 @@ class _CursorBlinkingSettings extends StatelessWidget {
       title: const Center(child: Text('Cursor Blinking')),
       contentPadding: const EdgeInsets.all(8.0),
       children: [
-        SettingsRow(
+        SliderSettingsRow(
           actionLabel: 'Cursor Blink Time',
           actionDescription: 'Length of the cursor blink cycle',
-          secondChild: Expanded(
-            child: Slider(
-              min: 100,
-              max: 2500,
-              value: _model.getCursorBlinkTime,
-              onChanged: (value) {
-                _model.setCursorBlinkTime(value);
-              },
-            ),
-          ),
+          min: 100,
+          max: 2500,
+          value: _model.getCursorBlinkTime,
+          onChanged: (value) => _model.setCursorBlinkTime(value),
         ),
       ],
     );
@@ -263,29 +247,13 @@ class _SlowKeysSettings extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 16.0),
       child: Column(
         children: [
-          Row(
-            children: [
-              Expanded(
-                child: Text(
-                  'Acceptance delay',
-                  style: _model.getSlowKeys
-                      ? null
-                      : TextStyle(color: Theme.of(context).disabledColor),
-                ),
-              ),
-              Expanded(
-                child: Slider(
-                  min: 0,
-                  max: 500,
-                  value: _model.getSlowKeysDelay,
-                  onChanged: _model.getSlowKeys
-                      ? (value) {
-                          _model.setSlowKeysDelay(value);
-                        }
-                      : null,
-                ),
-              ),
-            ],
+          SliderSettingsSecondary(
+            label: 'Acceptance delay',
+            enabled: _model.getSlowKeys,
+            min: 0,
+            max: 500,
+            value: _model.getSlowKeysDelay,
+            onChanged: (value) => _model.setSlowKeysDelay(value),
           ),
           CheckboxRow(
             enabled: _model.getSlowKeys,
@@ -321,27 +289,13 @@ class _BounceKeysSettings extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 16.0),
       child: Column(
         children: [
-          Row(
-            children: [
-              Expanded(
-                child: Text(
-                  'Acceptance delay',
-                  style: _model.getBounceKeys
-                      ? null
-                      : TextStyle(color: Theme.of(context).disabledColor),
-                ),
-              ),
-              Expanded(
-                child: Slider(
-                  min: 0,
-                  max: 900,
-                  value: _model.getBounceKeysDelay,
-                  onChanged: _model.getBounceKeys
-                      ? (value) => _model.setBounceKeysDelay(value)
-                      : null,
-                ),
-              ),
-            ],
+          SliderSettingsSecondary(
+            label: 'Acceptance delay',
+            enabled: _model.getBounceKeys,
+            min: 0,
+            max: 900,
+            value: _model.getBounceKeysDelay,
+            onChanged: (value) => _model.setBounceKeysDelay(value),
           ),
           CheckboxRow(
             enabled: _model.getBounceKeys,

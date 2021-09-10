@@ -3,6 +3,8 @@ import 'package:provider/provider.dart';
 import 'package:settings/view/pages/accessibility/accessibility_model.dart';
 import 'package:settings/view/widgets/settings_row.dart';
 import 'package:settings/view/widgets/settings_section.dart';
+import 'package:settings/view/widgets/slider_settings_row.dart';
+import 'package:settings/view/widgets/slider_settings_secondary.dart';
 import 'package:settings/view/widgets/switch_settings_row.dart';
 import 'package:yaru_icons/widgets/yaru_icons.dart';
 
@@ -26,18 +28,12 @@ class PointingAndClickingSection extends StatelessWidget {
           onChanged: (value) => _model.setLocatePointer(value),
         ),
         const _ClickAssist(),
-        SettingsRow(
+        SliderSettingsRow(
           actionLabel: 'Double-Click Delay',
-          secondChild: Expanded(
-            child: Slider(
-              min: 100,
-              max: 1000,
-              value: _model.getDoubleClickDelay,
-              onChanged: (value) {
-                _model.setDoubleClickDelay(value);
-              },
-            ),
-          ),
+          value: _model.getDoubleClickDelay,
+          min: 100,
+          max: 1000,
+          onChanged: (value) => _model.setDoubleClickDelay(value),
         ),
       ],
     );
@@ -96,27 +92,13 @@ class _ClickAssistSettings extends StatelessWidget {
         ),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16.0),
-          child: Row(
-            children: [
-              Expanded(
-                child: Text(
-                  'Delay',
-                  style: _model.getSimulatedSecondaryClick
-                      ? null
-                      : TextStyle(color: Theme.of(context).disabledColor),
-                ),
-              ),
-              Expanded(
-                child: Slider(
-                  min: 0.5,
-                  max: 3.0,
-                  value: _model.getSecondaryClickTime,
-                  onChanged: _model.getSimulatedSecondaryClick
-                      ? (value) => _model.setSecondaryClickTime(value)
-                      : null,
-                ),
-              ),
-            ],
+          child: SliderSettingsSecondary(
+            label: 'Delay',
+            enabled: _model.getSimulatedSecondaryClick,
+            value: _model.getSecondaryClickTime,
+            min: 0.5,
+            max: 3.0,
+            onChanged: (value) => _model.setSecondaryClickTime(value),
           ),
         ),
         SwitchSettingsRow(
@@ -129,49 +111,21 @@ class _ClickAssistSettings extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 16.0),
           child: Column(
             children: [
-              Row(
-                children: [
-                  Expanded(
-                    child: Text(
-                      'Delay',
-                      style: _model.getDwellClick
-                          ? null
-                          : TextStyle(color: Theme.of(context).disabledColor),
-                    ),
-                  ),
-                  Expanded(
-                    child: Slider(
-                      min: 0.2,
-                      max: 3.0,
-                      value: _model.getDwellTime,
-                      onChanged: _model.getDwellClick
-                          ? (value) => _model.setDwellTime(value)
-                          : null,
-                    ),
-                  ),
-                ],
+              SliderSettingsSecondary(
+                label: 'Delay',
+                enabled: _model.getDwellClick,
+                min: 0.2,
+                max: 3.0,
+                value: _model.getDwellTime,
+                onChanged: (value) => _model.setDwellTime(value),
               ),
-              Row(
-                children: [
-                  Expanded(
-                    child: Text(
-                      'Motion thresshold',
-                      style: _model.getDwellClick
-                          ? null
-                          : TextStyle(color: Theme.of(context).disabledColor),
-                    ),
-                  ),
-                  Expanded(
-                    child: Slider(
-                      min: 0.0,
-                      max: 30.0,
-                      value: _model.getDwellThreshold,
-                      onChanged: _model.getDwellClick
-                          ? (value) => _model.setDwellThreshold(value)
-                          : null,
-                    ),
-                  ),
-                ],
+              SliderSettingsSecondary(
+                label: 'Motion thresshold',
+                enabled: _model.getDwellClick,
+                min: 0.0,
+                max: 30.0,
+                value: _model.getDwellThreshold,
+                onChanged: (value) => _model.setDwellThreshold(value),
               ),
             ],
           ),

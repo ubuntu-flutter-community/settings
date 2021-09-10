@@ -5,6 +5,7 @@ import 'package:settings/view/widgets/checkbox_row.dart';
 import 'package:settings/view/widgets/extra_options_gsettings_row.dart';
 import 'package:settings/view/widgets/settings_row.dart';
 import 'package:settings/view/widgets/settings_section.dart';
+import 'package:settings/view/widgets/slider_settings_secondary.dart';
 import 'package:settings/view/widgets/switch_settings_row.dart';
 import 'package:yaru_icons/widgets/yaru_icons.dart';
 
@@ -211,21 +212,14 @@ class _MagnifierOptions extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Row(
-            children: [
-              const Expanded(
-                child: Text('Magnification'),
-              ),
-              Expanded(
-                // TODO it'd be better to use SpinBox instead of Slider
-                child: Slider(
-                  min: 1,
-                  max: 20,
-                  value: _model.getMagFactor,
-                  onChanged: (value) => _model.setMagFactor(value),
-                ),
-              ),
-            ],
+          SliderSettingsSecondary(
+            // TODO it'd be better to use SpinBox instead of Slider
+            label: 'Magnification',
+            enabled: true,
+            min: 1,
+            max: 20,
+            value: _model.getMagFactor,
+            onChanged: (value) => _model.setMagFactor(value),
           ),
           const Text('Magnifier Position'),
           const _MagnifierPositionOptions(),
@@ -246,16 +240,18 @@ class _MagnifierPositionOptions extends StatelessWidget {
         _RadioRow(
           title: 'Follow mouse cursor',
           value: true,
+          enabled: true,
           groupValue: _model.getLensMode,
           onChanged: (bool? value) => _model.setLensMode(value!),
         ),
         _RadioRow(
           title: 'Screen part',
+          enabled: true,
           value: false,
           groupValue: _model.getLensMode,
           onChanged: (bool? value) => _model.setLensMode(value!),
           secondary: DropdownButton<String>(
-            onChanged: _model.getLensMode
+            onChanged: !_model.getScreenPartEnabled
                 ? null
                 : (value) => _model.setScreenPosition(value!),
             value: _model.getScreenPosition,
@@ -288,7 +284,7 @@ class _MagnifierPositionOptions extends StatelessWidget {
           child: Column(
             children: [
               CheckboxRow(
-                enabled: !_model.getLensMode,
+                enabled: _model.getScreenPartEnabled,
                 value: _model.getScrollAtEdges,
                 onChanged: (value) => _model.setScrollAtEdges(value!),
                 text: 'Magnifier extends outside of screen',
@@ -298,21 +294,21 @@ class _MagnifierPositionOptions extends StatelessWidget {
                 value: 'centered',
                 groupValue: _model.getMouseTracking,
                 onChanged: (String? value) => _model.setMouseTracking(value!),
-                enabled: !_model.getLensMode,
+                enabled: _model.getScreenPartEnabled,
               ),
               _RadioRow(
                 title: 'Magnifier cursor pushes contents around',
                 value: 'push',
                 groupValue: _model.getMouseTracking,
                 onChanged: (String? value) => _model.setMouseTracking(value!),
-                enabled: !_model.getLensMode,
+                enabled: _model.getScreenPartEnabled,
               ),
               _RadioRow(
                 title: 'Magnifier cursor moves with contents',
                 value: 'proportional',
                 groupValue: _model.getMouseTracking,
                 onChanged: (String? value) => _model.setMouseTracking(value!),
-                enabled: !_model.getLensMode,
+                enabled: _model.getScreenPartEnabled,
               ),
             ],
           ),
@@ -329,7 +325,7 @@ class _RadioRow<T> extends StatelessWidget {
     required this.value,
     required this.groupValue,
     required this.onChanged,
-    this.enabled = true,
+    required this.enabled,
     this.secondary,
   }) : super(key: key);
 
@@ -337,23 +333,30 @@ class _RadioRow<T> extends StatelessWidget {
   final T value;
   final T? groupValue;
   final ValueChanged<T?>? onChanged;
-  final bool enabled;
+  final bool? enabled;
   final Widget? secondary;
 
   @override
   Widget build(BuildContext context) {
+    final _value = value;
+    final _enabled = enabled;
+
+    if (_value == null || _enabled == null) {
+      return const SizedBox();
+    }
+
     return Row(
       children: [
         Radio(
-          value: value,
+          value: _value,
           groupValue: groupValue,
-          onChanged: enabled ? onChanged : null,
+          onChanged: _enabled ? onChanged : null,
         ),
         const SizedBox(width: 4),
         Expanded(
           child: Text(
             title,
-            style: enabled
+            style: _enabled
                 ? null
                 : TextStyle(color: Theme.of(context).disabledColor),
           ),
@@ -387,35 +390,21 @@ class _CrosshairsOptions extends StatelessWidget {
             onChanged: (value) => _model.setCrossHairsClip(value!),
             text: 'Overlaps mouse cursor',
           ),
-          Row(
-            children: [
-              const Expanded(
-                child: Text('Thickness'),
-              ),
-              Expanded(
-                child: Slider(
-                  min: 1,
-                  max: 100,
-                  value: _model.getCrossHairsThickness,
-                  onChanged: (value) => _model.setCrossHairsThickness(value),
-                ),
-              ),
-            ],
+          SliderSettingsSecondary(
+            label: 'Thickness',
+            enabled: true,
+            min: 1,
+            max: 100,
+            value: _model.getCrossHairsThickness,
+            onChanged: (value) => _model.setCrossHairsThickness(value),
           ),
-          Row(
-            children: [
-              const Expanded(
-                child: Text('Length'),
-              ),
-              Expanded(
-                child: Slider(
-                  min: 20,
-                  max: 4096,
-                  value: _model.getCrossHairsLength,
-                  onChanged: (value) => _model.setCrossHairsLength(value),
-                ),
-              ),
-            ],
+          SliderSettingsSecondary(
+            label: 'Length',
+            enabled: true,
+            min: 20,
+            max: 4096,
+            value: _model.getCrossHairsLength,
+            onChanged: (value) => _model.setCrossHairsLength(value),
           ),
           Row(
             children: const [
@@ -452,51 +441,30 @@ class _ColorEffectsOptions extends StatelessWidget {
             onChanged: (value) => _model.setInverseLightness(value!),
             text: 'White on black',
           ),
-          Row(
-            children: [
-              const Expanded(
-                child: Text('Brightness'),
-              ),
-              Expanded(
-                child: Slider(
-                  min: -0.75,
-                  max: 0.75,
-                  value: _model.getColorBrightness,
-                  onChanged: (value) => _model.setColorBrightness(value),
-                ),
-              ),
-            ],
+          SliderSettingsSecondary(
+            label: 'Brightness',
+            enabled: true,
+            min: -0.75,
+            max: 0.75,
+            value: _model.getColorBrightness,
+            onChanged: (value) => _model.setColorBrightness(value),
           ),
-          Row(
-            children: [
-              const Expanded(
-                child: Text('Contrast'),
-              ),
-              Expanded(
-                child: Slider(
-                  min: -0.75,
-                  max: 0.75,
-                  value: _model.getColorContrast,
-                  onChanged: (value) => _model.setColorContrast(value),
-                ),
-              ),
-            ],
+          SliderSettingsSecondary(
+            label: 'Contrast',
+            enabled: true,
+            min: -0.75,
+            max: 0.75,
+            value: _model.getColorContrast,
+            onChanged: (value) => _model.setColorContrast(value),
           ),
-          Row(
-            children: [
-              const Expanded(
-                child: Text('Saturation'),
-              ),
-              Expanded(
-                child: Slider(
-                  min: 0,
-                  max: 1,
-                  value: _model.getColorSaturation,
-                  onChanged: (value) => _model.setColorSaturation(value),
-                ),
-              ),
-            ],
-          )
+          SliderSettingsSecondary(
+            label: 'Saturation',
+            enabled: true,
+            min: 0,
+            max: 1,
+            value: _model.getColorSaturation,
+            onChanged: (value) => _model.setColorSaturation(value),
+          ),
         ],
       ),
     );
