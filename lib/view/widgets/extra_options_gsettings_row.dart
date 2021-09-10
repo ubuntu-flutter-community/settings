@@ -14,19 +14,25 @@ class ExtraOptionsGsettingsRow extends StatelessWidget {
 
   final String actionLabel;
   final String? actionDescription;
-  final bool value;
+  final bool? value;
   final Function(bool) onChanged;
   final VoidCallback onPressed;
 
   @override
   Widget build(BuildContext context) {
+    final _value = value;
+
+    if (_value == null) {
+      return const SizedBox();
+    }
+
     return SettingsRow(
       actionLabel: actionLabel,
       actionDescription: actionDescription,
       secondChild: Row(
         children: [
           Switch(
-            value: value,
+            value: _value,
             onChanged: onChanged,
           ),
           const SizedBox(width: 8.0),
