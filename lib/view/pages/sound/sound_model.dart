@@ -11,6 +11,12 @@ class SoundModel extends ChangeNotifier {
       ? GSettings(schemaId: schemaSound)
       : null;
 
+  @override
+  void dispose() {
+    _soundSettings?.dispose();
+    super.dispose();
+  }
+
   bool? get getAllowAbove100 => _soundSettings?.boolValue(_allowAbove100Key);
 
   void setAllowAbove100(bool value) {

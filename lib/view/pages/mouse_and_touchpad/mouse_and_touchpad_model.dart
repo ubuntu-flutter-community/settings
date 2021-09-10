@@ -21,6 +21,13 @@ class MouseAndTouchpadModel extends ChangeNotifier {
           ? GSettings(schemaId: schemaPeripheralTouchpad)
           : null;
 
+  @override
+  void dispose() {
+    _peripheralsMouseSettings?.dispose();
+    _peripheralsTouchpadSettings?.dispose();
+    super.dispose();
+  }
+
   // Mouse section
 
   double? get getMouseSpeed =>
