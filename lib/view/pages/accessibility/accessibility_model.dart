@@ -1,19 +1,8 @@
 import 'package:flutter/foundation.dart';
 import 'package:gsettings/gsettings.dart';
+import 'package:settings/schemas/schemas.dart';
 
 class AccessibilityModel extends ChangeNotifier {
-  static const _schemaDesktopA11y = 'org.gnome.desktop.a11y';
-  static const _schemaA11yApps = 'org.gnome.desktop.a11y.applications';
-  static const _schemaA11yKeyboard = 'org.gnome.desktop.a11y.keyboard';
-  static const _schemaA11yMagnifier = 'org.gnome.desktop.a11y.magnifier';
-  static const _schemaA11yMouse = 'org.gnome.desktop.a11y.mouse';
-  static const _schemaWmPreferences = 'org.gnome.desktop.wm.preferences';
-  static const _schemaInterface = 'org.gnome.desktop.interface';
-  static const _schemaPeripheralsKeyboard =
-      'org.gnome.desktop.peripherals.keyboard';
-  static const _schemaPeripheralsMouse =
-      'org.gnome.settings-daemon.peripherals.mouse';
-
   static const _gtkThemeKey = 'gtk-theme';
   static const _iconThemeKey = 'icon-theme';
   static const _textScalingFactorKey = 'text-scaling-factor';
@@ -69,37 +58,37 @@ class AccessibilityModel extends ChangeNotifier {
   static const _dwellTimeKey = 'dwell-time';
   static const _dwellThresholdKey = 'dwell-threshold';
 
-  final _desktopA11Settings = GSettingsSchema.lookup(_schemaDesktopA11y) != null
-      ? GSettings(schemaId: _schemaDesktopA11y)
+  final _desktopA11Settings = GSettingsSchema.lookup(schemaDesktopA11y) != null
+      ? GSettings(schemaId: schemaDesktopA11y)
       : null;
-  final _a11yAppsSettings = GSettingsSchema.lookup(_schemaA11yApps) != null
-      ? GSettings(schemaId: _schemaA11yApps)
+  final _a11yAppsSettings = GSettingsSchema.lookup(schemaA11yApps) != null
+      ? GSettings(schemaId: schemaA11yApps)
       : null;
   final _a11yKeyboardSettings =
-      GSettingsSchema.lookup(_schemaA11yKeyboard) != null
-          ? GSettings(schemaId: _schemaA11yKeyboard)
+      GSettingsSchema.lookup(schemaA11yKeyboard) != null
+          ? GSettings(schemaId: schemaA11yKeyboard)
           : null;
   final _a11yMagnifierSettings =
-      GSettingsSchema.lookup(_schemaA11yMagnifier) != null
-          ? GSettings(schemaId: _schemaA11yMagnifier)
+      GSettingsSchema.lookup(schemaA11yMagnifier) != null
+          ? GSettings(schemaId: schemaA11yMagnifier)
           : null;
-  final _a11yMouseSettings = GSettingsSchema.lookup(_schemaA11yMouse) != null
-      ? GSettings(schemaId: _schemaA11yMouse)
+  final _a11yMouseSettings = GSettingsSchema.lookup(schemaA11yMouse) != null
+      ? GSettings(schemaId: schemaA11yMouse)
       : null;
   final _wmPreferencesSettings =
-      GSettingsSchema.lookup(_schemaWmPreferences) != null
-          ? GSettings(schemaId: _schemaWmPreferences)
+      GSettingsSchema.lookup(schemaWmPreferences) != null
+          ? GSettings(schemaId: schemaWmPreferences)
           : null;
-  final _interfaceSettings = GSettingsSchema.lookup(_schemaInterface) != null
-      ? GSettings(schemaId: _schemaInterface)
+  final _interfaceSettings = GSettingsSchema.lookup(schemaInterface) != null
+      ? GSettings(schemaId: schemaInterface)
       : null;
   final _peripheralsMouseSettings =
-      GSettingsSchema.lookup(_schemaPeripheralsMouse) != null
-          ? GSettings(schemaId: _schemaPeripheralsMouse)
+      GSettingsSchema.lookup(schemaPeripheralsMouse) != null
+          ? GSettings(schemaId: schemaPeripheralsMouse)
           : null;
   final _peripheralsKeyboardSettings =
-      GSettingsSchema.lookup(_schemaPeripheralsKeyboard) != null
-          ? GSettings(schemaId: _schemaPeripheralsKeyboard)
+      GSettingsSchema.lookup(schemaPeripheralsKeyboard) != null
+          ? GSettings(schemaId: schemaPeripheralsKeyboard)
           : null;
 
   @override
@@ -114,7 +103,9 @@ class AccessibilityModel extends ChangeNotifier {
     _peripheralsMouseSettings?.dispose();
     _peripheralsKeyboardSettings?.dispose();
     super.dispose();
-  } // Global section
+  }
+
+  // Global section
 
   bool? get getUniversalAccessStatus =>
       _desktopA11Settings?.boolValue(_universalAccessStatusKey);
