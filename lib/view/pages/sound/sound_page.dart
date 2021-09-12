@@ -1,31 +1,39 @@
 import 'package:flutter/widgets.dart';
+import 'package:provider/provider.dart';
+import 'package:settings/view/pages/sound/sound_model.dart';
 import 'package:settings/view/widgets/settings_section.dart';
-import 'package:settings/view/widgets/single_gsetting_row.dart';
+import 'package:settings/view/widgets/switch_settings_row.dart';
 
 class SoundPage extends StatelessWidget {
   const SoundPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final _model = Provider.of<SoundModel>(context);
+
     return Column(
-      children: const [
+      children: [
         SettingsSection(
           headline: 'System',
           children: [
-            SingleGsettingRow(
-              actionLabel: 'Allow Volume above 100%',
-              settingsKey: 'allow-volume-above-100-percent',
-              schemaId: 'org.gnome.desktop.sound',
+            SwitchSettingsRow(
+              actionLabel: 'Allow Volume Above 100%',
+              value: _model.getAllowAbove100,
+              onChanged: (value) => _model.setAllowAbove100(value),
             ),
-            SingleGsettingRow(
-              actionLabel: 'Event sounds',
-              settingsKey: 'event-sounds',
-              schemaId: 'org.gnome.desktop.sound',
+            SwitchSettingsRow(
+              actionLabel: 'Event Sounds',
+              actionDescription:
+                  'Notify of a system action, notification or event',
+              value: _model.getEventSounds,
+              onChanged: (value) => _model.setEventSounds(value),
             ),
-            SingleGsettingRow(
-              actionLabel: 'Input feedback sounds',
-              settingsKey: 'input-feedback-sounds',
-              schemaId: 'org.gnome.desktop.sound',
+            SwitchSettingsRow(
+              actionLabel: 'Input Feedback Sounds',
+              actionDescription: 'Feedback for user input events, '
+                  'such as mouse clicks, or key presses',
+              value: _model.getInputFeedbackSounds,
+              onChanged: (value) => _model.setInputFeedbackSounds(value),
             ),
           ],
         ),

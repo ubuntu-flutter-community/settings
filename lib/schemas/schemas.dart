@@ -9,3 +9,4 @@ const String schemaPeripheralsKeyboard =
 const String schemaWmPreferences = 'org.gnome.desktop.wm.preferences';
 const String schemaPeripheralsMouse =
     'org.gnome.settings-daemon.peripherals.mouse';
+const String schemaSound = 'org.gnome.desktop.sound';
