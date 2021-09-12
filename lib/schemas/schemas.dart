@@ -11,3 +11,5 @@ const String schemaPeripheralsMouse =
     'org.gnome.settings-daemon.peripherals.mouse';
 const String schemaDesktopPeripheralsMouse =
     'org.gnome.desktop.peripherals.mouse';
+const String schemaPeripheralTouchpad =
+    'org.gnome.desktop.peripherals.touchpad';
