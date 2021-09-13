@@ -1,29 +1,29 @@
 import 'package:flutter/widgets.dart';
+import 'package:provider/provider.dart';
+import 'package:settings/view/pages/notifications_page.dart/notifications_model.dart';
 import 'package:settings/view/widgets/settings_section.dart';
-import 'package:settings/view/widgets/single_gsetting_row.dart';
+import 'package:settings/view/widgets/switch_settings_row.dart';
 
 class GlobalNotificationsSection extends StatelessWidget {
   const GlobalNotificationsSection({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    const _schemaId = 'org.gnome.desktop.notifications';
+    final _model = Provider.of<NotificationsModel>(context);
 
-    return const SettingsSection(
-      schemaId: _schemaId,
+    return SettingsSection(
       headline: 'Global',
       children: [
-        SingleGsettingRow(
-          actionLabel: 'Do not disturb',
-          settingsKey: 'show-banners',
-          schemaId: _schemaId,
-          invertedValue: true,
+        SwitchSettingsRow(
+          actionLabel: 'Do Not Disturb',
+          value: _model.getDoNotDisturb,
+          onChanged: (value) => _model.setDoNotDisturb(value),
         ),
-        SingleGsettingRow(
-          actionLabel: 'Show notifications on lockscreen',
-          settingsKey: 'show-in-lock-screen',
-          schemaId: _schemaId,
-        )
+        SwitchSettingsRow(
+          actionLabel: 'Show Notifications On Lock Screen',
+          value: _model.getShowOnLockScreen,
+          onChanged: (value) => _model.setShowOnLockScreen(value),
+        ),
       ],
     );
   }
