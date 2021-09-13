@@ -7,6 +7,7 @@ import 'package:settings/view/pages/appearance/appearance_page.dart';
 import 'package:settings/view/pages/keyboard_shortcuts_page/keyboard_shortcuts_page.dart';
 import 'package:settings/view/pages/mouse_and_touchpad/mouse_and_touchpad_page.dart';
 import 'package:settings/view/pages/notifications_page.dart/notifications_page.dart';
+import 'package:settings/view/pages/sound/sound_model.dart';
 import 'package:settings/view/pages/sound/sound_page.dart';
 import 'package:settings/view/widgets/menu_item.dart';
 import 'package:yaru_icons/widgets/yaru_icons.dart';
@@ -67,10 +68,13 @@ final menuItems = <MenuItem>[
     iconData: YaruIcons.share,
     details: Text('Sharing'),
   ),
-  const MenuItem(
+  MenuItem(
     name: 'Sound',
     iconData: YaruIcons.audio,
-    details: SoundPage(),
+    details: ChangeNotifierProvider<SoundModel>(
+      create: (_) => SoundModel(),
+      child: const SoundPage(),
+    ),
   ),
   const MenuItem(
     name: 'Energy',
