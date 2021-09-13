@@ -10,11 +10,14 @@ class NavigationShortcutsSection extends StatelessWidget {
   Widget build(BuildContext context) {
     const _schemaId = 'org.gnome.desktop.wm.keybindings';
     return const SettingsSection(
-        schemaId: _schemaId,
-        headline: 'Navigation Shortcuts',
-        children: [
-          KeyboardShortcutRow(
-              schemaId: _schemaId, settingsKey: 'switch-windows')
-        ]);
+      schemaId: _schemaId,
+      headline: 'Navigation Shortcuts',
+      children: [
+        KeyboardShortcutRow(
+          schemaId: _schemaId,
+          settingsKey: 'switch-windows',
+        ),
+      ],
+    );
   }
 }

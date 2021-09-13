@@ -7,7 +7,9 @@ class KeyboardShortcutsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
-      children: const [NavigationShortcutsSection()],
+      children: const [
+        NavigationShortcutsSection(),
+      ],
     );
   }
 }

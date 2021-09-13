@@ -4,6 +4,7 @@ import 'package:gsettings/gsettings.dart';
 
 class AppTheme extends ValueNotifier<ThemeMode> {
   AppTheme(this._settings) : super(ThemeMode.system);
+
   final GSettings _settings;
 
   void apply(Brightness brightness) {
@@ -22,7 +23,7 @@ class AppTheme extends ValueNotifier<ThemeMode> {
 
   @override
   void dispose() {
-    super.dispose();
     _settings.dispose();
+    super.dispose();
   }
 }

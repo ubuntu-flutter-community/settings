@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
 
 class SettingsRow extends StatelessWidget {
-  final String actionLabel;
-  final Widget secondChild;
+  const SettingsRow({
+    Key? key,
+    required this.actionLabel,
+    this.actionDescription,
+    required this.secondChild,
+  }) : super(key: key);
 
-  const SettingsRow(
-      {Key? key, required this.actionLabel, required this.secondChild})
-      : super(key: key);
+  final String actionLabel;
+  final String? actionDescription;
+  final Widget secondChild;
 
   @override
   Widget build(BuildContext context) {
@@ -17,9 +21,23 @@ class SettingsRow extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Flexible(
-              child: Text(
-                actionLabel,
+            Expanded(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    actionLabel,
+                  ),
+                  if (actionDescription != null)
+                    Padding(
+                      padding: const EdgeInsets.only(top: 4.0),
+                      child: Text(
+                        actionDescription!,
+                        style: Theme.of(context).textTheme.caption,
+                      ),
+                    ),
+                ],
               ),
             ),
             secondChild,

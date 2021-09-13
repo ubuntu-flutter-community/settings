@@ -9,13 +9,14 @@ class MasterDetailContainer extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.start,
-      children: <Widget>[
+      children: [
         SizedBox(
-            width: isTablet(context)
-                ? kTabletMasterContainerWidth
-                : MediaQuery.of(context).size.width,
-            height: MediaQuery.of(context).size.height,
-            child: const MasterPage()),
+          width: isTablet(context)
+              ? kTabletMasterContainerWidth
+              : MediaQuery.of(context).size.width,
+          height: MediaQuery.of(context).size.height,
+          child: const MasterPage(),
+        ),
       ],
     );
   }

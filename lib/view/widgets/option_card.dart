@@ -58,6 +58,7 @@ class OptionCard extends StatefulWidget {
 // ignore: public_member_api_docs
 class OptionCardState extends State<OptionCard> {
   bool _hovered = false;
+
   bool get hovered => _hovered; // ignore: public_member_api_docs
 
   void _setHovered(bool hovered) {
@@ -68,56 +69,67 @@ class OptionCardState extends State<OptionCard> {
   @override
   Widget build(BuildContext context) {
     return Card(
-      color: Theme.of(context).colorScheme.onSurface.withAlpha(widget.selected ? 7 : 0),
+      color: Theme.of(context).colorScheme.onSurface.withAlpha(
+            widget.selected ? 7 : 0,
+          ),
       shape: RoundedRectangleBorder(
-          side: BorderSide(
-              color: Theme.of(context)
-                      .colorScheme
-                      .onSurface
-                      .withAlpha(widget.selected ? 60 : 0),
-              width: 2),
-          borderRadius: BorderRadius.circular(6)),
+        side: BorderSide(
+          color: Theme.of(context)
+              .colorScheme
+              .onSurface
+              .withAlpha(widget.selected ? 60 : 0),
+          width: 2,
+        ),
+        borderRadius: BorderRadius.circular(6),
+      ),
       elevation: 0,
       child: InkWell(
         hoverColor: Theme.of(context).colorScheme.onSurface.withAlpha(10),
         borderRadius: BorderRadius.circular(6),
-        child: Stack(children: <Widget>[
+        child: Stack(
+          children: [
             Positioned(
               top: 10,
               right: 10,
               child: Icon(
                 YaruIcons.ok,
-                color: Theme.of(context).colorScheme.onSurface.withAlpha(widget.selected ? 255 : 0),
-              )
+                color: Theme.of(context)
+                    .colorScheme
+                    .onSurface
+                    .withAlpha(widget.selected ? 255 : 0),
+              ),
             ),
             Container(
               padding: const EdgeInsets.all(20),
-              child: Column(children: <Widget>[
-                const SizedBox(height: 20),
-                Expanded(
-                  flex: 2,
-                  child: widget.imageAsset != null
-                      ? Image.asset(widget.imageAsset!)
-                      : const SizedBox.shrink(),
-                ),
-                const SizedBox(height: 30),
-                Align(
-                  alignment: Alignment.centerLeft,
-                  child: Text(
-                    widget.titleText ?? '',
-                    style: const TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 19,
+              child: Column(
+                children: [
+                  const SizedBox(height: 20),
+                  Expanded(
+                    flex: 2,
+                    child: widget.imageAsset != null
+                        ? Image.asset(widget.imageAsset!)
+                        : const SizedBox.shrink(),
+                  ),
+                  const SizedBox(height: 30),
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      widget.titleText ?? '',
+                      style: const TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 19,
+                      ),
                     ),
                   ),
-                ),
-                const SizedBox(height: 10),
-                Expanded(
-                  child: Text(widget.bodyText ?? ''),
-                ),
-              ]),
+                  const SizedBox(height: 10),
+                  Expanded(
+                    child: Text(widget.bodyText ?? ''),
+                  ),
+                ],
+              ),
             ),
-          ],),
+          ],
+        ),
         onHover: _setHovered,
         onTap: widget.onSelected,
       ),

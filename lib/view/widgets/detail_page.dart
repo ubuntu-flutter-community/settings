@@ -13,8 +13,10 @@ class DetailPage extends StatelessWidget {
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(50.0),
         child: AppBar(
-          title: Text(item.name,
-              style: const TextStyle(fontWeight: FontWeight.normal)),
+          title: Text(
+            item.name,
+            style: const TextStyle(fontWeight: FontWeight.normal),
+          ),
           leading: isTablet(context)
               ? null
               : BackButton(

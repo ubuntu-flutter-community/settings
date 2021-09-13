@@ -4,24 +4,26 @@ import 'package:gsettings/gsettings.dart';
 import 'settings_row.dart';
 
 class SliderGsettingRow extends StatefulWidget {
+  const SliderGsettingRow({
+    Key? key,
+    required this.actionLabel,
+    this.actionDescription,
+    required this.settingsKey,
+    required this.schemaId,
+    this.min,
+    this.max,
+    this.divisions,
+    required this.discrete,
+  }) : super(key: key);
+
   final String actionLabel;
+  final String? actionDescription;
   final String settingsKey;
   final String schemaId;
   final double? min;
   final double? max;
   final int? divisions;
   final bool discrete;
-
-  const SliderGsettingRow(
-      {Key? key,
-      required this.actionLabel,
-      required this.settingsKey,
-      required this.schemaId,
-      this.min,
-      this.max,
-      this.divisions,
-      required this.discrete})
-      : super(key: key);
 
   @override
   _SliderGsettingRowState createState() => _SliderGsettingRowState();
@@ -40,8 +42,9 @@ class _SliderGsettingRowState extends State<SliderGsettingRow> {
   Widget build(BuildContext context) {
     if (GSettingsSchema.lookup(widget.schemaId) == null) {
       return SettingsRow(
-          actionLabel: 'Schema not installed:',
-          secondChild: Text(widget.schemaId));
+        actionLabel: 'Schema not installed:',
+        secondChild: Text(widget.schemaId),
+      );
     }
 
     _settings = GSettings(schemaId: widget.schemaId);
@@ -51,20 +54,24 @@ class _SliderGsettingRowState extends State<SliderGsettingRow> {
         : _settings.doubleValue(widget.settingsKey);
 
     return SettingsRow(
-        actionLabel: widget.actionLabel,
-        secondChild: Expanded(
-          child: Slider(
-            label: widget.discrete ? '$_value'.replaceAll('.0', '') : '$_value',
-            min: widget.min ?? 0.0,
-            max: widget.max ?? 1.0,
-            divisions: widget.divisions,
-            value: _value,
-            onChanged: (double newValue) {
-              _settings.setValue(widget.settingsKey,
-                  widget.discrete ? newValue.round() : newValue);
-              setState(() {});
-            },
-          ),
-        ));
+      actionLabel: widget.actionLabel,
+      actionDescription: widget.actionDescription,
+      secondChild: Expanded(
+        child: Slider(
+          label: widget.discrete ? '$_value'.replaceAll('.0', '') : '$_value',
+          min: widget.min ?? 0.0,
+          max: widget.max ?? 1.0,
+          divisions: widget.divisions,
+          value: _value,
+          onChanged: (double newValue) {
+            _settings.setValue(
+              widget.settingsKey,
+              widget.discrete ? newValue.round() : newValue,
+            );
+            setState(() {});
+          },
+        ),
+      ),
+    );
   }
 }

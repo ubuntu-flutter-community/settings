@@ -3,8 +3,10 @@ import 'package:flutter/widgets.dart';
 import 'package:settings/view/widgets/master_detail_utils.dart';
 
 class DetailRoute<T> extends TransitionRoute<T> with LocalHistoryRoute<T> {
-  DetailRoute({required this.builder, RouteSettings? settings})
-      : super(settings: settings);
+  DetailRoute({
+    required this.builder,
+    RouteSettings? settings,
+  }) : super(settings: settings);
 
   final WidgetBuilder builder;
 
@@ -13,16 +15,18 @@ class DetailRoute<T> extends TransitionRoute<T> with LocalHistoryRoute<T> {
     return [
       OverlayEntry(builder: (context) {
         return Positioned(
-            left: isTablet(context) ? kTabletMasterContainerWidth : 0,
-            top: 0,
-            child: SizedBox(
-                height: MediaQuery.of(context).size.height,
-                width: isTablet(context)
-                    ? MediaQuery.of(context).size.width -
-                        kTabletMasterContainerWidth
-                    : MediaQuery.of(context).size.width,
-                child: builder(context)));
-      })
+          left: isTablet(context) ? kTabletMasterContainerWidth : 0,
+          top: 0,
+          child: SizedBox(
+            height: MediaQuery.of(context).size.height,
+            width: isTablet(context)
+                ? MediaQuery.of(context).size.width -
+                    kTabletMasterContainerWidth
+                : MediaQuery.of(context).size.width,
+            child: builder(context),
+          ),
+        );
+      }),
     ];
   }
 
