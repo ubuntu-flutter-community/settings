@@ -14,4 +14,4 @@ const String schemaDesktopPeripheralsMouse =
 const String schemaPeripheralTouchpad =
     'org.gnome.desktop.peripherals.touchpad';
 const String schemaSound = 'org.gnome.desktop.sound';
-
+const String schemaNotifications = 'org.gnome.desktop.notifications';
