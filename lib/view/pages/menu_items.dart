@@ -5,6 +5,7 @@ import 'package:settings/view/pages/accessibility/accessibility_model.dart';
 import 'package:settings/view/pages/accessibility/accessibility_page.dart';
 import 'package:settings/view/pages/appearance/appearance_page.dart';
 import 'package:settings/view/pages/keyboard_shortcuts_page/keyboard_shortcuts_page.dart';
+import 'package:settings/view/pages/mouse_and_touchpad/mouse_and_touchpad_model.dart';
 import 'package:settings/view/pages/mouse_and_touchpad/mouse_and_touchpad_page.dart';
 import 'package:settings/view/pages/notifications_page.dart/notifications_page.dart';
 import 'package:settings/view/pages/sound/sound_model.dart';
@@ -86,10 +87,13 @@ final menuItems = <MenuItem>[
     iconData: YaruIcons.desktop_display,
     details: Text('Displays'),
   ),
-  const MenuItem(
+  MenuItem(
     name: 'Mouse and touchpad',
     iconData: YaruIcons.input_mouse,
-    details: MouseAndTouchpadPage(),
+    details: ChangeNotifierProvider<MouseAndTouchpadModel>(
+      create: (_) => MouseAndTouchpadModel(),
+      child: const MouseAndTouchpadPage(),
+    ),
   ),
   const MenuItem(
     name: 'Keyboard shortcuts',
