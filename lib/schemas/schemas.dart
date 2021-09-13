@@ -10,3 +10,4 @@ const String schemaWmPreferences = 'org.gnome.desktop.wm.preferences';
 const String schemaPeripheralsMouse =
     'org.gnome.settings-daemon.peripherals.mouse';
 const String schemaSound = 'org.gnome.desktop.sound';
+const String schemaDashToDock = 'org.gnome.shell.extensions.dash-to-dock';
