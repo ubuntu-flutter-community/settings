@@ -1,103 +1,59 @@
 import 'package:flutter/material.dart';
-import 'package:gsettings/gsettings.dart';
+import 'package:provider/provider.dart';
+import 'package:settings/view/pages/appearance/appearance_model.dart';
 import 'package:settings/view/widgets/settings_section.dart';
-import 'package:settings/view/widgets/single_gsetting_row.dart';
-import 'package:settings/view/widgets/slider_gsetting_row.dart';
-import 'package:settings/view/widgets/toggle_buttons_gsetting_row.dart';
+import 'package:settings/view/widgets/slider_settings_row.dart';
+import 'package:settings/view/widgets/switch_settings_row.dart';
+import 'package:settings/view/widgets/toggle_buttons_setting_row.dart';
 
-class DockSection extends StatefulWidget {
+class DockSection extends StatelessWidget {
   const DockSection({Key? key}) : super(key: key);
 
   @override
-  State<DockSection> createState() => _DockSectionState();
-}
-
-class _DockSectionState extends State<DockSection> {
-  final _schemaId = 'org.gnome.shell.extensions.dash-to-dock';
-  late GSettings _settings;
-
-  @override
-  void initState() {
-    super.initState();
-    _settings = GSettings(schemaId: _schemaId);
-  }
-
-  @override
-  void dispose() {
-    _settings.dispose();
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
-    if (GSettingsSchema.lookup(_schemaId) == null) {
-      return SettingsSection(
-        headline: 'Dock Settings - Schema not installed!',
-        children: const [],
-        schemaId: _schemaId,
-      );
-    }
+    final _model = Provider.of<AppearanceModel>(context);
 
     return SettingsSection(
-      schemaId: _schemaId,
-      headline: 'Dock Settings',
+      headline: 'Dock',
       children: [
-        SingleGsettingRow(
-          actionLabel: 'Show trash',
-          settingsKey: 'show-trash',
-          schemaId: _schemaId,
+        SwitchSettingsRow(
+          actionLabel: 'Show Trash',
+          value: _model.getShowTrash,
+          onChanged: (value) => _model.setShowTrash(value),
         ),
-        SingleGsettingRow(
-          actionLabel: 'Always show the dock',
-          settingsKey: 'dock-fixed',
-          schemaId: _schemaId,
+        SwitchSettingsRow(
+          actionLabel: 'Always Show Dock',
+          value: _model.getAlwaysShowDock,
+          onChanged: (value) => _model.setAlwaysShowDock(value),
         ),
-        SingleGsettingRow(
-          actionLabel: 'Extend the height of the dock',
-          settingsKey: 'extend-height',
-          schemaId: _schemaId,
+        SwitchSettingsRow(
+          actionLabel: 'Extend Dock',
+          value: _model.getExtendDock,
+          onChanged: (value) => _model.setExtendDock(value),
         ),
-        SingleGsettingRow(
-          actionLabel: 'Active app glow',
-          settingsKey: 'unity-backlit-items',
-          schemaId: _schemaId,
+        SwitchSettingsRow(
+          actionLabel: 'Active App Glow',
+          value: _model.getAppGlow,
+          onChanged: (value) => _model.setAppGlow(value),
         ),
-        SliderGsettingRow(
-          actionLabel: 'Max icon size',
-          settingsKey: 'dash-max-icon-size',
-          schemaId: _schemaId,
+        SliderSettingsRow(
+          actionLabel: 'Icon Size',
+          value: _model.getMaxIconSize,
           min: 16,
           max: 64,
-          divisions: 24,
-          discrete: true,
+          onChanged: (value) => _model.setMaxIconSize(value),
         ),
-        ToggleButtonsGsettingRow(
-          actionLabel: 'Dock position',
-          settingsKey: 'dock-position',
-          schemaId: _schemaId,
-          settingsValues: const [
-            'LEFT',
-            'RIGHT',
-            'BOTTOM',
-          ],
-          buttonLabels: const [
-            'Left',
-            'Right',
-            'Bottom',
-          ],
+        ToggleButtonsSettingRow(
+          actionLabel: 'Dock Position',
+          selectedValues: _model.getSelectedDockPositions,
+          labels: const ['Left', 'Right', 'Bottom'],
+          onPressed: (index) => _model.setDockPosition(index),
         ),
-        ToggleButtonsGsettingRow(
-          actionLabel: 'App icon click behavior',
-          settingsKey: 'click-action',
-          schemaId: _schemaId,
-          settingsValues: const [
-            'minimize',
-            'focus-or-previews',
-          ],
-          buttonLabels: const [
-            'Minimize',
-            'Focus or previews',
-          ],
+        ToggleButtonsSettingRow(
+          actionLabel: 'App Icon Click Behaviour',
+          selectedValues: _model.getSelectedClickActions,
+          labels: const ['Minimize', 'Focus or previews'],
+          onPressed: (index) => _model.setClickAction(index),
         ),
       ],
     );

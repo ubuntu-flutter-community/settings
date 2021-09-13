@@ -3,6 +3,7 @@ import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 import 'package:settings/view/pages/accessibility/accessibility_model.dart';
 import 'package:settings/view/pages/accessibility/accessibility_page.dart';
+import 'package:settings/view/pages/appearance/appearance_model.dart';
 import 'package:settings/view/pages/appearance/appearance_page.dart';
 import 'package:settings/view/pages/keyboard_shortcuts_page/keyboard_shortcuts_page.dart';
 import 'package:settings/view/pages/mouse_and_touchpad/mouse_and_touchpad_page.dart';
@@ -33,10 +34,13 @@ final menuItems = <MenuItem>[
     iconData: YaruIcons.desktop_wallpaper,
     details: Text('Wallpaper'),
   ),
-  const MenuItem(
+  MenuItem(
     name: 'Appearance',
     iconData: YaruIcons.desktop_panel_look,
-    details: AppearancePage(),
+    details: ChangeNotifierProvider<AppearanceModel>(
+      create: (_) => AppearanceModel(),
+      child: const AppearancePage(),
+    ),
   ),
   const MenuItem(
     name: 'Notifications',
