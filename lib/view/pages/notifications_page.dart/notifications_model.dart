@@ -19,7 +19,7 @@ class NotificationsModel extends ChangeNotifier {
 
   // Global section
 
-  bool? get getDoNotDisturb {
+  bool? get doNotDisturb {
     if (_notificationSettings != null) {
       return !_notificationSettings!.boolValue(_showBannersKey);
     }
@@ -30,7 +30,7 @@ class NotificationsModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  bool? get getShowOnLockScreen =>
+  bool? get showOnLockScreen =>
       _notificationSettings?.boolValue(_showInLockScreenKey);
 
   void setShowOnLockScreen(bool value) {

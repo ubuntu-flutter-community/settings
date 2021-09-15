@@ -16,12 +16,12 @@ class GlobalNotificationsSection extends StatelessWidget {
       children: [
         SwitchSettingsRow(
           actionLabel: 'Do Not Disturb',
-          value: model.getDoNotDisturb,
+          value: model.doNotDisturb,
           onChanged: (value) => model.setDoNotDisturb(value),
         ),
         SwitchSettingsRow(
           actionLabel: 'Show Notifications On Lock Screen',
-          value: model.getShowOnLockScreen,
+          value: model.showOnLockScreen,
           onChanged: (value) => model.setShowOnLockScreen(value),
         ),
       ],
