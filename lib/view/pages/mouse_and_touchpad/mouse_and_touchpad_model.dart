@@ -29,7 +29,7 @@ class MouseAndTouchpadModel extends ChangeNotifier {
 
   // Mouse section
 
-  double? get getMouseSpeed =>
+  double? get mouseSpeed =>
       _peripheralsMouseSettings?.doubleValue(_mouseSpeedKey);
 
   void setMouseSpeed(double value) {
@@ -37,7 +37,7 @@ class MouseAndTouchpadModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  bool? get getMouseNaturalScroll =>
+  bool? get mouseNaturalScroll =>
       _peripheralsMouseSettings?.boolValue(_mouseNaturalScrollKey);
 
   void setMouseNaturalScroll(bool value) {
@@ -47,7 +47,7 @@ class MouseAndTouchpadModel extends ChangeNotifier {
 
   // Touchpad section
 
-  double? get getTouchpadSpeed =>
+  double? get touchpadSpeed =>
       _peripheralsTouchpadSettings?.doubleValue(_touchpadSpeedKey);
 
   void setTouchpadSpeed(double value) {
@@ -55,7 +55,7 @@ class MouseAndTouchpadModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  bool? get getTouchpadNaturalScroll =>
+  bool? get touchpadNaturalScroll =>
       _peripheralsTouchpadSettings?.boolValue(_touchpadNaturalScrollKey);
 
   void setTouchpadNaturalScroll(bool value) {
@@ -63,7 +63,7 @@ class MouseAndTouchpadModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  bool? get getTouchpadTapToClick =>
+  bool? get touchpadTapToClick =>
       _peripheralsTouchpadSettings?.boolValue(_touchpadTapToClickKey);
 
   void setTouchpadTapToClick(bool value) {
@@ -71,7 +71,7 @@ class MouseAndTouchpadModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  bool? get getTouchpadDisableWhileTyping =>
+  bool? get touchpadDisableWhileTyping =>
       _peripheralsTouchpadSettings?.boolValue(_touchpadDisableWhileTyping);
 
   void setTouchpadDisableWhileTyping(bool value) {
