@@ -107,7 +107,7 @@ class AccessibilityModel extends ChangeNotifier {
 
   // Global section
 
-  bool? get getUniversalAccessStatus =>
+  bool? get universalAccessStatus =>
       _desktopA11Settings?.boolValue(_universalAccessStatusKey);
 
   void setUniversalAccessStatus(bool value) {
@@ -119,7 +119,7 @@ class AccessibilityModel extends ChangeNotifier {
 
   static const _highContrastTheme = 'HighContrast';
 
-  bool? get getHighContrast =>
+  bool? get highContrast =>
       _interfaceSettings?.stringValue(_gtkThemeKey) == _highContrastTheme;
 
   void setHighContrast(bool value) {
@@ -133,11 +133,10 @@ class AccessibilityModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  double? get _getTextScalingFactor =>
+  double? get _textScalingFactor =>
       _interfaceSettings?.doubleValue(_textScalingFactorKey);
 
-  bool get getLargeText =>
-      _getTextScalingFactor != null && _getTextScalingFactor! > 1.0;
+  bool get largeText => _textScalingFactor != null && _textScalingFactor! > 1.0;
 
   void setLargeText(bool value) {
     double factor = value ? 1.25 : 1.0;
@@ -145,11 +144,11 @@ class AccessibilityModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  int? get getCursorSize => _interfaceSettings?.intValue(_cursorSizeKey);
+  int? get cursorSize => _interfaceSettings?.intValue(_cursorSizeKey);
 
-  String cursorSize() {
+  String cursorSizeString() {
     String value = '';
-    switch (getCursorSize) {
+    switch (cursorSize) {
       case 24:
         value = 'Default';
         break;
@@ -166,7 +165,7 @@ class AccessibilityModel extends ChangeNotifier {
         value = 'Largest';
         break;
       default:
-        value = '$getCursorSize pixels';
+        value = '$cursorSize pixels';
     }
     return value;
   }
@@ -176,31 +175,30 @@ class AccessibilityModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  bool? get getZoom => _a11yAppsSettings?.boolValue(_zoomKey);
+  bool? get zoom => _a11yAppsSettings?.boolValue(_zoomKey);
 
   void setZoom(bool value) {
     _a11yAppsSettings?.setValue(_zoomKey, value);
     notifyListeners();
   }
 
-  double? get getMagFactor =>
-      _a11yMagnifierSettings?.doubleValue(_magFactorKey);
+  double? get magFactor => _a11yMagnifierSettings?.doubleValue(_magFactorKey);
 
   void setMagFactor(double value) {
     _a11yMagnifierSettings?.setValue(_magFactorKey, value);
     notifyListeners();
   }
 
-  bool? get getLensMode => _a11yMagnifierSettings?.boolValue(_lensModeKey);
+  bool? get lensMode => _a11yMagnifierSettings?.boolValue(_lensModeKey);
 
-  bool get getScreenPartEnabled => getLensMode != null && !getLensMode!;
+  bool get screenPartEnabled => lensMode != null && !lensMode!;
 
   void setLensMode(bool value) {
     _a11yMagnifierSettings?.setValue(_lensModeKey, value);
     notifyListeners();
   }
 
-  String? get getScreenPosition =>
+  String? get screenPosition =>
       _a11yMagnifierSettings?.stringValue(_screenPositionKey);
 
   void setScreenPosition(String value) {
@@ -208,7 +206,7 @@ class AccessibilityModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  bool? get getScrollAtEdges =>
+  bool? get scrollAtEdges =>
       _a11yMagnifierSettings?.boolValue(_scrollAtEdgesKey);
 
   void setScrollAtEdges(bool value) {
@@ -216,7 +214,7 @@ class AccessibilityModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  String? get getMouseTracking =>
+  String? get mouseTracking =>
       _a11yMagnifierSettings?.stringValue(_mouseTrackingKey);
 
   void setMouseTracking(String value) {
@@ -224,14 +222,14 @@ class AccessibilityModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  bool? get getCrossHairs => _a11yMagnifierSettings?.boolValue(_crossHairsKey);
+  bool? get crossHairs => _a11yMagnifierSettings?.boolValue(_crossHairsKey);
 
   void setCrossHairs(bool value) {
     _a11yMagnifierSettings?.setValue(_crossHairsKey, value);
     notifyListeners();
   }
 
-  bool? get getCrossHairsClip {
+  bool? get crossHairsClip {
     if (_a11yMagnifierSettings != null) {
       return !_a11yMagnifierSettings!.boolValue(_crossHairsClipKey);
     }
@@ -242,7 +240,7 @@ class AccessibilityModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  double? get getCrossHairsThickness =>
+  double? get crossHairsThickness =>
       _a11yMagnifierSettings?.intValue(_crossHairsThicknessKey).toDouble();
 
   void setCrossHairsThickness(double value) {
@@ -250,7 +248,7 @@ class AccessibilityModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  double? get getCrossHairsLength =>
+  double? get crossHairsLength =>
       _a11yMagnifierSettings?.intValue(_crossHairsLengthKey).toDouble();
 
   void setCrossHairsLength(double value) {
@@ -258,7 +256,7 @@ class AccessibilityModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  bool? get getInverseLightness =>
+  bool? get inverseLightness =>
       _a11yMagnifierSettings?.boolValue(_inverseLightnessKey);
 
   void setInverseLightness(bool value) {
@@ -266,7 +264,7 @@ class AccessibilityModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  double? get getColorBrightness =>
+  double? get colorBrightness =>
       _a11yMagnifierSettings?.doubleValue(_brightnessRedKey);
 
   void setColorBrightness(double value) {
@@ -276,7 +274,7 @@ class AccessibilityModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  double? get getColorContrast =>
+  double? get colorContrast =>
       _a11yMagnifierSettings?.doubleValue(_contrastRedKey);
 
   void setColorContrast(double value) {
@@ -286,7 +284,7 @@ class AccessibilityModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  double? get getColorSaturation =>
+  double? get colorSaturation =>
       _a11yMagnifierSettings?.doubleValue(_colorSaturationKey);
 
   void setColorSaturation(double value) {
@@ -294,14 +292,14 @@ class AccessibilityModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  bool? get getScreenReader => _a11yAppsSettings?.boolValue(_screenReaderKey);
+  bool? get screenReader => _a11yAppsSettings?.boolValue(_screenReaderKey);
 
   void setScreenReader(bool value) {
     _a11yAppsSettings?.setValue(_screenReaderKey, value);
     notifyListeners();
   }
 
-  bool? get getToggleKeys => _a11yKeyboardSettings?.boolValue(_toggleKeysKey);
+  bool? get toggleKeys => _a11yKeyboardSettings?.boolValue(_toggleKeysKey);
 
   void setToggleKeys(bool value) {
     _a11yKeyboardSettings?.setValue(_toggleKeysKey, value);
@@ -309,15 +307,14 @@ class AccessibilityModel extends ChangeNotifier {
   }
 
   // Hearing section
-  bool? get getVisualAlerts =>
-      _wmPreferencesSettings?.boolValue(_visualBellKey);
+  bool? get visualAlerts => _wmPreferencesSettings?.boolValue(_visualBellKey);
 
   void setVisualAlerts(bool value) {
     _wmPreferencesSettings?.setValue(_visualBellKey, value);
     notifyListeners();
   }
 
-  String? get getVisualAlertsType =>
+  String? get visualAlertsType =>
       _wmPreferencesSettings?.stringValue(_visualBellTypeKey);
 
   void setVisualAlertsType(String value) {
@@ -326,15 +323,14 @@ class AccessibilityModel extends ChangeNotifier {
   }
 
   // Typing section
-  bool? get getScreenKeyboard =>
-      _a11yAppsSettings?.boolValue(_screenKeyboardKey);
+  bool? get screenKeyboard => _a11yAppsSettings?.boolValue(_screenKeyboardKey);
 
   void setScreenKeyboard(bool value) {
     _a11yAppsSettings?.setValue(_screenKeyboardKey, value);
     notifyListeners();
   }
 
-  bool? get getKeyboardRepeat =>
+  bool? get keyboardRepeat =>
       _peripheralsKeyboardSettings?.boolValue(_repeatKeyboardKey);
 
   void setKeyboardRepeat(bool value) {
@@ -342,7 +338,7 @@ class AccessibilityModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  double? get getDelay =>
+  double? get delay =>
       _peripheralsKeyboardSettings?.intValue(_delayKeyboardKey).toDouble();
 
   void setDelay(double value) {
@@ -350,7 +346,7 @@ class AccessibilityModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  double? get getInterval => _peripheralsKeyboardSettings
+  double? get interval => _peripheralsKeyboardSettings
       ?.intValue(_repeatIntervalKeyboardKey)
       .toDouble();
 
@@ -360,14 +356,14 @@ class AccessibilityModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  bool? get getCursorBlink => _interfaceSettings?.boolValue(_cursorBlinkKey);
+  bool? get cursorBlink => _interfaceSettings?.boolValue(_cursorBlinkKey);
 
   void setCursorBlink(bool value) {
     _interfaceSettings?.setValue(_cursorBlinkKey, value);
     notifyListeners();
   }
 
-  double? get getCursorBlinkTime =>
+  double? get cursorBlinkTime =>
       _interfaceSettings?.intValue(_cursorBlinkTimeKey).toDouble();
 
   void setCursorBlinkTime(double value) {
@@ -375,14 +371,12 @@ class AccessibilityModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  bool get _getTypingAssist =>
-      (getStickyKeys ?? false) ||
-      (getSlowKeys ?? false) ||
-      (getBounceKeys ?? false);
+  bool get _typingAssist =>
+      (stickyKeys ?? false) || (slowKeys ?? false) || (bounceKeys ?? false);
 
-  String get getTypingAssistString => _getTypingAssist ? 'On' : 'Off';
+  String get typingAssistString => _typingAssist ? 'On' : 'Off';
 
-  bool? get getKeyboardEnable =>
+  bool? get keyboardEnable =>
       _a11yKeyboardSettings?.boolValue(_enableA11yKeyboardKey);
 
   void setKeyboardEnable(bool value) {
@@ -390,14 +384,14 @@ class AccessibilityModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  bool? get getStickyKeys => _a11yKeyboardSettings?.boolValue(_stickyKeysKey);
+  bool? get stickyKeys => _a11yKeyboardSettings?.boolValue(_stickyKeysKey);
 
   void setStickyKeys(bool value) {
     _a11yKeyboardSettings?.setValue(_stickyKeysKey, value);
     notifyListeners();
   }
 
-  bool? get getStickyKeysTwoKey =>
+  bool? get stickyKeysTwoKey =>
       _a11yKeyboardSettings?.boolValue(_stickyKeysTwoKeyOffKey);
 
   void setStickyKeysTwoKey(bool value) {
@@ -405,7 +399,7 @@ class AccessibilityModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  bool? get getStickyKeysBeep =>
+  bool? get stickyKeysBeep =>
       _a11yKeyboardSettings?.boolValue(_stickyKeysModifierBeepKey);
 
   void setStickyKeysBeep(bool value) {
@@ -413,14 +407,14 @@ class AccessibilityModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  bool? get getSlowKeys => _a11yKeyboardSettings?.boolValue(_slowKeysKey);
+  bool? get slowKeys => _a11yKeyboardSettings?.boolValue(_slowKeysKey);
 
   void setSlowKeys(bool value) {
     _a11yKeyboardSettings?.setValue(_slowKeysKey, value);
     notifyListeners();
   }
 
-  double? get getSlowKeysDelay =>
+  double? get slowKeysDelay =>
       _a11yKeyboardSettings?.intValue(_slowKeysDelayKey).toDouble();
 
   void setSlowKeysDelay(double value) {
@@ -428,7 +422,7 @@ class AccessibilityModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  bool? get getSlowKeysBeepPress =>
+  bool? get slowKeysBeepPress =>
       _a11yKeyboardSettings?.boolValue(_slowKeysBeepPressKey);
 
   void setSlowKeysBeepPress(bool value) {
@@ -436,7 +430,7 @@ class AccessibilityModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  bool? get getSlowKeysBeepAccept =>
+  bool? get slowKeysBeepAccept =>
       _a11yKeyboardSettings?.boolValue(_slowKeysBeepAcceptKey);
 
   void setSlowKeysBeepAccept(bool value) {
@@ -444,7 +438,7 @@ class AccessibilityModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  bool? get getSlowKeysBeepReject =>
+  bool? get slowKeysBeepReject =>
       _a11yKeyboardSettings?.boolValue(_slowKeysBeepRejectKey);
 
   void setSlowKeysBeepReject(bool value) {
@@ -452,14 +446,14 @@ class AccessibilityModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  bool? get getBounceKeys => _a11yKeyboardSettings?.boolValue(_bounceKeysKey);
+  bool? get bounceKeys => _a11yKeyboardSettings?.boolValue(_bounceKeysKey);
 
   void setBounceKeys(bool value) {
     _a11yKeyboardSettings?.setValue(_bounceKeysKey, value);
     notifyListeners();
   }
 
-  double? get getBounceKeysDelay =>
+  double? get bounceKeysDelay =>
       _a11yKeyboardSettings?.intValue(_bounceKeysDelayKey).toDouble();
 
   void setBounceKeysDelay(double value) {
@@ -467,7 +461,7 @@ class AccessibilityModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  bool? get getBounceKeysBeepReject =>
+  bool? get bounceKeysBeepReject =>
       _a11yKeyboardSettings?.boolValue(_bounceKeysBeepRejectKey);
 
   void setBounceKeysBeepReject(bool value) {
@@ -476,22 +470,21 @@ class AccessibilityModel extends ChangeNotifier {
   }
 
   // Pointing & Clicking section
-  bool? get getMouseKeys => _a11yKeyboardSettings?.boolValue(_mouseKeysKey);
+  bool? get mouseKeys => _a11yKeyboardSettings?.boolValue(_mouseKeysKey);
 
   void setMouseKeys(bool value) {
     _a11yKeyboardSettings?.setValue(_mouseKeysKey, value);
     notifyListeners();
   }
 
-  bool? get getLocatePointer =>
-      _interfaceSettings?.boolValue(_locatePointerKey);
+  bool? get locatePointer => _interfaceSettings?.boolValue(_locatePointerKey);
 
   void setLocatePointer(bool value) {
     _interfaceSettings?.setValue(_locatePointerKey, value);
     notifyListeners();
   }
 
-  double? get getDoubleClickDelay =>
+  double? get doubleClickDelay =>
       _peripheralsMouseSettings?.intValue(_doubleClickDelayKey).toDouble();
 
   void setDoubleClickDelay(double value) {
@@ -499,12 +492,12 @@ class AccessibilityModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  bool get getClickAssist =>
-      (getSimulatedSecondaryClick ?? false) || (getDwellClick ?? false);
+  bool get clickAssist =>
+      (simulatedSecondaryClick ?? false) || (dwellClick ?? false);
 
-  String get getClickAssistString => getClickAssist ? 'On' : 'Off';
+  String get clickAssistString => clickAssist ? 'On' : 'Off';
 
-  bool? get getSimulatedSecondaryClick =>
+  bool? get simulatedSecondaryClick =>
       _a11yMouseSettings?.boolValue(_secondaryClickEnabledKey);
 
   void setSimulatedSecondaryClick(bool value) {
@@ -512,7 +505,7 @@ class AccessibilityModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  double? get getSecondaryClickTime =>
+  double? get secondaryClickTime =>
       _a11yMouseSettings?.doubleValue(_secondaryClickTimeKey);
 
   void setSecondaryClickTime(double value) {
@@ -520,22 +513,21 @@ class AccessibilityModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  bool? get getDwellClick =>
-      _a11yMouseSettings?.boolValue(_dwellClickEnabledKey);
+  bool? get dwellClick => _a11yMouseSettings?.boolValue(_dwellClickEnabledKey);
 
   void setDwellClick(bool value) {
     _a11yMouseSettings?.setValue(_dwellClickEnabledKey, value);
     notifyListeners();
   }
 
-  double? get getDwellTime => _a11yMouseSettings?.doubleValue(_dwellTimeKey);
+  double? get dwellTime => _a11yMouseSettings?.doubleValue(_dwellTimeKey);
 
   void setDwellTime(double value) {
     _a11yMouseSettings?.setValue(_dwellTimeKey, value);
     notifyListeners();
   }
 
-  double? get getDwellThreshold =>
+  double? get dwellThreshold =>
       _a11yMouseSettings?.intValue(_dwellThresholdKey).toDouble();
 
   void setDwellThreshold(double value) {

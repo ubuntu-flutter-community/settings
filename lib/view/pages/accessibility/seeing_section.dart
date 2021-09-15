@@ -20,18 +20,18 @@ class SeeingSection extends StatelessWidget {
       children: [
         SwitchSettingsRow(
           actionLabel: 'High Contrast',
-          value: model.getHighContrast,
+          value: model.highContrast,
           onChanged: (value) => model.setHighContrast(value),
         ),
         SwitchSettingsRow(
           actionLabel: 'Large Text',
-          value: model.getLargeText,
+          value: model.largeText,
           onChanged: (value) => model.setLargeText(value),
         ),
         const _CursorSize(),
         ExtraOptionsGsettingsRow(
           actionLabel: 'Zoom',
-          value: model.getZoom,
+          value: model.zoom,
           onChanged: (value) => model.setZoom(value),
           onPressed: () => showDialog(
             context: context,
@@ -45,14 +45,14 @@ class SeeingSection extends StatelessWidget {
           actionLabel: 'Screen Reader',
           actionDescription:
               'The screen reader reads displayed text as you move the focus',
-          value: model.getScreenReader,
+          value: model.screenReader,
           onChanged: (value) => model.setScreenReader(value),
         ),
         SwitchSettingsRow(
           actionLabel: 'Sound Keys',
           actionDescription:
               'Beep when Num Lock or Caps Lock are turned on or off',
-          value: model.getToggleKeys,
+          value: model.toggleKeys,
           onChanged: (value) => model.setToggleKeys(value),
         ),
       ],
@@ -73,7 +73,7 @@ class _CursorSize extends StatelessWidget {
       secondChild: Row(
         children: [
           const SizedBox(width: 24.0),
-          Text(model.cursorSize()),
+          Text(model.cursorSizeString()),
           const SizedBox(width: 24.0),
           SizedBox(
             width: 40,
@@ -109,27 +109,27 @@ class _CursorSizeSettings extends StatelessWidget {
         _CursorButton(
           imageName: 'assets/images/cursor/left_ptr_24px.png',
           onPressed: () => model.setCursorSize(24),
-          selected: model.getCursorSize == 24,
+          selected: model.cursorSize == 24,
         ),
         _CursorButton(
           imageName: 'assets/images/cursor/left_ptr_32px.png',
           onPressed: () => model.setCursorSize(32),
-          selected: model.getCursorSize == 32,
+          selected: model.cursorSize == 32,
         ),
         _CursorButton(
           imageName: 'assets/images/cursor/left_ptr_48px.png',
           onPressed: () => model.setCursorSize(48),
-          selected: model.getCursorSize == 48,
+          selected: model.cursorSize == 48,
         ),
         _CursorButton(
           imageName: 'assets/images/cursor/left_ptr_64px.png',
           onPressed: () => model.setCursorSize(64),
-          selected: model.getCursorSize == 64,
+          selected: model.cursorSize == 64,
         ),
         _CursorButton(
           imageName: 'assets/images/cursor/left_ptr_96px.png',
           onPressed: () => model.setCursorSize(96),
-          selected: model.getCursorSize == 96,
+          selected: model.cursorSize == 96,
         ),
       ],
     );
@@ -218,7 +218,7 @@ class _MagnifierOptions extends StatelessWidget {
             enabled: true,
             min: 1,
             max: 20,
-            value: model.getMagFactor,
+            value: model.magFactor,
             onChanged: (value) => model.setMagFactor(value),
           ),
           const Text('Magnifier Position'),
@@ -241,20 +241,20 @@ class _MagnifierPositionOptions extends StatelessWidget {
           title: 'Follow mouse cursor',
           value: true,
           enabled: true,
-          groupValue: model.getLensMode,
+          groupValue: model.lensMode,
           onChanged: (bool? value) => model.setLensMode(value!),
         ),
         _RadioRow(
           title: 'Screen part',
           enabled: true,
           value: false,
-          groupValue: model.getLensMode,
+          groupValue: model.lensMode,
           onChanged: (bool? value) => model.setLensMode(value!),
           secondary: DropdownButton<String>(
-            onChanged: !model.getScreenPartEnabled
+            onChanged: !model.screenPartEnabled
                 ? null
                 : (value) => model.setScreenPosition(value!),
-            value: model.getScreenPosition,
+            value: model.screenPosition,
             items: const [
               DropdownMenuItem(
                 value: 'full-screen',
@@ -284,31 +284,31 @@ class _MagnifierPositionOptions extends StatelessWidget {
           child: Column(
             children: [
               CheckboxRow(
-                enabled: model.getScreenPartEnabled,
-                value: model.getScrollAtEdges,
+                enabled: model.screenPartEnabled,
+                value: model.scrollAtEdges,
                 onChanged: (value) => model.setScrollAtEdges(value!),
                 text: 'Magnifier extends outside of screen',
               ),
               _RadioRow(
                 title: 'Keep magnifier cursor centered',
                 value: 'centered',
-                groupValue: model.getMouseTracking,
+                groupValue: model.mouseTracking,
                 onChanged: (String? value) => model.setMouseTracking(value!),
-                enabled: model.getScreenPartEnabled,
+                enabled: model.screenPartEnabled,
               ),
               _RadioRow(
                 title: 'Magnifier cursor pushes contents around',
                 value: 'push',
-                groupValue: model.getMouseTracking,
+                groupValue: model.mouseTracking,
                 onChanged: (String? value) => model.setMouseTracking(value!),
-                enabled: model.getScreenPartEnabled,
+                enabled: model.screenPartEnabled,
               ),
               _RadioRow(
                 title: 'Magnifier cursor moves with contents',
                 value: 'proportional',
-                groupValue: model.getMouseTracking,
+                groupValue: model.mouseTracking,
                 onChanged: (String? value) => model.setMouseTracking(value!),
-                enabled: model.getScreenPartEnabled,
+                enabled: model.screenPartEnabled,
               ),
             ],
           ),
@@ -380,13 +380,13 @@ class _CrosshairsOptions extends StatelessWidget {
         children: [
           CheckboxRow(
             enabled: true,
-            value: model.getCrossHairs,
+            value: model.crossHairs,
             onChanged: (value) => model.setCrossHairs(value!),
             text: 'Visible',
           ),
           CheckboxRow(
             enabled: true,
-            value: model.getCrossHairsClip,
+            value: model.crossHairsClip,
             onChanged: (value) => model.setCrossHairsClip(value!),
             text: 'Overlaps mouse cursor',
           ),
@@ -395,7 +395,7 @@ class _CrosshairsOptions extends StatelessWidget {
             enabled: true,
             min: 1,
             max: 100,
-            value: model.getCrossHairsThickness,
+            value: model.crossHairsThickness,
             onChanged: (value) => model.setCrossHairsThickness(value),
           ),
           SliderSettingsSecondary(
@@ -403,7 +403,7 @@ class _CrosshairsOptions extends StatelessWidget {
             enabled: true,
             min: 20,
             max: 4096,
-            value: model.getCrossHairsLength,
+            value: model.crossHairsLength,
             onChanged: (value) => model.setCrossHairsLength(value),
           ),
           Row(
@@ -437,7 +437,7 @@ class _ColorEffectsOptions extends StatelessWidget {
         children: [
           CheckboxRow(
             enabled: true,
-            value: model.getInverseLightness,
+            value: model.inverseLightness,
             onChanged: (value) => model.setInverseLightness(value!),
             text: 'White on black',
           ),
@@ -446,7 +446,7 @@ class _ColorEffectsOptions extends StatelessWidget {
             enabled: true,
             min: -0.75,
             max: 0.75,
-            value: model.getColorBrightness,
+            value: model.colorBrightness,
             onChanged: (value) => model.setColorBrightness(value),
           ),
           SliderSettingsSecondary(
@@ -454,7 +454,7 @@ class _ColorEffectsOptions extends StatelessWidget {
             enabled: true,
             min: -0.75,
             max: 0.75,
-            value: model.getColorContrast,
+            value: model.colorContrast,
             onChanged: (value) => model.setColorContrast(value),
           ),
           SliderSettingsSecondary(
@@ -462,7 +462,7 @@ class _ColorEffectsOptions extends StatelessWidget {
             enabled: true,
             min: 0,
             max: 1,
-            value: model.getColorSaturation,
+            value: model.colorSaturation,
             onChanged: (value) => model.setColorSaturation(value),
           ),
         ],
