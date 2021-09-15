@@ -10,23 +10,23 @@ class MouseSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _model = Provider.of<MouseAndTouchpadModel>(context);
+    final model = Provider.of<MouseAndTouchpadModel>(context);
 
     return SettingsSection(
       headline: 'Mouse',
       children: [
         SliderSettingsRow(
           actionLabel: 'Speed',
-          value: _model.getMouseSpeed,
+          value: model.getMouseSpeed,
           min: -1,
           max: 1,
-          onChanged: (value) => _model.setMouseSpeed(value),
+          onChanged: (value) => model.setMouseSpeed(value),
         ),
         SwitchSettingsRow(
           actionLabel: 'Natural Scrolling',
           actionDescription: 'Scrolling moves the content, not the view',
-          value: _model.getMouseNaturalScroll,
-          onChanged: (value) => _model.setMouseNaturalScroll(value),
+          value: model.getMouseNaturalScroll,
+          onChanged: (value) => model.setMouseNaturalScroll(value),
         ),
       ],
     );

@@ -20,9 +20,9 @@ class ExtraOptionsGsettingsRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _value = value;
+    final value = this.value;
 
-    if (_value == null) {
+    if (value == null) {
       return const SizedBox();
     }
 
@@ -32,7 +32,7 @@ class ExtraOptionsGsettingsRow extends StatelessWidget {
       secondChild: Row(
         children: [
           Switch(
-            value: _value,
+            value: value,
             onChanged: onChanged,
           ),
           const SizedBox(width: 8.0),
