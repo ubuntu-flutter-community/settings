@@ -20,10 +20,10 @@ class SliderSettingsSecondary extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _enabled = enabled;
-    final _value = value;
+    final enabled = this.enabled;
+    final value = this.value;
 
-    if (_value == null || _enabled == null) {
+    if (value == null || enabled == null) {
       return const SizedBox();
     }
 
@@ -32,7 +32,7 @@ class SliderSettingsSecondary extends StatelessWidget {
         Expanded(
           child: Text(
             label,
-            style: _enabled
+            style: enabled
                 ? null
                 : TextStyle(color: Theme.of(context).disabledColor),
           ),
@@ -41,8 +41,8 @@ class SliderSettingsSecondary extends StatelessWidget {
           child: Slider(
             min: min,
             max: max,
-            value: _value,
-            onChanged: _enabled ? onChanged : null,
+            value: value,
+            onChanged: enabled ? onChanged : null,
           ),
         ),
       ],
