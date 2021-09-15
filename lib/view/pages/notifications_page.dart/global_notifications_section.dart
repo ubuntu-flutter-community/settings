@@ -9,20 +9,20 @@ class GlobalNotificationsSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _model = Provider.of<NotificationsModel>(context);
+    final model = Provider.of<NotificationsModel>(context);
 
     return SettingsSection(
       headline: 'Global',
       children: [
         SwitchSettingsRow(
           actionLabel: 'Do Not Disturb',
-          value: _model.getDoNotDisturb,
-          onChanged: (value) => _model.setDoNotDisturb(value),
+          value: model.getDoNotDisturb,
+          onChanged: (value) => model.setDoNotDisturb(value),
         ),
         SwitchSettingsRow(
           actionLabel: 'Show Notifications On Lock Screen',
-          value: _model.getShowOnLockScreen,
-          onChanged: (value) => _model.setShowOnLockScreen(value),
+          value: model.getShowOnLockScreen,
+          onChanged: (value) => model.setShowOnLockScreen(value),
         ),
       ],
     );
