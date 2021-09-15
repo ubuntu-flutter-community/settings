@@ -23,35 +23,35 @@ class AppearanceModel extends ChangeNotifier {
 
   // Dock section
 
-  bool? get getShowTrash => _dashToDockSettings?.boolValue(_showTrashKey);
+  bool? get showTrash => _dashToDockSettings?.boolValue(_showTrashKey);
 
   void setShowTrash(bool value) {
     _dashToDockSettings?.setValue(_showTrashKey, value);
     notifyListeners();
   }
 
-  bool? get getAlwaysShowDock => _dashToDockSettings?.boolValue(_dockFixedKey);
+  bool? get alwaysShowDock => _dashToDockSettings?.boolValue(_dockFixedKey);
 
   void setAlwaysShowDock(bool value) {
     _dashToDockSettings?.setValue(_dockFixedKey, value);
     notifyListeners();
   }
 
-  bool? get getExtendDock => _dashToDockSettings?.boolValue(_extendHeightKey);
+  bool? get extendDock => _dashToDockSettings?.boolValue(_extendHeightKey);
 
   void setExtendDock(bool value) {
     _dashToDockSettings?.setValue(_extendHeightKey, value);
     notifyListeners();
   }
 
-  bool? get getAppGlow => _dashToDockSettings?.boolValue(_backlitItemsKey);
+  bool? get appGlow => _dashToDockSettings?.boolValue(_backlitItemsKey);
 
   void setAppGlow(bool value) {
     _dashToDockSettings?.setValue(_backlitItemsKey, value);
     notifyListeners();
   }
 
-  double? get getMaxIconSize =>
+  double? get maxIconSize =>
       _dashToDockSettings?.intValue(_dashMaxIconSizeKey).toDouble();
 
   void setMaxIconSize(double value) {
@@ -61,12 +61,12 @@ class AppearanceModel extends ChangeNotifier {
 
   static const _dockPositions = ['LEFT', 'RIGHT', 'BOTTOM'];
 
-  String? get _getDockPosition =>
+  String? get _dockPosition =>
       _dashToDockSettings?.stringValue(_dockPositionKey);
 
-  List<bool>? get getSelectedDockPositions {
-    if (_getDockPosition != null) {
-      return _dockPositions.map((value) => _getDockPosition == value).toList();
+  List<bool>? get selectedDockPositions {
+    if (_dockPosition != null) {
+      return _dockPositions.map((value) => _dockPosition == value).toList();
     }
   }
 
@@ -77,12 +77,11 @@ class AppearanceModel extends ChangeNotifier {
 
   static const _clickActions = ['minimize', 'focus-or-previews'];
 
-  String? get _getClickAction =>
-      _dashToDockSettings?.stringValue(_clickActionKey);
+  String? get _clickAction => _dashToDockSettings?.stringValue(_clickActionKey);
 
-  List<bool>? get getSelectedClickActions {
-    if (_getClickAction != null) {
-      return _clickActions.map((value) => _getClickAction == value).toList();
+  List<bool>? get selectedClickActions {
+    if (_clickAction != null) {
+      return _clickActions.map((value) => _clickAction == value).toList();
     }
   }
 

@@ -18,40 +18,40 @@ class DockSection extends StatelessWidget {
       children: [
         SwitchSettingsRow(
           actionLabel: 'Show Trash',
-          value: model.getShowTrash,
+          value: model.showTrash,
           onChanged: (value) => model.setShowTrash(value),
         ),
         SwitchSettingsRow(
           actionLabel: 'Always Show Dock',
-          value: model.getAlwaysShowDock,
+          value: model.alwaysShowDock,
           onChanged: (value) => model.setAlwaysShowDock(value),
         ),
         SwitchSettingsRow(
           actionLabel: 'Extend Dock',
-          value: model.getExtendDock,
+          value: model.extendDock,
           onChanged: (value) => model.setExtendDock(value),
         ),
         SwitchSettingsRow(
           actionLabel: 'Active App Glow',
-          value: model.getAppGlow,
+          value: model.appGlow,
           onChanged: (value) => model.setAppGlow(value),
         ),
         SliderSettingsRow(
           actionLabel: 'Icon Size',
-          value: model.getMaxIconSize,
+          value: model.maxIconSize,
           min: 16,
           max: 64,
           onChanged: (value) => model.setMaxIconSize(value),
         ),
         ToggleButtonsSettingRow(
           actionLabel: 'Dock Position',
-          selectedValues: model.getSelectedDockPositions,
+          selectedValues: model.selectedDockPositions,
           labels: const ['Left', 'Right', 'Bottom'],
           onPressed: (index) => model.setDockPosition(index),
         ),
         ToggleButtonsSettingRow(
           actionLabel: 'App Icon Click Behaviour',
-          selectedValues: model.getSelectedClickActions,
+          selectedValues: model.selectedClickActions,
           labels: const ['Minimize', 'Focus or previews'],
           onPressed: (index) => model.setClickAction(index),
         ),
