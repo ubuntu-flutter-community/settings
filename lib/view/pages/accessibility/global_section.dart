@@ -9,14 +9,14 @@ class GlobalSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _model = Provider.of<AccessibilityModel>(context);
+    final model = Provider.of<AccessibilityModel>(context);
     return SettingsSection(
       headline: 'Global',
       children: [
         SwitchSettingsRow(
           actionLabel: 'Always Show Universal Access Menu',
-          value: _model.getUniversalAccessStatus,
-          onChanged: (value) => _model.setUniversalAccessStatus(value),
+          value: model.getUniversalAccessStatus,
+          onChanged: (value) => model.setUniversalAccessStatus(value),
         ),
       ],
     );
