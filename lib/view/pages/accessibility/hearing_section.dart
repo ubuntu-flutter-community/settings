@@ -23,16 +23,16 @@ class _VisualAlerts extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _model = Provider.of<AccessibilityModel>(context);
+    final model = Provider.of<AccessibilityModel>(context);
     return ExtraOptionsGsettingsRow(
       actionLabel: 'Visual Alerts',
       actionDescription: 'Use a visual indication when an alert sound occurs',
-      value: _model.getVisualAlerts,
-      onChanged: (value) => _model.setVisualAlerts(value),
+      value: model.getVisualAlerts,
+      onChanged: (value) => model.setVisualAlerts(value),
       onPressed: () => showDialog(
         context: context,
         builder: (_) => ChangeNotifierProvider.value(
-          value: _model,
+          value: model,
           child: const _VisualAlertsSettings(),
         ),
       ),
@@ -45,7 +45,7 @@ class _VisualAlertsSettings extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _model = Provider.of<AccessibilityModel>(context);
+    final model = Provider.of<AccessibilityModel>(context);
     return SimpleDialog(
       title: const Center(child: Text('Visual Alerts')),
       contentPadding: const EdgeInsets.all(8.0),
@@ -53,14 +53,14 @@ class _VisualAlertsSettings extends StatelessWidget {
         RadioListTile(
           title: const Text('Flash the entire window'),
           value: 'frame-flash',
-          groupValue: _model.getVisualAlertsType,
-          onChanged: (String? value) => _model.setVisualAlertsType(value!),
+          groupValue: model.getVisualAlertsType,
+          onChanged: (String? value) => model.setVisualAlertsType(value!),
         ),
         RadioListTile(
           title: const Text('Flash the entire screen'),
           value: 'fullscreen-flash',
-          groupValue: _model.getVisualAlertsType,
-          onChanged: (String? value) => _model.setVisualAlertsType(value!),
+          groupValue: model.getVisualAlertsType,
+          onChanged: (String? value) => model.setVisualAlertsType(value!),
         ),
       ],
     );
