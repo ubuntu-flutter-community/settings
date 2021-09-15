@@ -27,7 +27,7 @@ class _VisualAlerts extends StatelessWidget {
     return ExtraOptionsGsettingsRow(
       actionLabel: 'Visual Alerts',
       actionDescription: 'Use a visual indication when an alert sound occurs',
-      value: model.getVisualAlerts,
+      value: model.visualAlerts,
       onChanged: (value) => model.setVisualAlerts(value),
       onPressed: () => showDialog(
         context: context,
@@ -53,13 +53,13 @@ class _VisualAlertsSettings extends StatelessWidget {
         RadioListTile(
           title: const Text('Flash the entire window'),
           value: 'frame-flash',
-          groupValue: model.getVisualAlertsType,
+          groupValue: model.visualAlertsType,
           onChanged: (String? value) => model.setVisualAlertsType(value!),
         ),
         RadioListTile(
           title: const Text('Flash the entire screen'),
           value: 'fullscreen-flash',
-          groupValue: model.getVisualAlertsType,
+          groupValue: model.visualAlertsType,
           onChanged: (String? value) => model.setVisualAlertsType(value!),
         ),
       ],
