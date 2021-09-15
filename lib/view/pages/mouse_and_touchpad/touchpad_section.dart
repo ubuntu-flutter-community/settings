@@ -10,33 +10,33 @@ class TouchpadSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _model = Provider.of<MouseAndTouchpadModel>(context);
+    final model = Provider.of<MouseAndTouchpadModel>(context);
 
     return SettingsSection(
       headline: 'Touchpad',
       children: [
         SliderSettingsRow(
           actionLabel: 'Speed',
-          value: _model.getTouchpadSpeed,
+          value: model.getTouchpadSpeed,
           min: -1,
           max: 1,
-          onChanged: (value) => _model.setTouchpadSpeed(value),
+          onChanged: (value) => model.setTouchpadSpeed(value),
         ),
         SwitchSettingsRow(
           actionLabel: 'Natural Scrolling',
           actionDescription: 'Scrolling moves the content, not the view',
-          value: _model.getTouchpadNaturalScroll,
-          onChanged: (value) => _model.setTouchpadNaturalScroll(value),
+          value: model.getTouchpadNaturalScroll,
+          onChanged: (value) => model.setTouchpadNaturalScroll(value),
         ),
         SwitchSettingsRow(
           actionLabel: 'Tap To Click',
-          value: _model.getTouchpadTapToClick,
-          onChanged: (value) => _model.setTouchpadTapToClick(value),
+          value: model.getTouchpadTapToClick,
+          onChanged: (value) => model.setTouchpadTapToClick(value),
         ),
         SwitchSettingsRow(
           actionLabel: 'Disable While Typing',
-          value: _model.getTouchpadDisableWhileTyping,
-          onChanged: (value) => _model.setTouchpadDisableWhileTyping(value),
+          value: model.getTouchpadDisableWhileTyping,
+          onChanged: (value) => model.setTouchpadDisableWhileTyping(value),
         ),
       ],
     );
