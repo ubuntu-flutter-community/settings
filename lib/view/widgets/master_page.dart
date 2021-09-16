@@ -31,13 +31,28 @@ class MasterPageState extends State<MasterPage> {
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(50.0),
         child: AppBar(
-          leading: const Icon(YaruIcons.search),
           title: const Text(
             'Settings',
             style: TextStyle(fontWeight: FontWeight.normal),
           ),
         ),
       ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () => {
+          showDialog(
+              context: context,
+              builder: (context) {
+                return AlertDialog(
+                  title: Text('Search'),
+                  content: TextField(
+                    autofocus: true,
+                  ),
+                );
+              })
+        },
+        child: Icon(YaruIcons.search),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.miniEndTop,
       body: Center(
         child: Container(
           decoration: BoxDecoration(
