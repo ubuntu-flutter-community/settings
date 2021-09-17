@@ -140,7 +140,7 @@ class MasterPageState extends State<MasterPage> {
                   })).then((value) => setState(() {
                 _scrollController.scrollTo(
                     index: menuItems.indexOf(_selectedMenuItem),
-                    duration: const Duration(microseconds: 300));
+                    duration: const Duration(milliseconds: 300));
                 // scrollController.jumpTo(value);
               }));
         },
