@@ -1,25 +1,33 @@
 import 'package:flutter/material.dart';
+import 'package:settings/view/widgets/slider_value_marker.dart';
 
 class SliderSettingsSecondary extends StatelessWidget {
   const SliderSettingsSecondary({
     Key? key,
     required this.label,
     required this.enabled,
+    required this.value,
+    this.defaultValue,
     required this.min,
     required this.max,
-    required this.value,
+    this.showValue = true,
+    this.fractionDigits = 0,
     required this.onChanged,
   }) : super(key: key);
 
   final String label;
   final bool? enabled;
+  final double? value;
+  final double? defaultValue;
   final double min;
   final double max;
-  final double? value;
+  final bool showValue;
+  final int fractionDigits;
   final Function(double) onChanged;
 
   @override
   Widget build(BuildContext context) {
+    const thumbRadius = 24.0;
     final enabled = this.enabled;
     final value = this.value;
 
@@ -27,25 +35,56 @@ class SliderSettingsSecondary extends StatelessWidget {
       return const SizedBox();
     }
 
-    return Row(
-      children: [
-        Expanded(
-          child: Text(
-            label,
-            style: enabled
-                ? null
-                : TextStyle(color: Theme.of(context).disabledColor),
+    return SizedBox(
+      width: 500,
+      height: 48,
+      child: Row(
+        children: [
+          Expanded(
+            child: Text(
+              label,
+              style: enabled
+                  ? null
+                  : TextStyle(color: Theme.of(context).disabledColor),
+            ),
           ),
-        ),
-        Expanded(
-          child: Slider(
-            min: min,
-            max: max,
-            value: value,
-            onChanged: enabled ? onChanged : null,
+          Expanded(
+            flex: 2,
+            child: Row(
+              children: [
+                if (showValue)
+                  Text(
+                    value.toStringAsFixed(fractionDigits),
+                  ),
+                Expanded(
+                  child: LayoutBuilder(
+                    builder: (_, constraints) => Stack(
+                      alignment: Alignment.center,
+                      children: [
+                        if (defaultValue != null)
+                          Positioned(
+                            left: thumbRadius +
+                                (constraints.maxWidth - thumbRadius * 2) *
+                                    (defaultValue! - min) /
+                                    (max - min),
+                            child: const Marker(),
+                          ),
+                        Slider(
+                          label: value.toStringAsFixed(0),
+                          min: min,
+                          max: max,
+                          value: value,
+                          onChanged: enabled ? onChanged : null,
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }
