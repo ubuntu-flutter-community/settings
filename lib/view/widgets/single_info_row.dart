@@ -12,17 +12,18 @@ class SingleInfoRow extends StatelessWidget {
   
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(top: 0, bottom: 0),
-      child: SettingsRow(
-        actionLabel: infoLabel,
-        secondChild: Text(
+    return SettingsRow(
+      actionLabel: infoLabel,
+      secondChild: Expanded(
+        flex: 2,
+        child: Text(
           infoValue,
           style: TextStyle(
             color: Theme.of(context).colorScheme.onSurface.withAlpha(150),
-          )
+          ),
+          textAlign: TextAlign.right
         )
-      ),
+      )
     );
   }
 }
