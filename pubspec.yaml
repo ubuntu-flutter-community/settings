@@ -15,7 +15,6 @@ dependencies:
   yaru: ^0.1.2
   yaru_icons: ^0.0.4
   gsettings: ^0.1.2+1
-  responsive_scaffold_nullsafe: ^1.0.0
   provider: ^5.0.0
   scrollable_positioned_list: ^0.2.0-nullsafety.0
 

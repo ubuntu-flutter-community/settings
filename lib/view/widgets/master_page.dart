@@ -9,6 +9,8 @@ import 'package:settings/view/widgets/detail_route.dart';
 import 'package:settings/view/widgets/menu_item.dart';
 import 'package:yaru_icons/widgets/yaru_icons.dart';
 
+import 'master_detail_utils.dart';
+
 class MasterPage extends StatefulWidget {
   const MasterPage({Key? key}) : super(key: key);
 
@@ -31,6 +33,12 @@ class MasterPageState extends State<MasterPage> {
   }
 
   @override
+  void dispose() {
+    super.dispose();
+    _searchController.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
     final filteredItems = <MenuItem>[];
@@ -48,6 +56,96 @@ class MasterPageState extends State<MasterPage> {
 
     filterItems();
 
+    void openSearchDialog() {
+      showDialog(
+          barrierDismissible: true,
+          useSafeArea: true,
+          context: context,
+          builder: (_) => StatefulBuilder(builder: (context, setState) {
+                return SingleChildScrollView(
+                  child: Align(
+                    alignment: Alignment(-1, 0),
+                    child: Material(
+                      elevation: 0,
+                      child: Padding(
+                        padding: const EdgeInsets.all(12),
+                        child: SizedBox(
+                          width: kTabletMasterContainerWidth,
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.only(bottom: 12),
+                                child: TextField(
+                                  onChanged: (value) {
+                                    filterItems();
+                                    setState(() {});
+                                  },
+                                  controller: _searchController,
+                                  autofocus: true,
+                                ),
+                              ),
+                              SizedBox(
+                                // width: 200,
+                                height: height,
+                                child: ListView.builder(
+                                    itemCount: filteredItems.length,
+                                    itemBuilder: (context, index) {
+                                      return ListTile(
+                                          shape: const RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.all(
+                                                Radius.circular(4.0)),
+                                          ),
+                                          leading: Icon(
+                                            filteredItems[index].iconData,
+                                            color: Theme.of(context)
+                                                .colorScheme
+                                                .onSurface
+                                                .withOpacity(0.8),
+                                          ),
+                                          selected: filteredItems[index] ==
+                                              _selectedMenuItem,
+                                          title: Text(
+                                            filteredItems[index].name,
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.normal,
+                                                color: Theme.of(context)
+                                                    .colorScheme
+                                                    .onSurface),
+                                          ),
+                                          onTap: () {
+                                            final tappedItem =
+                                                filteredItems[index];
+                                            late int matchedIndex;
+                                            for (var menuItem in menuItems) {
+                                              if (menuItem.name ==
+                                                  tappedItem.name) {
+                                                matchedIndex =
+                                                    menuItems.indexOf(menuItem);
+                                              }
+                                            }
+                                            goToDetail(matchedIndex);
+                                            setState(() {});
+                                          });
+                                    }),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                );
+              })).then((value) => setState(() {
+            _scrollController.scrollTo(
+                index: menuItems.indexOf(_selectedMenuItem),
+                duration: const Duration(milliseconds: 300));
+            // scrollController.jumpTo(value);
+          }));
+    }
+
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(50.0),
@@ -62,87 +160,7 @@ class MasterPageState extends State<MasterPage> {
         onPressed: () {
           _searchController.clear();
           filterItems();
-          showDialog(
-              useSafeArea: true,
-              context: context,
-              builder: (_) => StatefulBuilder(builder: (context, setState) {
-                    return SingleChildScrollView(
-                      child: AlertDialog(
-                        actions: [
-                          TextButton(
-                              onPressed: () => Navigator.of(context).pop(),
-                              child: const Text('Close'))
-                        ],
-                        title: const Text('Search'),
-                        content: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.only(bottom: 12),
-                              child: TextField(
-                                onChanged: (value) {
-                                  filterItems();
-                                  setState(() {});
-                                },
-                                controller: _searchController,
-                                autofocus: true,
-                              ),
-                            ),
-                            SizedBox(
-                              height: height / 2,
-                              width: 300,
-                              child: ListView.builder(
-                                  itemCount: filteredItems.length,
-                                  itemBuilder: (context, index) {
-                                    return ListTile(
-                                        shape: const RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.all(
-                                              Radius.circular(4.0)),
-                                        ),
-                                        leading: Icon(
-                                          filteredItems[index].iconData,
-                                          color: Theme.of(context)
-                                              .colorScheme
-                                              .onSurface
-                                              .withOpacity(0.8),
-                                        ),
-                                        selected: filteredItems[index] ==
-                                            _selectedMenuItem,
-                                        title: Text(
-                                          filteredItems[index].name,
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.normal,
-                                              color: Theme.of(context)
-                                                  .colorScheme
-                                                  .onSurface),
-                                        ),
-                                        onTap: () {
-                                          final tappedItem =
-                                              filteredItems[index];
-                                          late int matchedIndex;
-                                          for (var menuItem in menuItems) {
-                                            if (menuItem.name ==
-                                                tappedItem.name) {
-                                              matchedIndex =
-                                                  menuItems.indexOf(menuItem);
-                                            }
-                                          }
-                                          goToDetail(matchedIndex);
-                                          setState(() {});
-                                        });
-                                  }),
-                            ),
-                          ],
-                        ),
-                      ),
-                    );
-                  })).then((value) => setState(() {
-                _scrollController.scrollTo(
-                    index: menuItems.indexOf(_selectedMenuItem),
-                    duration: const Duration(milliseconds: 300));
-                // scrollController.jumpTo(value);
-              }));
+          openSearchDialog();
         },
         child: const Icon(YaruIcons.search),
       ),
