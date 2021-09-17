@@ -17,14 +17,35 @@ class SliderSettingsRow extends StatelessWidget {
     required this.onChanged,
   }) : super(key: key);
 
+  /// Name of the setting
   final String actionLabel;
+
+  /// Optional description of the setting
   final String? actionDescription;
+
+  /// Current value of the setting
   final double? value;
+
+  /// Default value of the setting
   final double? defaultValue;
+
+  /// Minimal value of the setting
   final double min;
+
+  /// Maximum value of the setting
   final double max;
+
+  /// If true, the current [value] is visible as a text next to the slider
+  ///
+  /// Defaults to true
   final bool showValue;
+
+  /// Number of digits after decimal point for [value] displayed as a text
+  ///
+  /// Defaults to 0 (no fractional part)
   final int fractionDigits;
+
+  /// Function run when the slider changes its value
   final Function(double) onChanged;
 
   @override
