@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:provider/provider.dart';
 import 'package:settings/view/widgets/checkbox_row.dart';
 import '../test_helper.dart';
 
@@ -14,7 +13,7 @@ void main() {
           widgetBuilder: () => CheckboxRow(
             enabled: null,
             value: null,
-            onChanged: (vaue) {},
+            onChanged: (_) {},
             text: 'test text',
           ),
           repository: null,
@@ -32,7 +31,7 @@ void main() {
             body: CheckboxRow(
               enabled: true,
               value: true,
-              onChanged: (vaue) {},
+              onChanged: (_) {},
               text: 'test text',
             ),
           ),
