@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import 'package:settings/view/pages/menu_items.dart';
 import 'package:settings/view/widgets/detail_page.dart';
 import 'package:settings/view/widgets/detail_route.dart';
@@ -18,13 +19,14 @@ class MasterPage extends StatefulWidget {
 class MasterPageState extends State<MasterPage> {
   late MenuItem selectedMenuItem;
   late TextEditingController searchController;
+  late ItemScrollController scrollController;
 
   @override
   void initState() {
     super.initState();
     selectedMenuItem = menuItems.first;
     searchController = TextEditingController();
-
+    scrollController = ItemScrollController();
     Future.microtask(() => {goToDetail(menuItems.indexOf(selectedMenuItem))});
   }
 
@@ -130,7 +132,12 @@ class MasterPageState extends State<MasterPage> {
                         ),
                       ),
                     );
-                  })).then((value) => setState(() {}));
+                  })).then((value) => setState(() {
+                scrollController.scrollTo(
+                    index: menuItems.indexOf(selectedMenuItem),
+                    duration: const Duration(seconds: 1));
+                // scrollController.jumpTo(value);
+              }));
         },
         child: const Icon(YaruIcons.search),
       ),
@@ -142,7 +149,8 @@ class MasterPageState extends State<MasterPage> {
               right: BorderSide(color: Colors.black.withOpacity(0.1)),
             ),
           ),
-          child: ListView.builder(
+          child: ScrollablePositionedList.builder(
+              itemScrollController: scrollController,
               padding: const EdgeInsets.only(top: 8),
               itemCount: menuItems.length,
               itemBuilder: (context, index) {
