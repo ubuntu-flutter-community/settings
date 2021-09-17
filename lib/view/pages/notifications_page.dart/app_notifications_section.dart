@@ -8,28 +8,32 @@ class AppNotificationsSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    late List<String?> _applicationChildren;
+    late List<String?> applicationChildren;
 
-    const _notificationSchemaId = 'org.gnome.desktop.notifications';
+    const notificationSchemaId = 'org.gnome.desktop.notifications';
 
-    if (GSettingsSchema.lookup(_notificationSchemaId) != null) {
-      _applicationChildren = GSettings(schemaId: _notificationSchemaId)
+    if (GSettingsSchema.lookup(notificationSchemaId) != null) {
+      applicationChildren = GSettings(schemaId: notificationSchemaId)
           .stringArrayValue('application-children');
     }
 
     return SettingsSection(
-      schemaId: _notificationSchemaId + '.application',
+      schemaId: notificationSchemaId + '.application',
       headline: 'App notifications',
-      children: GSettingsSchema.lookup(_notificationSchemaId) != null
-          ? _applicationChildren.map(
+      children: GSettingsSchema.lookup(notificationSchemaId) != null
+          ? applicationChildren.map(
               (appString) {
-                const _appSchemaId = _notificationSchemaId + '.application';
-                final _path = '/' + appString.toString() + '/';
+                const appSchemaId = notificationSchemaId + '.application';
+                final path = '/' +
+                    appSchemaId.replaceAll('.', '/') +
+                    '/' +
+                    appString.toString() +
+                    '/';
                 return SingleGsettingRow(
                   actionLabel: appString.toString(),
                   settingsKey: 'enable',
-                  schemaId: _appSchemaId,
-                  path: _path,
+                  schemaId: appSchemaId,
+                  path: path,
                 );
               },
             ).toList()
