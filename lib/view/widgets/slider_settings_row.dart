@@ -21,9 +21,9 @@ class SliderSettingsRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _value = value;
+    final value = this.value;
 
-    if (_value == null) {
+    if (value == null) {
       return const SizedBox();
     }
 
@@ -34,7 +34,7 @@ class SliderSettingsRow extends StatelessWidget {
         child: Slider(
           min: min,
           max: max,
-          value: _value,
+          value: value,
           onChanged: onChanged,
         ),
       ),

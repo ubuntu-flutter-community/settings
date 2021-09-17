@@ -17,9 +17,9 @@ class SwitchSettingsRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _value = value;
+    final value = this.value;
 
-    if (_value == null) {
+    if (value == null) {
       return const SizedBox();
     }
 
@@ -27,7 +27,7 @@ class SwitchSettingsRow extends StatelessWidget {
       actionLabel: actionLabel,
       actionDescription: actionDescription,
       secondChild: Switch(
-        value: _value,
+        value: value,
         onChanged: onChanged,
       ),
     );

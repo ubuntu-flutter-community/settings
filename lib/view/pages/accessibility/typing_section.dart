@@ -15,14 +15,14 @@ class TypingSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _model = Provider.of<AccessibilityModel>(context);
+    final model = Provider.of<AccessibilityModel>(context);
     return SettingsSection(
       headline: 'Typing',
       children: [
         SwitchSettingsRow(
           actionLabel: 'Screen Keyboard',
-          value: _model.getScreenKeyboard,
-          onChanged: (value) => _model.setScreenKeyboard(value),
+          value: model.screenKeyboard,
+          onChanged: (value) => model.setScreenKeyboard(value),
         ),
         const _RepeatKeys(),
         const _CursorBlinking(),
@@ -37,16 +37,16 @@ class _RepeatKeys extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _model = Provider.of<AccessibilityModel>(context);
+    final model = Provider.of<AccessibilityModel>(context);
     return ExtraOptionsGsettingsRow(
       actionLabel: 'Repeat Keys',
       actionDescription: 'Key presses repeat when key is held down',
-      value: _model.getKeyboardRepeat,
-      onChanged: (value) => _model.setKeyboardRepeat(value),
+      value: model.keyboardRepeat,
+      onChanged: (value) => model.setKeyboardRepeat(value),
       onPressed: () => showDialog(
         context: context,
         builder: (_) => ChangeNotifierProvider.value(
-          value: _model,
+          value: model,
           child: const _RepeatKeysSettings(),
         ),
       ),
@@ -59,7 +59,7 @@ class _RepeatKeysSettings extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _model = Provider.of<AccessibilityModel>(context);
+    final model = Provider.of<AccessibilityModel>(context);
     return SimpleDialog(
       title: const Center(child: Text('Repeat Keys')),
       contentPadding: const EdgeInsets.all(8.0),
@@ -67,18 +67,18 @@ class _RepeatKeysSettings extends StatelessWidget {
         SliderSettingsRow(
           actionLabel: 'Delay',
           actionDescription: 'Initial key repeat delay',
-          value: _model.getDelay,
+          value: model.delay,
           min: 100,
           max: 2000,
-          onChanged: (value) => _model.setDelay(value),
+          onChanged: (value) => model.setDelay(value),
         ),
         SliderSettingsRow(
           actionLabel: 'Interval',
           actionDescription: 'Delay between repeats',
-          value: _model.getInterval,
+          value: model.interval,
           min: 0,
           max: 110,
-          onChanged: (value) => _model.setInterval(value),
+          onChanged: (value) => model.setInterval(value),
         ),
       ],
     );
@@ -90,16 +90,16 @@ class _CursorBlinking extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _model = Provider.of<AccessibilityModel>(context);
+    final model = Provider.of<AccessibilityModel>(context);
     return ExtraOptionsGsettingsRow(
       actionLabel: 'Cursor Blinking',
       actionDescription: 'Cursor blinks in text fields',
-      value: _model.getCursorBlink,
-      onChanged: (value) => _model.setCursorBlink(value),
+      value: model.cursorBlink,
+      onChanged: (value) => model.setCursorBlink(value),
       onPressed: () => showDialog(
         context: context,
         builder: (_) => ChangeNotifierProvider.value(
-          value: _model,
+          value: model,
           child: const _CursorBlinkingSettings(),
         ),
       ),
@@ -112,7 +112,7 @@ class _CursorBlinkingSettings extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _model = Provider.of<AccessibilityModel>(context);
+    final model = Provider.of<AccessibilityModel>(context);
     return SimpleDialog(
       title: const Center(child: Text('Cursor Blinking')),
       contentPadding: const EdgeInsets.all(8.0),
@@ -122,8 +122,8 @@ class _CursorBlinkingSettings extends StatelessWidget {
           actionDescription: 'Length of the cursor blink cycle',
           min: 100,
           max: 2500,
-          value: _model.getCursorBlinkTime,
-          onChanged: (value) => _model.setCursorBlinkTime(value),
+          value: model.cursorBlinkTime,
+          onChanged: (value) => model.setCursorBlinkTime(value),
         ),
       ],
     );
@@ -135,13 +135,13 @@ class _TypingAssist extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _model = Provider.of<AccessibilityModel>(context);
+    final model = Provider.of<AccessibilityModel>(context);
 
     return SettingsRow(
       actionLabel: 'Typing Assist (AccessX)',
       secondChild: Row(
         children: [
-          Text(_model.getTypingAssistString),
+          Text(model.typingAssistString),
           const SizedBox(width: 24.0),
           SizedBox(
             width: 40,
@@ -151,7 +151,7 @@ class _TypingAssist extends StatelessWidget {
               onPressed: () => showDialog(
                 context: context,
                 builder: (_) => ChangeNotifierProvider.value(
-                  value: _model,
+                  value: model,
                   child: const _TypingAssistSettings(),
                 ),
               ),
@@ -169,7 +169,7 @@ class _TypingAssistSettings extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _model = Provider.of<AccessibilityModel>(context);
+    final model = Provider.of<AccessibilityModel>(context);
     return SimpleDialog(
       title: const Center(child: Text('Typing Assist')),
       contentPadding: const EdgeInsets.all(8.0),
@@ -178,30 +178,30 @@ class _TypingAssistSettings extends StatelessWidget {
           actionLabel: 'Enable by Keyboard',
           actionDescription:
               'Turn accessibility features on and off using the keyboard',
-          value: _model.getKeyboardEnable,
-          onChanged: (value) => _model.setKeyboardEnable(value),
+          value: model.keyboardEnable,
+          onChanged: (value) => model.setKeyboardEnable(value),
         ),
         SwitchSettingsRow(
           actionLabel: 'Sticky Keys',
           actionDescription:
               'Treats a sequence of modifier keys as a key combination',
-          value: _model.getStickyKeys,
-          onChanged: (value) => _model.setStickyKeys(value),
+          value: model.stickyKeys,
+          onChanged: (value) => model.setStickyKeys(value),
         ),
         const _StickyKeysSettings(),
         SwitchSettingsRow(
           actionLabel: 'Slow Keys',
           actionDescription:
               'Puts a delay between when a key is pressed and when it is accepted',
-          value: _model.getSlowKeys,
-          onChanged: (value) => _model.setSlowKeys(value),
+          value: model.slowKeys,
+          onChanged: (value) => model.setSlowKeys(value),
         ),
         const _SlowKeysSettings(),
         SwitchSettingsRow(
           actionLabel: 'Bounce Keys',
           actionDescription: 'Ignores fast duplicate keypresses',
-          value: _model.getBounceKeys,
-          onChanged: (value) => _model.setBounceKeys(value),
+          value: model.bounceKeys,
+          onChanged: (value) => model.setBounceKeys(value),
         ),
         const _BounceKeysSettings(),
       ],
@@ -214,21 +214,21 @@ class _StickyKeysSettings extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _model = Provider.of<AccessibilityModel>(context);
+    final model = Provider.of<AccessibilityModel>(context);
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16.0),
       child: Column(
         children: [
           CheckboxRow(
-            enabled: _model.getStickyKeys,
-            value: _model.getStickyKeysTwoKey,
-            onChanged: (value) => _model.setStickyKeysTwoKey(value!),
+            enabled: model.stickyKeys,
+            value: model.stickyKeysTwoKey,
+            onChanged: (value) => model.setStickyKeysTwoKey(value!),
             text: 'Disable if two keys are pressed at the same time',
           ),
           CheckboxRow(
-            enabled: _model.getStickyKeys,
-            value: _model.getStickyKeysBeep,
-            onChanged: (value) => _model.setStickyKeysBeep(value!),
+            enabled: model.stickyKeys,
+            value: model.stickyKeysBeep,
+            onChanged: (value) => model.setStickyKeysBeep(value!),
             text: 'Beep when a modifier key is pressed',
           ),
         ],
@@ -242,35 +242,35 @@ class _SlowKeysSettings extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _model = Provider.of<AccessibilityModel>(context);
+    final model = Provider.of<AccessibilityModel>(context);
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16.0),
       child: Column(
         children: [
           SliderSettingsSecondary(
             label: 'Acceptance delay',
-            enabled: _model.getSlowKeys,
+            enabled: model.slowKeys,
             min: 0,
             max: 500,
-            value: _model.getSlowKeysDelay,
-            onChanged: (value) => _model.setSlowKeysDelay(value),
+            value: model.slowKeysDelay,
+            onChanged: (value) => model.setSlowKeysDelay(value),
           ),
           CheckboxRow(
-            enabled: _model.getSlowKeys,
-            value: _model.getSlowKeysBeepPress,
-            onChanged: (value) => _model.setSlowKeysBeepPress(value!),
+            enabled: model.slowKeys,
+            value: model.slowKeysBeepPress,
+            onChanged: (value) => model.setSlowKeysBeepPress(value!),
             text: 'Beep when a key is pressed',
           ),
           CheckboxRow(
-            enabled: _model.getSlowKeys,
-            value: _model.getSlowKeysBeepAccept,
-            onChanged: (value) => _model.setSlowKeysBeepAccept(value!),
+            enabled: model.slowKeys,
+            value: model.slowKeysBeepAccept,
+            onChanged: (value) => model.setSlowKeysBeepAccept(value!),
             text: 'Beep when a key is accepted',
           ),
           CheckboxRow(
-            enabled: _model.getSlowKeys,
-            value: _model.getSlowKeysBeepReject,
-            onChanged: (value) => _model.setSlowKeysBeepReject(value!),
+            enabled: model.slowKeys,
+            value: model.slowKeysBeepReject,
+            onChanged: (value) => model.setSlowKeysBeepReject(value!),
             text: 'Beep when a key is rejected',
           ),
         ],
@@ -284,23 +284,23 @@ class _BounceKeysSettings extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _model = Provider.of<AccessibilityModel>(context);
+    final model = Provider.of<AccessibilityModel>(context);
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16.0),
       child: Column(
         children: [
           SliderSettingsSecondary(
             label: 'Acceptance delay',
-            enabled: _model.getBounceKeys,
+            enabled: model.bounceKeys,
             min: 0,
             max: 900,
-            value: _model.getBounceKeysDelay,
-            onChanged: (value) => _model.setBounceKeysDelay(value),
+            value: model.bounceKeysDelay,
+            onChanged: (value) => model.setBounceKeysDelay(value),
           ),
           CheckboxRow(
-            enabled: _model.getBounceKeys,
-            value: _model.getBounceKeysBeepReject,
-            onChanged: (value) => _model.setBounceKeysBeepReject(value!),
+            enabled: model.bounceKeys,
+            value: model.bounceKeysBeepReject,
+            onChanged: (value) => model.setBounceKeysBeepReject(value!),
             text: 'Beep when a key is rejected',
           ),
         ],

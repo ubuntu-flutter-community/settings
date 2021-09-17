@@ -19,9 +19,9 @@ class ToggleButtonsSettingRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _selectedValues = selectedValues;
+    final selectedValues = this.selectedValues;
 
-    if (_selectedValues == null) {
+    if (selectedValues == null) {
       return const SizedBox();
     }
 
@@ -30,7 +30,7 @@ class ToggleButtonsSettingRow extends StatelessWidget {
       actionDescription: actionDescription,
       secondChild: ToggleButtons(
         constraints: const BoxConstraints(minHeight: 40.0),
-        isSelected: _selectedValues,
+        isSelected: selectedValues,
         children: labels
             .map(
               (label) => Padding(

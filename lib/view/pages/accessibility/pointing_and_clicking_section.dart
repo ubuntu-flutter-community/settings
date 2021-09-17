@@ -13,27 +13,27 @@ class PointingAndClickingSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _model = Provider.of<AccessibilityModel>(context);
+    final model = Provider.of<AccessibilityModel>(context);
     return SettingsSection(
       headline: 'Pointing & Clicking',
       children: [
         SwitchSettingsRow(
           actionLabel: 'Mouse Keys',
-          value: _model.getMouseKeys,
-          onChanged: (value) => _model.setMouseKeys(value),
+          value: model.mouseKeys,
+          onChanged: (value) => model.setMouseKeys(value),
         ),
         SwitchSettingsRow(
           actionLabel: 'Locate Pointer',
-          value: _model.getLocatePointer,
-          onChanged: (value) => _model.setLocatePointer(value),
+          value: model.locatePointer,
+          onChanged: (value) => model.setLocatePointer(value),
         ),
         const _ClickAssist(),
         SliderSettingsRow(
           actionLabel: 'Double-Click Delay',
-          value: _model.getDoubleClickDelay,
+          value: model.doubleClickDelay,
           min: 100,
           max: 1000,
-          onChanged: (value) => _model.setDoubleClickDelay(value),
+          onChanged: (value) => model.setDoubleClickDelay(value),
         ),
       ],
     );
@@ -45,12 +45,12 @@ class _ClickAssist extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _model = Provider.of<AccessibilityModel>(context);
+    final model = Provider.of<AccessibilityModel>(context);
     return SettingsRow(
       actionLabel: 'Click Assist',
       secondChild: Row(
         children: [
-          Text(_model.getClickAssistString),
+          Text(model.clickAssistString),
           const SizedBox(width: 24.0),
           SizedBox(
             width: 40,
@@ -60,7 +60,7 @@ class _ClickAssist extends StatelessWidget {
               onPressed: () => showDialog(
                 context: context,
                 builder: (_) => ChangeNotifierProvider.value(
-                  value: _model,
+                  value: model,
                   child: const _ClickAssistSettings(),
                 ),
               ),
@@ -78,7 +78,7 @@ class _ClickAssistSettings extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _model = Provider.of<AccessibilityModel>(context);
+    final model = Provider.of<AccessibilityModel>(context);
     return SimpleDialog(
       title: const Center(child: Text('Click Assist')),
       contentPadding: const EdgeInsets.all(8.0),
@@ -87,25 +87,25 @@ class _ClickAssistSettings extends StatelessWidget {
           actionLabel: 'Simulated Secondary Click',
           actionDescription:
               'Trigger a secondary click by holding down the primary button.',
-          value: _model.getSimulatedSecondaryClick,
-          onChanged: (value) => _model.setSimulatedSecondaryClick(value),
+          value: model.simulatedSecondaryClick,
+          onChanged: (value) => model.setSimulatedSecondaryClick(value),
         ),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16.0),
           child: SliderSettingsSecondary(
             label: 'Delay',
-            enabled: _model.getSimulatedSecondaryClick,
-            value: _model.getSecondaryClickTime,
+            enabled: model.simulatedSecondaryClick,
+            value: model.secondaryClickTime,
             min: 0.5,
             max: 3.0,
-            onChanged: (value) => _model.setSecondaryClickTime(value),
+            onChanged: (value) => model.setSecondaryClickTime(value),
           ),
         ),
         SwitchSettingsRow(
           actionLabel: 'Hover Click',
           actionDescription: 'Trigger a click when the pointer hovers',
-          value: _model.getDwellClick,
-          onChanged: (value) => _model.setDwellClick(value),
+          value: model.dwellClick,
+          onChanged: (value) => model.setDwellClick(value),
         ),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16.0),
@@ -113,19 +113,19 @@ class _ClickAssistSettings extends StatelessWidget {
             children: [
               SliderSettingsSecondary(
                 label: 'Delay',
-                enabled: _model.getDwellClick,
+                enabled: model.dwellClick,
                 min: 0.2,
                 max: 3.0,
-                value: _model.getDwellTime,
-                onChanged: (value) => _model.setDwellTime(value),
+                value: model.dwellTime,
+                onChanged: (value) => model.setDwellTime(value),
               ),
               SliderSettingsSecondary(
                 label: 'Motion thresshold',
-                enabled: _model.getDwellClick,
+                enabled: model.dwellClick,
                 min: 0.0,
                 max: 30.0,
-                value: _model.getDwellThreshold,
-                onChanged: (value) => _model.setDwellThreshold(value),
+                value: model.dwellThreshold,
+                onChanged: (value) => model.setDwellThreshold(value),
               ),
             ],
           ),

@@ -19,21 +19,21 @@ class SoundModel extends ChangeNotifier {
 
   // System section
 
-  bool? get getAllowAbove100 => _soundSettings?.boolValue(_allowAbove100Key);
+  bool? get allowAbove100 => _soundSettings?.boolValue(_allowAbove100Key);
 
   void setAllowAbove100(bool value) {
     _soundSettings?.setValue(_allowAbove100Key, value);
     notifyListeners();
   }
 
-  bool? get getEventSounds => _soundSettings?.boolValue(_eventSoundsKey);
+  bool? get eventSounds => _soundSettings?.boolValue(_eventSoundsKey);
 
   void setEventSounds(bool value) {
     _soundSettings?.setValue(_eventSoundsKey, value);
     notifyListeners();
   }
 
-  bool? get getInputFeedbackSounds =>
+  bool? get inputFeedbackSounds =>
       _soundSettings?.boolValue(_inputFeedbackSounds);
 
   void setInputFeedbackSounds(bool value) {

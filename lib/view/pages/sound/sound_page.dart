@@ -9,7 +9,7 @@ class SoundPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _model = Provider.of<SoundModel>(context);
+    final model = Provider.of<SoundModel>(context);
 
     return Column(
       children: [
@@ -18,22 +18,22 @@ class SoundPage extends StatelessWidget {
           children: [
             SwitchSettingsRow(
               actionLabel: 'Allow Volume Above 100%',
-              value: _model.getAllowAbove100,
-              onChanged: (value) => _model.setAllowAbove100(value),
+              value: model.allowAbove100,
+              onChanged: (value) => model.setAllowAbove100(value),
             ),
             SwitchSettingsRow(
               actionLabel: 'Event Sounds',
               actionDescription:
                   'Notify of a system action, notification or event',
-              value: _model.getEventSounds,
-              onChanged: (value) => _model.setEventSounds(value),
+              value: model.eventSounds,
+              onChanged: (value) => model.setEventSounds(value),
             ),
             SwitchSettingsRow(
               actionLabel: 'Input Feedback Sounds',
               actionDescription: 'Feedback for user input events, '
                   'such as mouse clicks, or key presses',
-              value: _model.getInputFeedbackSounds,
-              onChanged: (value) => _model.setInputFeedbackSounds(value),
+              value: model.inputFeedbackSounds,
+              onChanged: (value) => model.setInputFeedbackSounds(value),
             ),
           ],
         ),
