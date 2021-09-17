@@ -68,6 +68,11 @@ class MasterPageState extends State<MasterPage> {
               builder: (_) => StatefulBuilder(builder: (context, setState) {
                     return SingleChildScrollView(
                       child: AlertDialog(
+                        actions: [
+                          TextButton(
+                              onPressed: () => Navigator.of(context).pop(),
+                              child: const Text('Close'))
+                        ],
                         title: const Text('Search'),
                         content: Column(
                           mainAxisSize: MainAxisSize.min,
@@ -135,7 +140,7 @@ class MasterPageState extends State<MasterPage> {
                   })).then((value) => setState(() {
                 scrollController.scrollTo(
                     index: menuItems.indexOf(selectedMenuItem),
-                    duration: const Duration(seconds: 1));
+                    duration: const Duration(microseconds: 300));
                 // scrollController.jumpTo(value);
               }));
         },
