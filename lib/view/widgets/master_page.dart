@@ -17,17 +17,17 @@ class MasterPage extends StatefulWidget {
 }
 
 class MasterPageState extends State<MasterPage> {
-  late MenuItem selectedMenuItem;
-  late TextEditingController searchController;
-  late ItemScrollController scrollController;
+  late MenuItem _selectedMenuItem;
+  late TextEditingController _searchController;
+  late ItemScrollController _scrollController;
 
   @override
   void initState() {
     super.initState();
-    selectedMenuItem = menuItems.first;
-    searchController = TextEditingController();
-    scrollController = ItemScrollController();
-    Future.microtask(() => {goToDetail(menuItems.indexOf(selectedMenuItem))});
+    _selectedMenuItem = menuItems.first;
+    _searchController = TextEditingController();
+    _scrollController = ItemScrollController();
+    Future.microtask(() => {goToDetail(menuItems.indexOf(_selectedMenuItem))});
   }
 
   @override
@@ -40,7 +40,7 @@ class MasterPageState extends State<MasterPage> {
       for (MenuItem menuItem in menuItems) {
         if (menuItem.name
             .toLowerCase()
-            .contains(searchController.value.text.toLowerCase())) {
+            .contains(_searchController.value.text.toLowerCase())) {
           filteredItems.add(menuItem);
         }
       }
@@ -60,7 +60,7 @@ class MasterPageState extends State<MasterPage> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          searchController.clear();
+          _searchController.clear();
           filterItems();
           showDialog(
               useSafeArea: true,
@@ -85,7 +85,7 @@ class MasterPageState extends State<MasterPage> {
                                   filterItems();
                                   setState(() {});
                                 },
-                                controller: searchController,
+                                controller: _searchController,
                                 autofocus: true,
                               ),
                             ),
@@ -108,7 +108,7 @@ class MasterPageState extends State<MasterPage> {
                                               .withOpacity(0.8),
                                         ),
                                         selected: filteredItems[index] ==
-                                            selectedMenuItem,
+                                            _selectedMenuItem,
                                         title: Text(
                                           filteredItems[index].name,
                                           style: TextStyle(
@@ -138,8 +138,8 @@ class MasterPageState extends State<MasterPage> {
                       ),
                     );
                   })).then((value) => setState(() {
-                scrollController.scrollTo(
-                    index: menuItems.indexOf(selectedMenuItem),
+                _scrollController.scrollTo(
+                    index: menuItems.indexOf(_selectedMenuItem),
                     duration: const Duration(microseconds: 300));
                 // scrollController.jumpTo(value);
               }));
@@ -155,7 +155,7 @@ class MasterPageState extends State<MasterPage> {
             ),
           ),
           child: ScrollablePositionedList.builder(
-              itemScrollController: scrollController,
+              itemScrollController: _scrollController,
               padding: const EdgeInsets.only(top: 8),
               itemCount: menuItems.length,
               itemBuilder: (context, index) {
@@ -169,7 +169,7 @@ class MasterPageState extends State<MasterPage> {
                     decoration: BoxDecoration(
                       borderRadius:
                           const BorderRadius.all(Radius.circular(4.0)),
-                      color: menuItems[index] == selectedMenuItem
+                      color: menuItems[index] == _selectedMenuItem
                           ? Theme.of(context)
                               .colorScheme
                               .onSurface
@@ -187,7 +187,7 @@ class MasterPageState extends State<MasterPage> {
                               .onSurface
                               .withOpacity(0.8),
                         ),
-                        selected: menuItems[index] == selectedMenuItem,
+                        selected: menuItems[index] == _selectedMenuItem,
                         title: Text(
                           menuItems[index].name,
                           style: TextStyle(
@@ -206,14 +206,14 @@ class MasterPageState extends State<MasterPage> {
   }
 
   void goToDetail(int index) {
-    selectedMenuItem = menuItems[index];
+    _selectedMenuItem = menuItems[index];
     while (Navigator.of(context).canPop()) {
       Navigator.of(context).pop();
     }
     Navigator.of(context).push(
       DetailRoute(
         builder: (context) => DetailPage(
-          item: selectedMenuItem,
+          item: _selectedMenuItem,
         ),
       ),
     );
