@@ -64,7 +64,7 @@ class MasterPageState extends State<MasterPage> {
           builder: (_) => StatefulBuilder(builder: (context, setState) {
                 return SingleChildScrollView(
                   child: Align(
-                    alignment: Alignment(-1, 0),
+                    alignment: const Alignment(-1, 0),
                     child: Material(
                       elevation: 0,
                       child: Padding(
