@@ -17,7 +17,7 @@ class TouchpadSection extends StatelessWidget {
       children: [
         SliderSettingsRow(
           actionLabel: 'Speed',
-          value: model.getTouchpadSpeed,
+          value: model.touchpadSpeed,
           min: -1,
           max: 1,
           onChanged: (value) => model.setTouchpadSpeed(value),
@@ -25,17 +25,17 @@ class TouchpadSection extends StatelessWidget {
         SwitchSettingsRow(
           actionLabel: 'Natural Scrolling',
           actionDescription: 'Scrolling moves the content, not the view',
-          value: model.getTouchpadNaturalScroll,
+          value: model.touchpadNaturalScroll,
           onChanged: (value) => model.setTouchpadNaturalScroll(value),
         ),
         SwitchSettingsRow(
           actionLabel: 'Tap To Click',
-          value: model.getTouchpadTapToClick,
+          value: model.touchpadTapToClick,
           onChanged: (value) => model.setTouchpadTapToClick(value),
         ),
         SwitchSettingsRow(
           actionLabel: 'Disable While Typing',
-          value: model.getTouchpadDisableWhileTyping,
+          value: model.touchpadDisableWhileTyping,
           onChanged: (value) => model.setTouchpadDisableWhileTyping(value),
         ),
       ],
