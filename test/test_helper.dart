@@ -32,7 +32,6 @@ extension TesterExtension on WidgetTester {
     }
 
     Widget parent = MaterialApp(
-
       home: toTest,
     );
 
