@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import 'package:settings/view/pages/menu_items.dart';
 import 'package:settings/view/widgets/detail_page.dart';
 import 'package:settings/view/widgets/detail_route.dart';
@@ -16,28 +17,136 @@ class MasterPage extends StatefulWidget {
 }
 
 class MasterPageState extends State<MasterPage> {
-  late MenuItem selectedMenuItem;
+  late MenuItem _selectedMenuItem;
+  late TextEditingController _searchController;
+  late ItemScrollController _scrollController;
 
   @override
   void initState() {
     super.initState();
-    selectedMenuItem = menuItems.first;
-    // goToDetail(menuItems.indexOf(selectedMenuItem));
+    _selectedMenuItem = menuItems.first;
+    _searchController = TextEditingController();
+    _scrollController = ItemScrollController();
+    Future.microtask(() => {goToDetail(menuItems.indexOf(_selectedMenuItem))});
   }
 
   @override
   Widget build(BuildContext context) {
+    final height = MediaQuery.of(context).size.height;
+    final filteredItems = <MenuItem>[];
+
+    void filterItems() {
+      filteredItems.clear();
+      for (MenuItem menuItem in menuItems) {
+        if (menuItem.name
+            .toLowerCase()
+            .contains(_searchController.value.text.toLowerCase())) {
+          filteredItems.add(menuItem);
+        }
+      }
+    }
+
+    filterItems();
+
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(50.0),
         child: AppBar(
-          leading: const Icon(YaruIcons.search),
           title: const Text(
             'Settings',
             style: TextStyle(fontWeight: FontWeight.normal),
           ),
         ),
       ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          _searchController.clear();
+          filterItems();
+          showDialog(
+              useSafeArea: true,
+              context: context,
+              builder: (_) => StatefulBuilder(builder: (context, setState) {
+                    return SingleChildScrollView(
+                      child: AlertDialog(
+                        actions: [
+                          TextButton(
+                              onPressed: () => Navigator.of(context).pop(),
+                              child: const Text('Close'))
+                        ],
+                        title: const Text('Search'),
+                        content: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(bottom: 12),
+                              child: TextField(
+                                onChanged: (value) {
+                                  filterItems();
+                                  setState(() {});
+                                },
+                                controller: _searchController,
+                                autofocus: true,
+                              ),
+                            ),
+                            SizedBox(
+                              height: height / 2,
+                              width: 300,
+                              child: ListView.builder(
+                                  itemCount: filteredItems.length,
+                                  itemBuilder: (context, index) {
+                                    return ListTile(
+                                        shape: const RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.all(
+                                              Radius.circular(4.0)),
+                                        ),
+                                        leading: Icon(
+                                          filteredItems[index].iconData,
+                                          color: Theme.of(context)
+                                              .colorScheme
+                                              .onSurface
+                                              .withOpacity(0.8),
+                                        ),
+                                        selected: filteredItems[index] ==
+                                            _selectedMenuItem,
+                                        title: Text(
+                                          filteredItems[index].name,
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.normal,
+                                              color: Theme.of(context)
+                                                  .colorScheme
+                                                  .onSurface),
+                                        ),
+                                        onTap: () {
+                                          final tappedItem =
+                                              filteredItems[index];
+                                          late int matchedIndex;
+                                          for (var menuItem in menuItems) {
+                                            if (menuItem.name ==
+                                                tappedItem.name) {
+                                              matchedIndex =
+                                                  menuItems.indexOf(menuItem);
+                                            }
+                                          }
+                                          goToDetail(matchedIndex);
+                                          setState(() {});
+                                        });
+                                  }),
+                            ),
+                          ],
+                        ),
+                      ),
+                    );
+                  })).then((value) => setState(() {
+                _scrollController.scrollTo(
+                    index: menuItems.indexOf(_selectedMenuItem),
+                    duration: const Duration(milliseconds: 300));
+                // scrollController.jumpTo(value);
+              }));
+        },
+        child: const Icon(YaruIcons.search),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.miniEndTop,
       body: Center(
         child: Container(
           decoration: BoxDecoration(
@@ -45,7 +154,8 @@ class MasterPageState extends State<MasterPage> {
               right: BorderSide(color: Colors.black.withOpacity(0.1)),
             ),
           ),
-          child: ListView.builder(
+          child: ScrollablePositionedList.builder(
+              itemScrollController: _scrollController,
               padding: const EdgeInsets.only(top: 8),
               itemCount: menuItems.length,
               itemBuilder: (context, index) {
@@ -59,7 +169,7 @@ class MasterPageState extends State<MasterPage> {
                     decoration: BoxDecoration(
                       borderRadius:
                           const BorderRadius.all(Radius.circular(4.0)),
-                      color: menuItems[index] == selectedMenuItem
+                      color: menuItems[index] == _selectedMenuItem
                           ? Theme.of(context)
                               .colorScheme
                               .onSurface
@@ -77,7 +187,7 @@ class MasterPageState extends State<MasterPage> {
                               .onSurface
                               .withOpacity(0.8),
                         ),
-                        selected: menuItems[index] == selectedMenuItem,
+                        selected: menuItems[index] == _selectedMenuItem,
                         title: Text(
                           menuItems[index].name,
                           style: TextStyle(
@@ -96,14 +206,14 @@ class MasterPageState extends State<MasterPage> {
   }
 
   void goToDetail(int index) {
-    selectedMenuItem = menuItems[index];
+    _selectedMenuItem = menuItems[index];
     while (Navigator.of(context).canPop()) {
       Navigator.of(context).pop();
     }
     Navigator.of(context).push(
       DetailRoute(
         builder: (context) => DetailPage(
-          item: selectedMenuItem,
+          item: _selectedMenuItem,
         ),
       ),
     );
