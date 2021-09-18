@@ -12,20 +12,23 @@ dependencies:
   flutter:
     sdk: flutter
 
-  yaru: ^0.1.0
+  yaru: ^0.1.2
   yaru_icons: ^0.0.4
   gsettings: ^0.1.2+1
   responsive_scaffold_nullsafe: ^1.0.0
   provider: ^5.0.0
+  scrollable_positioned_list: ^0.2.0-nullsafety.0
+  dbus: ^0.6.3
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
 
   flutter_lints: ^1.0.0
-  mocktail: ^0.1.4
   mockingjay: ^0.1.1
-  
+  build_runner: ^2.1.2
+  mockito: ^5.0.16
+
 flutter:
   uses-material-design: true
 

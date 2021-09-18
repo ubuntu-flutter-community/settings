@@ -1,7 +1,8 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockingjay/mockingjay.dart';
-import 'package:mocktail/mocktail.dart';
+import 'package:mockito/annotations.dart';
+import 'package:mockito/mockito.dart' as mockito;
 import 'package:settings/view/widgets/detail_page.dart';
 import 'package:settings/view/widgets/menu_item.dart';
 import 'package:yaru_icons/widgets/yaru_icons.dart';
@@ -62,7 +63,8 @@ void main() {
       );
 
       final navigator = MockNavigator();
-      when(() => navigator.popUntil(any())).thenAnswer((invocation) {});
+
+      mockito.when(() => navigator.popUntil(any()));
 
       await widgetTester.pumpScreen(
         navigator: navigator,
