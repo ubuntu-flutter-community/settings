@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
+import 'package:settings/view/widgets/settings_row.dart';
 import 'package:settings/view/widgets/settings_section.dart';
 import 'package:settings/view/widgets/single_info_row.dart';
 import 'package:yaru_icons/widgets/yaru_icons.dart';
@@ -45,12 +46,7 @@ class _InfoPageState extends State<InfoPage> {
 
         const SizedBox(height: 30),
 
-        SettingsSection(headline: 'Computer', children: [
-          SingleInfoRow(
-            infoLabel: 'Hostname',
-            infoValue: model.hostname,
-          ),
-        ]),
+        const _Computer(),
         
         SettingsSection(headline: 'Hardware', children: [
           SingleInfoRow(
@@ -89,6 +85,99 @@ class _InfoPageState extends State<InfoPage> {
             infoValue: model.windowServer,
           ),
         ]),
+      ],
+    );
+  }
+}
+
+class _Computer extends StatelessWidget {
+  const _Computer({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final model = Provider.of<InfoModel>(context);
+    
+    return SettingsSection(headline: 'Computer', children: [
+      SettingsRow(
+        actionLabel: 'Hostname',
+        secondChild: Row(
+          children: [
+            Text(
+              model.hostname,
+              style: TextStyle(
+                color: Theme.of(context).colorScheme.onSurface.withAlpha(150),
+              ),
+            ),
+            const SizedBox(width: 16.0),
+            SizedBox(
+              width: 40,
+              height: 40,
+              child: OutlinedButton(
+                style: OutlinedButton.styleFrom(padding: const EdgeInsets.all(0)),
+                onPressed: () => showDialog(
+                  context: context,
+                  builder: (_) => ChangeNotifierProvider.value(
+                    value: model,
+                    child: const _HostnameSettings(),
+                  ),
+                ),
+                child: const Icon(YaruIcons.settings),
+              ),
+            ),
+          ],
+        ),
+      )
+    ]);
+  }
+}
+
+class _HostnameSettings extends StatefulWidget {
+  const _HostnameSettings({Key? key}) : super(key: key);
+
+  @override
+  State<_HostnameSettings> createState() => _HostnameSettingsState();
+}
+
+class _HostnameSettingsState extends State<_HostnameSettings> {
+  final _controller = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+
+    final model = context.read<InfoModel>();
+    _controller.value = TextEditingValue(
+      text: model.hostname,
+      selection: TextSelection.collapsed(offset: model.hostname.length),
+    );
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final model = context.watch<InfoModel>();
+    return SimpleDialog(
+      title: const Center(child: Text('Edit hostname')),
+      contentPadding: const EdgeInsets.all(16.0),
+      children: [
+        TextField(controller: _controller),
+
+        const SizedBox(height: 16.0),
+
+        Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            TextButton(
+              onPressed: () => model.setHostname(_controller.value.text),
+              child: const Text('Rename'),
+            )
+          ],
+        )
       ],
     );
   }
