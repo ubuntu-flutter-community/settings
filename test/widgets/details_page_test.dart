@@ -1,7 +1,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockingjay/mockingjay.dart';
-import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart' as mockito;
 import 'package:settings/view/widgets/detail_page.dart';
 import 'package:settings/view/widgets/menu_item.dart';
@@ -44,14 +43,14 @@ void main() {
     );
   });
 
-  testWidgets('- Appbar leading prop will be initalized with BackButton ',
+  testWidgets('- Appbar leading prop will be set to BackButton ',
       (widgetTester) async {
-
-    /// screen size will be 414.0 * 846.0
+    /// screen size will be 400.0 * 800.0
     /// To enable [BackButton] width is set to 400
     const width = 400.0;
     const height = 800.0;
 
+    /// Setting screen size
     widgetTester.binding.window.physicalSizeTestValue = const Size(
       width,
       height,
