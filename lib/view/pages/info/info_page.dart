@@ -44,6 +44,13 @@ class _InfoPageState extends State<InfoPage> {
         ),
 
         const SizedBox(height: 30),
+
+        SettingsSection(headline: 'Computer', children: [
+          SingleInfoRow(
+            infoLabel: 'Hostname',
+            infoValue: model.hostname,
+          ),
+        ]),
         
         SettingsSection(headline: 'Hardware', children: [
           SingleInfoRow(
@@ -65,10 +72,6 @@ class _InfoPageState extends State<InfoPage> {
         ]),
         
         SettingsSection(headline: 'System', children: [
-          SingleInfoRow(
-            infoLabel: 'Hostname',
-            infoValue: model.hostname,
-          ),
           SingleInfoRow(
             infoLabel: 'OS name',
             infoValue: model.osName,
