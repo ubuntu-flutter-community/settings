@@ -88,7 +88,7 @@ class SliderSettingsSecondary extends StatelessWidget {
                                 (constraints.maxWidth - thumbRadius * 2) *
                                     (defaultValue! - min) /
                                     (max - min),
-                            child: const Marker(),
+                            child: const SliderValueMarker(),
                           ),
                         Slider(
                           label: value.toStringAsFixed(0),
