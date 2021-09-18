@@ -16,7 +16,7 @@ class SingleInfoRow extends StatelessWidget {
       actionLabel: infoLabel,
       secondChild: Expanded(
         flex: 2,
-        child: Text(
+        child: SelectableText(
           infoValue,
           style: TextStyle(
             color: Theme.of(context).colorScheme.onSurface.withAlpha(150),

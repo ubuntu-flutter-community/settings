@@ -102,7 +102,7 @@ class _Computer extends StatelessWidget {
         actionLabel: 'Hostname',
         secondChild: Row(
           children: [
-            Text(
+            SelectableText(
               model.hostname,
               style: TextStyle(
                 color: Theme.of(context).colorScheme.onSurface.withAlpha(150),
