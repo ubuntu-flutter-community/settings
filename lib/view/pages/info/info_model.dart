@@ -12,7 +12,16 @@ class InfoModel extends ChangeNotifier {
 
   final HostnameService _hostnameService;
 
-  Future<void> init() => _hostnameService.init().then((_) => notifyListeners());
+  String _gpuName = '';
+
+  void init() {
+    _hostnameService.init().then((_) => notifyListeners());
+    
+    GpuInfo.load().then((gpus) {
+      notifyListeners();
+      _gpuName = gpus.first.model;
+    });
+  }
 
   String get hostname => _hostnameService.hostname;
   String get staticHostname => _hostnameService.staticHostname;
@@ -26,7 +35,7 @@ class InfoModel extends ChangeNotifier {
 
   String get processor => CpuInfo.getProcessors()[0].model_name + ' x ' + (CpuInfo.getProcessors().length + 1).toString();
   String get memory => MemInfo().mem_total_gb.toString() + ' Gb';
-  String get graphics => '';
+  String get graphics => _gpuName;
   String get diskCapacity => '';
 
   String get gnomeVersion => GnomeInfo().version;
