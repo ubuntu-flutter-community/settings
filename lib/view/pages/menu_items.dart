@@ -5,6 +5,7 @@ import 'package:settings/view/pages/accessibility/accessibility_model.dart';
 import 'package:settings/view/pages/accessibility/accessibility_page.dart';
 import 'package:settings/view/pages/appearance/appearance_model.dart';
 import 'package:settings/view/pages/appearance/appearance_page.dart';
+import 'package:settings/view/pages/info/info_model.dart';
 import 'package:settings/view/pages/info/info_page.dart';
 import 'package:settings/view/pages/keyboard_shortcuts_page/keyboard_shortcuts_page.dart';
 import 'package:settings/view/pages/mouse_and_touchpad/mouse_and_touchpad_model.dart';
@@ -152,9 +153,12 @@ final menuItems = <MenuItem>[
     iconData: YaruIcons.clock,
     details: Text('Date and time'),
   ),
-  const MenuItem(
+  MenuItem(
     name: 'Info',
     iconData: YaruIcons.information,
-    details: InfoPage(),
+    details: ChangeNotifierProvider<InfoModel>(
+      create: (_) => InfoModel(),
+      child: const InfoPage(),
+    )
   ),
 ];
