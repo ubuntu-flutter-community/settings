@@ -1,5 +1,7 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:mockingjay/mockingjay.dart';
+import 'package:mocktail/mocktail.dart';
 import 'package:settings/view/widgets/detail_page.dart';
 import 'package:settings/view/widgets/menu_item.dart';
 import 'package:yaru_icons/widgets/yaru_icons.dart';
@@ -59,7 +61,11 @@ void main() {
         height * dpi,
       );
 
+      final navigator = MockNavigator();
+      when(() => navigator.popUntil(any())).thenAnswer((invocation) {});
+
       await widgetTester.pumpScreen(
+        navigator: navigator,
         repository: null,
         widgetBuilder: () => const Scaffold(
           body: DetailPage(
@@ -74,6 +80,8 @@ void main() {
 
       expect(find.byType(BackButton), findsOneWidget);
       await widgetTester.tap(find.byType(BackButton));
+      await widgetTester.pumpAndSettle();
+      verify(() => navigator.popUntil(any())).called(1);
     });
   });
 }
