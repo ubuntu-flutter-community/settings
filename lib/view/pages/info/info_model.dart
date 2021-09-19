@@ -10,13 +10,25 @@ import 'hostname_service.dart';
 class InfoModel extends ChangeNotifier {
   InfoModel([
     HostnameService? hostnameService,
-    UDisksClient? uDisksClient
+    UDisksClient? uDisksClient,
+    List<Cpu>? cpus,
+    SystemInfo? systemInfo,
+    MemInfo? memInfo,
+    GnomeInfo? gnomeInfo
   ]) :
     _hostnameService = hostnameService ?? HostnameService(),
-    _uDisksClient = uDisksClient ?? UDisksClient();
+    _uDisksClient = uDisksClient ?? UDisksClient(),
+    _cpus = cpus ?? CpuInfo.getProcessors(),
+    _systemInfo = systemInfo ?? SystemInfo(),
+    _memInfo = memInfo ?? MemInfo(),
+    _gnomeInfo = gnomeInfo ?? GnomeInfo();
 
   final HostnameService _hostnameService;
   final UDisksClient _uDisksClient;
+  final List<Cpu> _cpus;
+  final SystemInfo _systemInfo;
+  final MemInfo _memInfo;
+  final GnomeInfo _gnomeInfo;
 
   String _gpuName = '';
   int? _diskCapacity;
@@ -42,17 +54,17 @@ class InfoModel extends ChangeNotifier {
     _hostnameService.setHostname(hostname).then((_) => notifyListeners());
   }
 
-  String get osName => SystemInfo().os_name;
-  String get osVersion => SystemInfo().os_version;
+  String get osName => _systemInfo.os_name;
+  String get osVersion => _systemInfo.os_version;
   String get osType => sizeOf<IntPtr>() == 8 ? '64' : '32';
 
-  String get processorName => CpuInfo.getProcessors()[0].model_name;
-  String get processorCount => (CpuInfo.getProcessors().length + 1).toString();
-  String get memory => MemInfo().mem_total_gb.toString();
+  String get processorName => _cpus[0].model_name;
+  String get processorCount => (_cpus.length + 1).toString();
+  String get memory => _memInfo.mem_total_gb.toString();
   String get graphics => _gpuName;
   int? get diskCapacity => _diskCapacity;
 
-  String get gnomeVersion => GnomeInfo().version;
+  String get gnomeVersion => _gnomeInfo.version;
   String get windowServer => Platform.environment['XDG_SESSION_TYPE'] ?? '';
 
   @override
