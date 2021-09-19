@@ -59,6 +59,7 @@ class MasterPageState extends State<MasterPage> {
     void openSearchDialog() {
       showDialog(
           barrierDismissible: true,
+          barrierColor: Colors.white.withOpacity(0),
           useSafeArea: true,
           context: context,
           builder: (_) => StatefulBuilder(builder: (context, setState) {
@@ -68,9 +69,9 @@ class MasterPageState extends State<MasterPage> {
                     child: Material(
                       elevation: 0,
                       child: Padding(
-                        padding: const EdgeInsets.all(12),
+                        padding: const EdgeInsets.all(10),
                         child: SizedBox(
-                          width: kTabletMasterContainerWidth,
+                          width: kTabletMasterContainerWidth - 21,
                           child: Column(
                             mainAxisSize: MainAxisSize.min,
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -78,13 +79,16 @@ class MasterPageState extends State<MasterPage> {
                             children: [
                               Padding(
                                 padding: const EdgeInsets.only(bottom: 12),
-                                child: TextField(
-                                  onChanged: (value) {
-                                    filterItems();
-                                    setState(() {});
-                                  },
-                                  controller: _searchController,
-                                  autofocus: true,
+                                child: SizedBox(
+                                  height: 38,
+                                  child: TextField(
+                                    onChanged: (value) {
+                                      filterItems();
+                                      setState(() {});
+                                    },
+                                    controller: _searchController,
+                                    autofocus: true,
+                                  ),
                                 ),
                               ),
                               SizedBox(
