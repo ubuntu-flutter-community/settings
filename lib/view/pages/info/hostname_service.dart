@@ -62,8 +62,12 @@ class HostnameService {
     _prettyHostname = prettyHostname ?? _prettyHostname;
     _staticHostname = staticHostname ?? _staticHostname;
 
-    _hostnameController.add(this.hostname);
-    _staticHostnameController.add(this.staticHostname);
+    if (!_hostnameController.isClosed) {
+      _hostnameController.add(this.hostname);
+    }
+    if (!_staticHostnameController.isClosed) {
+      _staticHostnameController.add(this.staticHostname);
+    }
   }
 
   Future<void> _initProperties() async {
