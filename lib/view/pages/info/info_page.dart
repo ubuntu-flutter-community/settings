@@ -75,14 +75,14 @@ class _InfoPageState extends State<InfoPage> {
           ),
           SingleInfoRow(
             infoLabel: 'OS type',
-            infoValue: '${model.osType} Bits',
+            infoValue: '${model.osType}-bit',
           ),
           SingleInfoRow(
-            infoLabel: 'Gnome version',
+            infoLabel: 'GNOME version',
             infoValue: model.gnomeVersion,
           ),
           SingleInfoRow(
-            infoLabel: 'Window server',
+            infoLabel: 'Windowing System',
             infoValue: model.windowServer,
           ),
         ]),
