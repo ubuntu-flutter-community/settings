@@ -8,20 +8,19 @@ import 'package:udisks/udisks.dart';
 import 'hostname_service.dart';
 
 class InfoModel extends SafeChangeNotifier {
-  InfoModel([
-    HostnameService? hostnameService,
-    UDisksClient? uDisksClient,
-    List<Cpu>? cpus,
-    SystemInfo? systemInfo,
-    MemInfo? memInfo,
-    GnomeInfo? gnomeInfo
-  ]) :
-    _hostnameService = hostnameService ?? HostnameService(),
-    _uDisksClient = uDisksClient ?? UDisksClient(),
-    _cpus = cpus ?? CpuInfo.getProcessors(),
-    _systemInfo = systemInfo ?? SystemInfo(),
-    _memInfo = memInfo ?? MemInfo(),
-    _gnomeInfo = gnomeInfo ?? GnomeInfo();
+  InfoModel(
+      [HostnameService? hostnameService,
+      UDisksClient? uDisksClient,
+      List<Cpu>? cpus,
+      SystemInfo? systemInfo,
+      MemInfo? memInfo,
+      GnomeInfo? gnomeInfo])
+      : _hostnameService = hostnameService ?? HostnameService(),
+        _uDisksClient = uDisksClient ?? UDisksClient(),
+        _cpus = cpus ?? CpuInfo.getProcessors(),
+        _systemInfo = systemInfo ?? SystemInfo(),
+        _memInfo = memInfo ?? MemInfo(),
+        _gnomeInfo = gnomeInfo ?? GnomeInfo();
 
   final HostnameService _hostnameService;
   final UDisksClient _uDisksClient;
@@ -41,7 +40,8 @@ class InfoModel extends SafeChangeNotifier {
     });
 
     await _uDisksClient.connect().then((value) {
-      _diskCapacity = _uDisksClient.drives.fold<int>(0, (sum, drive) => sum + drive.size);
+      _diskCapacity =
+          _uDisksClient.drives.fold<int>(0, (sum, drive) => sum + drive.size);
     });
 
     notifyListeners();

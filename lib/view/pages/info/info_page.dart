@@ -11,7 +11,7 @@ import 'package:yaru/yaru.dart' as yaru;
 import 'info_model.dart';
 
 class InfoPage extends StatefulWidget {
-  const InfoPage({ Key? key }) : super(key: key);
+  const InfoPage({Key? key}) : super(key: key);
 
   @override
   _InfoPageState createState() => _InfoPageState();
@@ -32,23 +32,12 @@ class _InfoPageState extends State<InfoPage> {
 
     return Column(
       children: [
-        const Icon(
-          YaruIcons.ubuntu_logo,
-          size: 128,
-          color: yaru.Colors.orange
-        ),
-
+        const Icon(YaruIcons.ubuntu_logo, size: 128, color: yaru.Colors.orange),
         const SizedBox(height: 10),
-
-        Text(
-          '${model.osName} ${model.osVersion}',
-          style: Theme.of(context).textTheme.headline5
-        ),
-
+        Text('${model.osName} ${model.osVersion}',
+            style: Theme.of(context).textTheme.headline5),
         const SizedBox(height: 30),
-
         const _Computer(),
-        
         SettingsSection(headline: 'Hardware', children: [
           SingleInfoRow(
             infoLabel: 'Processor',
@@ -64,10 +53,10 @@ class _InfoPageState extends State<InfoPage> {
           ),
           SingleInfoRow(
             infoLabel: 'Disk Capacity',
-            infoValue: model.diskCapacity != null ? filesize(model.diskCapacity) : '',
+            infoValue:
+                model.diskCapacity != null ? filesize(model.diskCapacity) : '',
           ),
         ]),
-        
         SettingsSection(headline: 'System', children: [
           SingleInfoRow(
             infoLabel: 'OS name',
@@ -97,7 +86,7 @@ class _Computer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final model = Provider.of<InfoModel>(context);
-    
+
     return SettingsSection(headline: 'Computer', children: [
       SettingsRow(
         actionLabel: 'Hostname',
@@ -114,7 +103,8 @@ class _Computer extends StatelessWidget {
               width: 40,
               height: 40,
               child: OutlinedButton(
-                style: OutlinedButton.styleFrom(padding: const EdgeInsets.all(0)),
+                style:
+                    OutlinedButton.styleFrom(padding: const EdgeInsets.all(0)),
                 onPressed: () => showDialog(
                   context: context,
                   builder: (_) => ChangeNotifierProvider.value(
@@ -167,9 +157,7 @@ class _HostnameSettingsState extends State<_HostnameSettings> {
       contentPadding: const EdgeInsets.all(16.0),
       children: [
         TextField(controller: _controller),
-
         const SizedBox(height: 16.0),
-
         Row(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
