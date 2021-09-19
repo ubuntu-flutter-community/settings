@@ -3,7 +3,6 @@ import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 import 'package:linux_system_info/linux_system_info.dart';
-import 'package:filesize/filesize.dart';
 import 'package:udisks/udisks.dart';
 
 import 'hostname_service.dart';
@@ -21,7 +20,7 @@ class InfoModel extends ChangeNotifier {
   final UDisksClient _uDisksClient;
 
   String _gpuName = '';
-  String _diskCapacity = '';
+  int? _diskCapacity;
 
   void init() {
     _hostnameService.init().then((_) => notifyListeners());
@@ -32,8 +31,7 @@ class InfoModel extends ChangeNotifier {
     });
 
     _uDisksClient.connect().then((value) {
-      final total = _uDisksClient.drives.fold<int>(0, (sum, drive) => sum + drive.size);
-      _diskCapacity = filesize(total);
+      _diskCapacity = _uDisksClient.drives.fold<int>(0, (sum, drive) => sum + drive.size);
     });
   }
 
@@ -44,13 +42,15 @@ class InfoModel extends ChangeNotifier {
     _hostnameService.setHostname(hostname).then((_) => notifyListeners());
   }
 
-  String get osName => SystemInfo().os_name + ' ' + SystemInfo().os_version;
-  String get osType => sizeOf<IntPtr>() == 8 ? '64 bits' : '32 bits';
+  String get osName => SystemInfo().os_name;
+  String get osVersion => SystemInfo().os_version;
+  String get osType => sizeOf<IntPtr>() == 8 ? '64' : '32';
 
-  String get processor => CpuInfo.getProcessors()[0].model_name + ' x ' + (CpuInfo.getProcessors().length + 1).toString();
-  String get memory => MemInfo().mem_total_gb.toString() + ' Gb';
+  String get processorName => CpuInfo.getProcessors()[0].model_name;
+  String get processorCount => (CpuInfo.getProcessors().length + 1).toString();
+  String get memory => MemInfo().mem_total_gb.toString();
   String get graphics => _gpuName;
-  String get diskCapacity => _diskCapacity;
+  int? get diskCapacity => _diskCapacity;
 
   String get gnomeVersion => GnomeInfo().version;
   String get windowServer => Platform.environment['XDG_SESSION_TYPE'] ?? '';

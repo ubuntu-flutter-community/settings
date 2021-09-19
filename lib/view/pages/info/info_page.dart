@@ -1,3 +1,4 @@
+import 'package:filesize/filesize.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
@@ -40,7 +41,7 @@ class _InfoPageState extends State<InfoPage> {
         const SizedBox(height: 10),
 
         Text(
-          model.osName,
+          '${model.osName} ${model.osVersion}',
           style: Theme.of(context).textTheme.headline5
         ),
 
@@ -51,11 +52,11 @@ class _InfoPageState extends State<InfoPage> {
         SettingsSection(headline: 'Hardware', children: [
           SingleInfoRow(
             infoLabel: 'Processor',
-            infoValue: model.processor,
+            infoValue: '${model.processorName} x ${model.processorCount}',
           ),
           SingleInfoRow(
             infoLabel: 'Memory',
-            infoValue: model.memory,
+            infoValue: '${model.memory} Gb',
           ),
           SingleInfoRow(
             infoLabel: 'Graphics',
@@ -63,18 +64,18 @@ class _InfoPageState extends State<InfoPage> {
           ),
           SingleInfoRow(
             infoLabel: 'Disk Capacity',
-            infoValue: model.diskCapacity,
+            infoValue: model.diskCapacity != null ? filesize(model.diskCapacity) : '',
           ),
         ]),
         
         SettingsSection(headline: 'System', children: [
           SingleInfoRow(
             infoLabel: 'OS name',
-            infoValue: model.osName,
+            infoValue: '${model.osName} ${model.osVersion}',
           ),
           SingleInfoRow(
             infoLabel: 'OS type',
-            infoValue: model.osType,
+            infoValue: '${model.osType} Bits',
           ),
           SingleInfoRow(
             infoLabel: 'Gnome version',
