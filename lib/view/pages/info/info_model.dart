@@ -56,11 +56,11 @@ class InfoModel extends ChangeNotifier {
 
   String get osName => _systemInfo.os_name;
   String get osVersion => _systemInfo.os_version;
-  String get osType => sizeOf<IntPtr>() == 8 ? '64' : '32';
+  int get osType => sizeOf<IntPtr>() * 8;
 
   String get processorName => _cpus[0].model_name;
-  String get processorCount => (_cpus.length + 1).toString();
-  String get memory => _memInfo.mem_total_gb.toString();
+  int get processorCount => _cpus.length + 1;
+  int get memory => _memInfo.mem_total_gb;
   String get graphics => _gpuName;
   int? get diskCapacity => _diskCapacity;
 
