@@ -1,13 +1,13 @@
 import 'dart:ffi';
 import 'dart:io';
 
-import 'package:flutter/foundation.dart';
 import 'package:linux_system_info/linux_system_info.dart';
+import 'package:safe_change_notifier/safe_change_notifier.dart';
 import 'package:udisks/udisks.dart';
 
 import 'hostname_service.dart';
 
-class InfoModel extends ChangeNotifier {
+class InfoModel extends SafeChangeNotifier {
   InfoModel([
     HostnameService? hostnameService,
     UDisksClient? uDisksClient,
