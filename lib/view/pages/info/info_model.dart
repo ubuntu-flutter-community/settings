@@ -13,8 +13,7 @@ class InfoModel extends ChangeNotifier {
     UDisksClient? uDisksClient
   ]) :
     _hostnameService = hostnameService ?? HostnameService(),
-    _uDisksClient = uDisksClient ?? UDisksClient()
-  ;
+    _uDisksClient = uDisksClient ?? UDisksClient();
 
   final HostnameService _hostnameService;
   final UDisksClient _uDisksClient;
@@ -22,17 +21,18 @@ class InfoModel extends ChangeNotifier {
   String _gpuName = '';
   int? _diskCapacity;
 
-  void init() {
-    _hostnameService.init().then((_) => notifyListeners());
+  Future<void> init() async {
+    await _hostnameService.init();
 
-    GpuInfo.load().then((gpus) {
-      notifyListeners();
+    await GpuInfo.load().then((gpus) {
       _gpuName = gpus.first.model;
     });
 
-    _uDisksClient.connect().then((value) {
+    await _uDisksClient.connect().then((value) {
       _diskCapacity = _uDisksClient.drives.fold<int>(0, (sum, drive) => sum + drive.size);
     });
+
+    notifyListeners();
   }
 
   String get hostname => _hostnameService.hostname;
