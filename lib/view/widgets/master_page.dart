@@ -34,8 +34,8 @@ class MasterPageState extends State<MasterPage> {
 
   @override
   void dispose() {
-    super.dispose();
     _searchController.dispose();
+    super.dispose();
   }
 
   @override
