@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
+import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import 'package:settings/view/pages/page_items.dart';
 import 'package:yaru_icons/widgets/yaru_icons.dart';
 
@@ -25,6 +26,7 @@ class PortraitLayout extends StatefulWidget {
 class _PortraitLayoutState extends State<PortraitLayout> {
   late int _index;
   late TextEditingController _searchController;
+  late ItemScrollController _pageItemListViewScrollController;
   final filteredItems = <PageItem>[];
   final _navigatorKey = GlobalKey<NavigatorState>();
   NavigatorState get _navigator => _navigatorKey.currentState!;
@@ -32,6 +34,7 @@ class _PortraitLayoutState extends State<PortraitLayout> {
   @override
   void initState() {
     _searchController = TextEditingController();
+    _pageItemListViewScrollController = ItemScrollController();
     _index = widget.index;
     super.initState();
   }
