@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:mockingjay/mockingjay.dart';
 import 'package:provider/provider.dart';
 
 typedef WidgetBuilderNoContext = Widget Function();
@@ -18,6 +19,7 @@ extension TesterExtension on WidgetTester {
     required R repository,
     P? provider,
     dynamic args,
+    MockNavigator? navigator,
   }) async {
     Widget toTest = widgetBuilder.call();
     if (args != null) {
@@ -32,7 +34,10 @@ extension TesterExtension on WidgetTester {
     }
 
     Widget parent = MaterialApp(
-      home: toTest,
+      home: MockNavigatorProvider(
+        child: toTest,
+        navigator: navigator ?? MockNavigator(),
+      ),
     );
 
     if (provider != null) {
