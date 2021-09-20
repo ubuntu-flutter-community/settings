@@ -5,14 +5,14 @@ import 'constants.dart';
 import 'page_item.dart';
 
 class PortraitLayout extends StatefulWidget {
-  PortraitLayout({
+  const PortraitLayout({
     Key? key,
     required this.index,
     required this.pages,
     required this.onSelected,
   }) : super(key: key);
 
-  int index;
+  final int index;
   final List<PageItem> pages;
   final ValueChanged<int> onSelected;
 
@@ -21,19 +21,27 @@ class PortraitLayout extends StatefulWidget {
 }
 
 class _PortraitLayoutState extends State<PortraitLayout> {
+  late int _index;
+
   final _navigatorKey = GlobalKey<NavigatorState>();
   NavigatorState get _navigator => _navigatorKey.currentState!;
+
+  @override
+  void initState() {
+    _index = widget.index;
+    super.initState();
+  }
 
   void portraitOnTap(int index) {
     _navigator.push(pageRoute(index));
     widget.onSelected(index);
-    setState(() => widget.index = index);
+    setState(() => _index = index);
   }
 
   MaterialPageRoute pageRoute(int index) {
     return MaterialPageRoute(
       builder: (context) {
-        final page = widget.pages[index];
+        final page = widget.pages[_index];
         return Scaffold(
           appBar: AppBar(
             toolbarHeight: kAppBarHeight,
@@ -74,14 +82,14 @@ class _PortraitLayoutState extends State<PortraitLayout> {
                     title: const Text('Settings'),
                   ),
                   body: PageItemListView(
-                    index: widget.index,
+                    index: _index,
                     onTap: portraitOnTap,
                     pages: widget.pages,
                   ),
                 );
               },
             ),
-            if (widget.index != -1) pageRoute(widget.index)
+            if (_index != -1) pageRoute(_index)
           ];
         },
       ),
