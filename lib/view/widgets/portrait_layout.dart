@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:settings/view/pages/page_items.dart';
+import 'package:yaru_icons/widgets/yaru_icons.dart';
 
 import 'constants.dart';
 import 'page_item.dart';
@@ -23,12 +24,14 @@ class PortraitLayout extends StatefulWidget {
 
 class _PortraitLayoutState extends State<PortraitLayout> {
   late int _index;
-
+  late TextEditingController _searchController;
+  final filteredItems = <PageItem>[];
   final _navigatorKey = GlobalKey<NavigatorState>();
   NavigatorState get _navigator => _navigatorKey.currentState!;
 
   @override
   void initState() {
+    _searchController = TextEditingController();
     _index = widget.index;
     super.initState();
   }
@@ -70,6 +73,7 @@ class _PortraitLayoutState extends State<PortraitLayout> {
 
   @override
   Widget build(BuildContext context) {
+    filterItems(_searchController);
     return WillPopScope(
       onWillPop: () async => !await _navigator.maybePop(),
       child: Navigator(
@@ -79,6 +83,10 @@ class _PortraitLayoutState extends State<PortraitLayout> {
             MaterialPageRoute(
               builder: (context) {
                 return Scaffold(
+                  floatingActionButton: FloatingActionButton(
+                    child: const Icon(YaruIcons.search),
+                    onPressed: () => openSearchDialog(),
+                  ),
                   appBar: AppBar(
                     toolbarHeight: kAppBarHeight,
                     title: const Text('Settings',
@@ -97,5 +105,69 @@ class _PortraitLayoutState extends State<PortraitLayout> {
         },
       ),
     );
+  }
+
+  void filterItems(TextEditingController controller) {
+    filteredItems.clear();
+    for (PageItem pageItem in widget.pages) {
+      if (pageItem.title
+          .toLowerCase()
+          .contains(controller.value.text.toLowerCase())) {
+        filteredItems.add(pageItem);
+      }
+    }
+  }
+
+  void portraitOnTapForDialog(int index) {
+    final tappedItem = filteredItems[index];
+    late int matchedIndex;
+    for (var pageItem in widget.pages) {
+      if (pageItem.title == tappedItem.title) {
+        matchedIndex = widget.pages.indexOf(pageItem);
+      }
+    }
+
+    Navigator.of(context).pop();
+    portraitOnTap(matchedIndex);
+  }
+
+  void openSearchDialog() {
+    filterItems(_searchController);
+    showDialog(
+        context: context,
+        builder: (_) => StatefulBuilder(builder: (context, setState) {
+              return SingleChildScrollView(
+                child: AlertDialog(
+                  actions: [
+                    TextButton(
+                        onPressed: () => Navigator.of(context).pop(),
+                        child: const Text('Close'))
+                  ],
+                  content: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        TextField(
+                          onChanged: (value) {
+                            filterItems(_searchController);
+                            setState(() {});
+                          },
+                          controller: _searchController,
+                          autofocus: true,
+                        ),
+                        SizedBox(
+                          width: 300,
+                          height: MediaQuery.of(context).size.height / 2,
+                          child: PageItemListView(
+                              pages: filteredItems,
+                              index: _index,
+                              onTap: portraitOnTapForDialog),
+                        ),
+                      ]),
+                ),
+              );
+            })).then((value) => setState(() {
+          _searchController.clear();
+        }));
   }
 }
