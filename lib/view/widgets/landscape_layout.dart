@@ -31,13 +31,13 @@ class _LandscapeLayoutState extends State<LandscapeLayout> {
     super.initState();
   }
 
+  void landscapeOnTap(int index) {
+    widget.onSelected(index);
+    setState(() => _index = index);
+  }
+
   @override
   Widget build(BuildContext context) {
-    void landscapeOnTap(int index) {
-      widget.onSelected(index);
-      setState(() => _index = index);
-    }
-
     return Scaffold(
       body: Column(
         children: [

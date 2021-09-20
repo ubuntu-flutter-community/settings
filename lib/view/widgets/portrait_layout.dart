@@ -5,14 +5,14 @@ import 'constants.dart';
 import 'page_item.dart';
 
 class PortraitLayout extends StatefulWidget {
-  const PortraitLayout({
+  PortraitLayout({
     Key? key,
     required this.index,
     required this.pages,
     required this.onSelected,
   }) : super(key: key);
 
-  final int index;
+  int index;
   final List<PageItem> pages;
   final ValueChanged<int> onSelected;
 
@@ -23,6 +23,12 @@ class PortraitLayout extends StatefulWidget {
 class _PortraitLayoutState extends State<PortraitLayout> {
   final _navigatorKey = GlobalKey<NavigatorState>();
   NavigatorState get _navigator => _navigatorKey.currentState!;
+
+  void portraitOnTap(int index) {
+    _navigator.push(pageRoute(index));
+    widget.onSelected(index);
+    setState(() => widget.index = index);
+  }
 
   MaterialPageRoute pageRoute(int index) {
     return MaterialPageRoute(
@@ -54,11 +60,6 @@ class _PortraitLayoutState extends State<PortraitLayout> {
 
   @override
   Widget build(BuildContext context) {
-    void portraitOnTap(int index) {
-      _navigator.push(pageRoute(index));
-      widget.onSelected(index);
-    }
-
     return WillPopScope(
       onWillPop: () async => !await _navigator.maybePop(),
       child: Navigator(
