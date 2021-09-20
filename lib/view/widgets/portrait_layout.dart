@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:yaru_icons/widgets/yaru_icons.dart';
 
 import 'constants.dart';
 import 'page_item.dart';
@@ -63,10 +62,6 @@ class _PortraitLayoutState extends State<PortraitLayout> {
             MaterialPageRoute(
               builder: (context) {
                 return Scaffold(
-                  floatingActionButton: FloatingActionButton(
-                      child: const Icon(YaruIcons.search), onPressed: () {}),
-                  floatingActionButtonLocation:
-                      FloatingActionButtonLocation.startFloat,
                   appBar: AppBar(
                     toolbarHeight: kAppBarHeight,
                     title: const Text('Settings'),

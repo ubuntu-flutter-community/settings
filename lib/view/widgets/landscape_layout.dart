@@ -34,9 +34,6 @@ class _LandscapeLayoutState extends State<LandscapeLayout> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: FloatingActionButton(
-          child: const Icon(YaruIcons.search), onPressed: () {}),
-      floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,
       body: Column(
         children: [
           SizedBox(
