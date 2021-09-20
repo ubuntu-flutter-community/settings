@@ -20,8 +20,9 @@ class DetailPage extends StatelessWidget {
           leading: isTablet(context)
               ? null
               : BackButton(
-                  onPressed: () =>
-                      Navigator.of(context).popUntil((route) => route.isFirst),
+                  onPressed: () {
+                    Navigator.of(context).popUntil((route) => route.isFirst);
+                  },
                 ),
         ),
       ),
