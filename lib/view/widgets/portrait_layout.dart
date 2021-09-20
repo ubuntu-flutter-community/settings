@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/painting.dart';
 import 'package:settings/view/pages/page_items.dart';
 
 import 'constants.dart';
@@ -79,7 +80,8 @@ class _PortraitLayoutState extends State<PortraitLayout> {
                 return Scaffold(
                   appBar: AppBar(
                     toolbarHeight: kAppBarHeight,
-                    title: const Text('Settings'),
+                    title: const Text('Settings',
+                        style: TextStyle(fontWeight: FontWeight.normal)),
                   ),
                   body: PageItemListView(
                     index: _index,
