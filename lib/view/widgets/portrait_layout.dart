@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:settings/view/pages/page_items.dart';
 
 import 'constants.dart';
 import 'page_item.dart';
@@ -30,7 +31,7 @@ class _PortraitLayoutState extends State<PortraitLayout> {
         return Scaffold(
           appBar: AppBar(
             toolbarHeight: kAppBarHeight,
-            title: Text('Portrait: ${page.title}'),
+            title: Text(page.title),
             leading: BackButton(
               onPressed: () {
                 widget.onSelected(-1);
@@ -53,6 +54,11 @@ class _PortraitLayoutState extends State<PortraitLayout> {
 
   @override
   Widget build(BuildContext context) {
+    void portraitOnTap(int index) {
+      _navigator.push(pageRoute(index));
+      widget.onSelected(index);
+    }
+
     return WillPopScope(
       onWillPop: () async => !await _navigator.maybePop(),
       child: Navigator(
@@ -66,38 +72,10 @@ class _PortraitLayoutState extends State<PortraitLayout> {
                     toolbarHeight: kAppBarHeight,
                     title: const Text('Settings'),
                   ),
-                  body: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: ListView(
-                      children: [
-                        for (var i = 0; i < widget.pages.length; ++i)
-                          Padding(
-                            padding: const EdgeInsets.only(bottom: 8.0),
-                            child: Container(
-                              decoration: const BoxDecoration(
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(4.0)),
-                              ),
-                              child: ListTile(
-                                shape: const RoundedRectangleBorder(
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(4.0)),
-                                ),
-                                leading: Icon(widget.pages[i].iconData,
-                                    color: Theme.of(context)
-                                        .colorScheme
-                                        .onSurface
-                                        .withOpacity(0.8)),
-                                title: Text(widget.pages[i].title),
-                                onTap: () {
-                                  _navigator.push(pageRoute(i));
-                                  widget.onSelected(i);
-                                },
-                              ),
-                            ),
-                          )
-                      ],
-                    ),
+                  body: PageItemListView(
+                    index: widget.index,
+                    onTap: portraitOnTap,
+                    pages: widget.pages,
                   ),
                 );
               },

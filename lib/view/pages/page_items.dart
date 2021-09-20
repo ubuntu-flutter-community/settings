@@ -161,3 +161,55 @@ final pageItems = <PageItem>[
             child: const InfoPage(),
           )),
 ];
+
+class PageItemListView extends StatelessWidget {
+  const PageItemListView(
+      {Key? key, required this.pages, required this.index, required this.onTap})
+      : super(key: key);
+
+  final List<PageItem> pages;
+  final int index;
+  final Function(int index) onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: ListView(
+        children: [
+          for (var i = 0; i < pages.length; ++i)
+            Padding(
+              padding: const EdgeInsets.only(bottom: 8.0),
+              child: Container(
+                decoration: BoxDecoration(
+                  borderRadius: const BorderRadius.all(Radius.circular(4.0)),
+                  color: i == index
+                      ? Theme.of(context)
+                          .colorScheme
+                          .onSurface
+                          .withOpacity(0.07)
+                      : null,
+                ),
+                child: ListTile(
+                  shape: const RoundedRectangleBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(4.0)),
+                  ),
+                  leading: Icon(pages[i].iconData,
+                      color: Theme.of(context)
+                          .colorScheme
+                          .onSurface
+                          .withOpacity(0.8)),
+                  title: Text(pages[i].title,
+                      style: TextStyle(
+                          fontWeight: FontWeight.normal,
+                          color: Theme.of(context).colorScheme.onSurface)),
+                  selected: i == index,
+                  onTap: () => onTap(i),
+                ),
+              ),
+            )
+        ],
+      ),
+    );
+  }
+}

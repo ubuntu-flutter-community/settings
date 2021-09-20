@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:yaru_icons/widgets/yaru_icons.dart';
+import 'package:settings/view/pages/page_items.dart';
 
 import 'constants.dart';
 import 'page_item.dart';
@@ -33,6 +33,11 @@ class _LandscapeLayoutState extends State<LandscapeLayout> {
 
   @override
   Widget build(BuildContext context) {
+    void landscapeOnTap(int index) {
+      widget.onSelected(index);
+      setState(() => _index = index);
+    }
+
     return Scaffold(
       body: Column(
         children: [
@@ -71,52 +76,10 @@ class _LandscapeLayoutState extends State<LandscapeLayout> {
                         ),
                       ),
                     ),
-                    child: Padding(
-                      padding: const EdgeInsets.all(8),
-                      child: ListView(
-                        children: [
-                          for (var i = 0; i < widget.pages.length; ++i)
-                            Padding(
-                              padding: const EdgeInsets.only(bottom: 8),
-                              child: Container(
-                                decoration: BoxDecoration(
-                                  borderRadius: const BorderRadius.all(
-                                      Radius.circular(4.0)),
-                                  color: i == _index
-                                      ? Theme.of(context)
-                                          .colorScheme
-                                          .onSurface
-                                          .withOpacity(0.07)
-                                      : null,
-                                ),
-                                child: ListTile(
-                                  shape: const RoundedRectangleBorder(
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(4.0)),
-                                  ),
-                                  leading: Icon(widget.pages[i].iconData,
-                                      color: Theme.of(context)
-                                          .colorScheme
-                                          .onSurface
-                                          .withOpacity(0.8)),
-                                  title: Text(
-                                    widget.pages[i].title,
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.normal,
-                                        color: Theme.of(context)
-                                            .colorScheme
-                                            .onSurface),
-                                  ),
-                                  selected: i == _index,
-                                  onTap: () {
-                                    widget.onSelected(i);
-                                    setState(() => _index = i);
-                                  },
-                                ),
-                              ),
-                            )
-                        ],
-                      ),
+                    child: PageItemListView(
+                      index: _index,
+                      onTap: landscapeOnTap,
+                      pages: widget.pages,
                     ),
                   ),
                 ),
