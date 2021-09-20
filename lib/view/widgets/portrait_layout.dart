@@ -66,7 +66,7 @@ class _PortraitLayoutState extends State<PortraitLayout> {
                   floatingActionButton: FloatingActionButton(
                       child: const Icon(YaruIcons.search), onPressed: () {}),
                   floatingActionButtonLocation:
-                      FloatingActionButtonLocation.miniEndTop,
+                      FloatingActionButtonLocation.startFloat,
                   appBar: AppBar(
                     toolbarHeight: kAppBarHeight,
                     title: const Text('Settings'),
