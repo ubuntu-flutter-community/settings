@@ -22,11 +22,13 @@ class LandscapeLayout extends StatefulWidget {
 
 class _LandscapeLayoutState extends State<LandscapeLayout> {
   late int _index;
+  late ScrollController _contentScrollController;
 
   @override
   void initState() {
-    super.initState();
     _index = widget.index;
+    _contentScrollController = ScrollController();
+    super.initState();
   }
 
   @override
@@ -123,6 +125,7 @@ class _LandscapeLayoutState extends State<LandscapeLayout> {
                 ),
                 Expanded(
                     child: SingleChildScrollView(
+                  controller: _contentScrollController,
                   child: Center(
                     child: Padding(
                       padding: const EdgeInsets.all(20.0),
