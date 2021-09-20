@@ -46,7 +46,8 @@ class _PortraitLayoutState extends State<PortraitLayout> {
         return Scaffold(
           appBar: AppBar(
             toolbarHeight: kAppBarHeight,
-            title: Text(page.title),
+            title: Text(page.title,
+                style: const TextStyle(fontWeight: FontWeight.normal)),
             leading: BackButton(
               onPressed: () {
                 widget.onSelected(-1);
