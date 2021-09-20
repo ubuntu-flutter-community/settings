@@ -24,8 +24,8 @@ void main() {
       expect(find.text('Repeat Keys'), findsOneWidget);
       expect(find.byType(OutlinedButton), findsOneWidget);
 
-      // The [byWidgetPredicate] method of the [CommonFinders] class is to specify the
-      // type of any widget and so examine the state of that type.
+      /// The [byWidgetPredicate] method of the [CommonFinders] class is to specify the
+      /// type of any widget and so examine the state of that type.
       final finder = find.byWidgetPredicate(
         (widget) => widget is Switch && widget.value == true,
         description: 'Switch is enabled',
@@ -54,7 +54,7 @@ void main() {
       expect(find.byType(Switch), findsNothing);
       expect(find.byType(OutlinedButton), findsNothing);
 
-      // returns [SizedBox] when `value=null`
+      /// returns [SizedBox] when `value=null`
       expect(find.byType(SizedBox), findsOneWidget);
     },
   );
