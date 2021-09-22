@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:settings/view/widgets/page_item_list_view.dart';
 import 'package:settings/view/widgets/search_app_bar.dart';
+import 'package:yaru_icons/widgets/yaru_icons.dart';
 
 import 'constants.dart';
 import 'page_item.dart';
@@ -64,8 +65,9 @@ class _PortraitLayoutState extends State<PortraitLayout> {
             toolbarHeight: kAppBarHeight,
             title: Text(page.title,
                 style: const TextStyle(fontWeight: FontWeight.normal)),
-            leading: BackButton(
-              onPressed: () {
+            leading: InkWell(
+              child: const Icon(YaruIcons.go_previous),
+              onTap: () {
                 widget.onSelected(-1);
                 _navigator.pop(context);
               },
