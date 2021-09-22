@@ -48,7 +48,6 @@ class _PortraitLayoutState extends State<PortraitLayout> {
         }
       }
       _filteredItems.clear();
-      _searchController.clear();
     }
 
     _navigator.push(pageRoute(index));

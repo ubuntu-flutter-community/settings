@@ -47,7 +47,6 @@ class _LandscapeLayoutState extends State<LandscapeLayout> {
         }
       }
       _filteredItems.clear();
-      _searchController.clear();
     }
 
     widget.onSelected(index);
@@ -143,6 +142,7 @@ class _LandscapeLayoutState extends State<LandscapeLayout> {
         onTap: () {
           setState(() {
             _searchActive = true;
+            _searchController.clear();
           });
         });
   }
