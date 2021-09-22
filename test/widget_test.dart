@@ -27,7 +27,7 @@ void main() {
         ),
       );
 
-      expect(find.byType(AppBar), findsNWidgets(1));
+      expect(find.byType(MasterDetailPage), findsNWidgets(1));
     }
   });
 }
