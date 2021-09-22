@@ -38,20 +38,22 @@ class _PortraitLayoutState extends State<PortraitLayout> {
     super.initState();
   }
 
-  void onTap(int indexOfTappedTile) {
+  void onTap(int index) {
     _searchActive = false;
-    final tappedItem = _filteredItems[indexOfTappedTile];
-    late int indexInAllPages;
-    for (var pageItem in widget.pages) {
-      if (pageItem.title == tappedItem.title) {
-        indexInAllPages = widget.pages.indexOf(pageItem);
+    if (_filteredItems.isNotEmpty) {
+      for (var pageItem in widget.pages) {
+        if (pageItem.title == _filteredItems[index].title) {
+          index = widget.pages.indexOf(pageItem);
+          break;
+        }
       }
+      _filteredItems.clear();
+      _searchController.clear();
     }
-    _navigator.push(pageRoute(indexInAllPages));
-    widget.onSelected(indexInAllPages);
-    _filteredItems.clear();
-    _searchController.clear();
-    setState(() => _selectedIndex = indexInAllPages);
+
+    _navigator.push(pageRoute(index));
+    widget.onSelected(index);
+    setState(() => _selectedIndex = index);
   }
 
   MaterialPageRoute pageRoute(int index) {

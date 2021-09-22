@@ -37,20 +37,21 @@ class _LandscapeLayoutState extends State<LandscapeLayout> {
     super.initState();
   }
 
-  void onTap(int indexOfTheTappedTile) {
+  void onTap(int index) {
     _searchActive = false;
-    final tappedItem = _filteredItems[indexOfTheTappedTile];
-    late int indexInAllPages;
-    for (var pageItem in widget.pages) {
-      if (pageItem.title == tappedItem.title) {
-        indexInAllPages = widget.pages.indexOf(pageItem);
+    if (_filteredItems.isNotEmpty) {
+      for (var pageItem in widget.pages) {
+        if (pageItem.title == _filteredItems[index].title) {
+          index = widget.pages.indexOf(pageItem);
+          break;
+        }
       }
+      _filteredItems.clear();
+      _searchController.clear();
     }
 
-    widget.onSelected(indexInAllPages);
-    _filteredItems.clear();
-    _searchController.clear();
-    setState(() => _selectedIndex = indexInAllPages);
+    widget.onSelected(index);
+    setState(() => _selectedIndex = index);
   }
 
   void filterItems(TextEditingController controller) {
