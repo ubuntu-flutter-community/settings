@@ -63,13 +63,13 @@ class _MasterDetailPageState extends State<MasterDetailPage> {
         switch (orientation) {
           case Orientation.portrait:
             return PortraitLayout(
-              index: _index,
+              selectedIndex: _index,
               pages: pageItems,
               onSelected: _setIndex,
             );
           case Orientation.landscape:
             return LandscapeLayout(
-              index: _index == -1 ? _previousIndex : _index,
+              selectedIndex: _index == -1 ? _previousIndex : _index,
               pages: pageItems,
               onSelected: _setIndex,
             );

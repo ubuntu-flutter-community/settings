@@ -9,12 +9,12 @@ import 'page_item.dart';
 class LandscapeLayout extends StatefulWidget {
   const LandscapeLayout({
     Key? key,
-    required this.index,
+    required this.selectedIndex,
     required this.pages,
     required this.onSelected,
   }) : super(key: key);
 
-  final int index;
+  final int selectedIndex;
   final List<PageItem> pages;
   final ValueChanged<int> onSelected;
 
@@ -23,7 +23,7 @@ class LandscapeLayout extends StatefulWidget {
 }
 
 class _LandscapeLayoutState extends State<LandscapeLayout> {
-  late int _index;
+  late int _selectedIndex;
   late ScrollController _contentScrollController;
   late TextEditingController _searchController;
   late bool _searchActive;
@@ -31,17 +31,16 @@ class _LandscapeLayoutState extends State<LandscapeLayout> {
 
   @override
   void initState() {
-    _index = widget.index;
+    _selectedIndex = widget.selectedIndex;
     _contentScrollController = ScrollController();
     _searchController = TextEditingController();
     _searchActive = false;
     super.initState();
   }
 
-  void landscapeOnTap(int tappedTileIndex) {
+  void onTap(int indexOfTheTappedTile) {
     _searchActive = false;
-
-    final tappedItem = _filteredItems[tappedTileIndex];
+    final tappedItem = _filteredItems[indexOfTheTappedTile];
     late int indexInAllPages;
     for (var pageItem in widget.pages) {
       if (pageItem.title == tappedItem.title) {
@@ -50,9 +49,9 @@ class _LandscapeLayoutState extends State<LandscapeLayout> {
     }
 
     widget.onSelected(indexInAllPages);
-    setState(() => _index = indexInAllPages);
     _filteredItems.clear();
     _searchController.clear();
+    setState(() => _selectedIndex = indexInAllPages);
   }
 
   void filterItems(TextEditingController controller) {
@@ -78,50 +77,11 @@ class _LandscapeLayoutState extends State<LandscapeLayout> {
               children: [
                 SizedBox(
                   width: kLeftPaneWidth,
-                  child: AppBar(
-                    leading: _searchActive
-                        ? null
-                        : InkWell(
-                            child: const Icon(YaruIcons.search),
-                            onTap: () => {
-                              setState(() {
-                                _searchActive = true;
-                              })
-                            },
-                          ),
-                    title: _searchActive
-                        ? RawKeyboardListener(
-                            onKey: (event) {
-                              if (event.logicalKey ==
-                                  LogicalKeyboardKey.escape) {
-                                setState(() {
-                                  _searchActive = false;
-                                  _searchController.clear();
-                                  _filteredItems.clear();
-                                });
-                                return;
-                              }
-                            },
-                            focusNode: FocusNode(),
-                            child: SizedBox(
-                              height: kAppBarHeight - 12,
-                              child: TextField(
-                                controller: _searchController,
-                                autofocus: true,
-                                onChanged: (value) {
-                                  filterItems(_searchController);
-                                  setState(() {});
-                                },
-                              ),
-                            ),
-                          )
-                        : const Text('Settings',
-                            style: TextStyle(fontWeight: FontWeight.normal)),
-                  ),
+                  child: addSearchAppBar(),
                 ),
                 Expanded(
                   child: AppBar(
-                    title: Text(widget.pages[_index].title,
+                    title: Text(widget.pages[_selectedIndex].title,
                         style: const TextStyle(fontWeight: FontWeight.normal)),
                   ),
                 )
@@ -145,8 +105,8 @@ class _LandscapeLayoutState extends State<LandscapeLayout> {
                       ),
                     ),
                     child: PageItemListView(
-                      selectedIndex: _index,
-                      onTap: landscapeOnTap,
+                      selectedIndex: _selectedIndex,
+                      onTap: onTap,
                       pages: _filteredItems.isEmpty
                           ? widget.pages
                           : _filteredItems,
@@ -159,7 +119,7 @@ class _LandscapeLayoutState extends State<LandscapeLayout> {
                   child: Center(
                     child: Padding(
                       padding: const EdgeInsets.all(20.0),
-                      child: widget.pages[_index].builder(context),
+                      child: widget.pages[_selectedIndex].builder(context),
                     ),
                   ),
                 )),
@@ -168,6 +128,48 @@ class _LandscapeLayoutState extends State<LandscapeLayout> {
           ),
         ],
       ),
+    );
+  }
+
+  AppBar addSearchAppBar() {
+    return AppBar(
+      leading: _searchActive
+          ? null
+          : InkWell(
+              child: const Icon(YaruIcons.search),
+              onTap: () => {
+                setState(() {
+                  _searchActive = true;
+                })
+              },
+            ),
+      title: _searchActive
+          ? RawKeyboardListener(
+              onKey: (event) {
+                if (event.logicalKey == LogicalKeyboardKey.escape) {
+                  setState(() {
+                    _searchActive = false;
+                    _searchController.clear();
+                    _filteredItems.clear();
+                  });
+                  return;
+                }
+              },
+              focusNode: FocusNode(),
+              child: SizedBox(
+                height: kAppBarHeight - 12,
+                child: TextField(
+                  controller: _searchController,
+                  autofocus: true,
+                  onChanged: (value) {
+                    filterItems(_searchController);
+                    setState(() {});
+                  },
+                ),
+              ),
+            )
+          : const Text('Settings',
+              style: TextStyle(fontWeight: FontWeight.normal)),
     );
   }
 }

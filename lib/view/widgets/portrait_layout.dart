@@ -8,12 +8,12 @@ import 'page_item.dart';
 class PortraitLayout extends StatefulWidget {
   const PortraitLayout({
     Key? key,
-    required this.index,
+    required this.selectedIndex,
     required this.pages,
     required this.onSelected,
   }) : super(key: key);
 
-  final int index;
+  final int selectedIndex;
   final List<PageItem> pages;
   final ValueChanged<int> onSelected;
 
@@ -22,7 +22,7 @@ class PortraitLayout extends StatefulWidget {
 }
 
 class _PortraitLayoutState extends State<PortraitLayout> {
-  late int _index;
+  late int _selectedIndex;
   late TextEditingController _searchController;
   final filteredItems = <PageItem>[];
   final _navigatorKey = GlobalKey<NavigatorState>();
@@ -31,22 +31,20 @@ class _PortraitLayoutState extends State<PortraitLayout> {
   @override
   void initState() {
     _searchController = TextEditingController();
-    _index = widget.index;
+    _selectedIndex = widget.selectedIndex;
     super.initState();
   }
 
   void portraitOnTap(int index) {
     _navigator.push(pageRoute(index));
     widget.onSelected(index);
-    setState(() {
-      _index = index;
-    });
+    setState(() => _selectedIndex = index);
   }
 
   MaterialPageRoute pageRoute(int index) {
     return MaterialPageRoute(
       builder: (context) {
-        final page = widget.pages[_index];
+        final page = widget.pages[_selectedIndex];
         return Scaffold(
           appBar: AppBar(
             toolbarHeight: kAppBarHeight,
@@ -90,14 +88,14 @@ class _PortraitLayoutState extends State<PortraitLayout> {
                         style: TextStyle(fontWeight: FontWeight.normal)),
                   ),
                   body: PageItemListView(
-                    selectedIndex: _index,
+                    selectedIndex: _selectedIndex,
                     onTap: portraitOnTap,
                     pages: widget.pages,
                   ),
                 );
               },
             ),
-            if (_index != -1) pageRoute(_index)
+            if (_selectedIndex != -1) pageRoute(_selectedIndex)
           ];
         },
       ),

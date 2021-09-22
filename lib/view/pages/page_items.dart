@@ -178,15 +178,16 @@ class PageItemListView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
-      child: ListView(
-        children: [
-          for (var i = 0; i < pages.length; ++i)
-            Padding(
+      child: ListView.builder(
+          shrinkWrap: true,
+          itemCount: pages.length,
+          itemBuilder: (context, index) {
+            return Padding(
               padding: const EdgeInsets.only(bottom: 8.0),
               child: Container(
                 decoration: BoxDecoration(
                   borderRadius: const BorderRadius.all(Radius.circular(4.0)),
-                  color: i == selectedIndex
+                  color: index == selectedIndex
                       ? Theme.of(context)
                           .colorScheme
                           .onSurface
@@ -197,22 +198,21 @@ class PageItemListView extends StatelessWidget {
                   shape: const RoundedRectangleBorder(
                     borderRadius: BorderRadius.all(Radius.circular(4.0)),
                   ),
-                  leading: Icon(pages[i].iconData,
+                  leading: Icon(pages[index].iconData,
                       color: Theme.of(context)
                           .colorScheme
                           .onSurface
                           .withOpacity(0.8)),
-                  title: Text(pages[i].title,
+                  title: Text(pages[index].title,
                       style: TextStyle(
                           fontWeight: FontWeight.normal,
                           color: Theme.of(context).colorScheme.onSurface)),
-                  selected: i == selectedIndex,
-                  onTap: () => onTap(i),
+                  selected: index == selectedIndex,
+                  onTap: () => onTap(index),
                 ),
               ),
-            )
-        ],
-      ),
+            );
+          }),
     );
   }
 }
