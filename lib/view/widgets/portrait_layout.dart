@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
-import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import 'package:settings/view/pages/page_items.dart';
-import 'package:yaru_icons/widgets/yaru_icons.dart';
 
 import 'constants.dart';
 import 'page_item.dart';
@@ -26,7 +24,6 @@ class PortraitLayout extends StatefulWidget {
 class _PortraitLayoutState extends State<PortraitLayout> {
   late int _index;
   late TextEditingController _searchController;
-  late ItemScrollController _pageItemListViewScrollController;
   final filteredItems = <PageItem>[];
   final _navigatorKey = GlobalKey<NavigatorState>();
   NavigatorState get _navigator => _navigatorKey.currentState!;
@@ -34,7 +31,6 @@ class _PortraitLayoutState extends State<PortraitLayout> {
   @override
   void initState() {
     _searchController = TextEditingController();
-    _pageItemListViewScrollController = ItemScrollController();
     _index = widget.index;
     super.initState();
   }
@@ -42,7 +38,9 @@ class _PortraitLayoutState extends State<PortraitLayout> {
   void portraitOnTap(int index) {
     _navigator.push(pageRoute(index));
     widget.onSelected(index);
-    setState(() => _index = index);
+    setState(() {
+      _index = index;
+    });
   }
 
   MaterialPageRoute pageRoute(int index) {
@@ -86,17 +84,13 @@ class _PortraitLayoutState extends State<PortraitLayout> {
             MaterialPageRoute(
               builder: (context) {
                 return Scaffold(
-                  floatingActionButton: FloatingActionButton(
-                    child: const Icon(YaruIcons.search),
-                    onPressed: () => openSearchDialog(),
-                  ),
                   appBar: AppBar(
                     toolbarHeight: kAppBarHeight,
                     title: const Text('Settings',
                         style: TextStyle(fontWeight: FontWeight.normal)),
                   ),
                   body: PageItemListView(
-                    index: _index,
+                    selectedIndex: _index,
                     onTap: portraitOnTap,
                     pages: widget.pages,
                   ),
@@ -132,45 +126,5 @@ class _PortraitLayoutState extends State<PortraitLayout> {
 
     Navigator.of(context).pop();
     portraitOnTap(matchedIndex);
-  }
-
-  void openSearchDialog() {
-    filterItems(_searchController);
-    showDialog(
-        context: context,
-        builder: (_) => StatefulBuilder(builder: (context, setState) {
-              return SingleChildScrollView(
-                child: AlertDialog(
-                  actions: [
-                    TextButton(
-                        onPressed: () => Navigator.of(context).pop(),
-                        child: const Text('Close'))
-                  ],
-                  content: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        TextField(
-                          onChanged: (value) {
-                            filterItems(_searchController);
-                            setState(() {});
-                          },
-                          controller: _searchController,
-                          autofocus: true,
-                        ),
-                        SizedBox(
-                          width: 300,
-                          height: MediaQuery.of(context).size.height / 2,
-                          child: PageItemListView(
-                              pages: filteredItems,
-                              index: _index,
-                              onTap: portraitOnTapForDialog),
-                        ),
-                      ]),
-                ),
-              );
-            })).then((value) => setState(() {
-          _searchController.clear();
-        }));
   }
 }

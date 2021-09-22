@@ -164,11 +164,14 @@ final pageItems = <PageItem>[
 
 class PageItemListView extends StatelessWidget {
   const PageItemListView(
-      {Key? key, required this.pages, required this.index, required this.onTap})
+      {Key? key,
+      required this.pages,
+      required this.selectedIndex,
+      required this.onTap})
       : super(key: key);
 
   final List<PageItem> pages;
-  final int index;
+  final int selectedIndex;
   final Function(int index) onTap;
 
   @override
@@ -183,7 +186,7 @@ class PageItemListView extends StatelessWidget {
               child: Container(
                 decoration: BoxDecoration(
                   borderRadius: const BorderRadius.all(Radius.circular(4.0)),
-                  color: i == index
+                  color: i == selectedIndex
                       ? Theme.of(context)
                           .colorScheme
                           .onSurface
@@ -203,7 +206,7 @@ class PageItemListView extends StatelessWidget {
                       style: TextStyle(
                           fontWeight: FontWeight.normal,
                           color: Theme.of(context).colorScheme.onSurface)),
-                  selected: i == index,
+                  selected: i == selectedIndex,
                   onTap: () => onTap(i),
                 ),
               ),
