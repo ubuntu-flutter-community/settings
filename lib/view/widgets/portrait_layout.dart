@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:settings/view/pages/page_items.dart';
+import 'package:settings/view/widgets/search_app_bar.dart';
 
 import 'constants.dart';
 import 'page_item.dart';
@@ -24,21 +25,33 @@ class PortraitLayout extends StatefulWidget {
 class _PortraitLayoutState extends State<PortraitLayout> {
   late int _selectedIndex;
   late TextEditingController _searchController;
-  final filteredItems = <PageItem>[];
+  final _filteredItems = <PageItem>[];
+  late bool _searchActive;
   final _navigatorKey = GlobalKey<NavigatorState>();
   NavigatorState get _navigator => _navigatorKey.currentState!;
 
   @override
   void initState() {
+    _searchActive = false;
     _searchController = TextEditingController();
     _selectedIndex = widget.selectedIndex;
     super.initState();
   }
 
-  void portraitOnTap(int index) {
-    _navigator.push(pageRoute(index));
-    widget.onSelected(index);
-    setState(() => _selectedIndex = index);
+  void onTap(int indexOfTappedTile) {
+    _searchActive = false;
+    final tappedItem = _filteredItems[indexOfTappedTile];
+    late int indexInAllPages;
+    for (var pageItem in widget.pages) {
+      if (pageItem.title == tappedItem.title) {
+        indexInAllPages = widget.pages.indexOf(pageItem);
+      }
+    }
+    _navigator.push(pageRoute(indexInAllPages));
+    widget.onSelected(indexInAllPages);
+    _filteredItems.clear();
+    _searchController.clear();
+    setState(() => _selectedIndex = indexInAllPages);
   }
 
   MaterialPageRoute pageRoute(int index) {
@@ -82,15 +95,12 @@ class _PortraitLayoutState extends State<PortraitLayout> {
             MaterialPageRoute(
               builder: (context) {
                 return Scaffold(
-                  appBar: AppBar(
-                    toolbarHeight: kAppBarHeight,
-                    title: const Text('Settings',
-                        style: TextStyle(fontWeight: FontWeight.normal)),
-                  ),
+                  appBar: addSearchBar(),
                   body: PageItemListView(
                     selectedIndex: _selectedIndex,
-                    onTap: portraitOnTap,
-                    pages: widget.pages,
+                    onTap: onTap,
+                    pages:
+                        _filteredItems.isEmpty ? widget.pages : _filteredItems,
                   ),
                 );
               },
@@ -102,27 +112,35 @@ class _PortraitLayoutState extends State<PortraitLayout> {
     );
   }
 
+  SearchAppBar addSearchBar() {
+    return SearchAppBar(
+        searchController: _searchController,
+        onChanged: (value) {
+          setState(() {
+            filterItems(_searchController);
+          });
+        },
+        searchActive: _searchActive,
+        onEscape: () => setState(() {
+              _searchActive = false;
+              _searchController.clear();
+              _filteredItems.clear();
+            }),
+        onTap: () {
+          setState(() {
+            _searchActive = true;
+          });
+        });
+  }
+
   void filterItems(TextEditingController controller) {
-    filteredItems.clear();
+    _filteredItems.clear();
     for (PageItem pageItem in widget.pages) {
       if (pageItem.title
           .toLowerCase()
           .contains(controller.value.text.toLowerCase())) {
-        filteredItems.add(pageItem);
+        _filteredItems.add(pageItem);
       }
     }
-  }
-
-  void portraitOnTapForDialog(int index) {
-    final tappedItem = filteredItems[index];
-    late int matchedIndex;
-    for (var pageItem in widget.pages) {
-      if (pageItem.title == tappedItem.title) {
-        matchedIndex = widget.pages.indexOf(pageItem);
-      }
-    }
-
-    Navigator.of(context).pop();
-    portraitOnTap(matchedIndex);
   }
 }

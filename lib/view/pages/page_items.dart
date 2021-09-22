@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
+import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import 'package:settings/view/pages/accessibility/accessibility_model.dart';
 import 'package:settings/view/pages/accessibility/accessibility_page.dart';
 import 'package:settings/view/pages/appearance/appearance_model.dart';
@@ -163,7 +164,7 @@ final pageItems = <PageItem>[
 ];
 
 class PageItemListView extends StatelessWidget {
-  const PageItemListView(
+  PageItemListView(
       {Key? key,
       required this.pages,
       required this.selectedIndex,
@@ -173,13 +174,14 @@ class PageItemListView extends StatelessWidget {
   final List<PageItem> pages;
   final int selectedIndex;
   final Function(int index) onTap;
+  final ItemScrollController scrollController = ItemScrollController();
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
-      child: ListView.builder(
-          shrinkWrap: true,
+      child: ScrollablePositionedList.builder(
+          itemScrollController: scrollController,
           itemCount: pages.length,
           itemBuilder: (context, index) {
             return Padding(
@@ -208,7 +210,10 @@ class PageItemListView extends StatelessWidget {
                           fontWeight: FontWeight.normal,
                           color: Theme.of(context).colorScheme.onSurface)),
                   selected: index == selectedIndex,
-                  onTap: () => onTap(index),
+                  onTap: () {
+                    onTap(index);
+                    scrollController.jumpTo(index: 20);
+                  },
                 ),
               ),
             );

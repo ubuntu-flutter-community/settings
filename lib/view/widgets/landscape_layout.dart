@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:settings/view/pages/page_items.dart';
-import 'package:yaru_icons/widgets/yaru_icons.dart';
+import 'package:settings/view/widgets/search_app_bar.dart';
 
 import 'constants.dart';
 import 'page_item.dart';
@@ -77,7 +76,7 @@ class _LandscapeLayoutState extends State<LandscapeLayout> {
               children: [
                 SizedBox(
                   width: kLeftPaneWidth,
-                  child: addSearchAppBar(),
+                  child: addSearchBar(),
                 ),
                 Expanded(
                   child: AppBar(
@@ -131,45 +130,24 @@ class _LandscapeLayoutState extends State<LandscapeLayout> {
     );
   }
 
-  AppBar addSearchAppBar() {
-    return AppBar(
-      leading: _searchActive
-          ? null
-          : InkWell(
-              child: const Icon(YaruIcons.search),
-              onTap: () => {
-                setState(() {
-                  _searchActive = true;
-                })
-              },
-            ),
-      title: _searchActive
-          ? RawKeyboardListener(
-              onKey: (event) {
-                if (event.logicalKey == LogicalKeyboardKey.escape) {
-                  setState(() {
-                    _searchActive = false;
-                    _searchController.clear();
-                    _filteredItems.clear();
-                  });
-                  return;
-                }
-              },
-              focusNode: FocusNode(),
-              child: SizedBox(
-                height: kAppBarHeight - 12,
-                child: TextField(
-                  controller: _searchController,
-                  autofocus: true,
-                  onChanged: (value) {
-                    filterItems(_searchController);
-                    setState(() {});
-                  },
-                ),
-              ),
-            )
-          : const Text('Settings',
-              style: TextStyle(fontWeight: FontWeight.normal)),
-    );
+  SearchAppBar addSearchBar() {
+    return SearchAppBar(
+        searchController: _searchController,
+        onChanged: (value) {
+          setState(() {
+            filterItems(_searchController);
+          });
+        },
+        searchActive: _searchActive,
+        onEscape: () => setState(() {
+              _searchActive = false;
+              _searchController.clear();
+              _filteredItems.clear();
+            }),
+        onTap: () {
+          setState(() {
+            _searchActive = true;
+          });
+        });
   }
 }
