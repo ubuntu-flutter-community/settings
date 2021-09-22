@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import 'package:settings/view/pages/page_items.dart';
 import 'package:yaru_icons/widgets/yaru_icons.dart';
 
@@ -26,7 +25,6 @@ class LandscapeLayout extends StatefulWidget {
 class _LandscapeLayoutState extends State<LandscapeLayout> {
   late int _index;
   late ScrollController _contentScrollController;
-  late ItemScrollController _scrollController;
   late TextEditingController _searchController;
   late bool _searchActive;
   final _filteredItems = <PageItem>[];
@@ -35,7 +33,6 @@ class _LandscapeLayoutState extends State<LandscapeLayout> {
   void initState() {
     _index = widget.index;
     _contentScrollController = ScrollController();
-    _scrollController = ItemScrollController();
     _searchController = TextEditingController();
     _searchActive = false;
     super.initState();
