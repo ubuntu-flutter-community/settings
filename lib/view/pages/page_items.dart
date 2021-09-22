@@ -212,7 +212,7 @@ class PageItemListView extends StatelessWidget {
                   selected: index == selectedIndex,
                   onTap: () {
                     onTap(index);
-                    scrollController.jumpTo(index: 20);
+                    scrollController.jumpTo(index: selectedIndex);
                   },
                 ),
               ),
