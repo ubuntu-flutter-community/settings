@@ -136,6 +136,7 @@ class _PortraitLayoutState extends State<PortraitLayout> {
         onTap: () {
           setState(() {
             _searchActive = true;
+            _searchController.clear();
           });
         });
   }
