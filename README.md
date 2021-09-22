@@ -2,10 +2,10 @@
 
 ![](.github/images/wip.gif)
 
-The goal of this project is to provide the core of the Ubuntu operating system with Flutter.
-We want to use modern design but also use common patterns to desktop operating systems.
+The goal of this project is to build the heart of the Ubuntu operating system with Flutter.
+We use modern but also use common patterns known on desktop operating systems.
 
-Packages that we already use or plan to user are:
+Packages that we already use or plan to use are:
 
 - [gsettings.dart](https://github.com/canonical/gsettings.dart)
 - [bluez.dart](https://github.com/canonical/bluez.dart)
@@ -41,4 +41,4 @@ Packages that we already use or plan to user are:
 - [ ] Users page
 - [ ] Preferred apps page
 - [ ] Date and time page
-- [ ] Info page
+- [X] Info page

@@ -14,151 +14,150 @@ import 'package:settings/view/pages/notifications_page.dart/notifications_model.
 import 'package:settings/view/pages/notifications_page.dart/notifications_page.dart';
 import 'package:settings/view/pages/sound/sound_model.dart';
 import 'package:settings/view/pages/sound/sound_page.dart';
-import 'package:settings/view/widgets/menu_item.dart';
+import 'package:settings/view/widgets/page_item.dart';
 import 'package:yaru_icons/widgets/yaru_icons.dart';
 
-final menuItems = <MenuItem>[
-  const MenuItem(
-    name: 'WIFI',
+final pageItems = <PageItem>[
+  PageItem(
+    title: 'WIFI',
     iconData: YaruIcons.network_wireless,
-    details: Text('WIFI'),
+    builder: (_) => const Text('WIFI'),
   ),
-  const MenuItem(
-    name: 'Network',
+  PageItem(
+    title: 'Network',
     iconData: YaruIcons.network,
-    details: Text('Network'),
+    builder: (_) => const Text('Network'),
   ),
-  const MenuItem(
-    name: 'Bluetooth',
+  PageItem(
+    title: 'Bluetooth',
     iconData: YaruIcons.bluetooth,
-    details: Text('Bluetooth'),
+    builder: (_) => const Text('Bluetooth'),
   ),
-  const MenuItem(
-    name: 'Wallpaper',
+  PageItem(
+    title: 'Wallpaper',
     iconData: YaruIcons.desktop_wallpaper,
-    details: Text('Wallpaper'),
+    builder: (_) => const Text('Wallpaper'),
   ),
-  MenuItem(
-    name: 'Appearance',
+  PageItem(
+    title: 'Appearance',
     iconData: YaruIcons.desktop_panel_look,
-    details: ChangeNotifierProvider<AppearanceModel>(
+    builder: (_) => ChangeNotifierProvider<AppearanceModel>(
       create: (_) => AppearanceModel(),
       child: const AppearancePage(),
     ),
   ),
-  MenuItem(
-    name: 'Notifications',
+  PageItem(
+    title: 'Notifications',
     iconData: YaruIcons.notification,
-    details: ChangeNotifierProvider<NotificationsModel>(
+    builder: (_) => ChangeNotifierProvider<NotificationsModel>(
       create: (_) => NotificationsModel(),
       child: const NotificationsPage(),
     ),
   ),
-  const MenuItem(
-    name: 'Search',
+  PageItem(
+    title: 'Search',
     iconData: YaruIcons.search,
-    details: Text('Search'),
+    builder: (_) => const Text('Search'),
   ),
-  const MenuItem(
-    name: 'Apps',
+  PageItem(
+    title: 'Apps',
     iconData: YaruIcons.app_grid,
-    details: Text('Apps'),
+    builder: (_) => const Text('Apps'),
   ),
-  const MenuItem(
-    name: 'Security',
+  PageItem(
+    title: 'Security',
     iconData: YaruIcons.lock,
-    details: Text('Security'),
+    builder: (_) => const Text('Security'),
   ),
-  const MenuItem(
-    name: 'Online Accounts',
+  PageItem(
+    title: 'Online Accounts',
     iconData: YaruIcons.desktop_online_accounts,
-    details: Text('Online Accounts'),
+    builder: (_) => const Text('Online Accounts'),
   ),
-  const MenuItem(
-    name: 'Sharing',
+  PageItem(
+    title: 'Sharing',
     iconData: YaruIcons.share,
-    details: Text('Sharing'),
+    builder: (_) => const Text('Sharing'),
   ),
-  MenuItem(
-    name: 'Sound',
+  PageItem(
+    title: 'Sound',
     iconData: YaruIcons.audio,
-    details: ChangeNotifierProvider<SoundModel>(
+    builder: (_) => ChangeNotifierProvider<SoundModel>(
       create: (_) => SoundModel(),
       child: const SoundPage(),
     ),
   ),
-  const MenuItem(
-    name: 'Energy',
+  PageItem(
+    title: 'Energy',
     iconData: YaruIcons.power,
-    details: Text('Energy'),
+    builder: (_) => const Text('Energy'),
   ),
-  const MenuItem(
-    name: 'Displays',
+  PageItem(
+    title: 'Displays',
     iconData: YaruIcons.desktop_display,
-    details: Text('Displays'),
+    builder: (_) => const Text('Displays'),
   ),
-  MenuItem(
-    name: 'Mouse and touchpad',
+  PageItem(
+    title: 'Mouse and touchpad',
     iconData: YaruIcons.input_mouse,
-    details: ChangeNotifierProvider<MouseAndTouchpadModel>(
+    builder: (_) => ChangeNotifierProvider<MouseAndTouchpadModel>(
       create: (_) => MouseAndTouchpadModel(),
       child: const MouseAndTouchpadPage(),
     ),
   ),
-  const MenuItem(
-    name: 'Keyboard shortcuts',
+  PageItem(
+    title: 'Keyboard shortcuts',
     iconData: YaruIcons.input_keyboard,
-    details: KeyboardShortcutsPage(),
+    builder: (_) => const KeyboardShortcutsPage(),
   ),
-  const MenuItem(
-    name: 'Printers',
+  PageItem(
+    title: 'Printers',
     iconData: YaruIcons.printer,
-    details: Text('Printers'),
+    builder: (_) => const Text('Printers'),
   ),
-  const MenuItem(
-    name: 'Shared devices',
+  PageItem(
+    title: 'Shared devices',
     iconData: YaruIcons.media_removable,
-    details: Text('Shared devices'),
+    builder: (_) => const Text('Shared devices'),
   ),
-  const MenuItem(
-    name: 'Color',
+  PageItem(
+    title: 'Color',
     iconData: YaruIcons.colors,
-    details: Text('Color'),
+    builder: (_) => const Text('Color'),
   ),
-  const MenuItem(
-    name: 'Region and language',
+  PageItem(
+    title: 'Region and language',
     iconData: YaruIcons.localization,
-    details: Text('Region and language'),
+    builder: (_) => const Text('Region and language'),
   ),
-  MenuItem(
-    name: 'Accessibility',
+  PageItem(
+    title: 'Accessibility',
     iconData: YaruIcons.accessibility,
-    details: ChangeNotifierProvider<AccessibilityModel>(
+    builder: (_) => ChangeNotifierProvider<AccessibilityModel>(
       create: (_) => AccessibilityModel(),
       child: const AccessibilityPage(),
     ),
   ),
-  const MenuItem(
-    name: 'Users',
+  PageItem(
+    title: 'Users',
     iconData: YaruIcons.users,
-    details: Text('Users'),
+    builder: (_) => const Text('Users'),
   ),
-  const MenuItem(
-    name: 'Preferred Apps',
+  PageItem(
+    title: 'Preferred Apps',
     iconData: YaruIcons.star,
-    details: Text('Preferred Apps'),
+    builder: (_) => const Text('Preferred Apps'),
   ),
-  const MenuItem(
-    name: 'Date and time',
+  PageItem(
+    title: 'Date and time',
     iconData: YaruIcons.clock,
-    details: Text('Date and time'),
+    builder: (_) => const Text('Date and time'),
   ),
-  MenuItem(
-    name: 'Info',
-    iconData: YaruIcons.information,
-    details: ChangeNotifierProvider<InfoModel>(
-      create: (_) => InfoModel(),
-      child: const InfoPage(),
-    )
-  ),
+  PageItem(
+      title: 'Info',
+      iconData: YaruIcons.information,
+      builder: (_) => ChangeNotifierProvider<InfoModel>(
+            create: (_) => InfoModel(),
+            child: const InfoPage(),
+          )),
 ];
