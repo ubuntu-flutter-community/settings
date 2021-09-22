@@ -118,7 +118,14 @@ class _PortraitLayoutState extends State<PortraitLayout> {
         searchController: _searchController,
         onChanged: (value) {
           setState(() {
-            filterItems(_searchController);
+            _filteredItems.clear();
+            for (PageItem pageItem in widget.pages) {
+              if (pageItem.title
+                  .toLowerCase()
+                  .contains(_searchController.value.text.toLowerCase())) {
+                _filteredItems.add(pageItem);
+              }
+            }
           });
         },
         searchActive: _searchActive,
@@ -132,16 +139,5 @@ class _PortraitLayoutState extends State<PortraitLayout> {
             _searchActive = true;
           });
         });
-  }
-
-  void filterItems(TextEditingController controller) {
-    _filteredItems.clear();
-    for (PageItem pageItem in widget.pages) {
-      if (pageItem.title
-          .toLowerCase()
-          .contains(controller.value.text.toLowerCase())) {
-        _filteredItems.add(pageItem);
-      }
-    }
   }
 }

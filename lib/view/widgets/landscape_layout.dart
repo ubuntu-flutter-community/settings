@@ -54,17 +54,6 @@ class _LandscapeLayoutState extends State<LandscapeLayout> {
     setState(() => _selectedIndex = index);
   }
 
-  void filterItems(TextEditingController controller) {
-    _filteredItems.clear();
-    for (PageItem pageItem in widget.pages) {
-      if (pageItem.title
-          .toLowerCase()
-          .contains(controller.value.text.toLowerCase())) {
-        _filteredItems.add(pageItem);
-      }
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -135,7 +124,14 @@ class _LandscapeLayoutState extends State<LandscapeLayout> {
         searchController: _searchController,
         onChanged: (value) {
           setState(() {
-            filterItems(_searchController);
+            _filteredItems.clear();
+            for (PageItem pageItem in widget.pages) {
+              if (pageItem.title
+                  .toLowerCase()
+                  .contains(_searchController.value.text.toLowerCase())) {
+                _filteredItems.add(pageItem);
+              }
+            }
           });
         },
         searchActive: _searchActive,
