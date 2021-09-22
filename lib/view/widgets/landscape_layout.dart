@@ -67,7 +67,6 @@ class _LandscapeLayoutState extends State<LandscapeLayout> {
 
   @override
   Widget build(BuildContext context) {
-    filterItems(_searchController);
     return Scaffold(
       body: Column(
         children: [

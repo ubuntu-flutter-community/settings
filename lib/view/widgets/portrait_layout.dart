@@ -87,7 +87,6 @@ class _PortraitLayoutState extends State<PortraitLayout> {
 
   @override
   Widget build(BuildContext context) {
-    filterItems(_searchController);
     return WillPopScope(
       onWillPop: () async => !await _navigator.maybePop(),
       child: Navigator(
