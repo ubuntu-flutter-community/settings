@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:settings/view/pages/page_items.dart';
+import 'package:settings/view/widgets/page_item_list_view.dart';
 import 'package:settings/view/widgets/search_app_bar.dart';
 
 import 'constants.dart';
