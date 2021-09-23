@@ -70,6 +70,7 @@ class _RepeatKeysSettings extends StatelessWidget {
           value: model.delay,
           min: 100,
           max: 2000,
+          defaultValue: 500,
           onChanged: (value) => model.setDelay(value),
         ),
         SliderSettingsRow(
@@ -78,6 +79,7 @@ class _RepeatKeysSettings extends StatelessWidget {
           value: model.interval,
           min: 0,
           max: 110,
+          defaultValue: 30,
           onChanged: (value) => model.setInterval(value),
         ),
       ],
