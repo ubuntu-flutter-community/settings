@@ -55,7 +55,11 @@ class AppearanceModel extends ChangeNotifier {
       _dashToDockSettings?.intValue(_dashMaxIconSizeKey).toDouble();
 
   void setMaxIconSize(double value) {
-    _dashToDockSettings?.setValue(_dashMaxIconSizeKey, value.toInt());
+    var intValue = value.toInt();
+    if (intValue.isOdd) {
+      intValue -= 1;
+    }
+    _dashToDockSettings?.setValue(_dashMaxIconSizeKey, intValue);
     notifyListeners();
   }
 

@@ -41,6 +41,7 @@ class DockSection extends StatelessWidget {
           value: model.maxIconSize,
           min: 16,
           max: 64,
+          defaultValue: 48,
           onChanged: (value) => model.setMaxIconSize(value),
         ),
         ToggleButtonsSettingRow(
