@@ -7,9 +7,20 @@ import 'package:settings/view/widgets/app_theme.dart';
 import 'package:settings/view/widgets/landscape_layout.dart';
 import 'package:settings/view/widgets/portrait_layout.dart';
 import 'package:yaru/yaru.dart' as yaru;
+import 'package:window_size/window_size.dart' as window_size;
 
-void main() {
+void main() async {
   final themeSettings = GSettings(schemaId: 'org.gnome.desktop.interface');
+
+  WidgetsFlutterBinding.ensureInitialized();
+  var window = await window_size.getWindowInfo();
+  if (window.screen != null) {
+    const width = 600.0;
+    const height = 700.0;
+    window_size.setWindowMinSize(const Size(1.0 * width, 1.0 * height));
+    window_size.setWindowTitle('Ubuntu Settings');
+  }
+
   runApp(
     MultiProvider(
       providers: [
