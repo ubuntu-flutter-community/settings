@@ -33,6 +33,7 @@ class PointingAndClickingSection extends StatelessWidget {
           value: model.doubleClickDelay,
           min: 100,
           max: 1000,
+          defaultValue: 400,
           onChanged: (value) => model.setDoubleClickDelay(value),
         ),
       ],
