@@ -119,7 +119,9 @@ class _ClickAssistSettings extends StatelessWidget {
                 enabled: model.dwellClick,
                 min: 0.2,
                 max: 3.0,
+                defaultValue: 1.2,
                 value: model.dwellTime,
+                fractionDigits: 1,
                 onChanged: (value) => model.setDwellTime(value),
               ),
               SliderSettingsSecondary(
@@ -127,6 +129,7 @@ class _ClickAssistSettings extends StatelessWidget {
                 enabled: model.dwellClick,
                 min: 0.0,
                 max: 30.0,
+                defaultValue: 10,
                 value: model.dwellThreshold,
                 onChanged: (value) => model.setDwellThreshold(value),
               ),
