@@ -124,6 +124,7 @@ class _CursorBlinkingSettings extends StatelessWidget {
           actionDescription: 'Length of the cursor blink cycle',
           min: 100,
           max: 2500,
+          defaultValue: 1200,
           value: model.cursorBlinkTime,
           onChanged: (value) => model.setCursorBlinkTime(value),
         ),
