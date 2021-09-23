@@ -99,6 +99,8 @@ class _ClickAssistSettings extends StatelessWidget {
             value: model.secondaryClickTime,
             min: 0.5,
             max: 3.0,
+            defaultValue: 1.2,
+            fractionDigits: 1,
             onChanged: (value) => model.setSecondaryClickTime(value),
           ),
         ),
