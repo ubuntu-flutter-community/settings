@@ -18,8 +18,10 @@ class MouseSection extends StatelessWidget {
         SliderSettingsRow(
           actionLabel: 'Speed',
           value: model.mouseSpeed,
+          showValue: false,
           min: -1,
           max: 1,
+          defaultValue: 0,
           onChanged: (value) => model.setMouseSpeed(value),
         ),
         SwitchSettingsRow(
