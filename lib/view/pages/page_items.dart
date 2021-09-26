@@ -1,18 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:provider/provider.dart';
-import 'package:settings/view/pages/accessibility/accessibility_model.dart';
 import 'package:settings/view/pages/accessibility/accessibility_page.dart';
-import 'package:settings/view/pages/appearance/appearance_model.dart';
 import 'package:settings/view/pages/appearance/appearance_page.dart';
-import 'package:settings/view/pages/info/info_model.dart';
 import 'package:settings/view/pages/info/info_page.dart';
 import 'package:settings/view/pages/keyboard_shortcuts_page/keyboard_shortcuts_page.dart';
-import 'package:settings/view/pages/mouse_and_touchpad/mouse_and_touchpad_model.dart';
 import 'package:settings/view/pages/mouse_and_touchpad/mouse_and_touchpad_page.dart';
-import 'package:settings/view/pages/notifications_page.dart/notifications_model.dart';
 import 'package:settings/view/pages/notifications_page.dart/notifications_page.dart';
-import 'package:settings/view/pages/sound/sound_model.dart';
 import 'package:settings/view/pages/sound/sound_page.dart';
 import 'package:settings/view/widgets/page_item.dart';
 import 'package:yaru_icons/widgets/yaru_icons.dart';
@@ -38,21 +31,15 @@ final pageItems = <PageItem>[
     iconData: YaruIcons.desktop_wallpaper,
     builder: (_) => const Text('Wallpaper'),
   ),
-  PageItem(
+  const PageItem(
     title: 'Appearance',
     iconData: YaruIcons.desktop_panel_look,
-    builder: (_) => ChangeNotifierProvider<AppearanceModel>(
-      create: (_) => AppearanceModel(),
-      child: const AppearancePage(),
-    ),
+    builder: AppearancePage.create,
   ),
-  PageItem(
+  const PageItem(
     title: 'Notifications',
     iconData: YaruIcons.notification,
-    builder: (_) => ChangeNotifierProvider<NotificationsModel>(
-      create: (_) => NotificationsModel(),
-      child: const NotificationsPage(),
-    ),
+    builder: NotificationsPage.create,
   ),
   PageItem(
     title: 'Search',
@@ -79,13 +66,10 @@ final pageItems = <PageItem>[
     iconData: YaruIcons.share,
     builder: (_) => const Text('Sharing'),
   ),
-  PageItem(
+  const PageItem(
     title: 'Sound',
     iconData: YaruIcons.audio,
-    builder: (_) => ChangeNotifierProvider<SoundModel>(
-      create: (_) => SoundModel(),
-      child: const SoundPage(),
-    ),
+    builder: SoundPage.create,
   ),
   PageItem(
     title: 'Energy',
@@ -97,13 +81,10 @@ final pageItems = <PageItem>[
     iconData: YaruIcons.desktop_display,
     builder: (_) => const Text('Displays'),
   ),
-  PageItem(
+  const PageItem(
     title: 'Mouse and touchpad',
     iconData: YaruIcons.input_mouse,
-    builder: (_) => ChangeNotifierProvider<MouseAndTouchpadModel>(
-      create: (_) => MouseAndTouchpadModel(),
-      child: const MouseAndTouchpadPage(),
-    ),
+    builder: MouseAndTouchpadPage.create,
   ),
   PageItem(
     title: 'Keyboard shortcuts',
@@ -130,13 +111,10 @@ final pageItems = <PageItem>[
     iconData: YaruIcons.localization,
     builder: (_) => const Text('Region and language'),
   ),
-  PageItem(
+  const PageItem(
     title: 'Accessibility',
     iconData: YaruIcons.accessibility,
-    builder: (_) => ChangeNotifierProvider<AccessibilityModel>(
-      create: (_) => AccessibilityModel(),
-      child: const AccessibilityPage(),
-    ),
+    builder: AccessibilityPage.create,
   ),
   PageItem(
     title: 'Users',
@@ -153,11 +131,9 @@ final pageItems = <PageItem>[
     iconData: YaruIcons.clock,
     builder: (_) => const Text('Date and time'),
   ),
-  PageItem(
-      title: 'Info',
-      iconData: YaruIcons.information,
-      builder: (_) => ChangeNotifierProvider<InfoModel>(
-            create: (_) => InfoModel(),
-            child: const InfoPage(),
-          )),
+  const PageItem(
+    title: 'Info',
+    iconData: YaruIcons.information,
+    builder: InfoPage.create,
+  ),
 ];
