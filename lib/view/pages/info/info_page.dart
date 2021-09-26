@@ -13,6 +13,13 @@ import 'info_model.dart';
 class InfoPage extends StatefulWidget {
   const InfoPage({Key? key}) : super(key: key);
 
+  static Widget create(BuildContext context) {
+    return ChangeNotifierProvider<InfoModel>(
+      create: (_) => InfoModel(),
+      child: const InfoPage(),
+    );
+  }
+
   @override
   _InfoPageState createState() => _InfoPageState();
 }

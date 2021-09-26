@@ -7,6 +7,13 @@ import 'package:settings/view/widgets/switch_settings_row.dart';
 class SoundPage extends StatelessWidget {
   const SoundPage({Key? key}) : super(key: key);
 
+  static Widget create(BuildContext context) {
+    return ChangeNotifierProvider<SoundModel>(
+      create: (_) => SoundModel(),
+      child: const SoundPage(),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final model = Provider.of<SoundModel>(context);
