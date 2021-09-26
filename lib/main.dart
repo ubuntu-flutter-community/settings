@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:gsettings/gsettings.dart';
 import 'package:provider/provider.dart';
+import 'package:settings/services/hostname_service.dart';
 import 'package:settings/view/pages/page_items.dart';
 import 'package:settings/view/widgets/app_theme.dart';
 import 'package:settings/view/widgets/landscape_layout.dart';
 import 'package:settings/view/widgets/portrait_layout.dart';
+import 'package:udisks/udisks.dart';
 import 'package:yaru/yaru.dart' as yaru;
 import 'package:window_size/window_size.dart' as window_size;
 
@@ -26,6 +28,14 @@ void main() async {
       providers: [
         ChangeNotifierProvider(
           create: (_) => AppTheme(themeSettings),
+        ),
+        Provider<HostnameService>(
+          create: (_) => HostnameService(),
+          dispose: (_, service) => service.dispose(),
+        ),
+        Provider<UDisksClient>(
+          create: (_) => UDisksClient(),
+          dispose: (_, client) => client.close(),
         ),
       ],
       child: const UbuntuSettingsApp(),

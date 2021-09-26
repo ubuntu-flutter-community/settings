@@ -3,20 +3,19 @@ import 'dart:io';
 
 import 'package:linux_system_info/linux_system_info.dart';
 import 'package:safe_change_notifier/safe_change_notifier.dart';
+import 'package:settings/services/hostname_service.dart';
 import 'package:udisks/udisks.dart';
-
-import 'hostname_service.dart';
 
 class InfoModel extends SafeChangeNotifier {
   InfoModel(
-      [HostnameService? hostnameService,
-      UDisksClient? uDisksClient,
+      {required HostnameService hostnameService,
+      required UDisksClient uDisksClient,
       List<Cpu>? cpus,
       SystemInfo? systemInfo,
       MemInfo? memInfo,
-      GnomeInfo? gnomeInfo])
-      : _hostnameService = hostnameService ?? HostnameService(),
-        _uDisksClient = uDisksClient ?? UDisksClient(),
+      GnomeInfo? gnomeInfo})
+      : _hostnameService = hostnameService,
+        _uDisksClient = uDisksClient,
         _cpus = cpus ?? CpuInfo.getProcessors(),
         _systemInfo = systemInfo ?? SystemInfo(),
         _memInfo = memInfo ?? MemInfo(),

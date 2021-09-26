@@ -2,9 +2,11 @@ import 'package:filesize/filesize.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
+import 'package:settings/services/hostname_service.dart';
 import 'package:settings/view/widgets/settings_row.dart';
 import 'package:settings/view/widgets/settings_section.dart';
 import 'package:settings/view/widgets/single_info_row.dart';
+import 'package:udisks/udisks.dart';
 import 'package:yaru_icons/widgets/yaru_icons.dart';
 import 'package:yaru/yaru.dart' as yaru;
 
@@ -15,7 +17,10 @@ class InfoPage extends StatefulWidget {
 
   static Widget create(BuildContext context) {
     return ChangeNotifierProvider<InfoModel>(
-      create: (_) => InfoModel(),
+      create: (_) => InfoModel(
+        hostnameService: context.read<HostnameService>(),
+        uDisksClient: context.read<UDisksClient>(),
+      ),
       child: const InfoPage(),
     );
   }
