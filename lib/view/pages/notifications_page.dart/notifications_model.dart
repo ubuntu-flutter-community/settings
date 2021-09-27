@@ -37,4 +37,9 @@ class NotificationsModel extends ChangeNotifier {
     _notificationSettings?.setValue(_showInLockScreenKey, value);
     notifyListeners();
   }
+
+  List<String>? get applications => _notificationSettings
+      ?.stringArrayValue('application-children')
+      .whereType<String>()
+      .toList();
 }
