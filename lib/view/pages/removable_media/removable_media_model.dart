@@ -3,6 +3,14 @@ import 'package:safe_change_notifier/safe_change_notifier.dart';
 import 'package:settings/schemas/schemas.dart';
 
 class RemovableMediaModel extends SafeChangeNotifier {
+  static const mimeTypeSuffix = 'x-content/';
+  static const ostreeRepository = mimeTypeSuffix + 'ostree-repository';
+  static const audioCdda = mimeTypeSuffix + 'audio-cdda';
+  static const videoDvd = mimeTypeSuffix + 'video-dvd';
+  static const audioPlayer = mimeTypeSuffix + 'audio-player';
+  static const unixSoftware = mimeTypeSuffix + 'unix-software';
+  static const imageDcf = mimeTypeSuffix + 'image-dcf';
+
   final _removableMediaSettings =
       GSettingsSchema.lookup(schemaMediaHandling) != null
           ? GSettings(schemaId: schemaMediaHandling)
@@ -48,10 +56,4 @@ class RemovableMediaModel extends SafeChangeNotifier {
     _removableMediaSettings?.dispose();
     super.dispose();
   }
-
-  // RemovableMediaModel({required List<String?> autoRunXContentIgnore})
-  //     : _autoRunXContentIgnore = autoRunXContentIgnore;
-
-  // final List<String?> _autoRunXContentIgnore;
-
 }
