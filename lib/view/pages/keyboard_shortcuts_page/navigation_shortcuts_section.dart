@@ -10,7 +10,6 @@ class NavigationShortcutsSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const SettingsSection(
-      schemaId: schemaWmKeybindings,
       headline: 'Navigation Shortcuts',
       children: [
         KeyboardShortcutRow(
