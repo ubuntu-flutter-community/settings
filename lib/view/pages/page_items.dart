@@ -6,6 +6,7 @@ import 'package:settings/view/pages/info/info_page.dart';
 import 'package:settings/view/pages/keyboard_shortcuts_page/keyboard_shortcuts_page.dart';
 import 'package:settings/view/pages/mouse_and_touchpad/mouse_and_touchpad_page.dart';
 import 'package:settings/view/pages/notifications_page.dart/notifications_page.dart';
+import 'package:settings/view/pages/removable_media/removable_media_page.dart';
 import 'package:settings/view/pages/sound/sound_page.dart';
 import 'package:settings/view/widgets/page_item.dart';
 import 'package:yaru_icons/widgets/yaru_icons.dart';
@@ -96,10 +97,10 @@ final pageItems = <PageItem>[
     iconData: YaruIcons.printer,
     builder: (_) => const Text('Printers'),
   ),
-  PageItem(
-    title: 'Shared devices',
+  const PageItem(
+    title: 'Removable Media',
     iconData: YaruIcons.media_removable,
-    builder: (_) => const Text('Shared devices'),
+    builder: RemovableMediaPage.create,
   ),
   PageItem(
     title: 'Color',
