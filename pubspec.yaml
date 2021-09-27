@@ -22,10 +22,6 @@ dependencies:
   filesize: ^2.0.1
   udisks: ^0.3.0
   safe_change_notifier: ^0.0.1
-  window_size:
-    git:
-      url: git://github.com/google/flutter-desktop-embedding.git
-      path: plugins/window_size
 
 dev_dependencies:
   flutter_test:
