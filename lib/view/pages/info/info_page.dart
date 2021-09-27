@@ -1,6 +1,5 @@
 import 'package:filesize/filesize.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 import 'package:settings/services/hostname_service.dart';
 import 'package:settings/view/widgets/settings_row.dart';
