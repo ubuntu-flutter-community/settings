@@ -7,6 +7,7 @@ const String schemaInterface = 'org.gnome.desktop.interface';
 const String schemaPeripheralsKeyboard =
     'org.gnome.desktop.peripherals.keyboard';
 const String schemaWmPreferences = 'org.gnome.desktop.wm.preferences';
+const schemaWmKeybindings = 'org.gnome.desktop.wm.keybindings';
 const String schemaPeripheralsMouse =
     'org.gnome.settings-daemon.peripherals.mouse';
 const String schemaDesktopPeripheralsMouse =

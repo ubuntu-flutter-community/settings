@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/painting.dart';
 import 'package:settings/view/widgets/page_item_list_view.dart';
 import 'package:settings/view/widgets/search_app_bar.dart';
 import 'package:yaru_icons/widgets/yaru_icons.dart';
