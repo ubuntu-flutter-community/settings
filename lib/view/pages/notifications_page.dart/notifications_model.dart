@@ -38,8 +38,43 @@ class NotificationsModel extends ChangeNotifier {
     notifyListeners();
   }
 
+  // App section
+
   List<String>? get applications => _notificationSettings
       ?.stringArrayValue('application-children')
       .whereType<String>()
       .toList();
+}
+
+class AppNotificationsModel extends ChangeNotifier {
+  static const _enableKey = 'enable';
+  static const _appSchemaId = schemaNotifications + '.application';
+
+  AppNotificationsModel(this.appId)
+      : _appNotificationSettings = GSettingsSchema.lookup(_appSchemaId) != null
+            ? GSettings(schemaId: _appSchemaId, path: _getPath(appId))
+            : null;
+
+  final String appId;
+  final GSettings? _appNotificationSettings;
+
+  @override
+  void dispose() {
+    _appNotificationSettings?.dispose();
+    super.dispose();
+  }
+
+  static String _getPath(String appId) {
+    return '/' +
+        _appSchemaId.replaceAll('.', '/') +
+        '/' +
+        appId.toString() +
+        '/';
+  }
+
+  bool? get enable => _appNotificationSettings?.boolValue(_enableKey);
+  void setEnable(bool value) {
+    _appNotificationSettings?.setValue(_enableKey, value);
+    notifyListeners();
+  }
 }
