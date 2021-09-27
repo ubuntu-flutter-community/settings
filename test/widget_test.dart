@@ -11,6 +11,7 @@ import 'package:gsettings/gsettings.dart';
 import 'package:provider/provider.dart';
 import 'package:settings/main.dart';
 import 'package:settings/view/widgets/app_theme.dart';
+import 'package:settings/view/widgets/master_details_page.dart';
 
 void main() {
   const _schemaKey = 'org.gnome.desktop.interface';
