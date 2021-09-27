@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gsettings/gsettings.dart';
 import 'package:provider/provider.dart';
+import 'package:settings/schemas/schemas.dart';
 import 'package:settings/services/hostname_service.dart';
 import 'package:settings/view/widgets/app_theme.dart';
 import 'package:settings/view/widgets/master_details_page.dart';
@@ -8,7 +9,7 @@ import 'package:udisks/udisks.dart';
 import 'package:yaru/yaru.dart' as yaru;
 
 void main() async {
-  final themeSettings = GSettings(schemaId: 'org.gnome.desktop.interface');
+  final themeSettings = GSettings(schemaId: schemaInterface);
 
   runApp(
     MultiProvider(
