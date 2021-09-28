@@ -1,11 +1,12 @@
 import 'package:flutter/foundation.dart';
 import 'package:gsettings/gsettings.dart';
-import 'package:settings/schemas/schemas.dart';
 import 'package:settings/services/settings_service.dart';
 
 class KeyboardShortcutsModel extends ChangeNotifier {
-  KeyboardShortcutsModel(SettingsService service)
-      : _shortcutSettings = service.lookup(schemaWmKeybindings);
+  final String schemaId;
+
+  KeyboardShortcutsModel(SettingsService service, {required this.schemaId})
+      : _shortcutSettings = service.lookup(schemaId);
 
   final GSettings? _shortcutSettings;
 
