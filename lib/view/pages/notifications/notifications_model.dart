@@ -1,21 +1,16 @@
 import 'package:flutter/foundation.dart';
 import 'package:gsettings/gsettings.dart';
 import 'package:settings/schemas/schemas.dart';
+import 'package:settings/services/settings_service.dart';
 
 class NotificationsModel extends ChangeNotifier {
   static const _showBannersKey = 'show-banners';
   static const _showInLockScreenKey = 'show-in-lock-screen';
 
-  final _notificationSettings =
-      GSettingsSchema.lookup(schemaNotifications) != null
-          ? GSettings(schemaId: schemaNotifications)
-          : null;
+  NotificationsModel(SettingsService service)
+      : _notificationSettings = service.lookup(schemaNotifications);
 
-  @override
-  void dispose() {
-    _notificationSettings?.dispose();
-    super.dispose();
-  }
+  final GSettings? _notificationSettings;
 
   // Global section
 
@@ -50,19 +45,12 @@ class AppNotificationsModel extends ChangeNotifier {
   static const _enableKey = 'enable';
   static const _appSchemaId = schemaNotifications + '.application';
 
-  AppNotificationsModel(this.appId)
-      : _appNotificationSettings = GSettingsSchema.lookup(_appSchemaId) != null
-            ? GSettings(schemaId: _appSchemaId, path: _getPath(appId))
-            : null;
+  AppNotificationsModel(this.appId, SettingsService service)
+      : _appNotificationSettings =
+            service.lookup(_appSchemaId, path: _getPath(appId));
 
   final String appId;
   final GSettings? _appNotificationSettings;
-
-  @override
-  void dispose() {
-    _appNotificationSettings?.dispose();
-    super.dispose();
-  }
 
   static String _getPath(String appId) {
     return '/' +

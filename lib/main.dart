@@ -3,6 +3,7 @@ import 'package:gsettings/gsettings.dart';
 import 'package:provider/provider.dart';
 import 'package:settings/schemas/schemas.dart';
 import 'package:settings/services/hostname_service.dart';
+import 'package:settings/services/settings_service.dart';
 import 'package:settings/view/widgets/app_theme.dart';
 import 'package:settings/view/widgets/master_details_page.dart';
 import 'package:udisks/udisks.dart';
@@ -19,6 +20,10 @@ void main() async {
         ),
         Provider<HostnameService>(
           create: (_) => HostnameService(),
+          dispose: (_, service) => service.dispose(),
+        ),
+        Provider<SettingsService>(
+          create: (_) => SettingsService(),
           dispose: (_, service) => service.dispose(),
         ),
         Provider<UDisksClient>(

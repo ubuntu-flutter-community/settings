@@ -1,17 +1,13 @@
 import 'package:flutter/foundation.dart';
 import 'package:gsettings/gsettings.dart';
 import 'package:settings/schemas/schemas.dart';
+import 'package:settings/services/settings_service.dart';
 
 class KeyboardShortcutsModel extends ChangeNotifier {
-  final _shortcutSettings = GSettingsSchema.lookup(schemaWmKeybindings) != null
-      ? GSettings(schemaId: schemaWmKeybindings)
-      : null;
+  KeyboardShortcutsModel(SettingsService service)
+      : _shortcutSettings = service.lookup(schemaWmKeybindings);
 
-  @override
-  void dispose() {
-    _shortcutSettings?.dispose();
-    super.dispose();
-  }
+  final GSettings? _shortcutSettings;
 
   List<String> shortcut(String shortcutId) {
     final keys = _shortcutSettings?.stringArrayValue(shortcutId);

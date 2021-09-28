@@ -1,21 +1,17 @@
 import 'package:flutter/foundation.dart';
 import 'package:gsettings/gsettings.dart';
 import 'package:settings/schemas/schemas.dart';
+import 'package:settings/services/settings_service.dart';
 
 class SoundModel extends ChangeNotifier {
   static const _allowAbove100Key = 'allow-volume-above-100-percent';
   static const _eventSoundsKey = 'event-sounds';
   static const _inputFeedbackSounds = 'input-feedback-sounds';
 
-  final _soundSettings = GSettingsSchema.lookup(schemaSound) != null
-      ? GSettings(schemaId: schemaSound)
-      : null;
+  SoundModel(SettingsService service)
+      : _soundSettings = service.lookup(schemaSound);
 
-  @override
-  void dispose() {
-    _soundSettings?.dispose();
-    super.dispose();
-  }
+  final GSettings? _soundSettings;
 
   // System section
 

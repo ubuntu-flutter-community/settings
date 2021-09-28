@@ -1,5 +1,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
+import 'package:settings/services/settings_service.dart';
 import 'package:settings/view/pages/notifications/notifications_model.dart';
 import 'package:settings/view/widgets/settings_section.dart';
 import 'package:settings/view/widgets/switch_settings_row.dart';
@@ -26,8 +27,9 @@ class AppNotificationsSettingRow extends StatelessWidget {
   const AppNotificationsSettingRow({Key? key}) : super(key: key);
 
   static Widget create(BuildContext context, {required String appId}) {
+    final service = Provider.of<SettingsService>(context, listen: false);
     return ChangeNotifierProvider(
-      create: (_) => AppNotificationsModel(appId),
+      create: (_) => AppNotificationsModel(appId, service),
       child: const AppNotificationsSettingRow(),
     );
   }

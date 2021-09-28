@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:gsettings/gsettings.dart';
 import 'package:settings/schemas/schemas.dart';
+import 'package:settings/services/settings_service.dart';
 
 class MouseAndTouchpadModel extends ChangeNotifier {
   static const _mouseSpeedKey = 'speed';
@@ -10,22 +11,13 @@ class MouseAndTouchpadModel extends ChangeNotifier {
   static const _touchpadTapToClickKey = 'tap-to-click';
   static const _touchpadDisableWhileTyping = 'disable-while-typing';
 
-  final _peripheralsMouseSettings =
-      GSettingsSchema.lookup(schemaDesktopPeripheralsMouse) != null
-          ? GSettings(schemaId: schemaDesktopPeripheralsMouse)
-          : null;
+  MouseAndTouchpadModel(SettingsService service)
+      : _peripheralsMouseSettings =
+            service.lookup(schemaDesktopPeripheralsMouse),
+        _peripheralsTouchpadSettings = service.lookup(schemaPeripheralTouchpad);
 
-  final _peripheralsTouchpadSettings =
-      GSettingsSchema.lookup(schemaPeripheralTouchpad) != null
-          ? GSettings(schemaId: schemaPeripheralTouchpad)
-          : null;
-
-  @override
-  void dispose() {
-    _peripheralsMouseSettings?.dispose();
-    _peripheralsTouchpadSettings?.dispose();
-    super.dispose();
-  }
+  final GSettings? _peripheralsMouseSettings;
+  final GSettings? _peripheralsTouchpadSettings;
 
   // Mouse section
 
