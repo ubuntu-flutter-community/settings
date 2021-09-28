@@ -86,10 +86,10 @@ final pageItems = <PageItem>[
     iconData: YaruIcons.input_mouse,
     builder: MouseAndTouchpadPage.create,
   ),
-  PageItem(
+  const PageItem(
     title: 'Keyboard shortcuts',
     iconData: YaruIcons.input_keyboard,
-    builder: (_) => const KeyboardShortcutsPage(),
+    builder: KeyboardShortcutsPage.create,
   ),
   PageItem(
     title: 'Printers',

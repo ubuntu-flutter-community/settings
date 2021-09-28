@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:gsettings/gsettings.dart';
+import 'package:provider/provider.dart';
+import 'package:settings/view/pages/keyboard_shortcuts/keyboard_shortcuts_model.dart';
 import 'package:settings/view/widgets/settings_row.dart';
 
 class KeyboardShortcutRow extends StatefulWidget {
   const KeyboardShortcutRow({
     Key? key,
-    required this.schemaId,
-    required this.settingsKey,
+    required this.label,
+    required this.shortcutId,
   }) : super(key: key);
 
-  final String schemaId;
-  final String settingsKey;
+  final String label;
+  final String shortcutId;
 
   @override
   _KeyboardShortcutRowState createState() => _KeyboardShortcutRowState();
@@ -19,29 +20,18 @@ class KeyboardShortcutRow extends StatefulWidget {
 
 class _KeyboardShortcutRowState extends State<KeyboardShortcutRow> {
   List<LogicalKeyboardKey> keys = [];
-  late GSettings _settings;
-
-  @override
-  void initState() {
-    super.initState();
-    _settings = GSettings(schemaId: widget.schemaId);
-  }
-
-  @override
-  void dispose() {
-    _settings.dispose();
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
-    final _switchWindows = _settings.stringArrayValue(widget.settingsKey);
+    final model = context.read<KeyboardShortcutsModel>();
+    final shortcut = context.select<KeyboardShortcutsModel, List<String>>(
+        (model) => model.shortcut(widget.shortcutId));
 
     return InkWell(
       child: SettingsRow(
-        actionLabel: 'Switch windows',
+        actionLabel: widget.label,
         secondChild: Text(
-          _switchWindows.toString(),
+          shortcut.toString(),
           style: TextStyle(
               color: Theme.of(context).colorScheme.onSurface.withOpacity(0.4)),
         ),
@@ -117,8 +107,8 @@ class _KeyboardShortcutRowState extends State<KeyboardShortcutRow> {
                       }
                       keyBuffer.write(keyLabel);
                     }
-                    setState(() => _settings.setValue(
-                          widget.settingsKey,
+                    setState(() => model.setShortcut(
+                          widget.shortcutId,
                           [keyBuffer.toString()],
                         ));
                     keys.clear();
