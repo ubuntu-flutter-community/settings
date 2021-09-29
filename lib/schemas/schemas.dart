@@ -18,3 +18,4 @@ const String schemaPeripheralTouchpad =
 const String schemaSound = 'org.gnome.desktop.sound';
 const String schemaDashToDock = 'org.gnome.shell.extensions.dash-to-dock';
 const String schemaNotifications = 'org.gnome.desktop.notifications';
+const String schemaMediaHandling = 'org.gnome.desktop.media-handling';
