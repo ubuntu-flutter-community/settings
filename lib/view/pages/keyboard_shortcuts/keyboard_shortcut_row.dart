@@ -41,7 +41,6 @@ class _KeyboardShortcutRowState extends State<KeyboardShortcutRow> {
         final oldShortcut = model.shortcut(widget.shortcutId);
         // TODO: grab the keyboard from gnome-shell
         showDialog<List<String>>(
-          barrierDismissible: false,
           context: context,
           builder: (_) => StatefulBuilder(builder: (context, setState) {
             return RawKeyboardListener(
