@@ -78,60 +78,60 @@ class RemovableMediaModel extends SafeChangeNotifier {
   void setStartup(int value, String mimeType) {
     switch (value) {
       case 0:
-        _addAudioCddaToIgnoreList(mimeType);
-        _removeAudioCddaFromFolderList(mimeType);
-        _removeAudioCddaFromAppStartList(mimeType);
+        _addToIgnoreList(mimeType);
+        _removeFromFolderList(mimeType);
+        _removeFromAppStartList(mimeType);
         break;
       case 1:
-        _addAudioCddaToFolderList(mimeType);
-        _removeAudioCddaFromIgnoreList(mimeType);
-        _removeAudioCddaFromAppStartList(mimeType);
+        _addToFolderList(mimeType);
+        _removeFromIgnoreList(mimeType);
+        _removeFromAppStartList(mimeType);
         break;
       case 2:
-        _addAudioCddaToAppStartList(mimeType);
-        _removeAudioCddaFromIgnoreList(mimeType);
-        _removeAudioCddaFromFolderList(mimeType);
+        _addToAppStartList(mimeType);
+        _removeFromIgnoreList(mimeType);
+        _removeFromFolderList(mimeType);
         break;
       case 3:
-        _removeAudioCddaFromIgnoreList(mimeType);
-        _removeAudioCddaFromFolderList(mimeType);
-        _removeAudioCddaFromAppStartList(mimeType);
+        _removeFromIgnoreList(mimeType);
+        _removeFromFolderList(mimeType);
+        _removeFromAppStartList(mimeType);
         break;
       default:
     }
   }
 
-  void _addAudioCddaToAppStartList(String mimeType) {
+  void _addToAppStartList(String mimeType) {
     final oldStartAppList = _getAutoRunXContentStartApp();
     oldStartAppList.add(mimeType);
     _setAutoRunXContentStartApp(oldStartAppList.toList());
   }
 
-  void _removeAudioCddaFromIgnoreList(String mimeType) {
+  void _removeFromIgnoreList(String mimeType) {
     final oldIgnoreList = _getAutoRunXContentIgnore();
     oldIgnoreList.remove(mimeType);
     _setAutoRunXContentIgnore(oldIgnoreList.toList());
   }
 
-  void _addAudioCddaToFolderList(String mimeType) {
+  void _addToFolderList(String mimeType) {
     final oldOpenFolderList = _getAutoRunXContentOpenFolder();
     oldOpenFolderList.add(mimeType);
     _setAutoRunXContentOpenFolder(oldOpenFolderList.toList());
   }
 
-  void _removeAudioCddaFromAppStartList(String mimeType) {
+  void _removeFromAppStartList(String mimeType) {
     final oldStartAppList = _getAutoRunXContentStartApp();
     oldStartAppList.remove(mimeType);
     _setAutoRunXContentStartApp(oldStartAppList.toList());
   }
 
-  void _removeAudioCddaFromFolderList(String mimeType) {
+  void _removeFromFolderList(String mimeType) {
     final oldOpenFolderList = _getAutoRunXContentOpenFolder();
     oldOpenFolderList.remove(mimeType);
     _setAutoRunXContentOpenFolder(oldOpenFolderList.toList());
   }
 
-  void _addAudioCddaToIgnoreList(String mimeType) {
+  void _addToIgnoreList(String mimeType) {
     final oldIgnoreList = _getAutoRunXContentIgnore();
     oldIgnoreList.add(mimeType);
     _setAutoRunXContentIgnore(oldIgnoreList.toList());
