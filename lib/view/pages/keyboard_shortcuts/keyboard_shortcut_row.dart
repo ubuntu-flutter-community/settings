@@ -40,7 +40,7 @@ class _KeyboardShortcutRowState extends State<KeyboardShortcutRow> {
       onTap: () {
         final oldShortcut = model.shortcut(widget.shortcutId);
 
-        showDialog(
+        showDialog<List<String>>(
           barrierDismissible: false,
           context: context,
           builder: (_) => StatefulBuilder(builder: (context, setState) {
@@ -49,12 +49,14 @@ class _KeyboardShortcutRowState extends State<KeyboardShortcutRow> {
               autofocus: true,
               onKey: (event) {
                 if (event.logicalKey == LogicalKeyboardKey.escape) {
-                  keys.clear();
-                  model.setShortcut(widget.shortcutId, oldShortcut);
                   Navigator.of(context).pop();
-                  return;
                 }
                 if (!keys.contains(event.logicalKey) && keys.length < 4) {
+                  // Unsetting the current shortcut is only needed to not
+                  // Trigger it in the moment you want to set it
+                  // This does not really make sense
+                  // Because we can't predict what other shortcut
+                  // Is being triggered
                   model.setShortcut(widget.shortcutId, []);
                   setState(() => keys.add(event.logicalKey));
                 }
@@ -93,8 +95,6 @@ class _KeyboardShortcutRowState extends State<KeyboardShortcutRow> {
                 actions: [
                   OutlinedButton(
                       onPressed: () {
-                        keys.clear();
-                        model.setShortcut(widget.shortcutId, oldShortcut);
                         Navigator.of(context).pop();
                       },
                       child: const Text('Cancel')),
@@ -125,22 +125,20 @@ class _KeyboardShortcutRowState extends State<KeyboardShortcutRow> {
                         }
                         keyBuffer.write(keyLabel);
                       }
-                      setState(() => model.setShortcut(
-                            widget.shortcutId,
-                            [keyBuffer.toString()],
-                          ));
-                      keys.clear();
-                      Navigator.of(context).pop();
+                      model.setShortcut(
+                        widget.shortcutId,
+                        [keyBuffer.toString()],
+                      );
+                      Navigator.of(context).pop(keyBuffer.toString());
                     },
                   )
                 ],
               ),
             );
           }),
-        ).then((value) {
-          if (model.shortcut(widget.shortcutId).isEmpty) {
-            model.setShortcut(widget.shortcutId, oldShortcut);
-          }
+        ).then((shortcut) {
+          keys.clear();
+          model.setShortcut(widget.shortcutId, shortcut ?? oldShortcut);
         });
       },
     );
