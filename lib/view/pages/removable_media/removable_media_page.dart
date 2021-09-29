@@ -23,33 +23,44 @@ class RemovableMediaPage extends StatelessWidget {
       ToggleButtonsSettingRow(
           actionLabel: 'Audio CD',
           labels: const ['Ignore', 'Open Folder', 'Start App', 'Ask'],
-          selectedValues: model.getAudioStartup,
-          onPressed: (value) => model.setAudioStartup = value),
+          selectedValues: model.getStartup(RemovableMediaModel.audioCdda),
+          onPressed: (value) =>
+              model.setStartup(value, RemovableMediaModel.audioCdda)),
       ToggleButtonsSettingRow(
           actionLabel: 'DVD-Video',
           labels: const ['Ignore', 'Open Folder', 'Start App', 'Ask'],
-          selectedValues: model.getDvdStartup,
-          onPressed: (value) => model.setDvdStartup = value),
+          selectedValues: model.getStartup(RemovableMediaModel.videoDvd),
+          onPressed: (value) =>
+              model.setStartup(value, RemovableMediaModel.videoDvd)),
       ToggleButtonsSettingRow(
           actionLabel: 'Musicplayer',
           labels: const ['Ignore', 'Open Folder', 'Start App', 'Ask'],
-          selectedValues: model.getMusicPlayerStartup,
-          onPressed: (value) => model.setMusicPlayerStartup = value),
+          selectedValues: model.getStartup(RemovableMediaModel.audioPlayer),
+          onPressed: (value) =>
+              model.setStartup(value, RemovableMediaModel.audioPlayer)),
       ToggleButtonsSettingRow(
           actionLabel: 'Photos',
           labels: const ['Ignore', 'Open Folder', 'Start App', 'Ask'],
-          selectedValues: model.getPhotoViewerStartup,
-          onPressed: (value) => model.setPhotoViewerStartup = value),
+          selectedValues: model.getStartup(RemovableMediaModel.imageDcf),
+          onPressed: (value) =>
+              model.setStartup(value, RemovableMediaModel.imageDcf)),
       ToggleButtonsSettingRow(
           actionLabel: 'Applications',
           labels: const ['Ignore', 'Open Folder', 'Start App', 'Ask'],
-          selectedValues: model.getAppsStartup,
-          onPressed: (value) => model.setAppsStartup = value),
-      CheckboxRow(
-          enabled: true,
-          value: model.autoRunNever,
-          onChanged: (value) => model.autoRunNever = value!,
-          text: 'Never ask'),
+          selectedValues: model.getStartup(RemovableMediaModel.unixSoftware),
+          onPressed: (value) =>
+              model.setStartup(value, RemovableMediaModel.unixSoftware)),
+      SizedBox(
+        width: 500,
+        child: Padding(
+          padding: const EdgeInsets.only(top: 8, right: 8, bottom: 8),
+          child: CheckboxRow(
+              enabled: true,
+              value: model.autoRunNever,
+              onChanged: (value) => model.autoRunNever = value!,
+              text: 'Never ask or start a program for any removable media'),
+        ),
+      ),
     ]);
   }
 }
