@@ -48,75 +48,15 @@ class _KeyboardShortcutRowState extends State<KeyboardShortcutRow> {
               focusNode: FocusNode(),
               autofocus: true,
               onKey: (event) {
-                if (event.logicalKey == LogicalKeyboardKey.escape) {
-                  Navigator.of(context).pop();
-                }
-                if (!keys.contains(event.logicalKey) && keys.length < 4) {
+                if (event.logicalKey != LogicalKeyboardKey.escape &&
+                    !keys.contains(event.logicalKey) &&
+                    keys.length < 4) {
                   setState(() => keys.add(event.logicalKey));
                 }
               },
-              child: AlertDialog(
-                title: Text(
-                  'Start typing... ',
-                  style: Theme.of(context).textTheme.subtitle1,
-                ),
-                content: SizedBox(
-                  height: 100,
-                  width: 300,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(
-                        children: keys
-                            .map(
-                              (key) => Card(
-                                child: Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Text(key.keyLabel),
-                                ),
-                              ),
-                            )
-                            .toList(),
-                      ),
-                      Text(
-                        keys.isEmpty ? '' : 'Press cancel to cancel',
-                        style: Theme.of(context).textTheme.subtitle2,
-                      ),
-                    ],
-                  ),
-                ),
-                actions: [
-                  OutlinedButton(
-                      onPressed: () {
-                        Navigator.of(context).pop();
-                      },
-                      child: const Text('Cancel')),
-                  ElevatedButton(
-                    child: const Text('Confirm'),
-                    onPressed: () {
-                      final keyBuffer = StringBuffer();
-                      for (var key in keys) {
-                        var keyLabel = key.keyLabel;
-                        if (keyLabel == 'Alt Left' ||
-                            keyLabel == 'Control Left' ||
-                            keyLabel == 'Super Left' ||
-                            keyLabel == 'Shift Left') {
-                          keyLabel =
-                              '<' + keyLabel.replaceAll(' Left', '') + '>';
-                        } else if (keyLabel == 'Alt Right' ||
-                            keyLabel == 'Control Right' ||
-                            keyLabel == 'Super Right' ||
-                            keyLabel == 'Shift Right') {
-                          keyLabel =
-                              '<' + keyLabel.replaceAll(' Right', '') + '>';
-                        }
-                        keyBuffer.write(keyLabel);
-                      }
-                      Navigator.of(context).pop([keyBuffer.toString()]);
-                    },
-                  )
-                ],
+              child: KeyboardShortcutDialog(
+                keys: keys,
+                oldShortcut: oldShortcut,
               ),
             );
           }),
@@ -125,6 +65,82 @@ class _KeyboardShortcutRowState extends State<KeyboardShortcutRow> {
           model.setShortcut(widget.shortcutId, shortcut ?? oldShortcut);
         });
       },
+    );
+  }
+}
+
+class KeyboardShortcutDialog extends StatelessWidget {
+  const KeyboardShortcutDialog({
+    Key? key,
+    required this.keys,
+    required this.oldShortcut,
+  }) : super(key: key);
+
+  final List<LogicalKeyboardKey> keys;
+  final List<String> oldShortcut;
+
+  @override
+  Widget build(BuildContext context) {
+    return AlertDialog(
+      title: Text(
+        'Start typing... ',
+        style: Theme.of(context).textTheme.subtitle1,
+      ),
+      content: SizedBox(
+        height: 100,
+        width: 300,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              children: keys
+                  .map(
+                    (key) => Card(
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(key.keyLabel),
+                      ),
+                    ),
+                  )
+                  .toList(),
+            ),
+            Text(
+              keys.isEmpty ? '' : 'Press cancel to cancel',
+              style: Theme.of(context).textTheme.subtitle2,
+            ),
+          ],
+        ),
+      ),
+      actions: [
+        OutlinedButton(
+            onPressed: () {
+              Navigator.of(context).pop(oldShortcut);
+            },
+            child: const Text('Cancel')),
+        ElevatedButton(
+          child: const Text('Confirm'),
+          onPressed: () {
+            final keyBuffer = StringBuffer();
+            for (var key in keys) {
+              var keyLabel = key.keyLabel;
+              if (keyLabel == 'Alt Left' ||
+                  keyLabel == 'Control Left' ||
+                  keyLabel == 'Meta Left' ||
+                  keyLabel == 'Shift Left') {
+                keyLabel = '<' + keyLabel.replaceAll(' Left', '') + '>';
+              } else if (keyLabel == 'Alt Right' ||
+                  keyLabel == 'Control Right' ||
+                  keyLabel == 'Meta Right' ||
+                  keyLabel == 'Shift Right') {
+                keyLabel = '<' + keyLabel.replaceAll(' Right', '') + '>';
+              }
+              keyBuffer.write(keyLabel);
+            }
+            Navigator.of(context).pop([keyBuffer.toString()]);
+          },
+        )
+      ],
     );
   }
 }
