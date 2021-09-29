@@ -50,11 +50,17 @@ class RemovableMediaPage extends StatelessWidget {
           selectedValues: model.getStartup(RemovableMediaModel.unixSoftware),
           onPressed: (value) =>
               model.setStartup(value, RemovableMediaModel.unixSoftware)),
-      CheckboxRow(
-          enabled: true,
-          value: model.autoRunNever,
-          onChanged: (value) => model.autoRunNever = value!,
-          text: 'Never ask'),
+      SizedBox(
+        width: 500,
+        child: Padding(
+          padding: const EdgeInsets.only(top: 8, right: 8, bottom: 8),
+          child: CheckboxRow(
+              enabled: true,
+              value: model.autoRunNever,
+              onChanged: (value) => model.autoRunNever = value!,
+              text: 'Never ask or start a program for any removable media'),
+        ),
+      ),
     ]);
   }
 }
