@@ -39,7 +39,7 @@ class _KeyboardShortcutRowState extends State<KeyboardShortcutRow> {
       borderRadius: BorderRadius.circular(4.0),
       onTap: () {
         final oldShortcut = model.shortcut(widget.shortcutId);
-
+        // TODO: grab the keyboard from gnome-shell
         showDialog<List<String>>(
           barrierDismissible: false,
           context: context,
@@ -52,12 +52,6 @@ class _KeyboardShortcutRowState extends State<KeyboardShortcutRow> {
                   Navigator.of(context).pop();
                 }
                 if (!keys.contains(event.logicalKey) && keys.length < 4) {
-                  // Unsetting the current shortcut is only needed to not
-                  // Trigger it in the moment you want to set it
-                  // This does not really make sense
-                  // Because we can't predict what other shortcut
-                  // Is being triggered
-                  model.setShortcut(widget.shortcutId, []);
                   setState(() => keys.add(event.logicalKey));
                 }
               },
@@ -101,12 +95,6 @@ class _KeyboardShortcutRowState extends State<KeyboardShortcutRow> {
                   ElevatedButton(
                     child: const Text('Confirm'),
                     onPressed: () {
-                      // TODO: How to prevent gnome shell
-                      // from executing key combos while typing?
-                      // As a work-around we store the old shortcut
-                      // unset the current shortcut temporarily
-                      // then set the new shortcut
-
                       final keyBuffer = StringBuffer();
                       for (var key in keys) {
                         var keyLabel = key.keyLabel;
@@ -125,11 +113,7 @@ class _KeyboardShortcutRowState extends State<KeyboardShortcutRow> {
                         }
                         keyBuffer.write(keyLabel);
                       }
-                      model.setShortcut(
-                        widget.shortcutId,
-                        [keyBuffer.toString()],
-                      );
-                      Navigator.of(context).pop(keyBuffer.toString());
+                      Navigator.of(context).pop([keyBuffer.toString()]);
                     },
                   )
                 ],
