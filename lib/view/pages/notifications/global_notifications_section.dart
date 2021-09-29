@@ -1,6 +1,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
-import 'package:settings/view/pages/notifications_page.dart/notifications_model.dart';
+import 'package:settings/view/pages/notifications/notifications_model.dart';
 import 'package:settings/view/widgets/settings_section.dart';
 import 'package:settings/view/widgets/switch_settings_row.dart';
 

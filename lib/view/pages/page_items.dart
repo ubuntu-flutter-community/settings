@@ -3,10 +3,10 @@ import 'package:flutter/widgets.dart';
 import 'package:settings/view/pages/accessibility/accessibility_page.dart';
 import 'package:settings/view/pages/appearance/appearance_page.dart';
 import 'package:settings/view/pages/info/info_page.dart';
-import 'package:settings/view/pages/keyboard_shortcuts_page/keyboard_shortcuts_page.dart';
+import 'package:settings/view/pages/keyboard_shortcuts/keyboard_shortcuts_page.dart';
 import 'package:settings/view/pages/mouse_and_touchpad/mouse_and_touchpad_page.dart';
-import 'package:settings/view/pages/notifications_page.dart/notifications_page.dart';
 import 'package:settings/view/pages/removable_media/removable_media_page.dart';
+import 'package:settings/view/pages/notifications/notifications_page.dart';
 import 'package:settings/view/pages/sound/sound_page.dart';
 import 'package:settings/view/widgets/page_item.dart';
 import 'package:yaru_icons/widgets/yaru_icons.dart';
@@ -87,10 +87,10 @@ final pageItems = <PageItem>[
     iconData: YaruIcons.input_mouse,
     builder: MouseAndTouchpadPage.create,
   ),
-  PageItem(
+  const PageItem(
     title: 'Keyboard shortcuts',
     iconData: YaruIcons.input_keyboard,
-    builder: (_) => const KeyboardShortcutsPage(),
+    builder: KeyboardShortcutsPage.create,
   ),
   PageItem(
     title: 'Printers',

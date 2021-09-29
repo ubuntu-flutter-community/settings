@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:gsettings/gsettings.dart';
 import 'package:settings/schemas/schemas.dart';
+import 'package:settings/services/settings_service.dart';
 
 class AppearanceModel extends ChangeNotifier {
   static const _showTrashKey = 'show-trash';
@@ -11,15 +12,10 @@ class AppearanceModel extends ChangeNotifier {
   static const _dockPositionKey = 'dock-position';
   static const _clickActionKey = 'click-action';
 
-  final _dashToDockSettings = GSettingsSchema.lookup(schemaDashToDock) != null
-      ? GSettings(schemaId: schemaDashToDock)
-      : null;
+  AppearanceModel(SettingsService service)
+      : _dashToDockSettings = service.lookup(schemaDashToDock);
 
-  @override
-  void dispose() {
-    _dashToDockSettings?.dispose();
-    super.dispose();
-  }
+  final GSettings? _dashToDockSettings;
 
   // Dock section
 

@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:gsettings/gsettings.dart';
 import 'package:settings/schemas/schemas.dart';
+import 'package:settings/services/settings_service.dart';
 
 class AccessibilityModel extends ChangeNotifier {
   static const _gtkThemeKey = 'gtk-theme';
@@ -58,52 +59,27 @@ class AccessibilityModel extends ChangeNotifier {
   static const _dwellTimeKey = 'dwell-time';
   static const _dwellThresholdKey = 'dwell-threshold';
 
-  final _desktopA11Settings = GSettingsSchema.lookup(schemaDesktopA11y) != null
-      ? GSettings(schemaId: schemaDesktopA11y)
-      : null;
-  final _a11yAppsSettings = GSettingsSchema.lookup(schemaA11yApps) != null
-      ? GSettings(schemaId: schemaA11yApps)
-      : null;
-  final _a11yKeyboardSettings =
-      GSettingsSchema.lookup(schemaA11yKeyboard) != null
-          ? GSettings(schemaId: schemaA11yKeyboard)
-          : null;
-  final _a11yMagnifierSettings =
-      GSettingsSchema.lookup(schemaA11yMagnifier) != null
-          ? GSettings(schemaId: schemaA11yMagnifier)
-          : null;
-  final _a11yMouseSettings = GSettingsSchema.lookup(schemaA11yMouse) != null
-      ? GSettings(schemaId: schemaA11yMouse)
-      : null;
-  final _wmPreferencesSettings =
-      GSettingsSchema.lookup(schemaWmPreferences) != null
-          ? GSettings(schemaId: schemaWmPreferences)
-          : null;
-  final _interfaceSettings = GSettingsSchema.lookup(schemaInterface) != null
-      ? GSettings(schemaId: schemaInterface)
-      : null;
-  final _peripheralsMouseSettings =
-      GSettingsSchema.lookup(schemaPeripheralsMouse) != null
-          ? GSettings(schemaId: schemaPeripheralsMouse)
-          : null;
-  final _peripheralsKeyboardSettings =
-      GSettingsSchema.lookup(schemaPeripheralsKeyboard) != null
-          ? GSettings(schemaId: schemaPeripheralsKeyboard)
-          : null;
+  AccessibilityModel(SettingsService service)
+      : _desktopA11Settings = service.lookup(schemaDesktopA11y),
+        _a11yAppsSettings = service.lookup(schemaA11yApps),
+        _a11yKeyboardSettings = service.lookup(schemaA11yKeyboard),
+        _a11yMagnifierSettings = service.lookup(schemaA11yMagnifier),
+        _a11yMouseSettings = service.lookup(schemaA11yMouse),
+        _wmPreferencesSettings = service.lookup(schemaWmPreferences),
+        _interfaceSettings = service.lookup(schemaInterface),
+        _peripheralsMouseSettings = service.lookup(schemaPeripheralsMouse),
+        _peripheralsKeyboardSettings =
+            service.lookup(schemaPeripheralsKeyboard);
 
-  @override
-  void dispose() {
-    _desktopA11Settings?.dispose();
-    _a11yAppsSettings?.dispose();
-    _a11yKeyboardSettings?.dispose();
-    _a11yMagnifierSettings?.dispose();
-    _a11yMouseSettings?.dispose();
-    _wmPreferencesSettings?.dispose();
-    _interfaceSettings?.dispose();
-    _peripheralsMouseSettings?.dispose();
-    _peripheralsKeyboardSettings?.dispose();
-    super.dispose();
-  }
+  final GSettings? _desktopA11Settings;
+  final GSettings? _a11yAppsSettings;
+  final GSettings? _a11yKeyboardSettings;
+  final GSettings? _a11yMagnifierSettings;
+  final GSettings? _a11yMouseSettings;
+  final GSettings? _wmPreferencesSettings;
+  final GSettings? _interfaceSettings;
+  final GSettings? _peripheralsMouseSettings;
+  final GSettings? _peripheralsKeyboardSettings;
 
   // Global section
 
