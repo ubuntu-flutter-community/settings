@@ -21,10 +21,4 @@ class WallpaperModel extends SafeChangeNotifier {
 
   set pictureUri(String uri) =>
       _wallpaperSettings!.setValue(_pictureUriKey, uri);
-
-  @override
-  void dispose() {
-    _wallpaperSettings!.dispose();
-    super.dispose();
-  }
 }
