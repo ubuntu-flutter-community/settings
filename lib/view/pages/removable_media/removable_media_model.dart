@@ -137,10 +137,4 @@ class RemovableMediaModel extends SafeChangeNotifier {
     oldIgnoreList.add(mimeType);
     _setAutoRunXContentIgnore(oldIgnoreList.toList());
   }
-
-  @override
-  void dispose() {
-    _removableMediaSettings?.dispose();
-    super.dispose();
-  }
 }
