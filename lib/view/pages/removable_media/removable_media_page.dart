@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:settings/services/settings_service.dart';
 import 'package:settings/view/pages/removable_media/removable_media_model.dart';
 import 'package:settings/view/widgets/checkbox_row.dart';
 import 'package:settings/view/widgets/settings_section.dart';
@@ -9,8 +10,9 @@ class RemovableMediaPage extends StatelessWidget {
   const RemovableMediaPage({Key? key}) : super(key: key);
 
   static Widget create(BuildContext context) {
+    final service = Provider.of<SettingsService>(context, listen: false);
     return ChangeNotifierProvider<RemovableMediaModel>(
-      create: (_) => RemovableMediaModel(),
+      create: (_) => RemovableMediaModel(service),
       child: const RemovableMediaPage(),
     );
   }
