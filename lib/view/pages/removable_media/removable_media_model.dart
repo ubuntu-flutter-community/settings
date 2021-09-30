@@ -1,6 +1,7 @@
 import 'package:gsettings/gsettings.dart';
 import 'package:safe_change_notifier/safe_change_notifier.dart';
 import 'package:settings/schemas/schemas.dart';
+import 'package:settings/services/settings_service.dart';
 
 class RemovableMediaModel extends SafeChangeNotifier {
   static const mimeTypeSuffix = 'x-content/';
@@ -11,10 +12,10 @@ class RemovableMediaModel extends SafeChangeNotifier {
   static const unixSoftware = mimeTypeSuffix + 'unix-software';
   static const imageDcf = mimeTypeSuffix + 'image-dcf';
 
-  final _removableMediaSettings =
-      GSettingsSchema.lookup(schemaMediaHandling) != null
-          ? GSettings(schemaId: schemaMediaHandling)
-          : null;
+  final GSettings? _removableMediaSettings;
+
+  RemovableMediaModel(SettingsService service)
+      : _removableMediaSettings = service.lookup(schemaMediaHandling);
 
   // autorun-never
   final _autoRunNeverKey = 'autorun-never';
