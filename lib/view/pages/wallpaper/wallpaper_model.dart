@@ -17,6 +17,8 @@ class WallpaperModel extends SafeChangeNotifier {
   WallpaperModel(SettingsService service)
       : _wallpaperSettings = service.lookup(schemaBackground);
 
-  String get currentPictureUri =>
-      _wallpaperSettings!.stringValue(_pictureUriKey);
+  String get pictureUri => _wallpaperSettings!.stringValue(_pictureUriKey);
+
+  set pictureUri(String uri) =>
+      _wallpaperSettings!.setValue(_pictureUriKey, uri);
 }
