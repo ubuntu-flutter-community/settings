@@ -29,8 +29,8 @@ class WallpaperPage extends StatelessWidget {
         padding: const EdgeInsets.only(bottom: 20, top: 20),
         child: FilePickerRow(
             label: 'Your wallpaper',
-            onPressed: () async =>
-                model.pictureUri = (await openFilePicker(context))!,
+            onPressed: () async => model.pictureUri =
+                (await openFilePicker(context)) ?? model.pictureUri,
             pickingDescription: 'Select a wallpaper'),
       ),
       SizedBox(
