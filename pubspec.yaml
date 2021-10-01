@@ -19,8 +19,13 @@ dependencies:
   linux_system_info: ^0.0.7
   scrollable_positioned_list: ^0.2.0-nullsafety.0
   dbus: ^0.6.3
+  duration: ^3.0.6
   filesize: ^2.0.1
+  nm: ^0.4.0
   udisks: ^0.3.0
+  upower: # ^0.6.1 (https://github.com/canonical/upower.dart/pull/17)
+    git:
+      url: https://github.com/canonical/upower.dart
   safe_change_notifier: ^0.0.1
   path_provider: ^2.0.5
   filesystem_picker: ^2.0.0-nullsafety.0
