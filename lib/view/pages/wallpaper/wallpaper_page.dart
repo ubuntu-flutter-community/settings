@@ -1,13 +1,13 @@
 import 'dart:io';
 
+import 'package:filesystem_picker/filesystem_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:settings/services/settings_service.dart';
 import 'package:settings/view/pages/wallpaper/wallpaper_model.dart';
-import 'package:settings/view/widgets/settings_row.dart';
+import 'package:settings/view/widgets/file_picker_row.dart';
+import 'package:settings/view/widgets/image_tile.dart';
 import 'package:settings/view/widgets/settings_section.dart';
-import 'package:filesystem_picker/filesystem_picker.dart';
-import 'package:yaru_icons/widgets/yaru_icons.dart';
 
 class WallpaperPage extends StatelessWidget {
   const WallpaperPage({Key? key}) : super(key: key);
@@ -27,32 +27,18 @@ class WallpaperPage extends StatelessWidget {
     return SettingsSection(headline: 'Wallpaper', children: [
       Padding(
         padding: const EdgeInsets.only(bottom: 20, top: 20),
-        child: SizedBox(
-          width: 500,
-          child: SettingsRow(
-              actionLabel: 'Your wallpaper',
-              secondChild: ElevatedButton(
-                  onPressed: () async =>
-                      {model.pictureUri = (await openFilePicker(context))!},
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: const [
-                      Icon(YaruIcons.image),
-                      Padding(
-                        padding: EdgeInsets.all(8.0),
-                        child: Text('Select a wallpaper'),
-                      )
-                    ],
-                  ))),
-        ),
+        child: FilePickerRow(
+            label: 'Your wallpaper',
+            onPressed: () async =>
+                model.pictureUri = (await openFilePicker(context))!,
+            pickingDescription: 'Select a wallpaper'),
       ),
       SizedBox(
         width: 500,
         child: Padding(
           padding: const EdgeInsets.only(bottom: 30),
-          child: WallpaperTile(
+          child: ImageTile(
               path: model.pictureUri.replaceAll('file://', ''),
-              onTap: () => {},
               currentlySelected: false),
         ),
       ),
@@ -71,7 +57,7 @@ class WallpaperPage extends StatelessWidget {
                   shrinkWrap: true,
                   scrollDirection: Axis.vertical,
                   children: snapshot.data!
-                      .map((picPathString) => WallpaperTile(
+                      .map((picPathString) => ImageTile(
                           path: picPathString,
                           onTap: () => model.pictureUri = picPathString,
                           currentlySelected:
@@ -88,27 +74,11 @@ class WallpaperPage extends StatelessWidget {
           }),
       Padding(
         padding: const EdgeInsets.only(bottom: 20, top: 20),
-        child: SizedBox(
-          width: 500,
-          child: SettingsRow(
-              actionLabel: 'Your custom wallpaper location',
-              actionDescription: model.customWallpaperLocation,
-              secondChild: ElevatedButton(
-                  onPressed: () async => {
-                        model.customWallpaperLocation =
-                            await openDirPicker(context)
-                      },
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: const [
-                      Icon(YaruIcons.image),
-                      Padding(
-                        padding: EdgeInsets.all(8.0),
-                        child: Text('Select a location'),
-                      )
-                    ],
-                  ))),
-        ),
+        child: FilePickerRow(
+            label: 'Your wallpaper location',
+            onPressed: () async =>
+                model.customWallpaperLocation = await openDirPicker(context),
+            pickingDescription: 'Select a location'),
       ),
       model.customWallpaperLocation == null
           ? const Text('')
@@ -128,7 +98,7 @@ class WallpaperPage extends StatelessWidget {
                       shrinkWrap: true,
                       scrollDirection: Axis.vertical,
                       children: snapshot.data!
-                          .map((picPathString) => WallpaperTile(
+                          .map((picPathString) => ImageTile(
                               path: picPathString,
                               onTap: () => model.pictureUri = picPathString,
                               currentlySelected:
@@ -159,50 +129,13 @@ class WallpaperPage extends StatelessWidget {
 
   Future<String?> openFilePicker(BuildContext context) async {
     return await FilesystemPicker.open(
-      title: 'Select your wallpaper location',
+      title: 'Select a wallpaper',
       allowedExtensions: ['.jpg', '.jpeg'],
       context: context,
       rootDirectory: Directory('/home/'),
       fsType: FilesystemType.file,
       pickText: 'Select a wallpaper',
       folderIconColor: Theme.of(context).primaryColor.withOpacity(0.5),
-    );
-  }
-}
-
-class WallpaperTile extends StatelessWidget {
-  const WallpaperTile(
-      {Key? key,
-      required this.path,
-      required this.onTap,
-      required this.currentlySelected})
-      : super(key: key);
-
-  final String path;
-  final bool currentlySelected;
-
-  final VoidCallback onTap;
-
-  @override
-  Widget build(BuildContext context) {
-    return InkWell(
-      borderRadius: BorderRadius.circular(8.0),
-      onTap: onTap,
-      child: Container(
-        decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(8.0),
-            color: currentlySelected
-                ? Theme.of(context).primaryColor.withOpacity(0.3)
-                : Colors.transparent),
-        child: Padding(
-          padding: const EdgeInsets.only(left: 10, right: 10),
-          child: ClipRRect(
-              child: Image.file(
-            File(path),
-            filterQuality: FilterQuality.none,
-          )),
-        ),
-      ),
     );
   }
 }
