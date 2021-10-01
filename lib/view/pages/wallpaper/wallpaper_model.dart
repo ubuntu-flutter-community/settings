@@ -9,7 +9,7 @@ class WallpaperModel extends SafeChangeNotifier {
   final GSettings? _wallpaperSettings;
   static const _pictureUriKey = 'picture-uri';
   static const _preinstalledWallpapersDir = '/usr/share/backgrounds';
-  static const _homeWallpapers = '/home/frederik/Bilder';
+  String? _customDir = '';
 
   WallpaperModel(SettingsService service)
       : _wallpaperSettings = service.lookup(schemaBackground);
@@ -21,17 +21,27 @@ class WallpaperModel extends SafeChangeNotifier {
     notifyListeners();
   }
 
-  Future<List<String>> get backgrounds async {
-    final preDir = Directory(_preinstalledWallpapersDir);
-    final List<FileSystemEntity> preEntities = await preDir.list().toList();
+  set customWallpaperLocation(String? path) {
+    _customDir = path;
+    notifyListeners();
+  }
+
+  String? get customWallpaperLocation => _customDir;
+
+  Future<List<String>> get preInstalledBackgrounds async {
+    return (await getFiles(_preinstalledWallpapersDir))
+        .map((e) => e.path)
+        .toList();
+  }
+
+  Future<List<String>> get customBackgrounds async {
+    return (await getFiles(_customDir!)).map((e) => e.path).toList();
+  }
+
+  Future<Iterable<File>> getFiles(String dir) async {
+    final List<FileSystemEntity> preEntities =
+        await Directory(dir).list().toList();
     final Iterable<File> preFiles = preEntities.whereType<File>();
-    final preStringList = preFiles.map((e) => e.path).toList();
-
-    final homeDir = Directory(_homeWallpapers);
-    final List<FileSystemEntity> homeEntities = await homeDir.list().toList();
-    final Iterable<File> homeFiles = homeEntities.whereType<File>();
-    final homeStringList = homeFiles.map((e) => e.path).toList();
-
-    return preStringList + homeStringList;
+    return preFiles;
   }
 }
