@@ -73,7 +73,7 @@ class WallpaperPage extends StatelessWidget {
                           pickText: 'Select your wallpaper location',
                           folderIconColor:
                               Theme.of(context).primaryColor.withOpacity(0.5),
-                        ))!
+                        ))
                       },
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
