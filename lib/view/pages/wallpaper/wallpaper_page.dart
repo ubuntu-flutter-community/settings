@@ -66,11 +66,11 @@ class WallpaperPage extends StatelessWidget {
                   onPressed: () async => {
                         model.customWallpaperLocation =
                             (await FilesystemPicker.open(
-                          title: 'Save to folder',
+                          title: 'Select your wallpaper location',
                           context: context,
                           rootDirectory: Directory('/home/'),
                           fsType: FilesystemType.folder,
-                          pickText: 'Save file to this folder',
+                          pickText: 'Select your wallpaper location',
                           folderIconColor:
                               Theme.of(context).primaryColor.withOpacity(0.5),
                         ))!
