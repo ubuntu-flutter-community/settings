@@ -87,7 +87,7 @@ class WallpaperPage extends StatelessWidget {
                   ))),
         ),
       ),
-      model.customWallpaperLocation == ''
+      model.customWallpaperLocation == null
           ? const Text('')
           : FutureBuilder<List<String>>(
               future: model.customBackgrounds,
