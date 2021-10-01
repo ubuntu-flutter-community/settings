@@ -26,34 +26,19 @@ class WallpaperPage extends StatelessWidget {
             if (snapshot.hasData) {
               return SizedBox(
                 width: 500,
-                child: ListView(
+                child: GridView(
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 3,
+                      childAspectRatio: 1.6,
+                      mainAxisSpacing: 5,
+                      crossAxisSpacing: 5),
                   shrinkWrap: true,
                   scrollDirection: Axis.vertical,
                   children: snapshot.data!
-                      .map((e) => InkWell(
-                            borderRadius: BorderRadius.circular(8.0),
-                            onTap: () => model.pictureUri = 'file://' + e,
-                            child: Container(
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(8.0),
-                                  color: model.pictureUri.contains(e)
-                                      ? Theme.of(context)
-                                          .primaryColor
-                                          .withOpacity(0.3)
-                                      : Colors.transparent),
-                              child: Padding(
-                                padding: const EdgeInsets.all(12.0),
-                                child: SizedBox(
-                                  child: ClipRRect(
-                                      borderRadius: BorderRadius.circular(6.0),
-                                      child: Image.asset(
-                                        e,
-                                        width: 200,
-                                      )),
-                                ),
-                              ),
-                            ),
-                          ))
+                      .map((e) => WallpaperTile(
+                          path: e,
+                          onTap: () => model.pictureUri = 'file://' + e,
+                          currentlySelected: model.pictureUri.contains(e)))
                       .toList(),
                 ),
               );
@@ -62,5 +47,44 @@ class WallpaperPage extends StatelessWidget {
             }
           }),
     ]);
+  }
+}
+
+class WallpaperTile extends StatelessWidget {
+  const WallpaperTile(
+      {Key? key,
+      required this.path,
+      required this.onTap,
+      required this.currentlySelected})
+      : super(key: key);
+
+  final String path;
+  final bool currentlySelected;
+
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      borderRadius: BorderRadius.circular(8.0),
+      onTap: onTap,
+      child: Container(
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(8.0),
+            color: currentlySelected
+                ? Theme.of(context).primaryColor.withOpacity(0.3)
+                : Colors.transparent),
+        child: Padding(
+          padding: const EdgeInsets.only(left: 10, right: 10),
+          child: ClipRRect(
+              borderRadius: BorderRadius.circular(6.0),
+              child: Image.asset(
+                path,
+                filterQuality: FilterQuality.none,
+                width: 50,
+              )),
+        ),
+      ),
+    );
   }
 }
