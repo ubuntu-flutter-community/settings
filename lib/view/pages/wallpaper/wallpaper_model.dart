@@ -40,11 +40,8 @@ class WallpaperModel extends SafeChangeNotifier {
   }
 
   Future<Iterable<File>> getImages(String dir) async {
-    final List<FileSystemEntity> preEntities =
-        await Directory(dir).list().toList();
-    final Iterable<File> preFiles = preEntities
+    return (await Directory(dir).list().toList())
         .whereType<File>()
         .where((element) => lookupMimeType(element.path)!.startsWith('image/'));
-    return preFiles;
   }
 }
