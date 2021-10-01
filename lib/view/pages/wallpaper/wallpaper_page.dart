@@ -25,6 +25,37 @@ class WallpaperPage extends StatelessWidget {
     final model = Provider.of<WallpaperModel>(context);
 
     return SettingsSection(headline: 'Wallpaper', children: [
+      Padding(
+        padding: const EdgeInsets.only(bottom: 20, top: 20),
+        child: SizedBox(
+          width: 500,
+          child: SettingsRow(
+              actionLabel: 'Your wallpaper',
+              secondChild: ElevatedButton(
+                  onPressed: () async =>
+                      {model.pictureUri = (await openFilePicker(context))!},
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: const [
+                      Icon(YaruIcons.image),
+                      Padding(
+                        padding: EdgeInsets.all(8.0),
+                        child: Text('Select a wallpaper'),
+                      )
+                    ],
+                  ))),
+        ),
+      ),
+      SizedBox(
+        width: 500,
+        child: Padding(
+          padding: const EdgeInsets.only(bottom: 30),
+          child: WallpaperTile(
+              path: model.pictureUri.replaceAll('file://', ''),
+              onTap: () => {},
+              currentlySelected: false),
+        ),
+      ),
       FutureBuilder<List<String>>(
           future: model.preInstalledBackgrounds,
           builder: (context, snapshot) {
@@ -60,20 +91,12 @@ class WallpaperPage extends StatelessWidget {
         child: SizedBox(
           width: 500,
           child: SettingsRow(
-              actionLabel: 'Your custom location',
+              actionLabel: 'Your custom wallpaper location',
               actionDescription: model.customWallpaperLocation,
               secondChild: ElevatedButton(
                   onPressed: () async => {
                         model.customWallpaperLocation =
-                            (await FilesystemPicker.open(
-                          title: 'Select your wallpaper location',
-                          context: context,
-                          rootDirectory: Directory('/home/'),
-                          fsType: FilesystemType.folder,
-                          pickText: 'Select your wallpaper location',
-                          folderIconColor:
-                              Theme.of(context).primaryColor.withOpacity(0.5),
-                        ))
+                            await openDirPicker(context)
                       },
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -81,7 +104,7 @@ class WallpaperPage extends StatelessWidget {
                       Icon(YaruIcons.image),
                       Padding(
                         padding: EdgeInsets.all(8.0),
-                        child: Text('Chose your location'),
+                        child: Text('Select a location'),
                       )
                     ],
                   ))),
@@ -122,6 +145,29 @@ class WallpaperPage extends StatelessWidget {
               }),
     ]);
   }
+
+  Future<String?> openDirPicker(BuildContext context) async {
+    return await FilesystemPicker.open(
+      title: 'Select your wallpaper location',
+      context: context,
+      rootDirectory: Directory('/home/'),
+      fsType: FilesystemType.folder,
+      pickText: 'Select a directory',
+      folderIconColor: Theme.of(context).primaryColor.withOpacity(0.5),
+    );
+  }
+
+  Future<String?> openFilePicker(BuildContext context) async {
+    return await FilesystemPicker.open(
+      title: 'Select your wallpaper location',
+      allowedExtensions: ['.jpg', '.jpeg'],
+      context: context,
+      rootDirectory: Directory('/home/'),
+      fsType: FilesystemType.file,
+      pickText: 'Select a wallpaper',
+      folderIconColor: Theme.of(context).primaryColor.withOpacity(0.5),
+    );
+  }
 }
 
 class WallpaperTile extends StatelessWidget {
@@ -154,7 +200,6 @@ class WallpaperTile extends StatelessWidget {
               child: Image.file(
             File(path),
             filterQuality: FilterQuality.none,
-            width: 50,
           )),
         ),
       ),
