@@ -8,29 +8,30 @@ import 'package:settings/services/settings_service.dart';
 class WallpaperModel extends SafeChangeNotifier {
   final GSettings? _wallpaperSettings;
   static const _pictureUriKey = 'picture-uri';
-  static const _colorShadingTypeKey = 'color-shading-type';
-  static const _drawBackgroundKey = 'draw-background';
-  static const _pictureOpacityKey = 'picture-opacity';
-  static const _pictureOptionsKey = 'picture-options';
-  static const _primaryColorKey = 'primary-color';
-  static const _secondaryColorKey = 'secondary-color';
-  static const _showDesktopIconsKey = 'show-desktop-icons';
-  static const _backgroundsDir = '/home/frederik/Bilder/BingWallpaper';
+  static const _preinstalledWallpapersDir = '/usr/share/backgrounds';
+  static const _homeWallpapers = '/home/frederik/Bilder';
 
   WallpaperModel(SettingsService service)
       : _wallpaperSettings = service.lookup(schemaBackground);
 
   String get pictureUri => _wallpaperSettings!.stringValue(_pictureUriKey);
 
-  set pictureUri(String uri) {
-    _wallpaperSettings!.setValue(_pictureUriKey, uri);
+  set pictureUri(String picPathString) {
+    _wallpaperSettings!.setValue(_pictureUriKey, 'file://' + picPathString);
     notifyListeners();
   }
 
   Future<List<String>> get backgrounds async {
-    final dir = Directory(_backgroundsDir);
-    final List<FileSystemEntity> entities = await dir.list().toList();
-    final Iterable<File> files = entities.whereType<File>();
-    return files.map((e) => e.path).toList();
+    final preDir = Directory(_preinstalledWallpapersDir);
+    final List<FileSystemEntity> preEntities = await preDir.list().toList();
+    final Iterable<File> preFiles = preEntities.whereType<File>();
+    final preStringList = preFiles.map((e) => e.path).toList();
+
+    final homeDir = Directory(_homeWallpapers);
+    final List<FileSystemEntity> homeEntities = await homeDir.list().toList();
+    final Iterable<File> homeFiles = homeEntities.whereType<File>();
+    final homeStringList = homeFiles.map((e) => e.path).toList();
+
+    return preStringList + homeStringList;
   }
 }

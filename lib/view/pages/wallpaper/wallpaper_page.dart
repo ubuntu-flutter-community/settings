@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:settings/services/settings_service.dart';
@@ -35,10 +37,11 @@ class WallpaperPage extends StatelessWidget {
                   shrinkWrap: true,
                   scrollDirection: Axis.vertical,
                   children: snapshot.data!
-                      .map((e) => WallpaperTile(
-                          path: e,
-                          onTap: () => model.pictureUri = 'file://' + e,
-                          currentlySelected: model.pictureUri.contains(e)))
+                      .map((picPathString) => WallpaperTile(
+                          path: picPathString,
+                          onTap: () => model.pictureUri = picPathString,
+                          currentlySelected:
+                              model.pictureUri.contains(picPathString)))
                       .toList(),
                 ),
               );
@@ -77,12 +80,11 @@ class WallpaperTile extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.only(left: 10, right: 10),
           child: ClipRRect(
-              borderRadius: BorderRadius.circular(6.0),
-              child: Image.asset(
-                path,
-                filterQuality: FilterQuality.none,
-                width: 50,
-              )),
+              child: Image.file(
+            File(path),
+            filterQuality: FilterQuality.none,
+            width: 50,
+          )),
         ),
       ),
     );
