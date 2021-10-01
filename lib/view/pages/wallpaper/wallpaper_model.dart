@@ -10,6 +10,7 @@ class WallpaperModel extends SafeChangeNotifier {
   final GSettings? _wallpaperSettings;
   static const _pictureUriKey = 'picture-uri';
   static const _preinstalledWallpapersDir = '/usr/share/backgrounds';
+  // TODO: store this outside of the app
   String? _customDir;
 
   WallpaperModel(SettingsService service)
