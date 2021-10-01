@@ -16,11 +16,11 @@ Packages that we already use or plan to use are:
 
 - [X] use real yaru icons - thanks to @Jupi007
 - [X] improve layout
-- [ ] implement settings search
+- [X] implement settings search
 - [ ] WIFI page
 - [ ] Network page
 - [ ] Bluetooth page
-- [ ] Wallpaper page
+- [X] Wallpaper page
 - [X] Appearance page
 - [X] Notifications page
 - [ ] Search page
@@ -34,7 +34,7 @@ Packages that we already use or plan to use are:
 - [X] Mouse and touchpad page
 - [ ] Keyboard shortcuts page - WIP
 - [ ] Printers page
-- [ ] Shared devices page
+- [X] Removeable Media page
 - [ ] Color page
 - [ ] Region and language page
 - [X] Accessability page

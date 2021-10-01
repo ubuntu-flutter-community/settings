@@ -22,6 +22,9 @@ dependencies:
   filesize: ^2.0.1
   udisks: ^0.3.0
   safe_change_notifier: ^0.0.1
+  path_provider: ^2.0.5
+  filesystem_picker: ^2.0.0-nullsafety.0
+  mime: ^1.0.0
 
 dev_dependencies:
   flutter_test:
