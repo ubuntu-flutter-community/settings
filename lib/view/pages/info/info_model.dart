@@ -65,11 +65,4 @@ class InfoModel extends SafeChangeNotifier {
 
   String get gnomeVersion => _gnomeInfo.version;
   String get windowServer => Platform.environment['XDG_SESSION_TYPE'] ?? '';
-
-  @override
-  void dispose() {
-    _hostnameService.dispose();
-    _uDisksClient.close();
-    super.dispose();
-  }
 }

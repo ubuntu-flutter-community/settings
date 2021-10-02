@@ -23,7 +23,7 @@ class HostnameService {
 
   Future<void> init() async {
     await _initProperties();
-    _propertyListener = _object.propertiesChanged.listen(_updateProperties);
+    _propertyListener ??= _object.propertiesChanged.listen(_updateProperties);
   }
 
   Future<void> dispose() async {
@@ -31,6 +31,7 @@ class HostnameService {
     await _staticHostnameController.close();
     await _propertyListener?.cancel();
     await _object.client.close();
+    _propertyListener = null;
   }
 
   late final DBusRemoteObject _object;
@@ -42,11 +43,11 @@ class HostnameService {
 
   String get hostname => _prettyHostname.orIfEmpty(_hostname);
   Stream<String> get hostnameChanged => _hostnameController.stream;
-  final _hostnameController = StreamController<String>();
+  final _hostnameController = StreamController<String>.broadcast();
 
   String get staticHostname => _staticHostname.orIfEmpty(_hostname.toStatic());
   Stream<String> get staticHostnameChanged => _staticHostnameController.stream;
-  final _staticHostnameController = StreamController<String>();
+  final _staticHostnameController = StreamController<String>.broadcast();
 
   Future<void> setHostname(String hostname) async {
     await _object.setHostname('SetPrettyHostname', hostname);
