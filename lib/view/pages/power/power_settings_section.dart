@@ -46,13 +46,14 @@ class _PowerSettingsSectionState extends State<PowerSettingsSection> {
     return SettingsSection(
       headline: 'Power Saving',
       children: <Widget>[
-        SliderSettingsRow(
-          actionLabel: 'Screen Brightness',
-          min: 0,
-          max: 100,
-          value: model.screenBrightness ?? 0.0,
-          onChanged: model.setScreenBrightness,
-        ),
+        if (model.screenBrightness != null || model.screenBrightness != -1)
+          SliderSettingsRow(
+            actionLabel: 'Screen Brightness',
+            min: 0,
+            max: 100,
+            value: model.screenBrightness ?? 0.0,
+            onChanged: model.setScreenBrightness,
+          ),
         SwitchSettingsRow(
           actionLabel: 'Automatic Brightness',
           value: model.ambientEnabled,
