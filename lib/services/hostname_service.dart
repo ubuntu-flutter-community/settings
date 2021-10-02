@@ -23,7 +23,7 @@ class HostnameService {
 
   Future<void> init() async {
     await _initProperties();
-    _propertyListener = _object.propertiesChanged.listen(_updateProperties);
+    _propertyListener ??= _object.propertiesChanged.listen(_updateProperties);
   }
 
   Future<void> dispose() async {
@@ -31,6 +31,7 @@ class HostnameService {
     await _staticHostnameController.close();
     await _propertyListener?.cancel();
     await _object.client.close();
+    _propertyListener = null;
   }
 
   late final DBusRemoteObject _object;
