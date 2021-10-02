@@ -43,11 +43,11 @@ class HostnameService {
 
   String get hostname => _prettyHostname.orIfEmpty(_hostname);
   Stream<String> get hostnameChanged => _hostnameController.stream;
-  final _hostnameController = StreamController<String>.broadcast();
+  final _hostnameController = StreamController<String>();
 
   String get staticHostname => _staticHostname.orIfEmpty(_hostname.toStatic());
   Stream<String> get staticHostnameChanged => _staticHostnameController.stream;
-  final _staticHostnameController = StreamController<String>.broadcast();
+  final _staticHostnameController = StreamController<String>();
 
   Future<void> setHostname(String hostname) async {
     await _object.setHostname('SetPrettyHostname', hostname);
