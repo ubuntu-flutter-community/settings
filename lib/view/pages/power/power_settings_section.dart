@@ -46,7 +46,7 @@ class _PowerSettingsSectionState extends State<PowerSettingsSection> {
     return SettingsSection(
       headline: 'Power Saving',
       children: <Widget>[
-        if (model.screenBrightness != null || model.screenBrightness != -1)
+        if (model.screenBrightness != null && model.screenBrightness != -1)
           SliderSettingsRow(
             actionLabel: 'Screen Brightness',
             min: 0,
