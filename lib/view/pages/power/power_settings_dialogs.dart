@@ -21,23 +21,30 @@ class AutomaticSuspendDialog extends StatelessWidget {
     final model = context.watch<SuspendModel>();
     return SimpleDialog(
       title: const Center(child: Text('Automatic Suspend')),
-      contentPadding: const EdgeInsets.symmetric(vertical: 8.0),
+      contentPadding: const EdgeInsets.symmetric(vertical: 20.0),
       children: <Widget>[
-        SuspendDelaySettingsRow(
-          actionLabel: 'On Battery Power',
-          suspend: model.suspendOnBattery,
-          onSuspendChanged: model.setSuspendOnBattery,
-          delay: model.suspendOnBatteryDelay,
-          onDelayChanged: model.setSuspendOnBatteryDelay,
+        Padding(
+          padding: const EdgeInsets.only(left: 20, right: 20),
+          child: SuspendDelaySettingsRow(
+            actionLabel: 'On Battery Power',
+            suspend: model.suspendOnBattery,
+            onSuspendChanged: model.setSuspendOnBattery,
+            delay: model.suspendOnBatteryDelay,
+            onDelayChanged: model.setSuspendOnBatteryDelay,
+          ),
         ),
         const SizedBox(height: 16.0),
-        SuspendDelaySettingsRow(
-          actionLabel: 'When Plugged In',
-          suspend: model.suspendWhenPluggedIn,
-          onSuspendChanged: model.setSuspendWhenPluggedIn,
-          delay: model.suspendWhenPluggedInDelay,
-          onDelayChanged: model.setSuspendWhenPluggedInDelay,
+        Padding(
+          padding: const EdgeInsets.only(left: 20, right: 20),
+          child: SuspendDelaySettingsRow(
+            actionLabel: 'When Plugged In',
+            suspend: model.suspendWhenPluggedIn,
+            onSuspendChanged: model.setSuspendWhenPluggedIn,
+            delay: model.suspendWhenPluggedInDelay,
+            onDelayChanged: model.setSuspendWhenPluggedInDelay,
+          ),
         ),
+        const SizedBox(height: 16.0),
       ],
     );
   }
