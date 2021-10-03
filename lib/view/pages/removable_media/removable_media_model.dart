@@ -4,13 +4,27 @@ import 'package:settings/schemas/schemas.dart';
 import 'package:settings/services/settings_service.dart';
 
 class RemovableMediaModel extends SafeChangeNotifier {
-  static const mimeTypeSuffix = 'x-content/';
-  static const ostreeRepository = mimeTypeSuffix + 'ostree-repository';
-  static const audioCdda = mimeTypeSuffix + 'audio-cdda';
-  static const videoDvd = mimeTypeSuffix + 'video-dvd';
-  static const audioPlayer = mimeTypeSuffix + 'audio-player';
-  static const unixSoftware = mimeTypeSuffix + 'unix-software';
-  static const imageDcf = mimeTypeSuffix + 'image-dcf';
+  static const mimeTypes = <String, String>{
+    'x-content/audio-cdda': 'Audio CD',
+    'x-content/video-dvd': 'DVD-Video',
+    'x-content/audio-player': 'Musicplayer',
+    'x-content/unix-software': 'Photos',
+    'x-content/image-dcf': 'Applications',
+    'x-content/audio-dvd': 'Audio DVD',
+    'x-content/blank-bd': 'Blank BD',
+    'x-content/blank-cd': 'Blank CD',
+    'x-content/blank-dvd': 'Blank DVD',
+    'x-content/blank-hddvd': 'Blank HD DVD',
+    'x-content/ebook-reader': 'Ebook Reader',
+    'x-content/image-picturecd': 'Image Picture CD',
+    'x-content/ostree-repository': 'Ostree repository',
+    'x-content/software': 'Software',
+    'x-content/video-bluray': 'Video Blueray',
+    'x-content/video-hddvd': 'Video HD DVD',
+    'x-content/video-svcd': 'Video SV CD',
+    'x-content/video-vcd': 'Video V CD',
+    'x-content/win32-software': 'Windows Software'
+  };
 
   final GSettings? _removableMediaSettings;
 
