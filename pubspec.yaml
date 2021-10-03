@@ -17,7 +17,6 @@ dependencies:
   gsettings: ^0.1.2+1
   provider: ^5.0.0
   linux_system_info: ^0.0.7
-  scrollable_positioned_list: ^0.2.0-nullsafety.0
   dbus: ^0.6.3
   duration: ^3.0.6
   filesize: ^2.0.1

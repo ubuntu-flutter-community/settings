@@ -38,15 +38,9 @@ class _LandscapeLayoutState extends State<LandscapeLayout> {
   }
 
   void onTap(int index) {
-    _searchActive = false;
     if (_filteredItems.isNotEmpty) {
-      for (var pageItem in widget.pages) {
-        if (pageItem.title == _filteredItems[index].title) {
-          index = widget.pages.indexOf(pageItem);
-          break;
-        }
-      }
-      _filteredItems.clear();
+      index = widget.pages.indexOf(widget.pages.firstWhere(
+          (pageItem) => pageItem.title == _filteredItems[index].title));
     }
 
     widget.onSelected(index);
@@ -140,10 +134,7 @@ class _LandscapeLayoutState extends State<LandscapeLayout> {
               _filteredItems.clear();
             }),
         onTap: () {
-          setState(() {
-            _searchActive = true;
-            _searchController.clear();
-          });
+          setState(() => _searchActive = true);
         });
   }
 }
