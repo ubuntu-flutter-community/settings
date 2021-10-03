@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import 'package:settings/view/widgets/page_item.dart';
 
 const double _kScrollbarThickness = 8.0;
 const double _kScrollbarMargin = 2.0;
 
 class PageItemListView extends StatelessWidget {
-  PageItemListView(
+  const PageItemListView(
       {Key? key,
       required this.pages,
       required this.selectedIndex,
@@ -16,20 +15,19 @@ class PageItemListView extends StatelessWidget {
   final List<PageItem> pages;
   final int selectedIndex;
   final Function(int index) onTap;
-  final ItemScrollController scrollController = ItemScrollController();
 
   @override
   Widget build(BuildContext context) {
     final scrollbarThicknessWithTrack =
         _calcScrollbarThicknessWithTrack(context);
 
-    return ScrollablePositionedList.separated(
+    return ListView.separated(
         separatorBuilder: (_, __) => const SizedBox(height: 8.0),
         padding: EdgeInsets.symmetric(
           horizontal: scrollbarThicknessWithTrack,
           vertical: 8.0,
         ),
-        itemScrollController: scrollController,
+        controller: ScrollController(),
         itemCount: pages.length,
         itemBuilder: (context, index) {
           return DecoratedBox(

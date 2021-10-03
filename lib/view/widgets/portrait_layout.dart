@@ -39,20 +39,16 @@ class _PortraitLayoutState extends State<PortraitLayout> {
   }
 
   void onTap(int index) {
-    _searchActive = false;
     if (_filteredItems.isNotEmpty) {
-      for (var pageItem in widget.pages) {
-        if (pageItem.title == _filteredItems[index].title) {
-          index = widget.pages.indexOf(pageItem);
-          break;
-        }
-      }
-      _filteredItems.clear();
+      index = widget.pages.indexOf(widget.pages.firstWhere(
+          (pageItem) => pageItem.title == _filteredItems[index].title));
     }
 
     _navigator.push(pageRoute(index));
     widget.onSelected(index);
     setState(() => _selectedIndex = index);
+    _searchController.clear();
+    _filteredItems.clear();
   }
 
   MaterialPageRoute pageRoute(int index) {
@@ -136,8 +132,11 @@ class _PortraitLayoutState extends State<PortraitLayout> {
             }),
         onTap: () {
           setState(() {
-            _searchActive = true;
-            _searchController.clear();
+            _searchActive = !_searchActive;
+            if (!_searchActive) {
+              _searchController.clear();
+              _filteredItems.clear();
+            }
           });
         });
   }
