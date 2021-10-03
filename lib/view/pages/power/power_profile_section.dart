@@ -32,6 +32,7 @@ class _PowerProfileSectionState extends State<PowerProfileSection> {
       headline: 'Power Mode',
       children: <Widget>[
         RadioListTile<PowerProfile>(
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
           title: const Text('Performance'),
           subtitle: const Text('High performance and power usage.'),
           value: PowerProfile.performance,
@@ -39,6 +40,7 @@ class _PowerProfileSectionState extends State<PowerProfileSection> {
           onChanged: model.setProfile,
         ),
         RadioListTile<PowerProfile>(
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
           title: const Text('Balanced Power'),
           subtitle: const Text('Standard performance and power usage.'),
           value: PowerProfile.balanced,
@@ -46,6 +48,7 @@ class _PowerProfileSectionState extends State<PowerProfileSection> {
           onChanged: model.setProfile,
         ),
         RadioListTile<PowerProfile>(
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
           title: const Text('Power Saver'),
           subtitle: const Text('Reduced performance and power usage.'),
           value: PowerProfile.powerSaver,
