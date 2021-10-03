@@ -44,7 +44,7 @@ class _SuspendSectionState extends State<SuspendSection> {
           ),
         ),
         SwitchSettingsRow(
-          actionLabel: 'Show Battery Percengate',
+          actionLabel: 'Show Battery Percentage',
           value: model.showBatteryPercentage,
           onChanged: model.setShowBatteryPercentage,
         ),

@@ -54,29 +54,32 @@ class SuspendDelaySettingsRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: <Widget>[
-        SwitchSettingsRow(
-          actionLabel: actionLabel,
-          value: suspend,
-          onChanged: onSuspendChanged,
-        ),
-        Row(
-          children: <Widget>[
-            const Spacer(),
-            const Text('Delay'),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0),
-              child: DurationDropdownButton(
-                value: delay,
-                values: SuspendDelay.values,
-                onChanged: onDelayChanged,
+    return SizedBox(
+      width: 300,
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: <Widget>[
+          SwitchSettingsRow(
+            actionLabel: actionLabel,
+            value: suspend,
+            onChanged: onSuspendChanged,
+          ),
+          Row(
+            children: <Widget>[
+              const Spacer(),
+              const Text('Delay'),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                child: DurationDropdownButton(
+                  value: delay,
+                  values: SuspendDelay.values,
+                  onChanged: onDelayChanged,
+                ),
               ),
-            ),
-          ],
-        ),
-      ],
+            ],
+          ),
+        ],
+      ),
     );
   }
 }
