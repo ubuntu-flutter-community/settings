@@ -134,7 +134,13 @@ class _LandscapeLayoutState extends State<LandscapeLayout> {
               _filteredItems.clear();
             }),
         onTap: () {
-          setState(() => _searchActive = true);
+          setState(() {
+            _searchActive = !_searchActive;
+            if (!_searchActive) {
+              _searchController.clear();
+              _filteredItems.clear();
+            }
+          });
         });
   }
 }

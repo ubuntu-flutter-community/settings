@@ -47,6 +47,8 @@ class _PortraitLayoutState extends State<PortraitLayout> {
     _navigator.push(pageRoute(index));
     widget.onSelected(index);
     setState(() => _selectedIndex = index);
+    _searchController.clear();
+    _filteredItems.clear();
   }
 
   MaterialPageRoute pageRoute(int index) {
@@ -129,7 +131,13 @@ class _PortraitLayoutState extends State<PortraitLayout> {
               _filteredItems.clear();
             }),
         onTap: () {
-          setState(() => _searchActive = true);
+          setState(() {
+            _searchActive = !_searchActive;
+            if (!_searchActive) {
+              _searchController.clear();
+              _filteredItems.clear();
+            }
+          });
         });
   }
 }
