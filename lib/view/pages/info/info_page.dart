@@ -86,6 +86,10 @@ class _InfoPageState extends State<InfoPage> {
             infoValue: model.windowServer,
           ),
         ]),
+        OutlinedButton(
+          child: const Text("Download System Data"),
+          onPressed: () {},
+        )
       ],
     );
   }
