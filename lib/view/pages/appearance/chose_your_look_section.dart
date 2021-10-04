@@ -4,8 +4,8 @@ import 'package:settings/view/widgets/app_theme.dart';
 import 'package:settings/view/widgets/settings_section.dart';
 import 'package:settings/view/widgets/switch_settings_row.dart';
 
-class ChoseYourLookSection extends StatelessWidget {
-  const ChoseYourLookSection({Key? key}) : super(key: key);
+class DarkModeSection extends StatelessWidget {
+  const DarkModeSection({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -27,9 +27,3 @@ class ChoseYourLookSection extends StatelessWidget {
     );
   }
 }
-
-// selected: Theme.of(context).brightness == Brightness.light,
-//                   onSelected: () => theme.apply(Brightness.light),
-
-//                   selected: Theme.of(context).brightness == Brightness.dark,
-//                 onSelected: () => theme.apply(Brightness.dark),

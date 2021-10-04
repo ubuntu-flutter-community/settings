@@ -20,7 +20,7 @@ class AppearancePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: const [
-        ChoseYourLookSection(),
+        DarkModeSection(),
         DockSection(),
       ],
     );
