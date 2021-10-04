@@ -31,7 +31,7 @@ class WallpaperPage extends StatelessWidget {
             label: 'Your wallpaper',
             onPressed: () async => model.pictureUri =
                 (await openFilePicker(context)) ?? model.pictureUri,
-            pickingDescription: 'Select a wallpaper'),
+            pickingDescription: 'Browse'),
       ),
       SizedBox(
         width: 500,
@@ -129,13 +129,12 @@ class WallpaperPage extends StatelessWidget {
 
   Future<String?> openFilePicker(BuildContext context) async {
     return await FilesystemPicker.open(
-      title: 'Select a wallpaper',
-      allowedExtensions: ['.jpg', '.jpeg'],
-      context: context,
-      rootDirectory: Directory('/home/'),
-      fsType: FilesystemType.file,
-      pickText: 'Select a wallpaper',
-      folderIconColor: Theme.of(context).primaryColor.withOpacity(0.5),
-    );
+        title: 'Select a wallpaper',
+        allowedExtensions: ['.jpg', '.jpeg', '.png'],
+        context: context,
+        rootDirectory: Directory('/home/'),
+        fsType: FilesystemType.file,
+        pickText: 'Select a wallpaper',
+        fileTileSelectMode: FileTileSelectMode.wholeTile);
   }
 }
