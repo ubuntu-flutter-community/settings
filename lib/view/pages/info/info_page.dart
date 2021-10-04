@@ -8,6 +8,8 @@ import 'package:settings/view/widgets/single_info_row.dart';
 import 'package:udisks/udisks.dart';
 import 'package:yaru_icons/widgets/yaru_icons.dart';
 import 'package:yaru/yaru.dart' as yaru;
+import 'package:pdf/pdf.dart';
+import 'package:pdf/widgets.dart' as pw;
 
 import 'info_model.dart';
 
