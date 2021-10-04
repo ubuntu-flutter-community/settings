@@ -27,7 +27,11 @@ dependencies:
       url: https://github.com/canonical/upower.dart
   safe_change_notifier: ^0.0.1
   path_provider: ^2.0.5
-  filesystem_picker: ^2.0.0-nullsafety.0
+  filesystem_picker:
+    git:
+      url: https://github.com/Feichtmeier/filesystem_picker
+      path: package
+      ref: fix_breadcrump_color
   mime: ^1.0.0
 
 dev_dependencies:
