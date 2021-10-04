@@ -9,27 +9,27 @@ environment:
   sdk: ">=2.12.0 <3.0.0"
 
 dependencies:
-  flutter:
-    sdk: flutter
-
-  yaru: ^0.1.5
-  yaru_icons: ^0.0.5
-  gsettings: ^0.1.2+1
-  provider: ^5.0.0
-  linux_system_info: ^0.0.7
-  scrollable_positioned_list: ^0.2.0-nullsafety.0
   dbus: ^0.6.3
   filesize: ^2.0.1
-  udisks: ^0.3.0
+  flutter:
+    sdk: flutter
+  gsettings: ^0.1.2+1
+  linux_system_info: ^0.0.7
+  pdf: ^3.6.0
+  provider: ^5.0.0
   safe_change_notifier: ^0.0.1
+  scrollable_positioned_list: ^0.2.0-nullsafety.0
+  udisks: ^0.3.0
+  yaru: ^0.1.5
+  yaru_icons: ^0.0.5
 
 dev_dependencies:
-  flutter_test:
-    sdk: flutter
+  build_runner: ^2.1.2
 
   flutter_lints: ^1.0.0
+  flutter_test:
+    sdk: flutter
   mockingjay: ^0.1.1
-  build_runner: ^2.1.2
   mockito: ^5.0.16
 
 flutter:
