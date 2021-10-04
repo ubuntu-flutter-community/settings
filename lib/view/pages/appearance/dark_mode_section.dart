@@ -17,16 +17,16 @@ class DarkModeSection extends StatelessWidget {
             trailingWidget: Theme.of(context).brightness == Brightness.light
                 ? Row(
                     children: const [
-                      Icon(Icons.dark_mode),
+                      Icon(Icons.light_mode_outlined),
                       SizedBox(width: 8),
-                      Text('Turn on dark mode'),
+                      Text('Dark mode is turned off'),
                     ],
                   )
                 : Row(
                     children: const [
-                      Icon(Icons.light_mode),
+                      Icon(Icons.dark_mode_outlined),
                       SizedBox(width: 8),
-                      Text('Turn off dark mode'),
+                      Text('Dark mode is turned on'),
                     ],
                   ),
             value: Theme.of(context).brightness == Brightness.dark,
