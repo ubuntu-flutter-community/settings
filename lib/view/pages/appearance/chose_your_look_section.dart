@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:settings/view/widgets/app_theme.dart';
-import 'package:settings/view/widgets/option_card.dart';
 import 'package:settings/view/widgets/settings_section.dart';
+import 'package:settings/view/widgets/switch_settings_row.dart';
 
 class ChoseYourLookSection extends StatelessWidget {
   const ChoseYourLookSection({Key? key}) : super(key: key);
@@ -11,35 +11,25 @@ class ChoseYourLookSection extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = context.watch<AppTheme>();
     return SettingsSection(
-      headline: 'Select a theme',
+      headline: 'Dark mode',
       children: [
-        SizedBox(
-          height: 300,
-          child: ListView(
-            shrinkWrap: true,
-            scrollDirection: Axis.horizontal,
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(right: 12),
-                child: OptionCard(
-                  imageAsset: 'assets/images/Theme_thumbnails-Light.png',
-                  titleText: 'Light',
-                  bodyText: 'Everything is bright and light',
-                  selected: Theme.of(context).brightness == Brightness.light,
-                  onSelected: () => theme.apply(Brightness.light),
-                ),
-              ),
-              OptionCard(
-                imageAsset: 'assets/images/Theme_thumbnails-Dark.png',
-                titleText: 'Dark',
-                bodyText: 'Hello darkness my old friend',
-                selected: Theme.of(context).brightness == Brightness.dark,
-                onSelected: () => theme.apply(Brightness.dark),
-              ),
-            ],
-          ),
-        ),
+        SwitchSettingsRow(
+            actionLabel: Theme.of(context).brightness == Brightness.light
+                ? 'Turn on dark mode'
+                : 'Turn off dark mode',
+            value: Theme.of(context).brightness == Brightness.dark,
+            onChanged: (_) {
+              theme.apply(Theme.of(context).brightness == Brightness.dark
+                  ? Brightness.light
+                  : Brightness.dark);
+            }),
       ],
     );
   }
 }
+
+// selected: Theme.of(context).brightness == Brightness.light,
+//                   onSelected: () => theme.apply(Brightness.light),
+
+//                   selected: Theme.of(context).brightness == Brightness.dark,
+//                 onSelected: () => theme.apply(Brightness.dark),
