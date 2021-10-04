@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:settings/services/settings_service.dart';
 import 'package:settings/view/pages/appearance/appearance_model.dart';
-import 'package:settings/view/pages/appearance/chose_your_look_section.dart';
+import 'package:settings/view/pages/appearance/dark_mode_section.dart';
 import 'package:settings/view/pages/appearance/dock_section.dart';
 
 class AppearancePage extends StatelessWidget {
