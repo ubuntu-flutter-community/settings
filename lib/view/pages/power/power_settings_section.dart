@@ -72,17 +72,17 @@ class _PowerSettingsSectionState extends State<PowerSettingsSection> {
           onChanged: model.setIdleDim,
         ),
         SettingsRow(
-          actionLabel: 'Blank Screen',
-          secondChild: DurationDropdownButton(
+          trailingWidget: const Text('Blank Screen'),
+          actionWidget: DurationDropdownButton(
             value: model.idleDelay,
             values: IdleDelay.values,
             onChanged: model.setIdleDelay,
           ),
         ),
         SettingsRow(
-          actionLabel: 'Automatic Suspend',
-          actionDescription: model.automaticSuspend.localize(context),
-          secondChild: SizedBox(
+          trailingWidget: const Text('Automatic Suspend'),
+          description: model.automaticSuspend.localize(context),
+          actionWidget: SizedBox(
             width: 40,
             height: 40,
             child: OutlinedButton(

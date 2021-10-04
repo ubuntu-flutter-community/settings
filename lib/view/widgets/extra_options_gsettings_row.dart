@@ -27,9 +27,9 @@ class ExtraOptionsGsettingsRow extends StatelessWidget {
     }
 
     return SettingsRow(
-      actionLabel: actionLabel,
-      actionDescription: actionDescription,
-      secondChild: Row(
+      trailingWidget: Text(actionLabel),
+      description: actionDescription,
+      actionWidget: Row(
         children: [
           Switch(
             value: value,

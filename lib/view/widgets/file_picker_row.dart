@@ -19,9 +19,9 @@ class FilePickerRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SettingsRow(
-        actionLabel: label,
-        actionDescription: description,
-        secondChild: ElevatedButton(
+        trailingWidget: Text(label),
+        description: description,
+        actionWidget: ElevatedButton(
             onPressed: onPressed,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,

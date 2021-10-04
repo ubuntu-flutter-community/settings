@@ -9,21 +9,17 @@ class SingleInfoRow extends StatelessWidget {
   const SingleInfoRow(
       {Key? key, required this.infoLabel, required this.infoValue})
       : super(key: key);
-  
+
   @override
   Widget build(BuildContext context) {
     return SettingsRow(
-      actionLabel: infoLabel,
-      secondChild: Expanded(
-        flex: 2,
-        child: SelectableText(
-          infoValue,
-          style: TextStyle(
-            color: Theme.of(context).colorScheme.onSurface.withAlpha(150),
-          ),
-          textAlign: TextAlign.right
-        )
-      )
-    );
+        trailingWidget: Text(infoLabel),
+        actionWidget: Expanded(
+            flex: 2,
+            child: SelectableText(infoValue,
+                style: TextStyle(
+                  color: Theme.of(context).colorScheme.onSurface.withAlpha(150),
+                ),
+                textAlign: TextAlign.right)));
   }
 }

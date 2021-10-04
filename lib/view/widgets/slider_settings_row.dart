@@ -57,9 +57,9 @@ class SliderSettingsRow extends StatelessWidget {
     }
 
     return SettingsRow(
-      actionLabel: actionLabel,
-      actionDescription: actionDescription,
-      secondChild: Expanded(
+      trailingWidget: Text(actionLabel),
+      description: actionDescription,
+      actionWidget: Expanded(
         flex: 2,
         child: Row(
           children: [

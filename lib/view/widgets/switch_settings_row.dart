@@ -24,9 +24,9 @@ class SwitchSettingsRow extends StatelessWidget {
     }
 
     return SettingsRow(
-      actionLabel: actionLabel,
-      actionDescription: actionDescription,
-      secondChild: Switch(
+      trailingWidget: Text(actionLabel),
+      description: actionDescription,
+      actionWidget: Switch(
         value: value,
         onChanged: onChanged,
       ),

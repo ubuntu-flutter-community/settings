@@ -67,10 +67,10 @@ class _CursorSize extends StatelessWidget {
   Widget build(BuildContext context) {
     final model = Provider.of<AccessibilityModel>(context);
     return SettingsRow(
-      actionLabel: 'Cursor Size',
-      actionDescription: 'Cursor size can be combined with zoom '
+      trailingWidget: const Text('Cursor Size'),
+      description: 'Cursor size can be combined with zoom '
           'to make it easier to see the cursor',
-      secondChild: Row(
+      actionWidget: Row(
         children: [
           const SizedBox(width: 24.0),
           Text(model.cursorSizeString()),

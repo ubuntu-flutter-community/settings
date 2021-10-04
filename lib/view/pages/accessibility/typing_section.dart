@@ -141,8 +141,8 @@ class _TypingAssist extends StatelessWidget {
     final model = Provider.of<AccessibilityModel>(context);
 
     return SettingsRow(
-      actionLabel: 'Typing Assist (AccessX)',
-      secondChild: Row(
+      trailingWidget: const Text('Typing Assist (AccessX)'),
+      actionWidget: Row(
         children: [
           Text(model.typingAssistString),
           const SizedBox(width: 24.0),

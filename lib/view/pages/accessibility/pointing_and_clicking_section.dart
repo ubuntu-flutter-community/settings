@@ -48,8 +48,8 @@ class _ClickAssist extends StatelessWidget {
   Widget build(BuildContext context) {
     final model = Provider.of<AccessibilityModel>(context);
     return SettingsRow(
-      actionLabel: 'Click Assist',
-      secondChild: Row(
+      trailingWidget: const Text('Click Assist'),
+      actionWidget: Row(
         children: [
           Text(model.clickAssistString),
           const SizedBox(width: 24.0),

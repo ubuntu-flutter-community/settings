@@ -31,8 +31,8 @@ class _SuspendSectionState extends State<SuspendSection> {
       headline: 'Suspend & Power Button',
       children: <Widget>[
         SettingsRow(
-          actionLabel: 'Power Button Behavior',
-          secondChild: DropdownButton<PowerButtonAction?>(
+          trailingWidget: const Text('Power Button Behavior'),
+          actionWidget: DropdownButton<PowerButtonAction?>(
             value: model.powerButtonAction,
             items: PowerButtonAction.values.map((action) {
               return DropdownMenuItem(
