@@ -126,7 +126,7 @@ class WallpaperPage extends StatelessWidget {
       context: context,
       rootDirectory: Directory('/home/'),
       fsType: FilesystemType.folder,
-      pickText: 'Select a directory',
+      pickText: 'Use this directory',
     );
   }
 
