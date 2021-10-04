@@ -31,7 +31,7 @@ class ImageTile extends StatelessWidget {
           child: ClipRRect(
               child: Image.file(
             File(path),
-            filterQuality: FilterQuality.none,
+            filterQuality: FilterQuality.low,
           )),
         ),
       ),
