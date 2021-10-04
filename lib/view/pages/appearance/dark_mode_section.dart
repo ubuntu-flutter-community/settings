@@ -14,9 +14,21 @@ class DarkModeSection extends StatelessWidget {
       headline: 'Dark mode',
       children: [
         SwitchSettingsRow(
-            actionLabel: Theme.of(context).brightness == Brightness.light
-                ? 'Turn on dark mode'
-                : 'Turn off dark mode',
+            trailingWidget: Theme.of(context).brightness == Brightness.light
+                ? Row(
+                    children: const [
+                      Icon(Icons.dark_mode),
+                      SizedBox(width: 8),
+                      Text('Turn on dark mode'),
+                    ],
+                  )
+                : Row(
+                    children: const [
+                      Icon(Icons.light_mode),
+                      SizedBox(width: 8),
+                      Text('Turn off dark mode'),
+                    ],
+                  ),
             value: Theme.of(context).brightness == Brightness.dark,
             onChanged: (_) {
               theme.apply(Theme.of(context).brightness == Brightness.dark

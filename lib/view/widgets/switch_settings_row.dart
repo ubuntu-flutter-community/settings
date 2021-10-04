@@ -4,13 +4,13 @@ import 'package:settings/view/widgets/settings_row.dart';
 class SwitchSettingsRow extends StatelessWidget {
   const SwitchSettingsRow({
     Key? key,
-    required this.actionLabel,
+    required this.trailingWidget,
     this.actionDescription,
     required this.value,
     required this.onChanged,
   }) : super(key: key);
 
-  final String actionLabel;
+  final Widget trailingWidget;
   final String? actionDescription;
   final bool? value;
   final Function(bool) onChanged;
@@ -24,7 +24,7 @@ class SwitchSettingsRow extends StatelessWidget {
     }
 
     return SettingsRow(
-      trailingWidget: Text(actionLabel),
+      trailingWidget: trailingWidget,
       description: actionDescription,
       actionWidget: Switch(
         value: value,

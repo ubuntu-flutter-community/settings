@@ -17,22 +17,22 @@ class DockSection extends StatelessWidget {
       headline: 'Dock',
       children: [
         SwitchSettingsRow(
-          actionLabel: 'Show Trash',
+          trailingWidget: const Text('Show Trash'),
           value: model.showTrash,
           onChanged: (value) => model.setShowTrash(value),
         ),
         SwitchSettingsRow(
-          actionLabel: 'Always Show Dock',
+          trailingWidget: const Text('Always Show Dock'),
           value: model.alwaysShowDock,
           onChanged: (value) => model.setAlwaysShowDock(value),
         ),
         SwitchSettingsRow(
-          actionLabel: 'Extend Dock',
+          trailingWidget: const Text('Extend Dock'),
           value: model.extendDock,
           onChanged: (value) => model.setExtendDock(value),
         ),
         SwitchSettingsRow(
-          actionLabel: 'Active App Glow',
+          trailingWidget: const Text('Active App Glow'),
           value: model.appGlow,
           onChanged: (value) => model.setAppGlow(value),
         ),
