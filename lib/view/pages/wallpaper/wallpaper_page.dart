@@ -126,8 +126,7 @@ class WallpaperPage extends StatelessWidget {
       context: context,
       rootDirectory: Directory('/home/'),
       fsType: FilesystemType.folder,
-      pickText: 'Select a directory',
-      folderIconColor: Theme.of(context).primaryColor.withOpacity(0.5),
+      pickText: 'Use this directory',
     );
   }
 
