@@ -56,8 +56,8 @@ class WallpaperPage extends StatelessWidget {
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 3,
                       childAspectRatio: 1.6,
-                      mainAxisSpacing: 5,
-                      crossAxisSpacing: 5),
+                      mainAxisSpacing: 10,
+                      crossAxisSpacing: 10),
                   shrinkWrap: true,
                   scrollDirection: Axis.vertical,
                   children: snapshot.data!

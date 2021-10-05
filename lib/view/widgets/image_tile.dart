@@ -22,17 +22,17 @@ class ImageTile extends StatelessWidget {
       onTap: onTap,
       child: Container(
         decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(8.0),
+            borderRadius: BorderRadius.circular(10.0),
             color: currentlySelected
                 ? Theme.of(context).primaryColor.withOpacity(0.3)
                 : Colors.transparent),
         child: Padding(
-          padding: const EdgeInsets.only(left: 10, right: 10),
+          padding: const EdgeInsets.all(6.0),
           child: ClipRRect(
-              child: Image.file(
-            File(path),
-            filterQuality: FilterQuality.low,
-          )),
+            borderRadius: BorderRadius.circular(8),
+            child: Image.file(File(path),
+                filterQuality: FilterQuality.low, fit: BoxFit.fill),
+          ),
         ),
       ),
     );
