@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:settings/view/widgets/app_theme.dart';
 import 'package:settings/view/widgets/settings_section.dart';
 import 'package:settings/view/widgets/switch_settings_row.dart';
+import 'package:yaru_icons/widgets/yaru_icons.dart';
 
 class DarkModeSection extends StatelessWidget {
   const DarkModeSection({Key? key}) : super(key: key);
@@ -17,14 +18,14 @@ class DarkModeSection extends StatelessWidget {
             trailingWidget: Theme.of(context).brightness == Brightness.light
                 ? Row(
                     children: const [
-                      Icon(Icons.light_mode_outlined),
+                      Icon(YaruIcons.weather_clear),
                       SizedBox(width: 8),
                       Text('Dark mode is turned off'),
                     ],
                   )
                 : Row(
                     children: const [
-                      Icon(Icons.dark_mode_outlined),
+                      Icon(YaruIcons.weather_clear_night),
                       SizedBox(width: 8),
                       Text('Dark mode is turned on'),
                     ],
