@@ -1,4 +1,5 @@
 import 'package:filesize/filesize.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:settings/services/hostname_service.dart';
@@ -90,7 +91,17 @@ class _InfoPageState extends State<InfoPage> {
         ]),
         OutlinedButton(
           child: const Text("Download System Data"),
-          onPressed: () {},
+          onPressed: () {
+            final pdf = pw.Document();
+
+            pdf.addPage(pw.Page(
+                pageFormat: PdfPageFormat.a4,
+                build: (pw.Context context) {
+                  return pw.Column(
+                    children: [pw.Text("${model.osName} ${model.osVersion}")],
+                  ); // Center
+                })); //
+          },
         )
       ],
     );
