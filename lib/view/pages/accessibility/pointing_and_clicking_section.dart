@@ -18,12 +18,12 @@ class PointingAndClickingSection extends StatelessWidget {
       headline: 'Pointing & Clicking',
       children: [
         SwitchSettingsRow(
-          actionLabel: 'Mouse Keys',
+          trailingWidget: const Text('Mouse Keys'),
           value: model.mouseKeys,
           onChanged: (value) => model.setMouseKeys(value),
         ),
         SwitchSettingsRow(
-          actionLabel: 'Locate Pointer',
+          trailingWidget: const Text('Locate Pointer'),
           value: model.locatePointer,
           onChanged: (value) => model.setLocatePointer(value),
         ),
@@ -48,8 +48,8 @@ class _ClickAssist extends StatelessWidget {
   Widget build(BuildContext context) {
     final model = Provider.of<AccessibilityModel>(context);
     return SettingsRow(
-      actionLabel: 'Click Assist',
-      secondChild: Row(
+      trailingWidget: const Text('Click Assist'),
+      actionWidget: Row(
         children: [
           Text(model.clickAssistString),
           const SizedBox(width: 24.0),
@@ -85,7 +85,7 @@ class _ClickAssistSettings extends StatelessWidget {
       contentPadding: const EdgeInsets.all(8.0),
       children: [
         SwitchSettingsRow(
-          actionLabel: 'Simulated Secondary Click',
+          trailingWidget: const Text('Simulated Secondary Click'),
           actionDescription:
               'Trigger a secondary click by holding down the primary button.',
           value: model.simulatedSecondaryClick,
@@ -105,7 +105,7 @@ class _ClickAssistSettings extends StatelessWidget {
           ),
         ),
         SwitchSettingsRow(
-          actionLabel: 'Hover Click',
+          trailingWidget: const Text('Hover Click'),
           actionDescription: 'Trigger a click when the pointer hovers',
           value: model.dwellClick,
           onChanged: (value) => model.setDwellClick(value),

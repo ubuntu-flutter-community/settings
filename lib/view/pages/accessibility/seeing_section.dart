@@ -19,12 +19,12 @@ class SeeingSection extends StatelessWidget {
       headline: 'Seeing',
       children: [
         SwitchSettingsRow(
-          actionLabel: 'High Contrast',
+          trailingWidget: const Text('High Contrast'),
           value: model.highContrast,
           onChanged: (value) => model.setHighContrast(value),
         ),
         SwitchSettingsRow(
-          actionLabel: 'Large Text',
+          trailingWidget: const Text('Large Text'),
           value: model.largeText,
           onChanged: (value) => model.setLargeText(value),
         ),
@@ -42,14 +42,14 @@ class SeeingSection extends StatelessWidget {
           ),
         ),
         SwitchSettingsRow(
-          actionLabel: 'Screen Reader',
+          trailingWidget: const Text('Screen Reader'),
           actionDescription:
               'The screen reader reads displayed text as you move the focus',
           value: model.screenReader,
           onChanged: (value) => model.setScreenReader(value),
         ),
         SwitchSettingsRow(
-          actionLabel: 'Sound Keys',
+          trailingWidget: const Text('Sound Keys'),
           actionDescription:
               'Beep when Num Lock or Caps Lock are turned on or off',
           value: model.toggleKeys,
@@ -67,10 +67,10 @@ class _CursorSize extends StatelessWidget {
   Widget build(BuildContext context) {
     final model = Provider.of<AccessibilityModel>(context);
     return SettingsRow(
-      actionLabel: 'Cursor Size',
-      actionDescription: 'Cursor size can be combined with zoom '
+      trailingWidget: const Text('Cursor Size'),
+      description: 'Cursor size can be combined with zoom '
           'to make it easier to see the cursor',
-      secondChild: Row(
+      actionWidget: Row(
         children: [
           const SizedBox(width: 24.0),
           Text(model.cursorSizeString()),

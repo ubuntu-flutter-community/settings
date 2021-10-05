@@ -25,18 +25,18 @@ class TouchpadSection extends StatelessWidget {
           onChanged: (value) => model.setTouchpadSpeed(value),
         ),
         SwitchSettingsRow(
-          actionLabel: 'Natural Scrolling',
+          trailingWidget: const Text('Natural Scrolling'),
           actionDescription: 'Scrolling moves the content, not the view',
           value: model.touchpadNaturalScroll,
           onChanged: (value) => model.setTouchpadNaturalScroll(value),
         ),
         SwitchSettingsRow(
-          actionLabel: 'Tap To Click',
+          trailingWidget: const Text('Tap To Click'),
           value: model.touchpadTapToClick,
           onChanged: (value) => model.setTouchpadTapToClick(value),
         ),
         SwitchSettingsRow(
-          actionLabel: 'Disable While Typing',
+          trailingWidget: const Text('Disable While Typing'),
           value: model.touchpadDisableWhileTyping,
           onChanged: (value) => model.setTouchpadDisableWhileTyping(value),
         ),

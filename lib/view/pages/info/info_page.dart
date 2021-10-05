@@ -100,8 +100,8 @@ class _Computer extends StatelessWidget {
 
     return SettingsSection(headline: 'Computer', children: [
       SettingsRow(
-        actionLabel: 'Hostname',
-        secondChild: Row(
+        trailingWidget: const Text('Hostname'),
+        actionWidget: Row(
           children: [
             SelectableText(
               model.hostname,

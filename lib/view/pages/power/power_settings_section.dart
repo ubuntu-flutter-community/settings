@@ -55,7 +55,7 @@ class _PowerSettingsSectionState extends State<PowerSettingsSection> {
             onChanged: model.setScreenBrightness,
           ),
         SwitchSettingsRow(
-          actionLabel: 'Automatic Brightness',
+          trailingWidget: const Text('Automatic Brightness'),
           value: model.ambientEnabled,
           onChanged: model.setAmbientEnabled,
         ),
@@ -67,22 +67,22 @@ class _PowerSettingsSectionState extends State<PowerSettingsSection> {
           onChanged: model.setKeyboardBrightness,
         ),
         SwitchSettingsRow(
-          actionLabel: 'Dim Screen When Inactive',
+          trailingWidget: const Text('Dim Screen When Inactive'),
           value: model.idleDim,
           onChanged: model.setIdleDim,
         ),
         SettingsRow(
-          actionLabel: 'Blank Screen',
-          secondChild: DurationDropdownButton(
+          trailingWidget: const Text('Blank Screen'),
+          actionWidget: DurationDropdownButton(
             value: model.idleDelay,
             values: IdleDelay.values,
             onChanged: model.setIdleDelay,
           ),
         ),
         SettingsRow(
-          actionLabel: 'Automatic Suspend',
-          actionDescription: model.automaticSuspend.localize(context),
-          secondChild: SizedBox(
+          trailingWidget: const Text('Automatic Suspend'),
+          description: model.automaticSuspend.localize(context),
+          actionWidget: SizedBox(
             width: 40,
             height: 40,
             child: OutlinedButton(
@@ -94,14 +94,14 @@ class _PowerSettingsSectionState extends State<PowerSettingsSection> {
         ),
         if (model.hasWifi)
           SwitchSettingsRow(
-            actionLabel: 'Wi-Fi',
+            trailingWidget: const Text('Wi-Fi'),
             actionDescription: 'Wi-Fi can be turned off to save power.',
             value: model.wifiEnabled,
             onChanged: model.setWifiEnabled,
           ),
         if (model.hasBluetooth)
           SwitchSettingsRow(
-            actionLabel: 'Bluetooth',
+            trailingWidget: const Text('Bluetooth'),
             actionDescription: 'Bluetooth can be turned off to save power.',
             value: model.bluetoothEnabled,
             onChanged: model.setBluetoothEnabled,

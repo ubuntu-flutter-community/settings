@@ -38,7 +38,7 @@ class AppNotificationsSettingRow extends StatelessWidget {
   Widget build(BuildContext context) {
     final model = Provider.of<AppNotificationsModel>(context);
     return SwitchSettingsRow(
-      actionLabel: model.appId,
+      trailingWidget: Text(model.appId),
       value: model.enable,
       onChanged: model.setEnable,
     );

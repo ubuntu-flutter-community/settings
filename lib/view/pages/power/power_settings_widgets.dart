@@ -60,7 +60,7 @@ class SuspendDelaySettingsRow extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
           SwitchSettingsRow(
-            actionLabel: actionLabel,
+            trailingWidget: Text(actionLabel),
             value: suspend,
             onChanged: onSuspendChanged,
           ),
