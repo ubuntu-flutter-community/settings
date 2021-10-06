@@ -48,7 +48,7 @@ class PdfApi {
           Text("System", style: const TextStyle(fontSize: 20)),
           Divider(),
           Text("OS Name: $osName $osVersion"),
-          Text("Os Type: $osType-bit"),
+          Text("OS Type: $osType-bit"),
           Text("GNOME version: $gnomeVersion"),
           Text("Windowing System: $windowServer"),
         ],
