@@ -62,25 +62,6 @@ class _InfoPageState extends State<InfoPage> {
         Text('${model.osName} ${model.osVersion}',
             style: Theme.of(context).textTheme.headline5),
         const SizedBox(height: 10),
-        OutlinedButton(
-          child: const Text("Download System Data"),
-          onPressed: () async {
-            // ignore: unused_local_variable
-            final pdfFile = await PdfApi.generateSystemData(
-              model.osName,
-              model.osVersion,
-              model.processorName,
-              model.processorCount.toString(),
-              model.memory.toString(),
-              model.graphics,
-              model.diskCapacity != null ? filesize(model.diskCapacity) : '',
-              model.osType.toString(),
-              model.gnomeVersion,
-              model.windowServer,
-            );
-            ScaffoldMessenger.of(context).showSnackBar(sysInfoSnackBar);
-          },
-        ),
         const SizedBox(height: 30),
         const _Computer(),
         SettingsSection(headline: 'Hardware', children: [
@@ -120,6 +101,25 @@ class _InfoPageState extends State<InfoPage> {
             infoValue: model.windowServer,
           ),
         ]),
+        OutlinedButton(
+          child: const Text("Export System Data"),
+          onPressed: () async {
+            // ignore: unused_local_variable
+            final pdfFile = await PdfApi.generateSystemData(
+              model.osName,
+              model.osVersion,
+              model.processorName,
+              model.processorCount.toString(),
+              model.memory.toString(),
+              model.graphics,
+              model.diskCapacity != null ? filesize(model.diskCapacity) : '',
+              model.osType.toString(),
+              model.gnomeVersion,
+              model.windowServer,
+            );
+            ScaffoldMessenger.of(context).showSnackBar(sysInfoSnackBar);
+          },
+        ),
       ],
     );
   }
