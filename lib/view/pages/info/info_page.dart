@@ -1,7 +1,10 @@
 import 'package:filesize/filesize.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:open_file/open_file.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
+import 'package:settings/api/pdf_api.dart';
 import 'package:settings/services/hostname_service.dart';
 import 'package:settings/view/widgets/settings_row.dart';
 import 'package:settings/view/widgets/settings_section.dart';
@@ -9,8 +12,6 @@ import 'package:settings/view/widgets/single_info_row.dart';
 import 'package:udisks/udisks.dart';
 import 'package:yaru_icons/widgets/yaru_icons.dart';
 import 'package:yaru/yaru.dart' as yaru;
-import 'package:pdf/pdf.dart';
-import 'package:pdf/widgets.dart' as pw;
 
 import 'info_model.dart';
 
@@ -43,6 +44,16 @@ class _InfoPageState extends State<InfoPage> {
   @override
   Widget build(BuildContext context) {
     final model = context.watch<InfoModel>();
+    final sysInfoSnackBar = SnackBar(
+      content: const Text('System Data Saved as PDF in Document Folder'),
+      action: SnackBarAction(
+        label: 'Open File',
+        onPressed: () async {
+          final dir = await getApplicationDocumentsDirectory();
+          OpenFile.open('${dir.path}/System Data.pdf');
+        },
+      ),
+    );
 
     return Column(
       children: [
@@ -50,6 +61,26 @@ class _InfoPageState extends State<InfoPage> {
         const SizedBox(height: 10),
         Text('${model.osName} ${model.osVersion}',
             style: Theme.of(context).textTheme.headline5),
+        const SizedBox(height: 10),
+        OutlinedButton(
+          child: const Text("Download System Data"),
+          onPressed: () async {
+            // ignore: unused_local_variable
+            final pdfFile = await PdfApi.generateSystemData(
+              model.osName,
+              model.osVersion,
+              model.processorName,
+              model.processorCount.toString(),
+              model.memory.toString(),
+              model.graphics,
+              model.diskCapacity != null ? filesize(model.diskCapacity) : '',
+              model.osType.toString(),
+              model.gnomeVersion,
+              model.windowServer,
+            );
+            ScaffoldMessenger.of(context).showSnackBar(sysInfoSnackBar);
+          },
+        ),
         const SizedBox(height: 30),
         const _Computer(),
         SettingsSection(headline: 'Hardware', children: [
@@ -89,20 +120,6 @@ class _InfoPageState extends State<InfoPage> {
             infoValue: model.windowServer,
           ),
         ]),
-        OutlinedButton(
-          child: const Text("Download System Data"),
-          onPressed: () {
-            final pdf = pw.Document();
-
-            pdf.addPage(pw.Page(
-                pageFormat: PdfPageFormat.a4,
-                build: (pw.Context context) {
-                  return pw.Column(
-                    children: [pw.Text("${model.osName} ${model.osVersion}")],
-                  ); // Center
-                })); //
-          },
-        )
       ],
     );
   }
