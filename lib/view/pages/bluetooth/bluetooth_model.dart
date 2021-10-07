@@ -6,11 +6,8 @@ class BluetoothModel extends SafeChangeNotifier {
 
   BluetoothModel({required this.client});
 
-  void init() {
-    client.connect().then((_) {
-      notifyListeners();
-    });
+  Future<List<BlueZDevice>> get devices async {
+    await client.connect();
+    return client.devices;
   }
-
-  List<BlueZDevice> get devices => client.devices;
 }

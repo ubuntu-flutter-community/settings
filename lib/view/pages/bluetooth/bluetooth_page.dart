@@ -5,7 +5,7 @@ import 'package:settings/view/pages/bluetooth/bluetooth_device_row.dart';
 import 'package:settings/view/pages/bluetooth/bluetooth_model.dart';
 import 'package:settings/view/widgets/settings_section.dart';
 
-class BluetoothPage extends StatefulWidget {
+class BluetoothPage extends StatelessWidget {
   const BluetoothPage({Key? key}) : super(key: key);
 
   static Widget create(BuildContext context) {
@@ -16,31 +16,30 @@ class BluetoothPage extends StatefulWidget {
   }
 
   @override
-  State<BluetoothPage> createState() => _BluetoothPageState();
-}
-
-class _BluetoothPageState extends State<BluetoothPage> {
-  late BluetoothModel model;
-
-  @override
-  void initState() {
-    model = context.read<BluetoothModel>();
-    model.init();
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
+    final model = context.read<BluetoothModel>();
+    List<Widget> children;
     return Column(
       children: [
         SizedBox(
           width: 500,
           child: SettingsSection(headline: 'Bluetooth devices', children: [
-            ListView(
-              shrinkWrap: true,
-              children: model.devices
-                  .map((e) => BluetoothDeviceRow(device: e))
-                  .toList(),
+            FutureBuilder<List<BlueZDevice>>(
+              builder: (context, snapshot) {
+                if (snapshot.hasData) {
+                  children = snapshot.data!.map((device) {
+                    return BluetoothDeviceRow(device: device);
+                  }).toList();
+
+                  return ListView(
+                    shrinkWrap: true,
+                    children: children,
+                  );
+                } else {
+                  return const Center(child: CircularProgressIndicator());
+                }
+              },
+              future: model.devices,
             )
           ]),
         )
