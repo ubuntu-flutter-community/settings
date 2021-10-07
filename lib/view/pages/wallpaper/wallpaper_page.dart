@@ -5,6 +5,7 @@ import 'package:flex_color_picker/flex_color_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:settings/services/settings_service.dart';
+import 'package:settings/view/pages/wallpaper/color_shading_option_row.dart';
 import 'package:settings/view/pages/wallpaper/wallpaper_model.dart';
 import 'package:settings/view/widgets/extra_options_gsettings_row.dart';
 import 'package:settings/view/widgets/image_tile.dart';
@@ -275,58 +276,6 @@ class WallpaperPage extends StatelessWidget {
       context,
       constraints:
           const BoxConstraints(minHeight: 480, minWidth: 300, maxWidth: 320),
-    );
-  }
-}
-
-class ColorShadingOptionRow extends StatelessWidget {
-  const ColorShadingOptionRow({
-    Key? key,
-    required this.actionLabel,
-    this.actionDescription,
-    required this.value,
-    required this.onDropDownChanged,
-    required this.onExtraOptionButtonPressed,
-  }) : super(key: key);
-
-  final String actionLabel;
-  final String? actionDescription;
-  final ColorShadingType value;
-  final Function(ColorShadingType) onDropDownChanged;
-  final VoidCallback onExtraOptionButtonPressed;
-
-  @override
-  Widget build(BuildContext context) {
-    final model = context.read<WallpaperModel>();
-    return SettingsRow(
-      trailingWidget: Text(actionLabel),
-      description: actionDescription,
-      actionWidget: Row(
-        children: [
-          DropdownButton<ColorShadingType>(
-            onChanged: (value) => model.colorShadingType = value,
-            value: value,
-            items: ColorShadingType.values
-                .map((colorShadingType) => DropdownMenuItem(
-                      value: colorShadingType,
-                      child: Text(colorShadingType
-                          .toString()
-                          .replaceAll('ColorShadingType.', '')),
-                    ))
-                .toList(),
-          ),
-          const SizedBox(width: 8.0),
-          SizedBox(
-            width: 40,
-            height: 40,
-            child: OutlinedButton(
-              style: OutlinedButton.styleFrom(padding: const EdgeInsets.all(0)),
-              onPressed: onExtraOptionButtonPressed,
-              child: const Icon(YaruIcons.settings),
-            ),
-          ),
-        ],
-      ),
     );
   }
 }
