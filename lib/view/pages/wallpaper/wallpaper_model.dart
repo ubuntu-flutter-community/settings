@@ -1,10 +1,10 @@
 import 'dart:io';
 
 import 'package:gsettings/gsettings.dart';
+import 'package:mime/mime.dart';
 import 'package:safe_change_notifier/safe_change_notifier.dart';
 import 'package:settings/schemas/schemas.dart';
 import 'package:settings/services/settings_service.dart';
-import 'package:mime/mime.dart';
 
 class WallpaperModel extends SafeChangeNotifier {
   final GSettings? _wallpaperSettings;
@@ -77,7 +77,7 @@ class WallpaperModel extends SafeChangeNotifier {
             : ColorShadingType.horizontal;
   }
 
-  set colorShadingType(ColorShadingType colorShadingType) {
+  set colorShadingType(ColorShadingType? colorShadingType) {
     switch (colorShadingType) {
       case ColorShadingType.horizontal:
         _wallpaperSettings!.setValue(_colorShadingTypeKey, 'horizontal');
@@ -88,7 +88,8 @@ class WallpaperModel extends SafeChangeNotifier {
       case ColorShadingType.solid:
         _wallpaperSettings!.setValue(_colorShadingTypeKey, 'solid');
         break;
-      default:
+      case null:
+        return;
     }
 
     notifyListeners();
@@ -109,7 +110,7 @@ class WallpaperModel extends SafeChangeNotifier {
     pictureUri = list.first;
   }
 
-  bool get isGradient => pictureUri.isEmpty ? true : false;
+  bool get isColorBackground => pictureUri.isEmpty ? true : false;
 }
 
 enum ColorShadingType { solid, vertical, horizontal }

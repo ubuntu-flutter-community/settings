@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:filesystem_picker/filesystem_picker.dart';
+import 'package:flex_color_picker/flex_color_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:settings/services/settings_service.dart';
@@ -10,7 +11,6 @@ import 'package:settings/view/widgets/image_tile.dart';
 import 'package:settings/view/widgets/settings_row.dart';
 import 'package:settings/view/widgets/settings_section.dart';
 import 'package:yaru_icons/widgets/yaru_icons.dart';
-import 'package:flex_color_picker/flex_color_picker.dart';
 
 class WallpaperPage extends StatelessWidget {
   const WallpaperPage({Key? key}) : super(key: key);
@@ -29,7 +29,7 @@ class WallpaperPage extends StatelessWidget {
 
     return SettingsSection(headline: 'Wallpaper', children: [
       ExtraOptionsGsettingsRow(
-        actionLabel: 'Gradient',
+        actionLabel: 'Use color as background',
         onChanged: (value) => model.gradient = value,
         onPressed: () async {
           final colorBeforeDialog = model.primaryColor;
@@ -37,32 +37,22 @@ class WallpaperPage extends StatelessWidget {
             model.primaryColor = colorBeforeDialog;
           }
         },
-        value: model.isGradient,
+        value: model.isColorBackground,
       ),
-      if (model.isGradient)
-        ExtraOptionsGsettingsRow(
-          actionLabel: 'Horizontal',
-          onChanged: (value) {
-            if (value) {
-              model.colorShadingType = ColorShadingType.horizontal;
-            } else {
-              model.colorShadingType = ColorShadingType.vertical;
-            }
+      if (model.isColorBackground)
+        ColorShadingOptionRow(
+          actionLabel: 'Color mode',
+          onDropDownChanged: (value) {
+            model.colorShadingType = value;
           },
-          onPressed: () async {
+          onExtraOptionButtonPressed: () async {
             final colorBeforeDialog = model.secondaryColor;
             if (!(await colorPickerDialog(context, false))) {
               model.secondaryColor = colorBeforeDialog;
             }
           },
-          value: model.colorShadingType == ColorShadingType.horizontal,
+          value: model.colorShadingType,
         ),
-      const SizedBox(
-          width: 500,
-          child: Padding(
-            padding: EdgeInsets.only(top: 20, bottom: 10, left: 8),
-            child: Text('Your wallpaper'),
-          )),
       SizedBox(
         width: 500,
         child: Padding(
@@ -285,6 +275,58 @@ class WallpaperPage extends StatelessWidget {
       context,
       constraints:
           const BoxConstraints(minHeight: 480, minWidth: 300, maxWidth: 320),
+    );
+  }
+}
+
+class ColorShadingOptionRow extends StatelessWidget {
+  const ColorShadingOptionRow({
+    Key? key,
+    required this.actionLabel,
+    this.actionDescription,
+    required this.value,
+    required this.onDropDownChanged,
+    required this.onExtraOptionButtonPressed,
+  }) : super(key: key);
+
+  final String actionLabel;
+  final String? actionDescription;
+  final ColorShadingType value;
+  final Function(ColorShadingType) onDropDownChanged;
+  final VoidCallback onExtraOptionButtonPressed;
+
+  @override
+  Widget build(BuildContext context) {
+    final model = context.read<WallpaperModel>();
+    return SettingsRow(
+      trailingWidget: Text(actionLabel),
+      description: actionDescription,
+      actionWidget: Row(
+        children: [
+          DropdownButton<ColorShadingType>(
+            onChanged: (value) => model.colorShadingType = value,
+            value: value,
+            items: ColorShadingType.values
+                .map((colorShadingType) => DropdownMenuItem(
+                      value: colorShadingType,
+                      child: Text(colorShadingType
+                          .toString()
+                          .replaceAll('ColorShadingType.', '')),
+                    ))
+                .toList(),
+          ),
+          const SizedBox(width: 8.0),
+          SizedBox(
+            width: 40,
+            height: 40,
+            child: OutlinedButton(
+              style: OutlinedButton.styleFrom(padding: const EdgeInsets.all(0)),
+              onPressed: onExtraOptionButtonPressed,
+              child: const Icon(YaruIcons.settings),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
