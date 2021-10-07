@@ -25,10 +25,10 @@ final pageItems = <PageItem>[
     iconData: YaruIcons.network,
     builder: (_) => const Text('Network'),
   ),
-  PageItem(
+  const PageItem(
     title: 'Bluetooth',
     iconData: YaruIcons.bluetooth,
-    builder: (_) => BluetoothPage(),
+    builder: BluetoothPage.create,
   ),
   const PageItem(
     title: 'Wallpaper',

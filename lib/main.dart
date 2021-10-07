@@ -1,3 +1,4 @@
+import 'package:bluez/bluez.dart';
 import 'package:flutter/material.dart';
 import 'package:gsettings/gsettings.dart';
 import 'package:nm/nm.dart';
@@ -55,6 +56,10 @@ void main() async {
           create: (_) => UPowerClient(),
           dispose: (_, client) => client.close(),
         ),
+        Provider<BlueZClient>(
+          create: (_) => BlueZClient(),
+          dispose: (_, client) => client.close(),
+        )
       ],
       child: const UbuntuSettingsApp(),
     ),
