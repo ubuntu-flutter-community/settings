@@ -37,8 +37,6 @@ class PdfApi {
           Divider(),
           Text("Hardware", style: const TextStyle(fontSize: 20)),
           Divider(),
-          Text("OS Name: $osName"),
-          Text("OS Version: $osVersion"),
           Text("Processor: $processorName x$processorCount"),
           Text("Memory: $memory Gb"),
           Text("Graphics: $graphics"),

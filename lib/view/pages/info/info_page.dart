@@ -101,24 +101,32 @@ class _InfoPageState extends State<InfoPage> {
             infoValue: model.windowServer,
           ),
         ]),
-        OutlinedButton(
-          child: const Text("Export System Data"),
-          onPressed: () async {
-            // ignore: unused_local_variable
-            final pdfFile = await PdfApi.generateSystemData(
-              model.osName,
-              model.osVersion,
-              model.processorName,
-              model.processorCount.toString(),
-              model.memory.toString(),
-              model.graphics,
-              model.diskCapacity != null ? filesize(model.diskCapacity) : '',
-              model.osType.toString(),
-              model.gnomeVersion,
-              model.windowServer,
-            );
-            ScaffoldMessenger.of(context).showSnackBar(sysInfoSnackBar);
-          },
+        SizedBox(
+          width: 500,
+          child: Align(
+            alignment: Alignment.topRight,
+            child: ElevatedButton(
+              child: const Text("Export"),
+              onPressed: () async {
+                // ignore: unused_local_variable
+                final pdfFile = await PdfApi.generateSystemData(
+                  model.osName,
+                  model.osVersion,
+                  model.processorName,
+                  model.processorCount.toString(),
+                  model.memory.toString(),
+                  model.graphics,
+                  model.diskCapacity != null
+                      ? filesize(model.diskCapacity)
+                      : '',
+                  model.osType.toString(),
+                  model.gnomeVersion,
+                  model.windowServer,
+                );
+                ScaffoldMessenger.of(context).showSnackBar(sysInfoSnackBar);
+              },
+            ),
+          ),
         ),
       ],
     );
