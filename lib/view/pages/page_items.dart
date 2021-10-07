@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:settings/view/pages/accessibility/accessibility_page.dart';
 import 'package:settings/view/pages/appearance/appearance_page.dart';
+import 'package:settings/view/pages/bluetooth/bluetooth_page.dart';
 import 'package:settings/view/pages/info/info_page.dart';
 import 'package:settings/view/pages/keyboard_shortcuts/keyboard_shortcuts_page.dart';
 import 'package:settings/view/pages/mouse_and_touchpad/mouse_and_touchpad_page.dart';
@@ -27,7 +28,7 @@ final pageItems = <PageItem>[
   PageItem(
     title: 'Bluetooth',
     iconData: YaruIcons.bluetooth,
-    builder: (_) => const Text('Bluetooth'),
+    builder: (_) => BluetoothPage(),
   ),
   const PageItem(
     title: 'Wallpaper',

@@ -29,6 +29,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.8.2"
+  bluez:
+    dependency: "direct main"
+    description:
+      name: bluez
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.7.4"
   boolean_selector:
     dependency: transitive
     description:
@@ -228,9 +235,11 @@ packages:
   filesystem_picker:
     dependency: "direct main"
     description:
-      name: filesystem_picker
-      url: "https://pub.dartlang.org"
-    source: hosted
+      path: package
+      ref: HEAD
+      resolved-ref: ce615dcab2da54e7b77d5c00ccfe7d1bbb40cf98
+      url: "https://github.com/Feichtmeier/filesystem_picker"
+    source: git
     version: "2.0.0-nullsafety.0"
   fixnum:
     dependency: transitive
@@ -536,13 +545,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.0.1"
-  scrollable_positioned_list:
-    dependency: "direct main"
-    description:
-      name: scrollable_positioned_list
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.2.0-nullsafety.0"
   shelf:
     dependency: transitive
     description:
@@ -703,7 +705,7 @@ packages:
       name: vector_math
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.1.0"
+    version: "2.1.1"
   vm_service:
     dependency: transitive
     description:
