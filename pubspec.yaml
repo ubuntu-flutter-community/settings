@@ -32,6 +32,7 @@ dependencies:
       url: https://github.com/Feichtmeier/filesystem_picker
       path: package
   mime: ^1.0.0
+  flex_color_picker: ^2.1.2
 
 dev_dependencies:
   flutter_test:

@@ -5,9 +5,12 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:settings/services/settings_service.dart';
 import 'package:settings/view/pages/wallpaper/wallpaper_model.dart';
-import 'package:settings/view/widgets/file_picker_row.dart';
+import 'package:settings/view/widgets/extra_options_gsettings_row.dart';
 import 'package:settings/view/widgets/image_tile.dart';
+import 'package:settings/view/widgets/settings_row.dart';
 import 'package:settings/view/widgets/settings_section.dart';
+import 'package:yaru_icons/widgets/yaru_icons.dart';
+import 'package:flex_color_picker/flex_color_picker.dart';
 
 class WallpaperPage extends StatelessWidget {
   const WallpaperPage({Key? key}) : super(key: key);
@@ -25,25 +28,84 @@ class WallpaperPage extends StatelessWidget {
     final model = Provider.of<WallpaperModel>(context);
 
     return SettingsSection(headline: 'Wallpaper', children: [
-      Padding(
-        padding: const EdgeInsets.only(bottom: 20, top: 20),
-        child: FilePickerRow(
-            label: 'Your wallpaper',
-            onPressed: () async {
-              final picPath = await openFilePicker(context);
-              if (null != picPath) {
-                model.pictureUri = picPath;
-              }
-            },
-            pickingDescription: 'Browse'),
+      ExtraOptionsGsettingsRow(
+        actionLabel: 'Gradient',
+        onChanged: (value) => model.gradient = value,
+        onPressed: () async {
+          final colorBeforeDialog = model.primaryColor;
+          if (!(await colorPickerDialog(context, true))) {
+            model.primaryColor = colorBeforeDialog;
+          }
+        },
+        value: model.isGradient,
       ),
+      ExtraOptionsGsettingsRow(
+        actionLabel: 'Horizontal',
+        onChanged: (value) {
+          if (value) {
+            model.colorShadingType = ColorShadingType.horizontal;
+          } else {
+            model.colorShadingType = ColorShadingType.vertical;
+          }
+        },
+        onPressed: () async {
+          final colorBeforeDialog = model.secondaryColor;
+          if (!(await colorPickerDialog(context, false))) {
+            model.secondaryColor = colorBeforeDialog;
+          }
+        },
+        value: model.colorShadingType == ColorShadingType.horizontal,
+      ),
+      const SizedBox(
+          width: 500,
+          child: Padding(
+            padding: EdgeInsets.only(top: 20, bottom: 10, left: 8),
+            child: Text('Your wallpaper'),
+          )),
       SizedBox(
         width: 500,
         child: Padding(
           padding: const EdgeInsets.only(bottom: 30),
-          child: ImageTile(
-              path: model.pictureUri.replaceAll('file://', ''),
-              currentlySelected: false),
+          child: model.pictureUri.isEmpty
+              ? Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: SizedBox(
+                    width: 500,
+                    height: 255,
+                    child: DecoratedBox(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(4),
+                        color: model.colorShadingType == ColorShadingType.solid
+                            ? fromHex(model.primaryColor)
+                            : null,
+                        gradient:
+                            model.colorShadingType != ColorShadingType.solid
+                                ? LinearGradient(
+                                    begin: Alignment.topCenter,
+                                    end: Alignment.bottomCenter,
+                                    colors: [
+                                      fromHex(model.primaryColor),
+                                      fromHex(model.secondaryColor),
+                                    ],
+                                  )
+                                : model.colorShadingType ==
+                                        ColorShadingType.horizontal
+                                    ? LinearGradient(
+                                        begin: Alignment.centerLeft,
+                                        end: Alignment.centerRight,
+                                        colors: [
+                                          fromHex(model.primaryColor),
+                                          fromHex(model.secondaryColor),
+                                        ],
+                                      )
+                                    : null,
+                      ),
+                    ),
+                  ),
+                )
+              : ImageTile(
+                  path: model.pictureUri.replaceAll('file://', ''),
+                  currentlySelected: false),
         ),
       ),
       FutureBuilder<List<String>>(
@@ -53,21 +115,35 @@ class WallpaperPage extends StatelessWidget {
               return SizedBox(
                 width: 500,
                 child: GridView(
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 3,
-                      childAspectRatio: 1.6,
-                      mainAxisSpacing: 10,
-                      crossAxisSpacing: 10),
-                  shrinkWrap: true,
-                  scrollDirection: Axis.vertical,
-                  children: snapshot.data!
-                      .map((picPathString) => ImageTile(
-                          path: picPathString,
-                          onTap: () => model.pictureUri = picPathString,
-                          currentlySelected:
-                              model.pictureUri.contains(picPathString)))
-                      .toList(),
-                ),
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 3,
+                            childAspectRatio: 1.6,
+                            mainAxisSpacing: 10,
+                            crossAxisSpacing: 10),
+                    shrinkWrap: true,
+                    scrollDirection: Axis.vertical,
+                    children: <Widget>[
+                          Padding(
+                            padding: const EdgeInsets.all(6.0),
+                            child: OutlinedButton(
+                              onPressed: () async {
+                                final picPath = await openFilePicker(context);
+                                if (null != picPath) {
+                                  model.pictureUri = picPath;
+                                }
+                              },
+                              child: const Icon(YaruIcons.plus),
+                            ),
+                          )
+                        ] +
+                        snapshot.data!
+                            .map((picPathString) => ImageTile(
+                                path: picPathString,
+                                onTap: () => model.pictureUri = picPathString,
+                                currentlySelected:
+                                    model.pictureUri.contains(picPathString)))
+                            .toList()),
               );
             } else {
               return const Padding(
@@ -77,12 +153,21 @@ class WallpaperPage extends StatelessWidget {
             }
           }),
       Padding(
-        padding: const EdgeInsets.only(bottom: 20, top: 20),
-        child: FilePickerRow(
-            label: 'Your wallpaper location',
-            onPressed: () async =>
-                model.customWallpaperLocation = await openDirPicker(context),
-            pickingDescription: 'Select a location'),
+        padding: const EdgeInsets.only(top: 30, bottom: 10),
+        child: SettingsRow(
+            description: model.customWallpaperLocation,
+            trailingWidget: const Text('Your own wallpaper collection'),
+            actionWidget: SizedBox(
+              width: 40,
+              height: 40,
+              child: OutlinedButton(
+                style:
+                    OutlinedButton.styleFrom(padding: const EdgeInsets.all(0)),
+                onPressed: () async => model.customWallpaperLocation =
+                    await openDirPicker(context),
+                child: const Icon(YaruIcons.settings),
+              ),
+            )),
       ),
       model.customWallpaperLocation == null
           ? const Text('')
@@ -139,5 +224,66 @@ class WallpaperPage extends StatelessWidget {
         fsType: FilesystemType.file,
         pickText: 'Select a wallpaper',
         fileTileSelectMode: FileTileSelectMode.wholeTile);
+  }
+
+  Color fromHex(String hexString) {
+    final buffer = StringBuffer();
+    if (hexString.length == 6 || hexString.length == 7) buffer.write('ff');
+    buffer.write(hexString.replaceFirst('#', ''));
+    return Color(int.parse(buffer.toString(), radix: 16));
+  }
+
+  Future<bool> colorPickerDialog(BuildContext context, bool primary) async {
+    final model = context.read<WallpaperModel>();
+    return ColorPicker(
+      color: fromHex(primary ? model.primaryColor : model.secondaryColor),
+      onColorChanged: (Color color) => {
+        if (primary)
+          {model.primaryColor = '#' + color.hex}
+        else
+          {model.secondaryColor = '#' + color.hex}
+      },
+      width: 40,
+      height: 40,
+      borderRadius: 4,
+      spacing: 5,
+      runSpacing: 5,
+      wheelDiameter: 155,
+      heading: Text(
+        primary ? 'Select a primary color' : 'Select a secondary color',
+        style: Theme.of(context).textTheme.subtitle1,
+      ),
+      subheading: Text(
+        'Select color shade',
+        style: Theme.of(context).textTheme.subtitle1,
+      ),
+      wheelSubheading: Text(
+        'Selected color and its shades',
+        style: Theme.of(context).textTheme.subtitle1,
+      ),
+      showMaterialName: true,
+      showColorName: true,
+      showColorCode: true,
+      copyPasteBehavior: const ColorPickerCopyPasteBehavior(
+        longPressMenu: true,
+      ),
+      materialNameTextStyle: Theme.of(context).textTheme.caption,
+      colorNameTextStyle: Theme.of(context).textTheme.caption,
+      colorCodeTextStyle: Theme.of(context).textTheme.bodyText2,
+      colorCodePrefixStyle: Theme.of(context).textTheme.caption,
+      selectedPickerTypeColor: Theme.of(context).colorScheme.primary,
+      pickersEnabled: const <ColorPickerType, bool>{
+        ColorPickerType.both: false,
+        ColorPickerType.primary: true,
+        ColorPickerType.accent: true,
+        ColorPickerType.bw: false,
+        ColorPickerType.custom: true,
+        ColorPickerType.wheel: true,
+      },
+    ).showPickerDialog(
+      context,
+      constraints:
+          const BoxConstraints(minHeight: 480, minWidth: 300, maxWidth: 320),
+    );
   }
 }
