@@ -39,23 +39,24 @@ class WallpaperPage extends StatelessWidget {
         },
         value: model.isGradient,
       ),
-      ExtraOptionsGsettingsRow(
-        actionLabel: 'Horizontal',
-        onChanged: (value) {
-          if (value) {
-            model.colorShadingType = ColorShadingType.horizontal;
-          } else {
-            model.colorShadingType = ColorShadingType.vertical;
-          }
-        },
-        onPressed: () async {
-          final colorBeforeDialog = model.secondaryColor;
-          if (!(await colorPickerDialog(context, false))) {
-            model.secondaryColor = colorBeforeDialog;
-          }
-        },
-        value: model.colorShadingType == ColorShadingType.horizontal,
-      ),
+      if (model.isGradient)
+        ExtraOptionsGsettingsRow(
+          actionLabel: 'Horizontal',
+          onChanged: (value) {
+            if (value) {
+              model.colorShadingType = ColorShadingType.horizontal;
+            } else {
+              model.colorShadingType = ColorShadingType.vertical;
+            }
+          },
+          onPressed: () async {
+            final colorBeforeDialog = model.secondaryColor;
+            if (!(await colorPickerDialog(context, false))) {
+              model.secondaryColor = colorBeforeDialog;
+            }
+          },
+          value: model.colorShadingType == ColorShadingType.horizontal,
+        ),
       const SizedBox(
           width: 500,
           child: Padding(
