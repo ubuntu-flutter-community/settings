@@ -79,7 +79,7 @@ class WallpaperPage extends StatelessWidget {
                             ? fromHex(model.primaryColor)
                             : null,
                         gradient:
-                            model.colorShadingType != ColorShadingType.solid
+                            model.colorShadingType == ColorShadingType.vertical
                                 ? LinearGradient(
                                     begin: Alignment.topCenter,
                                     end: Alignment.bottomCenter,
