@@ -7,7 +7,9 @@ import 'package:settings/view/pages/keyboard_shortcuts/keyboard_shortcuts_page.d
 import 'package:settings/view/pages/mouse_and_touchpad/mouse_and_touchpad_page.dart';
 import 'package:settings/view/pages/removable_media/removable_media_page.dart';
 import 'package:settings/view/pages/notifications/notifications_page.dart';
+import 'package:settings/view/pages/power/power_page.dart';
 import 'package:settings/view/pages/sound/sound_page.dart';
+import 'package:settings/view/pages/wallpaper/wallpaper_page.dart';
 import 'package:settings/view/widgets/page_item.dart';
 import 'package:yaru_icons/widgets/yaru_icons.dart';
 
@@ -27,10 +29,10 @@ final pageItems = <PageItem>[
     iconData: YaruIcons.bluetooth,
     builder: (_) => const Text('Bluetooth'),
   ),
-  PageItem(
+  const PageItem(
     title: 'Wallpaper',
     iconData: YaruIcons.desktop_wallpaper,
-    builder: (_) => const Text('Wallpaper'),
+    builder: WallpaperPage.create,
   ),
   const PageItem(
     title: 'Appearance',
@@ -72,10 +74,10 @@ final pageItems = <PageItem>[
     iconData: YaruIcons.audio,
     builder: SoundPage.create,
   ),
-  PageItem(
-    title: 'Energy',
+  const PageItem(
+    title: 'Power',
     iconData: YaruIcons.power,
-    builder: (_) => const Text('Energy'),
+    builder: PowerPage.create,
   ),
   PageItem(
     title: 'Displays',

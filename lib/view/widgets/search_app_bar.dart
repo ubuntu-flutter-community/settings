@@ -22,9 +22,8 @@ class SearchAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      leading: searchActive
-          ? null
-          : InkWell(child: const Icon(YaruIcons.search), onTap: () => onTap()),
+      leading:
+          InkWell(child: const Icon(YaruIcons.search), onTap: () => onTap()),
       title: searchActive
           ? RawKeyboardListener(
               onKey: (event) {

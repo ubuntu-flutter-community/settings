@@ -29,8 +29,8 @@ class _KeyboardShortcutRowState extends State<KeyboardShortcutRow> {
 
     return InkWell(
       child: SettingsRow(
-        actionLabel: widget.label,
-        secondChild: Text(
+        trailingWidget: Text(widget.label),
+        actionWidget: Text(
           shortcut.toString(),
           style: TextStyle(
               color: Theme.of(context).colorScheme.onSurface.withOpacity(0.4)),
