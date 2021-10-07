@@ -67,7 +67,9 @@ class _BluetoothDeviceRowState extends State<BluetoothDeviceRow> {
                                 onChanged: (newValue) async {
                                   widget.device.connected
                                       ? await widget.device.disconnect()
-                                      : await widget.device.connect();
+                                      : await widget.device
+                                          .connect()
+                                          .catchError((ioError) => {});
                                   setState(() {});
                                 })),
                         SettingsRow(
@@ -96,7 +98,7 @@ class _BluetoothDeviceRowState extends State<BluetoothDeviceRow> {
                           child: SizedBox(
                             width: 300,
                             child: OutlinedButton(
-                                onPressed: () => print('remove'),
+                                onPressed: () => print('open device settings'),
                                 child: const Text('Open device settings')),
                           ),
                         ),
