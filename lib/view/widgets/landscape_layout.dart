@@ -114,33 +114,24 @@ class _LandscapeLayoutState extends State<LandscapeLayout> {
 
   SearchAppBar addSearchBar() {
     return SearchAppBar(
-        searchController: _searchController,
-        onChanged: (value) {
-          setState(() {
-            _filteredItems.clear();
-            for (PageItem pageItem in widget.pages) {
-              if (pageItem.title
-                  .toLowerCase()
-                  .contains(_searchController.value.text.toLowerCase())) {
-                _filteredItems.add(pageItem);
-              }
+      searchController: _searchController,
+      onChanged: (value) {
+        setState(() {
+          _filteredItems.clear();
+          for (PageItem pageItem in widget.pages) {
+            if (pageItem.title
+                .toLowerCase()
+                .contains(_searchController.value.text.toLowerCase())) {
+              _filteredItems.add(pageItem);
             }
-          });
-        },
-        searchActive: _searchActive,
-        onEscape: () => setState(() {
-              _searchActive = false;
-              _searchController.clear();
-              _filteredItems.clear();
-            }),
-        onTap: () {
-          setState(() {
-            _searchActive = !_searchActive;
-            if (!_searchActive) {
-              _searchController.clear();
-              _filteredItems.clear();
-            }
-          });
+          }
         });
+      },
+      onEscape: () => setState(() {
+        _searchActive = false;
+        _searchController.clear();
+        _filteredItems.clear();
+      }),
+    );
   }
 }

@@ -26,13 +26,11 @@ class _PortraitLayoutState extends State<PortraitLayout> {
   late int _selectedIndex;
   late TextEditingController _searchController;
   final _filteredItems = <PageItem>[];
-  late bool _searchActive;
   final _navigatorKey = GlobalKey<NavigatorState>();
   NavigatorState get _navigator => _navigatorKey.currentState!;
 
   @override
   void initState() {
-    _searchActive = false;
     _searchController = TextEditingController();
     _selectedIndex = widget.selectedIndex;
     super.initState();
@@ -111,33 +109,23 @@ class _PortraitLayoutState extends State<PortraitLayout> {
 
   SearchAppBar addSearchBar() {
     return SearchAppBar(
-        searchController: _searchController,
-        onChanged: (value) {
-          setState(() {
-            _filteredItems.clear();
-            for (PageItem pageItem in widget.pages) {
-              if (pageItem.title
-                  .toLowerCase()
-                  .contains(_searchController.value.text.toLowerCase())) {
-                _filteredItems.add(pageItem);
-              }
+      searchController: _searchController,
+      onChanged: (value) {
+        setState(() {
+          _filteredItems.clear();
+          for (PageItem pageItem in widget.pages) {
+            if (pageItem.title
+                .toLowerCase()
+                .contains(_searchController.value.text.toLowerCase())) {
+              _filteredItems.add(pageItem);
             }
-          });
-        },
-        searchActive: _searchActive,
-        onEscape: () => setState(() {
-              _searchActive = false;
-              _searchController.clear();
-              _filteredItems.clear();
-            }),
-        onTap: () {
-          setState(() {
-            _searchActive = !_searchActive;
-            if (!_searchActive) {
-              _searchController.clear();
-              _filteredItems.clear();
-            }
-          });
+          }
         });
+      },
+      onEscape: () => setState(() {
+        _searchController.clear();
+        _filteredItems.clear();
+      }),
+    );
   }
 }
