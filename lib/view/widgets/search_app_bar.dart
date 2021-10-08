@@ -30,7 +30,10 @@ class SearchAppBar extends StatelessWidget implements PreferredSizeWidget {
           textAlignVertical: TextAlignVertical.center,
           style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w200),
           decoration: InputDecoration(
-            prefixIcon: const Icon(YaruIcons.search),
+            prefixIcon: const Padding(
+              padding: EdgeInsets.only(left: 28, right: 25),
+              child: Icon(YaruIcons.search),
+            ),
             hintText: 'Search...',
             enabledBorder: UnderlineInputBorder(
                 borderSide: BorderSide(color: Colors.black.withOpacity(0.01))),
