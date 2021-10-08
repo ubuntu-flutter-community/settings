@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:open_file/open_file.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
+import 'package:rive/rive.dart';
 import 'package:settings/api/pdf_api.dart';
 import 'package:settings/services/hostname_service.dart';
 import 'package:settings/view/widgets/settings_row.dart';
@@ -56,7 +57,10 @@ class _InfoPageState extends State<InfoPage> {
 
     return Column(
       children: [
-        const Icon(YaruIcons.ubuntu_logo, size: 128, color: yaru.Colors.orange),
+        const SizedBox(
+            height: 128,
+            width: 128,
+            child: RiveAnimation.asset('assets/rive/ubuntu_cof.riv')),
         const SizedBox(height: 10),
         Text('${model.osName} ${model.osVersion}',
             style: Theme.of(context).textTheme.headline5),
