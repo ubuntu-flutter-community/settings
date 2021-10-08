@@ -11,7 +11,6 @@ import 'package:settings/view/widgets/settings_section.dart';
 import 'package:settings/view/widgets/single_info_row.dart';
 import 'package:udisks/udisks.dart';
 import 'package:yaru_icons/widgets/yaru_icons.dart';
-import 'package:yaru/yaru.dart' as yaru;
 
 import 'info_model.dart';
 
@@ -212,7 +211,11 @@ class _HostnameSettingsState extends State<_HostnameSettings> {
       title: const Center(child: Text('Edit hostname')),
       contentPadding: const EdgeInsets.all(16.0),
       children: [
-        TextField(controller: _controller),
+        TextField(
+          autofocus: true,
+          controller: _controller,
+          decoration: const InputDecoration(border: UnderlineInputBorder()),
+        ),
         const SizedBox(height: 16.0),
         Row(
           mainAxisAlignment: MainAxisAlignment.end,
