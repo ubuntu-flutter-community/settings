@@ -26,6 +26,7 @@ dependencies:
   path_provider: ^2.0.5
   pdf: ^3.6.0
   provider: ^5.0.0
+  rive: ^0.7.28
   safe_change_notifier: ^0.0.1
   scrollable_positioned_list: ^0.2.0-nullsafety.0
   udisks: ^0.3.0
@@ -34,7 +35,6 @@ dependencies:
       url: https://github.com/canonical/upower.dart
   yaru: ^0.1.5
   yaru_icons: ^0.0.5
-
 
 dev_dependencies:
   build_runner: ^2.1.2
@@ -52,3 +52,4 @@ flutter:
     - assets/images/
     - assets/images/cursor/
     - assets/pdf_assets/cof.png
+    - assets/rive/ubuntu_cof.riv

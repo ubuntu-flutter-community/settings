@@ -242,9 +242,11 @@ packages:
   filesystem_picker:
     dependency: "direct main"
     description:
-      name: filesystem_picker
-      url: "https://pub.dartlang.org"
-    source: hosted
+      path: package
+      ref: HEAD
+      resolved-ref: ce615dcab2da54e7b77d5c00ccfe7d1bbb40cf98
+      url: "https://github.com/Feichtmeier/filesystem_picker"
+    source: git
     version: "2.0.0-nullsafety.0"
   fixnum:
     dependency: transitive
@@ -298,6 +300,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.1.2+1"
+  http:
+    dependency: transitive
+    description:
+      name: http
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.13.4"
   http_multi_server:
     dependency: transitive
     description:
@@ -578,6 +587,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "3.0.1"
+  rive:
+    dependency: "direct main"
+    description:
+      name: rive
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.7.28"
   safe_change_notifier:
     dependency: "direct main"
     description:
