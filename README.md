@@ -2,6 +2,8 @@
 
 The goal of this project is to build a feature complete settings app for the Ubuntu desktop with the Flutter UI toolkit.
 
+![](.github/images/wip.gif)
+
 Packages that we already use or plan to use are:
 
 - [gsettings.dart](https://github.com/canonical/gsettings.dart)
@@ -19,54 +21,27 @@ Packages that we already use or plan to use are:
 - [X] search
 - [ ] WIFI page
 - [ ] Network page
-- [ ] Bluetooth page
+- [ ] Bluetooth page - WIP
 - [X] Wallpaper page
-
-    ![wallpaper](.github/images/wallpaper_dark.png)
-    ![wallpaperlight](.github/images/wallpaper_light.png)
-
 - [X] Appearance page
-
-    ![appearance](.github/images/appearance.png)
-
 - [X] Notifications page
-
-    ![notis](.github/images/notifications.png)
-
 - [ ] Search page
 - [ ] Apps page
 - [ ] Security page
 - [ ] Online Accounts page
 - [ ] Sharing page
-- [ ] Sound page - WIP
-
-    ![sound](.github/images/sound.png)
-    
-- [ ] Energy page
+- [ ] Sound page - WIP    
+- [X] Power page
 - [ ] Displays page
 - [X] Mouse and touchpad page
-
-    ![mouse](.github/images/mouse.png)
-
 - [ ] Keyboard shortcuts page - WIP
-
-    ![shortcuts](.github/images/shortcuts.png)
-
-- [ ] Printers page
-- [X] Removeable Media page
-
-    ![removmedia](.github/images/removmedia.png)
-    
+- [ ] Printers page - WIP
+- [X] Removeable Media page    
 - [ ] Color page
 - [ ] Region and language page
 - [X] Accessability page
-
-    ![](.github/images/accessability.png)
-
 - [ ] Users page
 - [ ] Preferred apps page
 - [ ] Date and time page
 - [ ] Wacom page
 - [X] Info page
-
-    ![info](.github/images/info.png)
