@@ -1,13 +1,11 @@
 import 'dart:io';
 
 import 'package:filesystem_picker/filesystem_picker.dart';
-import 'package:flex_color_picker/flex_color_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:settings/services/settings_service.dart';
 import 'package:settings/view/pages/wallpaper/color_shading_option_row.dart';
 import 'package:settings/view/pages/wallpaper/wallpaper_model.dart';
-import 'package:settings/view/widgets/extra_options_gsettings_row.dart';
 import 'package:settings/view/widgets/image_tile.dart';
 import 'package:settings/view/widgets/settings_row.dart';
 import 'package:settings/view/widgets/settings_section.dart';
@@ -46,17 +44,6 @@ class WallpaperPage extends StatelessWidget {
                       value: false,
                     ),
                   ]),
-              if (model.isColorBackground)
-                const SizedBox(
-                  width: 10,
-                ),
-              if (model.isColorBackground)
-                OptionsButton(onPressed: () async {
-                  final colorBeforeDialog = model.primaryColor;
-                  if (!(await colorPickerDialog(context, true))) {
-                    model.primaryColor = colorBeforeDialog;
-                  }
-                })
             ],
           )),
       if (model.isColorBackground)
@@ -64,12 +51,6 @@ class WallpaperPage extends StatelessWidget {
           actionLabel: 'Color mode',
           onDropDownChanged: (value) {
             model.colorShadingType = value;
-          },
-          onExtraOptionButtonPressed: () async {
-            final colorBeforeDialog = model.secondaryColor;
-            if (!(await colorPickerDialog(context, false))) {
-              model.secondaryColor = colorBeforeDialog;
-            }
           },
           value: model.colorShadingType,
         ),
@@ -79,7 +60,7 @@ class WallpaperPage extends StatelessWidget {
           padding: const EdgeInsets.only(bottom: 30),
           child: model.pictureUri.isEmpty
               ? Padding(
-                  padding: const EdgeInsets.all(10.0),
+                  padding: const EdgeInsets.all(8.0),
                   child: SizedBox(
                     width: 500,
                     height: 255,
@@ -242,59 +223,5 @@ class WallpaperPage extends StatelessWidget {
     if (hexString.length == 6 || hexString.length == 7) buffer.write('ff');
     buffer.write(hexString.replaceFirst('#', ''));
     return Color(int.parse(buffer.toString(), radix: 16));
-  }
-
-  Future<bool> colorPickerDialog(BuildContext context, bool primary) async {
-    final model = context.read<WallpaperModel>();
-    return ColorPicker(
-      color: fromHex(primary ? model.primaryColor : model.secondaryColor),
-      onColorChanged: (Color color) => {
-        if (primary)
-          {model.primaryColor = '#' + color.hex}
-        else
-          {model.secondaryColor = '#' + color.hex}
-      },
-      width: 40,
-      height: 40,
-      borderRadius: 4,
-      spacing: 5,
-      runSpacing: 5,
-      wheelDiameter: 155,
-      heading: Text(
-        primary ? 'Select a primary color' : 'Select a secondary color',
-        style: Theme.of(context).textTheme.subtitle1,
-      ),
-      subheading: Text(
-        'Select color shade',
-        style: Theme.of(context).textTheme.subtitle1,
-      ),
-      wheelSubheading: Text(
-        'Selected color and its shades',
-        style: Theme.of(context).textTheme.subtitle1,
-      ),
-      showMaterialName: true,
-      showColorName: true,
-      showColorCode: true,
-      copyPasteBehavior: const ColorPickerCopyPasteBehavior(
-        longPressMenu: true,
-      ),
-      materialNameTextStyle: Theme.of(context).textTheme.caption,
-      colorNameTextStyle: Theme.of(context).textTheme.caption,
-      colorCodeTextStyle: Theme.of(context).textTheme.bodyText2,
-      colorCodePrefixStyle: Theme.of(context).textTheme.caption,
-      selectedPickerTypeColor: Theme.of(context).colorScheme.primary,
-      pickersEnabled: const <ColorPickerType, bool>{
-        ColorPickerType.both: false,
-        ColorPickerType.primary: true,
-        ColorPickerType.accent: true,
-        ColorPickerType.bw: false,
-        ColorPickerType.custom: true,
-        ColorPickerType.wheel: true,
-      },
-    ).showPickerDialog(
-      context,
-      constraints:
-          const BoxConstraints(minHeight: 480, minWidth: 300, maxWidth: 320),
-    );
   }
 }
