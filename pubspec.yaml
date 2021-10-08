@@ -9,38 +9,42 @@ environment:
   sdk: ">=2.12.0 <3.0.0"
 
 dependencies:
-  flutter:
-    sdk: flutter
-
-  yaru: ^0.1.5
-  yaru_icons: ^0.0.5
-  gsettings: ^0.1.2+1
-  provider: ^5.0.0
-  linux_system_info: ^0.0.7
   dbus: ^0.6.3
   duration: ^3.0.6
   filesize: ^2.0.1
-  nm: ^0.4.0
-  udisks: ^0.3.0
-  upower: # ^0.6.1 (https://github.com/canonical/upower.dart/pull/17)
-    git:
-      url: https://github.com/canonical/upower.dart
-  safe_change_notifier: ^0.0.1
-  path_provider: ^2.0.5
   filesystem_picker:
     git:
       url: https://github.com/Feichtmeier/filesystem_picker
       path: package
+  flutter:
+    sdk: flutter
+  gsettings: ^0.1.2+1
+  linux_system_info: ^0.0.7
   mime: ^1.0.0
   bluez: ^0.7.4
+  flex_color_picker: ^2.1.2
+  nm: ^0.4.0
+  open_file: ^3.2.1
+  path_provider: ^2.0.5
+  pdf: ^3.6.0
+  provider: ^5.0.0
+  rive: ^0.7.28
+  safe_change_notifier: ^0.0.1
+  scrollable_positioned_list: ^0.2.0-nullsafety.0
+  udisks: ^0.3.0
+  upower:
+    git:
+      url: https://github.com/canonical/upower.dart
+  yaru: ^0.1.5
+  yaru_icons: ^0.0.5
 
 dev_dependencies:
-  flutter_test:
-    sdk: flutter
+  build_runner: ^2.1.2
 
   flutter_lints: ^1.0.0
+  flutter_test:
+    sdk: flutter
   mockingjay: ^0.1.1
-  build_runner: ^2.1.2
   mockito: ^5.0.16
 
 flutter:
@@ -49,3 +53,5 @@ flutter:
   assets:
     - assets/images/
     - assets/images/cursor/
+    - assets/pdf_assets/cof.png
+    - assets/rive/ubuntu_cof.riv
