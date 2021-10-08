@@ -60,7 +60,7 @@ class WallpaperPage extends StatelessWidget {
           padding: const EdgeInsets.only(bottom: 30),
           child: model.pictureUri.isEmpty
               ? Padding(
-                  padding: const EdgeInsets.all(10.0),
+                  padding: const EdgeInsets.all(8.0),
                   child: SizedBox(
                     width: 500,
                     height: 255,
