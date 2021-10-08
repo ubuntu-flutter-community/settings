@@ -95,11 +95,13 @@ class WallpaperModel extends SafeChangeNotifier {
     notifyListeners();
   }
 
-  set gradient(bool value) {
+  set colorBackground(bool value) {
     if (value) {
       pictureUri = '';
     } else {
-      _setFirstWallpaper();
+      if (pictureUri.isEmpty) {
+        _setFirstWallpaper();
+      }
     }
 
     notifyListeners();

@@ -31,14 +31,20 @@ class ColorShadingOptionRow extends StatelessWidget {
           DropdownButton<ColorShadingType>(
             onChanged: (value) => model.colorShadingType = value,
             value: value,
-            items: ColorShadingType.values
-                .map((colorShadingType) => DropdownMenuItem(
-                      value: colorShadingType,
-                      child: Text(colorShadingType
-                          .toString()
-                          .replaceAll('ColorShadingType.', '')),
-                    ))
-                .toList(),
+            items: const [
+              DropdownMenuItem(
+                child: Text('solid color'),
+                value: ColorShadingType.solid,
+              ),
+              DropdownMenuItem(
+                child: Text('horizontal gradient'),
+                value: ColorShadingType.horizontal,
+              ),
+              DropdownMenuItem(
+                child: Text('vertical gradient'),
+                value: ColorShadingType.vertical,
+              ),
+            ],
           ),
           const SizedBox(width: 8.0),
           SizedBox(

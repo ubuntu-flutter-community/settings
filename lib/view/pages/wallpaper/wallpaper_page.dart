@@ -28,18 +28,37 @@ class WallpaperPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final model = Provider.of<WallpaperModel>(context);
 
-    return SettingsSection(headline: 'Wallpaper', children: [
-      ExtraOptionsGsettingsRow(
-        actionLabel: 'Use color as background',
-        onChanged: (value) => model.gradient = value,
-        onPressed: () async {
-          final colorBeforeDialog = model.primaryColor;
-          if (!(await colorPickerDialog(context, true))) {
-            model.primaryColor = colorBeforeDialog;
-          }
-        },
-        value: model.isColorBackground,
-      ),
+    return SettingsSection(headline: 'Set your wallpaper', children: [
+      SettingsRow(
+          trailingWidget: const Text('Background mode'),
+          actionWidget: Row(
+            children: [
+              DropdownButton<bool>(
+                  value: model.isColorBackground,
+                  onChanged: (value) => model.colorBackground = value!,
+                  items: const [
+                    DropdownMenuItem(
+                      child: Text('Colored background'),
+                      value: true,
+                    ),
+                    DropdownMenuItem(
+                      child: Text('Wallpaper'),
+                      value: false,
+                    ),
+                  ]),
+              if (model.isColorBackground)
+                const SizedBox(
+                  width: 10,
+                ),
+              if (model.isColorBackground)
+                OptionsButton(onPressed: () async {
+                  final colorBeforeDialog = model.primaryColor;
+                  if (!(await colorPickerDialog(context, true))) {
+                    model.primaryColor = colorBeforeDialog;
+                  }
+                })
+            ],
+          )),
       if (model.isColorBackground)
         ColorShadingOptionRow(
           actionLabel: 'Color mode',
