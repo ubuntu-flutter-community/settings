@@ -79,35 +79,35 @@ class RemovableMediaModel extends SafeChangeNotifier {
     notifyListeners();
   }
 
-  List<bool>? getStartup(String mimeType) {
-    return [
-      _getAutoRunXContentIgnore().contains(mimeType),
-      _getAutoRunXContentOpenFolder().contains(mimeType),
-      _getAutoRunXContentStartApp().contains(mimeType),
-      !_getAutoRunXContentIgnore().contains(mimeType) &&
-          !_getAutoRunXContentOpenFolder().contains(mimeType) &&
-          !_getAutoRunXContentStartApp().contains(mimeType)
-    ];
+  String getMimeTypeBehavior(String mimeType) {
+    if (_getAutoRunXContentIgnore().contains(mimeType)) {
+      return 'Ignore';
+    } else if (_getAutoRunXContentOpenFolder().contains(mimeType)) {
+      return 'Open Folder';
+    } else if (_getAutoRunXContentStartApp().contains(mimeType)) {
+      return 'Start App';
+    }
+    return 'Ask';
   }
 
-  void setStartup(int value, String mimeType) {
-    switch (value) {
-      case 0:
+  void setMimeTypeBehavior(String string, String mimeType) {
+    switch (string) {
+      case 'Ignore':
         _addToIgnoreList(mimeType);
         _removeFromFolderList(mimeType);
         _removeFromAppStartList(mimeType);
         break;
-      case 1:
+      case 'Open Folder':
         _addToFolderList(mimeType);
         _removeFromIgnoreList(mimeType);
         _removeFromAppStartList(mimeType);
         break;
-      case 2:
+      case 'Start App':
         _addToAppStartList(mimeType);
         _removeFromIgnoreList(mimeType);
         _removeFromFolderList(mimeType);
         break;
-      case 3:
+      case 'Ask':
         _removeFromIgnoreList(mimeType);
         _removeFromFolderList(mimeType);
         _removeFromAppStartList(mimeType);
@@ -152,3 +152,5 @@ class RemovableMediaModel extends SafeChangeNotifier {
     _setAutoRunXContentIgnore(oldIgnoreList.toList());
   }
 }
+
+enum ContentHandling { ignore, openFolder, startApp, ask }
