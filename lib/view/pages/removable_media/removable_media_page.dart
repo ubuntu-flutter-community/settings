@@ -42,12 +42,7 @@ class RemovableMediaPage extends StatelessWidget {
                 onChanged: (string) =>
                     model.setMimeTypeBehavior(string!, mimeType.key),
                 items: [
-                  for (var string in const [
-                    'Ignore',
-                    'Open Folder',
-                    'Start App',
-                    'Ask'
-                  ])
+                  for (var string in RemovableMediaModel.mimeTypeBehaviors)
                     DropdownMenuItem(child: Text(string), value: string),
                 ])),
     ]);

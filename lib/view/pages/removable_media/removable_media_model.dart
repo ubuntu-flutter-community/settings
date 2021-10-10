@@ -26,6 +26,13 @@ class RemovableMediaModel extends SafeChangeNotifier {
     'x-content/win32-software': 'Windows Software'
   };
 
+  static const mimeTypeBehaviors = [
+    'Ignore',
+    'Open Folder',
+    'Start App',
+    'Ask'
+  ];
+
   final GSettings? _removableMediaSettings;
 
   RemovableMediaModel(SettingsService service)
@@ -81,38 +88,32 @@ class RemovableMediaModel extends SafeChangeNotifier {
 
   String getMimeTypeBehavior(String mimeType) {
     if (_getAutoRunXContentIgnore().contains(mimeType)) {
-      return 'Ignore';
+      return mimeTypeBehaviors[0];
     } else if (_getAutoRunXContentOpenFolder().contains(mimeType)) {
-      return 'Open Folder';
+      return mimeTypeBehaviors[1];
     } else if (_getAutoRunXContentStartApp().contains(mimeType)) {
-      return 'Start App';
+      return mimeTypeBehaviors[2];
     }
-    return 'Ask';
+    return mimeTypeBehaviors[3];
   }
 
   void setMimeTypeBehavior(String string, String mimeType) {
-    switch (string) {
-      case 'Ignore':
-        _addToIgnoreList(mimeType);
-        _removeFromFolderList(mimeType);
-        _removeFromAppStartList(mimeType);
-        break;
-      case 'Open Folder':
-        _addToFolderList(mimeType);
-        _removeFromIgnoreList(mimeType);
-        _removeFromAppStartList(mimeType);
-        break;
-      case 'Start App':
-        _addToAppStartList(mimeType);
-        _removeFromIgnoreList(mimeType);
-        _removeFromFolderList(mimeType);
-        break;
-      case 'Ask':
-        _removeFromIgnoreList(mimeType);
-        _removeFromFolderList(mimeType);
-        _removeFromAppStartList(mimeType);
-        break;
-      default:
+    if (string == mimeTypeBehaviors[0]) {
+      _addToIgnoreList(mimeType);
+      _removeFromFolderList(mimeType);
+      _removeFromAppStartList(mimeType);
+    } else if (string == mimeTypeBehaviors[1]) {
+      _addToFolderList(mimeType);
+      _removeFromIgnoreList(mimeType);
+      _removeFromAppStartList(mimeType);
+    } else if (string == mimeTypeBehaviors[2]) {
+      _addToAppStartList(mimeType);
+      _removeFromIgnoreList(mimeType);
+      _removeFromFolderList(mimeType);
+    } else if (string == mimeTypeBehaviors[3]) {
+      _removeFromIgnoreList(mimeType);
+      _removeFromFolderList(mimeType);
+      _removeFromAppStartList(mimeType);
     }
   }
 
