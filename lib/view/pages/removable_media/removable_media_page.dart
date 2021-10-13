@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:settings/services/settings_service.dart';
 import 'package:settings/view/pages/removable_media/removable_media_model.dart';
 import 'package:settings/view/widgets/checkbox_row.dart';
+import 'package:settings/view/widgets/settings_row.dart';
 import 'package:settings/view/widgets/settings_section.dart';
 import 'package:settings/view/widgets/toggle_buttons_setting_row.dart';
 
@@ -34,11 +35,16 @@ class RemovableMediaPage extends StatelessWidget {
         ),
       ),
       for (var mimeType in RemovableMediaModel.mimeTypes.entries)
-        ToggleButtonsSettingRow(
-            actionLabel: mimeType.value,
-            labels: const ['Ignore', 'Open Folder', 'Start App', 'Ask'],
-            selectedValues: model.getStartup(mimeType.key),
-            onPressed: (value) => model.setStartup(value, mimeType.key)),
+        SettingsRow(
+            trailingWidget: Text(mimeType.value),
+            actionWidget: DropdownButton<String>(
+                value: model.getMimeTypeBehavior(mimeType.key),
+                onChanged: (string) =>
+                    model.setMimeTypeBehavior(string!, mimeType.key),
+                items: [
+                  for (var string in RemovableMediaModel.mimeTypeBehaviors)
+                    DropdownMenuItem(child: Text(string), value: string),
+                ])),
     ]);
   }
 }

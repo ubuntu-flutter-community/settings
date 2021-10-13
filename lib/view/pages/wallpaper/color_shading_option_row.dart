@@ -48,9 +48,9 @@ class ColorShadingOptionRow extends StatelessWidget {
           ColorPickerButton(
             color: fromHex(model.primaryColor),
             onPressed: () async {
-              final colorBeforeDialog = model.secondaryColor;
-              if (!(await colorPickerDialog(context, false))) {
-                model.secondaryColor = colorBeforeDialog;
+              final colorBeforeDialog = model.primaryColor;
+              if (!(await colorPickerDialog(context, true))) {
+                model.primaryColor = colorBeforeDialog;
               }
             },
           ),
@@ -60,9 +60,9 @@ class ColorShadingOptionRow extends StatelessWidget {
             ColorPickerButton(
                 color: fromHex(model.secondaryColor),
                 onPressed: () async {
-                  final colorBeforeDialog = model.primaryColor;
-                  if (!(await colorPickerDialog(context, true))) {
-                    model.primaryColor = colorBeforeDialog;
+                  final colorBeforeDialog = model.secondaryColor;
+                  if (!(await colorPickerDialog(context, false))) {
+                    model.secondaryColor = colorBeforeDialog;
                   }
                 }),
         ],

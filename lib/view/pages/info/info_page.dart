@@ -11,7 +11,6 @@ import 'package:settings/view/widgets/settings_section.dart';
 import 'package:settings/view/widgets/single_info_row.dart';
 import 'package:udisks/udisks.dart';
 import 'package:yaru_icons/widgets/yaru_icons.dart';
-import 'package:yaru/yaru.dart' as yaru;
 
 import 'info_model.dart';
 
@@ -88,12 +87,12 @@ class _InfoPageState extends State<InfoPage> {
         ]),
         SettingsSection(headline: 'System', children: [
           SingleInfoRow(
-            infoLabel: 'OS name',
-            infoValue: '${model.osName} ${model.osVersion}',
+            infoLabel: 'OS',
+            infoValue: '${model.osName} ${model.osVersion} (${model.osType}-bit)',
           ),
           SingleInfoRow(
-            infoLabel: 'OS type',
-            infoValue: '${model.osType}-bit',
+            infoLabel: 'Kernel version',
+            infoValue: model.kernelVersion,
           ),
           SingleInfoRow(
             infoLabel: 'GNOME version',
@@ -115,6 +114,7 @@ class _InfoPageState extends State<InfoPage> {
                 final pdfFile = await PdfApi.generateSystemData(
                   model.osName,
                   model.osVersion,
+                  model.kernelVersion,
                   model.processorName,
                   model.processorCount.toString(),
                   model.memory.toString(),
@@ -212,7 +212,11 @@ class _HostnameSettingsState extends State<_HostnameSettings> {
       title: const Center(child: Text('Edit hostname')),
       contentPadding: const EdgeInsets.all(16.0),
       children: [
-        TextField(controller: _controller),
+        TextField(
+          autofocus: true,
+          controller: _controller,
+          decoration: const InputDecoration(border: UnderlineInputBorder()),
+        ),
         const SizedBox(height: 16.0),
         Row(
           mainAxisAlignment: MainAxisAlignment.end,
