@@ -21,21 +21,20 @@ class _MasterDetailPageState extends State<MasterDetailPage> {
 
   @override
   Widget build(BuildContext context) {
-    return OrientationBuilder(
-      builder: (context, orientation) {
-        switch (orientation) {
-          case Orientation.portrait:
-            return PortraitLayout(
-              selectedIndex: _index,
-              pages: pageItems,
-              onSelected: _setIndex,
-            );
-          case Orientation.landscape:
-            return LandscapeLayout(
-              selectedIndex: _index == -1 ? _previousIndex : _index,
-              pages: pageItems,
-              onSelected: _setIndex,
-            );
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        if (constraints.maxWidth < 620) {
+          return PortraitLayout(
+            selectedIndex: _index,
+            pages: pageItems,
+            onSelected: _setIndex,
+          );
+        } else {
+          return LandscapeLayout(
+            selectedIndex: _index == -1 ? _previousIndex : _index,
+            pages: pageItems,
+            onSelected: _setIndex,
+          );
         }
       },
     );
