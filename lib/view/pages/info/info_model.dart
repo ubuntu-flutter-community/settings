@@ -56,6 +56,7 @@ class InfoModel extends SafeChangeNotifier {
   String get osName => _systemInfo.os_name;
   String get osVersion => _systemInfo.os_version;
   int get osType => sizeOf<IntPtr>() * 8;
+  String get kernelVersion => _systemInfo.kernel_version;
 
   String get processorName => _cpus[0].model_name;
   int get processorCount => _cpus.length + 1;

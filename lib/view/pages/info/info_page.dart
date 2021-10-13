@@ -87,12 +87,12 @@ class _InfoPageState extends State<InfoPage> {
         ]),
         SettingsSection(headline: 'System', children: [
           SingleInfoRow(
-            infoLabel: 'OS name',
-            infoValue: '${model.osName} ${model.osVersion}',
+            infoLabel: 'OS',
+            infoValue: '${model.osName} ${model.osVersion} (${model.osType}-bit)',
           ),
           SingleInfoRow(
-            infoLabel: 'OS type',
-            infoValue: '${model.osType}-bit',
+            infoLabel: 'Kernel version',
+            infoValue: model.kernelVersion,
           ),
           SingleInfoRow(
             infoLabel: 'GNOME version',
@@ -114,6 +114,7 @@ class _InfoPageState extends State<InfoPage> {
                 final pdfFile = await PdfApi.generateSystemData(
                   model.osName,
                   model.osVersion,
+                  model.kernelVersion,
                   model.processorName,
                   model.processorCount.toString(),
                   model.memory.toString(),

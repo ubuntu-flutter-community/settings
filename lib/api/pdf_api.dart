@@ -8,6 +8,7 @@ class PdfApi {
   static Future<File> generateSystemData(
     String osName,
     String osVersion,
+    String kernelVersion,
     String processorName,
     String processorCount,
     String memory,
@@ -45,8 +46,8 @@ class PdfApi {
           Divider(),
           Text("System", style: const TextStyle(fontSize: 20)),
           Divider(),
-          Text("OS Name: $osName $osVersion"),
-          Text("OS Type: $osType-bit"),
+          Text("OS: $osName $osVersion ($osType-bit)"),
+          Text("Kernel version: $kernelVersion"),
           Text("GNOME version: $gnomeVersion"),
           Text("Windowing System: $windowServer"),
         ],
