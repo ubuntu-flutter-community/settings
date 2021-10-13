@@ -10,4 +10,10 @@ class BluetoothModel extends SafeChangeNotifier {
     await client.connect();
     return client.devices;
   }
+
+  Stream<BlueZDevice> deviceStream() {
+    Stream<BlueZDevice> deviceStream = client.deviceAdded;
+
+    return deviceStream;
+  }
 }

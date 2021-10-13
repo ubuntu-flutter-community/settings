@@ -18,7 +18,12 @@ class BluetoothPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final model = context.read<BluetoothModel>();
-    List<Widget> children;
+    model.deviceStream().listen(
+      (event) {
+        print(event.address + event.name);
+      },
+    );
+    List<Widget> children = [];
     return Column(
       children: [
         SizedBox(
@@ -42,6 +47,18 @@ class BluetoothPage extends StatelessWidget {
               future: model.devices,
             )
           ]),
+        ),
+        SizedBox(
+          width: 500,
+          child: StreamBuilder<BlueZDevice>(
+            stream: model.deviceStream(),
+            builder: (context, deviceSnapshot) {
+              if (deviceSnapshot.hasData) {
+                children.add(BluetoothDeviceRow(device: deviceSnapshot.data!));
+              }
+              return const Center(child: CircularProgressIndicator());
+            },
+          ),
         )
       ],
     );
