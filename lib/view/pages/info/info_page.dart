@@ -88,7 +88,8 @@ class _InfoPageState extends State<InfoPage> {
         SettingsSection(headline: 'System', children: [
           SingleInfoRow(
             infoLabel: 'OS',
-            infoValue: '${model.osName} ${model.osVersion} (${model.osType}-bit)',
+            infoValue:
+                '${model.osName} ${model.osVersion} (${model.osType}-bit)',
           ),
           SingleInfoRow(
             infoLabel: 'Kernel version',
@@ -104,11 +105,12 @@ class _InfoPageState extends State<InfoPage> {
           ),
         ]),
         SizedBox(
-          width: 500,
+          width: 516, // 500 width + 8 padding on each edges - dirtyfix©
           child: Align(
             alignment: Alignment.topRight,
-            child: ElevatedButton(
-              child: const Text("Export"),
+            child: OutlinedButton.icon(
+              icon: const Icon(YaruIcons.save_as),
+              label: const Text('Export to PDF'),
               onPressed: () async {
                 // ignore: unused_local_variable
                 final pdfFile = await PdfApi.generateSystemData(
