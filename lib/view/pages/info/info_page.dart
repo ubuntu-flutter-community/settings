@@ -105,7 +105,7 @@ class _InfoPageState extends State<InfoPage> {
           ),
         ]),
         SizedBox(
-          width: 500,
+          width: 516, // 500 width + 8 padding on each edges - dirtyfix©
           child: Align(
             alignment: Alignment.topRight,
             child: OutlinedButton.icon(
