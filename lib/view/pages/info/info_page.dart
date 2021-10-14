@@ -108,7 +108,7 @@ class _InfoPageState extends State<InfoPage> {
           child: Align(
             alignment: Alignment.topRight,
             child: ElevatedButton(
-              child: const Text("Export"),
+              child: const Text("Export to PDF"),
               onPressed: () async {
                 // ignore: unused_local_variable
                 final pdfFile = await PdfApi.generateSystemData(
