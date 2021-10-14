@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 import 'package:rive/rive.dart';
 import 'package:settings/api/pdf_api.dart';
 import 'package:settings/services/hostname_service.dart';
+import 'package:settings/view/widgets/page_container.dart';
 import 'package:settings/view/widgets/settings_row.dart';
 import 'package:settings/view/widgets/settings_section.dart';
 import 'package:settings/view/widgets/single_info_row.dart';
@@ -104,35 +105,31 @@ class _InfoPageState extends State<InfoPage> {
             infoValue: model.windowServer,
           ),
         ]),
-        SizedBox(
-          width: 516, // 500 width + 8 padding on each edges - dirtyfix©
-          child: Align(
-            alignment: Alignment.topRight,
-            child: OutlinedButton.icon(
-              icon: const Icon(YaruIcons.save_as),
-              label: const Text('Export to PDF'),
-              onPressed: () async {
-                // ignore: unused_local_variable
-                final pdfFile = await PdfApi.generateSystemData(
-                  model.osName,
-                  model.osVersion,
-                  model.kernelVersion,
-                  model.processorName,
-                  model.processorCount.toString(),
-                  model.memory.toString(),
-                  model.graphics,
-                  model.diskCapacity != null
-                      ? filesize(model.diskCapacity)
-                      : '',
-                  model.osType.toString(),
-                  model.gnomeVersion,
-                  model.windowServer,
-                );
-                ScaffoldMessenger.of(context).showSnackBar(sysInfoSnackBar);
-              },
-            ),
+        PageContainer(
+            child: Align(
+          alignment: Alignment.topRight,
+          child: OutlinedButton.icon(
+            icon: const Icon(YaruIcons.save_as),
+            label: const Text('Export to PDF'),
+            onPressed: () async {
+              // ignore: unused_local_variable
+              final pdfFile = await PdfApi.generateSystemData(
+                model.osName,
+                model.osVersion,
+                model.kernelVersion,
+                model.processorName,
+                model.processorCount.toString(),
+                model.memory.toString(),
+                model.graphics,
+                model.diskCapacity != null ? filesize(model.diskCapacity) : '',
+                model.osType.toString(),
+                model.gnomeVersion,
+                model.windowServer,
+              );
+              ScaffoldMessenger.of(context).showSnackBar(sysInfoSnackBar);
+            },
           ),
-        ),
+        )),
       ],
     );
   }
