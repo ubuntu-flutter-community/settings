@@ -11,7 +11,10 @@ class PageContainer extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 20.0),
-      child: SizedBox(width: 516, child: child),
+      child: SizedBox(
+          width:
+              516, // 500 width + 8 padding on each edges (for SettingsSection)
+          child: child),
     );
   }
 }
