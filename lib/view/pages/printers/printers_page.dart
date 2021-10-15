@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:settings/view/pages/printers/printers_model.dart';
-import 'package:settings/view/widgets/file_picker_row.dart';
+import 'package:settings/view/widgets/extra_options_gsettings_row.dart';
 import 'package:settings/view/widgets/settings_row.dart';
 import 'package:settings/view/widgets/settings_section.dart';
 import 'package:yaru_icons/widgets/yaru_icons.dart';
@@ -55,9 +55,7 @@ class PrintersPage extends StatelessWidget {
                   children: [
                     SizedBox(
                       width: 70,
-                      child: Image.file(
-                          File(
-                              '/home/frederik/Projects/yaru/icons/Suru/256x256/devices/printer.png'),
+                      child: Image.asset('assets/images/icons/printer.png',
                           fit: BoxFit.fill),
                     ),
                     const SizedBox(
@@ -75,15 +73,20 @@ class PrintersPage extends StatelessWidget {
                     )
                   ],
                 ),
-                actionWidget: SizedBox(
-                  width: 40,
-                  height: 40,
-                  child: OutlinedButton(
-                    style: OutlinedButton.styleFrom(
-                        padding: const EdgeInsets.all(0)),
-                    onPressed: () => {},
-                    child: const Icon(YaruIcons.settings),
-                  ),
+                actionWidget: Row(
+                  children: [
+                    SizedBox(
+                      height: 40,
+                      child: OutlinedButton(
+                          onPressed: () => {}, child: const Text('Open Queue')),
+                    ),
+                    const SizedBox(
+                      width: 10,
+                    ),
+                    OptionsButton(
+                      onPressed: () => {},
+                    ),
+                  ],
                 ))
           ])
       ],

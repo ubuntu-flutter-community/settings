@@ -51,6 +51,7 @@ flutter:
 
   assets:
     - assets/images/
+    - assets/images/icons/
     - assets/images/cursor/
     - assets/pdf_assets/cof.png
     - assets/rive/ubuntu_cof.riv
