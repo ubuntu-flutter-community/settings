@@ -36,16 +36,30 @@ class ExtraOptionsGsettingsRow extends StatelessWidget {
             onChanged: onChanged,
           ),
           const SizedBox(width: 8.0),
-          SizedBox(
-            width: 40,
-            height: 40,
-            child: OutlinedButton(
-              style: OutlinedButton.styleFrom(padding: const EdgeInsets.all(0)),
-              onPressed: onPressed,
-              child: const Icon(YaruIcons.settings),
-            ),
-          ),
+          OptionsButton(onPressed: onPressed),
         ],
+      ),
+    );
+  }
+}
+
+class OptionsButton extends StatelessWidget {
+  const OptionsButton({
+    Key? key,
+    required this.onPressed,
+  }) : super(key: key);
+
+  final VoidCallback onPressed;
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: 40,
+      height: 40,
+      child: OutlinedButton(
+        style: OutlinedButton.styleFrom(padding: const EdgeInsets.all(0)),
+        onPressed: onPressed,
+        child: const Icon(YaruIcons.settings),
       ),
     );
   }

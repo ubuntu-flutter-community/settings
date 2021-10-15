@@ -59,34 +59,22 @@ class AppearanceModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  static const _dockPositions = ['LEFT', 'RIGHT', 'BOTTOM'];
+  static const dockPositions = ['LEFT', 'RIGHT', 'BOTTOM'];
 
-  String? get _dockPosition =>
+  String? get dockPosition =>
       _dashToDockSettings?.stringValue(_dockPositionKey);
 
-  List<bool>? get selectedDockPositions {
-    if (_dockPosition != null) {
-      return _dockPositions.map((value) => _dockPosition == value).toList();
-    }
-  }
-
-  void setDockPosition(int value) {
-    _dashToDockSettings?.setValue(_dockPositionKey, _dockPositions[value]);
+  set dockPosition(String? value) {
+    _dashToDockSettings!.setValue(_dockPositionKey, value!);
     notifyListeners();
   }
 
-  static const _clickActions = ['minimize', 'focus-or-previews'];
+  static const clickActions = ['minimize', 'focus-or-previews'];
 
-  String? get _clickAction => _dashToDockSettings?.stringValue(_clickActionKey);
+  String? get clickAction => _dashToDockSettings?.stringValue(_clickActionKey);
 
-  List<bool>? get selectedClickActions {
-    if (_clickAction != null) {
-      return _clickActions.map((value) => _clickAction == value).toList();
-    }
-  }
-
-  void setClickAction(int value) {
-    _dashToDockSettings?.setValue(_clickActionKey, _clickActions[value]);
+  set clickAction(String? value) {
+    _dashToDockSettings?.setValue(_clickActionKey, value!);
     notifyListeners();
   }
 }

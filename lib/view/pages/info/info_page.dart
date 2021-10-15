@@ -1,13 +1,17 @@
 import 'package:filesize/filesize.dart';
 import 'package:flutter/material.dart';
+import 'package:open_file/open_file.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
+import 'package:rive/rive.dart';
+import 'package:settings/api/pdf_api.dart';
 import 'package:settings/services/hostname_service.dart';
+import 'package:settings/view/widgets/page_container.dart';
 import 'package:settings/view/widgets/settings_row.dart';
 import 'package:settings/view/widgets/settings_section.dart';
 import 'package:settings/view/widgets/single_info_row.dart';
 import 'package:udisks/udisks.dart';
 import 'package:yaru_icons/widgets/yaru_icons.dart';
-import 'package:yaru/yaru.dart' as yaru;
 
 import 'info_model.dart';
 
@@ -40,13 +44,27 @@ class _InfoPageState extends State<InfoPage> {
   @override
   Widget build(BuildContext context) {
     final model = context.watch<InfoModel>();
+    final sysInfoSnackBar = SnackBar(
+      content: const Text('System Data Saved as PDF in Document Folder'),
+      action: SnackBarAction(
+        label: 'Open File',
+        onPressed: () async {
+          final dir = await getApplicationDocumentsDirectory();
+          OpenFile.open('${dir.path}/System Data.pdf');
+        },
+      ),
+    );
 
     return Column(
       children: [
-        const Icon(YaruIcons.ubuntu_logo, size: 128, color: yaru.Colors.orange),
+        const SizedBox(
+            height: 128,
+            width: 128,
+            child: RiveAnimation.asset('assets/rive/ubuntu_cof.riv')),
         const SizedBox(height: 10),
         Text('${model.osName} ${model.osVersion}',
             style: Theme.of(context).textTheme.headline5),
+        const SizedBox(height: 10),
         const SizedBox(height: 30),
         const _Computer(),
         SettingsSection(headline: 'Hardware', children: [
@@ -70,12 +88,13 @@ class _InfoPageState extends State<InfoPage> {
         ]),
         SettingsSection(headline: 'System', children: [
           SingleInfoRow(
-            infoLabel: 'OS name',
-            infoValue: '${model.osName} ${model.osVersion}',
+            infoLabel: 'OS',
+            infoValue:
+                '${model.osName} ${model.osVersion} (${model.osType}-bit)',
           ),
           SingleInfoRow(
-            infoLabel: 'OS type',
-            infoValue: '${model.osType}-bit',
+            infoLabel: 'Kernel version',
+            infoValue: model.kernelVersion,
           ),
           SingleInfoRow(
             infoLabel: 'GNOME version',
@@ -86,6 +105,31 @@ class _InfoPageState extends State<InfoPage> {
             infoValue: model.windowServer,
           ),
         ]),
+        PageContainer(
+            child: Align(
+          alignment: Alignment.topRight,
+          child: OutlinedButton.icon(
+            icon: const Icon(YaruIcons.save_as),
+            label: const Text('Export to PDF'),
+            onPressed: () async {
+              // ignore: unused_local_variable
+              final pdfFile = await PdfApi.generateSystemData(
+                model.osName,
+                model.osVersion,
+                model.kernelVersion,
+                model.processorName,
+                model.processorCount.toString(),
+                model.memory.toString(),
+                model.graphics,
+                model.diskCapacity != null ? filesize(model.diskCapacity) : '',
+                model.osType.toString(),
+                model.gnomeVersion,
+                model.windowServer,
+              );
+              ScaffoldMessenger.of(context).showSnackBar(sysInfoSnackBar);
+            },
+          ),
+        )),
       ],
     );
   }
@@ -167,7 +211,11 @@ class _HostnameSettingsState extends State<_HostnameSettings> {
       title: const Center(child: Text('Edit hostname')),
       contentPadding: const EdgeInsets.all(16.0),
       children: [
-        TextField(controller: _controller),
+        TextField(
+          autofocus: true,
+          controller: _controller,
+          decoration: const InputDecoration(border: UnderlineInputBorder()),
+        ),
         const SizedBox(height: 16.0),
         Row(
           mainAxisAlignment: MainAxisAlignment.end,
