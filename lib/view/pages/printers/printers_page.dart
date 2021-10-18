@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:settings/view/pages/printers/printers_model.dart';
@@ -55,30 +53,45 @@ class PrintersPage extends StatelessWidget {
                   children: [
                     SizedBox(
                       width: 70,
-                      child: Image.asset('assets/images/icons/printer.png',
+                      child: Image.asset(
+                          i.isEven
+                              ? 'assets/images/icons/printer.png'
+                              : 'assets/images/icons/printer-network.png',
                           fit: BoxFit.fill),
                     ),
                     const SizedBox(
                       width: 20,
                     ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: const [
-                        Text('Model XYZ'),
-                        SizedBox(
-                          height: 8,
-                        ),
-                        Text('Ready')
-                      ],
+                    SizedBox(
+                      height: 60,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const Text('Model XYZ'), // printer.type
+                          const SizedBox(
+                            height: 3,
+                          ),
+                          Text(i.isEven
+                              ? 'local'
+                              : '192.168.1.1337'), // printer.location
+                          // printer.status
+                        ],
+                      ),
                     )
                   ],
                 ),
                 actionWidget: Row(
                   children: [
-                    SizedBox(
+                    const SizedBox(
                       height: 40,
                       child: OutlinedButton(
-                          onPressed: () => {}, child: const Text('Open Queue')),
+                          onPressed: null, // printer.activejobs ?
+                          child: Text(
+                            'No active jobs',
+                            // style: TextStyle(
+                            //     color: Theme.of(context).disabledColor),
+                          )),
                     ),
                     const SizedBox(
                       width: 10,
