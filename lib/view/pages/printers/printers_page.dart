@@ -27,21 +27,30 @@ class PrintersPage extends StatelessWidget {
             width: 518,
             child: Row(
               children: [
-                ElevatedButton(
-                    onPressed: () => {},
-                    child: Padding(
-                      padding: const EdgeInsets.only(top: 8.0, bottom: 8),
+                SizedBox(
+                  height: 40,
+                  child: ElevatedButton(
+                      onPressed: () => {},
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: const [
-                          Icon(YaruIcons.printer),
+                          Icon(YaruIcons.plus),
                           Padding(
                             padding: EdgeInsets.only(left: 12.0, right: 2),
                             child: Text('Add a printer'),
                           )
                         ],
-                      ),
-                    )),
+                      )),
+                ),
+                const SizedBox(
+                  width: 12,
+                ),
+                SizedBox(
+                  height: 40,
+                  child: OutlinedButton(
+                      onPressed: () => {},
+                      child: const Text('Additional printer settings ...')),
+                )
               ],
             ),
           ),
