@@ -30,7 +30,9 @@ class PrintersPage extends StatelessWidget {
                 SizedBox(
                   height: 40,
                   child: ElevatedButton(
-                      onPressed: () => {},
+                      onPressed: () {
+                        {}
+                      },
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: const [
@@ -48,7 +50,7 @@ class PrintersPage extends StatelessWidget {
                 SizedBox(
                   height: 40,
                   child: OutlinedButton(
-                      onPressed: () => {},
+                      onPressed: () {},
                       child: const Text('Additional printer settings ...')),
                 )
               ],
