@@ -31,7 +31,14 @@ class PrintersPage extends StatelessWidget {
                   height: 40,
                   child: ElevatedButton(
                       onPressed: () {
-                        {}
+                        showDialog(
+                          barrierDismissible: false,
+                          context: context,
+                          builder: (_) =>
+                              StatefulBuilder(builder: (context, setState) {
+                            return const AddPrinterDialog();
+                          }),
+                        ).then((shortcut) {});
                       },
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -113,6 +120,30 @@ class PrintersPage extends StatelessWidget {
                   ],
                 ))
           ])
+      ],
+    );
+  }
+}
+
+class AddPrinterDialog extends StatelessWidget {
+  const AddPrinterDialog({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return AlertDialog(
+      title: const Text('Add a printer'),
+      content: SizedBox(
+        height: 300,
+        width: 380,
+        child: Column(
+          children: const [],
+        ),
+      ),
+      actions: [
+        OutlinedButton(
+            onPressed: () => Navigator.of(context).pop(),
+            child: const Text('Cancel')),
+        ElevatedButton(onPressed: () {}, child: const Text('Add printer'))
       ],
     );
   }
