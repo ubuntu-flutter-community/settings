@@ -26,9 +26,9 @@ class ToggleButtonsSettingRow extends StatelessWidget {
     }
 
     return SettingsRow(
-      actionLabel: actionLabel,
-      actionDescription: actionDescription,
-      secondChild: ToggleButtons(
+      trailingWidget: Text(actionLabel),
+      description: actionDescription,
+      actionWidget: ToggleButtons(
         constraints: const BoxConstraints(minHeight: 40.0),
         isSelected: selectedValues,
         children: labels

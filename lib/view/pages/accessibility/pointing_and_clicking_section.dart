@@ -18,12 +18,12 @@ class PointingAndClickingSection extends StatelessWidget {
       headline: 'Pointing & Clicking',
       children: [
         SwitchSettingsRow(
-          actionLabel: 'Mouse Keys',
+          trailingWidget: const Text('Mouse Keys'),
           value: model.mouseKeys,
           onChanged: (value) => model.setMouseKeys(value),
         ),
         SwitchSettingsRow(
-          actionLabel: 'Locate Pointer',
+          trailingWidget: const Text('Locate Pointer'),
           value: model.locatePointer,
           onChanged: (value) => model.setLocatePointer(value),
         ),
@@ -33,6 +33,7 @@ class PointingAndClickingSection extends StatelessWidget {
           value: model.doubleClickDelay,
           min: 100,
           max: 1000,
+          defaultValue: 400,
           onChanged: (value) => model.setDoubleClickDelay(value),
         ),
       ],
@@ -47,8 +48,8 @@ class _ClickAssist extends StatelessWidget {
   Widget build(BuildContext context) {
     final model = Provider.of<AccessibilityModel>(context);
     return SettingsRow(
-      actionLabel: 'Click Assist',
-      secondChild: Row(
+      trailingWidget: const Text('Click Assist'),
+      actionWidget: Row(
         children: [
           Text(model.clickAssistString),
           const SizedBox(width: 24.0),
@@ -84,7 +85,7 @@ class _ClickAssistSettings extends StatelessWidget {
       contentPadding: const EdgeInsets.all(8.0),
       children: [
         SwitchSettingsRow(
-          actionLabel: 'Simulated Secondary Click',
+          trailingWidget: const Text('Simulated Secondary Click'),
           actionDescription:
               'Trigger a secondary click by holding down the primary button.',
           value: model.simulatedSecondaryClick,
@@ -98,11 +99,13 @@ class _ClickAssistSettings extends StatelessWidget {
             value: model.secondaryClickTime,
             min: 0.5,
             max: 3.0,
+            defaultValue: 1.2,
+            fractionDigits: 1,
             onChanged: (value) => model.setSecondaryClickTime(value),
           ),
         ),
         SwitchSettingsRow(
-          actionLabel: 'Hover Click',
+          trailingWidget: const Text('Hover Click'),
           actionDescription: 'Trigger a click when the pointer hovers',
           value: model.dwellClick,
           onChanged: (value) => model.setDwellClick(value),
@@ -116,7 +119,9 @@ class _ClickAssistSettings extends StatelessWidget {
                 enabled: model.dwellClick,
                 min: 0.2,
                 max: 3.0,
+                defaultValue: 1.2,
                 value: model.dwellTime,
+                fractionDigits: 1,
                 onChanged: (value) => model.setDwellTime(value),
               ),
               SliderSettingsSecondary(
@@ -124,6 +129,7 @@ class _ClickAssistSettings extends StatelessWidget {
                 enabled: model.dwellClick,
                 min: 0.0,
                 max: 30.0,
+                defaultValue: 10,
                 value: model.dwellThreshold,
                 onChanged: (value) => model.setDwellThreshold(value),
               ),

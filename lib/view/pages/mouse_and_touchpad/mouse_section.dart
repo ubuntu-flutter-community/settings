@@ -18,12 +18,14 @@ class MouseSection extends StatelessWidget {
         SliderSettingsRow(
           actionLabel: 'Speed',
           value: model.mouseSpeed,
+          showValue: false,
           min: -1,
           max: 1,
+          defaultValue: 0,
           onChanged: (value) => model.setMouseSpeed(value),
         ),
         SwitchSettingsRow(
-          actionLabel: 'Natural Scrolling',
+          trailingWidget: const Text('Natural Scrolling'),
           actionDescription: 'Scrolling moves the content, not the view',
           value: model.mouseNaturalScroll,
           onChanged: (value) => model.setMouseNaturalScroll(value),

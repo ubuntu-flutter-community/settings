@@ -10,14 +10,14 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:gsettings/gsettings.dart';
 import 'package:provider/provider.dart';
 import 'package:settings/main.dart';
+import 'package:settings/schemas/schemas.dart';
 import 'package:settings/view/widgets/app_theme.dart';
+import 'package:settings/view/widgets/master_details_page.dart';
 
 void main() {
-  const _schemaKey = 'org.gnome.desktop.interface';
-
   testWidgets('Counter increments smoke test', (WidgetTester tester) async {
-    if (GSettingsSchema.lookup(_schemaKey) != null) {
-      final _themeSettings = GSettings(schemaId: _schemaKey);
+    if (GSettingsSchema.lookup(schemaInterface) != null) {
+      final _themeSettings = GSettings(schemaId: schemaInterface);
       await tester.pumpWidget(
         ChangeNotifierProvider(
           create: (_) => AppTheme(_themeSettings),
@@ -27,7 +27,7 @@ void main() {
         ),
       );
 
-      expect(find.byType(AppBar), findsNWidgets(1));
+      expect(find.byType(MasterDetailPage), findsNWidgets(1));
     }
   });
 }

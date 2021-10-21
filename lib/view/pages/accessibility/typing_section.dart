@@ -20,7 +20,7 @@ class TypingSection extends StatelessWidget {
       headline: 'Typing',
       children: [
         SwitchSettingsRow(
-          actionLabel: 'Screen Keyboard',
+          trailingWidget: const Text('Screen Keyboard'),
           value: model.screenKeyboard,
           onChanged: (value) => model.setScreenKeyboard(value),
         ),
@@ -70,6 +70,7 @@ class _RepeatKeysSettings extends StatelessWidget {
           value: model.delay,
           min: 100,
           max: 2000,
+          defaultValue: 500,
           onChanged: (value) => model.setDelay(value),
         ),
         SliderSettingsRow(
@@ -78,6 +79,7 @@ class _RepeatKeysSettings extends StatelessWidget {
           value: model.interval,
           min: 0,
           max: 110,
+          defaultValue: 30,
           onChanged: (value) => model.setInterval(value),
         ),
       ],
@@ -122,6 +124,7 @@ class _CursorBlinkingSettings extends StatelessWidget {
           actionDescription: 'Length of the cursor blink cycle',
           min: 100,
           max: 2500,
+          defaultValue: 1200,
           value: model.cursorBlinkTime,
           onChanged: (value) => model.setCursorBlinkTime(value),
         ),
@@ -138,8 +141,8 @@ class _TypingAssist extends StatelessWidget {
     final model = Provider.of<AccessibilityModel>(context);
 
     return SettingsRow(
-      actionLabel: 'Typing Assist (AccessX)',
-      secondChild: Row(
+      trailingWidget: const Text('Typing Assist (AccessX)'),
+      actionWidget: Row(
         children: [
           Text(model.typingAssistString),
           const SizedBox(width: 24.0),
@@ -175,14 +178,14 @@ class _TypingAssistSettings extends StatelessWidget {
       contentPadding: const EdgeInsets.all(8.0),
       children: [
         SwitchSettingsRow(
-          actionLabel: 'Enable by Keyboard',
+          trailingWidget: const Text('Enable by Keyboard'),
           actionDescription:
               'Turn accessibility features on and off using the keyboard',
           value: model.keyboardEnable,
           onChanged: (value) => model.setKeyboardEnable(value),
         ),
         SwitchSettingsRow(
-          actionLabel: 'Sticky Keys',
+          trailingWidget: const Text('Sticky Keys'),
           actionDescription:
               'Treats a sequence of modifier keys as a key combination',
           value: model.stickyKeys,
@@ -190,7 +193,7 @@ class _TypingAssistSettings extends StatelessWidget {
         ),
         const _StickyKeysSettings(),
         SwitchSettingsRow(
-          actionLabel: 'Slow Keys',
+          trailingWidget: const Text('Slow Keys'),
           actionDescription:
               'Puts a delay between when a key is pressed and when it is accepted',
           value: model.slowKeys,
@@ -198,7 +201,7 @@ class _TypingAssistSettings extends StatelessWidget {
         ),
         const _SlowKeysSettings(),
         SwitchSettingsRow(
-          actionLabel: 'Bounce Keys',
+          trailingWidget: const Text('Bounce Keys'),
           actionDescription: 'Ignores fast duplicate keypresses',
           value: model.bounceKeys,
           onChanged: (value) => model.setBounceKeys(value),
@@ -252,6 +255,7 @@ class _SlowKeysSettings extends StatelessWidget {
             enabled: model.slowKeys,
             min: 0,
             max: 500,
+            defaultValue: 300,
             value: model.slowKeysDelay,
             onChanged: (value) => model.setSlowKeysDelay(value),
           ),
@@ -294,6 +298,7 @@ class _BounceKeysSettings extends StatelessWidget {
             enabled: model.bounceKeys,
             min: 0,
             max: 900,
+            defaultValue: 300,
             value: model.bounceKeysDelay,
             onChanged: (value) => model.setBounceKeysDelay(value),
           ),

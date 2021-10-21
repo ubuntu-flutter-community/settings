@@ -3,20 +3,19 @@ import 'dart:io';
 
 import 'package:linux_system_info/linux_system_info.dart';
 import 'package:safe_change_notifier/safe_change_notifier.dart';
+import 'package:settings/services/hostname_service.dart';
 import 'package:udisks/udisks.dart';
-
-import 'hostname_service.dart';
 
 class InfoModel extends SafeChangeNotifier {
   InfoModel(
-      [HostnameService? hostnameService,
-      UDisksClient? uDisksClient,
+      {required HostnameService hostnameService,
+      required UDisksClient uDisksClient,
       List<Cpu>? cpus,
       SystemInfo? systemInfo,
       MemInfo? memInfo,
-      GnomeInfo? gnomeInfo])
-      : _hostnameService = hostnameService ?? HostnameService(),
-        _uDisksClient = uDisksClient ?? UDisksClient(),
+      GnomeInfo? gnomeInfo})
+      : _hostnameService = hostnameService,
+        _uDisksClient = uDisksClient,
         _cpus = cpus ?? CpuInfo.getProcessors(),
         _systemInfo = systemInfo ?? SystemInfo(),
         _memInfo = memInfo ?? MemInfo(),
@@ -57,6 +56,7 @@ class InfoModel extends SafeChangeNotifier {
   String get osName => _systemInfo.os_name;
   String get osVersion => _systemInfo.os_version;
   int get osType => sizeOf<IntPtr>() * 8;
+  String get kernelVersion => _systemInfo.kernel_version;
 
   String get processorName => _cpus[0].model_name;
   int get processorCount => _cpus.length + 1;
@@ -66,11 +66,4 @@ class InfoModel extends SafeChangeNotifier {
 
   String get gnomeVersion => _gnomeInfo.version;
   String get windowServer => Platform.environment['XDG_SESSION_TYPE'] ?? '';
-
-  @override
-  void dispose() {
-    _hostnameService.dispose();
-    _uDisksClient.close();
-    super.dispose();
-  }
 }

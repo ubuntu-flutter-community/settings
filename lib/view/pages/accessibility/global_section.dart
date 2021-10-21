@@ -14,7 +14,7 @@ class GlobalSection extends StatelessWidget {
       headline: 'Global',
       children: [
         SwitchSettingsRow(
-          actionLabel: 'Always Show Universal Access Menu',
+          trailingWidget: const Text('Always Show Universal Access Menu'),
           value: model.universalAccessStatus,
           onChanged: (value) => model.setUniversalAccessStatus(value),
         ),

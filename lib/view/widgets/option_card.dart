@@ -70,21 +70,11 @@ class OptionCardState extends State<OptionCard> {
   Widget build(BuildContext context) {
     return Card(
       color: Theme.of(context).colorScheme.onSurface.withAlpha(
-            widget.selected ? 7 : 0,
+            widget.selected ? 10 : 0,
           ),
-      shape: RoundedRectangleBorder(
-        side: BorderSide(
-          color: Theme.of(context)
-              .colorScheme
-              .onSurface
-              .withAlpha(widget.selected ? 60 : 0),
-          width: 2,
-        ),
-        borderRadius: BorderRadius.circular(6),
-      ),
       elevation: 0,
       child: InkWell(
-        hoverColor: Theme.of(context).colorScheme.onSurface.withAlpha(10),
+        hoverColor: Theme.of(context).colorScheme.onSurface.withAlpha(7),
         borderRadius: BorderRadius.circular(6),
         child: Stack(
           children: [

@@ -19,12 +19,12 @@ class SeeingSection extends StatelessWidget {
       headline: 'Seeing',
       children: [
         SwitchSettingsRow(
-          actionLabel: 'High Contrast',
+          trailingWidget: const Text('High Contrast'),
           value: model.highContrast,
           onChanged: (value) => model.setHighContrast(value),
         ),
         SwitchSettingsRow(
-          actionLabel: 'Large Text',
+          trailingWidget: const Text('Large Text'),
           value: model.largeText,
           onChanged: (value) => model.setLargeText(value),
         ),
@@ -42,14 +42,14 @@ class SeeingSection extends StatelessWidget {
           ),
         ),
         SwitchSettingsRow(
-          actionLabel: 'Screen Reader',
+          trailingWidget: const Text('Screen Reader'),
           actionDescription:
               'The screen reader reads displayed text as you move the focus',
           value: model.screenReader,
           onChanged: (value) => model.setScreenReader(value),
         ),
         SwitchSettingsRow(
-          actionLabel: 'Sound Keys',
+          trailingWidget: const Text('Sound Keys'),
           actionDescription:
               'Beep when Num Lock or Caps Lock are turned on or off',
           value: model.toggleKeys,
@@ -67,10 +67,10 @@ class _CursorSize extends StatelessWidget {
   Widget build(BuildContext context) {
     final model = Provider.of<AccessibilityModel>(context);
     return SettingsRow(
-      actionLabel: 'Cursor Size',
-      actionDescription: 'Cursor size can be combined with zoom '
+      trailingWidget: const Text('Cursor Size'),
+      description: 'Cursor size can be combined with zoom '
           'to make it easier to see the cursor',
-      secondChild: Row(
+      actionWidget: Row(
         children: [
           const SizedBox(width: 24.0),
           Text(model.cursorSizeString()),
@@ -393,16 +393,20 @@ class _CrosshairsOptions extends StatelessWidget {
           SliderSettingsSecondary(
             label: 'Thickness',
             enabled: true,
+            showValue: false,
             min: 1,
             max: 100,
+            defaultValue: 8,
             value: model.crossHairsThickness,
             onChanged: (value) => model.setCrossHairsThickness(value),
           ),
           SliderSettingsSecondary(
             label: 'Length',
             enabled: true,
+            showValue: false,
             min: 20,
             max: 4096,
+            defaultValue: 4096,
             value: model.crossHairsLength,
             onChanged: (value) => model.setCrossHairsLength(value),
           ),
@@ -444,24 +448,30 @@ class _ColorEffectsOptions extends StatelessWidget {
           SliderSettingsSecondary(
             label: 'Brightness',
             enabled: true,
+            showValue: false,
             min: -0.75,
             max: 0.75,
+            defaultValue: 0,
             value: model.colorBrightness,
             onChanged: (value) => model.setColorBrightness(value),
           ),
           SliderSettingsSecondary(
             label: 'Contrast',
             enabled: true,
+            showValue: false,
             min: -0.75,
             max: 0.75,
+            defaultValue: 0,
             value: model.colorContrast,
             onChanged: (value) => model.setColorContrast(value),
           ),
           SliderSettingsSecondary(
             label: 'Saturation',
             enabled: true,
+            showValue: false,
             min: 0,
             max: 1,
+            defaultValue: 1,
             value: model.colorSaturation,
             onChanged: (value) => model.setColorSaturation(value),
           ),

@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:gsettings/gsettings.dart';
 import 'package:settings/schemas/schemas.dart';
+import 'package:settings/services/settings_service.dart';
 
 class AppearanceModel extends ChangeNotifier {
   static const _showTrashKey = 'show-trash';
@@ -11,15 +12,10 @@ class AppearanceModel extends ChangeNotifier {
   static const _dockPositionKey = 'dock-position';
   static const _clickActionKey = 'click-action';
 
-  final _dashToDockSettings = GSettingsSchema.lookup(schemaDashToDock) != null
-      ? GSettings(schemaId: schemaDashToDock)
-      : null;
+  AppearanceModel(SettingsService service)
+      : _dashToDockSettings = service.lookup(schemaDashToDock);
 
-  @override
-  void dispose() {
-    _dashToDockSettings?.dispose();
-    super.dispose();
-  }
+  final GSettings? _dashToDockSettings;
 
   // Dock section
 
@@ -55,38 +51,30 @@ class AppearanceModel extends ChangeNotifier {
       _dashToDockSettings?.intValue(_dashMaxIconSizeKey).toDouble();
 
   void setMaxIconSize(double value) {
-    _dashToDockSettings?.setValue(_dashMaxIconSizeKey, value.toInt());
+    var intValue = value.toInt();
+    if (intValue.isOdd) {
+      intValue -= 1;
+    }
+    _dashToDockSettings?.setValue(_dashMaxIconSizeKey, intValue);
     notifyListeners();
   }
 
-  static const _dockPositions = ['LEFT', 'RIGHT', 'BOTTOM'];
+  static const dockPositions = ['LEFT', 'RIGHT', 'BOTTOM'];
 
-  String? get _dockPosition =>
+  String? get dockPosition =>
       _dashToDockSettings?.stringValue(_dockPositionKey);
 
-  List<bool>? get selectedDockPositions {
-    if (_dockPosition != null) {
-      return _dockPositions.map((value) => _dockPosition == value).toList();
-    }
-  }
-
-  void setDockPosition(int value) {
-    _dashToDockSettings?.setValue(_dockPositionKey, _dockPositions[value]);
+  set dockPosition(String? value) {
+    _dashToDockSettings!.setValue(_dockPositionKey, value!);
     notifyListeners();
   }
 
-  static const _clickActions = ['minimize', 'focus-or-previews'];
+  static const clickActions = ['minimize', 'focus-or-previews'];
 
-  String? get _clickAction => _dashToDockSettings?.stringValue(_clickActionKey);
+  String? get clickAction => _dashToDockSettings?.stringValue(_clickActionKey);
 
-  List<bool>? get selectedClickActions {
-    if (_clickAction != null) {
-      return _clickActions.map((value) => _clickAction == value).toList();
-    }
-  }
-
-  void setClickAction(int value) {
-    _dashToDockSettings?.setValue(_clickActionKey, _clickActions[value]);
+  set clickAction(String? value) {
+    _dashToDockSettings?.setValue(_clickActionKey, value!);
     notifyListeners();
   }
 }
