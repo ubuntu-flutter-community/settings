@@ -3,11 +3,13 @@ import 'package:flutter/material.dart';
 class SettingsRow extends StatelessWidget {
   const SettingsRow({
     Key? key,
+    this.leadingWidget,
     required this.trailingWidget,
     this.description,
     required this.actionWidget,
   }) : super(key: key);
 
+  final Widget? leadingWidget;
   final Widget trailingWidget;
   final String? description;
   final Widget actionWidget;
@@ -21,6 +23,7 @@ class SettingsRow extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
+            if (leadingWidget != null) ...[leadingWidget!, SizedBox(width: 8)],
             Expanded(
               child: Column(
                 mainAxisSize: MainAxisSize.min,
