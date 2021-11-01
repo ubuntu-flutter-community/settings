@@ -5,8 +5,10 @@ import 'package:provider/provider.dart';
 
 import '../../widgets/settings_section.dart';
 import '../../widgets/switch_settings_row.dart';
+import 'data/authentication.dart';
 import 'models/wifi_model.dart';
 import 'widgets/access_point_tile.dart';
+import 'widgets/authentication_dialog.dart';
 
 class WifiPage extends StatelessWidget {
   static Widget create(BuildContext context) {
@@ -22,15 +24,13 @@ class WifiPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final wifiModel = context.watch<WifiModel>();
-
-    if (wifiModel.isWifiAdaptorAvailable) return _WifiAdaptorsContent();
-
+    if (wifiModel.isWifiDeviceAvailable) return _WifiDevicesContent();
     return _WifiAdaptorNotFound();
   }
 }
 
-class _WifiAdaptorsContent extends StatelessWidget {
-  const _WifiAdaptorsContent({Key? key}) : super(key: key);
+class _WifiDevicesContent extends StatelessWidget {
+  const _WifiDevicesContent({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +46,7 @@ class _WifiAdaptorsContent extends StatelessWidget {
           value: wifiModel.isWifiEnabled,
         ),
         if (wifiModel.isWifiEnabled)
-          for (final wifiAdaptor in wifiModel.wifiAdaptors)
+          for (final wifiAdaptor in wifiModel.wifiDevices)
             AnimatedBuilder(
                 animation: wifiAdaptor,
                 builder: (_, __) {
@@ -60,6 +60,8 @@ class _WifiAdaptorsContent extends StatelessWidget {
                             wifiModel.connectToAccesPoint(
                               accessPoint,
                               wifiAdaptor,
+                              (wifiDevice, accessPoint) =>
+                                  authenticate(context, accessPoint),
                             );
                           },
                         )
@@ -67,6 +69,19 @@ class _WifiAdaptorsContent extends StatelessWidget {
                   );
                 })
       ],
+    );
+  }
+
+  Future<Authentication?> authenticate(
+    BuildContext buildContext,
+    AccessPointModel accessPointModel,
+  ) {
+    return showDialog<Authentication>(
+      context: buildContext,
+      builder: (context) => ChangeNotifierProvider.value(
+        value: accessPointModel,
+        child: AuthenticationDialog(),
+      ),
     );
   }
 }

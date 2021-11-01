@@ -1,6 +1,6 @@
 part of 'wifi_model.dart';
 
-class WifiAdaptorModel extends PropertyStreamNotifier {
+class WifiDeviceModel extends PropertyStreamNotifier {
   final NetworkManagerDevice _networkManagerDevice;
   late final NetworkManagerDeviceWireless _networkManagerDeviceWireless;
 
@@ -11,12 +11,13 @@ class WifiAdaptorModel extends PropertyStreamNotifier {
                 networkManagerAccessPoint,
                 _networkManagerDeviceWireless,
               ))
-          .toList();
+          .toList()
+        ..sort((a, b) => a.strength.compareTo(b.strength));
 
   String get driverName => _networkManagerDevice.driver;
   String get interface => _networkManagerDevice.interface;
 
-  WifiAdaptorModel(this._networkManagerDevice) {
+  WifiDeviceModel(this._networkManagerDevice) {
     _networkManagerDeviceWireless = _networkManagerDevice.wireless!;
 
     addProperties(_networkManagerDeviceWireless.propertiesChanged);
