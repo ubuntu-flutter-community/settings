@@ -1,5 +1,13 @@
 part of 'wifi_model.dart';
 
+enum ActiveConnectionState {
+  unknown,
+  activating,
+  activated,
+  deactivating,
+  deactivated
+}
+
 class AccessPointModel extends PropertyStreamNotifier {
   final NetworkManagerAccessPoint _networkManagerAccessPoint;
   late final NetworkManagerDeviceWireless _networkManagerDeviceWireless;
@@ -14,7 +22,9 @@ class AccessPointModel extends PropertyStreamNotifier {
       .contains(NetworkManagerWifiAccessPointFlag.privacy);
 
   WifiStrengthLevel get strengthLevel =>
-      WifiStrengthLevelX.fromStrength(_networkManagerAccessPoint.strength);
+      WifiStrengthLevelX.fromStrength(strength);
+
+  int get strength => _networkManagerAccessPoint.strength;
 
   AccessPointModel(
     this._networkManagerAccessPoint,

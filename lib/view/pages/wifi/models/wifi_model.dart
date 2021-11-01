@@ -1,21 +1,29 @@
+import 'package:dbus/dbus.dart';
 import 'package:nm/nm.dart';
 
+import '../data/authentication.dart';
+import '../extensions/network_service_x.dart';
 import 'property_stream_notifier.dart';
 
 part 'access_point_model.dart';
-part 'wifi_adaptor_model.dart';
+part 'wifi_device_model.dart';
+
+typedef OnAuthenticate = Future<Authentication?> Function(
+  WifiDeviceModel wifiAdaptor,
+  AccessPointModel accessPoint,
+);
 
 class WifiModel extends PropertyStreamNotifier {
   final NetworkManagerClient _networkManagerClient;
 
-  List<WifiAdaptorModel> get wifiAdaptors => _networkManagerClient.devices
+  List<WifiDeviceModel> get wifiDevices => _networkManagerClient.devices
       .where((device) => device.wireless != null)
-      .map((device) => WifiAdaptorModel(device))
+      .map((device) => WifiDeviceModel(device))
       .toList();
 
   bool get isWifiEnabled => _networkManagerClient.wirelessEnabled;
 
-  bool get isWifiAdaptorAvailable =>
+  bool get isWifiDeviceAvailable =>
       _networkManagerClient.wirelessHardwareEnabled &&
       _networkManagerClient.networkingEnabled;
 
@@ -27,17 +35,44 @@ class WifiModel extends PropertyStreamNotifier {
     addPropertyListener('NetworkingEnabled', notifyListeners);
   }
 
-//FIXME: can't connect to the access point which is not in range but still some how listed in the Page
   void connectToAccesPoint(
     AccessPointModel accessPointModel,
-    WifiAdaptorModel wifiAdaptorModel,
+    WifiDeviceModel wifiAdaptorModel,
+    OnAuthenticate onAuth,
   ) async {
     if (accessPointModel.isActive) return;
 
-    await _networkManagerClient.activateConnection(
-      device: wifiAdaptorModel._networkManagerDevice,
-      accessPoint: accessPointModel._networkManagerAccessPoint,
-    );
+    try {
+      var connection = await _networkManagerClient.findConnectionFor(
+        accessPointModel._networkManagerAccessPoint,
+        wifiAdaptorModel._networkManagerDevice,
+      );
+      if (connection == null) {
+        Authentication? authentication;
+        if (accessPointModel.isLocked) {
+          authentication = await onAuth(
+            wifiAdaptorModel,
+            accessPointModel,
+          );
+          if (authentication == null) return;
+        }
+        connection = await _networkManagerClient.addWirelessConnection(
+          ssid: accessPointModel.ssid.codeUnits,
+          password: authentication?.password,
+          private: authentication?.storePassword == StorePassword.thisUser,
+        );
+      }
+
+      await _networkManagerClient.activateConnection(
+        device: wifiAdaptorModel._networkManagerDevice,
+        connection: connection,
+        accessPoint: accessPointModel._networkManagerAccessPoint,
+      );
+    } on DBusMethodResponseException catch (e) {
+      print(e.errorName);
+    } on Exception catch (e) {
+      print(e.toString());
+    }
   }
 
   Future<bool> toggleWifi(bool value) async {
