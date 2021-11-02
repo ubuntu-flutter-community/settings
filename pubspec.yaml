@@ -36,7 +36,6 @@ dependencies:
       url: https://github.com/canonical/upower.dart
   yaru: ^0.1.5
   yaru_icons: ^0.0.5
-  material_design_icons_flutter: ^5.0.6295
 
 dev_dependencies:
   build_runner: ^2.1.2
