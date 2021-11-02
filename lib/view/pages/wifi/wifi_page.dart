@@ -24,8 +24,8 @@ class WifiPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final wifiModel = context.watch<WifiModel>();
-    if (wifiModel.isWifiDeviceAvailable) return _WifiDevicesContent();
-    return _WifiAdaptorNotFound();
+    if (wifiModel.isWifiDeviceAvailable) return const _WifiDevicesContent();
+    return const _WifiAdaptorNotFound();
   }
 }
 
@@ -95,7 +95,7 @@ class _WifiAdaptorNotFound extends StatelessWidget {
       mainAxisSize: MainAxisSize.max,
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        FractionallySizedBox(
+        const FractionallySizedBox(
           widthFactor: .5,
           child: FittedBox(
             fit: BoxFit.fitWidth,

@@ -16,7 +16,7 @@ class AuthenticationDialog extends StatelessWidget {
     final accessPointSsid = context.read<AccessPointModel>().ssid;
 
     return AlertDialog(
-      title: _DialogRow(
+      title: const _DialogRow(
         title: Icon(
           YaruIcons.network_wireless,
           size: 70,
@@ -32,12 +32,14 @@ class AuthenticationDialog extends StatelessWidget {
             field: Text(
                 'Passwords or encryption keys are required to access the Wi-Fi network "$accessPointSsid"'),
           ),
-          SizedBox(height: 16),
+          const SizedBox(height: 16),
           _DialogRow(
-            title: Text('Wifi Security'),
+            title: const Text('Wifi Security'),
             //TODO: add security options
+
             field: DropdownButton<String>(
               value: 'a',
+              onChanged: (_) {},
               items: const [
                 DropdownMenuItem(
                   child: Text('Not Implemnted yet'),
@@ -46,22 +48,22 @@ class AuthenticationDialog extends StatelessWidget {
               ],
             ),
           ),
-          SizedBox(height: 16),
+          const SizedBox(height: 16),
           _DialogRow(
-            title: Text('Passwrod'),
+            title: const Text('Passwrod'),
             field: ValueListenableBuilder<bool>(
                 valueListenable: canShowPassword,
                 builder: (_, showPassword, ___) {
                   return TextField(
                     controller: passwordContoller,
                     obscureText: !showPassword,
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       hintText: 'Password',
                     ),
                   );
                 }),
           ),
-          SizedBox(height: 16),
+          const SizedBox(height: 16),
           _DialogRow(
             field: InkWell(
               onTap: () => canShowPassword.value = !canShowPassword.value,
@@ -83,7 +85,7 @@ class AuthenticationDialog extends StatelessWidget {
                             ),
                           );
                         }),
-                    Text('Show Password'),
+                    const Text('Show Password'),
                   ],
                 ),
               ),
@@ -100,11 +102,11 @@ class AuthenticationDialog extends StatelessWidget {
               wifiSecurity: WifiSecurity.wpa2Personal,
             ),
           ),
-          child: Text('Connect'),
+          child: const Text('Connect'),
         ),
         TextButton(
           onPressed: () => Navigator.of(context).pop(),
-          child: Text('Cancel'),
+          child: const Text('Cancel'),
         )
       ],
     );
@@ -128,10 +130,10 @@ class _DialogRow extends StatelessWidget {
           textAlign: TextAlign.center,
           child: Expanded(
             flex: 2,
-            child: title ?? SizedBox.shrink(),
+            child: title ?? const SizedBox.shrink(),
           ),
         ),
-        SizedBox(width: 10),
+        const SizedBox(width: 10),
         Flexible(fit: FlexFit.loose, flex: 10, child: field)
       ],
     );

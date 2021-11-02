@@ -46,8 +46,8 @@ extension NetworkManagerClientX on NetworkManagerClient {
       },
       if (password != null)
         '802-11-wireless-security': <String, DBusValue>{
-          'key-mgmt': DBusString('wpa-psk'),
-          'auth-alg': DBusString('open'),
+          'key-mgmt': const DBusString('wpa-psk'),
+          'auth-alg': const DBusString('open'),
           'psk': DBusString(password),
         },
     };
