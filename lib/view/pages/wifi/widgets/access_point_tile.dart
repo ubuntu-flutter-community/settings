@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+import 'package:yaru_icons/widgets/yaru_icons.dart';
 
 import '../../../widgets/extra_options_gsettings_row.dart';
 import '../../../widgets/settings_row.dart';
@@ -47,18 +47,26 @@ extension _AccessPointX on AccessPointModel {
 
   IconData get wifiIconData {
     switch (strengthLevel) {
-      case WifiStrengthLevel.veryLow:
+      case WifiStrengthLevel.none:
         return isLocked
-            ? MdiIcons.wifiStrengthLockOutline
-            : MdiIcons.wifiStrengthOutline;
-      case WifiStrengthLevel.low:
-        return isLocked ? MdiIcons.wifiStrength1Lock : MdiIcons.wifiStrength1;
-      case WifiStrengthLevel.medium:
-        return isLocked ? MdiIcons.wifiStrength2Lock : MdiIcons.wifiStrength2;
-      case WifiStrengthLevel.high:
-        return isLocked ? MdiIcons.wifiStrength3Lock : MdiIcons.wifiStrength3;
-      case WifiStrengthLevel.veryHigh:
-        return isLocked ? MdiIcons.wifiStrength4Lock : MdiIcons.wifiStrength4;
+            ? YaruIcons.network_wireless_signal_none_secure
+            : YaruIcons.network_wireless_signal_none;
+      case WifiStrengthLevel.weak:
+        return isLocked
+            ? YaruIcons.network_wireless_signal_weak_secure
+            : YaruIcons.network_wireless_signal_weak;
+      case WifiStrengthLevel.ok:
+        return isLocked
+            ? YaruIcons.network_wireless_signal_ok_secure
+            : YaruIcons.network_wireless_signal_ok;
+      case WifiStrengthLevel.good:
+        return isLocked
+            ? YaruIcons.network_wireless_signal_good_secure
+            : YaruIcons.network_wireless_signal_good;
+      case WifiStrengthLevel.excellent:
+        return isLocked
+            ? YaruIcons.network_wireless_signal_excellent_secure
+            : YaruIcons.network_wireless_signal_excellent;
 
       default:
         throw StateError('Illigal Satet $strengthLevel');

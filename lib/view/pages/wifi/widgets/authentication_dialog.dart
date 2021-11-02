@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:yaru_icons/widgets/yaru_icons.dart';
 
 import '../data/authentication.dart';
 import '../models/wifi_model.dart';
@@ -17,7 +18,7 @@ class AuthenticationDialog extends StatelessWidget {
     return AlertDialog(
       title: _DialogRow(
         title: Icon(
-          Icons.wifi,
+          YaruIcons.network_wireless,
           size: 70,
         ),
         field: Text(

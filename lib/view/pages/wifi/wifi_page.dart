@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:nm/nm.dart';
 import 'package:provider/provider.dart';
+import 'package:yaru_icons/widgets/yaru_icons.dart';
 
 import '../../widgets/settings_section.dart';
 import '../../widgets/switch_settings_row.dart';
@@ -99,7 +99,7 @@ class _WifiAdaptorNotFound extends StatelessWidget {
           widthFactor: .5,
           child: FittedBox(
             fit: BoxFit.fitWidth,
-            child: Icon(MdiIcons.wifiOff),
+            child: Icon(YaruIcons.network_wireless_no_route),
           ),
         ),
         Text(

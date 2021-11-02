@@ -36,21 +36,21 @@ class AccessPointModel extends PropertyStreamNotifier {
 }
 
 enum WifiStrengthLevel {
-  veryLow,
-  low,
-  medium,
-  high,
-  veryHigh,
+  none,
+  weak,
+  ok,
+  good,
+  excellent,
 }
 
 extension WifiStrengthLevelX on WifiStrengthLevel {
   static WifiStrengthLevel fromStrength(int strength) {
     assert(strength >= 0 && strength <= 100);
 
-    if (strength >= 0 && strength <= 20) return WifiStrengthLevel.veryLow;
-    if (strength > 20 && strength <= 40) return WifiStrengthLevel.low;
-    if (strength > 40 && strength < 60) return WifiStrengthLevel.medium;
-    if (strength > 60 && strength <= 80) return WifiStrengthLevel.high;
-    return WifiStrengthLevel.veryHigh;
+    if (strength >= 0 && strength <= 20) return WifiStrengthLevel.none;
+    if (strength > 20 && strength <= 40) return WifiStrengthLevel.weak;
+    if (strength > 40 && strength < 60) return WifiStrengthLevel.ok;
+    if (strength > 60 && strength <= 80) return WifiStrengthLevel.good;
+    return WifiStrengthLevel.excellent;
   }
 }
