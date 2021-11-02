@@ -69,9 +69,10 @@ class WifiModel extends PropertyStreamNotifier {
         accessPoint: accessPointModel._networkManagerAccessPoint,
       );
     } on DBusMethodResponseException catch (e) {
-      print(e.errorName);
+      //TODO: reflect error on ui
     } on Exception catch (e) {
-      print(e.toString());
+      //TODO: reflect error on ui
+
     }
   }
 
