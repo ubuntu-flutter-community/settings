@@ -34,7 +34,7 @@ class _WifiDevicesContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final wifiModel = context.read<WifiModel>();
+    final wifiModel = context.watch<WifiModel>();
 
     return Column(
       children: [
