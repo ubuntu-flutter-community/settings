@@ -12,7 +12,7 @@ class WifiDeviceModel extends PropertyStreamNotifier {
                 _networkManagerDeviceWireless,
               ))
           .toList()
-        ..sort((a, b) => a.strength.compareTo(b.strength));
+        ..sort((ap1, ap2) => ap2.strength.compareTo(ap1.strength));
 
   String get driverName => _networkManagerDevice.driver;
   String get interface => _networkManagerDevice.interface;
