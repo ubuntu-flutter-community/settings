@@ -838,7 +838,7 @@ packages:
       name: yaru
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.1.6"
+    version: "0.1.7"
   yaru_icons:
     dependency: "direct main"
     description:
