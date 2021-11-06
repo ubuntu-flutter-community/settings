@@ -46,20 +46,20 @@ class _WifiDevicesContent extends StatelessWidget {
           value: wifiModel.isWifiEnabled,
         ),
         if (wifiModel.isWifiEnabled)
-          for (final wifiAdaptor in wifiModel.wifiDevices)
+          for (final wifiDevice in wifiModel.wifiDevices)
             AnimatedBuilder(
-                animation: wifiAdaptor,
+                animation: wifiDevice,
                 builder: (_, __) {
                   return SettingsSection(
-                    headline: wifiAdaptor.interface,
+                    headline: wifiDevice.interface,
                     children: [
-                      for (final accessPoint in wifiAdaptor.accesPoints)
+                      for (final accessPoint in wifiDevice.accesPoints)
                         AccessPointTile(
                           accessPointModel: accessPoint,
                           onTap: () {
                             wifiModel.connectToAccesPoint(
                               accessPoint,
-                              wifiAdaptor,
+                              wifiDevice,
                               (wifiDevice, accessPoint) =>
                                   authenticate(context, accessPoint),
                             );
