@@ -1,4 +1,6 @@
+import 'package:collection/collection.dart';
 import 'package:dbus/dbus.dart';
+import 'package:flutter/foundation.dart';
 import 'package:nm/nm.dart';
 
 import '../data/authentication.dart';
