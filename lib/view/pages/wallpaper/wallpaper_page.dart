@@ -6,10 +6,8 @@ import 'package:provider/provider.dart';
 import 'package:settings/services/settings_service.dart';
 import 'package:settings/view/pages/wallpaper/color_shading_option_row.dart';
 import 'package:settings/view/pages/wallpaper/wallpaper_model.dart';
-import 'package:settings/view/widgets/image_tile.dart';
-import 'package:settings/view/widgets/settings_row.dart';
-import 'package:settings/view/widgets/settings_section.dart';
 import 'package:yaru_icons/widgets/yaru_icons.dart';
+import 'package:yaru_widgets/yaru_widgets.dart';
 
 class WallpaperPage extends StatelessWidget {
   const WallpaperPage({Key? key}) : super(key: key);
@@ -26,8 +24,8 @@ class WallpaperPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final model = Provider.of<WallpaperModel>(context);
 
-    return SettingsSection(headline: 'Set your wallpaper', children: [
-      SettingsRow(
+    return YaruSection(headline: 'Set your wallpaper', children: [
+      YaruRow(
           trailingWidget: const Text('Background mode'),
           actionWidget: Row(
             children: [
@@ -146,7 +144,7 @@ class WallpaperPage extends StatelessWidget {
           }),
       Padding(
         padding: const EdgeInsets.only(top: 30, bottom: 10),
-        child: SettingsRow(
+        child: YaruRow(
             description: model.customWallpaperLocation,
             trailingWidget: const Text('Your own wallpaper collection'),
             actionWidget: SizedBox(

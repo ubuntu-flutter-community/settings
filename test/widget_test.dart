@@ -11,8 +11,8 @@ import 'package:gsettings/gsettings.dart';
 import 'package:provider/provider.dart';
 import 'package:settings/main.dart';
 import 'package:settings/schemas/schemas.dart';
-import 'package:settings/view/widgets/app_theme.dart';
-import 'package:settings/view/widgets/master_details_page.dart';
+import 'package:settings/view/app_theme.dart';
+import 'package:yaru_widgets/yaru_widgets.dart';
 
 void main() {
   testWidgets('Counter increments smoke test', (WidgetTester tester) async {
@@ -27,7 +27,7 @@ void main() {
         ),
       );
 
-      expect(find.byType(MasterDetailPage), findsNWidgets(1));
+      expect(find.byType(YaruMasterDetailPage), findsNWidgets(1));
     }
   });
 }
