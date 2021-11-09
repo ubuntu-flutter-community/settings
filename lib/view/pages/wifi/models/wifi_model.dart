@@ -59,7 +59,7 @@ class WifiModel extends PropertyStreamNotifier {
           if (authentication == null) return;
         }
         connection = await _networkManagerClient.addWirelessConnection(
-          ssid: accessPointModel.ssid.codeUnits,
+          ssid: accessPointModel.ssid,
           password: authentication?.password,
           private: authentication?.storePassword == StorePassword.thisUser,
         );

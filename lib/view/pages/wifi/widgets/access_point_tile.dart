@@ -22,7 +22,7 @@ class AccessPointTile extends StatelessWidget {
           return InkWell(
             onTap: onTap,
             child: SettingsRow(
-              trailingWidget: Text(accessPointModel.ssid),
+              trailingWidget: Text(accessPointModel.name),
               leadingWidget: Icon(accessPointModel.wifiIconData),
               actionWidget: Row(
                 children: [

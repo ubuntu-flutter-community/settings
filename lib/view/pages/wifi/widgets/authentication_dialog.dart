@@ -13,7 +13,7 @@ class AuthenticationDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final accessPointSsid = context.read<AccessPointModel>().ssid;
+    final accessPointSsid = context.read<AccessPointModel>().name;
 
     return AlertDialog(
       title: const _DialogRow(

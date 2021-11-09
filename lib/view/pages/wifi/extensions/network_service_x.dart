@@ -1,18 +1,25 @@
 import 'dart:io';
 
 import 'package:dbus/dbus.dart';
+import 'package:flutter/foundation.dart';
 import 'package:nm/nm.dart';
 
 extension NetworkManagerSettingsConnectionX
     on NetworkManagerSettingsConnection {
-  Future<String> get ssid async {
+  Future<List<int>> get ssid async {
     final settings = await getSettings();
     final ssidDbusArray = settings['802-11-wireless']?['ssid'] as DBusArray?;
     final ssidBytes =
         ssidDbusArray?.children.map((c) => (c as DBusByte).value).toList() ??
             <int>[];
 
-    return String.fromCharCodes(ssidBytes);
+    return ssidBytes;
+  }
+
+  Future<String> get name async {
+    /// get the connection name from settings instead
+    final ssid = await this.ssid;
+    return String.fromCharCodes(ssid);
   }
 
   Future<String> get hwAddress async {
@@ -62,10 +69,10 @@ extension NetworkManagerClientX on NetworkManagerClient {
       final connectionSsid = await connection.ssid;
       final connectionHwAddress = await connection.hwAddress;
 
-      final accessPointSsid = String.fromCharCodes(accessPoint.ssid);
+      final accessPointSsid = accessPoint.ssid;
       final accessPointHwAddress = accessPoint.hwAddress;
 
-      final areSameSsid = connectionSsid == accessPointSsid;
+      final areSameSsid = listEquals(connectionSsid, accessPointSsid);
       final areSameHwAddress = connectionHwAddress == accessPointHwAddress;
 
       if (areSameSsid && areSameHwAddress) return connection;

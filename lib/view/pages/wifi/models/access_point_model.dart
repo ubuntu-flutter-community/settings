@@ -16,7 +16,9 @@ class AccessPointModel extends PropertyStreamNotifier {
       _networkManagerDeviceWireless.activeAccessPoint?.hwAddress ==
       _networkManagerAccessPoint.hwAddress;
 
-  String get ssid => String.fromCharCodes(_networkManagerAccessPoint.ssid);
+  List<int> get ssid => _networkManagerAccessPoint.ssid;
+
+  String get name => String.fromCharCodes(ssid);
 
   bool get isLocked => _networkManagerAccessPoint.flags
       .contains(NetworkManagerWifiAccessPointFlag.privacy);
