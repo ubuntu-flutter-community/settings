@@ -11,7 +11,8 @@ class WifiDeviceModel extends PropertyStreamNotifier {
     // ignore: prefer_function_declarations_over_variables
     final isAccessPointAlreadyAdded = (NetworkManagerAccessPoint newAP) {
       return acceptedAccessPoints.any((ap) =>
-          ap.hwAddress == newAP.hwAddress && listEquals(ap.ssid, newAP.ssid));
+          // ap.hwAddress == newAP.hwAddress  &&
+          listEquals(ap.ssid, newAP.ssid));
     };
 
     // filter hidden or empyty SSIDs

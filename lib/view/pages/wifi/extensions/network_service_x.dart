@@ -67,15 +67,17 @@ extension NetworkManagerClientX on NetworkManagerClient {
   ) async {
     for (final connection in wifiDevice.availableConnections) {
       final connectionSsid = await connection.ssid;
-      final connectionHwAddress = await connection.hwAddress;
+      // final connectionHwAddress = await connection.hwAddress;
 
       final accessPointSsid = accessPoint.ssid;
-      final accessPointHwAddress = accessPoint.hwAddress;
+      // final accessPointHwAddress = accessPoint.hwAddress;
 
-      final areSameSsid = listEquals(connectionSsid, accessPointSsid);
-      final areSameHwAddress = connectionHwAddress == accessPointHwAddress;
+      final haveSameSsid = listEquals(connectionSsid, accessPointSsid);
+      // final haveSameHwAddress = connectionHwAddress == accessPointHwAddress;
 
-      if (areSameSsid && areSameHwAddress) return connection;
+      if (haveSameSsid
+          // && haveSameHwAddress
+          ) return connection;
     }
     return null;
   }

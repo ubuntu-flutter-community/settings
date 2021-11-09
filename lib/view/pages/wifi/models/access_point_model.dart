@@ -13,8 +13,7 @@ class AccessPointModel extends PropertyStreamNotifier {
   late final NetworkManagerDeviceWireless _networkManagerDeviceWireless;
 
   bool get isActive =>
-      _networkManagerDeviceWireless.activeAccessPoint?.hwAddress ==
-      _networkManagerAccessPoint.hwAddress;
+      listEquals(_networkManagerDeviceWireless.activeAccessPoint?.ssid, ssid);
 
   List<int> get ssid => _networkManagerAccessPoint.ssid;
 
