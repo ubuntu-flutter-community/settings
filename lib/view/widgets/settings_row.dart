@@ -23,10 +23,7 @@ class SettingsRow extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            if (leadingWidget != null) ...[
-              leadingWidget!,
-              const SizedBox(width: 8)
-            ],
+            leadingWidget ?? const SizedBox(width: 8),
             Expanded(
               child: Column(
                 mainAxisSize: MainAxisSize.min,
