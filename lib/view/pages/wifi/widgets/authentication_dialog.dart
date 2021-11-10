@@ -9,7 +9,7 @@ class AuthenticationDialog extends StatelessWidget {
   AuthenticationDialog({Key? key}) : super(key: key);
 
   final canShowPassword = ValueNotifier(false);
-  final passwordContoller = TextEditingController();
+  final passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +22,7 @@ class AuthenticationDialog extends StatelessWidget {
           size: 70,
         ),
         field: Text(
-          'Authenticatoin required by Wi-Fi network',
+          'Authentication required by Wi-Fi network',
         ),
       ),
       content: Column(
@@ -42,7 +42,7 @@ class AuthenticationDialog extends StatelessWidget {
               onChanged: (_) {},
               items: const [
                 DropdownMenuItem(
-                  child: Text('Not Implemnted yet'),
+                  child: Text('Not Implemented yet'),
                   value: 'a',
                 )
               ],
@@ -50,12 +50,12 @@ class AuthenticationDialog extends StatelessWidget {
           ),
           const SizedBox(height: 16),
           _DialogRow(
-            title: const Text('Passwrod'),
+            title: const Text('Password'),
             field: ValueListenableBuilder<bool>(
                 valueListenable: canShowPassword,
                 builder: (_, showPassword, ___) {
                   return TextField(
-                    controller: passwordContoller,
+                    controller: passwordController,
                     obscureText: !showPassword,
                     decoration: const InputDecoration(
                       hintText: 'Password',
@@ -97,7 +97,7 @@ class AuthenticationDialog extends StatelessWidget {
         TextButton(
           onPressed: () => Navigator.of(context).pop(
             Authentication(
-              password: passwordContoller.text,
+              password: passwordController.text,
               storePassword: StorePassword.allUsers,
               wifiSecurity: WifiSecurity.wpa2Personal,
             ),
