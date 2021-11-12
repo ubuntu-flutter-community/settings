@@ -17,8 +17,6 @@ import 'package:yaru/yaru.dart' as yaru;
 void main() async {
   final themeSettings = GSettings(schemaId: schemaInterface);
 
-  /// connect the client here until I found another
-  /// solution tied to its page
   final networkManagerClient = NetworkManagerClient();
   await networkManagerClient.connect();
 
@@ -36,11 +34,7 @@ void main() async {
           create: (_) => HostnameService(),
           dispose: (_, service) => service.dispose(),
         ),
-        //HACK: not the right way to inject value with the provider , but that should help for now
-        Provider<NetworkManagerClient>(
-          create: (_) => networkManagerClient,
-          dispose: (_, client) => client.close(),
-        ),
+        Provider<NetworkManagerClient>.value(value: networkManagerClient),
         Provider<PowerProfileService>(
           create: (_) => PowerProfileService(),
           dispose: (_, service) => service.dispose(),
