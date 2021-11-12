@@ -10,14 +10,15 @@ import 'package:settings/view/pages/notifications/notifications_page.dart';
 import 'package:settings/view/pages/power/power_page.dart';
 import 'package:settings/view/pages/sound/sound_page.dart';
 import 'package:settings/view/pages/wallpaper/wallpaper_page.dart';
+import 'package:settings/view/pages/wifi/wifi_page.dart';
 import 'package:settings/view/widgets/page_item.dart';
 import 'package:yaru_icons/widgets/yaru_icons.dart';
 
 final pageItems = <PageItem>[
-  PageItem(
+  const PageItem(
     title: 'WIFI',
     iconData: YaruIcons.network_wireless,
-    builder: (_) => const Text('WIFI'),
+    builder: WifiPage.create,
   ),
   PageItem(
     title: 'Network',
