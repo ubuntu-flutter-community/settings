@@ -2,9 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:nm/nm.dart';
 import 'package:provider/provider.dart';
 import 'package:yaru_icons/widgets/yaru_icons.dart';
+import 'package:yaru_widgets/yaru_widgets.dart';
 
-import '../../widgets/settings_section.dart';
-import '../../widgets/switch_settings_row.dart';
 import 'data/authentication.dart';
 import 'models/wifi_model.dart';
 import 'widgets/access_point_tile.dart';
@@ -38,7 +37,7 @@ class _WifiDevicesContent extends StatelessWidget {
 
     return Column(
       children: [
-        SwitchSettingsRow(
+        YaruSwitchRow(
           trailingWidget: const Text('Wifi'),
           actionDescription:
               wifiModel.isWifiEnabled ? 'connected' : 'disconnected',
@@ -50,7 +49,7 @@ class _WifiDevicesContent extends StatelessWidget {
             AnimatedBuilder(
                 animation: wifiDevice,
                 builder: (_, __) {
-                  return SettingsSection(
+                  return YaruSection(
                     headline: wifiDevice.interface,
                     children: [
                       for (final accessPoint in wifiDevice.accesPoints)

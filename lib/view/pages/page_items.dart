@@ -11,131 +11,131 @@ import 'package:settings/view/pages/power/power_page.dart';
 import 'package:settings/view/pages/sound/sound_page.dart';
 import 'package:settings/view/pages/wallpaper/wallpaper_page.dart';
 import 'package:settings/view/pages/wifi/wifi_page.dart';
-import 'package:settings/view/widgets/page_item.dart';
 import 'package:yaru_icons/widgets/yaru_icons.dart';
+import 'package:yaru_widgets/yaru_widgets.dart';
 
-final pageItems = <PageItem>[
-  const PageItem(
+final pageItems = <YaruPageItem>[
+  const YaruPageItem(
     title: 'WIFI',
     iconData: YaruIcons.network_wireless,
     builder: WifiPage.create,
   ),
-  PageItem(
+  YaruPageItem(
     title: 'Network',
     iconData: YaruIcons.network,
     builder: (_) => const Text('Network'),
   ),
-  PageItem(
+  YaruPageItem(
     title: 'Bluetooth',
     iconData: YaruIcons.bluetooth,
     builder: (_) => const Text('Bluetooth'),
   ),
-  const PageItem(
+  const YaruPageItem(
     title: 'Wallpaper',
     iconData: YaruIcons.desktop_wallpaper,
     builder: WallpaperPage.create,
   ),
-  const PageItem(
+  const YaruPageItem(
     title: 'Appearance',
     iconData: YaruIcons.desktop_panel_look,
     builder: AppearancePage.create,
   ),
-  const PageItem(
+  const YaruPageItem(
     title: 'Notifications',
     iconData: YaruIcons.notification,
     builder: NotificationsPage.create,
   ),
-  PageItem(
+  YaruPageItem(
     title: 'Search',
     iconData: YaruIcons.search,
     builder: (_) => const Text('Search'),
   ),
-  PageItem(
+  YaruPageItem(
     title: 'Apps',
     iconData: YaruIcons.app_grid,
     builder: (_) => const Text('Apps'),
   ),
-  PageItem(
+  YaruPageItem(
     title: 'Security',
     iconData: YaruIcons.lock,
     builder: (_) => const Text('Security'),
   ),
-  PageItem(
+  YaruPageItem(
     title: 'Online Accounts',
     iconData: YaruIcons.desktop_online_accounts,
     builder: (_) => const Text('Online Accounts'),
   ),
-  PageItem(
+  YaruPageItem(
     title: 'Sharing',
     iconData: YaruIcons.share,
     builder: (_) => const Text('Sharing'),
   ),
-  const PageItem(
+  const YaruPageItem(
     title: 'Sound',
     iconData: YaruIcons.audio,
     builder: SoundPage.create,
   ),
-  const PageItem(
+  const YaruPageItem(
     title: 'Power',
     iconData: YaruIcons.power,
     builder: PowerPage.create,
   ),
-  PageItem(
+  YaruPageItem(
     title: 'Displays',
     iconData: YaruIcons.desktop_display,
     builder: (_) => const Text('Displays'),
   ),
-  const PageItem(
+  const YaruPageItem(
     title: 'Mouse and touchpad',
     iconData: YaruIcons.input_mouse,
     builder: MouseAndTouchpadPage.create,
   ),
-  const PageItem(
+  const YaruPageItem(
     title: 'Keyboard shortcuts',
     iconData: YaruIcons.input_keyboard,
     builder: KeyboardShortcutsPage.create,
   ),
-  PageItem(
+  YaruPageItem(
     title: 'Printers',
     iconData: YaruIcons.printer,
     builder: (_) => const Text('Printers'),
   ),
-  const PageItem(
+  const YaruPageItem(
     title: 'Removable Media',
     iconData: YaruIcons.media_removable,
     builder: RemovableMediaPage.create,
   ),
-  PageItem(
+  YaruPageItem(
     title: 'Color',
     iconData: YaruIcons.colors,
     builder: (_) => const Text('Color'),
   ),
-  PageItem(
+  YaruPageItem(
     title: 'Region and language',
     iconData: YaruIcons.localization,
     builder: (_) => const Text('Region and language'),
   ),
-  const PageItem(
+  const YaruPageItem(
     title: 'Accessibility',
     iconData: YaruIcons.accessibility,
     builder: AccessibilityPage.create,
   ),
-  PageItem(
+  YaruPageItem(
     title: 'Users',
     iconData: YaruIcons.users,
     builder: (_) => const Text('Users'),
   ),
-  PageItem(
+  YaruPageItem(
     title: 'Preferred Apps',
     iconData: YaruIcons.star,
     builder: (_) => const Text('Preferred Apps'),
   ),
-  PageItem(
+  YaruPageItem(
     title: 'Date and time',
     iconData: YaruIcons.clock,
     builder: (_) => const Text('Date and time'),
   ),
-  const PageItem(
+  const YaruPageItem(
     title: 'Info',
     iconData: YaruIcons.information,
     builder: InfoPage.create,

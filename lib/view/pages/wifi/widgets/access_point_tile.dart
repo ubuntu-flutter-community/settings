@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:yaru_icons/widgets/yaru_icons.dart';
+import 'package:yaru_widgets/yaru_widgets.dart';
 
-import '../../../widgets/extra_options_gsettings_row.dart';
-import '../../../widgets/settings_row.dart';
 import '../models/wifi_model.dart';
 
 class AccessPointTile extends StatelessWidget {
@@ -21,16 +20,19 @@ class AccessPointTile extends StatelessWidget {
         builder: (_, __) {
           return InkWell(
             onTap: onTap,
-            child: SettingsRow(
+            child: YaruRow(
               trailingWidget: Text(accessPointModel.name),
               leadingWidget: Icon(accessPointModel.wifiIconData),
               actionWidget: Row(
                 children: [
                   Icon(accessPointModel.isActiveIconData),
                   const SizedBox(width: 8.0),
-                  OptionsButton(onPressed: () {
-                    // TODO: navigate to wifi access point details dialog
-                  }),
+                  YaruOptionButton(
+                    onPressed: () {
+                      // TODO: navigate to wifi access point details dialog
+                    },
+                    iconData: YaruIcons.settings,
+                  ),
                 ],
               ),
             ),

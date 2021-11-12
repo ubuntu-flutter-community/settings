@@ -8,11 +8,13 @@ import 'package:settings/services/hostname_service.dart';
 import 'package:settings/services/power_profile_service.dart';
 import 'package:settings/services/power_settings_service.dart';
 import 'package:settings/services/settings_service.dart';
-import 'package:settings/view/widgets/app_theme.dart';
-import 'package:settings/view/widgets/master_details_page.dart';
+import 'package:settings/view/app_theme.dart';
+import 'package:settings/view/pages/page_items.dart';
 import 'package:udisks/udisks.dart';
 import 'package:upower/upower.dart';
 import 'package:yaru/yaru.dart' as yaru;
+import 'package:yaru_icons/widgets/yaru_icons.dart';
+import 'package:yaru_widgets/yaru_widgets.dart';
 
 void main() async {
   final themeSettings = GSettings(schemaId: schemaInterface);
@@ -71,7 +73,14 @@ class UbuntuSettingsApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Ubuntu settings',
-      home: const MasterDetailPage(),
+      home: YaruMasterDetailPage(
+        appBarHeight: 48,
+        leftPaneWidth: 280,
+        pageItems: pageItems,
+        previousIconData: YaruIcons.go_previous,
+        searchHint: 'Search...',
+        searchIconData: YaruIcons.search,
+      ),
       theme: yaru.lightTheme,
       darkTheme: yaru.darkTheme,
       themeMode: context.watch<AppTheme>().value,
