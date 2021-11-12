@@ -19,6 +19,9 @@ import 'package:yaru_widgets/yaru_widgets.dart';
 void main() async {
   final themeSettings = GSettings(schemaId: schemaInterface);
 
+  final networkManagerClient = NetworkManagerClient();
+  await networkManagerClient.connect();
+
   runApp(
     MultiProvider(
       providers: [
@@ -33,10 +36,7 @@ void main() async {
           create: (_) => HostnameService(),
           dispose: (_, service) => service.dispose(),
         ),
-        Provider<NetworkManagerClient>(
-          create: (_) => NetworkManagerClient(),
-          dispose: (_, client) => client.close(),
-        ),
+        Provider<NetworkManagerClient>.value(value: networkManagerClient),
         Provider<PowerProfileService>(
           create: (_) => PowerProfileService(),
           dispose: (_, service) => service.dispose(),
