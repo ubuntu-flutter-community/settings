@@ -9,21 +9,73 @@ import 'models/wifi_model.dart';
 import 'widgets/access_point_tile.dart';
 import 'widgets/authentication_dialog.dart';
 
-class WifiPage extends StatelessWidget {
+class ConnectionsPage extends StatefulWidget {
   static Widget create(BuildContext context) {
     final service = Provider.of<NetworkManagerClient>(context, listen: false);
     return ChangeNotifierProvider<WifiModel>(
       create: (_) => WifiModel(service),
-      child: const WifiPage(),
+      child: const ConnectionsPage(),
     );
   }
 
-  const WifiPage({Key? key}) : super(key: key);
+  const ConnectionsPage({Key? key}) : super(key: key);
+
+  @override
+  State<ConnectionsPage> createState() => _ConnectionsPageState();
+}
+
+class _ConnectionsPageState extends State<ConnectionsPage>
+    with TickerProviderStateMixin {
+  late TabController tabController;
+
+  @override
+  void initState() {
+    tabController = TabController(length: 3, vsync: this);
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     final wifiModel = context.watch<WifiModel>();
-    if (wifiModel.isWifiDeviceAvailable) return const _WifiDevicesContent();
+    if (wifiModel.isWifiDeviceAvailable) {
+      return Column(
+        children: [
+          Container(
+            height: 60,
+            decoration: BoxDecoration(borderRadius: BorderRadius.circular(4)),
+            child: TabBar(
+                controller: tabController,
+                indicator: BoxDecoration(
+                    borderRadius: BorderRadius.circular(4),
+                    color: Theme.of(context)
+                        .colorScheme
+                        .onBackground
+                        .withOpacity(0.1)),
+                tabs: const [
+                  Tab(
+                      icon: Icon(YaruIcons.network_wireless),
+                      child: Text("WiFi")),
+                  Tab(
+                      icon: Icon(YaruIcons.network_wired),
+                      child: Text("Ethernet")),
+                  Tab(
+                      icon: Icon(YaruIcons.call_incoming),
+                      child: Text("Cellular")),
+                ]),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(top: 30),
+            child: SizedBox(
+              height: 1000,
+              child: TabBarView(
+                controller: tabController,
+                children: [const _WifiDevicesContent(), Column(), Column()],
+              ),
+            ),
+          ),
+        ],
+      );
+    }
     return const _WifiAdaptorNotFound();
   }
 }
