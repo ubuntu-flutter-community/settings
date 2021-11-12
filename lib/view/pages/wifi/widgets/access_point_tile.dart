@@ -19,6 +19,7 @@ class AccessPointTile extends StatelessWidget {
         animation: accessPointModel,
         builder: (_, __) {
           return InkWell(
+            borderRadius: BorderRadius.circular(4),
             onTap: onTap,
             child: YaruRow(
               trailingWidget: Text(accessPointModel.name),
