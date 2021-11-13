@@ -35,8 +35,11 @@ dependencies:
   upower:
     git:
       url: https://github.com/canonical/upower.dart
-  yaru: ^0.1.5
-  yaru_icons: ^0.0.5
+  yaru: ^0.1.7
+  yaru_icons: ^0.0.6
+  yaru_widgets:
+    git:
+      url: https://github.com/ubuntu/yaru_widgets.dart
 
 dev_dependencies:
   build_runner: ^2.1.2

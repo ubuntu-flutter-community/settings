@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:settings/view/pages/keyboard_shortcuts/keyboard_shortcuts_model.dart';
-import 'package:settings/view/widgets/settings_row.dart';
+import 'package:yaru_widgets/yaru_widgets.dart';
 
 class KeyboardShortcutRow extends StatefulWidget {
   const KeyboardShortcutRow({
@@ -28,7 +28,7 @@ class _KeyboardShortcutRowState extends State<KeyboardShortcutRow> {
         (model) => model.shortcut(widget.shortcutId));
 
     return InkWell(
-      child: SettingsRow(
+      child: YaruRow(
         trailingWidget: Text(widget.label),
         actionWidget: Text(
           shortcut.toString(),

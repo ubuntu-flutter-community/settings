@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:settings/view/pages/accessibility/accessibility_model.dart';
-import 'package:settings/view/widgets/settings_row.dart';
-import 'package:settings/view/widgets/settings_section.dart';
-import 'package:settings/view/widgets/slider_settings_row.dart';
-import 'package:settings/view/widgets/slider_settings_secondary.dart';
-import 'package:settings/view/widgets/switch_settings_row.dart';
+import 'package:yaru_widgets/yaru_widgets.dart';
+
 import 'package:yaru_icons/widgets/yaru_icons.dart';
 
 class PointingAndClickingSection extends StatelessWidget {
@@ -14,21 +11,21 @@ class PointingAndClickingSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final model = Provider.of<AccessibilityModel>(context);
-    return SettingsSection(
+    return YaruSection(
       headline: 'Pointing & Clicking',
       children: [
-        SwitchSettingsRow(
+        YaruSwitchRow(
           trailingWidget: const Text('Mouse Keys'),
           value: model.mouseKeys,
           onChanged: (value) => model.setMouseKeys(value),
         ),
-        SwitchSettingsRow(
+        YaruSwitchRow(
           trailingWidget: const Text('Locate Pointer'),
           value: model.locatePointer,
           onChanged: (value) => model.setLocatePointer(value),
         ),
         const _ClickAssist(),
-        SliderSettingsRow(
+        YaruSliderRow(
           actionLabel: 'Double-Click Delay',
           value: model.doubleClickDelay,
           min: 100,
@@ -47,7 +44,7 @@ class _ClickAssist extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final model = Provider.of<AccessibilityModel>(context);
-    return SettingsRow(
+    return YaruRow(
       trailingWidget: const Text('Click Assist'),
       actionWidget: Row(
         children: [
@@ -84,7 +81,7 @@ class _ClickAssistSettings extends StatelessWidget {
       title: const Center(child: Text('Click Assist')),
       contentPadding: const EdgeInsets.all(8.0),
       children: [
-        SwitchSettingsRow(
+        YaruSwitchRow(
           trailingWidget: const Text('Simulated Secondary Click'),
           actionDescription:
               'Trigger a secondary click by holding down the primary button.',
@@ -93,7 +90,7 @@ class _ClickAssistSettings extends StatelessWidget {
         ),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16.0),
-          child: SliderSettingsSecondary(
+          child: YaruSliderSecondary(
             label: 'Delay',
             enabled: model.simulatedSecondaryClick,
             value: model.secondaryClickTime,
@@ -104,7 +101,7 @@ class _ClickAssistSettings extends StatelessWidget {
             onChanged: (value) => model.setSecondaryClickTime(value),
           ),
         ),
-        SwitchSettingsRow(
+        YaruSwitchRow(
           trailingWidget: const Text('Hover Click'),
           actionDescription: 'Trigger a click when the pointer hovers',
           value: model.dwellClick,
@@ -114,7 +111,7 @@ class _ClickAssistSettings extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 16.0),
           child: Column(
             children: [
-              SliderSettingsSecondary(
+              YaruSliderSecondary(
                 label: 'Delay',
                 enabled: model.dwellClick,
                 min: 0.2,
@@ -124,7 +121,7 @@ class _ClickAssistSettings extends StatelessWidget {
                 fractionDigits: 1,
                 onChanged: (value) => model.setDwellTime(value),
               ),
-              SliderSettingsSecondary(
+              YaruSliderSecondary(
                 label: 'Motion thresshold',
                 enabled: model.dwellClick,
                 min: 0.0,

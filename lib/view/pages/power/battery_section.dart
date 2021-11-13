@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:settings/view/pages/power/battery_model.dart';
 import 'package:settings/view/pages/power/battery_widgets.dart';
-import 'package:settings/view/widgets/settings_section.dart';
 import 'package:upower/upower.dart';
 import 'package:yaru/yaru.dart' as yaru;
+import 'package:yaru_widgets/yaru_widgets.dart';
 
 class BatterySection extends StatefulWidget {
   const BatterySection({Key? key}) : super(key: key);
@@ -32,7 +32,7 @@ class _BatterySectionState extends State<BatterySection> {
   @override
   Widget build(BuildContext context) {
     final model = context.watch<BatteryModel>();
-    return SettingsSection(
+    return YaruSection(
       headline: 'Battery',
       children: <Widget>[
         Padding(

@@ -2,7 +2,7 @@ import 'package:flex_color_picker/flex_color_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:settings/view/pages/wallpaper/wallpaper_model.dart';
-import 'package:settings/view/widgets/settings_row.dart';
+import 'package:yaru_widgets/yaru_widgets.dart';
 
 class ColorShadingOptionRow extends StatelessWidget {
   const ColorShadingOptionRow({
@@ -21,7 +21,7 @@ class ColorShadingOptionRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final model = context.read<WallpaperModel>();
-    return SettingsRow(
+    return YaruRow(
       trailingWidget: Text(actionLabel),
       description: actionDescription,
       actionWidget: Row(
