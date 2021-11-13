@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:settings/view/pages/printers/printers_model.dart';
-import 'package:settings/view/widgets/extra_options_gsettings_row.dart';
-import 'package:settings/view/widgets/settings_row.dart';
-import 'package:settings/view/widgets/settings_section.dart';
 import 'package:yaru_icons/widgets/yaru_icons.dart';
+import 'package:yaru_widgets/yaru_widgets.dart';
 
 class PrintersPage extends StatelessWidget {
   const PrintersPage({Key? key}) : super(key: key);
@@ -65,8 +63,8 @@ class PrintersPage extends StatelessWidget {
           ),
         ),
         for (var i = 0; i < 10; i++)
-          SettingsSection(headline: 'Printer ${i + 1}', children: [
-            SettingsRow(
+          YaruSection(headline: 'Printer ${i + 1}', children: [
+            YaruRow(
                 trailingWidget: Row(
                   children: [
                     SizedBox(
@@ -114,7 +112,8 @@ class PrintersPage extends StatelessWidget {
                     const SizedBox(
                       width: 10,
                     ),
-                    OptionsButton(
+                    YaruOptionButton(
+                      iconData: YaruIcons.settings,
                       onPressed: () => {},
                     ),
                   ],
