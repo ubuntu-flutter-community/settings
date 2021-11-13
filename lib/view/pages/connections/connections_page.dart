@@ -40,6 +40,7 @@ class _ConnectionsPageState extends State<ConnectionsPage>
     return Column(
       children: [
         Container(
+          width: 516,
           height: 60,
           decoration: BoxDecoration(borderRadius: BorderRadius.circular(4)),
           child: TabBar(
