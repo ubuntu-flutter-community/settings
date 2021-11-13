@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:nm/nm.dart';
 import 'package:provider/provider.dart';
 import 'package:yaru_icons/widgets/yaru_icons.dart';
 import 'package:yaru_widgets/yaru_widgets.dart';
@@ -9,27 +8,8 @@ import 'models/wifi_model.dart';
 import 'widgets/access_point_tile.dart';
 import 'widgets/authentication_dialog.dart';
 
-class WifiPage extends StatelessWidget {
-  static Widget create(BuildContext context) {
-    final service = Provider.of<NetworkManagerClient>(context, listen: false);
-    return ChangeNotifierProvider<WifiModel>(
-      create: (_) => WifiModel(service),
-      child: const WifiPage(),
-    );
-  }
-
-  const WifiPage({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    final wifiModel = context.watch<WifiModel>();
-    if (wifiModel.isWifiDeviceAvailable) return const _WifiDevicesContent();
-    return const _WifiAdaptorNotFound();
-  }
-}
-
-class _WifiDevicesContent extends StatelessWidget {
-  const _WifiDevicesContent({Key? key}) : super(key: key);
+class WifiDevicesContent extends StatelessWidget {
+  const WifiDevicesContent({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -37,20 +17,30 @@ class _WifiDevicesContent extends StatelessWidget {
 
     return Column(
       children: [
-        YaruSwitchRow(
-          trailingWidget: const Text('Wifi'),
-          actionDescription:
-              wifiModel.isWifiEnabled ? 'connected' : 'disconnected',
-          onChanged: (newValue) => wifiModel.toggleWifi(newValue),
-          value: wifiModel.isWifiEnabled,
-        ),
+        YaruRow(
+            trailingWidget: const Text('Wi-Fi'),
+            actionWidget: Row(
+              children: [
+                Text(
+                  wifiModel.isWifiEnabled ? 'connected' : 'disconnected',
+                  style: TextStyle(
+                      color: Theme.of(context)
+                          .colorScheme
+                          .onSurface
+                          .withOpacity(0.5)),
+                ),
+                Switch(
+                    onChanged: (newValue) => wifiModel.toggleWifi(newValue),
+                    value: wifiModel.isWifiEnabled),
+              ],
+            )),
         if (wifiModel.isWifiEnabled)
           for (final wifiDevice in wifiModel.wifiDevices)
             AnimatedBuilder(
                 animation: wifiDevice,
                 builder: (_, __) {
                   return YaruSection(
-                    headline: wifiDevice.interface,
+                    headline: 'Visible Networks',
                     children: [
                       for (final accessPoint in wifiDevice.accesPoints)
                         AccessPointTile(
@@ -85,8 +75,8 @@ class _WifiDevicesContent extends StatelessWidget {
   }
 }
 
-class _WifiAdaptorNotFound extends StatelessWidget {
-  const _WifiAdaptorNotFound({Key? key}) : super(key: key);
+class WifiAdaptorNotFound extends StatelessWidget {
+  const WifiAdaptorNotFound({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
