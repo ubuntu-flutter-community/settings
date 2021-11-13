@@ -51,7 +51,7 @@ class _ConnectionsPageState extends State<ConnectionsPage>
               tabs: const [
                 Tab(
                     icon: Icon(YaruIcons.network_wireless),
-                    child: Text("WiFi")),
+                    child: Text("Wi-Fi")),
                 Tab(
                     icon: Icon(YaruIcons.network_wired),
                     child: Text("Ethernet")),
@@ -91,7 +91,7 @@ class _WifiDevicesContent extends StatelessWidget {
     return Column(
       children: [
         YaruRow(
-            trailingWidget: const Text('Wifi'),
+            trailingWidget: const Text('Wi-Fi'),
             actionWidget: Row(
               children: [
                 Text(
