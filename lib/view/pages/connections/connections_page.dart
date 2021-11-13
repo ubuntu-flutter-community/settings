@@ -90,13 +90,23 @@ class _WifiDevicesContent extends StatelessWidget {
 
     return Column(
       children: [
-        YaruSwitchRow(
-          trailingWidget: const Text('Wifi'),
-          actionDescription:
-              wifiModel.isWifiEnabled ? 'connected' : 'disconnected',
-          onChanged: (newValue) => wifiModel.toggleWifi(newValue),
-          value: wifiModel.isWifiEnabled,
-        ),
+        YaruRow(
+            trailingWidget: const Text('Wifi'),
+            actionWidget: Row(
+              children: [
+                Text(
+                  wifiModel.isWifiEnabled ? 'connected' : 'disconnected',
+                  style: TextStyle(
+                      color: Theme.of(context)
+                          .colorScheme
+                          .onSurface
+                          .withOpacity(0.5)),
+                ),
+                Switch(
+                    onChanged: (newValue) => wifiModel.toggleWifi(newValue),
+                    value: wifiModel.isWifiEnabled),
+              ],
+            )),
         if (wifiModel.isWifiEnabled)
           for (final wifiDevice in wifiModel.wifiDevices)
             AnimatedBuilder(
