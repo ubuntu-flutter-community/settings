@@ -2,7 +2,7 @@
 
 The goal of this project is to build a feature complete settings app for the Ubuntu desktop with the Flutter UI toolkit.
 
-![](.github/images/wip.mp4)
+![](.github/images/wip.gif)
 
 Packages that we already use or plan to use are:
 
