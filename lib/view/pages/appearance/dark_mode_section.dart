@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:settings/view/widgets/app_theme.dart';
-import 'package:settings/view/widgets/settings_section.dart';
-import 'package:settings/view/widgets/switch_settings_row.dart';
+import 'package:settings/view/app_theme.dart';
 import 'package:yaru_icons/widgets/yaru_icons.dart';
+import 'package:yaru_widgets/yaru_widgets.dart';
 
 class DarkModeSection extends StatelessWidget {
   const DarkModeSection({Key? key}) : super(key: key);
@@ -11,10 +10,10 @@ class DarkModeSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = context.watch<AppTheme>();
-    return SettingsSection(
+    return YaruSection(
       headline: 'Dark mode',
       children: [
-        SwitchSettingsRow(
+        YaruSwitchRow(
             trailingWidget: Theme.of(context).brightness == Brightness.light
                 ? Row(
                     children: const [

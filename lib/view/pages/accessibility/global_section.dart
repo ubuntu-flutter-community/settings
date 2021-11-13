@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:settings/view/pages/accessibility/accessibility_model.dart';
-import 'package:settings/view/widgets/settings_section.dart';
-import 'package:settings/view/widgets/switch_settings_row.dart';
+import 'package:yaru_widgets/yaru_widgets.dart';
 
 class GlobalSection extends StatelessWidget {
   const GlobalSection({Key? key}) : super(key: key);
@@ -10,10 +9,10 @@ class GlobalSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final model = Provider.of<AccessibilityModel>(context);
-    return SettingsSection(
+    return YaruSection(
       headline: 'Global',
       children: [
-        SwitchSettingsRow(
+        YaruSwitchRow(
           trailingWidget: const Text('Always Show Universal Access Menu'),
           value: model.universalAccessStatus,
           onChanged: (value) => model.setUniversalAccessStatus(value),

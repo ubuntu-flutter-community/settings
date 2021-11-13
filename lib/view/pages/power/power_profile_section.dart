@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:settings/services/power_profile_service.dart';
 import 'package:settings/view/pages/power/power_profile_model.dart';
-import 'package:settings/view/widgets/settings_section.dart';
+import 'package:yaru_widgets/yaru_widgets.dart';
 
 class PowerProfileSection extends StatefulWidget {
   const PowerProfileSection({Key? key}) : super(key: key);
@@ -28,7 +28,7 @@ class _PowerProfileSectionState extends State<PowerProfileSection> {
   @override
   Widget build(BuildContext context) {
     final model = context.watch<PowerProfileModel>();
-    return SettingsSection(
+    return YaruSection(
       headline: 'Power Mode',
       children: <Widget>[
         RadioListTile<PowerProfile>(

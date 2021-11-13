@@ -2,8 +2,7 @@ import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 import 'package:settings/services/settings_service.dart';
 import 'package:settings/view/pages/notifications/notifications_model.dart';
-import 'package:settings/view/widgets/settings_section.dart';
-import 'package:settings/view/widgets/switch_settings_row.dart';
+import 'package:yaru_widgets/yaru_widgets.dart';
 
 class AppNotificationsSection extends StatelessWidget {
   const AppNotificationsSection({Key? key}) : super(key: key);
@@ -12,7 +11,7 @@ class AppNotificationsSection extends StatelessWidget {
   Widget build(BuildContext context) {
     final model = Provider.of<NotificationsModel>(context);
 
-    return SettingsSection(
+    return YaruSection(
       headline: 'App notifications',
       children: model.applications
               ?.map((appId) =>
@@ -37,7 +36,7 @@ class AppNotificationsSettingRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final model = Provider.of<AppNotificationsModel>(context);
-    return SwitchSettingsRow(
+    return YaruSwitchRow(
       trailingWidget: Text(model.appId),
       value: model.enable,
       onChanged: model.setEnable,

@@ -1,12 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:settings/view/pages/accessibility/accessibility_model.dart';
-import 'package:settings/view/widgets/checkbox_row.dart';
-import 'package:settings/view/widgets/extra_options_gsettings_row.dart';
-import 'package:settings/view/widgets/settings_row.dart';
-import 'package:settings/view/widgets/settings_section.dart';
-import 'package:settings/view/widgets/slider_settings_secondary.dart';
-import 'package:settings/view/widgets/switch_settings_row.dart';
+import 'package:yaru_widgets/yaru_widgets.dart';
+
 import 'package:yaru_icons/widgets/yaru_icons.dart';
 
 class SeeingSection extends StatelessWidget {
@@ -15,21 +11,22 @@ class SeeingSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final model = Provider.of<AccessibilityModel>(context);
-    return SettingsSection(
+    return YaruSection(
       headline: 'Seeing',
       children: [
-        SwitchSettingsRow(
+        YaruSwitchRow(
           trailingWidget: const Text('High Contrast'),
           value: model.highContrast,
           onChanged: (value) => model.setHighContrast(value),
         ),
-        SwitchSettingsRow(
+        YaruSwitchRow(
           trailingWidget: const Text('Large Text'),
           value: model.largeText,
           onChanged: (value) => model.setLargeText(value),
         ),
         const _CursorSize(),
-        ExtraOptionsGsettingsRow(
+        YaruExtraOptionRow(
+          iconData: YaruIcons.settings,
           actionLabel: 'Zoom',
           value: model.zoom,
           onChanged: (value) => model.setZoom(value),
@@ -41,14 +38,14 @@ class SeeingSection extends StatelessWidget {
             ),
           ),
         ),
-        SwitchSettingsRow(
+        YaruSwitchRow(
           trailingWidget: const Text('Screen Reader'),
           actionDescription:
               'The screen reader reads displayed text as you move the focus',
           value: model.screenReader,
           onChanged: (value) => model.setScreenReader(value),
         ),
-        SwitchSettingsRow(
+        YaruSwitchRow(
           trailingWidget: const Text('Sound Keys'),
           actionDescription:
               'Beep when Num Lock or Caps Lock are turned on or off',
@@ -66,7 +63,7 @@ class _CursorSize extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final model = Provider.of<AccessibilityModel>(context);
-    return SettingsRow(
+    return YaruRow(
       trailingWidget: const Text('Cursor Size'),
       description: 'Cursor size can be combined with zoom '
           'to make it easier to see the cursor',
@@ -212,7 +209,7 @@ class _MagnifierOptions extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          SliderSettingsSecondary(
+          YaruSliderSecondary(
             // TODO it'd be better to use SpinBox instead of Slider
             label: 'Magnification',
             enabled: true,
@@ -283,7 +280,7 @@ class _MagnifierPositionOptions extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 16.0),
           child: Column(
             children: [
-              CheckboxRow(
+              YaruCheckboxRow(
                 enabled: model.screenPartEnabled,
                 value: model.scrollAtEdges,
                 onChanged: (value) => model.setScrollAtEdges(value!),
@@ -378,19 +375,19 @@ class _CrosshairsOptions extends StatelessWidget {
       padding: const EdgeInsets.only(left: 16.0, right: 16.0, bottom: 16.0),
       child: Column(
         children: [
-          CheckboxRow(
+          YaruCheckboxRow(
             enabled: true,
             value: model.crossHairs,
             onChanged: (value) => model.setCrossHairs(value!),
             text: 'Visible',
           ),
-          CheckboxRow(
+          YaruCheckboxRow(
             enabled: true,
             value: model.crossHairsClip,
             onChanged: (value) => model.setCrossHairsClip(value!),
             text: 'Overlaps mouse cursor',
           ),
-          SliderSettingsSecondary(
+          YaruSliderSecondary(
             label: 'Thickness',
             enabled: true,
             showValue: false,
@@ -400,7 +397,7 @@ class _CrosshairsOptions extends StatelessWidget {
             value: model.crossHairsThickness,
             onChanged: (value) => model.setCrossHairsThickness(value),
           ),
-          SliderSettingsSecondary(
+          YaruSliderSecondary(
             label: 'Length',
             enabled: true,
             showValue: false,
@@ -439,13 +436,13 @@ class _ColorEffectsOptions extends StatelessWidget {
       padding: const EdgeInsets.only(left: 16.0, right: 16.0, bottom: 16.0),
       child: Column(
         children: [
-          CheckboxRow(
+          YaruCheckboxRow(
             enabled: true,
             value: model.inverseLightness,
             onChanged: (value) => model.setInverseLightness(value!),
             text: 'White on black',
           ),
-          SliderSettingsSecondary(
+          YaruSliderSecondary(
             label: 'Brightness',
             enabled: true,
             showValue: false,
@@ -455,7 +452,7 @@ class _ColorEffectsOptions extends StatelessWidget {
             value: model.colorBrightness,
             onChanged: (value) => model.setColorBrightness(value),
           ),
-          SliderSettingsSecondary(
+          YaruSliderSecondary(
             label: 'Contrast',
             enabled: true,
             showValue: false,
@@ -465,7 +462,7 @@ class _ColorEffectsOptions extends StatelessWidget {
             value: model.colorContrast,
             onChanged: (value) => model.setColorContrast(value),
           ),
-          SliderSettingsSecondary(
+          YaruSliderSecondary(
             label: 'Saturation',
             enabled: true,
             showValue: false,

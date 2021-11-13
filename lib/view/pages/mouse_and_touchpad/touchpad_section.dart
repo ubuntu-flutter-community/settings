@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:settings/view/pages/mouse_and_touchpad/mouse_and_touchpad_model.dart';
-import 'package:settings/view/widgets/settings_section.dart';
-import 'package:settings/view/widgets/slider_settings_row.dart';
-import 'package:settings/view/widgets/switch_settings_row.dart';
+import 'package:yaru_widgets/yaru_widgets.dart';
 
 class TouchpadSection extends StatelessWidget {
   const TouchpadSection({Key? key}) : super(key: key);
@@ -12,10 +10,10 @@ class TouchpadSection extends StatelessWidget {
   Widget build(BuildContext context) {
     final model = Provider.of<MouseAndTouchpadModel>(context);
 
-    return SettingsSection(
+    return YaruSection(
       headline: 'Touchpad',
       children: [
-        SliderSettingsRow(
+        YaruSliderRow(
           actionLabel: 'Speed',
           value: model.touchpadSpeed,
           showValue: false,
@@ -24,18 +22,18 @@ class TouchpadSection extends StatelessWidget {
           defaultValue: 0,
           onChanged: (value) => model.setTouchpadSpeed(value),
         ),
-        SwitchSettingsRow(
+        YaruSwitchRow(
           trailingWidget: const Text('Natural Scrolling'),
           actionDescription: 'Scrolling moves the content, not the view',
           value: model.touchpadNaturalScroll,
           onChanged: (value) => model.setTouchpadNaturalScroll(value),
         ),
-        SwitchSettingsRow(
+        YaruSwitchRow(
           trailingWidget: const Text('Tap To Click'),
           value: model.touchpadTapToClick,
           onChanged: (value) => model.setTouchpadTapToClick(value),
         ),
-        SwitchSettingsRow(
+        YaruSwitchRow(
           trailingWidget: const Text('Disable While Typing'),
           value: model.touchpadDisableWhileTyping,
           onChanged: (value) => model.setTouchpadDisableWhileTyping(value),
