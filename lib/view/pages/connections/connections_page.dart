@@ -37,46 +37,47 @@ class _ConnectionsPageState extends State<ConnectionsPage>
   @override
   Widget build(BuildContext context) {
     final wifiModel = context.watch<WifiModel>();
-    if (wifiModel.isWifiDeviceAvailable) {
-      return Column(
-        children: [
-          Container(
-            height: 60,
-            decoration: BoxDecoration(borderRadius: BorderRadius.circular(4)),
-            child: TabBar(
-                controller: tabController,
-                indicator: BoxDecoration(
-                    borderRadius: BorderRadius.circular(4),
-                    color: Theme.of(context)
-                        .colorScheme
-                        .onBackground
-                        .withOpacity(0.1)),
-                tabs: const [
-                  Tab(
-                      icon: Icon(YaruIcons.network_wireless),
-                      child: Text("WiFi")),
-                  Tab(
-                      icon: Icon(YaruIcons.network_wired),
-                      child: Text("Ethernet")),
-                  Tab(
-                      icon: Icon(YaruIcons.call_incoming),
-                      child: Text("Cellular")),
-                ]),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(top: 30),
-            child: SizedBox(
-              height: 1000,
-              child: TabBarView(
-                controller: tabController,
-                children: [const _WifiDevicesContent(), Column(), Column()],
-              ),
+    return Column(
+      children: [
+        Container(
+          height: 60,
+          decoration: BoxDecoration(borderRadius: BorderRadius.circular(4)),
+          child: TabBar(
+              controller: tabController,
+              indicator: BoxDecoration(
+                  borderRadius: BorderRadius.circular(4),
+                  color:
+                      Theme.of(context).colorScheme.onSurface.withOpacity(0.1)),
+              tabs: const [
+                Tab(
+                    icon: Icon(YaruIcons.network_wireless),
+                    child: Text("WiFi")),
+                Tab(
+                    icon: Icon(YaruIcons.network_wired),
+                    child: Text("Ethernet")),
+                Tab(
+                    icon: Icon(YaruIcons.call_incoming),
+                    child: Text("Cellular")),
+              ]),
+        ),
+        Padding(
+          padding: const EdgeInsets.only(top: 30),
+          child: SizedBox(
+            height: 1000,
+            child: TabBarView(
+              controller: tabController,
+              children: [
+                wifiModel.isWifiDeviceAvailable
+                    ? const _WifiDevicesContent()
+                    : const _WifiAdaptorNotFound(),
+                Column(),
+                Column()
+              ],
             ),
           ),
-        ],
-      );
-    }
-    return const _WifiAdaptorNotFound();
+        ),
+      ],
+    );
   }
 }
 
@@ -102,7 +103,7 @@ class _WifiDevicesContent extends StatelessWidget {
                 animation: wifiDevice,
                 builder: (_, __) {
                   return YaruSection(
-                    headline: wifiDevice.interface,
+                    headline: 'Visible Networks',
                     children: [
                       for (final accessPoint in wifiDevice.accesPoints)
                         AccessPointTile(
