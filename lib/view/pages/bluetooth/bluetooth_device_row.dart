@@ -1,6 +1,6 @@
 import 'package:bluez/bluez.dart';
 import 'package:flutter/material.dart';
-import 'package:settings/view/widgets/settings_row.dart';
+import 'package:yaru_widgets/yaru_widgets.dart';
 
 class BluetoothDeviceRow extends StatefulWidget {
   const BluetoothDeviceRow({Key? key, required this.device}) : super(key: key);
@@ -31,7 +31,7 @@ class _BluetoothDeviceRowState extends State<BluetoothDeviceRow> {
       }),
       child: Padding(
         padding: const EdgeInsets.all(8.0),
-        child: SettingsRow(
+        child: YaruRow(
             trailingWidget: Text(widget.device.name),
             actionWidget: Text(
               widget.device.connected ? 'connected' : 'disconnected',
@@ -58,7 +58,7 @@ class _BluetoothDeviceRowState extends State<BluetoothDeviceRow> {
                   child: SingleChildScrollView(
                     child: Column(
                       children: [
-                        SettingsRow(
+                        YaruRow(
                             trailingWidget: widget.device.connected
                                 ? const Text('Connected')
                                 : const Text('Disconnected'),
@@ -72,7 +72,7 @@ class _BluetoothDeviceRowState extends State<BluetoothDeviceRow> {
                                           .catchError((ioError) => {});
                                   setState(() {});
                                 })),
-                        SettingsRow(
+                        YaruRow(
                             trailingWidget: widget.device.paired
                                 ? const Text('Paired')
                                 : const Text('Unpaired'),
@@ -80,13 +80,13 @@ class _BluetoothDeviceRowState extends State<BluetoothDeviceRow> {
                               padding: const EdgeInsets.only(right: 8),
                               child: Text(widget.device.paired ? 'Yes' : 'No'),
                             )),
-                        SettingsRow(
+                        YaruRow(
                             trailingWidget: const Text('Address'),
                             actionWidget: Padding(
                               padding: const EdgeInsets.only(right: 8),
                               child: Text(widget.device.address),
                             )),
-                        SettingsRow(
+                        YaruRow(
                             trailingWidget: const Text('Type'),
                             actionWidget: Padding(
                               padding: const EdgeInsets.only(right: 8),

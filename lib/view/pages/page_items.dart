@@ -21,7 +21,7 @@ final pageItems = <YaruPageItem>[
     iconData: YaruIcons.network,
     builder: ConnectionsPage.create,
   ),
-  YaruPageItem(
+  const YaruPageItem(
     title: 'Bluetooth',
     iconData: YaruIcons.bluetooth,
     builder: BluetoothPage.create,

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:settings/view/pages/bluetooth/bluetooth_device_row.dart';
 import 'package:settings/view/pages/bluetooth/bluetooth_model.dart';
-import 'package:settings/view/widgets/settings_section.dart';
+import 'package:yaru_widgets/yaru_widgets.dart';
 
 class BluetoothPage extends StatelessWidget {
   const BluetoothPage({Key? key}) : super(key: key);
@@ -28,7 +28,7 @@ class BluetoothPage extends StatelessWidget {
       children: [
         SizedBox(
           width: 500,
-          child: SettingsSection(headline: 'Bluetooth devices', children: [
+          child: YaruSection(headline: 'Bluetooth devices', children: [
             FutureBuilder<List<BlueZDevice>>(
               builder: (context, snapshot) {
                 if (snapshot.hasData) {
