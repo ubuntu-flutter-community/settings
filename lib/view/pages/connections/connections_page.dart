@@ -54,7 +54,7 @@ class _ConnectionsPageState extends State<ConnectionsPage>
                     icon: Icon(YaruIcons.network_wired),
                     child: Text("Ethernet")),
                 Tab(
-                    icon: Icon(YaruIcons.call_incoming),
+                    icon: Icon(YaruIcons.network_cellular),
                     child: Text("Cellular")),
               ]),
         ),
