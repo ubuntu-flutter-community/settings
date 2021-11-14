@@ -11,8 +11,6 @@ class WallpaperModel extends SafeChangeNotifier {
   static const _pictureUriKey = 'picture-uri';
   static const _preinstalledWallpapersDir = '/usr/share/backgrounds';
   static const _colorShadingTypeKey = 'color-shading-type';
-  static const _pictureOpacityKey = 'picture-opacity';
-  static const _pictureOptionsKey = 'picture-options';
   static const _primaryColorKey = 'primary-color';
   static const _secondaryColorKey = 'secondary-color';
 
