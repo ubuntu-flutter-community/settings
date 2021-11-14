@@ -12,16 +12,13 @@ class PowerPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: 500, // TODO: Could be enforced by SettingsSection?
-      child: Column(
-        children: <Widget>[
-          BatterySection.create(context),
-          PowerProfileSection.create(context),
-          PowerSettingsSection.create(context),
-          SuspendSection.create(context),
-        ],
-      ),
+    return Column(
+      children: <Widget>[
+        BatterySection.create(context),
+        PowerProfileSection.create(context),
+        PowerSettingsSection.create(context),
+        SuspendSection.create(context),
+      ],
     );
   }
 }
