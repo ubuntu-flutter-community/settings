@@ -15,6 +15,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.3.0"
+  archive:
+    dependency: transitive
+    description:
+      name: archive
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "3.1.6"
   args:
     dependency: transitive
     description:
@@ -28,7 +35,14 @@ packages:
       name: async
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.8.2"
+    version: "2.8.1"
+  barcode:
+    dependency: transitive
+    description:
+      name: barcode
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.1.0"
   boolean_selector:
     dependency: transitive
     description:
@@ -176,6 +190,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.6.3"
+  duration:
+    dependency: "direct main"
+    description:
+      name: duration
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "3.0.8"
   dylib:
     dependency: transitive
     description:
@@ -218,6 +239,15 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.0.1"
+  filesystem_picker:
+    dependency: "direct main"
+    description:
+      path: package
+      ref: HEAD
+      resolved-ref: ce615dcab2da54e7b77d5c00ccfe7d1bbb40cf98
+      url: "https://github.com/Feichtmeier/filesystem_picker"
+    source: git
+    version: "2.0.0-nullsafety.0"
   fixnum:
     dependency: transitive
     description:
@@ -225,6 +255,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.0"
+  flex_color_picker:
+    dependency: "direct main"
+    description:
+      name: flex_color_picker
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.1.2"
   flutter:
     dependency: "direct main"
     description: flutter
@@ -270,6 +307,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.1.2+1"
+  http:
+    dependency: transitive
+    description:
+      name: http
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.13.4"
   http_multi_server:
     dependency: transitive
     description:
@@ -284,6 +328,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "4.0.0"
+  image:
+    dependency: transitive
+    description:
+      name: image
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "3.0.8"
   io:
     dependency: transitive
     description:
@@ -332,7 +383,7 @@ packages:
       name: matcher
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.12.11"
+    version: "0.12.10"
   meta:
     dependency: transitive
     description:
@@ -341,7 +392,7 @@ packages:
     source: hosted
     version: "1.7.0"
   mime:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: mime
       url: "https://pub.dartlang.org"
@@ -382,6 +433,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.0"
+  nm:
+    dependency: "direct main"
+    description:
+      name: nm
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.4.0"
   node_preamble:
     dependency: transitive
     description:
@@ -389,6 +447,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.0.1"
+  open_file:
+    dependency: "direct main"
+    description:
+      name: open_file
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "3.2.1"
   package_config:
     dependency: transitive
     description:
@@ -403,6 +468,55 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.8.0"
+  path_parsing:
+    dependency: transitive
+    description:
+      name: path_parsing
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.2.1"
+  path_provider:
+    dependency: "direct main"
+    description:
+      name: path_provider
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.0.6"
+  path_provider_linux:
+    dependency: transitive
+    description:
+      name: path_provider_linux
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.1.1"
+  path_provider_macos:
+    dependency: transitive
+    description:
+      name: path_provider_macos
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.0.2"
+  path_provider_platform_interface:
+    dependency: transitive
+    description:
+      name: path_provider_platform_interface
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.0.1"
+  path_provider_windows:
+    dependency: transitive
+    description:
+      name: path_provider_windows
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.0.4"
+  pdf:
+    dependency: "direct main"
+    description:
+      name: pdf
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "3.6.2"
   pedantic:
     dependency: transitive
     description:
@@ -424,6 +538,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "3.0.2"
+  plugin_platform_interface:
+    dependency: transitive
+    description:
+      name: plugin_platform_interface
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.0.2"
   pool:
     dependency: transitive
     description:
@@ -459,6 +580,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.1.0"
+  qr:
+    dependency: transitive
+    description:
+      name: qr
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.1.0"
   quiver:
     dependency: transitive
     description:
@@ -466,6 +594,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "3.0.1"
+  rive:
+    dependency: "direct main"
+    description:
+      name: rive
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.7.33"
   safe_change_notifier:
     dependency: "direct main"
     description:
@@ -582,21 +717,21 @@ packages:
       name: test
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.17.12"
+    version: "1.17.10"
   test_api:
     dependency: transitive
     description:
       name: test_api
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.4.3"
+    version: "0.4.2"
   test_core:
     dependency: transitive
     description:
       name: test_core
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.4.2"
+    version: "0.4.0"
   timing:
     dependency: transitive
     description:
@@ -625,6 +760,15 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.3.0"
+  upower:
+    dependency: "direct main"
+    description:
+      path: "."
+      ref: HEAD
+      resolved-ref: f5154392671d2e747ae7700970fe559a8b5562c7
+      url: "https://github.com/canonical/upower.dart"
+    source: git
+    version: "0.6.0"
   vector_math:
     dependency: transitive
     description:
@@ -660,15 +804,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.0"
-  window_size:
-    dependency: "direct main"
+  win32:
+    dependency: transitive
     description:
-      path: "plugins/window_size"
-      ref: HEAD
-      resolved-ref: "03d957e8b5c99fc83cd4a781031b154ab3de8753"
-      url: "git://github.com/google/flutter-desktop-embedding.git"
-    source: git
-    version: "0.1.0"
+      name: win32
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.3.0"
   xdg_directories:
     dependency: transitive
     description:
@@ -696,14 +838,23 @@ packages:
       name: yaru
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.1.5"
+    version: "0.1.8"
   yaru_icons:
     dependency: "direct main"
     description:
       name: yaru_icons
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.0.5"
+    version: "0.0.6"
+  yaru_widgets:
+    dependency: "direct main"
+    description:
+      path: "."
+      ref: HEAD
+      resolved-ref: e9d935cedbf01acd2518be81e3af8886a095a181
+      url: "https://github.com/ubuntu/yaru_widgets.dart"
+    source: git
+    version: "1.0.0+1"
 sdks:
   dart: ">=2.14.0 <3.0.0"
-  flutter: ">=2.2.0"
+  flutter: ">=2.5.0"

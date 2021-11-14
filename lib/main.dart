@@ -1,31 +1,61 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:gsettings/gsettings.dart';
+import 'package:nm/nm.dart';
 import 'package:provider/provider.dart';
+import 'package:settings/schemas/schemas.dart';
+import 'package:settings/services/bluetooth_service.dart';
+import 'package:settings/services/hostname_service.dart';
+import 'package:settings/services/power_profile_service.dart';
+import 'package:settings/services/power_settings_service.dart';
+import 'package:settings/services/settings_service.dart';
+import 'package:settings/view/app_theme.dart';
 import 'package:settings/view/pages/page_items.dart';
-import 'package:settings/view/widgets/app_theme.dart';
-import 'package:settings/view/widgets/landscape_layout.dart';
-import 'package:settings/view/widgets/portrait_layout.dart';
+import 'package:udisks/udisks.dart';
+import 'package:upower/upower.dart';
 import 'package:yaru/yaru.dart' as yaru;
-import 'package:window_size/window_size.dart' as window_size;
+import 'package:yaru_icons/widgets/yaru_icons.dart';
+import 'package:yaru_widgets/yaru_widgets.dart';
 
 void main() async {
-  final themeSettings = GSettings(schemaId: 'org.gnome.desktop.interface');
+  final themeSettings = GSettings(schemaId: schemaInterface);
 
-  WidgetsFlutterBinding.ensureInitialized();
-  var window = await window_size.getWindowInfo();
-  if (window.screen != null) {
-    const width = 600.0;
-    const height = 700.0;
-    window_size.setWindowMinSize(const Size(1.0 * width, 1.0 * height));
-    window_size.setWindowTitle('Ubuntu Settings');
-  }
+  final networkManagerClient = NetworkManagerClient();
+  await networkManagerClient.connect();
 
   runApp(
     MultiProvider(
       providers: [
         ChangeNotifierProvider(
           create: (_) => AppTheme(themeSettings),
+        ),
+        Provider<BluetoothService>(
+          create: (_) => BluetoothService(),
+          dispose: (_, service) => service.dispose(),
+        ),
+        Provider<HostnameService>(
+          create: (_) => HostnameService(),
+          dispose: (_, service) => service.dispose(),
+        ),
+        Provider<NetworkManagerClient>.value(value: networkManagerClient),
+        Provider<PowerProfileService>(
+          create: (_) => PowerProfileService(),
+          dispose: (_, service) => service.dispose(),
+        ),
+        Provider<PowerSettingsService>(
+          create: (_) => PowerSettingsService(),
+          dispose: (_, service) => service.dispose(),
+        ),
+        Provider<SettingsService>(
+          create: (_) => SettingsService(),
+          dispose: (_, service) => service.dispose(),
+        ),
+        Provider<UDisksClient>(
+          create: (_) => UDisksClient(),
+          dispose: (_, client) => client.close(),
+        ),
+        Provider<UPowerClient>(
+          create: (_) => UPowerClient(),
+          dispose: (_, client) => client.close(),
         ),
       ],
       child: const UbuntuSettingsApp(),
@@ -43,49 +73,17 @@ class UbuntuSettingsApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Ubuntu settings',
-      home: const MasterDetailPage(),
+      home: YaruMasterDetailPage(
+        appBarHeight: 48,
+        leftPaneWidth: 280,
+        pageItems: pageItems,
+        previousIconData: YaruIcons.go_previous,
+        searchHint: 'Search...',
+        searchIconData: YaruIcons.search,
+      ),
       theme: yaru.lightTheme,
       darkTheme: yaru.darkTheme,
       themeMode: context.watch<AppTheme>().value,
-    );
-  }
-}
-
-class MasterDetailPage extends StatefulWidget {
-  const MasterDetailPage({Key? key}) : super(key: key);
-
-  @override
-  _MasterDetailPageState createState() => _MasterDetailPageState();
-}
-
-class _MasterDetailPageState extends State<MasterDetailPage> {
-  var _index = -1;
-  var _previousIndex = 0;
-
-  void _setIndex(int index) {
-    _previousIndex = _index;
-    _index = index;
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return OrientationBuilder(
-      builder: (context, orientation) {
-        switch (orientation) {
-          case Orientation.portrait:
-            return PortraitLayout(
-              selectedIndex: _index,
-              pages: pageItems,
-              onSelected: _setIndex,
-            );
-          case Orientation.landscape:
-            return LandscapeLayout(
-              selectedIndex: _index == -1 ? _previousIndex : _index,
-              pages: pageItems,
-              onSelected: _setIndex,
-            );
-        }
-      },
     );
   }
 }

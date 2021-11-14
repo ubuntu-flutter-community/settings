@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:settings/view/widgets/checkbox_row.dart';
+import 'package:yaru_widgets/yaru_widgets.dart';
 import '../test_helper.dart';
 
 void main() {
@@ -10,7 +9,7 @@ void main() {
       "When `enabled=null` and `value=null` SizedBox is returned",
       (WidgetTester tester) async {
         await tester.pumpScreen(
-          widgetBuilder: () => CheckboxRow(
+          widgetBuilder: () => YaruCheckboxRow(
             enabled: null,
             value: null,
             onChanged: (_) {},
@@ -28,7 +27,7 @@ void main() {
       (WidgetTester tester) async {
         await tester.pumpScreen(
           widgetBuilder: () => Scaffold(
-            body: CheckboxRow(
+            body: YaruCheckboxRow(
               enabled: true,
               value: true,
               onChanged: (_) {},

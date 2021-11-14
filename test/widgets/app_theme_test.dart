@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:gsettings/gsettings.dart';
 import 'package:mockito/annotations.dart';
-import 'package:settings/view/widgets/app_theme.dart';
+import 'package:settings/view/app_theme.dart';
 import 'app_theme_test.mocks.dart';
 import 'package:mockito/mockito.dart';
 

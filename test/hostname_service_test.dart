@@ -4,7 +4,7 @@ import 'package:dbus/dbus.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
-import 'package:settings/view/pages/info/hostname_service.dart';
+import 'package:settings/services/hostname_service.dart';
 
 import 'hostname_service_test.mocks.dart';
 

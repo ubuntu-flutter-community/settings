@@ -40,14 +40,19 @@ static void my_application_activate(GApplication* application) {
   if (use_header_bar) {
     GtkHeaderBar* header_bar = GTK_HEADER_BAR(gtk_header_bar_new());
     gtk_widget_show(GTK_WIDGET(header_bar));
-    gtk_header_bar_set_title(header_bar, "settings");
+    gtk_header_bar_set_title(header_bar, "Ubuntu Settings");
     gtk_header_bar_set_show_close_button(header_bar, TRUE);
     gtk_window_set_titlebar(window, GTK_WIDGET(header_bar));
   } else {
-    gtk_window_set_title(window, "settings");
+    gtk_window_set_title(window, "Ubuntu Settings");
   }
 
-  gtk_window_set_default_size(window, 1280, 720);
+  GdkGeometry geometry;
+  geometry.min_width = 600;
+  geometry.min_height = 700;
+  gtk_window_set_geometry_hints(window, nullptr, &geometry, GDK_HINT_MIN_SIZE);
+
+  gtk_window_set_default_size(window, 820, 700);
   gtk_widget_show(GTK_WIDGET(window));
 
   g_autoptr(FlDartProject) project = fl_dart_project_new();
