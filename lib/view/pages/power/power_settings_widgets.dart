@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:settings/view/pages/power/power_settings.dart';
 import 'package:settings/view/pages/power/power_utils.dart';
-import 'package:settings/view/widgets/switch_settings_row.dart';
+import 'package:yaru_widgets/yaru_widgets.dart';
 
 class DurationDropdownButton extends StatelessWidget {
   const DurationDropdownButton({
@@ -59,7 +59,7 @@ class SuspendDelaySettingsRow extends StatelessWidget {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
-          SwitchSettingsRow(
+          YaruSwitchRow(
             trailingWidget: Text(actionLabel),
             value: suspend,
             onChanged: onSuspendChanged,

@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:settings/view/pages/accessibility/accessibility_model.dart';
-import 'package:settings/view/widgets/extra_options_gsettings_row.dart';
-import 'package:settings/view/widgets/settings_section.dart';
+import 'package:yaru_icons/widgets/yaru_icons.dart';
+import 'package:yaru_widgets/yaru_widgets.dart';
 
 class HearingSection extends StatelessWidget {
   const HearingSection({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return const SettingsSection(
+    return const YaruSection(
       headline: 'Hearing',
       children: [
         _VisualAlerts(),
@@ -24,7 +24,8 @@ class _VisualAlerts extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final model = Provider.of<AccessibilityModel>(context);
-    return ExtraOptionsGsettingsRow(
+    return YaruExtraOptionRow(
+      iconData: YaruIcons.settings,
       actionLabel: 'Visual Alerts',
       actionDescription: 'Use a visual indication when an alert sound occurs',
       value: model.visualAlerts,

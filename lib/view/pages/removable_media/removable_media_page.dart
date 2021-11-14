@@ -2,10 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:settings/services/settings_service.dart';
 import 'package:settings/view/pages/removable_media/removable_media_model.dart';
-import 'package:settings/view/widgets/checkbox_row.dart';
-import 'package:settings/view/widgets/settings_row.dart';
-import 'package:settings/view/widgets/settings_section.dart';
-import 'package:settings/view/widgets/toggle_buttons_setting_row.dart';
+import 'package:yaru_widgets/yaru_widgets.dart';
 
 class RemovableMediaPage extends StatelessWidget {
   const RemovableMediaPage({Key? key}) : super(key: key);
@@ -22,12 +19,12 @@ class RemovableMediaPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final model = Provider.of<RemovableMediaModel>(context);
 
-    return SettingsSection(headline: 'Removable Media', children: [
+    return YaruSection(headline: 'Removable Media', children: [
       SizedBox(
         width: 500,
         child: Padding(
           padding: const EdgeInsets.only(top: 8, right: 8, bottom: 8),
-          child: CheckboxRow(
+          child: YaruCheckboxRow(
               enabled: true,
               value: model.autoRunNever,
               onChanged: (value) => model.autoRunNever = value!,
@@ -35,7 +32,7 @@ class RemovableMediaPage extends StatelessWidget {
         ),
       ),
       for (var mimeType in RemovableMediaModel.mimeTypes.entries)
-        SettingsRow(
+        YaruRow(
             trailingWidget: Text(mimeType.value),
             actionWidget: DropdownButton<String>(
                 value: model.getMimeTypeBehavior(mimeType.key),

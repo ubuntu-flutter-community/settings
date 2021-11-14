@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:settings/view/pages/appearance/appearance_model.dart';
-import 'package:settings/view/widgets/settings_row.dart';
-import 'package:settings/view/widgets/settings_section.dart';
-import 'package:settings/view/widgets/slider_settings_row.dart';
-import 'package:settings/view/widgets/switch_settings_row.dart';
+import 'package:yaru_widgets/yaru_widgets.dart';
 
 class DockSection extends StatelessWidget {
   const DockSection({Key? key}) : super(key: key);
@@ -13,30 +10,30 @@ class DockSection extends StatelessWidget {
   Widget build(BuildContext context) {
     final model = Provider.of<AppearanceModel>(context);
 
-    return SettingsSection(
+    return YaruSection(
       headline: 'Dock',
       children: [
-        SwitchSettingsRow(
+        YaruSwitchRow(
           trailingWidget: const Text('Show Trash'),
           value: model.showTrash,
           onChanged: (value) => model.setShowTrash(value),
         ),
-        SwitchSettingsRow(
+        YaruSwitchRow(
           trailingWidget: const Text('Always Show Dock'),
           value: model.alwaysShowDock,
           onChanged: (value) => model.setAlwaysShowDock(value),
         ),
-        SwitchSettingsRow(
+        YaruSwitchRow(
           trailingWidget: const Text('Extend Dock'),
           value: model.extendDock,
           onChanged: (value) => model.setExtendDock(value),
         ),
-        SwitchSettingsRow(
+        YaruSwitchRow(
           trailingWidget: const Text('Active App Glow'),
           value: model.appGlow,
           onChanged: (value) => model.setAppGlow(value),
         ),
-        SliderSettingsRow(
+        YaruSliderRow(
           actionLabel: 'Icon Size',
           value: model.maxIconSize,
           min: 16,
@@ -44,7 +41,7 @@ class DockSection extends StatelessWidget {
           defaultValue: 48,
           onChanged: (value) => model.setMaxIconSize(value),
         ),
-        SettingsRow(
+        YaruRow(
           trailingWidget: const Text('Dock Position'),
           actionWidget: DropdownButton<String>(
             onChanged: (value) => model.dockPosition = value,
@@ -55,7 +52,7 @@ class DockSection extends StatelessWidget {
             ],
           ),
         ),
-        SettingsRow(
+        YaruRow(
           trailingWidget: const Text('Click Action'),
           actionWidget: DropdownButton<String>(
             onChanged: (value) => model.clickAction = value,
