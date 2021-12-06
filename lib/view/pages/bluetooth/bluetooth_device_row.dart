@@ -1,11 +1,16 @@
 import 'package:bluez/bluez.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:settings/view/pages/bluetooth/bluetooth_model.dart';
 import 'package:yaru_widgets/yaru_widgets.dart';
 
 class BluetoothDeviceRow extends StatefulWidget {
-  const BluetoothDeviceRow({Key? key, required this.device}) : super(key: key);
+  const BluetoothDeviceRow(
+      {Key? key, required this.device, required this.model})
+      : super(key: key);
 
   final BlueZDevice device;
+  final BluetoothModel model;
 
   @override
   State<BluetoothDeviceRow> createState() => _BluetoothDeviceRowState();
@@ -23,6 +28,7 @@ class _BluetoothDeviceRowState extends State<BluetoothDeviceRow> {
 
   @override
   Widget build(BuildContext context) {
+    final model = context.watch<BluetoothModel>();
     status = widget.device.connected ? 'connected' : 'disconnected';
     return InkWell(
       borderRadius: BorderRadius.circular(4.0),
@@ -107,7 +113,10 @@ class _BluetoothDeviceRowState extends State<BluetoothDeviceRow> {
                           child: SizedBox(
                             width: 300,
                             child: TextButton(
-                                onPressed: () => print('remove'),
+                                onPressed: () {
+                                  widget.model.removeDevice(widget.device);
+                                  Navigator.of(context).pop();
+                                },
                                 child: const Text('Remove device')),
                           ),
                         )
