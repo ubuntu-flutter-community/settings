@@ -1,6 +1,5 @@
 import 'package:bluez/bluez.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:settings/view/pages/bluetooth/bluetooth_model.dart';
 import 'package:yaru_widgets/yaru_widgets.dart';
 
