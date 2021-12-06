@@ -1,6 +1,8 @@
 import 'package:bluez/bluez.dart';
 import 'package:flutter/material.dart';
+import 'package:settings/view/pages/bluetooth/bluetooth_device_types.dart';
 import 'package:settings/view/pages/bluetooth/bluetooth_model.dart';
+import 'package:yaru_icons/widgets/yaru_icons.dart';
 import 'package:yaru_widgets/yaru_widgets.dart';
 
 class BluetoothDeviceRow extends StatefulWidget {
@@ -54,7 +56,26 @@ class _BluetoothDeviceRowState extends State<BluetoothDeviceRow> {
               return AlertDialog(
                 title: Padding(
                   padding: const EdgeInsets.only(right: 8, left: 8, bottom: 8),
-                  child: Text(widget.device.name),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Flexible(
+                        child: RichText(
+                          text: TextSpan(
+                              text: widget.device.name,
+                              style: Theme.of(context).textTheme.headline6),
+                          maxLines: 10,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 10),
+                        child: Icon(
+                            BluetoothDeviceTypes.getIconForAppearanceCode(
+                                widget.device.appearance)),
+                      )
+                    ],
+                  ),
                 ),
                 content: SizedBox(
                   height: 270,
@@ -95,7 +116,9 @@ class _BluetoothDeviceRowState extends State<BluetoothDeviceRow> {
                             trailingWidget: const Text('Type'),
                             actionWidget: Padding(
                               padding: const EdgeInsets.only(right: 8),
-                              child: Text(widget.device.appearance.toString()),
+                              child: Text(BluetoothDeviceTypes
+                                      .map[widget.device.appearance] ??
+                                  'Unkown'),
                             )),
                         Padding(
                           padding: const EdgeInsets.only(
@@ -103,7 +126,14 @@ class _BluetoothDeviceRowState extends State<BluetoothDeviceRow> {
                           child: SizedBox(
                             width: 300,
                             child: OutlinedButton(
-                                onPressed: () => print('open device settings'),
+                                onPressed: () {
+                                  if (BluetoothDeviceTypes.isMouse(
+                                      widget.device.appearance)) {
+                                    // TODO: get route name from model
+                                    Navigator.of(context)
+                                        .pushNamed('routeName');
+                                  }
+                                },
                                 child: const Text('Open device settings')),
                           ),
                         ),
