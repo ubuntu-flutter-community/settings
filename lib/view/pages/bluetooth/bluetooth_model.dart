@@ -1,8 +1,13 @@
+import 'dart:async';
+
 import 'package:bluez/bluez.dart';
 import 'package:safe_change_notifier/safe_change_notifier.dart';
 
 class BluetoothModel extends SafeChangeNotifier {
   late final BlueZClient _client;
+
+  late StreamSubscription<BlueZDevice> _devicesAdded;
+  late StreamSubscription<BlueZDevice> _devicesRemoved;
 
   BluetoothModel(this._client);
 
@@ -11,16 +16,17 @@ class BluetoothModel extends SafeChangeNotifier {
       for (var adapter in _client.adapters) {
         adapter.startDiscovery();
       }
+      _devicesAdded = _client.deviceAdded.listen((event) {
+        notifyListeners();
+      });
+      _devicesRemoved = _client.deviceRemoved.listen((event) {
+        notifyListeners();
+      });
+      notifyListeners();
     });
   }
 
   List<BlueZDevice> get devices {
-    _client.deviceAdded.listen((event) {
-      notifyListeners();
-    });
-    _client.deviceRemoved.listen((event) {
-      notifyListeners();
-    });
     return _client.devices;
   }
 
@@ -29,6 +35,8 @@ class BluetoothModel extends SafeChangeNotifier {
     for (var adapter in _client.adapters) {
       adapter.stopDiscovery();
     }
+    _devicesAdded.cancel();
+    _devicesRemoved.cancel();
     super.dispose();
   }
 }
