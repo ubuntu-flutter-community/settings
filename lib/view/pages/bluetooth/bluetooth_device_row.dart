@@ -114,8 +114,12 @@ class _BluetoothDeviceRowState extends State<BluetoothDeviceRow> {
                             width: 300,
                             child: TextButton(
                                 onPressed: () {
-                                  widget.model.removeDevice(widget.device);
-                                  Navigator.of(context).pop();
+                                  widget.device
+                                      .disconnect()
+                                      .then((value) => widget.model
+                                          .removeDevice(widget.device))
+                                      .then((value) =>
+                                          Navigator.of(context).pop());
                                 },
                                 child: const Text('Remove device')),
                           ),
