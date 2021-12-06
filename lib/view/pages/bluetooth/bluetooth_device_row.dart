@@ -76,6 +76,7 @@ class _BluetoothDeviceRowState extends State<BluetoothDeviceRow> {
                                       : await widget.device
                                           .connect()
                                           .catchError((ioError) => {});
+                                  Navigator.of(context).pop();
                                   setState(() {});
                                 })),
                         YaruRow(
@@ -113,13 +114,11 @@ class _BluetoothDeviceRowState extends State<BluetoothDeviceRow> {
                           child: SizedBox(
                             width: 300,
                             child: TextButton(
-                                onPressed: () {
-                                  widget.device
-                                      .disconnect()
-                                      .then((value) => widget.model
-                                          .removeDevice(widget.device))
-                                      .then((value) =>
-                                          Navigator.of(context).pop());
+                                onPressed: () async {
+                                  await widget.device.disconnect().then(
+                                      (value) => widget.model
+                                          .removeDevice(widget.device));
+                                  Navigator.of(context).pop();
                                 },
                                 child: const Text('Remove device')),
                           ),
