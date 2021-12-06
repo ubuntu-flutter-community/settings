@@ -28,7 +28,6 @@ class _BluetoothDeviceRowState extends State<BluetoothDeviceRow> {
 
   @override
   Widget build(BuildContext context) {
-    final model = context.watch<BluetoothModel>();
     status = widget.device.connected ? 'connected' : 'disconnected';
     return InkWell(
       borderRadius: BorderRadius.circular(4.0),
