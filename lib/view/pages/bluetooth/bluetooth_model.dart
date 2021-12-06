@@ -18,6 +18,17 @@ class BluetoothModel extends SafeChangeNotifier {
     _client.deviceAdded.listen((event) {
       notifyListeners();
     });
+    _client.deviceRemoved.listen((event) {
+      notifyListeners();
+    });
     return _client.devices;
+  }
+
+  @override
+  void dispose() {
+    for (var adapter in _client.adapters) {
+      adapter.stopDiscovery();
+    }
+    super.dispose();
   }
 }
