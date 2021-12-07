@@ -64,6 +64,8 @@ static gboolean my_application_local_command_line(GApplication* application, gch
      return TRUE;
   }
 
+  hdy_init();
+
   g_application_activate(application);
   *exit_status = 0;
 
@@ -83,7 +85,7 @@ static void my_application_class_init(MyApplicationClass* klass) {
   G_OBJECT_CLASS(klass)->dispose = my_application_dispose;
 }
 
-static void my_application_init(MyApplication* self) { hdy_init(); }
+static void my_application_init(MyApplication* self) { }
 
 MyApplication* my_application_new() {
   return MY_APPLICATION(g_object_new(my_application_get_type(),
