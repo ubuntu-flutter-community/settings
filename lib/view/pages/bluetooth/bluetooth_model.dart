@@ -8,13 +8,19 @@ class BluetoothModel extends SafeChangeNotifier {
 
   late StreamSubscription<BlueZDevice>? _devicesAdded;
   late StreamSubscription<BlueZDevice>? _devicesRemoved;
+  late BlueZAdapter? firstAdapter;
 
   BluetoothModel(this._client);
 
   void init() async {
     await _client.connect().then((value) {
-      for (var adapter in _client.adapters) {
-        adapter.startDiscovery();
+      if (_client.adapters.isEmpty) {
+        _client.close();
+        return;
+      }
+      firstAdapter = _client.adapters[0];
+      if (!firstAdapter!.discovering) {
+        firstAdapter?.startDiscovery();
       }
       _devicesAdded = _client.deviceAdded.listen((event) {
         notifyListeners();
@@ -30,21 +36,19 @@ class BluetoothModel extends SafeChangeNotifier {
     return _client.devices;
   }
 
-  void removeDevice(BlueZDevice device) {
-    for (var adapter in _client.adapters) {
-      adapter.removeDevice(device);
-    }
+  Future<void> removeDevice(BlueZDevice device) async {
+    await firstAdapter?.removeDevice(device);
 
     notifyListeners();
   }
 
   @override
   void dispose() {
-    for (var adapter in _client.adapters) {
-      adapter.stopDiscovery();
+    if (firstAdapter!.discovering) {
+      firstAdapter?.stopDiscovery();
     }
-    _devicesAdded!.cancel();
-    _devicesRemoved!.cancel();
+    _devicesAdded?.cancel();
+    _devicesRemoved?.cancel();
     super.dispose();
   }
 }
