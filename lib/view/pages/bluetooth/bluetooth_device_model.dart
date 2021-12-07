@@ -12,6 +12,7 @@ class BluetoothDeviceModel extends SafeChangeNotifier {
   late String address;
   late bool paired;
   late String errorMessage;
+  late bool connecting;
 
   BluetoothDeviceModel(this._device) {
     connected = _device.connected;
