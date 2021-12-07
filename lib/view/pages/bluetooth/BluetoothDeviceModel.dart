@@ -11,6 +11,7 @@ class BluetoothDeviceModel extends SafeChangeNotifier {
   late bool blocked;
   late String address;
   late bool paired;
+  late String errorMessage;
 
   BluetoothDeviceModel(this._device) {
     connected = _device.connected;
@@ -21,6 +22,7 @@ class BluetoothDeviceModel extends SafeChangeNotifier {
     blocked = _device.blocked;
     address = _device.address;
     paired = _device.paired;
+    errorMessage = '';
   }
 
   void init() {
@@ -37,12 +39,16 @@ class BluetoothDeviceModel extends SafeChangeNotifier {
   }
 
   Future<void> connect() async {
-    await _device.connect();
+    await _device.connect().catchError((ioError) {
+      errorMessage = ioError.toString();
+    });
+    connected = _device.connected;
     notifyListeners();
   }
 
   Future<void> disconnect() async {
     await _device.disconnect();
+    connected = _device.connected;
     notifyListeners();
   }
 }

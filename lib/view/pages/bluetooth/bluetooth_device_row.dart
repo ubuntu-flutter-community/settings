@@ -71,7 +71,7 @@ class _BluetoothDeviceRowState extends State<BluetoothDeviceRow> {
                       ),
                     ),
                     content: SizedBox(
-                      height: 270,
+                      height: model.errorMessage.isEmpty ? 270 : 300,
                       width: 300,
                       child: SingleChildScrollView(
                         child: Column(
@@ -82,12 +82,10 @@ class _BluetoothDeviceRowState extends State<BluetoothDeviceRow> {
                                     : const Text('Disconnected'),
                                 actionWidget: Switch(
                                     value: model.connected,
-                                    onChanged: (newValue) async {
-                                      model.connected
-                                          ? await model.disconnect()
-                                          : await model
-                                              .connect()
-                                              .catchError((ioError) => {});
+                                    onChanged: (connectRequested) async {
+                                      connectRequested
+                                          ? await model.connect()
+                                          : await model.disconnect();
                                       setState(() {});
                                     })),
                             YaruRow(
@@ -139,7 +137,13 @@ class _BluetoothDeviceRowState extends State<BluetoothDeviceRow> {
                                     },
                                     child: const Text('Remove device')),
                               ),
-                            )
+                            ),
+                            if (model.errorMessage.isNotEmpty)
+                              Text(
+                                model.errorMessage,
+                                style: TextStyle(
+                                    color: Theme.of(context).errorColor),
+                              )
                           ],
                         ),
                       ),
