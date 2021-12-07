@@ -14,7 +14,7 @@ class BluetoothDeviceRow extends StatefulWidget {
   static Widget create(
       BuildContext context, BlueZDevice device, VoidCallback removeDevice) {
     return ChangeNotifierProvider(
-      create: (_) => BluetoothDeviceModel(device: device),
+      create: (_) => BluetoothDeviceModel(device),
       child: BluetoothDeviceRow(
         removeDevice: removeDevice,
       ),
@@ -31,7 +31,7 @@ class _BluetoothDeviceRowState extends State<BluetoothDeviceRow> {
   @override
   void initState() {
     final model = context.read<BluetoothDeviceModel>();
-    status = model.device.connected ? 'connected' : 'disconnected';
+    model.init();
 
     super.initState();
   }
@@ -39,7 +39,6 @@ class _BluetoothDeviceRowState extends State<BluetoothDeviceRow> {
   @override
   Widget build(BuildContext context) {
     final model = context.read<BluetoothDeviceModel>();
-    status = model.device.connected ? 'connected' : 'disconnected';
     return InkWell(
       borderRadius: BorderRadius.circular(4.0),
       onTap: () => setState(() {
@@ -56,7 +55,7 @@ class _BluetoothDeviceRowState extends State<BluetoothDeviceRow> {
                           Flexible(
                             child: RichText(
                               text: TextSpan(
-                                  text: model.device.name,
+                                  text: model.name,
                                   style: Theme.of(context).textTheme.headline6),
                               maxLines: 10,
                               overflow: TextOverflow.ellipsis,
@@ -66,7 +65,7 @@ class _BluetoothDeviceRowState extends State<BluetoothDeviceRow> {
                             padding: const EdgeInsets.only(left: 10),
                             child: Icon(
                                 BluetoothDeviceTypes.getIconForAppearanceCode(
-                                    model.device.appearance)),
+                                    model.appearance)),
                           )
                         ],
                       ),
@@ -78,13 +77,13 @@ class _BluetoothDeviceRowState extends State<BluetoothDeviceRow> {
                         child: Column(
                           children: [
                             YaruRow(
-                                trailingWidget: model.device.connected
+                                trailingWidget: model.connected
                                     ? const Text('Connected')
                                     : const Text('Disconnected'),
                                 actionWidget: Switch(
-                                    value: model.device.connected,
+                                    value: model.connected,
                                     onChanged: (newValue) async {
-                                      model.device.connected
+                                      model.connected
                                           ? await model.disconnect()
                                           : await model
                                               .connect()
@@ -92,26 +91,23 @@ class _BluetoothDeviceRowState extends State<BluetoothDeviceRow> {
                                       setState(() {});
                                     })),
                             YaruRow(
-                                trailingWidget: model.device.paired
-                                    ? const Text('Paired')
-                                    : const Text('Unpaired'),
+                                trailingWidget: const Text('Paired'),
                                 actionWidget: Padding(
                                   padding: const EdgeInsets.only(right: 8),
-                                  child:
-                                      Text(model.device.paired ? 'Yes' : 'No'),
+                                  child: Text(model.paired ? 'Yes' : 'No'),
                                 )),
                             YaruRow(
                                 trailingWidget: const Text('Address'),
                                 actionWidget: Padding(
                                   padding: const EdgeInsets.only(right: 8),
-                                  child: Text(model.device.address),
+                                  child: Text(model.address),
                                 )),
                             YaruRow(
                                 trailingWidget: const Text('Type'),
                                 actionWidget: Padding(
                                   padding: const EdgeInsets.only(right: 8),
                                   child: Text(BluetoothDeviceTypes
-                                          .map[model.device.appearance] ??
+                                          .map[model.appearance] ??
                                       'Unkown'),
                                 )),
                             Padding(
@@ -122,7 +118,7 @@ class _BluetoothDeviceRowState extends State<BluetoothDeviceRow> {
                                 child: OutlinedButton(
                                     onPressed: () {
                                       if (BluetoothDeviceTypes.isMouse(
-                                          model.device.appearance)) {
+                                          model.appearance)) {
                                         // TODO: get route name from model
                                         Navigator.of(context)
                                             .pushNamed('routeName');
@@ -149,14 +145,14 @@ class _BluetoothDeviceRowState extends State<BluetoothDeviceRow> {
                       ),
                     ),
                   );
-                })).then((value) => setState(() {}));
+                })).then((value) => setState);
       }),
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: YaruRow(
-            trailingWidget: Text(model.device.name),
+            trailingWidget: Text(model.name),
             actionWidget: Text(
-              model.device.connected ? 'connected' : 'disconnected',
+              model.connected ? 'connected' : 'disconnected',
               style: TextStyle(
                   color:
                       Theme.of(context).colorScheme.onSurface.withOpacity(0.7)),
@@ -164,6 +160,4 @@ class _BluetoothDeviceRowState extends State<BluetoothDeviceRow> {
       ),
     );
   }
-
-  void showSimpleDeviceDialog(BuildContext context, BlueZDevice device) {}
 }

@@ -2,17 +2,47 @@ import 'package:bluez/bluez.dart';
 import 'package:safe_change_notifier/safe_change_notifier.dart';
 
 class BluetoothDeviceModel extends SafeChangeNotifier {
-  final BlueZDevice device;
+  final BlueZDevice _device;
+  late bool connected;
+  late String name;
+  late int appearance;
+  late int deviceClass;
+  late String alias;
+  late bool blocked;
+  late String address;
+  late bool paired;
 
-  BluetoothDeviceModel({required this.device});
+  BluetoothDeviceModel(this._device) {
+    connected = _device.connected;
+    name = _device.name;
+    appearance = _device.appearance;
+    deviceClass = _device.deviceClass;
+    alias = _device.alias;
+    blocked = _device.blocked;
+    address = _device.address;
+    paired = _device.paired;
+  }
+
+  void init() {
+    _device.propertiesChanged.listen((event) {
+      connected = _device.connected;
+      name = _device.name;
+      appearance = _device.appearance;
+      alias = _device.alias;
+      blocked = _device.blocked;
+      address = _device.address;
+      paired = _device.paired;
+      notifyListeners();
+    });
+  }
 
   Future<void> connect() async {
-    await device.connect();
+    await _device.connect();
     notifyListeners();
   }
 
   Future<void> disconnect() async {
-    await device.disconnect();
+    await _device.disconnect();
     notifyListeners();
   }
 }
