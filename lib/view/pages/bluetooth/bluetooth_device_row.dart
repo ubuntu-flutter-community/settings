@@ -38,7 +38,7 @@ class _BluetoothDeviceRowState extends State<BluetoothDeviceRow> {
 
   @override
   Widget build(BuildContext context) {
-    final model = context.read<BluetoothDeviceModel>();
+    final model = context.watch<BluetoothDeviceModel>();
     return InkWell(
       borderRadius: BorderRadius.circular(4.0),
       onTap: () => setState(() {
