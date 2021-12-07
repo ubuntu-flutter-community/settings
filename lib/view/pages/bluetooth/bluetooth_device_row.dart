@@ -1,4 +1,5 @@
 import 'package:bluez/bluez.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:settings/view/pages/bluetooth/BluetoothDeviceModel.dart';
@@ -9,10 +10,10 @@ class BluetoothDeviceRow extends StatefulWidget {
   const BluetoothDeviceRow({Key? key, required this.removeDevice})
       : super(key: key);
 
-  final VoidCallback removeDevice;
+  final AsyncCallback removeDevice;
 
   static Widget create(
-      BuildContext context, BlueZDevice device, VoidCallback removeDevice) {
+      BuildContext context, BlueZDevice device, AsyncCallback removeDevice) {
     return ChangeNotifierProvider(
       create: (_) => BluetoothDeviceModel(device),
       child: BluetoothDeviceRow(
@@ -71,7 +72,7 @@ class _BluetoothDeviceRowState extends State<BluetoothDeviceRow> {
                       ),
                     ),
                     content: SizedBox(
-                      height: model.errorMessage.isEmpty ? 270 : 300,
+                      height: model.errorMessage.isEmpty ? 270 : 320,
                       width: 300,
                       child: SingleChildScrollView(
                         child: Column(
@@ -131,9 +132,10 @@ class _BluetoothDeviceRowState extends State<BluetoothDeviceRow> {
                                 width: 300,
                                 child: TextButton(
                                     onPressed: () async {
-                                      await model
-                                          .disconnect()
-                                          .then((value) => widget.removeDevice);
+                                      await model.disconnect();
+                                      widget.removeDevice;
+
+                                      Navigator.of(context).pop();
                                     },
                                     child: const Text('Remove device')),
                               ),

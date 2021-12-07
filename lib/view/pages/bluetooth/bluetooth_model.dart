@@ -36,8 +36,8 @@ class BluetoothModel extends SafeChangeNotifier {
     return _client.devices;
   }
 
-  void removeDevice(BlueZDevice device) {
-    firstAdapter?.removeDevice(device);
+  Future<void> removeDevice(BlueZDevice device) async {
+    await firstAdapter?.removeDevice(device);
 
     notifyListeners();
   }

@@ -39,9 +39,17 @@ class BluetoothDeviceModel extends SafeChangeNotifier {
   }
 
   Future<void> connect() async {
+    if (!_device.paired) {
+      await _device.pair().catchError((ioError) {
+        errorMessage = ioError.toString();
+      });
+      notifyListeners();
+    }
+
     await _device.connect().catchError((ioError) {
       errorMessage = ioError.toString();
     });
+    paired = _device.paired;
     connected = _device.connected;
     notifyListeners();
   }
