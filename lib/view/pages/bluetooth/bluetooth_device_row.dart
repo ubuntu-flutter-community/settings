@@ -145,7 +145,7 @@ class _BluetoothDeviceRowState extends State<BluetoothDeviceRow> {
                       ),
                     ),
                   );
-                })).then((value) => setState);
+                }));
       }),
       child: Padding(
         padding: const EdgeInsets.all(8.0),
