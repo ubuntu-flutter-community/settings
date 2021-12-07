@@ -2,7 +2,7 @@ import 'package:bluez/bluez.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:settings/view/pages/bluetooth/BluetoothDeviceModel.dart';
+import 'package:settings/view/pages/bluetooth/bluetooth_device_model.dart';
 import 'package:settings/view/pages/bluetooth/bluetooth_device_types.dart';
 import 'package:yaru_widgets/yaru_widgets.dart';
 
