@@ -22,9 +22,10 @@ Packages that we already use or plan to use are:
 - [X] responsive layout
 - [X] [MVVM software architecture](https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93viewmodel)
 - [X] search
-- [ ] WIFI page - WIP
-- [ ] Network page
-- [ ] Bluetooth page - WIP
+- [X] WIFI page - WIP
+- [ ] Ethernet page
+- [ ] Cellular Network page
+- [X] Bluetooth page - WIP
 - [X] Wallpaper page
 - [X] Appearance page
 - [X] Notifications page
