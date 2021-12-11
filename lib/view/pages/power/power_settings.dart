@@ -34,10 +34,13 @@ enum SleepInactiveType {
   logout,
 }
 
-extension SleepInactiveTypeInt on int {
+extension SleepInactiveTypeString on String {
   SleepInactiveType? toSleepInactiveType() {
-    if (this < 0 || this >= SleepInactiveType.values.length) return null;
-    return SleepInactiveType.values[this];
+    try {
+      return SleepInactiveType.values.byName(this);
+    } on ArgumentError {
+      return null;
+    }
   }
 }
 

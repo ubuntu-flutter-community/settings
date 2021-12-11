@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:gsettings/gsettings.dart';
 import 'package:nm/nm.dart';
 import 'package:safe_change_notifier/safe_change_notifier.dart';
 import 'package:settings/services/bluetooth_service.dart';
@@ -23,8 +22,8 @@ class SuspendModel extends SafeChangeNotifier {
         _bluetoothService = bluetooth,
         _networkManager = network;
 
-  final GSettings? _daemonSettings;
-  final GSettings? _sessionSettings;
+  final Settings? _daemonSettings;
+  final Settings? _sessionSettings;
   final BluetoothService _bluetoothService;
   final NetworkManagerClient _networkManager;
   final PowerSettingsService _powerService;
@@ -105,9 +104,9 @@ class SuspendModel extends SafeChangeNotifier {
   }
 
   SleepInactiveType? _sleepInactiveType(String key) =>
-      (_daemonSettings?.enumValue(key) ?? -1).toSleepInactiveType();
+      _daemonSettings?.stringValue(key)?.toSleepInactiveType();
   void _setSleepInactiveType(String key, SleepInactiveType value) {
-    _daemonSettings?.setEnumValue(key, value.index);
+    _daemonSettings?.setValue(key, value.name);
     notifyListeners();
   }
 

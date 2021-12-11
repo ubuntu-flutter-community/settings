@@ -7,10 +7,13 @@ enum PowerButtonAction {
   interactive,
 }
 
-extension PowerButtonActionInt on int {
+extension PowerButtonActionString on String {
   PowerButtonAction? toPowerButtonAction() {
-    if (this < 0 || this >= PowerButtonAction.values.length) return null;
-    return PowerButtonAction.values[this];
+    try {
+      return PowerButtonAction.values.byName(this);
+    } on ArgumentError {
+      return null;
+    }
   }
 }
 

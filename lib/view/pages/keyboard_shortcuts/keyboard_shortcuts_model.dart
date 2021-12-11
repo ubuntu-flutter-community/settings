@@ -1,5 +1,4 @@
 import 'package:flutter/foundation.dart';
-import 'package:gsettings/gsettings.dart';
 import 'package:settings/services/settings_service.dart';
 
 class KeyboardShortcutsModel extends ChangeNotifier {
@@ -8,7 +7,7 @@ class KeyboardShortcutsModel extends ChangeNotifier {
   KeyboardShortcutsModel(SettingsService service, {required this.schemaId})
       : _shortcutSettings = service.lookup(schemaId);
 
-  final GSettings? _shortcutSettings;
+  final Settings? _shortcutSettings;
 
   List<String> shortcut(String shortcutId) {
     final keys = _shortcutSettings?.stringArrayValue(shortcutId);

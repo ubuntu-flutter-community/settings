@@ -1,5 +1,4 @@
 import 'package:flutter/foundation.dart';
-import 'package:gsettings/gsettings.dart';
 import 'package:settings/schemas/schemas.dart';
 import 'package:settings/services/settings_service.dart';
 
@@ -16,8 +15,8 @@ class MouseAndTouchpadModel extends ChangeNotifier {
             service.lookup(schemaDesktopPeripheralsMouse),
         _peripheralsTouchpadSettings = service.lookup(schemaPeripheralTouchpad);
 
-  final GSettings? _peripheralsMouseSettings;
-  final GSettings? _peripheralsTouchpadSettings;
+  final Settings? _peripheralsMouseSettings;
+  final Settings? _peripheralsTouchpadSettings;
 
   // Mouse section
 

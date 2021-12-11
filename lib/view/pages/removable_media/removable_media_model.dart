@@ -1,4 +1,3 @@
-import 'package:gsettings/gsettings.dart';
 import 'package:safe_change_notifier/safe_change_notifier.dart';
 import 'package:settings/schemas/schemas.dart';
 import 'package:settings/services/settings_service.dart';
@@ -33,14 +32,15 @@ class RemovableMediaModel extends SafeChangeNotifier {
     'Ask'
   ];
 
-  final GSettings? _removableMediaSettings;
+  final Settings? _removableMediaSettings;
 
   RemovableMediaModel(SettingsService service)
       : _removableMediaSettings = service.lookup(schemaMediaHandling);
 
   // autorun-never
   final _autoRunNeverKey = 'autorun-never';
-  bool get autoRunNever => _removableMediaSettings!.boolValue(_autoRunNeverKey);
+  bool get autoRunNever =>
+      _removableMediaSettings?.boolValue(_autoRunNeverKey) == true;
   set autoRunNever(bool value) {
     _removableMediaSettings!.setValue(_autoRunNeverKey, value);
     notifyListeners();
