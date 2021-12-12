@@ -10,8 +10,11 @@ Packages that we already use or plan to use are:
 - [bluez.dart](https://github.com/canonical/bluez.dart)
 - [nm.dart](https://github.com/canonical/nm.dart)
 - [yaru.dart](https://github.com/ubuntu/yaru.dart)
+- [yaru_icons.dart](https://github.com/ubuntu/yaru_icons.dart)
+- [yaru_widgets.dart](https://github.com/ubuntu/yaru_widgets.dart)
 - [dbus.dart](https://github.com/canonical/dbus.dart)
 - [upower.dart](https://github.com/canonical/upower.dart)
+- [udisks.dart](https://github.com/canonical/udisks.dart)
 
 # TODO
 
@@ -19,9 +22,10 @@ Packages that we already use or plan to use are:
 - [X] responsive layout
 - [X] [MVVM software architecture](https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93viewmodel)
 - [X] search
-- [X] WIFI page
-- [ ] Network page
-- [ ] Bluetooth page - WIP
+- [X] WIFI page - WIP
+- [ ] Ethernet page
+- [ ] Cellular Network page
+- [X] Bluetooth page - WIP
 - [X] Wallpaper page
 - [X] Appearance page
 - [X] Notifications page

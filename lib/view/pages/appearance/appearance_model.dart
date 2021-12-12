@@ -69,7 +69,11 @@ class AppearanceModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  static const clickActions = ['minimize', 'focus-or-previews'];
+  static const clickActions = [
+    'minimize',
+    'focus-or-previews',
+    'cycle-windows'
+  ];
 
   String? get clickAction => _dashToDockSettings?.stringValue(_clickActionKey);
 

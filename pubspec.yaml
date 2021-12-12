@@ -21,6 +21,7 @@ dependencies:
   gsettings: ^0.1.2+1
   linux_system_info: ^0.0.7
   mime: ^1.0.0
+  bluez: ^0.7.4
   flex_color_picker: ^2.1.2
   nm: ^0.4.0
   open_file: ^3.2.1
@@ -35,7 +36,7 @@ dependencies:
     git:
       url: https://github.com/canonical/upower.dart
   yaru: ^0.1.7
-  yaru_icons: ^0.0.6
+  yaru_icons: ^0.0.7
   yaru_widgets:
     git:
       url: https://github.com/ubuntu/yaru_widgets.dart
