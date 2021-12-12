@@ -17,7 +17,6 @@ class AppTheme extends ValueNotifier<ThemeMode> {
         _settings.setValue('gtk-theme', 'Yaru');
         break;
     }
-    _settings.sync();
   }
 
   @override

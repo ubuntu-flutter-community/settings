@@ -15,7 +15,7 @@ void main() {
       AppTheme theme = AppTheme(settings);
 
       when(settings.setValue('gtk-theme', 'Yaru-dark')).thenAnswer(
-        (realInvocation) => true,
+        (realInvocation) async {},
       );
 
       theme.apply(Brightness.dark);
@@ -30,7 +30,7 @@ void main() {
       AppTheme theme = AppTheme(settings);
 
       when(settings.setValue('gtk-theme', 'Yaru')).thenAnswer(
-        (realInvocation) => true,
+        (realInvocation) async {},
       );
 
       theme.apply(Brightness.light);
