@@ -1,5 +1,4 @@
 import 'package:flutter/foundation.dart';
-import 'package:gsettings/gsettings.dart';
 import 'package:settings/schemas/schemas.dart';
 import 'package:settings/services/settings_service.dart';
 
@@ -15,7 +14,7 @@ class AppearanceModel extends ChangeNotifier {
   AppearanceModel(SettingsService service)
       : _dashToDockSettings = service.lookup(schemaDashToDock);
 
-  final GSettings? _dashToDockSettings;
+  final Settings? _dashToDockSettings;
 
   // Dock section
 
@@ -48,7 +47,7 @@ class AppearanceModel extends ChangeNotifier {
   }
 
   double? get maxIconSize =>
-      _dashToDockSettings?.intValue(_dashMaxIconSizeKey).toDouble();
+      _dashToDockSettings?.intValue(_dashMaxIconSizeKey)?.toDouble();
 
   void setMaxIconSize(double value) {
     var intValue = value.toInt();

@@ -1,6 +1,5 @@
 import 'package:bluez/bluez.dart';
 import 'package:flutter/material.dart';
-import 'package:gsettings/gsettings.dart';
 import 'package:nm/nm.dart';
 import 'package:provider/provider.dart';
 import 'package:settings/schemas/schemas.dart';
@@ -18,7 +17,7 @@ import 'package:yaru_icons/widgets/yaru_icons.dart';
 import 'package:yaru_widgets/yaru_widgets.dart';
 
 void main() async {
-  final themeSettings = GSettings(schemaId: schemaInterface);
+  final themeSettings = Settings(schemaInterface);
 
   final networkManagerClient = NetworkManagerClient();
   await networkManagerClient.connect();

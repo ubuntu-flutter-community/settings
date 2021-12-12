@@ -1,5 +1,4 @@
 import 'package:flutter/foundation.dart';
-import 'package:gsettings/gsettings.dart';
 import 'package:settings/schemas/schemas.dart';
 import 'package:settings/services/settings_service.dart';
 
@@ -10,14 +9,12 @@ class NotificationsModel extends ChangeNotifier {
   NotificationsModel(SettingsService service)
       : _notificationSettings = service.lookup(schemaNotifications);
 
-  final GSettings? _notificationSettings;
+  final Settings? _notificationSettings;
 
   // Global section
 
   bool? get doNotDisturb {
-    if (_notificationSettings != null) {
-      return !_notificationSettings!.boolValue(_showBannersKey);
-    }
+    return _notificationSettings?.boolValue(_showBannersKey) == false;
   }
 
   void setDoNotDisturb(bool value) {
@@ -37,7 +34,7 @@ class NotificationsModel extends ChangeNotifier {
 
   List<String>? get applications => _notificationSettings
       ?.stringArrayValue('application-children')
-      .whereType<String>()
+      ?.whereType<String>()
       .toList();
 }
 
@@ -50,7 +47,7 @@ class AppNotificationsModel extends ChangeNotifier {
             service.lookup(_appSchemaId, path: _getPath(appId));
 
   final String appId;
-  final GSettings? _appNotificationSettings;
+  final Settings? _appNotificationSettings;
 
   static String _getPath(String appId) {
     return '/' +

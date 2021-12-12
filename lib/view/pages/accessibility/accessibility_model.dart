@@ -1,5 +1,4 @@
 import 'package:flutter/foundation.dart';
-import 'package:gsettings/gsettings.dart';
 import 'package:settings/schemas/schemas.dart';
 import 'package:settings/services/settings_service.dart';
 
@@ -71,15 +70,15 @@ class AccessibilityModel extends ChangeNotifier {
         _peripheralsKeyboardSettings =
             service.lookup(schemaPeripheralsKeyboard);
 
-  final GSettings? _desktopA11Settings;
-  final GSettings? _a11yAppsSettings;
-  final GSettings? _a11yKeyboardSettings;
-  final GSettings? _a11yMagnifierSettings;
-  final GSettings? _a11yMouseSettings;
-  final GSettings? _wmPreferencesSettings;
-  final GSettings? _interfaceSettings;
-  final GSettings? _peripheralsMouseSettings;
-  final GSettings? _peripheralsKeyboardSettings;
+  final Settings? _desktopA11Settings;
+  final Settings? _a11yAppsSettings;
+  final Settings? _a11yKeyboardSettings;
+  final Settings? _a11yMagnifierSettings;
+  final Settings? _a11yMouseSettings;
+  final Settings? _wmPreferencesSettings;
+  final Settings? _interfaceSettings;
+  final Settings? _peripheralsMouseSettings;
+  final Settings? _peripheralsKeyboardSettings;
 
   // Global section
 
@@ -206,9 +205,7 @@ class AccessibilityModel extends ChangeNotifier {
   }
 
   bool? get crossHairsClip {
-    if (_a11yMagnifierSettings != null) {
-      return !_a11yMagnifierSettings!.boolValue(_crossHairsClipKey);
-    }
+    return _a11yMagnifierSettings?.boolValue(_crossHairsClipKey) == false;
   }
 
   void setCrossHairsClip(bool value) {
@@ -217,7 +214,7 @@ class AccessibilityModel extends ChangeNotifier {
   }
 
   double? get crossHairsThickness =>
-      _a11yMagnifierSettings?.intValue(_crossHairsThicknessKey).toDouble();
+      _a11yMagnifierSettings?.intValue(_crossHairsThicknessKey)?.toDouble();
 
   void setCrossHairsThickness(double value) {
     _a11yMagnifierSettings?.setValue(_crossHairsThicknessKey, value.toInt());
@@ -225,7 +222,7 @@ class AccessibilityModel extends ChangeNotifier {
   }
 
   double? get crossHairsLength =>
-      _a11yMagnifierSettings?.intValue(_crossHairsLengthKey).toDouble();
+      _a11yMagnifierSettings?.intValue(_crossHairsLengthKey)?.toDouble();
 
   void setCrossHairsLength(double value) {
     _a11yMagnifierSettings?.setValue(_crossHairsLengthKey, value.toInt());
@@ -315,7 +312,7 @@ class AccessibilityModel extends ChangeNotifier {
   }
 
   double? get delay =>
-      _peripheralsKeyboardSettings?.intValue(_delayKeyboardKey).toDouble();
+      _peripheralsKeyboardSettings?.intValue(_delayKeyboardKey)?.toDouble();
 
   void setDelay(double value) {
     _peripheralsKeyboardSettings?.setValue(_delayKeyboardKey, value.toInt());
@@ -324,7 +321,7 @@ class AccessibilityModel extends ChangeNotifier {
 
   double? get interval => _peripheralsKeyboardSettings
       ?.intValue(_repeatIntervalKeyboardKey)
-      .toDouble();
+      ?.toDouble();
 
   void setInterval(double value) {
     _peripheralsKeyboardSettings?.setValue(
@@ -340,7 +337,7 @@ class AccessibilityModel extends ChangeNotifier {
   }
 
   double? get cursorBlinkTime =>
-      _interfaceSettings?.intValue(_cursorBlinkTimeKey).toDouble();
+      _interfaceSettings?.intValue(_cursorBlinkTimeKey)?.toDouble();
 
   void setCursorBlinkTime(double value) {
     _interfaceSettings?.setValue(_cursorBlinkTimeKey, value.toInt());
@@ -391,7 +388,7 @@ class AccessibilityModel extends ChangeNotifier {
   }
 
   double? get slowKeysDelay =>
-      _a11yKeyboardSettings?.intValue(_slowKeysDelayKey).toDouble();
+      _a11yKeyboardSettings?.intValue(_slowKeysDelayKey)?.toDouble();
 
   void setSlowKeysDelay(double value) {
     _a11yKeyboardSettings?.setValue(_slowKeysDelayKey, value.toInt());
@@ -430,7 +427,7 @@ class AccessibilityModel extends ChangeNotifier {
   }
 
   double? get bounceKeysDelay =>
-      _a11yKeyboardSettings?.intValue(_bounceKeysDelayKey).toDouble();
+      _a11yKeyboardSettings?.intValue(_bounceKeysDelayKey)?.toDouble();
 
   void setBounceKeysDelay(double value) {
     _a11yKeyboardSettings?.setValue(_bounceKeysDelayKey, value.toInt());
@@ -461,7 +458,7 @@ class AccessibilityModel extends ChangeNotifier {
   }
 
   double? get doubleClickDelay =>
-      _peripheralsMouseSettings?.intValue(_doubleClickDelayKey).toDouble();
+      _peripheralsMouseSettings?.intValue(_doubleClickDelayKey)?.toDouble();
 
   void setDoubleClickDelay(double value) {
     _peripheralsMouseSettings?.setValue(_doubleClickDelayKey, value.toInt());
@@ -504,7 +501,7 @@ class AccessibilityModel extends ChangeNotifier {
   }
 
   double? get dwellThreshold =>
-      _a11yMouseSettings?.intValue(_dwellThresholdKey).toDouble();
+      _a11yMouseSettings?.intValue(_dwellThresholdKey)?.toDouble();
 
   void setDwellThreshold(double value) {
     _a11yMouseSettings?.setValue(_dwellThresholdKey, value.toInt());
