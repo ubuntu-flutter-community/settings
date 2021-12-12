@@ -7,7 +7,15 @@ class NotificationsModel extends ChangeNotifier {
   static const _showInLockScreenKey = 'show-in-lock-screen';
 
   NotificationsModel(SettingsService service)
-      : _notificationSettings = service.lookup(schemaNotifications);
+      : _notificationSettings = service.lookup(schemaNotifications) {
+    _notificationSettings?.addListener(notifyListeners);
+  }
+
+  @override
+  void dispose() {
+    _notificationSettings?.removeListener(notifyListeners);
+    super.dispose();
+  }
 
   final Settings? _notificationSettings;
 
@@ -44,7 +52,15 @@ class AppNotificationsModel extends ChangeNotifier {
 
   AppNotificationsModel(this.appId, SettingsService service)
       : _appNotificationSettings =
-            service.lookup(_appSchemaId, path: _getPath(appId));
+            service.lookup(_appSchemaId, path: _getPath(appId)) {
+    _appNotificationSettings?.addListener(notifyListeners);
+  }
+
+  @override
+  void dispose() {
+    _appNotificationSettings?.removeListener(notifyListeners);
+    super.dispose();
+  }
 
   final String appId;
   final Settings? _appNotificationSettings;

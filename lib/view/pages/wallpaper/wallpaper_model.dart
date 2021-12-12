@@ -17,7 +17,15 @@ class WallpaperModel extends SafeChangeNotifier {
   String? _customDir;
 
   WallpaperModel(SettingsService service)
-      : _wallpaperSettings = service.lookup(schemaBackground);
+      : _wallpaperSettings = service.lookup(schemaBackground) {
+    _wallpaperSettings?.addListener(notifyListeners);
+  }
+
+  @override
+  void dispose() {
+    _wallpaperSettings?.removeListener(notifyListeners);
+    super.dispose();
+  }
 
   String get pictureUri =>
       _wallpaperSettings!.stringValue(_pictureUriKey) ?? '';

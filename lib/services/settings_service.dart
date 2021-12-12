@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:gsettings/gsettings.dart';
 
 class SettingsService {
@@ -21,6 +23,15 @@ class Settings {
       : _settings = GSettings(schemaId: schemaId, path: path);
 
   final GSettings _settings;
+  final _listeners = <VoidCallback>{};
+
+  void addListener(VoidCallback listener) => _listeners.add(listener);
+  void removeListener(VoidCallback listener) => _listeners.remove(listener);
+  void notifyListeners() {
+    for (final listener in _listeners) {
+      listener();
+    }
+  }
 
   void dispose() => _settings.dispose();
 

@@ -20,7 +20,10 @@ class SuspendModel extends SafeChangeNotifier {
         _sessionSettings = settings.lookup(_kSessionSchema),
         _powerService = power,
         _bluetoothService = bluetooth,
-        _networkManager = network;
+        _networkManager = network {
+    _daemonSettings?.addListener(notifyListeners);
+    _sessionSettings?.addListener(notifyListeners);
+  }
 
   final Settings? _daemonSettings;
   final Settings? _sessionSettings;
@@ -53,6 +56,8 @@ class SuspendModel extends SafeChangeNotifier {
 
   @override
   Future<void> dispose() async {
+    _daemonSettings?.removeListener(notifyListeners);
+    _sessionSettings?.removeListener(notifyListeners);
     await _airplaneMode?.cancel();
     await _screenBrightness?.cancel();
     await _keyboardBrightness?.cancel();

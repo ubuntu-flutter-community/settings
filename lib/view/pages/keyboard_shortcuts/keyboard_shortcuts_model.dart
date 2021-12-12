@@ -5,7 +5,15 @@ class KeyboardShortcutsModel extends ChangeNotifier {
   final String schemaId;
 
   KeyboardShortcutsModel(SettingsService service, {required this.schemaId})
-      : _shortcutSettings = service.lookup(schemaId);
+      : _shortcutSettings = service.lookup(schemaId) {
+    _shortcutSettings?.addListener(notifyListeners);
+  }
+
+  @override
+  void dispose() {
+    _shortcutSettings?.removeListener(notifyListeners);
+    super.dispose();
+  }
 
   final Settings? _shortcutSettings;
 
