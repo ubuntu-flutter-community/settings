@@ -2,6 +2,8 @@
 // in settings/test/widgets/app_theme_test.dart.
 // Do not manually edit this file.
 
+import 'dart:ui' as _i3;
+
 import 'package:mockito/mockito.dart' as _i1;
 import 'package:settings/services/settings_service.dart' as _i2;
 
@@ -22,6 +24,18 @@ class MockSettings extends _i1.Mock implements _i2.Settings {
     _i1.throwOnMissingStub(this);
   }
 
+  @override
+  void addListener(_i3.VoidCallback? listener) =>
+      super.noSuchMethod(Invocation.method(#addListener, [listener]),
+          returnValueForMissingStub: null);
+  @override
+  void removeListener(_i3.VoidCallback? listener) =>
+      super.noSuchMethod(Invocation.method(#removeListener, [listener]),
+          returnValueForMissingStub: null);
+  @override
+  void notifyListeners() =>
+      super.noSuchMethod(Invocation.method(#notifyListeners, []),
+          returnValueForMissingStub: null);
   @override
   void dispose() => super.noSuchMethod(Invocation.method(#dispose, []),
       returnValueForMissingStub: null);

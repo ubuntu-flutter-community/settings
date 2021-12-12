@@ -12,7 +12,15 @@ class AppearanceModel extends ChangeNotifier {
   static const _clickActionKey = 'click-action';
 
   AppearanceModel(SettingsService service)
-      : _dashToDockSettings = service.lookup(schemaDashToDock);
+      : _dashToDockSettings = service.lookup(schemaDashToDock) {
+    _dashToDockSettings?.addListener(notifyListeners);
+  }
+
+  @override
+  void dispose() {
+    _dashToDockSettings?.removeListener(notifyListeners);
+    super.dispose();
+  }
 
   final Settings? _dashToDockSettings;
 

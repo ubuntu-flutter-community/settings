@@ -8,7 +8,17 @@ const _kInterfaceSchema = 'org.gnome.desktop.interface';
 class SuspendModel extends SafeChangeNotifier {
   SuspendModel(SettingsService settings)
       : _daemonSettings = settings.lookup(_kDaemonSchema),
-        _interfaceSettings = settings.lookup(_kInterfaceSchema);
+        _interfaceSettings = settings.lookup(_kInterfaceSchema) {
+    _daemonSettings?.addListener(notifyListeners);
+    _interfaceSettings?.addListener(notifyListeners);
+  }
+
+  @override
+  void dispose() {
+    _daemonSettings?.removeListener(notifyListeners);
+    _interfaceSettings?.removeListener(notifyListeners);
+    super.dispose();
+  }
 
   final Settings? _daemonSettings;
   final Settings? _interfaceSettings;

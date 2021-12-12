@@ -8,7 +8,15 @@ class SoundModel extends ChangeNotifier {
   static const _inputFeedbackSounds = 'input-feedback-sounds';
 
   SoundModel(SettingsService service)
-      : _soundSettings = service.lookup(schemaSound);
+      : _soundSettings = service.lookup(schemaSound) {
+    _soundSettings?.addListener(notifyListeners);
+  }
+
+  @override
+  void dispose() {
+    _soundSettings?.removeListener(notifyListeners);
+    super.dispose();
+  }
 
   final Settings? _soundSettings;
 

@@ -13,7 +13,18 @@ class MouseAndTouchpadModel extends ChangeNotifier {
   MouseAndTouchpadModel(SettingsService service)
       : _peripheralsMouseSettings =
             service.lookup(schemaDesktopPeripheralsMouse),
-        _peripheralsTouchpadSettings = service.lookup(schemaPeripheralTouchpad);
+        _peripheralsTouchpadSettings =
+            service.lookup(schemaPeripheralTouchpad) {
+    _peripheralsMouseSettings?.addListener(notifyListeners);
+    _peripheralsTouchpadSettings?.addListener(notifyListeners);
+  }
+
+  @override
+  void dispose() {
+    _peripheralsMouseSettings?.removeListener(notifyListeners);
+    _peripheralsTouchpadSettings?.removeListener(notifyListeners);
+    super.dispose();
+  }
 
   final Settings? _peripheralsMouseSettings;
   final Settings? _peripheralsTouchpadSettings;

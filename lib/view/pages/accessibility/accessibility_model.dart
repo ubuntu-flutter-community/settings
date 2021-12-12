@@ -68,7 +68,31 @@ class AccessibilityModel extends ChangeNotifier {
         _interfaceSettings = service.lookup(schemaInterface),
         _peripheralsMouseSettings = service.lookup(schemaPeripheralsMouse),
         _peripheralsKeyboardSettings =
-            service.lookup(schemaPeripheralsKeyboard);
+            service.lookup(schemaPeripheralsKeyboard) {
+    _desktopA11Settings?.addListener(notifyListeners);
+    _a11yAppsSettings?.addListener(notifyListeners);
+    _a11yKeyboardSettings?.addListener(notifyListeners);
+    _a11yMagnifierSettings?.addListener(notifyListeners);
+    _a11yMouseSettings?.addListener(notifyListeners);
+    _wmPreferencesSettings?.addListener(notifyListeners);
+    _interfaceSettings?.addListener(notifyListeners);
+    _peripheralsMouseSettings?.addListener(notifyListeners);
+    _peripheralsKeyboardSettings?.addListener(notifyListeners);
+  }
+
+  @override
+  void dispose() {
+    _desktopA11Settings?.removeListener(notifyListeners);
+    _a11yAppsSettings?.removeListener(notifyListeners);
+    _a11yKeyboardSettings?.removeListener(notifyListeners);
+    _a11yMagnifierSettings?.removeListener(notifyListeners);
+    _a11yMouseSettings?.removeListener(notifyListeners);
+    _wmPreferencesSettings?.removeListener(notifyListeners);
+    _interfaceSettings?.removeListener(notifyListeners);
+    _peripheralsMouseSettings?.removeListener(notifyListeners);
+    _peripheralsKeyboardSettings?.removeListener(notifyListeners);
+    super.dispose();
+  }
 
   final Settings? _desktopA11Settings;
   final Settings? _a11yAppsSettings;

@@ -35,7 +35,15 @@ class RemovableMediaModel extends SafeChangeNotifier {
   final Settings? _removableMediaSettings;
 
   RemovableMediaModel(SettingsService service)
-      : _removableMediaSettings = service.lookup(schemaMediaHandling);
+      : _removableMediaSettings = service.lookup(schemaMediaHandling) {
+    _removableMediaSettings?.addListener(notifyListeners);
+  }
+
+  @override
+  void dispose() {
+    _removableMediaSettings?.removeListener(notifyListeners);
+    super.dispose();
+  }
 
   // autorun-never
   final _autoRunNeverKey = 'autorun-never';
