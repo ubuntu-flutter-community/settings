@@ -11,8 +11,7 @@ class MouseAndTouchpadModel extends ChangeNotifier {
   static const _touchpadDisableWhileTyping = 'disable-while-typing';
 
   MouseAndTouchpadModel(SettingsService service)
-      : _peripheralsMouseSettings =
-            service.lookup(schemaDesktopPeripheralsMouse),
+      : _peripheralsMouseSettings = service.lookup(schemaPeripheralsMouse),
         _peripheralsTouchpadSettings =
             service.lookup(schemaPeripheralTouchpad) {
     _peripheralsMouseSettings?.addListener(notifyListeners);
