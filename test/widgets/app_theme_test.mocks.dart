@@ -2,6 +2,7 @@
 // in settings/test/widgets/app_theme_test.dart.
 // Do not manually edit this file.
 
+import 'dart:async' as _i4;
 import 'dart:ui' as _i3;
 
 import 'package:mockito/mockito.dart' as _i1;
@@ -59,16 +60,15 @@ class MockSettings extends _i1.Mock implements _i2.Settings {
   T? getValue<T>(String? key) =>
       (super.noSuchMethod(Invocation.method(#getValue, [key])) as T?);
   @override
-  void setValue<T>(String? key, Object? value) =>
-      super.noSuchMethod(Invocation.method(#setValue, [key, value]),
-          returnValueForMissingStub: null);
+  _i4.Future<void> setValue<T>(String? key, T? value) =>
+      (super.noSuchMethod(Invocation.method(#setValue, [key, value]),
+          returnValue: Future<void>.value(),
+          returnValueForMissingStub: Future<void>.value()) as _i4.Future<void>);
   @override
-  void resetValue(String? key) =>
-      super.noSuchMethod(Invocation.method(#resetValue, [key]),
-          returnValueForMissingStub: null);
-  @override
-  void sync() => super.noSuchMethod(Invocation.method(#sync, []),
-      returnValueForMissingStub: null);
+  _i4.Future<void> resetValue(String? key) =>
+      (super.noSuchMethod(Invocation.method(#resetValue, [key]),
+          returnValue: Future<void>.value(),
+          returnValueForMissingStub: Future<void>.value()) as _i4.Future<void>);
   @override
   String toString() => super.toString();
 }

@@ -18,7 +18,7 @@ dependencies:
       path: package
   flutter:
     sdk: flutter
-  gsettings: ^0.1.2+1
+  gsettings: ^0.2.3
   linux_system_info: ^0.0.7
   mime: ^1.0.0
   bluez: ^0.7.4
