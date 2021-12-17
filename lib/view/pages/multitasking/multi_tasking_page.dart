@@ -94,7 +94,7 @@ class MultiTaskingPage extends StatelessWidget {
             padding: const EdgeInsets.all(10.0),
             child: SvgPicture.asset(
               'assets/images/workspaces-primary-display.svg',
-              color: !model.workSpaceOnlyOnPrimary
+              color: model.workSpaceOnlyOnPrimary
                   ? null
                   : Theme.of(context).disabledColor.withOpacity(0.5),
               colorBlendMode: BlendMode.darken,
@@ -105,7 +105,7 @@ class MultiTaskingPage extends StatelessWidget {
             padding: const EdgeInsets.all(10.0),
             child: SvgPicture.asset(
               'assets/images/workspaces-span-displays.svg',
-              color: model.workSpaceOnlyOnPrimary
+              color: !model.workSpaceOnlyOnPrimary
                   ? null
                   : Theme.of(context).disabledColor.withOpacity(0.5),
               colorBlendMode: BlendMode.darken,
