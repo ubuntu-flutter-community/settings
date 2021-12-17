@@ -50,7 +50,7 @@ class MultiTaskingModel extends SafeChangeNotifier {
   }
 
   bool get workSpaceOnlyOnPrimary =>
-      _mutterSettings!.getValue(_workspacesOnlyOnPrimaryKey);
+      _mutterSettings!.getValue(_workspacesOnlyOnPrimaryKey) ?? false;
 
   set workSpaceOnlyOnPrimary(bool value) {
     _mutterSettings!.setValue(_workspacesOnlyOnPrimaryKey, value);
@@ -58,7 +58,7 @@ class MultiTaskingModel extends SafeChangeNotifier {
   }
 
   bool get dynamicWorkspaces =>
-      _mutterSettings!.getValue(_dynamicWorkspacesKey);
+      _mutterSettings!.getValue(_dynamicWorkspacesKey) ?? false;
 
   set dynamicWorkspaces(bool value) {
     _mutterSettings!.setValue(_dynamicWorkspacesKey, value);
@@ -73,5 +73,10 @@ class MultiTaskingModel extends SafeChangeNotifier {
   }
 
   bool get currentWorkspaceOnly =>
-      _appSwitchSettings!.getValue(_currentWorkspaceOnlyKey);
+      _appSwitchSettings!.getValue(_currentWorkspaceOnlyKey) ?? false;
+
+  set currentWorkspaceOnly(bool value) {
+    _appSwitchSettings!.setValue(_currentWorkspaceOnlyKey, value);
+    notifyListeners();
+  }
 }
