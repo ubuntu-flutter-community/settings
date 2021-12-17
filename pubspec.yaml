@@ -43,6 +43,8 @@ dependencies:
   yaru_widgets:
     git:
       url: https://github.com/ubuntu/yaru_widgets.dart
+  flutter_svg: ^1.0.0
+  flutter_spinbox: ^0.7.0
 
 dev_dependencies:
   build_runner: ^2.1.2
@@ -62,3 +64,5 @@ flutter:
     - assets/images/cursor/
     - assets/pdf_assets/cof.png
     - assets/rive/ubuntu_cof.riv
+    - assets/images/active-screen-edges.svg
+    - assets/images/workspaces-primary-display.svg
