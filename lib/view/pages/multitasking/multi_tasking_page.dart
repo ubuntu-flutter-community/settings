@@ -31,6 +31,13 @@ class MultiTaskingPage extends StatelessWidget {
             value: model.edgeTiling,
             onChanged: (value) => model.edgeTiling = value,
           )
+        ]),
+        YaruSection(headline: 'Workspaces', children: [
+          YaruSwitchRow(
+            trailingWidget: const Text('Dynamic workspaces'),
+            value: model.dynamicWorkspaces,
+            onChanged: (value) => model.dynamicWorkspaces = value,
+          )
         ])
       ],
     );
