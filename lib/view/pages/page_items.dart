@@ -40,7 +40,7 @@ final pageItems = <YaruPageItem>[
   const YaruPageItem(
       title: 'Multi-tasking',
       builder: MultiTaskingPage.create,
-      iconData: YaruIcons.window_restore),
+      iconData: YaruIcons.windows),
   const YaruPageItem(
     title: 'Notifications',
     iconData: YaruIcons.notification,
