@@ -62,23 +62,36 @@ class MultiTaskingPage extends StatelessWidget {
           )
         ]),
         YaruSection(headline: 'Workspaces', children: [
-          YaruSwitchRow(
-            trailingWidget: const Text('Dynamic workspaces'),
-            value: model.dynamicWorkspaces,
-            onChanged: (value) => model.dynamicWorkspaces = value,
+          RadioListTile(
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
+            title: const Text('Dynamic Workspaces'),
+            value: true,
+            groupValue: model.dynamicWorkspaces,
+            onChanged: (bool? value) => model.dynamicWorkspaces = value!,
+          ),
+          RadioListTile(
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
+            title: const Text('Fixed number of workspaces'),
+            value: false,
+            groupValue: model.dynamicWorkspaces,
+            onChanged: (bool? value) => model.dynamicWorkspaces = value!,
           ),
           YaruRow(
               trailingWidget: Text(
                 'Number of workspaces',
                 style: model.dynamicWorkspaces
-                    ? null
-                    : TextStyle(color: Theme.of(context).disabledColor),
+                    ? TextStyle(color: Theme.of(context).disabledColor)
+                    : null,
               ),
               actionWidget: SizedBox(
                 height: 40,
                 width: 150,
                 child: SpinBox(
-                  enabled: model.dynamicWorkspaces,
+                  decoration:
+                      const InputDecoration(border: UnderlineInputBorder()),
+                  enabled: !model.dynamicWorkspaces,
                   value: model.numWorkspaces.toDouble(),
                   onChanged: (value) => model.numWorkspaces = value.toInt(),
                 ),
@@ -97,7 +110,9 @@ class MultiTaskingPage extends StatelessWidget {
               color: model.workSpaceOnlyOnPrimary
                   ? null
                   : Theme.of(context).disabledColor.withOpacity(0.5),
-              colorBlendMode: BlendMode.darken,
+              colorBlendMode: Theme.of(context).brightness == Brightness.dark
+                  ? BlendMode.hardLight
+                  : BlendMode.darken,
               height: 60,
             ),
           ),
@@ -108,7 +123,9 @@ class MultiTaskingPage extends StatelessWidget {
               color: !model.workSpaceOnlyOnPrimary
                   ? null
                   : Theme.of(context).disabledColor.withOpacity(0.5),
-              colorBlendMode: BlendMode.darken,
+              colorBlendMode: Theme.of(context).brightness == Brightness.dark
+                  ? BlendMode.hardLight
+                  : BlendMode.darken,
               height: 60,
             ),
           )

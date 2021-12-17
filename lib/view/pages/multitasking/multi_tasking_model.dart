@@ -65,7 +65,7 @@ class MultiTaskingModel extends SafeChangeNotifier {
     notifyListeners();
   }
 
-  int get numWorkspaces => _wmSettings!.getValue(_numWorkspacesKey);
+  int get numWorkspaces => _wmSettings!.getValue(_numWorkspacesKey) ?? 0;
 
   set numWorkspaces(int value) {
     _wmSettings!.setValue(_numWorkspacesKey, value);
