@@ -17,3 +17,4 @@ const String schemaDashToDock = 'org.gnome.shell.extensions.dash-to-dock';
 const String schemaNotifications = 'org.gnome.desktop.notifications';
 const String schemaMediaHandling = 'org.gnome.desktop.media-handling';
 const String schemaBackground = 'org.gnome.desktop.background';
+const String schemaMutter = 'org.gnome.mutter';

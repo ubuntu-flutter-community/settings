@@ -25,6 +25,11 @@ class MultiTaskingPage extends StatelessWidget {
             trailingWidget: const Text('Enable hot corners'),
             value: model.enableHotCorners,
             onChanged: (value) => model.enableHotCorners = value,
+          ),
+          YaruSwitchRow(
+            trailingWidget: const Text('Enable active edge tiling'),
+            value: model.edgeTiling,
+            onChanged: (value) => model.edgeTiling = value,
           )
         ])
       ],
