@@ -18,7 +18,10 @@ dependencies:
       path: package
   flutter:
     sdk: flutter
+  flutter_localizations:
+    sdk: flutter
   gsettings: ^0.2.3
+  intl: ^0.17.0
   linux_system_info: ^0.0.7
   mime: ^1.0.0
   bluez: ^0.7.4
@@ -51,6 +54,7 @@ dev_dependencies:
   mockito: ^5.0.16
 
 flutter:
+  generate: true
   uses-material-design: true
 
   assets:

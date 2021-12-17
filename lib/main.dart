@@ -2,6 +2,7 @@ import 'package:bluez/bluez.dart';
 import 'package:flutter/material.dart';
 import 'package:nm/nm.dart';
 import 'package:provider/provider.dart';
+import 'package:settings/l10n/l10n.dart';
 import 'package:settings/schemas/schemas.dart';
 import 'package:settings/services/bluetooth_service.dart';
 import 'package:settings/services/hostname_service.dart';
@@ -76,18 +77,24 @@ class UbuntuSettingsApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Ubuntu settings',
-      home: YaruMasterDetailPage(
-        appBarHeight: 48,
-        leftPaneWidth: 280,
-        pageItems: pageItems,
-        previousIconData: YaruIcons.go_previous,
-        searchHint: 'Search...',
-        searchIconData: YaruIcons.search,
-      ),
+      onGenerateTitle: (context) => context.l10n.appTitle,
+      routes: {
+        Navigator.defaultRouteName: (context) {
+          return YaruMasterDetailPage(
+            appBarHeight: 48,
+            leftPaneWidth: 280,
+            pageItems: pageItems,
+            previousIconData: YaruIcons.go_previous,
+            searchHint: context.l10n.searchHint,
+            searchIconData: YaruIcons.search,
+          );
+        },
+      },
       theme: yaru.lightTheme,
       darkTheme: yaru.darkTheme,
       themeMode: context.watch<AppTheme>().value,
+      supportedLocales: AppLocalizations.supportedLocales,
+      localizationsDelegates: AppLocalizations.localizationsDelegates,
     );
   }
 }
