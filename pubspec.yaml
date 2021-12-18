@@ -30,15 +30,15 @@ dependencies:
   open_file: ^3.2.1
   path_provider: ^2.0.5
   pdf: ^3.6.0
-  provider: ^5.0.0
+  provider: ^6.0.1
   rive: ^0.7.28
-  safe_change_notifier: ^0.0.1
+  safe_change_notifier: ^0.1.0
   scrollable_positioned_list: ^0.2.0-nullsafety.0
   udisks: ^0.3.0
   upower:
     git:
       url: https://github.com/canonical/upower.dart
-  yaru: ^0.1.7
+  yaru: ^0.2.0
   yaru_icons: ^0.0.7
   yaru_widgets:
     git:
@@ -52,7 +52,7 @@ dev_dependencies:
   flutter_lints: ^1.0.0
   flutter_test:
     sdk: flutter
-  mockingjay: ^0.1.1
+  mockingjay: ^0.2.0
   mockito: ^5.0.16
 
 flutter:
