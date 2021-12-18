@@ -4,7 +4,6 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 import 'package:settings/services/settings_service.dart';
 import 'package:settings/view/pages/multitasking/multi_tasking_model.dart';
-import 'package:yaru_icons/widgets/yaru_icons.dart';
 import 'package:yaru_widgets/yaru_widgets.dart';
 
 class MultiTaskingPage extends StatelessWidget {
@@ -37,6 +36,10 @@ class MultiTaskingPage extends StatelessWidget {
                 padding: const EdgeInsets.all(20.0),
                 child: SvgPicture.asset(
                   'assets/images/hot-corner.svg',
+                  color: model.enableHotCorners
+                      ? Theme.of(context).primaryColor.withOpacity(0.1)
+                      : Theme.of(context).backgroundColor,
+                  colorBlendMode: BlendMode.color,
                   height: 80,
                 ),
               ),
@@ -55,6 +58,10 @@ class MultiTaskingPage extends StatelessWidget {
                 padding: const EdgeInsets.all(20.0),
                 child: SvgPicture.asset(
                   'assets/images/active-screen-edges.svg',
+                  color: model.edgeTiling
+                      ? Theme.of(context).primaryColor.withOpacity(0.1)
+                      : Theme.of(context).backgroundColor,
+                  colorBlendMode: BlendMode.color,
                   height: 80,
                 ),
               ),
@@ -108,11 +115,9 @@ class MultiTaskingPage extends StatelessWidget {
             child: SvgPicture.asset(
               'assets/images/workspaces-primary-display.svg',
               color: model.workSpaceOnlyOnPrimary
-                  ? null
-                  : Theme.of(context).disabledColor.withOpacity(0.5),
-              colorBlendMode: Theme.of(context).brightness == Brightness.dark
-                  ? BlendMode.hardLight
-                  : BlendMode.darken,
+                  ? Theme.of(context).primaryColor.withOpacity(0.1)
+                  : Theme.of(context).backgroundColor,
+              colorBlendMode: BlendMode.color,
               height: 60,
             ),
           ),
@@ -121,11 +126,9 @@ class MultiTaskingPage extends StatelessWidget {
             child: SvgPicture.asset(
               'assets/images/workspaces-span-displays.svg',
               color: !model.workSpaceOnlyOnPrimary
-                  ? null
-                  : Theme.of(context).disabledColor.withOpacity(0.5),
-              colorBlendMode: Theme.of(context).brightness == Brightness.dark
-                  ? BlendMode.hardLight
-                  : BlendMode.darken,
+                  ? Theme.of(context).primaryColor.withOpacity(0.1)
+                  : Theme.of(context).backgroundColor,
+              colorBlendMode: BlendMode.color,
               height: 60,
             ),
           )
