@@ -37,6 +37,10 @@ class MultiTaskingPage extends StatelessWidget {
                 padding: const EdgeInsets.all(20.0),
                 child: SvgPicture.asset(
                   'assets/images/hot-corner.svg',
+                  color: model.enableHotCorners
+                      ? Theme.of(context).primaryColor.withOpacity(0.6)
+                      : Theme.of(context).disabledColor.withOpacity(0.5),
+                  colorBlendMode: BlendMode.color,
                   height: 80,
                 ),
               ),
@@ -55,6 +59,10 @@ class MultiTaskingPage extends StatelessWidget {
                 padding: const EdgeInsets.all(20.0),
                 child: SvgPicture.asset(
                   'assets/images/active-screen-edges.svg',
+                  color: model.edgeTiling
+                      ? Theme.of(context).primaryColor.withOpacity(0.6)
+                      : Theme.of(context).disabledColor.withOpacity(0.5),
+                  colorBlendMode: BlendMode.color,
                   height: 80,
                 ),
               ),
@@ -108,11 +116,9 @@ class MultiTaskingPage extends StatelessWidget {
             child: SvgPicture.asset(
               'assets/images/workspaces-primary-display.svg',
               color: model.workSpaceOnlyOnPrimary
-                  ? null
+                  ? Theme.of(context).primaryColor.withOpacity(0.6)
                   : Theme.of(context).disabledColor.withOpacity(0.5),
-              colorBlendMode: Theme.of(context).brightness == Brightness.dark
-                  ? BlendMode.hardLight
-                  : BlendMode.darken,
+              colorBlendMode: BlendMode.color,
               height: 60,
             ),
           ),
@@ -121,11 +127,9 @@ class MultiTaskingPage extends StatelessWidget {
             child: SvgPicture.asset(
               'assets/images/workspaces-span-displays.svg',
               color: !model.workSpaceOnlyOnPrimary
-                  ? null
+                  ? Theme.of(context).primaryColor.withOpacity(0.6)
                   : Theme.of(context).disabledColor.withOpacity(0.5),
-              colorBlendMode: Theme.of(context).brightness == Brightness.dark
-                  ? BlendMode.hardLight
-                  : BlendMode.darken,
+              colorBlendMode: BlendMode.color,
               height: 60,
             ),
           )
