@@ -2,7 +2,8 @@
 
 The goal of this project is to build a feature complete settings app for the Ubuntu desktop with the Flutter UI toolkit.
 
-![](.github/images/wip.gif)
+![Light Screenshot](.github/images/screenshot_light.png)
+![Dark Screenshot](.github/images/screenshot_dark.png)
 
 Mentionable packages that we use and want to thank are:
 
@@ -18,40 +19,11 @@ Mentionable packages that we use and want to thank are:
 - [filesystem_picker](https://github.com/andyduke/filesystem_picker)
 - [flex_color_picker](https://github.com/rydmike/flex_color_picker)
 
-# TODO
 
-- [X] use real yaru icons - thanks to @Jupi007
-- [X] responsive layout
-- [X] [MVVM software architecture](https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93viewmodel) - thanks to @jpnurmi
-- [X] search
-- [X] WIFI page - WIP
-- [ ] Ethernet page
-- [ ] Cellular Network page
-- [X] Bluetooth page - WIP
-- [X] Wallpaper page
-- [X] Appearance page
-- [X] Multi-Tasking page
-- [X] Notifications page
-- [ ] Search page
-- [ ] Apps page
-- [ ] Security page
-- [ ] Online Accounts page
-- [ ] Sharing page
-- [ ] Sound page - WIP    
-- [X] Power page
-- [ ] Displays page
-- [X] Mouse and touchpad page
-- [ ] Keyboard shortcuts page - WIP
-- [ ] Printers page - WIP
-- [X] Removeable Media page    
-- [ ] Color page
-- [ ] Region and language page
-- [X] Accessability page
-- [ ] Users page
-- [ ] Preferred apps page
-- [ ] Date and time page
-- [ ] Wacom page
-- [X] Info page
+# Alpha Releases / Download
+
+Currently the app is in a very raw alpha state and many pages are still missing.
+However if you want you can download, extract and then run alpha releases [from the releases page](https://github.com/Feichtmeier/settings/releases).
 
 # Building
 
@@ -87,3 +59,38 @@ flutter config --enable-linux-desktop
 ```bash
 sudo apt install libhandy-1-dev
 ```
+
+# TODO
+
+- [X] use real yaru icons - thanks to @Jupi007
+- [X] responsive layout
+- [X] [MVVM software architecture](https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93viewmodel) - thanks to @jpnurmi
+- [X] search
+- [X] WIFI page - WIP
+- [ ] Ethernet page
+- [ ] Cellular Network page
+- [X] Bluetooth page - WIP
+- [X] Wallpaper page
+- [X] Appearance page
+- [X] Multi-Tasking page
+- [X] Notifications page
+- [ ] Search page
+- [ ] Apps page
+- [ ] Security page
+- [ ] Online Accounts page
+- [ ] Sharing page
+- [ ] Sound page - WIP    
+- [X] Power page
+- [ ] Displays page
+- [X] Mouse and touchpad page
+- [ ] Keyboard shortcuts page - WIP
+- [ ] Printers page - WIP
+- [X] Removeable Media page    
+- [ ] Color page
+- [ ] Region and language page
+- [X] Accessability page
+- [ ] Users page
+- [ ] Preferred apps page
+- [ ] Date and time page
+- [ ] Wacom page
+- [X] Info page
