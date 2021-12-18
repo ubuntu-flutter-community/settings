@@ -1,5 +1,4 @@
 import 'package:flutter/foundation.dart';
-import 'package:gsettings/gsettings.dart';
 import 'package:settings/schemas/schemas.dart';
 import 'package:settings/services/settings_service.dart';
 
@@ -8,16 +7,22 @@ class NotificationsModel extends ChangeNotifier {
   static const _showInLockScreenKey = 'show-in-lock-screen';
 
   NotificationsModel(SettingsService service)
-      : _notificationSettings = service.lookup(schemaNotifications);
+      : _notificationSettings = service.lookup(schemaNotifications) {
+    _notificationSettings?.addListener(notifyListeners);
+  }
 
-  final GSettings? _notificationSettings;
+  @override
+  void dispose() {
+    _notificationSettings?.removeListener(notifyListeners);
+    super.dispose();
+  }
+
+  final Settings? _notificationSettings;
 
   // Global section
 
   bool? get doNotDisturb {
-    if (_notificationSettings != null) {
-      return !_notificationSettings!.boolValue(_showBannersKey);
-    }
+    return _notificationSettings?.boolValue(_showBannersKey) == false;
   }
 
   void setDoNotDisturb(bool value) {
@@ -37,7 +42,7 @@ class NotificationsModel extends ChangeNotifier {
 
   List<String>? get applications => _notificationSettings
       ?.stringArrayValue('application-children')
-      .whereType<String>()
+      ?.whereType<String>()
       .toList();
 }
 
@@ -47,10 +52,18 @@ class AppNotificationsModel extends ChangeNotifier {
 
   AppNotificationsModel(this.appId, SettingsService service)
       : _appNotificationSettings =
-            service.lookup(_appSchemaId, path: _getPath(appId));
+            service.lookup(_appSchemaId, path: _getPath(appId)) {
+    _appNotificationSettings?.addListener(notifyListeners);
+  }
+
+  @override
+  void dispose() {
+    _appNotificationSettings?.removeListener(notifyListeners);
+    super.dispose();
+  }
 
   final String appId;
-  final GSettings? _appNotificationSettings;
+  final Settings? _appNotificationSettings;
 
   static String _getPath(String appId) {
     return '/' +

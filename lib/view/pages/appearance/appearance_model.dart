@@ -1,5 +1,4 @@
 import 'package:flutter/foundation.dart';
-import 'package:gsettings/gsettings.dart';
 import 'package:settings/schemas/schemas.dart';
 import 'package:settings/services/settings_service.dart';
 
@@ -13,9 +12,17 @@ class AppearanceModel extends ChangeNotifier {
   static const _clickActionKey = 'click-action';
 
   AppearanceModel(SettingsService service)
-      : _dashToDockSettings = service.lookup(schemaDashToDock);
+      : _dashToDockSettings = service.lookup(schemaDashToDock) {
+    _dashToDockSettings?.addListener(notifyListeners);
+  }
 
-  final GSettings? _dashToDockSettings;
+  @override
+  void dispose() {
+    _dashToDockSettings?.removeListener(notifyListeners);
+    super.dispose();
+  }
+
+  final Settings? _dashToDockSettings;
 
   // Dock section
 
@@ -48,7 +55,7 @@ class AppearanceModel extends ChangeNotifier {
   }
 
   double? get maxIconSize =>
-      _dashToDockSettings?.intValue(_dashMaxIconSizeKey).toDouble();
+      _dashToDockSettings?.intValue(_dashMaxIconSizeKey)?.toDouble();
 
   void setMaxIconSize(double value) {
     var intValue = value.toInt();

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:gsettings/gsettings.dart';
+import 'package:settings/services/settings_service.dart';
 
 class AppTheme extends ValueNotifier<ThemeMode> {
   AppTheme(this._settings) : super(ThemeMode.system);
 
-  final GSettings _settings;
+  final Settings _settings;
 
   void apply(Brightness brightness) {
     switch (brightness) {
@@ -17,7 +17,6 @@ class AppTheme extends ValueNotifier<ThemeMode> {
         _settings.setValue('gtk-theme', 'Yaru');
         break;
     }
-    _settings.sync();
   }
 
   @override

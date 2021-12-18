@@ -1,14 +1,21 @@
 import 'package:flutter/foundation.dart';
-import 'package:gsettings/gsettings.dart';
 import 'package:settings/services/settings_service.dart';
 
 class KeyboardShortcutsModel extends ChangeNotifier {
   final String schemaId;
 
   KeyboardShortcutsModel(SettingsService service, {required this.schemaId})
-      : _shortcutSettings = service.lookup(schemaId);
+      : _shortcutSettings = service.lookup(schemaId) {
+    _shortcutSettings?.addListener(notifyListeners);
+  }
 
-  final GSettings? _shortcutSettings;
+  @override
+  void dispose() {
+    _shortcutSettings?.removeListener(notifyListeners);
+    super.dispose();
+  }
+
+  final Settings? _shortcutSettings;
 
   List<String> shortcut(String shortcutId) {
     final keys = _shortcutSettings?.stringArrayValue(shortcutId);

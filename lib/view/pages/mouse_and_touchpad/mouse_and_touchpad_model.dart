@@ -1,5 +1,4 @@
 import 'package:flutter/foundation.dart';
-import 'package:gsettings/gsettings.dart';
 import 'package:settings/schemas/schemas.dart';
 import 'package:settings/services/settings_service.dart';
 
@@ -12,12 +11,22 @@ class MouseAndTouchpadModel extends ChangeNotifier {
   static const _touchpadDisableWhileTyping = 'disable-while-typing';
 
   MouseAndTouchpadModel(SettingsService service)
-      : _peripheralsMouseSettings =
-            service.lookup(schemaDesktopPeripheralsMouse),
-        _peripheralsTouchpadSettings = service.lookup(schemaPeripheralTouchpad);
+      : _peripheralsMouseSettings = service.lookup(schemaPeripheralsMouse),
+        _peripheralsTouchpadSettings =
+            service.lookup(schemaPeripheralTouchpad) {
+    _peripheralsMouseSettings?.addListener(notifyListeners);
+    _peripheralsTouchpadSettings?.addListener(notifyListeners);
+  }
 
-  final GSettings? _peripheralsMouseSettings;
-  final GSettings? _peripheralsTouchpadSettings;
+  @override
+  void dispose() {
+    _peripheralsMouseSettings?.removeListener(notifyListeners);
+    _peripheralsTouchpadSettings?.removeListener(notifyListeners);
+    super.dispose();
+  }
+
+  final Settings? _peripheralsMouseSettings;
+  final Settings? _peripheralsTouchpadSettings;
 
   // Mouse section
 

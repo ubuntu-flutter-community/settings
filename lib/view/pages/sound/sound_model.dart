@@ -1,5 +1,4 @@
 import 'package:flutter/foundation.dart';
-import 'package:gsettings/gsettings.dart';
 import 'package:settings/schemas/schemas.dart';
 import 'package:settings/services/settings_service.dart';
 
@@ -9,9 +8,17 @@ class SoundModel extends ChangeNotifier {
   static const _inputFeedbackSounds = 'input-feedback-sounds';
 
   SoundModel(SettingsService service)
-      : _soundSettings = service.lookup(schemaSound);
+      : _soundSettings = service.lookup(schemaSound) {
+    _soundSettings?.addListener(notifyListeners);
+  }
 
-  final GSettings? _soundSettings;
+  @override
+  void dispose() {
+    _soundSettings?.removeListener(notifyListeners);
+    super.dispose();
+  }
+
+  final Settings? _soundSettings;
 
   // System section
 

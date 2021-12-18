@@ -1,13 +1,12 @@
 import 'dart:io';
 
-import 'package:gsettings/gsettings.dart';
 import 'package:mime/mime.dart';
 import 'package:safe_change_notifier/safe_change_notifier.dart';
 import 'package:settings/schemas/schemas.dart';
 import 'package:settings/services/settings_service.dart';
 
 class WallpaperModel extends SafeChangeNotifier {
-  final GSettings? _wallpaperSettings;
+  final Settings? _wallpaperSettings;
   static const _pictureUriKey = 'picture-uri';
   static const _preinstalledWallpapersDir = '/usr/share/backgrounds';
   static const _colorShadingTypeKey = 'color-shading-type';
@@ -18,9 +17,18 @@ class WallpaperModel extends SafeChangeNotifier {
   String? _customDir;
 
   WallpaperModel(SettingsService service)
-      : _wallpaperSettings = service.lookup(schemaBackground);
+      : _wallpaperSettings = service.lookup(schemaBackground) {
+    _wallpaperSettings?.addListener(notifyListeners);
+  }
 
-  String get pictureUri => _wallpaperSettings!.stringValue(_pictureUriKey);
+  @override
+  void dispose() {
+    _wallpaperSettings?.removeListener(notifyListeners);
+    super.dispose();
+  }
+
+  String get pictureUri =>
+      _wallpaperSettings!.stringValue(_pictureUriKey) ?? '';
 
   set pictureUri(String picPathString) {
     _wallpaperSettings!.setValue(
@@ -51,7 +59,8 @@ class WallpaperModel extends SafeChangeNotifier {
         .where((element) => lookupMimeType(element.path)!.startsWith('image/'));
   }
 
-  String get primaryColor => _wallpaperSettings!.stringValue(_primaryColorKey);
+  String get primaryColor =>
+      _wallpaperSettings!.stringValue(_primaryColorKey) ?? '';
 
   set primaryColor(String colorHexValueString) {
     _wallpaperSettings!.setValue(_primaryColorKey, colorHexValueString);
@@ -59,7 +68,7 @@ class WallpaperModel extends SafeChangeNotifier {
   }
 
   String get secondaryColor =>
-      _wallpaperSettings!.stringValue(_secondaryColorKey);
+      _wallpaperSettings!.stringValue(_secondaryColorKey) ?? '';
 
   set secondaryColor(String colorHexValueString) {
     _wallpaperSettings!.setValue(_secondaryColorKey, colorHexValueString);
