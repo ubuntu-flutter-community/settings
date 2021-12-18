@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
-import 'package:settings/view/pages/keyboard_shortcuts/keyboard_shortcuts_model.dart';
+import 'package:settings/view/pages/keyboard/keyboard_shortcuts_model.dart';
 import 'package:yaru_widgets/yaru_widgets.dart';
 
 class KeyboardShortcutRow extends StatefulWidget {
@@ -23,7 +23,7 @@ class _KeyboardShortcutRowState extends State<KeyboardShortcutRow> {
 
   @override
   Widget build(BuildContext context) {
-    final model = context.read<KeyboardShortcutsModel>();
+    final model = context.watch<KeyboardShortcutsModel>();
     final shortcut = context.select<KeyboardShortcutsModel, List<String>>(
         (model) => model.shortcut(widget.shortcutId));
 
