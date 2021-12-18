@@ -13,7 +13,7 @@ import 'package:settings/view/app_theme.dart';
 import 'package:settings/view/pages/page_items.dart';
 import 'package:udisks/udisks.dart';
 import 'package:upower/upower.dart';
-import 'package:yaru/yaru.dart' as yaru;
+import 'package:yaru/yaru.dart';
 import 'package:yaru_icons/widgets/yaru_icons.dart';
 import 'package:yaru_widgets/yaru_widgets.dart';
 
@@ -90,8 +90,8 @@ class UbuntuSettingsApp extends StatelessWidget {
           );
         },
       },
-      theme: yaru.lightTheme,
-      darkTheme: yaru.darkTheme,
+      theme: yaruLight,
+      darkTheme: yaruDark,
       themeMode: context.watch<AppTheme>().value,
       supportedLocales: AppLocalizations.supportedLocales,
       localizationsDelegates: AppLocalizations.localizationsDelegates,
