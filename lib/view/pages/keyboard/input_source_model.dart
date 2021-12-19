@@ -33,13 +33,11 @@ class InputSourceModel extends SafeChangeNotifier {
     notifyListeners();
   }
 
-  // List<String>? get sources {
-  //   final sources = _inputSourceSettings?.stringArrayValue(_sourcesKey);
-  //   return sources?.map((e) => e.toString()).toList();
-  // }
+  Iterable? get sources =>
+      _inputSourceSettings?.getValue<Iterable>(_sourcesKey);
 
-  // set sources(???????????? value) {
-  //   _inputSourceSettings?.setValue(_sourcesKey, value);
-  //   notifyListeners();
-  // }
+  set sources(Iterable? value) {
+    _inputSourceSettings?.setValue(_sourcesKey, value);
+    notifyListeners();
+  }
 }

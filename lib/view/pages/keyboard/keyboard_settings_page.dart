@@ -38,9 +38,17 @@ class InputSourceSelectionSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final inputSourceModel = context.watch<InputSourceModel>();
-    final sources = /*inputSourceModel.sources ?? */ [];
-    return YaruSection(
-        headline: 'Input Sources',
-        children: [for (var item in sources) Text(item.toString())]);
+    final sources = inputSourceModel.sources ?? [];
+    return YaruSection(headline: 'Input Sources', children: [
+      for (var item in sources)
+        Row(
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(item.toString()),
+            ),
+          ],
+        )
+    ]);
   }
 }
