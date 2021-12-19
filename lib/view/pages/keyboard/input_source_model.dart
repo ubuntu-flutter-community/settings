@@ -33,11 +33,11 @@ class InputSourceModel extends SafeChangeNotifier {
     notifyListeners();
   }
 
-  Iterable? get sources =>
-      _inputSourceSettings?.getValue<Iterable>(_sourcesKey);
+  Iterable<dynamic>? get sources =>
+      _inputSourceSettings?.getValue<Iterable<dynamic>>(_sourcesKey);
 
-  set sources(Iterable? value) {
-    _inputSourceSettings?.setValue(_sourcesKey, value);
+  set sources(Iterable<dynamic>? value) {
+    _inputSourceSettings?.setValue<Iterable<dynamic>>(_sourcesKey, value!);
     notifyListeners();
   }
 }

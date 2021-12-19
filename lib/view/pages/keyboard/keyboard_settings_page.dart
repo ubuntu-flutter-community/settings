@@ -34,21 +34,24 @@ class InputSourceSelectionSection extends StatelessWidget {
   const InputSourceSelectionSection({
     Key? key,
   }) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     final model = context.watch<InputSourceModel>();
-    final sources = model.sources ?? [];
+    final sources = model.sources?.toList() ?? [];
     return YaruSection(headline: 'Input Sources', children: [
-      for (var item in sources)
-        Row(
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text(item.toString()),
+      ReorderableListView(
+        shrinkWrap: true,
+        children: <Widget>[
+          for (int index = 0; index < sources.length; index++)
+            ListTile(
+              key: Key('$index'),
+              title: Text('${sources[index]}'),
             ),
-          ],
-        )
+        ],
+        onReorder: (int oldIndex, int newIndex) {
+          model.sources = sources;
+        },
+      )
     ]);
   }
 }
