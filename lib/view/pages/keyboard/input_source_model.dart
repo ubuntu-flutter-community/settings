@@ -5,7 +5,6 @@ import 'package:settings/services/settings_service.dart';
 class InputSourceModel extends SafeChangeNotifier {
   final Settings? _inputSourceSettings;
   static const _perWindowKey = 'per-window';
-  static const _currentSourceKey = 'current';
   static const _sourcesKey = 'sources';
 
   InputSourceModel(SettingsService service)
@@ -23,13 +22,6 @@ class InputSourceModel extends SafeChangeNotifier {
 
   set perWindow(bool value) {
     _inputSourceSettings?.setValue(_perWindowKey, value);
-    notifyListeners();
-  }
-
-  int? get currentSource => _inputSourceSettings?.intValue(_currentSourceKey);
-
-  set currentSource(int? value) {
-    _inputSourceSettings?.setValue(_currentSourceKey, value);
     notifyListeners();
   }
 
