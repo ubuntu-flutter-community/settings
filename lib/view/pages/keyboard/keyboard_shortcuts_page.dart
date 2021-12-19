@@ -1,5 +1,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
+import 'package:settings/schemas/schemas.dart';
 import 'package:settings/services/settings_service.dart';
 import 'package:settings/view/pages/keyboard/keyboard_shortcut_row.dart';
 import 'package:settings/view/pages/keyboard/keyboard_shortcuts_model.dart';
@@ -15,7 +16,8 @@ class KeyboardShortcutsPage extends StatelessWidget {
     return Column(
       children: [
         ChangeNotifierProvider(
-          create: (_) => KeyboardShortcutsModel(service),
+          create: (_) =>
+              KeyboardShortcutsModel(service, schemaId: schemaWmKeybindings),
           child: const YaruSection(
             headline: 'Navigation Shortcuts',
             children: [
@@ -30,18 +32,19 @@ class KeyboardShortcutsPage extends StatelessWidget {
             ],
           ),
         ),
+        ChangeNotifierProvider(
+            create: (_) => KeyboardShortcutsModel(service,
+                schemaId: schemaGnomeShellKeybinding),
+            child: const YaruSection(
+              headline: 'System',
+              children: [
+                KeyboardShortcutRow(
+                  label: 'Toggle Apps Grid',
+                  shortcutId: 'toggle-application-view',
+                ),
+              ],
+            ))
       ],
     );
   }
 }
-
-
-// YaruSection(
-//           headline: 'System',
-//           children: [
-//             KeyboardShortcutRow(
-//               label: 'Toggle Apps Grid',
-//               shortcutId: 'toggle-application-view',
-//             ),
-//           ],
-//         )

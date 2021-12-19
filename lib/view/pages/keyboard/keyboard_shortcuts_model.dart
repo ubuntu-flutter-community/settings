@@ -1,31 +1,29 @@
 import 'package:flutter/foundation.dart';
-import 'package:settings/schemas/schemas.dart';
 import 'package:settings/services/settings_service.dart';
 
 class KeyboardShortcutsModel extends ChangeNotifier {
-  final Settings? wmKeyBindingsSettings;
-  final Settings? gnomeShellBindingsSettings;
+  final String schemaId;
 
-  KeyboardShortcutsModel(SettingsService service)
-      : wmKeyBindingsSettings = service.lookup(schemaWmKeybindings),
-        gnomeShellBindingsSettings =
-            service.lookup(schemaGnomeShellKeybinding) {
-    wmKeyBindingsSettings?.addListener(notifyListeners);
+  KeyboardShortcutsModel(SettingsService service, {required this.schemaId})
+      : _shortcutSettings = service.lookup(schemaId) {
+    _shortcutSettings?.addListener(notifyListeners);
   }
 
   @override
   void dispose() {
-    wmKeyBindingsSettings?.removeListener(notifyListeners);
+    _shortcutSettings?.removeListener(notifyListeners);
     super.dispose();
   }
 
+  final Settings? _shortcutSettings;
+
   List<String> shortcut(String shortcutId) {
-    final keys = wmKeyBindingsSettings?.stringArrayValue(shortcutId);
+    final keys = _shortcutSettings?.stringArrayValue(shortcutId);
     return keys?.whereType<String>().toList() ?? [];
   }
 
   void setShortcut(String shortcutId, List<String> keys) {
-    wmKeyBindingsSettings?.setValue(shortcutId, keys);
+    _shortcutSettings?.setValue(shortcutId, keys);
     notifyListeners();
   }
 }
