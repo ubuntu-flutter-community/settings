@@ -27,8 +27,6 @@ class _KeyboardShortcutRowState extends State<KeyboardShortcutRow> {
     final shortcut = context.select<KeyboardShortcutsModel, List<String>>(
         (model) => model.getShortcutStrings(widget.shortcutId));
 
-    // final keys = model.
-
     return InkWell(
       child: YaruRow(
         trailingWidget: Text(widget.label),

@@ -5,6 +5,8 @@ import 'package:settings/services/settings_service.dart';
 class InputSourceModel extends SafeChangeNotifier {
   final Settings? _inputSourceSettings;
   static const _perWindowKey = 'per-window';
+  static const _currentSourceKey = 'current';
+  static const _sourcesKey = 'sources';
 
   InputSourceModel(SettingsService service)
       : _inputSourceSettings = service.lookup(schemaInputSources) {
@@ -23,4 +25,9 @@ class InputSourceModel extends SafeChangeNotifier {
     _inputSourceSettings?.setValue(_perWindowKey, value);
     notifyListeners();
   }
+
+  // List<String>? get sources {
+  //   final sources = _inputSourceSettings?.stringArrayValue(_sourcesKey);
+  //   return sources?.map((e) => e.toString()).toList();
+  // }
 }
