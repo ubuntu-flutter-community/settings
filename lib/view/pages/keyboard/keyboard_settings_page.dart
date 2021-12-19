@@ -49,6 +49,11 @@ class InputSourceSelectionSection extends StatelessWidget {
             ),
         ],
         onReorder: (int oldIndex, int newIndex) {
+          if (oldIndex < newIndex) {
+            newIndex -= 1;
+          }
+          final int item = sources.removeAt(oldIndex);
+          sources.insert(newIndex, item);
           model.sources = sources;
         },
       )
