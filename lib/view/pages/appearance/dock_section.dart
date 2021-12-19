@@ -45,7 +45,9 @@ class DockSection extends StatelessWidget {
           trailingWidget: const Text('Dock Position'),
           actionWidget: DropdownButton<String>(
             onChanged: (value) => model.dockPosition = value,
-            value: model.dockPosition,
+            value: AppearanceModel.dockPositions.contains(model.dockPosition)
+                ? model.dockPosition
+                : null,
             items: [
               for (var item in AppearanceModel.dockPositions)
                 DropdownMenuItem(child: Text(item.toLowerCase()), value: item)
@@ -56,7 +58,9 @@ class DockSection extends StatelessWidget {
           trailingWidget: const Text('Click Action'),
           actionWidget: DropdownButton<String>(
             onChanged: (value) => model.clickAction = value,
-            value: model.clickAction,
+            value: AppearanceModel.clickActions.contains(model.clickAction)
+                ? model.clickAction
+                : null,
             items: [
               for (var item in AppearanceModel.clickActions)
                 DropdownMenuItem(

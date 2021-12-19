@@ -31,7 +31,9 @@ class _SuspendSectionState extends State<SuspendSection> {
         YaruRow(
           trailingWidget: const Text('Power Button Behavior'),
           actionWidget: DropdownButton<PowerButtonAction?>(
-            value: model.powerButtonAction,
+            value: PowerButtonAction.values.contains(model.powerButtonAction)
+                ? model.powerButtonAction
+                : null,
             items: PowerButtonAction.values.map((action) {
               return DropdownMenuItem(
                 value: action,
