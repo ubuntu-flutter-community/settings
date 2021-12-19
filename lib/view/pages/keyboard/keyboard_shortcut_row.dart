@@ -42,7 +42,7 @@ class _KeyboardShortcutRowState extends State<KeyboardShortcutRow> {
                         color: Theme.of(context)
                             .colorScheme
                             .onSurface
-                            .withOpacity(0.4)),
+                            .withOpacity(0.7)),
                   ),
                 ),
               )
