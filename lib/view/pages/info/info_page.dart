@@ -204,9 +204,9 @@ class _HostnameSettingsState extends State<_HostnameSettings> {
   @override
   Widget build(BuildContext context) {
     final model = context.watch<InfoModel>();
-    return SimpleDialog(
-      title: const Center(child: Text('Edit hostname')),
-      contentPadding: const EdgeInsets.all(16.0),
+    return YaruSimpleDialog(
+      title: 'Edit Hostname',
+      closeIconData: YaruIcons.window_close,
       children: [
         TextField(
           autofocus: true,
