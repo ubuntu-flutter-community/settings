@@ -52,9 +52,9 @@ class InputSourceSelectionSection extends StatelessWidget {
           if (oldIndex < newIndex) {
             newIndex -= 1;
           }
-          final int item = sources.removeAt(oldIndex);
+          final item = sources.removeAt(oldIndex);
           sources.insert(newIndex, item);
-          model.sources = sources;
+          model.sources = sources.toList();
         },
       )
     ]);
