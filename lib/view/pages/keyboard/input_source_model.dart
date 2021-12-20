@@ -6,6 +6,7 @@ class InputSourceModel extends SafeChangeNotifier {
   final Settings? _inputSourceSettings;
   static const _perWindowKey = 'per-window';
   static const _sourcesKey = 'sources';
+  static const _xkbOptionsKey = 'xkb-options';
 
   InputSourceModel(SettingsService service)
       : _inputSourceSettings = service.lookup(schemaInputSources) {
@@ -30,6 +31,14 @@ class InputSourceModel extends SafeChangeNotifier {
 
   set sources(Iterable<dynamic>? value) {
     _inputSourceSettings?.setValue<Iterable<dynamic>>(_sourcesKey, value!);
+    notifyListeners();
+  }
+
+  List<String>? get xkbOptions =>
+      _inputSourceSettings?.getValue(_xkbOptionsKey);
+
+  set xkbOptions(List<String>? value) {
+    _inputSourceSettings?.setValue(_xkbOptionsKey, value);
     notifyListeners();
   }
 }

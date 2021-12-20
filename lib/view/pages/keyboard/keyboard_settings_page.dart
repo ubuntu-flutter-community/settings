@@ -45,7 +45,7 @@ class InputSourceSelectionSection extends StatelessWidget {
           for (int index = 0; index < sources.length; index++)
             ListTile(
               key: Key('$index'),
-              title: Text('${sources[index]}'),
+              title: Text('${index + 1}. ${sources[index]}'),
             ),
         ],
         onReorder: (int oldIndex, int newIndex) {
