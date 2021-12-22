@@ -252,27 +252,11 @@ class _MagnifierPositionOptions extends StatelessWidget {
                 ? null
                 : (value) => model.setScreenPosition(value!),
             value: model.screenPosition,
-            items: const [
-              DropdownMenuItem(
-                value: 'full-screen',
-                child: Text('Full Screen'),
-              ),
-              DropdownMenuItem(
-                value: 'top-half',
-                child: Text('Top Half'),
-              ),
-              DropdownMenuItem(
-                value: 'bottom-half',
-                child: Text('Bottom Half'),
-              ),
-              DropdownMenuItem(
-                value: 'left-half',
-                child: Text('Left Half'),
-              ),
-              DropdownMenuItem(
-                value: 'right-half',
-                child: Text('Right Half'),
-              ),
+            items: [
+              for (var item in AccessibilityModel.screenPositions)
+                DropdownMenuItem(
+                    child: Text(item.toLowerCase().replaceAll('-', ' ')),
+                    value: item)
             ],
           ),
         ),
