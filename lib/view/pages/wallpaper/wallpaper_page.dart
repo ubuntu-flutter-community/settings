@@ -102,6 +102,21 @@ class WallpaperPage extends StatelessWidget {
                   currentlySelected: false),
         ),
       ),
+      if (model.wallpaperMode == WallpaperMode.imageOfTheDay)
+      //TODO: Add the title and copyright info
+        YaruRow(
+            description: model.customWallpaperLocation,
+            trailingWidget: const Text('Image of the day from Bing'),
+            actionWidget: SizedBox(
+              width: 40,
+              height: 40,
+              child: OutlinedButton(
+                style:
+                    OutlinedButton.styleFrom(padding: const EdgeInsets.all(0)),
+                onPressed: () async => await model.refreshBingWallpaper(),
+                child: const Icon(YaruIcons.refresh),
+              ),
+            )),
       if (model.wallpaperMode == WallpaperMode.custom)
         Column(
           children: [
