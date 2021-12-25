@@ -29,22 +29,26 @@ class WallpaperPage extends StatelessWidget {
           trailingWidget: const Text('Background mode'),
           actionWidget: Row(
             children: [
-              DropdownButton<bool>(
-                  value: model.isColorBackground,
-                  onChanged: (value) => model.colorBackground = value!,
+              DropdownButton<WallpaperMode>(
+                  value: model.wallpaperMode,
+                  onChanged: (value) => model.setWallpaperMode(value!),
                   items: const [
                     DropdownMenuItem(
                       child: Text('Colored background'),
-                      value: true,
+                      value: WallpaperMode.solid,
                     ),
                     DropdownMenuItem(
                       child: Text('Wallpaper'),
-                      value: false,
+                      value: WallpaperMode.custom,
+                    ),
+                    DropdownMenuItem(
+                      child: Text('Image of the day'),
+                      value: WallpaperMode.imageOfTheDay,
                     ),
                   ]),
             ],
           )),
-      if (model.isColorBackground)
+      if (model.wallpaperMode == WallpaperMode.solid)
         ColorShadingOptionRow(
           actionLabel: 'Color mode',
           onDropDownChanged: (value) {

@@ -13,6 +13,8 @@ class WallpaperModel extends SafeChangeNotifier {
   static const _primaryColorKey = 'primary-color';
   static const _secondaryColorKey = 'secondary-color';
 
+  WallpaperMode wallpaperMode = WallpaperMode.custom;
+
   // TODO: store this outside of the app
   String? _customDir;
 
@@ -102,13 +104,20 @@ class WallpaperModel extends SafeChangeNotifier {
     notifyListeners();
   }
 
-  set colorBackground(bool value) {
-    if (value) {
-      pictureUri = '';
-    } else {
-      if (pictureUri.isEmpty) {
-        _setFirstWallpaper();
-      }
+  void setWallpaperMode(WallpaperMode newWallpaperMode) {
+    wallpaperMode = newWallpaperMode;
+    switch (wallpaperMode) {
+      case WallpaperMode.solid:
+        pictureUri = '';
+        break;
+      case WallpaperMode.custom:
+        if (pictureUri.isEmpty) {
+          _setFirstWallpaper();
+        }
+        break;
+      case WallpaperMode.imageOfTheDay:
+      // TODO: add the image of the day logic
+        break;
     }
 
     notifyListeners();
@@ -118,8 +127,8 @@ class WallpaperModel extends SafeChangeNotifier {
     final list = await preInstalledBackgrounds;
     pictureUri = list.first;
   }
-
-  bool get isColorBackground => pictureUri.isEmpty ? true : false;
 }
 
 enum ColorShadingType { solid, vertical, horizontal }
+
+enum WallpaperMode { solid, custom, imageOfTheDay }
