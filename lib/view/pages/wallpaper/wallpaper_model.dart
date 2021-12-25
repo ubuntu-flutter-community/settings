@@ -5,6 +5,9 @@ import 'package:safe_change_notifier/safe_change_notifier.dart';
 import 'package:settings/schemas/schemas.dart';
 import 'package:settings/services/settings_service.dart';
 
+import 'package:path_provider/path_provider.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 class WallpaperModel extends SafeChangeNotifier {
   final Settings? _wallpaperSettings;
   static const _pictureUriKey = 'picture-uri';
@@ -104,7 +107,7 @@ class WallpaperModel extends SafeChangeNotifier {
     notifyListeners();
   }
 
-  void setWallpaperMode(WallpaperMode newWallpaperMode) {
+  Future<void> setWallpaperMode(WallpaperMode newWallpaperMode) async {
     wallpaperMode = newWallpaperMode;
     switch (wallpaperMode) {
       case WallpaperMode.solid:
@@ -116,7 +119,7 @@ class WallpaperModel extends SafeChangeNotifier {
         }
         break;
       case WallpaperMode.imageOfTheDay:
-      // TODO: add the image of the day logic
+        refreshBingWallpaper();
         break;
     }
 
@@ -126,6 +129,31 @@ class WallpaperModel extends SafeChangeNotifier {
   void _setFirstWallpaper() async {
     final list = await preInstalledBackgrounds;
     pictureUri = list.first;
+  }
+
+  Future<void> refreshBingWallpaper() async {
+    Future<String> getBingImageUrl() async {
+      const address =
+          'https://www.bing.com/HPImageArchive.aspx?format=js&idx=0&n=1&mkt=en-US';
+      http.Response imageMetadataResponse = await http.get(Uri.parse(address));
+      return 'http://www.bing.com' +
+          json.decode(imageMetadataResponse.body)['images'][0]['url'];
+    }
+
+    final Directory directory = await getApplicationDocumentsDirectory();
+
+    final file = File('${directory.path}/bing.jpeg');
+
+    // Refetch if the image doesn't exist or the current image is older than a day
+    bool shouldRefetch =
+        !file.existsSync() || file.lastModifiedSync().day != DateTime.now().day;
+
+    if (shouldRefetch) {
+      var imageResponse = await http.get(Uri.parse(await getBingImageUrl()));
+      await file.writeAsBytes(imageResponse.bodyBytes);
+    }
+
+    pictureUri = '${directory.path}/bing.jpeg';
   }
 }
 
