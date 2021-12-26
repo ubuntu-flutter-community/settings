@@ -159,12 +159,40 @@ class WallpaperPage extends StatelessWidget {
                               )
                             ] +
                             snapshot.data!
-                                .map((picPathString) => ImageTile(
-                                    path: picPathString,
-                                    onTap: () =>
-                                        model.pictureUri = picPathString,
-                                    currentlySelected: model.pictureUri
-                                        .contains(picPathString)))
+                                .map((picPathString) => Stack(
+                                      fit: StackFit.expand,
+                                      children: [
+                                        ImageTile(
+                                            path: picPathString,
+                                            onTap: () => model.pictureUri =
+                                                picPathString,
+                                            currentlySelected: model.pictureUri
+                                                .contains(picPathString)),
+                                        Align(
+                                          alignment: Alignment.bottomRight,
+                                          child: Container(
+                                            decoration: ShapeDecoration(
+                                              shape: const CircleBorder(),
+                                              color: Theme.of(context)
+                                                  .backgroundColor
+                                                  .withOpacity(0.9),
+                                            ),
+                                            child: InkWell(
+                                              borderRadius:
+                                                  BorderRadius.circular(100),
+                                              onTap: () =>
+                                                  model.removeFromCollection(
+                                                      picPathString),
+                                              child: const Padding(
+                                                padding: EdgeInsets.all(5.0),
+                                                child: Icon(
+                                                    YaruIcons.window_close),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ))
                                 .toList(),
                       ),
                     );

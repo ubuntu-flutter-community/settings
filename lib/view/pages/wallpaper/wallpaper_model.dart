@@ -54,6 +54,13 @@ class WallpaperModel extends SafeChangeNotifier {
     notifyListeners();
   }
 
+  Future<void> removeFromCollection(String picPathString) async {
+    final purePath = picPathString.replaceAll('file://', '');
+    File image = File(purePath);
+    await image.delete();
+    notifyListeners();
+  }
+
   Future<List<String>> get preInstalledBackgrounds async {
     return (await getImages(_preinstalledWallpapersDir))
         .map((e) => e.path)
