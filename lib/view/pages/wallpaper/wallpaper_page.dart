@@ -29,22 +29,26 @@ class WallpaperPage extends StatelessWidget {
           trailingWidget: const Text('Background mode'),
           actionWidget: Row(
             children: [
-              DropdownButton<bool>(
-                  value: model.isColorBackground,
-                  onChanged: (value) => model.colorBackground = value!,
+              DropdownButton<WallpaperMode>(
+                  value: model.wallpaperMode,
+                  onChanged: (value) => model.setWallpaperMode(value!),
                   items: const [
                     DropdownMenuItem(
                       child: Text('Colored background'),
-                      value: true,
+                      value: WallpaperMode.solid,
                     ),
                     DropdownMenuItem(
                       child: Text('Wallpaper'),
-                      value: false,
+                      value: WallpaperMode.custom,
+                    ),
+                    DropdownMenuItem(
+                      child: Text('Image of the day'),
+                      value: WallpaperMode.imageOfTheDay,
                     ),
                   ]),
             ],
           )),
-      if (model.isColorBackground)
+      if (model.wallpaperMode == WallpaperMode.solid)
         ColorShadingOptionRow(
           actionLabel: 'Color mode',
           onDropDownChanged: (value) {
@@ -98,100 +102,120 @@ class WallpaperPage extends StatelessWidget {
                   currentlySelected: false),
         ),
       ),
-      FutureBuilder<List<String>>(
-          future: model.preInstalledBackgrounds,
-          builder: (context, snapshot) {
-            if (snapshot.hasData) {
-              return SizedBox(
-                width: 500,
-                child: GridView(
-                    gridDelegate:
-                        const SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 3,
-                            childAspectRatio: 1.6,
-                            mainAxisSpacing: 10,
-                            crossAxisSpacing: 10),
-                    shrinkWrap: true,
-                    scrollDirection: Axis.vertical,
-                    children: <Widget>[
-                          Padding(
-                            padding: const EdgeInsets.all(6.0),
-                            child: OutlinedButton(
-                              onPressed: () async {
-                                final picPath = await openFilePicker(context);
-                                if (null != picPath) {
-                                  model.pictureUri = picPath;
-                                }
-                              },
-                              child: const Icon(YaruIcons.plus),
-                            ),
-                          )
-                        ] +
-                        snapshot.data!
-                            .map((picPathString) => ImageTile(
-                                path: picPathString,
-                                onTap: () => model.pictureUri = picPathString,
-                                currentlySelected:
-                                    model.pictureUri.contains(picPathString)))
-                            .toList()),
-              );
-            } else {
-              return const Padding(
-                padding: EdgeInsets.all(40.0),
-                child: CircularProgressIndicator(),
-              );
-            }
-          }),
-      Padding(
-        padding: const EdgeInsets.only(top: 30, bottom: 10),
-        child: YaruRow(
+      if (model.wallpaperMode == WallpaperMode.imageOfTheDay)
+      //TODO: Add the title and copyright info
+        YaruRow(
             description: model.customWallpaperLocation,
-            trailingWidget: const Text('Your own wallpaper collection'),
+            trailingWidget: const Text('Image of the day from Bing'),
             actionWidget: SizedBox(
               width: 40,
               height: 40,
               child: OutlinedButton(
                 style:
                     OutlinedButton.styleFrom(padding: const EdgeInsets.all(0)),
-                onPressed: () async => model.customWallpaperLocation =
-                    await openDirPicker(context),
-                child: const Icon(YaruIcons.settings),
+                onPressed: () async => await model.refreshBingWallpaper(),
+                child: const Icon(YaruIcons.refresh),
               ),
             )),
-      ),
-      model.customWallpaperLocation == null
-          ? const Text('')
-          : FutureBuilder<List<String>>(
-              future: model.customBackgrounds,
-              builder: (context, snapshot) {
-                if (snapshot.hasData) {
-                  return SizedBox(
-                    width: 500,
-                    child: GridView(
-                      gridDelegate:
-                          const SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: 3,
-                              childAspectRatio: 1.6,
-                              mainAxisSpacing: 5,
-                              crossAxisSpacing: 5),
-                      shrinkWrap: true,
-                      scrollDirection: Axis.vertical,
-                      children: snapshot.data!
-                          .map((picPathString) => ImageTile(
-                              path: picPathString,
-                              onTap: () => model.pictureUri = picPathString,
-                              currentlySelected:
-                                  model.pictureUri.contains(picPathString)))
-                          .toList(),
+      if (model.wallpaperMode == WallpaperMode.custom)
+        Column(
+          children: [
+            FutureBuilder<List<String>>(
+                future: model.preInstalledBackgrounds,
+                builder: (context, snapshot) {
+                  if (snapshot.hasData) {
+                    return SizedBox(
+                      width: 500,
+                      child: GridView(
+                          gridDelegate:
+                              const SliverGridDelegateWithFixedCrossAxisCount(
+                                  crossAxisCount: 3,
+                                  childAspectRatio: 1.6,
+                                  mainAxisSpacing: 10,
+                                  crossAxisSpacing: 10),
+                          shrinkWrap: true,
+                          scrollDirection: Axis.vertical,
+                          children: <Widget>[
+                                Padding(
+                                  padding: const EdgeInsets.all(6.0),
+                                  child: OutlinedButton(
+                                    onPressed: () async {
+                                      final picPath = await openFilePicker(context);
+                                      if (null != picPath) {
+                                        model.pictureUri = picPath;
+                                      }
+                                    },
+                                    child: const Icon(YaruIcons.plus),
+                                  ),
+                                )
+                              ] +
+                              snapshot.data!
+                                  .map((picPathString) => ImageTile(
+                                      path: picPathString,
+                                      onTap: () => model.pictureUri = picPathString,
+                                      currentlySelected:
+                                      model.pictureUri.contains(picPathString)))
+                                  .toList()),
+                    );
+                  } else {
+                    return const Padding(
+                      padding: EdgeInsets.all(40.0),
+                      child: CircularProgressIndicator(),
+                    );
+                  }
+                }),
+            Padding(
+              padding: const EdgeInsets.only(top: 30, bottom: 10),
+              child: YaruRow(
+                  description: model.customWallpaperLocation,
+                  trailingWidget: const Text('Your own wallpaper collection'),
+                  actionWidget: SizedBox(
+                    width: 40,
+                    height: 40,
+                    child: OutlinedButton(
+                      style:
+                       OutlinedButton.styleFrom(padding: const EdgeInsets.all(0)),
+                      onPressed: () async => model.customWallpaperLocation =
+                          await openDirPicker(context),
+                      child: const Icon(YaruIcons.settings),
                     ),
-                  );
-                } else {
-                  return const Padding(
-                    padding: EdgeInsets.all(40.0),
-                    child: CircularProgressIndicator(),
-                  );
-                }
-              }),
+                  )),
+            ),
+            model.customWallpaperLocation == null
+                ? const Text('')
+                : FutureBuilder<List<String>>(
+                    future: model.customBackgrounds,
+                    builder: (context, snapshot) {
+                      if (snapshot.hasData) {
+                        return SizedBox(
+                          width: 500,
+                          child: GridView(
+                            gridDelegate:
+                                const SliverGridDelegateWithFixedCrossAxisCount(
+                                    crossAxisCount: 3,
+                                    childAspectRatio: 1.6,
+                                    mainAxisSpacing: 5,
+                                    crossAxisSpacing: 5),
+                            shrinkWrap: true,
+                            scrollDirection: Axis.vertical,
+                            children: snapshot.data!
+                                .map((picPathString) => ImageTile(
+                                    path: picPathString,
+                                    onTap: () => model.pictureUri = picPathString,
+                                    currentlySelected:
+                                      model.pictureUri.contains(picPathString)))
+                                .toList(),
+                          ),
+                        );
+                      } else {
+                        return const Padding(
+                          padding: EdgeInsets.all(40.0),
+                          child: CircularProgressIndicator(),
+                        );
+                      }
+                    }),
+          ],
+        ),
     ]);
   }
 
