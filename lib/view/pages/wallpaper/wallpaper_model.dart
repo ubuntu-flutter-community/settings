@@ -16,6 +16,11 @@ class WallpaperModel extends SafeChangeNotifier {
   static const _primaryColorKey = 'primary-color';
   static const _secondaryColorKey = 'secondary-color';
 
+  //TODO: Sync the locale of the image with the device's locale
+  static const String _bingImageAddress = 'https://www.bing.com/HPImageArchive.aspx?format=js&idx=0&n=1&mkt=en-US';
+  static const String _bingAddress = 'http://www.bing.com';
+
+
   WallpaperMode wallpaperMode = WallpaperMode.custom;
 
   // TODO: store this outside of the app
@@ -131,15 +136,13 @@ class WallpaperModel extends SafeChangeNotifier {
     pictureUri = list.first;
   }
 
-  Future<void> refreshBingWallpaper() async {
-    Future<String> getBingImageUrl() async {
-      const address =
-          'https://www.bing.com/HPImageArchive.aspx?format=js&idx=0&n=1&mkt=en-US';
-      http.Response imageMetadataResponse = await http.get(Uri.parse(address));
-      return 'http://www.bing.com' +
+  static Future<String> getBingImageUrl() async {
+      http.Response imageMetadataResponse = await http.get(Uri.parse(_bingImageAddress));
+      return _bingAddress +
           json.decode(imageMetadataResponse.body)['images'][0]['url'];
     }
-
+  
+  Future<void> refreshBingWallpaper() async {
     final Directory directory = await getApplicationDocumentsDirectory();
 
     final file = File('${directory.path}/bing.jpeg');
