@@ -1,8 +1,8 @@
 import 'package:dbus/dbus.dart';
+import 'package:gsettings/gsettings.dart';
 import 'package:safe_change_notifier/safe_change_notifier.dart';
 import 'package:settings/schemas/schemas.dart';
 import 'package:settings/services/settings_service.dart';
-import 'package:settings/view/pages/keyboard/input_type.dart';
 
 class InputSourceModel extends SafeChangeNotifier {
   final Settings? _inputSourceSettings;
@@ -28,35 +28,38 @@ class InputSourceModel extends SafeChangeNotifier {
     notifyListeners();
   }
 
-  List<InputType>? get sources {
-    final inputTypes = <InputType>[];
+  Future<List<String>?> get sources async {
+    final settings = GSettings(schemaInputSources);
+    final List<String>? inputTypes = [];
 
-    final DBusArray dbusArray =
-        _inputSourceSettings?.getValue(_sourcesKey) as DBusArray;
+    final DBusArray dbusArray = await settings.get(_sourcesKey) as DBusArray;
 
     for (final DBusValue dbusArrayChild in dbusArray.children) {
       final DBusStruct dbusStruct = dbusArrayChild as DBusStruct;
-      for (final DBusValue dbusStructChild in dbusStruct.children) {
-        inputTypes.add(InputType(
-            runTimeType: dbusStructChild.runtimeType.toString(),
-            countryCode: dbusStructChild.toString()));
-      }
+      inputTypes?.add((dbusStruct.children[1] as DBusString).value);
     }
 
-    return inputTypes;
+    await settings.close();
+
+    return inputTypes ?? [];
   }
 
-  set sources(List<InputType>? inputTypes) {
-    final DBusStruct dbusStructFromValue = DBusStruct(
-        inputTypes?.map((inputType) => DBusString(inputType.toString()))
-            as Iterable<DBusString>);
+  // List<String> get sources {
+  //   final List<String>? inputTypes = [];
 
-    final DBusArray array =
-        DBusArray(DBusSignature('(ss)'), [dbusStructFromValue]);
+  //   final DBusValue dbusValue = _inputSourceSettings?.getValue('sources');
 
-    _inputSourceSettings?.setValue(_sourcesKey, array);
-    notifyListeners();
-  }
+  //   final dynamic dartValue = dbusValue.toNative();
+  //   final Iterable<dynamic> dartArray = dartValue as Iterable<dynamic>;
+  //   for (final dynamic dartArrayChild in dartArray) {
+  //     final Iterable<dynamic> dartStruct = dartArrayChild as Iterable<dynamic>;
+  //     for (final dynamic dartStructChild in dartStruct) {
+  //       inputTypes?.add(dartStructChild);
+  //     }
+  //   }
+
+  //   return inputTypes ?? [];
+  // }
 
   List<String>? get xkbOptions =>
       _inputSourceSettings?.getValue(_xkbOptionsKey);
