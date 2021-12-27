@@ -14,7 +14,7 @@ import 'package:settings/view/pages/page_items.dart';
 import 'package:udisks/udisks.dart';
 import 'package:upower/upower.dart';
 import 'package:yaru/yaru.dart';
-import 'package:yaru_icons/widgets/yaru_icons.dart';
+import 'package:yaru_icons/yaru_icons.dart';
 import 'package:yaru_widgets/yaru_widgets.dart';
 
 void main() async {

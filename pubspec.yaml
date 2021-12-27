@@ -39,7 +39,7 @@ dependencies:
     git:
       url: https://github.com/canonical/upower.dart
   yaru: ^0.2.0
-  yaru_icons: ^0.0.7
+  yaru_icons: ^0.1.2
   yaru_widgets:
     git:
       url: https://github.com/ubuntu/yaru_widgets.dart

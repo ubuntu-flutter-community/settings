@@ -13,7 +13,7 @@ import 'package:settings/view/pages/power/power_page.dart';
 import 'package:settings/view/pages/removable_media/removable_media_page.dart';
 import 'package:settings/view/pages/sound/sound_page.dart';
 import 'package:settings/view/pages/wallpaper/wallpaper_page.dart';
-import 'package:yaru_icons/widgets/yaru_icons.dart';
+import 'package:yaru_icons/yaru_icons.dart';
 import 'package:yaru_widgets/yaru_widgets.dart';
 
 final pageItems = <YaruPageItem>[

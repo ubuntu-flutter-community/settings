@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:settings/view/pages/keyboard/keyboard_settings_page.dart';
 import 'package:settings/view/pages/keyboard/keyboard_shortcuts_page.dart';
-import 'package:yaru_icons/widgets/yaru_icons.dart';
+import 'package:yaru_icons/yaru_icons.dart';
+import 'package:yaru_widgets/yaru_widgets.dart';
 
 class KeyboardPage extends StatefulWidget {
   const KeyboardPage({Key? key}) : super(key: key);
@@ -26,38 +27,11 @@ class _KeyboardPageState extends State<KeyboardPage>
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Container(
-          width: 516,
-          height: 60,
-          decoration: BoxDecoration(borderRadius: BorderRadius.circular(4)),
-          child: TabBar(
-              controller: tabController,
-              indicator: BoxDecoration(
-                  borderRadius: BorderRadius.circular(4),
-                  color:
-                      Theme.of(context).colorScheme.onSurface.withOpacity(0.1)),
-              tabs: const [
-                Tab(
-                    icon: Icon(YaruIcons.input_keyboard),
-                    child: Text("Keyboard Settings")),
-                Tab(
-                    icon: Icon(YaruIcons.font),
-                    child: Text("Keyboard Shortcuts")),
-              ]),
-        ),
-        Padding(
-          padding: const EdgeInsets.only(top: 30),
-          child: SizedBox(
-            height: 1000,
-            child: TabBarView(
-              controller: tabController,
-              children: const [KeyboardSettingsPage(), KeyboardShortcutsPage()],
-            ),
-          ),
-        ),
-      ],
-    );
+    return const YaruTabbedPage(
+        tabIcons: [YaruIcons.input_keyboard, YaruIcons.keyboard_shortcuts],
+        tabTitles: ['Keyboard Settings', 'Keyboard Shortcuts'],
+        views: [KeyboardSettingsPage(), KeyboardShortcutsPage()],
+        width: 512,
+        height: 1000);
   }
 }
