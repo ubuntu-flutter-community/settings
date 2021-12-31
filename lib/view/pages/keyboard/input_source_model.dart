@@ -28,7 +28,7 @@ class InputSourceModel extends SafeChangeNotifier {
     notifyListeners();
   }
 
-  Future<List<String>?> get sources async {
+  Future<List<String>?> getSources() async {
     final settings = GSettings(schemaInputSources);
     final List<String>? inputTypes = [];
 
@@ -44,22 +44,20 @@ class InputSourceModel extends SafeChangeNotifier {
     return inputTypes ?? [];
   }
 
-  // List<String> get sources {
-  //   final List<String>? inputTypes = [];
+  setSources(List<String>? inputTypes) async {
+    final settings = GSettings(schemaInputSources);
 
-  //   final DBusValue dbusValue = _inputSourceSettings?.getValue('sources');
+    final DBusArray array = DBusArray(DBusSignature('(ss)'), [
+      for (var inputType in inputTypes ?? [])
+        DBusStruct([const DBusString('xkb'), DBusString(inputType)])
+    ]);
 
-  //   final dynamic dartValue = dbusValue.toNative();
-  //   final Iterable<dynamic> dartArray = dartValue as Iterable<dynamic>;
-  //   for (final dynamic dartArrayChild in dartArray) {
-  //     final Iterable<dynamic> dartStruct = dartArrayChild as Iterable<dynamic>;
-  //     for (final dynamic dartStructChild in dartStruct) {
-  //       inputTypes?.add(dartStructChild);
-  //     }
-  //   }
+    await settings.set(_sourcesKey, array);
 
-  //   return inputTypes ?? [];
-  // }
+    await settings.close();
+
+    notifyListeners();
+  }
 
   List<String>? get xkbOptions =>
       _inputSourceSettings?.getValue(_xkbOptionsKey);

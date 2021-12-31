@@ -13,7 +13,7 @@ class InputSourceSelectionSection extends StatelessWidget {
     final model = context.watch<InputSourceModel>();
 
     return FutureBuilder<List<String>?>(
-      future: model.sources,
+      future: model.getSources(),
       builder: (context, snapshot) {
         if (!snapshot.hasData) {
           return const CircularProgressIndicator();
@@ -34,30 +34,11 @@ class InputSourceSelectionSection extends StatelessWidget {
               }
               final item = snapshot.data!.removeAt(oldIndex);
               snapshot.data!.insert(newIndex, item);
+              model.setSources(snapshot.data!);
             },
           )
         ]);
       },
     );
-
-    // return YaruSection(headline: 'Input Sources', children: [
-    //   ReorderableListView(
-    //     shrinkWrap: true,
-    //     children: <Widget>[
-    //       for (int index = 0; index < model.sources.length; index++)
-    //         ListTile(
-    //           key: Key('$index'),
-    //           title: Text('${index + 1}. ${model.sources[index]}'),
-    //         ),
-    //     ],
-    //     onReorder: (int oldIndex, int newIndex) {
-    //       if (oldIndex < newIndex) {
-    //         newIndex -= 1;
-    //       }
-    //       final item = model.sources.removeAt(oldIndex);
-    //       model.sources.insert(newIndex, item);
-    //     },
-    //   )
-    // ]);
   }
 }
