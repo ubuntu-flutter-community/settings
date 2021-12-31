@@ -61,10 +61,21 @@ class InputSourceModel extends SafeChangeNotifier {
     notifyListeners();
   }
 
-  List<String>? get xkbOptions =>
-      _inputSourceSettings?.getValue(_xkbOptionsKey);
+  Future<List<String>?> getXkbOptions() async {
+    final settings = GSettings(schemaInputSources);
+    final List<String>? xkbOptions = [];
 
-  set xkbOptions(List<String>? value) {
+    final DBusArray dbusArray = await settings.get(_xkbOptionsKey) as DBusArray;
+
+    for (final DBusValue dbusArrayChild in dbusArray.children) {
+      final DBusString dBusString = dbusArrayChild as DBusString;
+      xkbOptions!.add(dBusString.value);
+    }
+
+    return xkbOptions ?? [];
+  }
+
+  setXkbOptions(List<String>? value) {
     _inputSourceSettings?.setValue(_xkbOptionsKey, value);
     notifyListeners();
   }
