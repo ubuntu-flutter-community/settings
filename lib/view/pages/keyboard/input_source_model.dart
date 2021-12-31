@@ -8,6 +8,7 @@ class InputSourceModel extends SafeChangeNotifier {
   final Settings? _inputSourceSettings;
   static const _perWindowKey = 'per-window';
   static const _sourcesKey = 'sources';
+  static const _mruSourcesKey = 'mru-sources';
   static const _xkbOptionsKey = 'xkb-options';
 
   InputSourceModel(SettingsService service)
@@ -28,7 +29,7 @@ class InputSourceModel extends SafeChangeNotifier {
     notifyListeners();
   }
 
-  Future<List<String>?> getSources() async {
+  Future<List<String>?> getInputSources() async {
     final settings = GSettings(schemaInputSources);
     final List<String>? inputTypes = [];
 
@@ -44,7 +45,7 @@ class InputSourceModel extends SafeChangeNotifier {
     return inputTypes ?? [];
   }
 
-  setSources(List<String>? inputTypes) async {
+  setInputSources(List<String>? inputTypes) async {
     final settings = GSettings(schemaInputSources);
 
     final DBusArray array = DBusArray(DBusSignature('(ss)'), [
@@ -53,6 +54,7 @@ class InputSourceModel extends SafeChangeNotifier {
     ]);
 
     await settings.set(_sourcesKey, array);
+    await settings.set(_mruSourcesKey, array);
 
     await settings.close();
 

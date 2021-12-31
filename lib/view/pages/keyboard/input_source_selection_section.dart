@@ -13,7 +13,7 @@ class InputSourceSelectionSection extends StatelessWidget {
     final model = context.watch<InputSourceModel>();
 
     return FutureBuilder<List<String>?>(
-      future: model.getSources(),
+      future: model.getInputSources(),
       builder: (context, snapshot) {
         if (!snapshot.hasData) {
           return const CircularProgressIndicator();
@@ -28,13 +28,14 @@ class InputSourceSelectionSection extends StatelessWidget {
                   title: Text('${index + 1}. ${snapshot.data![index]}'),
                 ),
             ],
-            onReorder: (int oldIndex, int newIndex) {
+            onReorder: (int oldIndex, int newIndex) async {
+              final sources = snapshot.data!;
               if (oldIndex < newIndex) {
                 newIndex -= 1;
               }
               final item = snapshot.data!.removeAt(oldIndex);
-              snapshot.data!.insert(newIndex, item);
-              model.setSources(snapshot.data!);
+              sources.insert(newIndex, item);
+              model.setInputSources(sources);
             },
           )
         ]);
