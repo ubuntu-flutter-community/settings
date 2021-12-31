@@ -61,7 +61,7 @@ class InputSourceModel extends SafeChangeNotifier {
     notifyListeners();
   }
 
-  Future<List<String>?> getXkbOptions() async {
+  Future<List<String>> _getXkbOptions() async {
     final settings = GSettings(schemaInputSources);
     final List<String>? xkbOptions = [];
 
@@ -72,11 +72,44 @@ class InputSourceModel extends SafeChangeNotifier {
       xkbOptions!.add(dBusString.value);
     }
 
-    return xkbOptions ?? [];
+    return xkbOptions ?? <String>[];
   }
 
   setXkbOptions(List<String>? value) {
     _inputSourceSettings?.setValue(_xkbOptionsKey, value);
     notifyListeners();
+  }
+
+  static const xkbOptionList = [
+    'compose:lalt', // Left Alt
+    'compose:ralt', // Right Alt
+    'compose:lwin', // Left Win
+    'compose:rwin', // Right Win
+    'compose:menu', // Menu
+    'compose:rctrl', // Right Ctrl
+    'compose:caps', // Caps Lock
+    'compose:prsc', // Print
+    'compose:sclk', // Scroll Lock
+    'lv3:ralt_alt', // Right Alt key never chooses 3rd level <--- allowed as 'none'
+    'lv3:lwin_switch', // Left Win, ignored by GCC
+    'lv3:rwin_switch', // Right Win, ignored by GCC
+    'lv3:menu_switch', // Menu, ignored by GCC
+    'lv3:lalt_switch', // Left Alt, ignored by GCC
+    'lv3:ralt_switch', // Right Alt <--- allowed as 'right alt'
+    'lv3:switch', // Right Ctrl, ignored by GCC
+  ];
+
+  Future<String> getComposeKey() async {
+    final list = await _getXkbOptions();
+    final composeList = list.where((element) => element.contains('compose'));
+    return composeList.isEmpty
+        ? 'Default Layout'
+        : composeList.first.split(':').last;
+  }
+
+  Future<String> getLv3Key() async {
+    final list = await _getXkbOptions();
+    final lv3List = list.where((element) => element.contains('lv3'));
+    return lv3List.isEmpty ? 'Default Layout' : lv3List.first.split(':').last;
   }
 }
