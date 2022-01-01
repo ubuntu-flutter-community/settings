@@ -14,25 +14,77 @@ class SpecialCharactersSection extends StatelessWidget {
     final model = context.watch<SpecialCharactersModel>();
 
     return YaruSection(headline: 'Special characters', children: [
-      FutureBuilder<ComposeOptions>(builder: (context, snapshot) {
-        return InkWell(
+      FutureBuilder<ComposeOptions>(
+          future: model.getComposeOptions(),
+          builder: (context, snapshot) => InkWell(
+                borderRadius: BorderRadius.circular(4),
+                onTap: () => showDialog(
+                  context: context,
+                  builder: (_) => ChangeNotifierProvider.value(
+                    value: model,
+                    child: const _ComposeOptionsDialog(),
+                  ),
+                ),
+                child: YaruRow(
+                  trailingWidget: const Text('Compose Key'),
+                  actionWidget: Text(snapshot.data.toString()),
+                ),
+              )),
+      FutureBuilder<Lv3Options?>(
+        future: model.getLv3Options(),
+        builder: (context, snapshot) => InkWell(
           borderRadius: BorderRadius.circular(4),
           onTap: () => showDialog(
-            context: context,
-            builder: (_) => ChangeNotifierProvider.value(
-              value: model,
-              child: const _ComposeOptionsDialog(),
-            ),
-          ),
+              context: context,
+              builder: (_) => ChangeNotifierProvider.value(
+                    value: model,
+                    child: const _Lv3OptionsDialog(),
+                  )),
           child: YaruRow(
-            trailingWidget: const Text('Compose Key'),
-            actionWidget: Text(snapshot.data == null
-                ? 'Default Layout'
-                : snapshot.data.toString()),
+            trailingWidget: const Text('Lv3 Key'),
+            actionWidget: Text(snapshot.data.toString()),
           ),
-        );
-      }),
+        ),
+      )
     ]);
+  }
+}
+
+class _Lv3OptionsDialog extends StatelessWidget {
+  const _Lv3OptionsDialog({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final model = context.watch<SpecialCharactersModel>();
+    return FutureBuilder<Lv3Options?>(
+      future: model.getLv3Options(),
+      builder: (context, snapshot) => YaruSimpleDialog(
+          title: 'Lv3 Keys',
+          closeIconData: YaruIcons.window_close,
+          children: [
+            YaruSwitchRow(
+                trailingWidget: const Text('Use default value'),
+                value: snapshot.data == null,
+                onChanged: (value) => print('implement this')),
+            const Divider(),
+            RadioListTile<Lv3Options>(
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(4)),
+              title: const Text('None'),
+              value: Lv3Options.none,
+              groupValue: snapshot.data,
+              onChanged: (value) => print('implement this'),
+            ),
+            RadioListTile<Lv3Options>(
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(4)),
+              title: const Text('Right Alt-Key'),
+              value: Lv3Options.rightAlt,
+              groupValue: snapshot.data,
+              onChanged: (value) => print('implement this'),
+            ),
+          ]),
+    );
   }
 }
 

@@ -113,6 +113,33 @@ class SpecialCharactersModel extends SafeChangeNotifier {
     }
     return ComposeOptions.defaultLayout;
   }
+
+  Future<Lv3Options?> getLv3Options() async {
+    final options =
+        (await _getXkbOptions()).where((element) => element.contains('lv3'));
+
+    for (var option in options) {
+      if (option.contains('lv3:ralt_alt') && options.length < 2) {
+        return Lv3Options.none;
+      }
+    }
+    for (var option in options) {
+      if (option.contains('lv3:ralt_switch')) {
+        return Lv3Options.rightAlt;
+      }
+    }
+
+    return null;
+  }
+
+  void setLv3Options(Lv3Options lv3options) async {
+    switch (lv3options) {
+      case Lv3Options.none:
+        await _setXkbOptions(['compose:lalt']);
+        break;
+      default:
+    }
+  }
 }
 
 enum ComposeOptions {
@@ -127,3 +154,13 @@ enum ComposeOptions {
   scrollLock,
   defaultLayout
 }
+
+// 'lv3:ralt_alt', // Right Alt key never chooses 3rd level <--- allowed as 'none'
+// 'lv3:lwin_switch', // Left Win, ignored by GCC
+// 'lv3:rwin_switch', // Right Win, ignored by GCC
+// 'lv3:menu_switch', // Menu, ignored by GCC
+// 'lv3:lalt_switch', // Left Alt, ignored by GCC
+// 'lv3:ralt_switch', // Right Alt <--- allowed as 'right alt'
+// 'lv3:switch', // Right Ctrl, ignored by GCC
+
+enum Lv3Options { none, leftWin, rightWin, menu, leftAlt, rightAlt, rightCtrl }
