@@ -75,21 +75,19 @@ class InputSourceModel extends SafeChangeNotifier {
     return xkbOptions ?? <String>[];
   }
 
-  setXkbOptions(List<String>? value) {
-    _inputSourceSettings?.setValue(_xkbOptionsKey, value);
+  _setXkbOptions(List<String>? xkbOptions) async {
+    _inputSourceSettings?.setValue(_xkbOptionsKey, xkbOptions);
+    // final settings = GSettings(schemaInputSources);
+    // final DBusArray array = DBusArray(DBusSignature('(as)'),
+    //     [for (var option in xkbOptions ?? []) DBusString(option)]);
+
+    // await settings.set(_xkbOptionsKey, array);
+    // await settings.close();
+
     notifyListeners();
   }
 
-  static const xkbOptionList = [
-    'compose:lalt', // Left Alt
-    'compose:ralt', // Right Alt
-    'compose:lwin', // Left Win
-    'compose:rwin', // Right Win
-    'compose:menu', // Menu
-    'compose:rctrl', // Right Ctrl
-    'compose:caps', // Caps Lock
-    'compose:prsc', // Print
-    'compose:sclk', // Scroll Lock
+  static const lv3OptionsList = [
     'lv3:ralt_alt', // Right Alt key never chooses 3rd level <--- allowed as 'none'
     'lv3:lwin_switch', // Left Win, ignored by GCC
     'lv3:rwin_switch', // Right Win, ignored by GCC
@@ -99,12 +97,74 @@ class InputSourceModel extends SafeChangeNotifier {
     'lv3:switch', // Right Ctrl, ignored by GCC
   ];
 
-  Future<String> getComposeKey() async {
-    final list = await _getXkbOptions();
-    final composeList = list.where((element) => element.contains('compose'));
-    return composeList.isEmpty
-        ? 'Default Layout'
-        : composeList.first.split(':').last;
+  Future<void> setComposeOptions(ComposeOptions composeOptions) async {
+    var composeOption = '';
+    switch (composeOptions) {
+      case ComposeOptions.leftAlt:
+        composeOption = 'compose:lalt';
+        break;
+      case ComposeOptions.rightAlt:
+        composeOption = 'compose:ralt';
+        break;
+      case ComposeOptions.leftWin:
+        composeOption = 'compose:lwin';
+        break;
+      case ComposeOptions.rightWin:
+        composeOption = 'compose:rwin';
+        break;
+      case ComposeOptions.menu:
+        composeOption = 'compose:menu';
+        break;
+      case ComposeOptions.rightCtrl:
+        composeOption = 'compose:rctrl';
+        break;
+      case ComposeOptions.caps:
+        composeOption = 'compose:caps';
+        break;
+      case ComposeOptions.print:
+        composeOption = 'compose:prsc';
+        break;
+      case ComposeOptions.scrollLock:
+        composeOption = 'compose:sclk';
+        break;
+      default:
+    }
+    await _setXkbOptions([composeOption]);
+  }
+
+  Future<ComposeOptions> getComposeOptions() async {
+    String composeOptionString = (await _getXkbOptions())
+        .where((xkbOption) => xkbOption.contains('compose'))
+        .first;
+
+    if (composeOptionString.contains('compose:ralt')) {
+      return ComposeOptions.rightAlt;
+    }
+    if (composeOptionString.contains('compose:lwin')) {
+      return ComposeOptions.leftWin;
+    }
+    if (composeOptionString.contains('compose:rwin')) {
+      return ComposeOptions.rightWin;
+    }
+    if (composeOptionString.contains('compose:menu')) {
+      return ComposeOptions.menu;
+    }
+    if (composeOptionString == 'compose:rctrl') {
+      return ComposeOptions.rightCtrl;
+    }
+    if (composeOptionString == 'compose:caps') {
+      return ComposeOptions.caps;
+    }
+    if (composeOptionString == 'compose:prsc') {
+      return ComposeOptions.print;
+    }
+    if (composeOptionString == 'compose:sclk') {
+      return ComposeOptions.scrollLock;
+    }
+    if (composeOptionString.contains('compose:lalt')) {
+      return ComposeOptions.leftAlt;
+    }
+    return ComposeOptions.defaultLayout;
   }
 
   Future<String> getLv3Key() async {
@@ -112,4 +172,17 @@ class InputSourceModel extends SafeChangeNotifier {
     final lv3List = list.where((element) => element.contains('lv3'));
     return lv3List.isEmpty ? 'Default Layout' : lv3List.first.split(':').last;
   }
+}
+
+enum ComposeOptions {
+  leftAlt,
+  rightAlt,
+  leftWin,
+  rightWin,
+  menu,
+  rightCtrl,
+  caps,
+  print,
+  scrollLock,
+  defaultLayout
 }
