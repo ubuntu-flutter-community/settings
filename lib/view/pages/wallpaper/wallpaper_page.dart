@@ -6,7 +6,7 @@ import 'package:provider/provider.dart';
 import 'package:settings/services/settings_service.dart';
 import 'package:settings/view/pages/wallpaper/color_shading_option_row.dart';
 import 'package:settings/view/pages/wallpaper/wallpaper_model.dart';
-import 'package:yaru_icons/widgets/yaru_icons.dart';
+import 'package:yaru_icons/yaru_icons.dart';
 import 'package:yaru_widgets/yaru_widgets.dart';
 
 class WallpaperPage extends StatelessWidget {
@@ -58,54 +58,50 @@ class WallpaperPage extends StatelessWidget {
         ),
       SizedBox(
         width: 500,
-        child: Padding(
-          padding: const EdgeInsets.only(bottom: 30),
-          child: model.pictureUri.isEmpty
-              ? Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: SizedBox(
-                    width: 500,
-                    height: 255,
-                    child: DecoratedBox(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(4),
-                        color: model.colorShadingType == ColorShadingType.solid
-                            ? fromHex(model.primaryColor)
-                            : null,
-                        gradient:
-                            model.colorShadingType == ColorShadingType.vertical
-                                ? LinearGradient(
-                                    begin: Alignment.topCenter,
-                                    end: Alignment.bottomCenter,
-                                    colors: [
-                                      fromHex(model.primaryColor),
-                                      fromHex(model.secondaryColor),
-                                    ],
-                                  )
-                                : model.colorShadingType ==
-                                        ColorShadingType.horizontal
-                                    ? LinearGradient(
-                                        begin: Alignment.centerLeft,
-                                        end: Alignment.centerRight,
-                                        colors: [
-                                          fromHex(model.primaryColor),
-                                          fromHex(model.secondaryColor),
-                                        ],
-                                      )
-                                    : null,
-                      ),
+        child: model.pictureUri.isEmpty
+            ? Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: SizedBox(
+                  width: 500,
+                  height: 255,
+                  child: DecoratedBox(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(4),
+                      color: model.colorShadingType == ColorShadingType.solid
+                          ? fromHex(model.primaryColor)
+                          : null,
+                      gradient:
+                          model.colorShadingType == ColorShadingType.vertical
+                              ? LinearGradient(
+                                  begin: Alignment.topCenter,
+                                  end: Alignment.bottomCenter,
+                                  colors: [
+                                    fromHex(model.primaryColor),
+                                    fromHex(model.secondaryColor),
+                                  ],
+                                )
+                              : model.colorShadingType ==
+                                      ColorShadingType.horizontal
+                                  ? LinearGradient(
+                                      begin: Alignment.centerLeft,
+                                      end: Alignment.centerRight,
+                                      colors: [
+                                        fromHex(model.primaryColor),
+                                        fromHex(model.secondaryColor),
+                                      ],
+                                    )
+                                  : null,
                     ),
                   ),
-                )
-              : ImageTile(
-                  path: model.pictureUri.replaceAll('file://', ''),
-                  currentlySelected: false),
-        ),
+                ),
+              )
+            : ImageTile(
+                path: model.pictureUri.replaceAll('file://', ''),
+                currentlySelected: false),
       ),
       if (model.wallpaperMode == WallpaperMode.imageOfTheDay)
-      //TODO: Add the title and copyright info
+        //TODO: Add the title and copyright info
         YaruRow(
-            description: model.customWallpaperLocation,
             trailingWidget: const Text('Image of the day from Bing'),
             actionWidget: SizedBox(
               width: 40,
@@ -120,6 +116,98 @@ class WallpaperPage extends StatelessWidget {
       if (model.wallpaperMode == WallpaperMode.custom)
         Column(
           children: [
+            const Padding(
+              padding: EdgeInsets.only(top: 10),
+              child: YaruRow(
+                  trailingWidget: Text('Your wallpapers'),
+                  actionWidget: SizedBox(
+                    width: 40,
+                  )),
+            ),
+            FutureBuilder<List<String>>(
+                future: model.customBackgrounds,
+                builder: (context, snapshot) {
+                  if (snapshot.hasData) {
+                    return SizedBox(
+                      width: 500,
+                      child: GridView(
+                        gridDelegate:
+                            const SliverGridDelegateWithFixedCrossAxisCount(
+                                crossAxisCount: 3,
+                                childAspectRatio: 1.6,
+                                mainAxisSpacing: 5,
+                                crossAxisSpacing: 5),
+                        shrinkWrap: true,
+                        scrollDirection: Axis.vertical,
+                        children: <Widget>[
+                              Padding(
+                                padding: const EdgeInsets.all(6.0),
+                                child: OutlinedButton(
+                                  onPressed: () async {
+                                    final picPath =
+                                        await openFilePicker(context);
+                                    if (null != picPath) {
+                                      model.pictureUri = picPath;
+                                      model.copyToCollection(picPath);
+                                    }
+                                  },
+                                  child: const Icon(YaruIcons.plus),
+                                ),
+                              )
+                            ] +
+                            snapshot.data!
+                                .map((picPathString) => Stack(
+                                      fit: StackFit.expand,
+                                      children: [
+                                        ImageTile(
+                                            path: picPathString,
+                                            onTap: () => model.pictureUri =
+                                                picPathString,
+                                            currentlySelected: model.pictureUri
+                                                .contains(picPathString)),
+                                        Align(
+                                          alignment: Alignment.bottomRight,
+                                          child: Container(
+                                            decoration: ShapeDecoration(
+                                              shape: const CircleBorder(),
+                                              color: Theme.of(context)
+                                                  .backgroundColor
+                                                  .withOpacity(0.9),
+                                            ),
+                                            child: InkWell(
+                                              borderRadius:
+                                                  BorderRadius.circular(100),
+                                              onTap: () =>
+                                                  model.removeFromCollection(
+                                                      picPathString),
+                                              child: const Padding(
+                                                padding: EdgeInsets.all(5.0),
+                                                child: Icon(
+                                                    YaruIcons.window_close),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ))
+                                .toList(),
+                      ),
+                    );
+                  } else {
+                    return const Padding(
+                      padding: EdgeInsets.all(40.0),
+                      child: CircularProgressIndicator(),
+                    );
+                  }
+                }),
+            const Padding(
+              padding: EdgeInsets.only(top: 10),
+              child: YaruRow(
+                  trailingWidget: Text('Default wallpapers'),
+                  actionWidget: SizedBox(
+                    width: 0,
+                  )),
+            ),
             FutureBuilder<List<String>>(
                 future: model.preInstalledBackgrounds,
                 builder: (context, snapshot) {
@@ -135,27 +223,13 @@ class WallpaperPage extends StatelessWidget {
                                   crossAxisSpacing: 10),
                           shrinkWrap: true,
                           scrollDirection: Axis.vertical,
-                          children: <Widget>[
-                                Padding(
-                                  padding: const EdgeInsets.all(6.0),
-                                  child: OutlinedButton(
-                                    onPressed: () async {
-                                      final picPath = await openFilePicker(context);
-                                      if (null != picPath) {
-                                        model.pictureUri = picPath;
-                                      }
-                                    },
-                                    child: const Icon(YaruIcons.plus),
-                                  ),
-                                )
-                              ] +
-                              snapshot.data!
-                                  .map((picPathString) => ImageTile(
-                                      path: picPathString,
-                                      onTap: () => model.pictureUri = picPathString,
-                                      currentlySelected:
+                          children: snapshot.data!
+                              .map((picPathString) => ImageTile(
+                                  path: picPathString,
+                                  onTap: () => model.pictureUri = picPathString,
+                                  currentlySelected:
                                       model.pictureUri.contains(picPathString)))
-                                  .toList()),
+                              .toList()),
                     );
                   } else {
                     return const Padding(
@@ -164,56 +238,6 @@ class WallpaperPage extends StatelessWidget {
                     );
                   }
                 }),
-            Padding(
-              padding: const EdgeInsets.only(top: 30, bottom: 10),
-              child: YaruRow(
-                  description: model.customWallpaperLocation,
-                  trailingWidget: const Text('Your own wallpaper collection'),
-                  actionWidget: SizedBox(
-                    width: 40,
-                    height: 40,
-                    child: OutlinedButton(
-                      style:
-                       OutlinedButton.styleFrom(padding: const EdgeInsets.all(0)),
-                      onPressed: () async => model.customWallpaperLocation =
-                          await openDirPicker(context),
-                      child: const Icon(YaruIcons.settings),
-                    ),
-                  )),
-            ),
-            model.customWallpaperLocation == null
-                ? const Text('')
-                : FutureBuilder<List<String>>(
-                    future: model.customBackgrounds,
-                    builder: (context, snapshot) {
-                      if (snapshot.hasData) {
-                        return SizedBox(
-                          width: 500,
-                          child: GridView(
-                            gridDelegate:
-                                const SliverGridDelegateWithFixedCrossAxisCount(
-                                    crossAxisCount: 3,
-                                    childAspectRatio: 1.6,
-                                    mainAxisSpacing: 5,
-                                    crossAxisSpacing: 5),
-                            shrinkWrap: true,
-                            scrollDirection: Axis.vertical,
-                            children: snapshot.data!
-                                .map((picPathString) => ImageTile(
-                                    path: picPathString,
-                                    onTap: () => model.pictureUri = picPathString,
-                                    currentlySelected:
-                                      model.pictureUri.contains(picPathString)))
-                                .toList(),
-                          ),
-                        );
-                      } else {
-                        return const Padding(
-                          padding: EdgeInsets.all(40.0),
-                          child: CircularProgressIndicator(),
-                        );
-                      }
-                    }),
           ],
         ),
     ]);

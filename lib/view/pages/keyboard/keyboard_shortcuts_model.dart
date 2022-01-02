@@ -17,7 +17,7 @@ class KeyboardShortcutsModel extends ChangeNotifier {
 
   final Settings? _shortcutSettings;
 
-  List<String> shortcut(String shortcutId) {
+  List<String> getShortcutStrings(String shortcutId) {
     final keys = _shortcutSettings?.stringArrayValue(shortcutId);
     return keys?.whereType<String>().toList() ?? [];
   }

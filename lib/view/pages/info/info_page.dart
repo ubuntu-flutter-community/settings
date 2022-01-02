@@ -7,7 +7,7 @@ import 'package:rive/rive.dart';
 import 'package:settings/api/pdf_api.dart';
 import 'package:settings/services/hostname_service.dart';
 import 'package:udisks/udisks.dart';
-import 'package:yaru_icons/widgets/yaru_icons.dart';
+import 'package:yaru_icons/yaru_icons.dart';
 import 'package:yaru_widgets/yaru_widgets.dart';
 
 import 'info_model.dart';
