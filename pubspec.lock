@@ -564,13 +564,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "3.6.5"
-  pedantic:
-    dependency: transitive
-    description:
-      name: pedantic
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.11.1"
   petitparser:
     dependency: transitive
     description:
