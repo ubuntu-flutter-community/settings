@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:settings/view/app_theme.dart';
-import 'package:yaru_icons/widgets/yaru_icons.dart';
+import 'package:yaru_icons/yaru_icons.dart';
 import 'package:yaru_widgets/yaru_widgets.dart';
 
 class DarkModeSection extends StatelessWidget {

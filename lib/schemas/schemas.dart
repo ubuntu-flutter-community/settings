@@ -6,6 +6,7 @@ const String schemaA11yMouse = 'org.gnome.desktop.a11y.mouse';
 const String schemaInterface = 'org.gnome.desktop.interface';
 const String schemaPeripheralsKeyboard =
     'org.gnome.desktop.peripherals.keyboard';
+const String schemaInputSources = 'org.gnome.desktop.input-sources';
 const String schemaWmPreferences = 'org.gnome.desktop.wm.preferences';
 const schemaWmKeybindings = 'org.gnome.desktop.wm.keybindings';
 const schemaGnomeShellKeybinding = 'org.gnome.shell.keybindings';

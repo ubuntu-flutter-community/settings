@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:settings/view/pages/power/power_settings_model.dart';
 import 'package:settings/view/pages/power/power_settings_widgets.dart';
-import 'package:yaru_icons/widgets/yaru_icons.dart';
+import 'package:yaru_icons/yaru_icons.dart';
 import 'package:yaru_widgets/yaru_widgets.dart';
 
 Future<void> showAutomaticSuspendDialog(BuildContext context) async {
