@@ -42,7 +42,9 @@ class SpecialCharactersSection extends StatelessWidget {
                   )),
           child: YaruRow(
             trailingWidget: const Text('Lv3 Key'),
-            actionWidget: Text(snapshot.data.toString()),
+            actionWidget: Text(snapshot.data == null
+                ? 'Default Layout'
+                : snapshot.data.toString()),
           ),
         ),
       )
@@ -65,7 +67,7 @@ class _Lv3OptionsDialog extends StatelessWidget {
             YaruSwitchRow(
                 trailingWidget: const Text('Use default value'),
                 value: snapshot.data == null,
-                onChanged: (value) => print('implement this')),
+                onChanged: (value) => model.removeLV3Options(value)),
             const Divider(),
             RadioListTile<Lv3Options>(
               shape: RoundedRectangleBorder(
@@ -73,7 +75,7 @@ class _Lv3OptionsDialog extends StatelessWidget {
               title: const Text('None'),
               value: Lv3Options.none,
               groupValue: snapshot.data,
-              onChanged: (value) => print('implement this'),
+              onChanged: (value) => model.setLv3Options(value!),
             ),
             RadioListTile<Lv3Options>(
               shape: RoundedRectangleBorder(
@@ -81,7 +83,7 @@ class _Lv3OptionsDialog extends StatelessWidget {
               title: const Text('Right Alt-Key'),
               value: Lv3Options.rightAlt,
               groupValue: snapshot.data,
-              onChanged: (value) => print('implement this'),
+              onChanged: (value) => model.setLv3Options(value!),
             ),
           ]),
     );

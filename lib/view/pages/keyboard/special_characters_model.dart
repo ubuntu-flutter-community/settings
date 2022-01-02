@@ -73,7 +73,6 @@ class SpecialCharactersModel extends SafeChangeNotifier {
       case ComposeOptions.defaultLayout:
         break;
     }
-    print(currentOptions);
     await _setXkbOptions(currentOptions);
   }
 
@@ -134,12 +133,27 @@ class SpecialCharactersModel extends SafeChangeNotifier {
   }
 
   void setLv3Options(Lv3Options lv3options) async {
+    final currentOptions = await _getXkbOptions();
+    currentOptions.removeWhere((element) => element.contains('lv3:'));
     switch (lv3options) {
       case Lv3Options.none:
-        await _setXkbOptions(['compose:lalt']);
+        currentOptions.add('lv3:ralt_alt');
+        break;
+      case Lv3Options.rightAlt:
+        currentOptions.addAll(['lv3:ralt_alt', 'lv3:ralt_switch']);
         break;
       default:
     }
+    await _setXkbOptions(currentOptions);
+  }
+
+  void removeLV3Options(bool value) async {
+    final currentOptions = await _getXkbOptions();
+    currentOptions.removeWhere((element) => element.contains('lv3:'));
+    if (!value) {
+      currentOptions.add('lv3:ralt_alt');
+    }
+    await _setXkbOptions(currentOptions);
   }
 }
 
