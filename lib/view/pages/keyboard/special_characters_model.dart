@@ -40,40 +40,41 @@ class SpecialCharactersModel extends SafeChangeNotifier {
   }
 
   void setComposeOptions(ComposeOptions composeOptions) async {
+    final currentOptions = await _getXkbOptions();
+    currentOptions.removeWhere((element) => element.contains('compose:'));
     switch (composeOptions) {
       case ComposeOptions.leftAlt:
-        await _setXkbOptions(['compose:lalt']);
+        currentOptions.add('compose:lalt');
         break;
       case ComposeOptions.rightAlt:
-        await _setXkbOptions(['compose:ralt']);
+        currentOptions.add('compose:ralt');
         break;
       case ComposeOptions.leftWin:
-        await _setXkbOptions(['compose:lwin']);
+        currentOptions.add('compose:lwin');
         break;
       case ComposeOptions.rightWin:
-        await _setXkbOptions(['compose:rwin']);
+        currentOptions.add('compose:rwin');
         break;
       case ComposeOptions.menu:
-        await _setXkbOptions(['compose:menu']);
+        currentOptions.add('compose:menu');
         break;
       case ComposeOptions.rightCtrl:
-        await _setXkbOptions(['compose:rctrl']);
+        currentOptions.add('compose:rctrl');
         break;
       case ComposeOptions.caps:
-        await _setXkbOptions(['compose:caps']);
+        currentOptions.add('compose:caps');
         break;
       case ComposeOptions.print:
-        await _setXkbOptions(['compose:prsc']);
+        currentOptions.add('compose:prsc');
         break;
       case ComposeOptions.scrollLock:
-        await _setXkbOptions(['compose:sclk']);
+        currentOptions.add('compose:sclk');
         break;
       case ComposeOptions.defaultLayout:
-        await _setXkbOptions([]);
         break;
-      default:
-        ComposeOptions.defaultLayout;
     }
+    print(currentOptions);
+    await _setXkbOptions(currentOptions);
   }
 
   Future<ComposeOptions> getComposeOptions() async {
