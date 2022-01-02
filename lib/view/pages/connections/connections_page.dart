@@ -3,6 +3,7 @@ import 'package:nm/nm.dart';
 import 'package:provider/provider.dart';
 import 'package:settings/view/pages/connections/wifi_content.dart';
 import 'package:yaru_icons/yaru_icons.dart';
+import 'package:yaru_widgets/yaru_widgets.dart';
 
 import 'models/wifi_model.dart';
 
@@ -34,51 +35,24 @@ class _ConnectionsPageState extends State<ConnectionsPage>
   @override
   Widget build(BuildContext context) {
     final wifiModel = context.watch<WifiModel>();
-    return Column(
-      children: [
-        Container(
-          width: 516,
-          height: 60,
-          decoration: BoxDecoration(borderRadius: BorderRadius.circular(4)),
-          child: TabBar(
-              controller: tabController,
-              indicator: BoxDecoration(
-                  borderRadius: BorderRadius.circular(4),
-                  color:
-                      Theme.of(context).colorScheme.onSurface.withOpacity(0.1)),
-              tabs: const [
-                Tab(
-                    icon: Icon(YaruIcons.network_wireless),
-                    child: Text("Wi-Fi")),
-                Tab(
-                    icon: Icon(YaruIcons.network_wired),
-                    child: Text("Ethernet")),
-                Tab(
-                    icon: Icon(YaruIcons.network_cellular),
-                    child: Text("Cellular")),
-              ]),
-        ),
-        Padding(
-          padding: const EdgeInsets.only(top: 30),
-          child: SizedBox(
-            height: 1000,
-            child: TabBarView(
-              controller: tabController,
-              children: [
-                wifiModel.isWifiDeviceAvailable
-                    ? const WifiDevicesContent()
-                    : const WifiAdaptorNotFound(),
-                Column(
-                  children: const [Text('Ethernet')],
-                ),
-                Column(
-                  children: const [Text('Cellular')],
-                )
-              ],
-            ),
-          ),
-        ),
-      ],
-    );
+    return YaruTabbedPage(tabIcons: const [
+      YaruIcons.network_wireless,
+      YaruIcons.network_wired,
+      YaruIcons.network_cellular
+    ], tabTitles: const [
+      'Wi-Fi',
+      'Ethernet',
+      'Cellular'
+    ], views: [
+      wifiModel.isWifiDeviceAvailable
+          ? const WifiDevicesContent()
+          : const WifiAdaptorNotFound(),
+      Column(
+        children: const [Text('Ethernet')],
+      ),
+      Column(
+        children: const [Text('Cellular')],
+      )
+    ], width: 516, height: 400);
   }
 }
