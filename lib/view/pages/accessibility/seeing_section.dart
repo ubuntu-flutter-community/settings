@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_spinbox/flutter_spinbox.dart';
 import 'package:provider/provider.dart';
 import 'package:settings/view/pages/accessibility/accessibility_model.dart';
 import 'package:yaru_widgets/yaru_widgets.dart';
@@ -209,14 +210,24 @@ class _MagnifierOptions extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          YaruSliderSecondary(
-            // TODO it'd be better to use SpinBox instead of Slider
-            label: 'Magnification',
-            enabled: true,
-            min: 1,
-            max: 20,
-            value: model.magFactor,
-            onChanged: (value) => model.setMagFactor(value),
+          YaruRow(
+            trailingWidget: const Text('Magnification'),
+            actionWidget: SizedBox(
+              height: 40,
+              width: 150,
+              child: SpinBox(
+                decoration: const InputDecoration(
+                  border: UnderlineInputBorder(),
+                ),
+                enabled: true,
+                min: 1,
+                max: 20,
+                step: 0.25,
+                decimals: 2,
+                value: model.magFactor ?? 2,
+                onChanged: (value) => model.setMagFactor(value),
+              ),
+            ),
           ),
           const Text('Magnifier Position'),
           const _MagnifierPositionOptions(),
