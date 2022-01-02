@@ -197,8 +197,20 @@ class AccessibilityModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  String? get screenPosition =>
+  static const screenPositions = [
+    'full-screen',
+    'top-half',
+    'bottom-half',
+    'left-half',
+    'right-half'
+  ];
+
+  String? get _realScreenPosition =>
       _a11yMagnifierSettings?.stringValue(_screenPositionKey);
+
+  String? get screenPosition => screenPositions.contains(_realScreenPosition)
+      ? _realScreenPosition
+      : null;
 
   void setScreenPosition(String value) {
     _a11yMagnifierSettings?.setValue(_screenPositionKey, value);

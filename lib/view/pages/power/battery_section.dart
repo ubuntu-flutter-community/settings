@@ -37,7 +37,7 @@ class _BatterySectionState extends State<BatterySection> {
       children: <Widget>[
         Padding(
           padding: const EdgeInsets.all(8.0),
-          child: LinearProgressIndicator(
+          child: YaruLinearProgressIndicator(
               value: model.percentage / 100.0,
               color: model.percentage > 80.0
                   ? YaruColors.green
