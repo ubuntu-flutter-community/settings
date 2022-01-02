@@ -27,7 +27,9 @@ class SpecialCharactersSection extends StatelessWidget {
                 ),
                 child: YaruRow(
                   trailingWidget: const Text('Compose Key'),
-                  actionWidget: Text(snapshot.data.toString()),
+                  actionWidget: Text(snapshot.hasData
+                      ? model.composeOptionsToStringMap[snapshot.data]!
+                      : ''),
                 ),
               )),
       FutureBuilder<Lv3Options?>(
@@ -42,9 +44,9 @@ class SpecialCharactersSection extends StatelessWidget {
                   )),
           child: YaruRow(
             trailingWidget: const Text('Lv3 Key'),
-            actionWidget: Text(snapshot.data == null
-                ? 'Default Layout'
-                : snapshot.data.toString()),
+            actionWidget: Text(snapshot.hasData
+                ? model.lv3OptionsToStringMap[snapshot.data]!
+                : 'Default Layout'),
           ),
         ),
       )

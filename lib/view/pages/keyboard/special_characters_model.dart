@@ -114,6 +114,20 @@ class SpecialCharactersModel extends SafeChangeNotifier {
     return ComposeOptions.defaultLayout;
   }
 
+  // TODO: Add translations here
+  final composeOptionsToStringMap = <ComposeOptions, String>{
+    ComposeOptions.rightAlt: 'Right Alt-Key',
+    ComposeOptions.leftAlt: 'Left Alt-Key',
+    ComposeOptions.leftWin: 'Left Super-Key',
+    ComposeOptions.rightWin: 'Right Super-Key',
+    ComposeOptions.menu: 'Menu-Key',
+    ComposeOptions.rightCtrl: 'Right Control-Key',
+    ComposeOptions.caps: 'Caps-Lock-Key',
+    ComposeOptions.print: 'Print-Key',
+    ComposeOptions.scrollLock: 'Scroll-Lock-Key',
+    ComposeOptions.defaultLayout: 'Default Layout'
+  };
+
   Future<Lv3Options?> getLv3Options() async {
     final options =
         (await _getXkbOptions()).where((element) => element.contains('lv3'));
@@ -131,6 +145,13 @@ class SpecialCharactersModel extends SafeChangeNotifier {
 
     return null;
   }
+
+  // TODO: add translations here
+  final lv3OptionsToStringMap = <Lv3Options?, String>{
+    null: 'Default Layout',
+    Lv3Options.none: 'None',
+    Lv3Options.rightAlt: 'Right Alt-Key'
+  };
 
   void setLv3Options(Lv3Options lv3options) async {
     final currentOptions = await _getXkbOptions();
