@@ -99,9 +99,9 @@ class _CursorSizeSettings extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final model = Provider.of<AccessibilityModel>(context);
-    return SimpleDialog(
-      title: const Center(child: Text('Cursor Size')),
-      contentPadding: const EdgeInsets.symmetric(vertical: 8.0),
+    return YaruSimpleDialog(
+      title: 'Cursor Size',
+      closeIconData: YaruIcons.window_close,
       children: [
         _CursorButton(
           imageName: 'assets/images/cursor/left_ptr_24px.png',
@@ -174,9 +174,9 @@ class _ZoomSettings extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SimpleDialog(
-      title: const Center(child: Text('Zoom Options')),
-      contentPadding: const EdgeInsets.symmetric(horizontal: 20.0),
+    return YaruSimpleDialog(
+      title: 'Zoom Options',
+      closeIconData: YaruIcons.window_close,
       children: [
         Text(
           'Magnifier',
@@ -252,27 +252,11 @@ class _MagnifierPositionOptions extends StatelessWidget {
                 ? null
                 : (value) => model.setScreenPosition(value!),
             value: model.screenPosition,
-            items: const [
-              DropdownMenuItem(
-                value: 'full-screen',
-                child: Text('Full Screen'),
-              ),
-              DropdownMenuItem(
-                value: 'top-half',
-                child: Text('Top Half'),
-              ),
-              DropdownMenuItem(
-                value: 'bottom-half',
-                child: Text('Bottom Half'),
-              ),
-              DropdownMenuItem(
-                value: 'left-half',
-                child: Text('Left Half'),
-              ),
-              DropdownMenuItem(
-                value: 'right-half',
-                child: Text('Right Half'),
-              ),
+            items: [
+              for (var item in AccessibilityModel.screenPositions)
+                DropdownMenuItem(
+                    child: Text(item.toLowerCase().replaceAll('-', ' ')),
+                    value: item)
             ],
           ),
         ),

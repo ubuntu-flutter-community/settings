@@ -76,8 +76,10 @@ class SuspendModel extends SafeChangeNotifier {
     notifyListeners();
   }
 
-  int? get idleDelay =>
+  int? get _realIdleDelay =>
       IdleDelay.validate(_sessionSettings?.intValue('idle-delay'));
+  int? get idleDelay =>
+      IdleDelay.values.contains(_realIdleDelay) ? _realIdleDelay : null;
   void setIdleDelay(int? value) {
     if (value == null) return;
     _sessionSettings?.setValue('idle-delay', value);

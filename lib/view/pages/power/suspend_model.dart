@@ -30,9 +30,15 @@ class SuspendModel extends SafeChangeNotifier {
     notifyListeners();
   }
 
-  PowerButtonAction? get powerButtonAction => _daemonSettings
+  PowerButtonAction? get _realPowerButtonAction => _daemonSettings
       ?.stringValue('power-button-action')
       ?.toPowerButtonAction();
+
+  PowerButtonAction? get powerButtonAction =>
+      PowerButtonAction.values.contains(_realPowerButtonAction)
+          ? _realPowerButtonAction
+          : null;
+
   void setPowerButtonAction(PowerButtonAction? value) {
     if (value == null) return;
     _daemonSettings?.setValue('power-button-action', value.name);

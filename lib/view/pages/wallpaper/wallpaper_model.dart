@@ -5,6 +5,10 @@ import 'package:safe_change_notifier/safe_change_notifier.dart';
 import 'package:settings/schemas/schemas.dart';
 import 'package:settings/services/settings_service.dart';
 
+import 'package:path_provider/path_provider.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+
 class WallpaperModel extends SafeChangeNotifier {
   final Settings? _wallpaperSettings;
   static const _pictureUriKey = 'picture-uri';
@@ -13,8 +17,15 @@ class WallpaperModel extends SafeChangeNotifier {
   static const _primaryColorKey = 'primary-color';
   static const _secondaryColorKey = 'secondary-color';
 
-  // TODO: store this outside of the app
-  String? _customDir;
+  //TODO: Sync the locale of the image with the device's locale
+  static const String _bingImageAddress =
+      'https://www.bing.com/HPImageArchive.aspx?format=js&idx=0&n=1&mkt=en-US';
+  static const String _bingAddress = 'http://www.bing.com';
+
+  WallpaperMode wallpaperMode = WallpaperMode.custom;
+
+  final String? _userWallpapersDir =
+      Platform.environment['HOME']! + '/.local/share/backgrounds/';
 
   WallpaperModel(SettingsService service)
       : _wallpaperSettings = service.lookup(schemaBackground) {
@@ -36,12 +47,19 @@ class WallpaperModel extends SafeChangeNotifier {
     notifyListeners();
   }
 
-  set customWallpaperLocation(String? path) {
-    _customDir = path;
+  Future<void> copyToCollection(String picPathString) async {
+    File image = File(picPathString);
+    await image
+        .copy(_userWallpapersDir! + File(picPathString).uri.pathSegments.last);
     notifyListeners();
   }
 
-  String? get customWallpaperLocation => _customDir;
+  Future<void> removeFromCollection(String picPathString) async {
+    final purePath = picPathString.replaceAll('file://', '');
+    File image = File(purePath);
+    await image.delete();
+    notifyListeners();
+  }
 
   Future<List<String>> get preInstalledBackgrounds async {
     return (await getImages(_preinstalledWallpapersDir))
@@ -50,7 +68,7 @@ class WallpaperModel extends SafeChangeNotifier {
   }
 
   Future<List<String>> get customBackgrounds async {
-    return (await getImages(_customDir!)).map((e) => e.path).toList();
+    return (await getImages(_userWallpapersDir!)).map((e) => e.path).toList();
   }
 
   Future<Iterable<File>> getImages(String dir) async {
@@ -102,13 +120,20 @@ class WallpaperModel extends SafeChangeNotifier {
     notifyListeners();
   }
 
-  set colorBackground(bool value) {
-    if (value) {
-      pictureUri = '';
-    } else {
-      if (pictureUri.isEmpty) {
-        _setFirstWallpaper();
-      }
+  Future<void> setWallpaperMode(WallpaperMode newWallpaperMode) async {
+    wallpaperMode = newWallpaperMode;
+    switch (wallpaperMode) {
+      case WallpaperMode.solid:
+        pictureUri = '';
+        break;
+      case WallpaperMode.custom:
+        if (pictureUri.isEmpty) {
+          _setFirstWallpaper();
+        }
+        break;
+      case WallpaperMode.imageOfTheDay:
+        refreshBingWallpaper();
+        break;
     }
 
     notifyListeners();
@@ -119,7 +144,31 @@ class WallpaperModel extends SafeChangeNotifier {
     pictureUri = list.first;
   }
 
-  bool get isColorBackground => pictureUri.isEmpty ? true : false;
+  static Future<String> getBingImageUrl() async {
+    http.Response imageMetadataResponse =
+        await http.get(Uri.parse(_bingImageAddress));
+    return _bingAddress +
+        json.decode(imageMetadataResponse.body)['images'][0]['url'];
+  }
+
+  Future<void> refreshBingWallpaper() async {
+    final Directory directory = await getApplicationDocumentsDirectory();
+
+    final file = File('${directory.path}/bing.jpeg');
+
+    // Refetch if the image doesn't exist or the current image is older than a day
+    bool shouldRefetch =
+        !file.existsSync() || file.lastModifiedSync().day != DateTime.now().day;
+
+    if (shouldRefetch) {
+      var imageResponse = await http.get(Uri.parse(await getBingImageUrl()));
+      await file.writeAsBytes(imageResponse.bodyBytes);
+    }
+
+    pictureUri = '${directory.path}/bing.jpeg';
+  }
 }
 
 enum ColorShadingType { solid, vertical, horizontal }
+
+enum WallpaperMode { solid, custom, imageOfTheDay }

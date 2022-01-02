@@ -47,9 +47,9 @@ class _VisualAlertsSettings extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final model = Provider.of<AccessibilityModel>(context);
-    return SimpleDialog(
-      title: const Center(child: Text('Visual Alerts')),
-      contentPadding: const EdgeInsets.all(8.0),
+    return YaruSimpleDialog(
+      title: 'Visual Alerts',
+      closeIconData: YaruIcons.window_close,
       children: [
         RadioListTile(
           title: const Text('Flash the entire window'),
