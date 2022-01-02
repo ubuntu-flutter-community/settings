@@ -58,49 +58,46 @@ class WallpaperPage extends StatelessWidget {
         ),
       SizedBox(
         width: 500,
-        child: Padding(
-          padding: const EdgeInsets.only(bottom: 30),
-          child: model.pictureUri.isEmpty
-              ? Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: SizedBox(
-                    width: 500,
-                    height: 255,
-                    child: DecoratedBox(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(4),
-                        color: model.colorShadingType == ColorShadingType.solid
-                            ? fromHex(model.primaryColor)
-                            : null,
-                        gradient:
-                            model.colorShadingType == ColorShadingType.vertical
-                                ? LinearGradient(
-                                    begin: Alignment.topCenter,
-                                    end: Alignment.bottomCenter,
-                                    colors: [
-                                      fromHex(model.primaryColor),
-                                      fromHex(model.secondaryColor),
-                                    ],
-                                  )
-                                : model.colorShadingType ==
-                                        ColorShadingType.horizontal
-                                    ? LinearGradient(
-                                        begin: Alignment.centerLeft,
-                                        end: Alignment.centerRight,
-                                        colors: [
-                                          fromHex(model.primaryColor),
-                                          fromHex(model.secondaryColor),
-                                        ],
-                                      )
-                                    : null,
-                      ),
+        child: model.pictureUri.isEmpty
+            ? Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: SizedBox(
+                  width: 500,
+                  height: 255,
+                  child: DecoratedBox(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(4),
+                      color: model.colorShadingType == ColorShadingType.solid
+                          ? fromHex(model.primaryColor)
+                          : null,
+                      gradient:
+                          model.colorShadingType == ColorShadingType.vertical
+                              ? LinearGradient(
+                                  begin: Alignment.topCenter,
+                                  end: Alignment.bottomCenter,
+                                  colors: [
+                                    fromHex(model.primaryColor),
+                                    fromHex(model.secondaryColor),
+                                  ],
+                                )
+                              : model.colorShadingType ==
+                                      ColorShadingType.horizontal
+                                  ? LinearGradient(
+                                      begin: Alignment.centerLeft,
+                                      end: Alignment.centerRight,
+                                      colors: [
+                                        fromHex(model.primaryColor),
+                                        fromHex(model.secondaryColor),
+                                      ],
+                                    )
+                                  : null,
                     ),
                   ),
-                )
-              : ImageTile(
-                  path: model.pictureUri.replaceAll('file://', ''),
-                  currentlySelected: false),
-        ),
+                ),
+              )
+            : ImageTile(
+                path: model.pictureUri.replaceAll('file://', ''),
+                currentlySelected: false),
       ),
       if (model.wallpaperMode == WallpaperMode.imageOfTheDay)
         //TODO: Add the title and copyright info
@@ -120,7 +117,7 @@ class WallpaperPage extends StatelessWidget {
         Column(
           children: [
             const Padding(
-              padding: EdgeInsets.only(top: 10, bottom: 10),
+              padding: EdgeInsets.only(top: 10),
               child: YaruRow(
                   trailingWidget: Text('Your wallpapers'),
                   actionWidget: SizedBox(
@@ -204,7 +201,7 @@ class WallpaperPage extends StatelessWidget {
                   }
                 }),
             const Padding(
-              padding: EdgeInsets.only(top: 30, bottom: 10),
+              padding: EdgeInsets.only(top: 10),
               child: YaruRow(
                   trailingWidget: Text('Default wallpapers'),
                   actionWidget: SizedBox(
