@@ -64,11 +64,14 @@ class InputSourceModel extends SafeChangeNotifier {
 
   removeInputSource(String inputType) async {
     final types = await getInputSources();
-    types?.remove(inputType);
-    await setInputSources(types);
+    if (types!.length > 1) {
+      types.remove(inputType);
+      await setInputSources(types);
+    }
   }
 
   showKeyboardLayout(String inputType) async {
-    await Process.run('gkbd-keyboard-display', ['-l', inputType]);
+    await Process.run('gkbd-keyboard-display',
+        ['-l', inputType.split('+').first, inputType.split('+').last, '&']);
   }
 }

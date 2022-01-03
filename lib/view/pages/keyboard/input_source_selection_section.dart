@@ -44,7 +44,7 @@ class InputSourceSelectionSection extends StatelessWidget {
                               children: [
                                 YaruOptionButton(
                                     onPressed: () => model.showKeyboardLayout(
-                                        snapshot.data![index].split('+').first),
+                                        snapshot.data![index]),
                                     iconData: YaruIcons.input_keyboard),
                                 const SizedBox(
                                   width: 10,
