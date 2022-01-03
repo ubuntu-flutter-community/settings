@@ -46,7 +46,7 @@ class InputSourceModel extends SafeChangeNotifier {
     return inputTypes ?? [];
   }
 
-  setInputSources(List<String>? inputTypes) async {
+  Future<void> setInputSources(List<String>? inputTypes) async {
     final settings = GSettings(schemaInputSources);
 
     final DBusArray array = DBusArray(DBusSignature('(ss)'), [
@@ -62,7 +62,7 @@ class InputSourceModel extends SafeChangeNotifier {
     notifyListeners();
   }
 
-  removeInputSource(String inputType) async {
+  Future<void> removeInputSource(String inputType) async {
     final types = await getInputSources();
     if (types!.length > 1) {
       types.remove(inputType);
@@ -70,7 +70,7 @@ class InputSourceModel extends SafeChangeNotifier {
     }
   }
 
-  showKeyboardLayout(String inputType) async {
+  Future<void> showKeyboardLayout(String inputType) async {
     await Process.run('gkbd-keyboard-display',
         ['-l', inputType.split('+').first, inputType.split('+').last, '&']);
   }
