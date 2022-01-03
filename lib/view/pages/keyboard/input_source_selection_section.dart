@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:settings/view/pages/keyboard/input_source_model.dart';
+import 'package:yaru_icons/yaru_icons.dart';
 import 'package:yaru_widgets/yaru_widgets.dart';
 
 class InputSourceSelectionSection extends StatelessWidget {
@@ -18,27 +19,38 @@ class InputSourceSelectionSection extends StatelessWidget {
         if (!snapshot.hasData) {
           return const CircularProgressIndicator();
         }
-        return YaruSection(headline: 'Input Sources', children: [
-          ReorderableListView(
-            shrinkWrap: true,
-            children: <Widget>[
-              for (int index = 0; index < snapshot.data!.length; index++)
-                ListTile(
-                  key: Key('$index'),
-                  title: Text('${index + 1}. ${snapshot.data![index]}'),
-                ),
-            ],
-            onReorder: (int oldIndex, int newIndex) async {
-              final sources = snapshot.data!;
-              if (oldIndex < newIndex) {
-                newIndex -= 1;
-              }
-              final item = snapshot.data!.removeAt(oldIndex);
-              sources.insert(newIndex, item);
-              model.setInputSources(sources);
-            },
-          )
-        ]);
+        return YaruSection(
+            headline: 'Input Sources',
+            headerWidget:
+                TextButton(onPressed: () {}, child: const Icon(YaruIcons.plus)),
+            children: [
+              ReorderableListView(
+                buildDefaultDragHandles: false,
+                shrinkWrap: true,
+                children: <Widget>[
+                  for (int index = 0; index < snapshot.data!.length; index++)
+                    ReorderableDragStartListener(
+                        key: Key('$index'),
+                        index: index,
+                        child: ListTile(
+                            title: Text(snapshot.data![index]),
+                            iconColor: Theme.of(context)
+                                .colorScheme
+                                .onSurface
+                                .withOpacity(0.5),
+                            leading: const Icon(YaruIcons.drag_handle))),
+                ],
+                onReorder: (int oldIndex, int newIndex) async {
+                  final sources = snapshot.data!;
+                  if (oldIndex < newIndex) {
+                    newIndex -= 1;
+                  }
+                  final item = snapshot.data!.removeAt(oldIndex);
+                  sources.insert(newIndex, item);
+                  model.setInputSources(sources);
+                },
+              ),
+            ]);
       },
     );
   }
