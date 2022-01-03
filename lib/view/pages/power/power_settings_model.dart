@@ -87,13 +87,17 @@ class SuspendModel extends SafeChangeNotifier {
   }
 
   double? get screenBrightness => _powerService.screen.brightness?.toDouble();
-  void setScreenBrightness(double? value) =>
-      _powerService.screen.setBrightness(value?.toInt());
+  void setScreenBrightness(double? value) {
+    _powerService.screen.setBrightness(value?.toInt());
+    notifyListeners();
+  }
 
   double? get keyboardBrightness =>
       _powerService.keyboard.brightness?.toDouble();
-  void setKeyboardBrightness(double? value) =>
-      _powerService.keyboard.setBrightness(value?.toInt());
+  void setKeyboardBrightness(double? value) {
+    _powerService.keyboard.setBrightness(value?.toInt());
+    notifyListeners();
+  }
 
   bool get suspendOnBattery =>
       _sleepInactiveType('sleep-inactive-battery-type') ==
