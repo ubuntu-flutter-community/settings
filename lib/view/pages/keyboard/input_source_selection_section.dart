@@ -27,7 +27,10 @@ class InputSourceSelectionSection extends StatelessWidget {
               child: TextButton(
                   onPressed: () => showDialog(
                       context: context,
-                      builder: (context) => const _AddKeymapDialog()),
+                      builder: (context) => ChangeNotifierProvider.value(
+                            value: model,
+                            child: const _AddKeymapDialog(),
+                          )),
                   child: const Icon(YaruIcons.plus)),
             ),
             children: [
@@ -37,36 +40,15 @@ class InputSourceSelectionSection extends StatelessWidget {
                 children: <Widget>[
                   for (int index = 0; index < snapshot.data!.length; index++)
                     ReorderableDragStartListener(
-                        key: Key('$index'),
-                        index: index,
-                        child: YaruRow(
-                            actionWidget: Row(
-                              children: [
-                                YaruOptionButton(
-                                    onPressed: () => model.showKeyboardLayout(
-                                        snapshot.data![index]),
-                                    iconData: YaruIcons.input_keyboard),
-                                const SizedBox(
-                                  width: 10,
-                                ),
-                                YaruOptionButton(
-                                    onPressed: () => model.removeInputSource(
-                                        snapshot.data![index]),
-                                    iconData: YaruIcons.trash)
-                              ],
-                            ),
-                            trailingWidget: Text(
-                              snapshot.data![index],
-                              style: const TextStyle(
-                                  fontSize: 16, fontWeight: FontWeight.normal),
-                            ),
-                            leadingWidget: Icon(
-                              YaruIcons.drag_handle,
-                              color: Theme.of(context)
-                                  .colorScheme
-                                  .onSurface
-                                  .withOpacity(0.5),
-                            ))),
+                      key: Key('$index'),
+                      index: index,
+                      child: ChangeNotifierProvider.value(
+                        value: model,
+                        child: _InputTypeRow(
+                          inputType: snapshot.data![index],
+                        ),
+                      ),
+                    ),
                 ],
                 onReorder: (int oldIndex, int newIndex) async {
                   final sources = snapshot.data!;
@@ -84,12 +66,51 @@ class InputSourceSelectionSection extends StatelessWidget {
   }
 }
 
+class _InputTypeRow extends StatelessWidget {
+  const _InputTypeRow({
+    Key? key,
+    required this.inputType,
+  }) : super(key: key);
+
+  final String inputType;
+
+  @override
+  Widget build(BuildContext context) {
+    final model = context.watch<InputSourceModel>();
+    return YaruRow(
+        actionWidget: Row(
+          children: [
+            YaruOptionButton(
+                onPressed: () => model.showKeyboardLayout(inputType),
+                iconData: YaruIcons.input_keyboard),
+            const SizedBox(
+              width: 10,
+            ),
+            YaruOptionButton(
+                onPressed: () => model.removeInputSource(inputType),
+                iconData: YaruIcons.trash)
+          ],
+        ),
+        trailingWidget: Text(
+          inputType,
+          style: const TextStyle(fontSize: 16, fontWeight: FontWeight.normal),
+        ),
+        leadingWidget: Icon(
+          YaruIcons.drag_handle,
+          color: Theme.of(context).colorScheme.onSurface.withOpacity(0.5),
+        ));
+  }
+}
+
 class _AddKeymapDialog extends StatelessWidget {
   const _AddKeymapDialog({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return YaruSimpleDialog(
+    final model = context.watch<InputSourceModel>();
+    // TODO: just a test
+    model.loadSystemInputTypes();
+    return const YaruSimpleDialog(
         title: 'Add Keymap',
         closeIconData: YaruIcons.window_close,
         children: []);
