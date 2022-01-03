@@ -43,7 +43,7 @@ class _BatterySectionState extends State<BatterySection> {
                   ? YaruColors.green
                   : model.percentage < 30.0
                       ? YaruColors.red
-                      : Colors.amber),
+                      : YaruColors.yellow),
         ),
         Padding(
           padding: const EdgeInsets.all(8.0),
