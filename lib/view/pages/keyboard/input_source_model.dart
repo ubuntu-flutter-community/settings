@@ -5,6 +5,7 @@ import 'package:gsettings/gsettings.dart';
 import 'package:safe_change_notifier/safe_change_notifier.dart';
 import 'package:settings/schemas/schemas.dart';
 import 'package:settings/services/settings_service.dart';
+import 'package:xml/xml.dart';
 
 class InputSourceModel extends SafeChangeNotifier {
   final Settings? _inputSourceSettings;
@@ -73,5 +74,10 @@ class InputSourceModel extends SafeChangeNotifier {
   Future<void> showKeyboardLayout(String inputType) async {
     await Process.run('gkbd-keyboard-display',
         ['-l', inputType.split('+').first, inputType.split('+').last, '&']);
+  }
+
+  loadSystemInputTypes() {
+    final document = XmlDocument.parse(
+        File('/usr/share/X11/xkb/rules/base.xml').readAsStringSync());
   }
 }
