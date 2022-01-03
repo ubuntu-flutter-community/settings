@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:dbus/dbus.dart';
 import 'package:gsettings/gsettings.dart';
 import 'package:safe_change_notifier/safe_change_notifier.dart';
@@ -58,5 +60,15 @@ class InputSourceModel extends SafeChangeNotifier {
     await settings.close();
 
     notifyListeners();
+  }
+
+  removeInputSource(String inputType) async {
+    final types = await getInputSources();
+    types?.remove(inputType);
+    await setInputSources(types);
+  }
+
+  showKeyboardLayout(String inputType) async {
+    await Process.run('gkbd-keyboard-display', ['-l', inputType]);
   }
 }

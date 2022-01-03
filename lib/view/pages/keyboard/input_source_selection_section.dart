@@ -21,8 +21,15 @@ class InputSourceSelectionSection extends StatelessWidget {
         }
         return YaruSection(
             headline: 'Input Sources',
-            headerWidget:
-                TextButton(onPressed: () {}, child: const Icon(YaruIcons.plus)),
+            headerWidget: SizedBox(
+              height: 40,
+              width: 40,
+              child: TextButton(
+                  onPressed: () => showDialog(
+                      context: context,
+                      builder: (context) => const _AddKeymapDialog()),
+                  child: const Icon(YaruIcons.plus)),
+            ),
             children: [
               ReorderableListView(
                 buildDefaultDragHandles: false,
@@ -32,13 +39,34 @@ class InputSourceSelectionSection extends StatelessWidget {
                     ReorderableDragStartListener(
                         key: Key('$index'),
                         index: index,
-                        child: ListTile(
-                            title: Text(snapshot.data![index]),
-                            iconColor: Theme.of(context)
-                                .colorScheme
-                                .onSurface
-                                .withOpacity(0.5),
-                            leading: const Icon(YaruIcons.drag_handle))),
+                        child: YaruRow(
+                            actionWidget: Row(
+                              children: [
+                                YaruOptionButton(
+                                    onPressed: () => model.showKeyboardLayout(
+                                        snapshot.data![index].split('+').first),
+                                    iconData: YaruIcons.input_keyboard),
+                                const SizedBox(
+                                  width: 10,
+                                ),
+                                YaruOptionButton(
+                                    onPressed: () => model.removeInputSource(
+                                        snapshot.data![index]),
+                                    iconData: YaruIcons.trash)
+                              ],
+                            ),
+                            trailingWidget: Text(
+                              snapshot.data![index],
+                              style: const TextStyle(
+                                  fontSize: 16, fontWeight: FontWeight.normal),
+                            ),
+                            leadingWidget: Icon(
+                              YaruIcons.drag_handle,
+                              color: Theme.of(context)
+                                  .colorScheme
+                                  .onSurface
+                                  .withOpacity(0.5),
+                            ))),
                 ],
                 onReorder: (int oldIndex, int newIndex) async {
                   final sources = snapshot.data!;
@@ -53,5 +81,17 @@ class InputSourceSelectionSection extends StatelessWidget {
             ]);
       },
     );
+  }
+}
+
+class _AddKeymapDialog extends StatelessWidget {
+  const _AddKeymapDialog({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return YaruSimpleDialog(
+        title: 'Add Keymap',
+        closeIconData: YaruIcons.window_close,
+        children: []);
   }
 }
