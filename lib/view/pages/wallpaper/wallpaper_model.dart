@@ -16,12 +16,9 @@ class WallpaperModel extends SafeChangeNotifier {
   static const _primaryColorKey = 'primary-color';
   static const _secondaryColorKey = 'secondary-color';
 
-  //TODO: Sync the locale of the image with the device's locale
-  static const String _bingImageAddress =
-      'https://www.bing.com/HPImageArchive.aspx?format=js&idx=0&n=1&mkt=en-US';
-  static const String _bingAddress = 'http://www.bing.com';
-
   WallpaperMode wallpaperMode = WallpaperMode.custom;
+  ImageOfTheDayProvider imageOfTheDayProvider = ImageOfTheDayProvider.bing;
+
 
   final String? _userWallpapersDir =
       Platform.environment['HOME']! + '/.local/share/backgrounds/';
@@ -131,7 +128,7 @@ class WallpaperModel extends SafeChangeNotifier {
         }
         break;
       case WallpaperMode.imageOfTheDay:
-        refreshBingWallpaper();
+        setUrlWallpaperProvider(imageOfTheDayProvider);
         break;
     }
 
@@ -143,31 +140,63 @@ class WallpaperModel extends SafeChangeNotifier {
     pictureUri = list.first;
   }
 
-  static Future<String> getBingImageUrl() async {
-    http.Response imageMetadataResponse =
-        await http.get(Uri.parse(_bingImageAddress));
-    return _bingAddress +
-        json.decode(imageMetadataResponse.body)['images'][0]['url'];
-  }
+void refreshUrlWallpaper(){
+  setUrlWallpaperProvider(imageOfTheDayProvider);
+}
 
-  Future<void> refreshBingWallpaper() async {
+Future<void> setUrlWallpaperProvider(
+      ImageOfTheDayProvider newImageOfTheDayProvider) async {
+    //Set the new provider
+    imageOfTheDayProvider = newImageOfTheDayProvider;
+
+    //Load the user's Documents Directory to store the downloaded wallpapers
     final Directory directory = await getApplicationDocumentsDirectory();
+    final file = File('${directory.path}/${imageOfTheDayProvider.name}.jpeg');
 
-    final file = File('${directory.path}/bing.jpeg');
+    final Map providers = {
+      'bing': {
+        'apiUrl':
+            'https://www.bing.com/HPImageArchive.aspx?format=js&idx=0&n=1&mkt=en-US',
+        'getImageUrl': (jsonData) {
+          return 'http://www.bing.com' +
+              json.decode(jsonData.body)['images'][0]['url'];
+        }
+      },
+      'nasa': {
+        'apiUrl':
+            'https://api.nasa.gov/planetary/apod?api_key=PdQXYMNV2kT9atjMjNI9gbzLqe7qF6TcEHXhexXg', //The api uses my own api_key
+        'getImageUrl': (jsonData) {
+          return json.decode(jsonData.body)['url'];
+        }
+      },
+    };
+
+    //Get the url of the day using the apiUrl in the providers Map
+    Future<String> getImageUrl() async {
+      Map currentProvider = providers[imageOfTheDayProvider.name];
+      http.Response imageMetadataResponse =
+          await http.get(Uri.parse(currentProvider['apiUrl']));
+      return currentProvider['getImageUrl'](imageMetadataResponse);
+    }
+
+    String imageUrl = await getImageUrl();
 
     // Refetch if the image doesn't exist or the current image is older than a day
     bool shouldRefetch =
         !file.existsSync() || file.lastModifiedSync().day != DateTime.now().day;
 
     if (shouldRefetch) {
-      var imageResponse = await http.get(Uri.parse(await getBingImageUrl()));
+      var imageResponse = await http.get(Uri.parse(imageUrl));
       await file.writeAsBytes(imageResponse.bodyBytes);
     }
 
-    pictureUri = '${directory.path}/bing.jpeg';
+    //Set the wallpaper to the downloaded image path
+    pictureUri = file.path;
   }
 }
 
 enum ColorShadingType { solid, vertical, horizontal }
 
 enum WallpaperMode { solid, custom, imageOfTheDay }
+
+enum ImageOfTheDayProvider { bing, nasa,}
