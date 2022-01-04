@@ -38,6 +38,16 @@ class TouchpadSection extends StatelessWidget {
           value: model.touchpadDisableWhileTyping,
           onChanged: (value) => model.setTouchpadDisableWhileTyping(value),
         ),
+        YaruSwitchRow(
+          trailingWidget: const Text('Two-finger Scrolling'),
+          value: model.twoFingerScrolling,
+          onChanged: model.setTwoFingerScrolling,
+        ),
+        YaruSwitchRow(
+          trailingWidget: const Text('Edge Scrolling'),
+          value: model.edgeScrolling,
+          onChanged: model.setEdgeScrolling,
+        ),
       ],
     );
   }
