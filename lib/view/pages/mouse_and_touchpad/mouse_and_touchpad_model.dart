@@ -9,6 +9,8 @@ class MouseAndTouchpadModel extends ChangeNotifier {
   static const _touchpadNaturalScrollKey = 'natural-scroll';
   static const _touchpadTapToClickKey = 'tap-to-click';
   static const _touchpadDisableWhileTyping = 'disable-while-typing';
+  static const _touchpadTwoFingerScrolling = 'two-finger-scrolling-enabled';
+  static const _touchpadEdgeScrolling = 'edge-scrolling-enabled';
 
   MouseAndTouchpadModel(SettingsService service)
       : _peripheralsMouseSettings = service.lookup(schemaPeripheralsMouse),
@@ -77,6 +79,22 @@ class MouseAndTouchpadModel extends ChangeNotifier {
 
   void setTouchpadDisableWhileTyping(bool value) {
     _peripheralsTouchpadSettings?.setValue(_touchpadDisableWhileTyping, value);
+    notifyListeners();
+  }
+
+  bool? get twoFingerScrolling =>
+      _peripheralsTouchpadSettings?.boolValue(_touchpadTwoFingerScrolling);
+
+  void setTwoFingerScrolling(bool value) {
+    _peripheralsTouchpadSettings?.setValue(_touchpadTwoFingerScrolling, value);
+    notifyListeners();
+  }
+
+  bool? get edgeScrolling =>
+      _peripheralsTouchpadSettings?.boolValue(_touchpadEdgeScrolling);
+
+  void setEdgeScrolling(bool value) {
+    _peripheralsTouchpadSettings?.setValue(_touchpadEdgeScrolling, value);
     notifyListeners();
   }
 }
