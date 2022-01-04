@@ -12,10 +12,10 @@ class InputSourceModel extends SafeChangeNotifier {
   static const _perWindowKey = 'per-window';
   static const _sourcesKey = 'sources';
   static const _mruSourcesKey = 'mru-sources';
-  final List<String?> inputTypeNames = [];
+  final List<_InputSource?> inputTypeNames = [];
 
   void init() {
-    for (var inputTypeName in loadSystemInputTypes()) {
+    for (var inputTypeName in _loadInputSources()) {
       inputTypeNames.add(inputTypeName);
     }
   }
@@ -83,15 +83,32 @@ class InputSourceModel extends SafeChangeNotifier {
         ['-l', inputType.split('+').first, inputType.split('+').last, '&']);
   }
 
-  List<String?> loadSystemInputTypes() {
+  List<_InputSource?> _loadInputSources() {
     final document = XmlDocument.parse(
         File('/usr/share/X11/xkb/rules/base.xml').readAsStringSync());
     final layouts = document.findAllElements('layout');
-    final configItems = layouts
+    final configItemsInLayouts = layouts
         .map((configItem) => configItem.getElement('configItem'))
         .toList();
-    final names =
-        configItems.map((e) => e?.getElement('name')?.innerText).toList();
-    return names;
+    return configItemsInLayouts
+        .map((e) => _InputSource(
+            name: e?.getElement('name')?.innerText,
+            shortDescription: e?.getElement('shortDescription')?.innerText))
+        .toList();
   }
+}
+
+class _InputSource {
+  final String? name;
+  final String? shortDescription;
+  final List<_InputSourceVariant>? variants;
+
+  _InputSource({this.name, this.shortDescription, this.variants});
+}
+
+class _InputSourceVariant {
+  final String? name;
+  final String? description;
+
+  _InputSourceVariant({this.name, this.description});
 }
