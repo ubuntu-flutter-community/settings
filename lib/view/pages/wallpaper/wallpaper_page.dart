@@ -102,14 +102,27 @@ class WallpaperPage extends StatelessWidget {
       if (model.wallpaperMode == WallpaperMode.imageOfTheDay)
         //TODO: Add the title and copyright info
         YaruRow(
-            trailingWidget: const Text('Image of the day from Bing'),
+            leadingWidget: const Text('Image of the day from '),
+            trailingWidget: DropdownButton<ImageOfTheDayProvider>(
+                  value: model.imageOfTheDayProvider,
+                  onChanged: (value) => model.setUrlWallpaperProvider(value!),
+                  items: const [
+                    DropdownMenuItem(
+                      child: Text('Bing'),
+                      value: ImageOfTheDayProvider.bing,
+                    ),
+                    DropdownMenuItem(
+                      child: Text('Nasa'),
+                      value: ImageOfTheDayProvider.nasa,
+                    ),
+                  ]),
             actionWidget: SizedBox(
               width: 40,
               height: 40,
               child: OutlinedButton(
                 style:
                     OutlinedButton.styleFrom(padding: const EdgeInsets.all(0)),
-                onPressed: () async => await model.refreshBingWallpaper(),
+                onPressed: () =>  model.refreshUrlWallpaper(),
                 child: const Icon(YaruIcons.refresh),
               ),
             )),
