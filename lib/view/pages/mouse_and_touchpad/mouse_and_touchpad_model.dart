@@ -3,6 +3,7 @@ import 'package:settings/schemas/schemas.dart';
 import 'package:settings/services/settings_service.dart';
 
 class MouseAndTouchpadModel extends ChangeNotifier {
+  static const _leftHanded = 'left-handed';
   static const _mouseSpeedKey = 'speed';
   static const _mouseNaturalScrollKey = 'natural-scroll';
   static const _touchpadSpeedKey = 'speed';
@@ -29,6 +30,15 @@ class MouseAndTouchpadModel extends ChangeNotifier {
 
   final Settings? _peripheralsMouseSettings;
   final Settings? _peripheralsTouchpadSettings;
+
+  // Global section
+
+  bool? get leftHanded => _peripheralsMouseSettings?.boolValue(_leftHanded);
+
+  void setLeftHanded(bool value) {
+    _peripheralsMouseSettings?.setValue(_leftHanded, value);
+    notifyListeners();
+  }
 
   // Mouse section
 
