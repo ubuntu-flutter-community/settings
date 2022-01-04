@@ -102,17 +102,34 @@ class _InputTypeRow extends StatelessWidget {
   }
 }
 
-class _AddKeymapDialog extends StatelessWidget {
+class _AddKeymapDialog extends StatefulWidget {
   const _AddKeymapDialog({Key? key}) : super(key: key);
+
+  @override
+  State<_AddKeymapDialog> createState() => _AddKeymapDialogState();
+}
+
+class _AddKeymapDialogState extends State<_AddKeymapDialog> {
+  @override
+  void initState() {
+    final model = context.read<InputSourceModel>();
+    model.init();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     final model = context.watch<InputSourceModel>();
-    // TODO: just a test
-    model.loadSystemInputTypes();
-    return const YaruSimpleDialog(
+    return YaruSimpleDialog(
         title: 'Add Keymap',
         closeIconData: YaruIcons.window_close,
-        children: []);
+        children: [
+          for (var name in model.inputTypeNames)
+            CheckboxListTile(
+              value: false,
+              onChanged: (value) {},
+              title: Text(name!),
+            )
+        ]);
   }
 }

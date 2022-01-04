@@ -12,6 +12,13 @@ class InputSourceModel extends SafeChangeNotifier {
   static const _perWindowKey = 'per-window';
   static const _sourcesKey = 'sources';
   static const _mruSourcesKey = 'mru-sources';
+  final List<String?> inputTypeNames = [];
+
+  void init() {
+    for (var inputTypeName in loadSystemInputTypes()) {
+      inputTypeNames.add(inputTypeName);
+    }
+  }
 
   InputSourceModel(SettingsService service)
       : _inputSourceSettings = service.lookup(schemaInputSources) {
@@ -76,8 +83,15 @@ class InputSourceModel extends SafeChangeNotifier {
         ['-l', inputType.split('+').first, inputType.split('+').last, '&']);
   }
 
-  loadSystemInputTypes() {
+  List<String?> loadSystemInputTypes() {
     final document = XmlDocument.parse(
         File('/usr/share/X11/xkb/rules/base.xml').readAsStringSync());
+    final layouts = document.findAllElements('layout');
+    final configItems = layouts
+        .map((configItem) => configItem.getElement('configItem'))
+        .toList();
+    final names =
+        configItems.map((e) => e?.getElement('name')?.innerText).toList();
+    return names;
   }
 }
