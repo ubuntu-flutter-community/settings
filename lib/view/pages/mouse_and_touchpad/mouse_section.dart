@@ -20,7 +20,7 @@ class MouseSection extends StatelessWidget {
           min: -1,
           max: 1,
           defaultValue: 0,
-          onChanged: (value) => model.setMouseSpeed(value),
+          onChanged: model.setMouseSpeed,
         ),
         YaruSwitchRow(
           trailingWidget: const Text('Natural Scrolling'),
