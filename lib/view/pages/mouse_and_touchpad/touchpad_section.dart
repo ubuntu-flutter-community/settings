@@ -20,23 +20,23 @@ class TouchpadSection extends StatelessWidget {
           min: -1,
           max: 1,
           defaultValue: 0,
-          onChanged: (value) => model.setTouchpadSpeed(value),
+          onChanged: model.setTouchpadSpeed,
         ),
         YaruSwitchRow(
           trailingWidget: const Text('Natural Scrolling'),
           actionDescription: 'Scrolling moves the content, not the view',
           value: model.touchpadNaturalScroll,
-          onChanged: (value) => model.setTouchpadNaturalScroll(value),
+          onChanged: model.setTouchpadNaturalScroll,
         ),
         YaruSwitchRow(
           trailingWidget: const Text('Tap To Click'),
           value: model.touchpadTapToClick,
-          onChanged: (value) => model.setTouchpadTapToClick(value),
+          onChanged: model.setTouchpadTapToClick,
         ),
         YaruSwitchRow(
           trailingWidget: const Text('Disable While Typing'),
           value: model.touchpadDisableWhileTyping,
-          onChanged: (value) => model.setTouchpadDisableWhileTyping(value),
+          onChanged: model.setTouchpadDisableWhileTyping,
         ),
         YaruSwitchRow(
           trailingWidget: const Text('Two-finger Scrolling'),
