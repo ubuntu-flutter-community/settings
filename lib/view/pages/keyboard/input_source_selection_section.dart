@@ -124,7 +124,7 @@ class _AddKeymapDialogState extends State<_AddKeymapDialog> {
         title: 'Add Keymap',
         closeIconData: YaruIcons.window_close,
         children: [
-          for (var inputSource in model.inputTypeNames)
+          for (var inputSource in model.inputSources)
             CheckboxListTile(
               value: false,
               onChanged: (value) {},
