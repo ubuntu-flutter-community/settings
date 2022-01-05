@@ -28,7 +28,7 @@ class MultiTaskingPage extends StatelessWidget {
               YaruSwitchRow(
                 actionDescription:
                     'Touch the top-left corner to open the Activities Overview.',
-                trailingWidget: const Text('Hot corner'),
+                mainWidget: const Text('Hot corner'),
                 value: model.enableHotCorners,
                 onChanged: (value) => model.enableHotCorners = value,
               ),
@@ -50,7 +50,7 @@ class MultiTaskingPage extends StatelessWidget {
               YaruSwitchRow(
                 actionDescription:
                     'Drag windows against top, left and right screen edges to resize them',
-                trailingWidget: const Text('Enable active edge tiling'),
+                mainWidget: const Text('Enable active edge tiling'),
                 value: model.edgeTiling,
                 onChanged: (value) => model.edgeTiling = value,
               ),
@@ -86,12 +86,8 @@ class MultiTaskingPage extends StatelessWidget {
             onChanged: (bool? value) => model.dynamicWorkspaces = value!,
           ),
           YaruRow(
-              trailingWidget: Text(
-                'Number of workspaces',
-                style: model.dynamicWorkspaces
-                    ? TextStyle(color: Theme.of(context).disabledColor)
-                    : null,
-              ),
+              enabled: !model.dynamicWorkspaces,
+              mainWidget: const Text('Number of workspaces'),
               actionWidget: SizedBox(
                 height: 40,
                 width: 150,
@@ -106,7 +102,7 @@ class MultiTaskingPage extends StatelessWidget {
         ]),
         YaruSection(headline: 'Multi-Monitor', children: [
           YaruSwitchRow(
-            trailingWidget: const Text('Workspaces on primary display only'),
+            mainWidget: const Text('Workspaces on primary display only'),
             value: model.workSpaceOnlyOnPrimary,
             onChanged: (value) => model.workSpaceOnlyOnPrimary = value,
           ),
@@ -137,7 +133,7 @@ class MultiTaskingPage extends StatelessWidget {
           headline: 'Application Switching',
           children: [
             YaruSwitchRow(
-              trailingWidget:
+              mainWidget:
                   const Text('Show applications from current workspace only'),
               value: model.currentWorkspaceOnly,
               onChanged: (value) => model.currentWorkspaceOnly = value,

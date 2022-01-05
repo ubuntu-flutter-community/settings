@@ -26,7 +26,8 @@ class SpecialCharactersSection extends StatelessWidget {
                   ),
                 ),
                 child: YaruRow(
-                  trailingWidget: const Text('Compose Key'),
+                  enabled: true,
+                  mainWidget: const Text('Compose Key'),
                   actionWidget: Text(snapshot.hasData
                       ? model.composeOptionsToStringMap[snapshot.data]!
                       : ''),
@@ -43,7 +44,8 @@ class SpecialCharactersSection extends StatelessWidget {
                     child: const _Lv3OptionsDialog(),
                   )),
           child: YaruRow(
-            trailingWidget: const Text('Lv3 Key'),
+            enabled: true,
+            mainWidget: const Text('Lv3 Key'),
             actionWidget: Text(snapshot.hasData
                 ? model.lv3OptionsToStringMap[snapshot.data]!
                 : 'Default Layout'),
@@ -67,7 +69,7 @@ class _Lv3OptionsDialog extends StatelessWidget {
           closeIconData: YaruIcons.window_close,
           children: [
             YaruSwitchRow(
-                trailingWidget: const Text('Use default value'),
+                mainWidget: const Text('Use default value'),
                 value: snapshot.data == null,
                 onChanged: (value) => model.removeLV3Options(value)),
             const Divider(),

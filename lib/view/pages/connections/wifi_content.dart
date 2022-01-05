@@ -18,7 +18,8 @@ class WifiDevicesContent extends StatelessWidget {
     return Column(
       children: [
         YaruRow(
-            trailingWidget: const Text('Wi-Fi'),
+            enabled: true,
+            mainWidget: const Text('Wi-Fi'),
             actionWidget: Row(
               children: [
                 Text(

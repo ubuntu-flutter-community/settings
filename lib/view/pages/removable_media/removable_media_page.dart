@@ -33,7 +33,8 @@ class RemovableMediaPage extends StatelessWidget {
       ),
       for (var mimeType in RemovableMediaModel.mimeTypes.entries)
         YaruRow(
-            trailingWidget: Text(mimeType.value),
+            enabled: true,
+            mainWidget: Text(mimeType.value),
             actionWidget: DropdownButton<String>(
                 value: model.getMimeTypeBehavior(mimeType.key),
                 onChanged: (string) =>

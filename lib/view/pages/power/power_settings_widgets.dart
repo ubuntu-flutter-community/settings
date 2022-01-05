@@ -60,7 +60,7 @@ class SuspendDelaySettingsRow extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
           YaruSwitchRow(
-            trailingWidget: Text(actionLabel),
+            mainWidget: Text(actionLabel),
             value: suspend,
             onChanged: onSuspendChanged,
           ),

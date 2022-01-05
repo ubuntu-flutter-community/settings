@@ -44,7 +44,7 @@ dependencies:
   yaru_icons: ^0.1.2
   yaru_widgets:
     git:
-      url: https://github.com/ubuntu/yaru_widgets.dart
+      url: https://github.com/mivoligo/yaru_widgets.dart
   flutter_svg: ^1.0.0
   flutter_spinbox: ^0.7.0
   http: ^0.13.4

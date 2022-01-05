@@ -380,6 +380,9 @@ class AccessibilityModel extends ChangeNotifier {
     notifyListeners();
   }
 
+  bool get typingAssistAvailable =>
+      stickyKeys != null || slowKeys != null || bounceKeys != null;
+
   bool get _typingAssist =>
       (stickyKeys ?? false) || (slowKeys ?? false) || (bounceKeys ?? false);
 

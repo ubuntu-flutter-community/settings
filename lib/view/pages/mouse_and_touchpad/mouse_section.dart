@@ -23,7 +23,7 @@ class MouseSection extends StatelessWidget {
           onChanged: model.setMouseSpeed,
         ),
         YaruSwitchRow(
-          trailingWidget: const Text('Natural Scrolling'),
+          mainWidget: const Text('Natural Scrolling'),
           actionDescription: 'Scrolling moves the content, not the view',
           value: model.mouseNaturalScroll,
           onChanged: (value) => model.setMouseNaturalScroll(value),

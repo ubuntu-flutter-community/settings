@@ -15,14 +15,14 @@ class DockSection extends StatelessWidget {
       headline: 'Dock',
       children: [
         YaruSwitchRow(
-          trailingWidget: const Text('Show Trash'),
+          mainWidget: const Text('Show Trash'),
           value: model.showTrash,
           onChanged: (value) => model.setShowTrash(value),
         ),
         Column(
           children: [
             YaruSwitchRow(
-              trailingWidget: const Text('Auto-hide the Dock'),
+              mainWidget: const Text('Auto-hide the Dock'),
               value: !model.alwaysShowDock,
               onChanged: (value) => model.setAlwaysShowDock(!value),
             ),
@@ -42,7 +42,7 @@ class DockSection extends StatelessWidget {
         Column(
           children: [
             YaruSwitchRow(
-              trailingWidget: const Text('Extend Dock'),
+              mainWidget: const Text('Extend Dock'),
               value: model.extendDock,
               onChanged: (value) => model.setExtendDock(value),
             ),
@@ -71,7 +71,7 @@ class DockSection extends StatelessWidget {
           ],
         ),
         YaruSwitchRow(
-          trailingWidget: const Text('Active App Glow'),
+          mainWidget: const Text('Active App Glow'),
           value: model.appGlow,
           onChanged: (value) => model.setAppGlow(value),
         ),
@@ -84,7 +84,8 @@ class DockSection extends StatelessWidget {
           onChanged: (value) => model.setMaxIconSize(value),
         ),
         YaruRow(
-          trailingWidget: const Text('Dock Position'),
+          enabled: model.dockPosition != null,
+          mainWidget: const Text('Dock Position'),
           actionWidget: DropdownButton<String>(
             onChanged: (value) => model.dockPosition = value,
             value: model.dockPosition,
@@ -95,7 +96,8 @@ class DockSection extends StatelessWidget {
           ),
         ),
         YaruRow(
-          trailingWidget: const Text('Click Action'),
+          enabled: model.clickAction != null,
+          mainWidget: const Text('Click Action'),
           actionWidget: DropdownButton<String>(
             onChanged: (value) => model.clickAction = value,
             value: model.clickAction,

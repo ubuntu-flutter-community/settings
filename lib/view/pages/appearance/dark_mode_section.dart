@@ -14,7 +14,7 @@ class DarkModeSection extends StatelessWidget {
       headline: 'Dark mode',
       children: [
         YaruSwitchRow(
-            trailingWidget: Theme.of(context).brightness == Brightness.light
+            mainWidget: Theme.of(context).brightness == Brightness.light
                 ? Row(
                     children: const [
                       Icon(YaruIcons.weather_clear),

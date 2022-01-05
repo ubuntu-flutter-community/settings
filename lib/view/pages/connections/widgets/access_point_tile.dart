@@ -22,7 +22,8 @@ class AccessPointTile extends StatelessWidget {
             borderRadius: BorderRadius.circular(4),
             onTap: onTap,
             child: YaruRow(
-              trailingWidget: Row(
+              enabled: true,
+              mainWidget: Row(
                 children: [
                   Icon(accessPointModel.wifiIconData),
                   const SizedBox(
@@ -79,7 +80,7 @@ extension _AccessPointX on AccessPointModel {
             : YaruIcons.network_wireless_signal_excellent;
 
       default:
-        throw StateError('Illigal Satet $strengthLevel');
+        throw StateError('Illegal State $strengthLevel');
     }
   }
 }

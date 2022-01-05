@@ -37,7 +37,7 @@ class AppNotificationsSettingRow extends StatelessWidget {
   Widget build(BuildContext context) {
     final model = Provider.of<AppNotificationsModel>(context);
     return YaruSwitchRow(
-      trailingWidget: Text(model.appId),
+      mainWidget: Text(model.appId),
       value: model.enable,
       onChanged: model.setEnable,
     );

@@ -44,119 +44,122 @@ class _BluetoothDeviceRowState extends State<BluetoothDeviceRow> {
       borderRadius: BorderRadius.circular(4.0),
       onTap: () => setState(() {
         showDialog(
-            context: context,
-            builder: (context) => StatefulBuilder(builder: (context, setState) {
-                  return AlertDialog(
-                    title: Padding(
-                      padding:
-                          const EdgeInsets.only(right: 8, left: 8, bottom: 8),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Flexible(
-                            child: RichText(
-                              text: TextSpan(
-                                  text: model.name,
-                                  style: Theme.of(context).textTheme.headline6),
-                              maxLines: 10,
-                              overflow: TextOverflow.ellipsis,
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(left: 10),
-                            child: Icon(
-                                BluetoothDeviceTypes.getIconForAppearanceCode(
-                                    model.appearance)),
-                          )
-                        ],
+          context: context,
+          builder: (context) => StatefulBuilder(builder: (context, setState) {
+            return AlertDialog(
+              title: Padding(
+                padding: const EdgeInsets.only(right: 8, left: 8, bottom: 8),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Flexible(
+                      child: RichText(
+                        text: TextSpan(
+                            text: model.name,
+                            style: Theme.of(context).textTheme.headline6),
+                        maxLines: 10,
+                        overflow: TextOverflow.ellipsis,
                       ),
                     ),
-                    content: SizedBox(
-                      height: model.errorMessage.isEmpty ? 270 : 320,
-                      width: 300,
-                      child: SingleChildScrollView(
-                        child: Column(
-                          children: [
-                            YaruRow(
-                                trailingWidget: model.connected
-                                    ? const Text('Connected')
-                                    : const Text('Disconnected'),
-                                actionWidget: Switch(
-                                    value: model.connected,
-                                    onChanged: (connectRequested) async {
-                                      connectRequested
-                                          ? await model.connect()
-                                          : await model.disconnect();
-                                      setState(() {});
-                                    })),
-                            YaruRow(
-                                trailingWidget: const Text('Paired'),
-                                actionWidget: Padding(
-                                  padding: const EdgeInsets.only(right: 8),
-                                  child: Text(model.paired ? 'Yes' : 'No'),
-                                )),
-                            YaruRow(
-                                trailingWidget: const Text('Address'),
-                                actionWidget: Padding(
-                                  padding: const EdgeInsets.only(right: 8),
-                                  child: Text(model.address),
-                                )),
-                            YaruRow(
-                                trailingWidget: const Text('Type'),
-                                actionWidget: Padding(
-                                  padding: const EdgeInsets.only(right: 8),
-                                  child: Text(BluetoothDeviceTypes
-                                          .map[model.appearance] ??
-                                      'Unkown'),
-                                )),
-                            Padding(
-                              padding: const EdgeInsets.only(
-                                  top: 16, bottom: 8, right: 8, left: 8),
-                              child: SizedBox(
-                                width: 300,
-                                child: OutlinedButton(
-                                    onPressed: () {
-                                      if (BluetoothDeviceTypes.isMouse(
-                                          model.appearance)) {
-                                        // TODO: get route name from model
-                                        Navigator.of(context)
-                                            .pushNamed('routeName');
-                                      }
-                                    },
-                                    child: const Text('Open device settings')),
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.all(8),
-                              child: SizedBox(
-                                width: 300,
-                                child: TextButton(
-                                    onPressed: () async {
-                                      await model.disconnect();
-                                      widget.removeDevice;
-
-                                      Navigator.of(context).pop();
-                                    },
-                                    child: const Text('Remove device')),
-                              ),
-                            ),
-                            if (model.errorMessage.isNotEmpty)
-                              Text(
-                                model.errorMessage,
-                                style: TextStyle(
-                                    color: Theme.of(context).errorColor),
-                              )
-                          ],
+                    Padding(
+                      padding: const EdgeInsets.only(left: 10),
+                      child: Icon(BluetoothDeviceTypes.getIconForAppearanceCode(
+                          model.appearance)),
+                    )
+                  ],
+                ),
+              ),
+              content: SizedBox(
+                height: model.errorMessage.isEmpty ? 270 : 320,
+                width: 300,
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      YaruRow(
+                          enabled: true,
+                          mainWidget: model.connected
+                              ? const Text('Connected')
+                              : const Text('Disconnected'),
+                          actionWidget: Switch(
+                              value: model.connected,
+                              onChanged: (connectRequested) async {
+                                connectRequested
+                                    ? await model.connect()
+                                    : await model.disconnect();
+                                setState(() {});
+                              })),
+                      YaruRow(
+                          enabled: true,
+                          mainWidget: const Text('Paired'),
+                          actionWidget: Padding(
+                            padding: const EdgeInsets.only(right: 8),
+                            child: Text(model.paired ? 'Yes' : 'No'),
+                          )),
+                      YaruRow(
+                          enabled: true,
+                          mainWidget: const Text('Address'),
+                          actionWidget: Padding(
+                            padding: const EdgeInsets.only(right: 8),
+                            child: Text(model.address),
+                          )),
+                      YaruRow(
+                        enabled: true,
+                        mainWidget: const Text('Type'),
+                        actionWidget: Padding(
+                          padding: const EdgeInsets.only(right: 8),
+                          child: Text(
+                              BluetoothDeviceTypes.map[model.appearance] ??
+                                  'Unknown'),
                         ),
                       ),
-                    ),
-                  );
-                }));
+                      Padding(
+                        padding: const EdgeInsets.only(
+                            top: 16, bottom: 8, right: 8, left: 8),
+                        child: SizedBox(
+                          width: 300,
+                          child: OutlinedButton(
+                              onPressed: () {
+                                if (BluetoothDeviceTypes.isMouse(
+                                    model.appearance)) {
+                                  // TODO: get route name from model
+                                  Navigator.of(context).pushNamed('routeName');
+                                }
+                              },
+                              child: const Text('Open device settings')),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(8),
+                        child: SizedBox(
+                          width: 300,
+                          child: TextButton(
+                              onPressed: () async {
+                                await model.disconnect();
+                                widget.removeDevice;
+
+                                Navigator.of(context).pop();
+                              },
+                              child: const Text('Remove device')),
+                        ),
+                      ),
+                      if (model.errorMessage.isNotEmpty)
+                        Text(
+                          model.errorMessage,
+                          style: TextStyle(color: Theme.of(context).errorColor),
+                        )
+                    ],
+                  ),
+                ),
+              ),
+            );
+          }),
+        );
       }),
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: YaruRow(
-            trailingWidget: Text(model.name),
+            enabled: true,
+            mainWidget: Text(model.name),
             actionWidget: Text(
               model.connected ? 'connected' : 'disconnected',
               style: TextStyle(

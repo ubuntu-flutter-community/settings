@@ -16,12 +16,12 @@ class SeeingSection extends StatelessWidget {
       headline: 'Seeing',
       children: [
         YaruSwitchRow(
-          trailingWidget: const Text('High Contrast'),
+          mainWidget: const Text('High Contrast'),
           value: model.highContrast,
           onChanged: (value) => model.setHighContrast(value),
         ),
         YaruSwitchRow(
-          trailingWidget: const Text('Large Text'),
+          mainWidget: const Text('Large Text'),
           value: model.largeText,
           onChanged: (value) => model.setLargeText(value),
         ),
@@ -40,14 +40,14 @@ class SeeingSection extends StatelessWidget {
           ),
         ),
         YaruSwitchRow(
-          trailingWidget: const Text('Screen Reader'),
+          mainWidget: const Text('Screen Reader'),
           actionDescription:
               'The screen reader reads displayed text as you move the focus',
           value: model.screenReader,
           onChanged: (value) => model.setScreenReader(value),
         ),
         YaruSwitchRow(
-          trailingWidget: const Text('Sound Keys'),
+          mainWidget: const Text('Sound Keys'),
           actionDescription:
               'Beep when Num Lock or Caps Lock are turned on or off',
           value: model.toggleKeys,
@@ -65,7 +65,8 @@ class _CursorSize extends StatelessWidget {
   Widget build(BuildContext context) {
     final model = Provider.of<AccessibilityModel>(context);
     return YaruRow(
-      trailingWidget: const Text('Cursor Size'),
+      enabled: model.cursorSize != null,
+      mainWidget: const Text('Cursor Size'),
       description: 'Cursor size can be combined with zoom '
           'to make it easier to see the cursor',
       actionWidget: Row(
@@ -211,7 +212,8 @@ class _MagnifierOptions extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           YaruRow(
-            trailingWidget: const Text('Magnification'),
+            enabled: model.magFactor != null,
+            mainWidget: const Text('Magnification'),
             actionWidget: SizedBox(
               height: 40,
               width: 150,
@@ -382,8 +384,8 @@ class _CrosshairsOptions extends StatelessWidget {
             onChanged: (value) => model.setCrossHairsClip(value!),
             text: 'Overlaps mouse cursor',
           ),
-          YaruSliderSecondary(
-            label: 'Thickness',
+          YaruSliderRow(
+            actionLabel: 'Thickness',
             enabled: true,
             showValue: false,
             min: 1,
@@ -392,8 +394,8 @@ class _CrosshairsOptions extends StatelessWidget {
             value: model.crossHairsThickness,
             onChanged: (value) => model.setCrossHairsThickness(value),
           ),
-          YaruSliderSecondary(
-            label: 'Length',
+          YaruSliderRow(
+            actionLabel: 'Length',
             enabled: true,
             showValue: false,
             min: 20,
@@ -437,8 +439,8 @@ class _ColorEffectsOptions extends StatelessWidget {
             onChanged: (value) => model.setInverseLightness(value!),
             text: 'White on black',
           ),
-          YaruSliderSecondary(
-            label: 'Brightness',
+          YaruSliderRow(
+            actionLabel: 'Brightness',
             enabled: true,
             showValue: false,
             min: -0.75,
@@ -447,8 +449,8 @@ class _ColorEffectsOptions extends StatelessWidget {
             value: model.colorBrightness,
             onChanged: (value) => model.setColorBrightness(value),
           ),
-          YaruSliderSecondary(
-            label: 'Contrast',
+          YaruSliderRow(
+            actionLabel: 'Contrast',
             enabled: true,
             showValue: false,
             min: -0.75,
@@ -457,8 +459,8 @@ class _ColorEffectsOptions extends StatelessWidget {
             value: model.colorContrast,
             onChanged: (value) => model.setColorContrast(value),
           ),
-          YaruSliderSecondary(
-            label: 'Saturation',
+          YaruSliderRow(
+            actionLabel: 'Saturation',
             enabled: true,
             showValue: false,
             min: 0,

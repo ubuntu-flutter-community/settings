@@ -29,7 +29,8 @@ class _SuspendSectionState extends State<SuspendSection> {
       headline: 'Suspend & Power Button',
       children: <Widget>[
         YaruRow(
-          trailingWidget: const Text('Power Button Behavior'),
+          enabled: true,
+          mainWidget: const Text('Power Button Behavior'),
           actionWidget: DropdownButton<PowerButtonAction?>(
             value: model.powerButtonAction,
             items: PowerButtonAction.values.map((action) {
@@ -42,7 +43,7 @@ class _SuspendSectionState extends State<SuspendSection> {
           ),
         ),
         YaruSwitchRow(
-          trailingWidget: const Text('Show Battery Percentage'),
+          mainWidget: const Text('Show Battery Percentage'),
           value: model.showBatteryPercentage,
           onChanged: model.setShowBatteryPercentage,
         ),

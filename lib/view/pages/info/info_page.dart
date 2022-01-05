@@ -141,7 +141,8 @@ class _Computer extends StatelessWidget {
 
     return YaruSection(headline: 'Computer', children: [
       YaruRow(
-        trailingWidget: const Text('Hostname'),
+        enabled: true,
+        mainWidget: const Text('Hostname'),
         actionWidget: Row(
           children: [
             SelectableText(

@@ -13,7 +13,7 @@ class GlobalSection extends StatelessWidget {
       headline: 'Global',
       children: [
         YaruSwitchRow(
-          trailingWidget: const Text('Always Show Universal Access Menu'),
+          mainWidget: const Text('Always Show Universal Access Menu'),
           value: model.universalAccessStatus,
           onChanged: (value) => model.setUniversalAccessStatus(value),
         ),

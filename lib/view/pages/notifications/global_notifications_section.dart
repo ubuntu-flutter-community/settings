@@ -14,14 +14,14 @@ class GlobalNotificationsSection extends StatelessWidget {
       headline: 'Global',
       children: [
         YaruSwitchRow(
-          trailingWidget: const Text('Do Not Disturb'),
+          mainWidget: const Text('Do Not Disturb'),
           value: model.doNotDisturb,
-          onChanged: (value) => model.setDoNotDisturb(value),
+          onChanged: model.setDoNotDisturb,
         ),
         YaruSwitchRow(
-          trailingWidget: const Text('Show Notifications On Lock Screen'),
+          mainWidget: const Text('Show Notifications On Lock Screen'),
           value: model.showOnLockScreen,
-          onChanged: (value) => model.setShowOnLockScreen(value),
+          onChanged: model.setShowOnLockScreen,
         ),
       ],
     );

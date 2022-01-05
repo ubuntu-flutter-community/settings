@@ -875,9 +875,11 @@ packages:
   yaru:
     dependency: "direct main"
     description:
-      name: yaru
-      url: "https://pub.dartlang.org"
-    source: hosted
+      path: "."
+      ref: HEAD
+      resolved-ref: f7586fd946742be816e55a7a61476f346134b960
+      url: "https://github.com/ubuntu/yaru.dart"
+    source: git
     version: "0.2.0"
   yaru_icons:
     dependency: "direct main"
@@ -891,8 +893,8 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: ba9e76e3d2a74dfa3fa2beee7b5ef42f660240e4
-      url: "https://github.com/ubuntu/yaru_widgets.dart"
+      resolved-ref: "59d801ca43b3d4426c3a15a4fd77cb1b5b88fbc3"
+      url: "https://github.com/mivoligo/yaru_widgets.dart"
     source: git
     version: "1.0.0+1"
 sdks:
