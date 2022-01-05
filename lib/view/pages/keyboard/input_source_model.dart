@@ -12,7 +12,7 @@ class InputSourceModel extends SafeChangeNotifier {
   static const _perWindowKey = 'per-window';
   static const _sourcesKey = 'sources';
   static const _mruSourcesKey = 'mru-sources';
-  final List<InputSource?> inputSources;
+  final List<InputSource> inputSources;
 
   InputSourceModel(
       SettingsService settingsService, InputSourceService inputSourceService)
@@ -72,6 +72,12 @@ class InputSourceModel extends SafeChangeNotifier {
       types.remove(inputType);
       await setInputSources(types);
     }
+  }
+
+  Future<void> addInputSource(String inputSource) async {
+    final sources = await getInputSources();
+    sources?.add(inputSource);
+    await setInputSources(sources);
   }
 
   Future<void> showKeyboardLayout(String inputType) async {

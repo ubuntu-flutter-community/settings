@@ -102,22 +102,72 @@ class _InputTypeRow extends StatelessWidget {
   }
 }
 
-class _AddKeymapDialog extends StatelessWidget {
+class _AddKeymapDialog extends StatefulWidget {
   const _AddKeymapDialog({Key? key}) : super(key: key);
+
+  @override
+  State<_AddKeymapDialog> createState() => _AddKeymapDialogState();
+}
+
+class _AddKeymapDialogState extends State<_AddKeymapDialog> {
+  int tabbedIndex = 0;
+  bool variantsLoad = false;
 
   @override
   Widget build(BuildContext context) {
     final model = context.watch<InputSourceModel>();
-    return YaruSimpleDialog(
-        title: 'Add Keymap',
-        closeIconData: YaruIcons.window_close,
-        children: [
-          for (var inputSource in model.inputSources)
-            CheckboxListTile(
-              value: false,
-              onChanged: (value) {},
-              title: Text(inputSource!.name!),
-            )
-        ]);
+    return variantsLoad == false
+        ? YaruSimpleDialog(
+            title: 'Add Keymap',
+            closeIconData: YaruIcons.window_close,
+            children: [
+                for (var i = 0; i < model.inputSources.length; i++)
+                  InkWell(
+                    borderRadius: BorderRadius.circular(4.0),
+                    onTap: () => setState(() {
+                      tabbedIndex = i;
+                      variantsLoad = true;
+                    }),
+                    child: YaruRow(
+                      width: 100,
+                      description: model.inputSources[i].name,
+                      actionWidget: const SizedBox(),
+                      trailingWidget: Text(model.inputSources[i].description!),
+                    ),
+                  ),
+              ])
+        : YaruSimpleDialog(
+            title: (model.inputSources[tabbedIndex].name ?? '') +
+                ': ' +
+                (model.inputSources[tabbedIndex].description ?? ''),
+            closeIconData: YaruIcons.window_close,
+            children: [
+                for (var variant in model.inputSources[tabbedIndex].variants)
+                  InkWell(
+                    onTap: () {
+                      if (model.inputSources[tabbedIndex].name != null &&
+                          variant.name != null) {
+                        model.addInputSource(
+                            model.inputSources[tabbedIndex].name! +
+                                '+' +
+                                variant.name!);
+                      }
+
+                      Navigator.of(context).pop();
+                      setState(() {});
+                    },
+                    borderRadius: BorderRadius.circular(4.0),
+                    child: YaruRow(
+                        width: 100,
+                        trailingWidget: Text(variant.description ?? ''),
+                        description: variant.name ?? '',
+                        actionWidget: const SizedBox()),
+                  ),
+                TextButton(
+                    onPressed: () => setState(() {
+                          variantsLoad = false;
+                        }),
+                    child: const Icon(YaruIcons.pan_start))
+              ]);
   }
 }

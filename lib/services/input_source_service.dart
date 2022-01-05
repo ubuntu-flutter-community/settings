@@ -4,13 +4,13 @@ import 'package:xml/xml.dart';
 
 class InputSourceService {
   static const pathToXml = '/usr/share/X11/xkb/rules/base.xml';
-  late final List<InputSource?> inputSources;
+  late final List<InputSource> inputSources;
 
   InputSourceService() {
     inputSources = _loadInputSources();
   }
 
-  List<InputSource?> _loadInputSources() {
+  List<InputSource> _loadInputSources() {
     final document = XmlDocument.parse(File(pathToXml).readAsStringSync());
 
     final layouts = document.findAllElements('layout');
@@ -32,10 +32,10 @@ class InputSourceService {
                                 .innerText,
                           ))
                       .toList()
-                  : null,
-              shortDescription: layout
+                  : [],
+              description: layout
                   .getElement('configItem')
-                  ?.getElement('shortDescription')
+                  ?.getElement('description')
                   ?.innerText,
               name: layout
                   .getElement('configItem')
@@ -48,10 +48,10 @@ class InputSourceService {
 
 class InputSource {
   final String? name;
-  final String? shortDescription;
-  final List<InputSourceVariant>? variants;
+  final String? description;
+  final List<InputSourceVariant> variants;
 
-  InputSource({this.name, this.shortDescription, this.variants});
+  InputSource({this.name, this.description, required this.variants});
 }
 
 class InputSourceVariant {
