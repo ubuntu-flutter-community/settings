@@ -12,11 +12,11 @@ class InputSourceModel extends SafeChangeNotifier {
   static const _perWindowKey = 'per-window';
   static const _sourcesKey = 'sources';
   static const _mruSourcesKey = 'mru-sources';
-  final List<_InputSource?> inputTypeNames = [];
+  final List<_InputSource?> inputSources = [];
 
   void init() {
     for (var inputTypeName in _loadInputSources()) {
-      inputTypeNames.add(inputTypeName);
+      inputSources.add(inputTypeName);
     }
   }
 
@@ -86,14 +86,36 @@ class InputSourceModel extends SafeChangeNotifier {
   List<_InputSource?> _loadInputSources() {
     final document = XmlDocument.parse(
         File('/usr/share/X11/xkb/rules/base.xml').readAsStringSync());
+
     final layouts = document.findAllElements('layout');
-    final configItemsInLayouts = layouts
-        .map((configItem) => configItem.getElement('configItem'))
-        .toList();
-    return configItemsInLayouts
-        .map((e) => _InputSource(
-            name: e?.getElement('name')?.innerText,
-            shortDescription: e?.getElement('shortDescription')?.innerText))
+    return layouts
+        .map(
+          (layout) => _InputSource(
+              variants: layout.getElement('variantList') != null
+                  ? layout
+                      .getElement('variantList')!
+                      .childElements
+                      .map((variant) => _InputSourceVariant(
+                            name: variant
+                                .getElement('configItem')!
+                                .getElement('name')!
+                                .innerText,
+                            description: variant
+                                .getElement('configItem')!
+                                .getElement('description')!
+                                .innerText,
+                          ))
+                      .toList()
+                  : null,
+              shortDescription: layout
+                  .getElement('configItem')
+                  ?.getElement('shortDescription')
+                  ?.innerText,
+              name: layout
+                  .getElement('configItem')
+                  ?.getElement('name')
+                  ?.innerText),
+        )
         .toList();
   }
 }
