@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:settings/services/input_source_service.dart';
 import 'package:settings/services/settings_service.dart';
 import 'package:settings/view/pages/keyboard/input_source_model.dart';
 import 'package:settings/view/pages/keyboard/input_source_section.dart';
@@ -14,20 +15,23 @@ class KeyboardSettingsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final service = Provider.of<SettingsService>(context, listen: false);
+    final settingsService =
+        Provider.of<SettingsService>(context, listen: false);
+    final inputSourceService =
+        Provider.of<InputSourceService>(context, listen: false);
 
     return Column(
       children: [
         ChangeNotifierProvider(
-          create: (_) => InputSourceModel(service),
+          create: (_) => InputSourceModel(settingsService, inputSourceService),
           child: const InputSourceSelectionSection(),
         ),
         ChangeNotifierProvider(
-          create: (_) => InputSourceModel(service),
+          create: (_) => InputSourceModel(settingsService, inputSourceService),
           child: const InputSourceSection(),
         ),
         ChangeNotifierProvider(
-          create: (_) => SpecialCharactersModel(service),
+          create: (_) => SpecialCharactersModel(settingsService),
           child: const SpecialCharactersSection(),
         ),
       ],

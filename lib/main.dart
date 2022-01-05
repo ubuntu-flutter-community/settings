@@ -6,6 +6,7 @@ import 'package:settings/l10n/l10n.dart';
 import 'package:settings/schemas/schemas.dart';
 import 'package:settings/services/bluetooth_service.dart';
 import 'package:settings/services/hostname_service.dart';
+import 'package:settings/services/input_source_service.dart';
 import 'package:settings/services/power_profile_service.dart';
 import 'package:settings/services/power_settings_service.dart';
 import 'package:settings/services/settings_service.dart';
@@ -61,6 +62,9 @@ void main() async {
         Provider<BlueZClient>(
           create: (_) => BlueZClient(),
           dispose: (_, client) => client.close(),
+        ),
+        Provider<InputSourceService>(
+          create: (_) => InputSourceService(),
         )
       ],
       child: const UbuntuSettingsApp(),
