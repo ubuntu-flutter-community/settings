@@ -4,24 +4,20 @@ import 'package:dbus/dbus.dart';
 import 'package:gsettings/gsettings.dart';
 import 'package:safe_change_notifier/safe_change_notifier.dart';
 import 'package:settings/schemas/schemas.dart';
+import 'package:settings/services/input_source_service.dart';
 import 'package:settings/services/settings_service.dart';
-import 'package:xml/xml.dart';
 
 class InputSourceModel extends SafeChangeNotifier {
   final Settings? _inputSourceSettings;
   static const _perWindowKey = 'per-window';
   static const _sourcesKey = 'sources';
   static const _mruSourcesKey = 'mru-sources';
-  final List<_InputSource?> inputSources = [];
+  final List<InputSource?> inputSources;
 
-  void init() {
-    for (var inputTypeName in _loadInputSources()) {
-      inputSources.add(inputTypeName);
-    }
-  }
-
-  InputSourceModel(SettingsService service)
-      : _inputSourceSettings = service.lookup(schemaInputSources) {
+  InputSourceModel(
+      SettingsService settingsService, InputSourceService inputSourceService)
+      : _inputSourceSettings = settingsService.lookup(schemaInputSources),
+        inputSources = inputSourceService.inputSources {
     _inputSourceSettings?.addListener(notifyListeners);
   }
 
@@ -82,55 +78,4 @@ class InputSourceModel extends SafeChangeNotifier {
     await Process.run('gkbd-keyboard-display',
         ['-l', inputType.split('+').first, inputType.split('+').last, '&']);
   }
-
-  List<_InputSource?> _loadInputSources() {
-    final document = XmlDocument.parse(
-        File('/usr/share/X11/xkb/rules/base.xml').readAsStringSync());
-
-    final layouts = document.findAllElements('layout');
-    return layouts
-        .map(
-          (layout) => _InputSource(
-              variants: layout.getElement('variantList') != null
-                  ? layout
-                      .getElement('variantList')!
-                      .childElements
-                      .map((variant) => _InputSourceVariant(
-                            name: variant
-                                .getElement('configItem')!
-                                .getElement('name')!
-                                .innerText,
-                            description: variant
-                                .getElement('configItem')!
-                                .getElement('description')!
-                                .innerText,
-                          ))
-                      .toList()
-                  : null,
-              shortDescription: layout
-                  .getElement('configItem')
-                  ?.getElement('shortDescription')
-                  ?.innerText,
-              name: layout
-                  .getElement('configItem')
-                  ?.getElement('name')
-                  ?.innerText),
-        )
-        .toList();
-  }
-}
-
-class _InputSource {
-  final String? name;
-  final String? shortDescription;
-  final List<_InputSourceVariant>? variants;
-
-  _InputSource({this.name, this.shortDescription, this.variants});
-}
-
-class _InputSourceVariant {
-  final String? name;
-  final String? description;
-
-  _InputSourceVariant({this.name, this.description});
 }

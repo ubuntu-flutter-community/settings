@@ -102,20 +102,8 @@ class _InputTypeRow extends StatelessWidget {
   }
 }
 
-class _AddKeymapDialog extends StatefulWidget {
+class _AddKeymapDialog extends StatelessWidget {
   const _AddKeymapDialog({Key? key}) : super(key: key);
-
-  @override
-  State<_AddKeymapDialog> createState() => _AddKeymapDialogState();
-}
-
-class _AddKeymapDialogState extends State<_AddKeymapDialog> {
-  @override
-  void initState() {
-    final model = context.read<InputSourceModel>();
-    model.init();
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
