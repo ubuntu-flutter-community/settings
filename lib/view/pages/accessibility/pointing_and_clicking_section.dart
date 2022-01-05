@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:settings/view/pages/accessibility/accessibility_model.dart';
 import 'package:yaru_widgets/yaru_widgets.dart';
 
-import 'package:yaru_icons/widgets/yaru_icons.dart';
+import 'package:yaru_icons/yaru_icons.dart';
 
 class PointingAndClickingSection extends StatelessWidget {
   const PointingAndClickingSection({Key? key}) : super(key: key);
@@ -77,9 +77,9 @@ class _ClickAssistSettings extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final model = Provider.of<AccessibilityModel>(context);
-    return SimpleDialog(
-      title: const Center(child: Text('Click Assist')),
-      contentPadding: const EdgeInsets.all(8.0),
+    return YaruSimpleDialog(
+      title: 'Click Assist',
+      closeIconData: YaruIcons.window_close,
       children: [
         YaruSwitchRow(
           trailingWidget: const Text('Simulated Secondary Click'),

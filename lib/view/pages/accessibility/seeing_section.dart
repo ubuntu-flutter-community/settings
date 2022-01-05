@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_spinbox/flutter_spinbox.dart';
 import 'package:provider/provider.dart';
 import 'package:settings/view/pages/accessibility/accessibility_model.dart';
 import 'package:yaru_widgets/yaru_widgets.dart';
 
-import 'package:yaru_icons/widgets/yaru_icons.dart';
+import 'package:yaru_icons/yaru_icons.dart';
 
 class SeeingSection extends StatelessWidget {
   const SeeingSection({Key? key}) : super(key: key);
@@ -99,9 +100,9 @@ class _CursorSizeSettings extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final model = Provider.of<AccessibilityModel>(context);
-    return SimpleDialog(
-      title: const Center(child: Text('Cursor Size')),
-      contentPadding: const EdgeInsets.symmetric(vertical: 8.0),
+    return YaruSimpleDialog(
+      title: 'Cursor Size',
+      closeIconData: YaruIcons.window_close,
       children: [
         _CursorButton(
           imageName: 'assets/images/cursor/left_ptr_24px.png',
@@ -174,9 +175,9 @@ class _ZoomSettings extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SimpleDialog(
-      title: const Center(child: Text('Zoom Options')),
-      contentPadding: const EdgeInsets.symmetric(horizontal: 20.0),
+    return YaruSimpleDialog(
+      title: 'Zoom Options',
+      closeIconData: YaruIcons.window_close,
       children: [
         Text(
           'Magnifier',
@@ -209,14 +210,24 @@ class _MagnifierOptions extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          YaruSliderSecondary(
-            // TODO it'd be better to use SpinBox instead of Slider
-            label: 'Magnification',
-            enabled: true,
-            min: 1,
-            max: 20,
-            value: model.magFactor,
-            onChanged: (value) => model.setMagFactor(value),
+          YaruRow(
+            trailingWidget: const Text('Magnification'),
+            actionWidget: SizedBox(
+              height: 40,
+              width: 150,
+              child: SpinBox(
+                decoration: const InputDecoration(
+                  border: UnderlineInputBorder(),
+                ),
+                enabled: true,
+                min: 1,
+                max: 20,
+                step: 0.25,
+                decimals: 2,
+                value: model.magFactor ?? 2,
+                onChanged: (value) => model.setMagFactor(value),
+              ),
+            ),
           ),
           const Text('Magnifier Position'),
           const _MagnifierPositionOptions(),
@@ -252,27 +263,11 @@ class _MagnifierPositionOptions extends StatelessWidget {
                 ? null
                 : (value) => model.setScreenPosition(value!),
             value: model.screenPosition,
-            items: const [
-              DropdownMenuItem(
-                value: 'full-screen',
-                child: Text('Full Screen'),
-              ),
-              DropdownMenuItem(
-                value: 'top-half',
-                child: Text('Top Half'),
-              ),
-              DropdownMenuItem(
-                value: 'bottom-half',
-                child: Text('Bottom Half'),
-              ),
-              DropdownMenuItem(
-                value: 'left-half',
-                child: Text('Left Half'),
-              ),
-              DropdownMenuItem(
-                value: 'right-half',
-                child: Text('Right Half'),
-              ),
+            items: [
+              for (var item in AccessibilityModel.screenPositions)
+                DropdownMenuItem(
+                    child: Text(item.toLowerCase().replaceAll('-', ' ')),
+                    value: item)
             ],
           ),
         ),

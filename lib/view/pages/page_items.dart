@@ -3,18 +3,18 @@ import 'package:flutter/widgets.dart';
 import 'package:settings/view/pages/accessibility/accessibility_page.dart';
 import 'package:settings/view/pages/appearance/appearance_page.dart';
 import 'package:settings/view/pages/bluetooth/bluetooth_page.dart';
+import 'package:settings/view/pages/connections/connections_page.dart';
 import 'package:settings/view/pages/info/info_page.dart';
-import 'package:settings/view/pages/keyboard_shortcuts/keyboard_shortcuts_page.dart';
+import 'package:settings/view/pages/keyboard/keyboard_page.dart';
 import 'package:settings/view/pages/mouse_and_touchpad/mouse_and_touchpad_page.dart';
 import 'package:settings/view/pages/printers/printers_page.dart';
 import 'package:settings/view/pages/multitasking/multi_tasking_page.dart';
-import 'package:settings/view/pages/removable_media/removable_media_page.dart';
 import 'package:settings/view/pages/notifications/notifications_page.dart';
 import 'package:settings/view/pages/power/power_page.dart';
+import 'package:settings/view/pages/removable_media/removable_media_page.dart';
 import 'package:settings/view/pages/sound/sound_page.dart';
 import 'package:settings/view/pages/wallpaper/wallpaper_page.dart';
-import 'package:settings/view/pages/connections/connections_page.dart';
-import 'package:yaru_icons/widgets/yaru_icons.dart';
+import 'package:yaru_icons/yaru_icons.dart';
 import 'package:yaru_widgets/yaru_widgets.dart';
 
 final pageItems = <YaruPageItem>[
@@ -93,9 +93,9 @@ final pageItems = <YaruPageItem>[
     builder: MouseAndTouchpadPage.create,
   ),
   const YaruPageItem(
-    title: 'Keyboard shortcuts',
+    title: 'Keyboard',
     iconData: YaruIcons.input_keyboard,
-    builder: KeyboardShortcutsPage.create,
+    builder: KeyboardPage.create,
   ),
   YaruPageItem(
     title: 'Printers',

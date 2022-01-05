@@ -6,6 +6,7 @@ import 'package:settings/l10n/l10n.dart';
 import 'package:settings/schemas/schemas.dart';
 import 'package:settings/services/bluetooth_service.dart';
 import 'package:settings/services/hostname_service.dart';
+import 'package:settings/services/input_source_service.dart';
 import 'package:settings/services/power_profile_service.dart';
 import 'package:settings/services/power_settings_service.dart';
 import 'package:settings/services/settings_service.dart';
@@ -14,7 +15,7 @@ import 'package:settings/view/pages/page_items.dart';
 import 'package:udisks/udisks.dart';
 import 'package:upower/upower.dart';
 import 'package:yaru/yaru.dart';
-import 'package:yaru_icons/widgets/yaru_icons.dart';
+import 'package:yaru_icons/yaru_icons.dart';
 import 'package:yaru_widgets/yaru_widgets.dart';
 
 void main() async {
@@ -61,6 +62,9 @@ void main() async {
         Provider<BlueZClient>(
           create: (_) => BlueZClient(),
           dispose: (_, client) => client.close(),
+        ),
+        Provider<InputSourceService>(
+          create: (_) => InputSourceService(),
         )
       ],
       child: const UbuntuSettingsApp(),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:settings/services/settings_service.dart';
+import 'package:settings/view/pages/mouse_and_touchpad/general_section.dart';
 import 'package:settings/view/pages/mouse_and_touchpad/mouse_and_touchpad_model.dart';
 import 'package:settings/view/pages/mouse_and_touchpad/mouse_section.dart';
 import 'package:settings/view/pages/mouse_and_touchpad/touchpad_section.dart';
@@ -20,6 +21,7 @@ class MouseAndTouchpadPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: const [
+        GeneralSection(),
         MouseSection(),
         TouchpadSection(),
       ],

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:settings/view/pages/accessibility/accessibility_model.dart';
-import 'package:yaru_icons/widgets/yaru_icons.dart';
+import 'package:yaru_icons/yaru_icons.dart';
 import 'package:yaru_widgets/yaru_widgets.dart';
 
 class TypingSection extends StatelessWidget {
@@ -55,9 +55,9 @@ class _RepeatKeysSettings extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final model = Provider.of<AccessibilityModel>(context);
-    return SimpleDialog(
-      title: const Center(child: Text('Repeat Keys')),
-      contentPadding: const EdgeInsets.all(8.0),
+    return YaruSimpleDialog(
+      title: 'Repeat Keys',
+      closeIconData: YaruIcons.window_close,
       children: [
         YaruSliderRow(
           actionLabel: 'Delay',
@@ -111,9 +111,9 @@ class _CursorBlinkingSettings extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final model = Provider.of<AccessibilityModel>(context);
-    return SimpleDialog(
-      title: const Center(child: Text('Cursor Blinking')),
-      contentPadding: const EdgeInsets.all(8.0),
+    return YaruSimpleDialog(
+      title: 'Cursor Blinking',
+      closeIconData: YaruIcons.window_close,
       children: [
         YaruSliderRow(
           actionLabel: 'Cursor Blink Time',
@@ -169,9 +169,9 @@ class _TypingAssistSettings extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final model = Provider.of<AccessibilityModel>(context);
-    return SimpleDialog(
-      title: const Center(child: Text('Typing Assist')),
-      contentPadding: const EdgeInsets.all(8.0),
+    return YaruSimpleDialog(
+      title: 'Typing Assist',
+      closeIconData: YaruIcons.window_close,
       children: [
         YaruSwitchRow(
           trailingWidget: const Text('Enable by Keyboard'),

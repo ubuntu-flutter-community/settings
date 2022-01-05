@@ -26,36 +26,38 @@ class AppearanceModel extends ChangeNotifier {
 
   // Dock section
 
-  bool? get showTrash => _dashToDockSettings?.boolValue(_showTrashKey);
+  bool get showTrash => _dashToDockSettings?.boolValue(_showTrashKey) ?? false;
 
   void setShowTrash(bool value) {
     _dashToDockSettings?.setValue(_showTrashKey, value);
     notifyListeners();
   }
 
-  bool? get alwaysShowDock => _dashToDockSettings?.boolValue(_dockFixedKey);
+  bool get alwaysShowDock =>
+      _dashToDockSettings?.boolValue(_dockFixedKey) ?? true;
 
   void setAlwaysShowDock(bool value) {
     _dashToDockSettings?.setValue(_dockFixedKey, value);
     notifyListeners();
   }
 
-  bool? get extendDock => _dashToDockSettings?.boolValue(_extendHeightKey);
+  bool get extendDock =>
+      _dashToDockSettings?.boolValue(_extendHeightKey) ?? true;
 
   void setExtendDock(bool value) {
     _dashToDockSettings?.setValue(_extendHeightKey, value);
     notifyListeners();
   }
 
-  bool? get appGlow => _dashToDockSettings?.boolValue(_backlitItemsKey);
+  bool get appGlow => _dashToDockSettings?.boolValue(_backlitItemsKey) ?? false;
 
   void setAppGlow(bool value) {
     _dashToDockSettings?.setValue(_backlitItemsKey, value);
     notifyListeners();
   }
 
-  double? get maxIconSize =>
-      _dashToDockSettings?.intValue(_dashMaxIconSizeKey)?.toDouble();
+  double get maxIconSize =>
+      _dashToDockSettings?.intValue(_dashMaxIconSizeKey)?.toDouble() ?? 48.0;
 
   void setMaxIconSize(double value) {
     var intValue = value.toInt();
@@ -68,8 +70,11 @@ class AppearanceModel extends ChangeNotifier {
 
   static const dockPositions = ['LEFT', 'RIGHT', 'BOTTOM'];
 
-  String? get dockPosition =>
-      _dashToDockSettings?.stringValue(_dockPositionKey);
+  String get _realDockPosition =>
+      _dashToDockSettings?.stringValue(_dockPositionKey) ?? 'LEFT';
+
+  String get dockPosition =>
+      dockPositions.contains(_realDockPosition) ? _realDockPosition : 'LEFT';
 
   set dockPosition(String? value) {
     _dashToDockSettings!.setValue(_dockPositionKey, value!);
@@ -82,7 +87,12 @@ class AppearanceModel extends ChangeNotifier {
     'cycle-windows'
   ];
 
-  String? get clickAction => _dashToDockSettings?.stringValue(_clickActionKey);
+  String get _realClickAction =>
+      _dashToDockSettings?.stringValue(_clickActionKey) ?? clickActions.first;
+
+  String get clickAction => clickActions.contains(_realClickAction)
+      ? _realClickAction
+      : clickActions.first;
 
   set clickAction(String? value) {
     _dashToDockSettings?.setValue(_clickActionKey, value!);

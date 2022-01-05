@@ -8,7 +8,7 @@ import 'package:settings/view/pages/power/power_settings.dart';
 import 'package:settings/view/pages/power/power_settings_dialogs.dart';
 import 'package:settings/view/pages/power/power_settings_model.dart';
 import 'package:settings/view/pages/power/power_settings_widgets.dart';
-import 'package:yaru_icons/widgets/yaru_icons.dart';
+import 'package:yaru_icons/yaru_icons.dart';
 import 'package:yaru_widgets/yaru_widgets.dart';
 
 class PowerSettingsSection extends StatefulWidget {

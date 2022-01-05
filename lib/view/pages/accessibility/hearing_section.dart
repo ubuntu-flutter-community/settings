@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:settings/view/pages/accessibility/accessibility_model.dart';
-import 'package:yaru_icons/widgets/yaru_icons.dart';
+import 'package:yaru_icons/yaru_icons.dart';
 import 'package:yaru_widgets/yaru_widgets.dart';
 
 class HearingSection extends StatelessWidget {
@@ -47,9 +47,9 @@ class _VisualAlertsSettings extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final model = Provider.of<AccessibilityModel>(context);
-    return SimpleDialog(
-      title: const Center(child: Text('Visual Alerts')),
-      contentPadding: const EdgeInsets.all(8.0),
+    return YaruSimpleDialog(
+      title: 'Visual Alerts',
+      closeIconData: YaruIcons.window_close,
       children: [
         RadioListTile(
           title: const Text('Flash the entire window'),

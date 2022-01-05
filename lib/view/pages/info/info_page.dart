@@ -7,7 +7,7 @@ import 'package:rive/rive.dart';
 import 'package:settings/api/pdf_api.dart';
 import 'package:settings/services/hostname_service.dart';
 import 'package:udisks/udisks.dart';
-import 'package:yaru_icons/widgets/yaru_icons.dart';
+import 'package:yaru_icons/yaru_icons.dart';
 import 'package:yaru_widgets/yaru_widgets.dart';
 
 import 'info_model.dart';
@@ -204,9 +204,9 @@ class _HostnameSettingsState extends State<_HostnameSettings> {
   @override
   Widget build(BuildContext context) {
     final model = context.watch<InfoModel>();
-    return SimpleDialog(
-      title: const Center(child: Text('Edit hostname')),
-      contentPadding: const EdgeInsets.all(16.0),
+    return YaruSimpleDialog(
+      title: 'Edit Hostname',
+      closeIconData: YaruIcons.window_close,
       children: [
         TextField(
           autofocus: true,

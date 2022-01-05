@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
-import 'package:settings/view/pages/keyboard_shortcuts/keyboard_shortcuts_model.dart';
+import 'package:settings/view/pages/keyboard/keyboard_shortcuts_model.dart';
 import 'package:yaru_widgets/yaru_widgets.dart';
 
 class KeyboardShortcutRow extends StatefulWidget {
@@ -23,22 +23,35 @@ class _KeyboardShortcutRowState extends State<KeyboardShortcutRow> {
 
   @override
   Widget build(BuildContext context) {
-    final model = context.read<KeyboardShortcutsModel>();
+    final model = context.watch<KeyboardShortcutsModel>();
     final shortcut = context.select<KeyboardShortcutsModel, List<String>>(
-        (model) => model.shortcut(widget.shortcutId));
+        (model) => model.getShortcutStrings(widget.shortcutId));
 
     return InkWell(
       child: YaruRow(
         trailingWidget: Text(widget.label),
-        actionWidget: Text(
-          shortcut.toString(),
-          style: TextStyle(
-              color: Theme.of(context).colorScheme.onSurface.withOpacity(0.4)),
+        actionWidget: Row(
+          children: [
+            for (var string in shortcut)
+              Card(
+                child: Padding(
+                  padding: const EdgeInsets.all(4.0),
+                  child: Text(
+                    string,
+                    style: TextStyle(
+                        color: Theme.of(context)
+                            .colorScheme
+                            .onSurface
+                            .withOpacity(0.7)),
+                  ),
+                ),
+              )
+          ],
         ),
       ),
       borderRadius: BorderRadius.circular(4.0),
       onTap: () {
-        final oldShortcut = model.shortcut(widget.shortcutId);
+        final oldShortcut = model.getShortcutStrings(widget.shortcutId);
         // TODO: grab the keyboard from gnome-shell
         showDialog<List<String>>(
           context: context,
