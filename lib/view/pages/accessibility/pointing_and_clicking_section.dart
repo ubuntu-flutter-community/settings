@@ -45,7 +45,7 @@ class _ClickAssist extends StatelessWidget {
   Widget build(BuildContext context) {
     final model = Provider.of<AccessibilityModel>(context);
     return YaruRow(
-      enabled: model.clickAssist,
+      enabled: model.clickAssistAvailable,
       mainWidget: const Text('Click Assist'),
       actionWidget: Row(
         children: [
@@ -110,28 +110,27 @@ class _ClickAssistSettings extends StatelessWidget {
         ),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16.0),
-          child: Column(
-            children: [
-              YaruSliderRow(
-                actionLabel: 'Delay',
-                enabled: model.dwellClick ?? false,
-                min: 0.2,
-                max: 3.0,
-                defaultValue: 1.2,
-                value: model.dwellTime,
-                fractionDigits: 1,
-                onChanged: (value) => model.setDwellTime(value),
-              ),
-              YaruSliderRow(
-                actionLabel: 'Motion thresshold',
-                enabled: model.dwellClick ?? false,
-                min: 0.0,
-                max: 30.0,
-                defaultValue: 10,
-                value: model.dwellThreshold,
-                onChanged: (value) => model.setDwellThreshold(value),
-              ),
-            ],
+          child: YaruSliderRow(
+            actionLabel: 'Delay',
+            enabled: model.dwellClick ?? false,
+            min: 0.2,
+            max: 3.0,
+            defaultValue: 1.2,
+            value: model.dwellTime,
+            fractionDigits: 1,
+            onChanged: (value) => model.setDwellTime(value),
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16.0),
+          child: YaruSliderRow(
+            actionLabel: 'Motion thresshold',
+            enabled: model.dwellClick ?? false,
+            min: 0.0,
+            max: 30.0,
+            defaultValue: 10,
+            value: model.dwellThreshold,
+            onChanged: (value) => model.setDwellThreshold(value),
           ),
         ),
       ],

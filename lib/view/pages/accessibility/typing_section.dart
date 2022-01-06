@@ -188,7 +188,24 @@ class _TypingAssistSettings extends StatelessWidget {
           value: model.stickyKeys,
           onChanged: (value) => model.setStickyKeys(value),
         ),
-        const _StickyKeysSettings(),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16.0),
+          child: YaruCheckboxRow(
+            enabled: model.stickyKeys ?? false,
+            value: model.stickyKeysTwoKey ?? false,
+            onChanged: (value) => model.setStickyKeysTwoKey(value!),
+            text: 'Disable if two keys are pressed at the same time',
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16.0),
+          child: YaruCheckboxRow(
+            enabled: model.stickyKeys ?? false,
+            value: model.stickyKeysBeep ?? false,
+            onChanged: (value) => model.setStickyKeysBeep(value!),
+            text: 'Beep when a modifier key is pressed',
+          ),
+        ),
         YaruSwitchRow(
           mainWidget: const Text('Slow Keys'),
           actionDescription:
@@ -196,58 +213,9 @@ class _TypingAssistSettings extends StatelessWidget {
           value: model.slowKeys,
           onChanged: (value) => model.setSlowKeys(value),
         ),
-        const _SlowKeysSettings(),
-        YaruSwitchRow(
-          mainWidget: const Text('Bounce Keys'),
-          actionDescription: 'Ignores fast duplicate keypresses',
-          value: model.bounceKeys,
-          onChanged: (value) => model.setBounceKeys(value),
-        ),
-        const _BounceKeysSettings(),
-      ],
-    );
-  }
-}
-
-class _StickyKeysSettings extends StatelessWidget {
-  const _StickyKeysSettings({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    final model = Provider.of<AccessibilityModel>(context);
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16.0),
-      child: Column(
-        children: [
-          YaruCheckboxRow(
-            enabled: model.stickyKeys ?? false,
-            value: model.stickyKeysTwoKey,
-            onChanged: (value) => model.setStickyKeysTwoKey(value!),
-            text: 'Disable if two keys are pressed at the same time',
-          ),
-          YaruCheckboxRow(
-            enabled: model.stickyKeys ?? false,
-            value: model.stickyKeysBeep,
-            onChanged: (value) => model.setStickyKeysBeep(value!),
-            text: 'Beep when a modifier key is pressed',
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class _SlowKeysSettings extends StatelessWidget {
-  const _SlowKeysSettings({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    final model = Provider.of<AccessibilityModel>(context);
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16.0),
-      child: Column(
-        children: [
-          YaruSliderRow(
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16.0),
+          child: YaruSliderRow(
             actionLabel: 'Acceptance delay',
             enabled: model.slowKeys ?? false,
             min: 0,
@@ -256,41 +224,43 @@ class _SlowKeysSettings extends StatelessWidget {
             value: model.slowKeysDelay,
             onChanged: (value) => model.setSlowKeysDelay(value),
           ),
-          YaruCheckboxRow(
+        ),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16.0),
+          child: YaruCheckboxRow(
             enabled: model.slowKeys ?? false,
-            value: model.slowKeysBeepPress,
+            value: model.slowKeysBeepPress ?? false,
             onChanged: (value) => model.setSlowKeysBeepPress(value!),
             text: 'Beep when a key is pressed',
           ),
-          YaruCheckboxRow(
+        ),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16.0),
+          child: YaruCheckboxRow(
             enabled: model.slowKeys ?? false,
-            value: model.slowKeysBeepAccept,
+            value: model.slowKeysBeepAccept ?? false,
             onChanged: (value) => model.setSlowKeysBeepAccept(value!),
             text: 'Beep when a key is accepted',
           ),
-          YaruCheckboxRow(
+        ),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16.0),
+          child: YaruCheckboxRow(
             enabled: model.slowKeys ?? false,
-            value: model.slowKeysBeepReject,
+            value: model.slowKeysBeepReject ?? false,
             onChanged: (value) => model.setSlowKeysBeepReject(value!),
             text: 'Beep when a key is rejected',
           ),
-        ],
-      ),
-    );
-  }
-}
-
-class _BounceKeysSettings extends StatelessWidget {
-  const _BounceKeysSettings({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    final model = Provider.of<AccessibilityModel>(context);
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16.0),
-      child: Column(
-        children: [
-          YaruSliderRow(
+        ),
+        YaruSwitchRow(
+          mainWidget: const Text('Bounce Keys'),
+          actionDescription: 'Ignores fast duplicate keypresses',
+          value: model.bounceKeys,
+          onChanged: (value) => model.setBounceKeys(value),
+        ),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16.0),
+          child: YaruSliderRow(
             actionLabel: 'Acceptance delay',
             enabled: model.bounceKeys ?? false,
             min: 0,
@@ -299,14 +269,17 @@ class _BounceKeysSettings extends StatelessWidget {
             value: model.bounceKeysDelay,
             onChanged: (value) => model.setBounceKeysDelay(value),
           ),
-          YaruCheckboxRow(
+        ),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16.0),
+          child: YaruCheckboxRow(
             enabled: model.bounceKeys ?? false,
-            value: model.bounceKeysBeepReject,
+            value: model.bounceKeysBeepReject ?? false,
             onChanged: (value) => model.setBounceKeysBeepReject(value!),
             text: 'Beep when a key is rejected',
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }
