@@ -65,6 +65,7 @@ class _CursorSize extends StatelessWidget {
   Widget build(BuildContext context) {
     final model = Provider.of<AccessibilityModel>(context);
     return YaruRow(
+      enabled: model.cursorSize != null,
       trailingWidget: const Text('Cursor Size'),
       description: 'Cursor size can be combined with zoom '
           'to make it easier to see the cursor',
@@ -211,6 +212,7 @@ class _MagnifierOptions extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           YaruRow(
+            enabled: model.magFactor != null,
             trailingWidget: const Text('Magnification'),
             actionWidget: SizedBox(
               height: 40,
