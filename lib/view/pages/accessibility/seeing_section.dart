@@ -373,13 +373,13 @@ class _CrosshairsOptions extends StatelessWidget {
       child: Column(
         children: [
           YaruCheckboxRow(
-            enabled: model.crossHairs ?? false,
+            enabled: model.crossHairs != null,
             value: model.crossHairs ?? false,
             onChanged: (value) => model.setCrossHairs(value!),
             text: 'Visible',
           ),
           YaruCheckboxRow(
-            enabled: model.crossHairsClip ?? false,
+            enabled: model.crossHairsClip != null,
             value: model.crossHairsClip ?? false,
             onChanged: (value) => model.setCrossHairsClip(value!),
             text: 'Overlaps mouse cursor',
@@ -434,7 +434,7 @@ class _ColorEffectsOptions extends StatelessWidget {
       child: Column(
         children: [
           YaruCheckboxRow(
-            enabled: model.inverseLightness ?? false,
+            enabled: model.inverseLightness != null,
             value: model.inverseLightness ?? false,
             onChanged: (value) => model.setInverseLightness(value!),
             text: 'White on black',
