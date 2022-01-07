@@ -78,6 +78,7 @@ class _BluetoothDeviceRowState extends State<BluetoothDeviceRow> {
                         child: Column(
                           children: [
                             YaruRow(
+                                enabled: true,
                                 trailingWidget: model.connected
                                     ? const Text('Connected')
                                     : const Text('Disconnected'),
@@ -90,18 +91,21 @@ class _BluetoothDeviceRowState extends State<BluetoothDeviceRow> {
                                       setState(() {});
                                     })),
                             YaruRow(
+                                enabled: true,
                                 trailingWidget: const Text('Paired'),
                                 actionWidget: Padding(
                                   padding: const EdgeInsets.only(right: 8),
                                   child: Text(model.paired ? 'Yes' : 'No'),
                                 )),
                             YaruRow(
+                                enabled: true,
                                 trailingWidget: const Text('Address'),
                                 actionWidget: Padding(
                                   padding: const EdgeInsets.only(right: 8),
                                   child: Text(model.address),
                                 )),
                             YaruRow(
+                                enabled: true,
                                 trailingWidget: const Text('Type'),
                                 actionWidget: Padding(
                                   padding: const EdgeInsets.only(right: 8),
@@ -156,6 +160,7 @@ class _BluetoothDeviceRowState extends State<BluetoothDeviceRow> {
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: YaruRow(
+            enabled: true,
             trailingWidget: Text(model.name),
             actionWidget: Text(
               model.connected ? 'connected' : 'disconnected',
