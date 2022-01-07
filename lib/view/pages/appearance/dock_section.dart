@@ -84,6 +84,7 @@ class DockSection extends StatelessWidget {
           onChanged: (value) => model.setMaxIconSize(value),
         ),
         YaruRow(
+          enabled: model.dockPosition != null,
           trailingWidget: const Text('Dock Position'),
           actionWidget: DropdownButton<String>(
             onChanged: (value) => model.dockPosition = value,
@@ -95,6 +96,7 @@ class DockSection extends StatelessWidget {
           ),
         ),
         YaruRow(
+          enabled: model.clickAction != null,
           trailingWidget: const Text('Click Action'),
           actionWidget: DropdownButton<String>(
             onChanged: (value) => model.clickAction = value,

@@ -70,10 +70,10 @@ class AppearanceModel extends ChangeNotifier {
 
   static const dockPositions = ['LEFT', 'RIGHT', 'BOTTOM'];
 
-  String get _realDockPosition =>
-      _dashToDockSettings?.stringValue(_dockPositionKey) ?? 'LEFT';
+  String? get _realDockPosition =>
+      _dashToDockSettings?.stringValue(_dockPositionKey);
 
-  String get dockPosition =>
+  String? get dockPosition =>
       dockPositions.contains(_realDockPosition) ? _realDockPosition : 'LEFT';
 
   set dockPosition(String? value) {
@@ -87,10 +87,10 @@ class AppearanceModel extends ChangeNotifier {
     'cycle-windows'
   ];
 
-  String get _realClickAction =>
-      _dashToDockSettings?.stringValue(_clickActionKey) ?? clickActions.first;
+  String? get _realClickAction =>
+      _dashToDockSettings?.stringValue(_clickActionKey);
 
-  String get clickAction => clickActions.contains(_realClickAction)
+  String? get clickAction => clickActions.contains(_realClickAction)
       ? _realClickAction
       : clickActions.first;
 
