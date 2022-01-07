@@ -892,9 +892,9 @@ packages:
     dependency: "direct main"
     description:
       path: "."
-      ref: "51f232619664bc7088b92048a759aa005505cf57"
-      resolved-ref: "51f232619664bc7088b92048a759aa005505cf57"
-      url: "https://github.com/mivoligo/yaru_widgets.dart"
+      ref: HEAD
+      resolved-ref: "792924ef2b8c0fdc8ef17f65a36ed8d0ff4655a1"
+      url: "https://github.com/ubuntu/yaru_widgets.dart"
     source: git
     version: "1.0.0+1"
 sdks:
