@@ -26,6 +26,7 @@ class WallpaperPage extends StatelessWidget {
 
     return YaruSection(headline: 'Set your wallpaper', children: [
       YaruRow(
+          enabled: true,
           trailingWidget: const Text('Background mode'),
           actionWidget: Row(
             children: [
@@ -102,6 +103,7 @@ class WallpaperPage extends StatelessWidget {
       if (model.wallpaperMode == WallpaperMode.imageOfTheDay)
         //TODO: Add the title and copyright info
         YaruRow(
+            enabled: true,
             trailingWidget: const Text('Image of the day from Bing'),
             actionWidget: SizedBox(
               width: 40,
@@ -119,6 +121,7 @@ class WallpaperPage extends StatelessWidget {
             const Padding(
               padding: EdgeInsets.only(top: 10),
               child: YaruRow(
+                  enabled: true,
                   trailingWidget: Text('Your wallpapers'),
                   actionWidget: SizedBox(
                     width: 40,
@@ -203,6 +206,7 @@ class WallpaperPage extends StatelessWidget {
             const Padding(
               padding: EdgeInsets.only(top: 10),
               child: YaruRow(
+                  enabled: true,
                   trailingWidget: Text('Default wallpapers'),
                   actionWidget: SizedBox(
                     width: 0,
