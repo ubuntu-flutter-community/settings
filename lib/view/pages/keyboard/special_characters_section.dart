@@ -26,6 +26,7 @@ class SpecialCharactersSection extends StatelessWidget {
                   ),
                 ),
                 child: YaruRow(
+                  enabled: true,
                   trailingWidget: const Text('Compose Key'),
                   actionWidget: Text(snapshot.hasData
                       ? model.composeOptionsToStringMap[snapshot.data]!
@@ -43,6 +44,7 @@ class SpecialCharactersSection extends StatelessWidget {
                     child: const _Lv3OptionsDialog(),
                   )),
           child: YaruRow(
+            enabled: true,
             trailingWidget: const Text('Lv3 Key'),
             actionWidget: Text(snapshot.hasData
                 ? model.lv3OptionsToStringMap[snapshot.data]!
