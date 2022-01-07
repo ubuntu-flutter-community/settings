@@ -279,7 +279,7 @@ class _MagnifierPositionOptions extends StatelessWidget {
             children: [
               YaruCheckboxRow(
                 enabled: model.screenPartEnabled,
-                value: model.scrollAtEdges,
+                value: model.scrollAtEdges ?? false,
                 onChanged: (value) => model.setScrollAtEdges(value!),
                 text: 'Magnifier extends outside of screen',
               ),
@@ -373,14 +373,14 @@ class _CrosshairsOptions extends StatelessWidget {
       child: Column(
         children: [
           YaruCheckboxRow(
-            enabled: true,
-            value: model.crossHairs,
+            enabled: model.crossHairs ?? false,
+            value: model.crossHairs ?? false,
             onChanged: (value) => model.setCrossHairs(value!),
             text: 'Visible',
           ),
           YaruCheckboxRow(
-            enabled: true,
-            value: model.crossHairsClip,
+            enabled: model.crossHairsClip ?? false,
+            value: model.crossHairsClip ?? false,
             onChanged: (value) => model.setCrossHairsClip(value!),
             text: 'Overlaps mouse cursor',
           ),
@@ -434,8 +434,8 @@ class _ColorEffectsOptions extends StatelessWidget {
       child: Column(
         children: [
           YaruCheckboxRow(
-            enabled: true,
-            value: model.inverseLightness,
+            enabled: model.inverseLightness ?? false,
+            value: model.inverseLightness ?? false,
             onChanged: (value) => model.setInverseLightness(value!),
             text: 'White on black',
           ),

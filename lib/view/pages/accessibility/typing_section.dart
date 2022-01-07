@@ -221,13 +221,13 @@ class _StickyKeysSettings extends StatelessWidget {
         children: [
           YaruCheckboxRow(
             enabled: model.stickyKeys ?? false,
-            value: model.stickyKeysTwoKey,
+            value: model.stickyKeysTwoKey ?? false,
             onChanged: (value) => model.setStickyKeysTwoKey(value!),
             text: 'Disable if two keys are pressed at the same time',
           ),
           YaruCheckboxRow(
             enabled: model.stickyKeys ?? false,
-            value: model.stickyKeysBeep,
+            value: model.stickyKeysBeep ?? false,
             onChanged: (value) => model.setStickyKeysBeep(value!),
             text: 'Beep when a modifier key is pressed',
           ),
@@ -258,19 +258,19 @@ class _SlowKeysSettings extends StatelessWidget {
           ),
           YaruCheckboxRow(
             enabled: model.slowKeys ?? false,
-            value: model.slowKeysBeepPress,
+            value: model.slowKeysBeepPress ?? false,
             onChanged: (value) => model.setSlowKeysBeepPress(value!),
             text: 'Beep when a key is pressed',
           ),
           YaruCheckboxRow(
             enabled: model.slowKeys ?? false,
-            value: model.slowKeysBeepAccept,
+            value: model.slowKeysBeepAccept ?? false,
             onChanged: (value) => model.setSlowKeysBeepAccept(value!),
             text: 'Beep when a key is accepted',
           ),
           YaruCheckboxRow(
             enabled: model.slowKeys ?? false,
-            value: model.slowKeysBeepReject,
+            value: model.slowKeysBeepReject ?? false,
             onChanged: (value) => model.setSlowKeysBeepReject(value!),
             text: 'Beep when a key is rejected',
           ),
@@ -301,7 +301,7 @@ class _BounceKeysSettings extends StatelessWidget {
           ),
           YaruCheckboxRow(
             enabled: model.bounceKeys ?? false,
-            value: model.bounceKeysBeepReject,
+            value: model.bounceKeysBeepReject ?? false,
             onChanged: (value) => model.setBounceKeysBeepReject(value!),
             text: 'Beep when a key is rejected',
           ),
