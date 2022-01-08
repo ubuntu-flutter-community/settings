@@ -34,49 +34,61 @@ class MultiTaskingModel extends SafeChangeNotifier {
     super.dispose();
   }
 
-  bool get enableHotCorners =>
-      _multiTaskingSettings!.boolValue(_hotCornersKey) ?? false;
+  bool? get enableHotCorners =>
+      _multiTaskingSettings?.boolValue(_hotCornersKey);
 
-  set enableHotCorners(bool enableHotCorners) {
-    _multiTaskingSettings!.setValue(_hotCornersKey, enableHotCorners);
-    notifyListeners();
+  set enableHotCorners(bool? enableHotCorners) {
+    if (enableHotCorners != null) {
+      _multiTaskingSettings?.setValue(_hotCornersKey, enableHotCorners);
+      notifyListeners();
+    }
   }
 
-  bool get edgeTiling => _mutterSettings!.getValue(_edgeTilingKey) ?? false;
+  bool? get edgeTiling => _mutterSettings!.getValue(_edgeTilingKey) ?? false;
 
-  set edgeTiling(bool edgeTiling) {
-    _mutterSettings!.setValue(_edgeTilingKey, edgeTiling);
-    notifyListeners();
+  set edgeTiling(bool? edgeTiling) {
+    if (edgeTiling != null) {
+      _mutterSettings?.setValue(_edgeTilingKey, edgeTiling);
+      notifyListeners();
+    }
   }
 
-  bool get workSpaceOnlyOnPrimary =>
-      _mutterSettings!.getValue(_workspacesOnlyOnPrimaryKey) ?? false;
+  bool? get workSpaceOnlyOnPrimary =>
+      _mutterSettings?.getValue(_workspacesOnlyOnPrimaryKey);
 
-  set workSpaceOnlyOnPrimary(bool value) {
-    _mutterSettings!.setValue(_workspacesOnlyOnPrimaryKey, value);
-    notifyListeners();
+  set workSpaceOnlyOnPrimary(bool? value) {
+    if (value != null) {
+      _mutterSettings?.setValue(_workspacesOnlyOnPrimaryKey, value);
+      notifyListeners();
+    }
   }
 
-  bool get dynamicWorkspaces =>
-      _mutterSettings!.getValue(_dynamicWorkspacesKey) ?? false;
+  bool? get dynamicWorkspaces =>
+      _mutterSettings?.getValue(_dynamicWorkspacesKey);
 
-  set dynamicWorkspaces(bool value) {
-    _mutterSettings!.setValue(_dynamicWorkspacesKey, value);
-    notifyListeners();
+  set dynamicWorkspaces(bool? value) {
+    if (value != null) {
+      _mutterSettings?.setValue(_dynamicWorkspacesKey, value);
+      notifyListeners();
+    }
   }
 
-  int get numWorkspaces => _wmSettings!.getValue(_numWorkspacesKey) ?? 0;
+  int? get numWorkspaces => _wmSettings!.getValue(_numWorkspacesKey);
 
-  set numWorkspaces(int value) {
-    _wmSettings!.setValue(_numWorkspacesKey, value);
-    notifyListeners();
+  set numWorkspaces(int? value) {
+    if (value != null && value > 0) {
+      _wmSettings?.setValue(_numWorkspacesKey, value);
+      notifyListeners();
+    }
   }
 
-  bool get currentWorkspaceOnly =>
-      _appSwitchSettings!.getValue(_currentWorkspaceOnlyKey) ?? false;
+  bool? get currentWorkspaceOnly =>
+      _appSwitchSettings?.getValue(_currentWorkspaceOnlyKey);
 
-  set currentWorkspaceOnly(bool value) {
-    _appSwitchSettings!.setValue(_currentWorkspaceOnlyKey, value);
-    notifyListeners();
+  set currentWorkspaceOnly(bool? value) {
+    if (value != null) {
+      _appSwitchSettings?.setValue(_currentWorkspaceOnlyKey, value);
+      notifyListeners();
+    }
   }
 }
