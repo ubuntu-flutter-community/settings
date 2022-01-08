@@ -19,7 +19,9 @@ class GeneralSection extends StatelessWidget {
           labels: const ['Left', 'Right'],
           actionDescription:
               'Sets the order of physical buttons on mice and touchpads',
-          selectedValues: [!model.leftHanded, model.leftHanded],
+          selectedValues: model.leftHanded != null
+              ? [!model.leftHanded!, model.leftHanded!]
+              : null,
           onPressed: (index) => model.setLeftHanded(index == 1),
         ),
       ],
