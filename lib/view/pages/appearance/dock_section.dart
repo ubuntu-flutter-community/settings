@@ -25,7 +25,7 @@ class DockSection extends StatelessWidget {
                 actionWidget: Radio<bool>(
                     value: true,
                     groupValue: model.extendDock,
-                    onChanged: (value) => model.setExtendDock(value!)),
+                    onChanged: (value) => model.extendDock = value),
                 enabled: model.extendDock != null),
             Padding(
               padding: const EdgeInsets.all(assetPadding),
@@ -45,7 +45,7 @@ class DockSection extends StatelessWidget {
                 actionWidget: Radio<bool>(
                     value: false,
                     groupValue: model.extendDock,
-                    onChanged: (value) => model.setExtendDock(value!)),
+                    onChanged: (value) => model.extendDock = value!),
                 enabled: true),
             Padding(
               padding: const EdgeInsets.all(assetPadding),
@@ -76,7 +76,7 @@ class DockSection extends StatelessWidget {
                   actionDescription: 'The dock hides when windows touch it.',
                   value: model.alwaysShowDock != null &&
                       model.alwaysShowDock == false,
-                  onChanged: (value) => model.setAlwaysShowDock(!value),
+                  onChanged: (value) => model.alwaysShowDock = !value,
                 ),
                 Padding(
                   padding: const EdgeInsets.all(assetPadding),
@@ -96,14 +96,14 @@ class DockSection extends StatelessWidget {
               trailingWidget: const Text('Show Trash'),
               actionDescription: 'Show the trash on the dock',
               value: model.showTrash,
-              onChanged: (value) => model.setShowTrash(value),
+              onChanged: (value) => model.showTrash = value,
             ),
             YaruSwitchRow(
               trailingWidget: const Text('Active App Glow'),
               actionDescription:
                   'Colors active app icons in their primary accent color.',
               value: model.appGlow,
-              onChanged: (value) => model.setAppGlow(value),
+              onChanged: (value) => model.appGlow = value,
             ),
             YaruSliderRow(
               actionLabel: 'Icon Size',
@@ -111,7 +111,7 @@ class DockSection extends StatelessWidget {
               min: 16,
               max: 64,
               defaultValue: 48,
-              onChanged: (value) => model.setMaxIconSize(value),
+              onChanged: (value) => model.maxIconSize = value,
             ),
             YaruRow(
               enabled: model.dockPosition != null,

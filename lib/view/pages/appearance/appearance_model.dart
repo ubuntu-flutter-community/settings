@@ -29,42 +29,52 @@ class AppearanceModel extends ChangeNotifier {
 
   bool? get showTrash => _dashToDockSettings?.boolValue(_showTrashKey);
 
-  void setShowTrash(bool value) {
-    _dashToDockSettings?.setValue(_showTrashKey, value);
-    notifyListeners();
+  set showTrash(bool? value) {
+    if (value != null) {
+      _dashToDockSettings?.setValue(_showTrashKey, value);
+      notifyListeners();
+    }
   }
 
   bool? get alwaysShowDock => _dashToDockSettings?.boolValue(_dockFixedKey);
 
-  void setAlwaysShowDock(bool value) {
-    _dashToDockSettings?.setValue(_dockFixedKey, value);
-    notifyListeners();
+  set alwaysShowDock(bool? value) {
+    if (value != null) {
+      _dashToDockSettings?.setValue(_dockFixedKey, value);
+      notifyListeners();
+    }
   }
 
   bool? get extendDock => _dashToDockSettings?.boolValue(_extendHeightKey);
 
-  void setExtendDock(bool value) {
-    _dashToDockSettings?.setValue(_extendHeightKey, value);
-    notifyListeners();
+  set extendDock(bool? value) {
+    if (value != null) {
+      _dashToDockSettings?.setValue(_extendHeightKey, value);
+      notifyListeners();
+    }
   }
 
   bool? get appGlow => _dashToDockSettings?.boolValue(_backlitItemsKey);
 
-  void setAppGlow(bool value) {
-    _dashToDockSettings?.setValue(_backlitItemsKey, value);
-    notifyListeners();
+  set appGlow(bool? value) {
+    if (value != null) {
+      _dashToDockSettings?.setValue(_backlitItemsKey, value);
+      notifyListeners();
+    }
   }
 
   double? get maxIconSize =>
       _dashToDockSettings?.intValue(_dashMaxIconSizeKey)?.toDouble();
 
-  void setMaxIconSize(double value) {
-    var intValue = value.toInt();
-    if (intValue.isOdd) {
-      intValue -= 1;
+  set maxIconSize(double? value) {
+    if (value != null) {
+      var intValue = value.toInt();
+      if (intValue.isOdd) {
+        intValue -= 1;
+      }
+      _dashToDockSettings?.setValue(_dashMaxIconSizeKey, intValue);
+      notifyListeners();
     }
-    _dashToDockSettings?.setValue(_dashMaxIconSizeKey, intValue);
-    notifyListeners();
   }
 
   static const dockPositions = ['LEFT', 'RIGHT', 'BOTTOM'];
@@ -76,8 +86,10 @@ class AppearanceModel extends ChangeNotifier {
       dockPositions.contains(_realDockPosition) ? _realDockPosition : 'LEFT';
 
   set dockPosition(String? value) {
-    _dashToDockSettings!.setValue(_dockPositionKey, value!);
-    notifyListeners();
+    if (value != null) {
+      _dashToDockSettings!.setValue(_dockPositionKey, value);
+      notifyListeners();
+    }
   }
 
   static const clickActions = [
@@ -94,15 +106,19 @@ class AppearanceModel extends ChangeNotifier {
       : clickActions.first;
 
   set clickAction(String? value) {
-    _dashToDockSettings?.setValue(_clickActionKey, value!);
-    notifyListeners();
+    if (value != null) {
+      _dashToDockSettings?.setValue(_clickActionKey, value);
+      notifyListeners();
+    }
   }
 
   bool? get customThemeShrink =>
       _dashToDockSettings?.getValue(_customThemeShrink);
 
   set customThemeShrink(bool? value) {
-    _dashToDockSettings?.setValue(_customThemeShrink, value);
-    notifyListeners();
+    if (value != null) {
+      _dashToDockSettings?.setValue(_customThemeShrink, value);
+      notifyListeners();
+    }
   }
 }
