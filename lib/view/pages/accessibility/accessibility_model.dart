@@ -380,6 +380,9 @@ class AccessibilityModel extends ChangeNotifier {
     notifyListeners();
   }
 
+  bool get typingAssistAvailable =>
+      stickyKeys != null || slowKeys != null || bounceKeys != null;
+
   bool get _typingAssist =>
       (stickyKeys ?? false) || (slowKeys ?? false) || (bounceKeys ?? false);
 
@@ -501,10 +504,13 @@ class AccessibilityModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  bool get clickAssist =>
+  bool get clickAssistAvailable =>
+      simulatedSecondaryClick != null || dwellClick != null;
+
+  bool get _clickAssist =>
       (simulatedSecondaryClick ?? false) || (dwellClick ?? false);
 
-  String get clickAssistString => clickAssist ? 'On' : 'Off';
+  String get clickAssistString => _clickAssist ? 'On' : 'Off';
 
   bool? get simulatedSecondaryClick =>
       _a11yMouseSettings?.boolValue(_secondaryClickEnabledKey);

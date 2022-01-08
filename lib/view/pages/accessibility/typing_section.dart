@@ -137,6 +137,7 @@ class _TypingAssist extends StatelessWidget {
     final model = Provider.of<AccessibilityModel>(context);
 
     return YaruRow(
+      enabled: model.typingAssistAvailable,
       trailingWidget: const Text('Typing Assist (AccessX)'),
       actionWidget: Row(
         children: [
@@ -219,14 +220,14 @@ class _StickyKeysSettings extends StatelessWidget {
       child: Column(
         children: [
           YaruCheckboxRow(
-            enabled: model.stickyKeys,
-            value: model.stickyKeysTwoKey,
+            enabled: model.stickyKeys ?? false,
+            value: model.stickyKeysTwoKey ?? false,
             onChanged: (value) => model.setStickyKeysTwoKey(value!),
             text: 'Disable if two keys are pressed at the same time',
           ),
           YaruCheckboxRow(
-            enabled: model.stickyKeys,
-            value: model.stickyKeysBeep,
+            enabled: model.stickyKeys ?? false,
+            value: model.stickyKeysBeep ?? false,
             onChanged: (value) => model.setStickyKeysBeep(value!),
             text: 'Beep when a modifier key is pressed',
           ),
@@ -256,20 +257,20 @@ class _SlowKeysSettings extends StatelessWidget {
             onChanged: (value) => model.setSlowKeysDelay(value),
           ),
           YaruCheckboxRow(
-            enabled: model.slowKeys,
-            value: model.slowKeysBeepPress,
+            enabled: model.slowKeys ?? false,
+            value: model.slowKeysBeepPress ?? false,
             onChanged: (value) => model.setSlowKeysBeepPress(value!),
             text: 'Beep when a key is pressed',
           ),
           YaruCheckboxRow(
-            enabled: model.slowKeys,
-            value: model.slowKeysBeepAccept,
+            enabled: model.slowKeys ?? false,
+            value: model.slowKeysBeepAccept ?? false,
             onChanged: (value) => model.setSlowKeysBeepAccept(value!),
             text: 'Beep when a key is accepted',
           ),
           YaruCheckboxRow(
-            enabled: model.slowKeys,
-            value: model.slowKeysBeepReject,
+            enabled: model.slowKeys ?? false,
+            value: model.slowKeysBeepReject ?? false,
             onChanged: (value) => model.setSlowKeysBeepReject(value!),
             text: 'Beep when a key is rejected',
           ),
@@ -299,8 +300,8 @@ class _BounceKeysSettings extends StatelessWidget {
             onChanged: (value) => model.setBounceKeysDelay(value),
           ),
           YaruCheckboxRow(
-            enabled: model.bounceKeys,
-            value: model.bounceKeysBeepReject,
+            enabled: model.bounceKeys ?? false,
+            value: model.bounceKeysBeepReject ?? false,
             onChanged: (value) => model.setBounceKeysBeepReject(value!),
             text: 'Beep when a key is rejected',
           ),

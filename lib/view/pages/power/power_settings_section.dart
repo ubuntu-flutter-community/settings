@@ -69,6 +69,7 @@ class _PowerSettingsSectionState extends State<PowerSettingsSection> {
           onChanged: model.setIdleDim,
         ),
         YaruRow(
+          enabled: model.idleDelay != null,
           trailingWidget: const Text('Blank Screen'),
           actionWidget: DurationDropdownButton(
             value: model.idleDelay,
@@ -77,6 +78,7 @@ class _PowerSettingsSectionState extends State<PowerSettingsSection> {
           ),
         ),
         YaruRow(
+          enabled: true,
           trailingWidget: const Text('Automatic Suspend'),
           description: model.automaticSuspend.localize(context),
           actionWidget: SizedBox(

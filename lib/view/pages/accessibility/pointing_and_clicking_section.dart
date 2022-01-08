@@ -45,6 +45,7 @@ class _ClickAssist extends StatelessWidget {
   Widget build(BuildContext context) {
     final model = Provider.of<AccessibilityModel>(context);
     return YaruRow(
+      enabled: model.clickAssistAvailable,
       trailingWidget: const Text('Click Assist'),
       actionWidget: Row(
         children: [

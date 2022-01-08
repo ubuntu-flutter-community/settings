@@ -86,12 +86,8 @@ class MultiTaskingPage extends StatelessWidget {
             onChanged: (bool? value) => model.dynamicWorkspaces = value!,
           ),
           YaruRow(
-              trailingWidget: Text(
-                'Number of workspaces',
-                style: model.dynamicWorkspaces
-                    ? TextStyle(color: Theme.of(context).disabledColor)
-                    : null,
-              ),
+              enabled: !model.dynamicWorkspaces,
+              trailingWidget: const Text('Number of workspaces'),
               actionWidget: SizedBox(
                 height: 40,
                 width: 150,
