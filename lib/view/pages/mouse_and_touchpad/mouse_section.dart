@@ -26,7 +26,7 @@ class MouseSection extends StatelessWidget {
           trailingWidget: const Text('Natural Scrolling'),
           actionDescription: 'Scrolling moves the content, not the view',
           value: model.mouseNaturalScroll,
-          onChanged: (value) => model.setMouseNaturalScroll(value),
+          onChanged: model.setMouseNaturalScroll,
         ),
       ],
     );

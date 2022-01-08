@@ -36,7 +36,8 @@ class MultiTaskingPage extends StatelessWidget {
                 padding: const EdgeInsets.all(20.0),
                 child: SvgPicture.asset(
                   'assets/images/hot-corner.svg',
-                  color: model.enableHotCorners
+                  color: (model.enableHotCorners != null &&
+                          model.enableHotCorners == true)
                       ? Theme.of(context).primaryColor.withOpacity(0.1)
                       : Theme.of(context).backgroundColor,
                   colorBlendMode: BlendMode.color,
@@ -58,7 +59,7 @@ class MultiTaskingPage extends StatelessWidget {
                 padding: const EdgeInsets.all(20.0),
                 child: SvgPicture.asset(
                   'assets/images/active-screen-edges.svg',
-                  color: model.edgeTiling
+                  color: model.edgeTiling != null && model.edgeTiling == true
                       ? Theme.of(context).primaryColor.withOpacity(0.1)
                       : Theme.of(context).backgroundColor,
                   colorBlendMode: BlendMode.color,
@@ -69,59 +70,81 @@ class MultiTaskingPage extends StatelessWidget {
           )
         ]),
         YaruSection(headline: 'Workspaces', children: [
-          RadioListTile(
+          RadioListTile<bool>(
             shape:
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
             title: const Text('Dynamic Workspaces'),
             value: true,
             groupValue: model.dynamicWorkspaces,
-            onChanged: (bool? value) => model.dynamicWorkspaces = value!,
+            onChanged: (value) => model.dynamicWorkspaces = value,
           ),
-          RadioListTile(
+          RadioListTile<bool>(
             shape:
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
             title: const Text('Fixed number of workspaces'),
             value: false,
             groupValue: model.dynamicWorkspaces,
-            onChanged: (bool? value) => model.dynamicWorkspaces = value!,
+            onChanged: (value) => model.dynamicWorkspaces = value!,
           ),
           YaruRow(
-              enabled: !model.dynamicWorkspaces,
+              enabled: model.dynamicWorkspaces != null &&
+                  model.dynamicWorkspaces == false,
               trailingWidget: const Text('Number of workspaces'),
               actionWidget: SizedBox(
                 height: 40,
                 width: 150,
                 child: SpinBox(
+                  min: 1,
                   decoration:
                       const InputDecoration(border: UnderlineInputBorder()),
-                  enabled: !model.dynamicWorkspaces,
-                  value: model.numWorkspaces.toDouble(),
+                  enabled: model.dynamicWorkspaces != null &&
+                      model.dynamicWorkspaces == false,
+                  value: model.numWorkspaces != null
+                      ? model.numWorkspaces!.toDouble()
+                      : 0,
                   onChanged: (value) => model.numWorkspaces = value.toInt(),
                 ),
               ))
         ]),
         YaruSection(headline: 'Multi-Monitor', children: [
-          YaruSwitchRow(
-            trailingWidget: const Text('Workspaces on primary display only'),
-            value: model.workSpaceOnlyOnPrimary,
-            onChanged: (value) => model.workSpaceOnlyOnPrimary = value,
-          ),
+          YaruRow(
+              trailingWidget: const Text('Workspaces span all displays'),
+              description:
+                  'All displays are included in one workspace and follow when you switch workspaces.',
+              actionWidget: Radio(
+                  value: false,
+                  groupValue: model.workSpaceOnlyOnPrimary,
+                  onChanged: (bool? value) =>
+                      model.workSpaceOnlyOnPrimary = value),
+              enabled: model.workSpaceOnlyOnPrimary != null),
           Padding(
             padding: const EdgeInsets.all(10.0),
             child: SvgPicture.asset(
-              'assets/images/workspaces-primary-display.svg',
-              color: model.workSpaceOnlyOnPrimary
+              'assets/images/workspaces-span-displays.svg',
+              color: !(model.workSpaceOnlyOnPrimary != null &&
+                      model.workSpaceOnlyOnPrimary == true)
                   ? Theme.of(context).primaryColor.withOpacity(0.1)
                   : Theme.of(context).backgroundColor,
               colorBlendMode: BlendMode.color,
               height: 60,
             ),
           ),
+          YaruRow(
+              trailingWidget: const Text('Workspaces only on primary display'),
+              description:
+                  'Only your primary display is included in workspace switching.',
+              actionWidget: Radio(
+                  value: true,
+                  groupValue: model.workSpaceOnlyOnPrimary,
+                  onChanged: (bool? value) =>
+                      model.workSpaceOnlyOnPrimary = value),
+              enabled: model.workSpaceOnlyOnPrimary != null),
           Padding(
             padding: const EdgeInsets.all(10.0),
             child: SvgPicture.asset(
-              'assets/images/workspaces-span-displays.svg',
-              color: !model.workSpaceOnlyOnPrimary
+              'assets/images/workspaces-primary-display.svg',
+              color: !(model.workSpaceOnlyOnPrimary != null &&
+                      model.workSpaceOnlyOnPrimary == false)
                   ? Theme.of(context).primaryColor.withOpacity(0.1)
                   : Theme.of(context).backgroundColor,
               colorBlendMode: BlendMode.color,
