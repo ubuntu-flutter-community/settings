@@ -112,6 +112,7 @@ class AppearanceModel extends ChangeNotifier {
     }
   }
 
+  // Currently this option is unstable and thus not exposed to the UI
   bool? get customThemeShrink =>
       _dashToDockSettings?.getValue(_customThemeShrink);
 

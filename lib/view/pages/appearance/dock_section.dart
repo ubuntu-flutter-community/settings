@@ -58,11 +58,6 @@ class DockSection extends StatelessWidget {
                 height: assetHeight,
               ),
             ),
-            YaruSwitchRow(
-                trailingWidget: const Text('Compact look'),
-                actionDescription: 'Slims the dock to use less space.',
-                value: model.customThemeShrink ?? false,
-                onChanged: (value) => model.customThemeShrink = value)
           ],
         ),
         YaruSection(
