@@ -26,12 +26,12 @@ class DockSection extends StatelessWidget {
                     value: true,
                     groupValue: model.extendDock,
                     onChanged: (value) => model.setExtendDock(value!)),
-                enabled: true),
+                enabled: model.extendDock != null),
             Padding(
               padding: const EdgeInsets.all(assetPadding),
               child: SvgPicture.asset(
                 'assets/images/panel-mode.svg',
-                color: model.extendDock
+                color: (model.extendDock != null && model.extendDock == true)
                     ? Theme.of(context).primaryColor.withOpacity(0.1)
                     : Theme.of(context).backgroundColor,
                 colorBlendMode: BlendMode.color,
@@ -51,7 +51,7 @@ class DockSection extends StatelessWidget {
               padding: const EdgeInsets.all(assetPadding),
               child: SvgPicture.asset(
                 'assets/images/dock-mode.svg',
-                color: !model.extendDock
+                color: (model.extendDock != null && !model.extendDock!)
                     ? Theme.of(context).primaryColor.withOpacity(0.1)
                     : Theme.of(context).backgroundColor,
                 colorBlendMode: BlendMode.color,
@@ -61,7 +61,7 @@ class DockSection extends StatelessWidget {
             YaruSwitchRow(
                 trailingWidget: const Text('Compact look'),
                 actionDescription: 'Slims the dock to use less space.',
-                value: model.customThemeShrink,
+                value: model.customThemeShrink ?? false,
                 onChanged: (value) => model.customThemeShrink = value)
           ],
         ),
@@ -71,18 +71,21 @@ class DockSection extends StatelessWidget {
             Column(
               children: [
                 YaruSwitchRow(
+                  enabled: model.alwaysShowDock != null,
                   trailingWidget: const Text('Auto-hide the Dock'),
                   actionDescription: 'The dock hides when windows touch it.',
-                  value: !model.alwaysShowDock,
+                  value: model.alwaysShowDock != null &&
+                      model.alwaysShowDock == false,
                   onChanged: (value) => model.setAlwaysShowDock(!value),
                 ),
                 Padding(
                   padding: const EdgeInsets.all(assetPadding),
                   child: SvgPicture.asset(
                     'assets/images/auto-hide.svg',
-                    color: !model.alwaysShowDock
-                        ? Theme.of(context).primaryColor.withOpacity(0.1)
-                        : Theme.of(context).backgroundColor,
+                    color:
+                        (model.alwaysShowDock != null && !model.alwaysShowDock!)
+                            ? Theme.of(context).primaryColor.withOpacity(0.1)
+                            : Theme.of(context).backgroundColor,
                     colorBlendMode: BlendMode.color,
                     height: assetHeight,
                   ),
@@ -104,7 +107,7 @@ class DockSection extends StatelessWidget {
             ),
             YaruSliderRow(
               actionLabel: 'Icon Size',
-              value: model.maxIconSize,
+              value: model.maxIconSize ?? 48.0,
               min: 16,
               max: 64,
               defaultValue: 48,

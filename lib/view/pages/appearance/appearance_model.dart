@@ -27,38 +27,36 @@ class AppearanceModel extends ChangeNotifier {
 
   // Dock section
 
-  bool get showTrash => _dashToDockSettings?.boolValue(_showTrashKey) ?? false;
+  bool? get showTrash => _dashToDockSettings?.boolValue(_showTrashKey);
 
   void setShowTrash(bool value) {
     _dashToDockSettings?.setValue(_showTrashKey, value);
     notifyListeners();
   }
 
-  bool get alwaysShowDock =>
-      _dashToDockSettings?.boolValue(_dockFixedKey) ?? true;
+  bool? get alwaysShowDock => _dashToDockSettings?.boolValue(_dockFixedKey);
 
   void setAlwaysShowDock(bool value) {
     _dashToDockSettings?.setValue(_dockFixedKey, value);
     notifyListeners();
   }
 
-  bool get extendDock =>
-      _dashToDockSettings?.boolValue(_extendHeightKey) ?? true;
+  bool? get extendDock => _dashToDockSettings?.boolValue(_extendHeightKey);
 
   void setExtendDock(bool value) {
     _dashToDockSettings?.setValue(_extendHeightKey, value);
     notifyListeners();
   }
 
-  bool get appGlow => _dashToDockSettings?.boolValue(_backlitItemsKey) ?? false;
+  bool? get appGlow => _dashToDockSettings?.boolValue(_backlitItemsKey);
 
   void setAppGlow(bool value) {
     _dashToDockSettings?.setValue(_backlitItemsKey, value);
     notifyListeners();
   }
 
-  double get maxIconSize =>
-      _dashToDockSettings?.intValue(_dashMaxIconSizeKey)?.toDouble() ?? 48.0;
+  double? get maxIconSize =>
+      _dashToDockSettings?.intValue(_dashMaxIconSizeKey)?.toDouble();
 
   void setMaxIconSize(double value) {
     var intValue = value.toInt();
@@ -100,10 +98,10 @@ class AppearanceModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  bool get customThemeShrink =>
-      _dashToDockSettings?.getValue(_customThemeShrink) ?? true;
+  bool? get customThemeShrink =>
+      _dashToDockSettings?.getValue(_customThemeShrink);
 
-  set customThemeShrink(bool value) {
+  set customThemeShrink(bool? value) {
     _dashToDockSettings?.setValue(_customThemeShrink, value);
     notifyListeners();
   }
