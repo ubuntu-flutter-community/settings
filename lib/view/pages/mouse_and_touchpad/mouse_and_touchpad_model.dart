@@ -33,8 +33,7 @@ class MouseAndTouchpadModel extends ChangeNotifier {
 
   // Global section
 
-  bool get leftHanded =>
-      _peripheralsMouseSettings?.boolValue(_leftHanded) ?? false;
+  bool? get leftHanded => _peripheralsMouseSettings?.boolValue(_leftHanded);
 
   void setLeftHanded(bool value) {
     _peripheralsMouseSettings?.setValue(_leftHanded, value);
