@@ -107,29 +107,44 @@ class MultiTaskingPage extends StatelessWidget {
               ))
         ]),
         YaruSection(headline: 'Multi-Monitor', children: [
-          YaruSwitchRow(
-            trailingWidget: const Text('Workspaces on primary display only'),
-            value: model.workSpaceOnlyOnPrimary,
-            onChanged: (value) => model.workSpaceOnlyOnPrimary = value,
-          ),
-          Padding(
-            padding: const EdgeInsets.all(10.0),
-            child: SvgPicture.asset(
-              'assets/images/workspaces-primary-display.svg',
-              color: model.workSpaceOnlyOnPrimary != null &&
-                      model.workSpaceOnlyOnPrimary == true
-                  ? Theme.of(context).primaryColor.withOpacity(0.1)
-                  : Theme.of(context).backgroundColor,
-              colorBlendMode: BlendMode.color,
-              height: 60,
-            ),
-          ),
+          YaruRow(
+              trailingWidget: const Text('Workspaces span all displays'),
+              description:
+                  'All displays are included in one workspace and follow when you switch workspaces.',
+              actionWidget: Radio(
+                  value: false,
+                  groupValue: model.workSpaceOnlyOnPrimary,
+                  onChanged: (bool? value) =>
+                      model.workSpaceOnlyOnPrimary = value),
+              enabled: model.workSpaceOnlyOnPrimary != null),
           Padding(
             padding: const EdgeInsets.all(10.0),
             child: SvgPicture.asset(
               'assets/images/workspaces-span-displays.svg',
               color: !(model.workSpaceOnlyOnPrimary != null &&
                       model.workSpaceOnlyOnPrimary == true)
+                  ? Theme.of(context).primaryColor.withOpacity(0.1)
+                  : Theme.of(context).backgroundColor,
+              colorBlendMode: BlendMode.color,
+              height: 60,
+            ),
+          ),
+          YaruRow(
+              trailingWidget: const Text('Workspaces only on primary display'),
+              description:
+                  'Only your primary display is included in workspace switching.',
+              actionWidget: Radio(
+                  value: true,
+                  groupValue: model.workSpaceOnlyOnPrimary,
+                  onChanged: (bool? value) =>
+                      model.workSpaceOnlyOnPrimary = value),
+              enabled: model.workSpaceOnlyOnPrimary != null),
+          Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: SvgPicture.asset(
+              'assets/images/workspaces-primary-display.svg',
+              color: !(model.workSpaceOnlyOnPrimary != null &&
+                      model.workSpaceOnlyOnPrimary == false)
                   ? Theme.of(context).primaryColor.withOpacity(0.1)
                   : Theme.of(context).backgroundColor,
               colorBlendMode: BlendMode.color,
