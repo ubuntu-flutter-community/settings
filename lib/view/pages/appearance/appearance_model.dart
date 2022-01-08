@@ -10,6 +10,7 @@ class AppearanceModel extends ChangeNotifier {
   static const _dashMaxIconSizeKey = 'dash-max-icon-size';
   static const _dockPositionKey = 'dock-position';
   static const _clickActionKey = 'click-action';
+  static const _customThemeShrink = 'custom-theme-shrink';
 
   AppearanceModel(SettingsService service)
       : _dashToDockSettings = service.lookup(schemaDashToDock) {
@@ -96,6 +97,14 @@ class AppearanceModel extends ChangeNotifier {
 
   set clickAction(String? value) {
     _dashToDockSettings?.setValue(_clickActionKey, value!);
+    notifyListeners();
+  }
+
+  bool get customThemeShrink =>
+      _dashToDockSettings?.getValue(_customThemeShrink) ?? true;
+
+  set customThemeShrink(bool value) {
+    _dashToDockSettings?.setValue(_customThemeShrink, value);
     notifyListeners();
   }
 }
