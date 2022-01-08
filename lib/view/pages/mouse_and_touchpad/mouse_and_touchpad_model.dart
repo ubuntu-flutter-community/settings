@@ -42,16 +42,16 @@ class MouseAndTouchpadModel extends ChangeNotifier {
 
   // Mouse section
 
-  double get mouseSpeed =>
-      _peripheralsMouseSettings?.doubleValue(_mouseSpeedKey) ?? 0.0;
+  double? get mouseSpeed =>
+      _peripheralsMouseSettings?.doubleValue(_mouseSpeedKey);
 
   void setMouseSpeed(double value) {
     _peripheralsMouseSettings?.setValue(_mouseSpeedKey, value);
     notifyListeners();
   }
 
-  bool get mouseNaturalScroll =>
-      _peripheralsMouseSettings?.boolValue(_mouseNaturalScrollKey) ?? false;
+  bool? get mouseNaturalScroll =>
+      _peripheralsMouseSettings?.boolValue(_mouseNaturalScrollKey);
 
   void setMouseNaturalScroll(bool value) {
     _peripheralsMouseSettings?.setValue(_mouseNaturalScrollKey, value);
