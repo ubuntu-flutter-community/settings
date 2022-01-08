@@ -16,40 +16,51 @@ class DockSection extends StatelessWidget {
     return Column(
       children: [
         YaruSection(
-          headline: 'Dock shape',
+          headline: 'Dock appearance',
           children: [
             YaruRow(
-                trailingWidget: const Text('Panel'),
-                actionWidget: Radio<bool>(
-                    value: false,
-                    groupValue: model.extendDock,
-                    onChanged: (value) => model.setExtendDock(value!)),
-                enabled: true),
-            SvgPicture.asset(
-              'assets/images/panel-mode.svg',
-              color: !model.extendDock
-                  ? Theme.of(context).primaryColor.withOpacity(0.1)
-                  : Theme.of(context).backgroundColor,
-              colorBlendMode: BlendMode.color,
-              height: assetHeight,
-            ),
-            YaruRow(
-                trailingWidget: const Text('Dock'),
+                trailingWidget: const Text('Panel mode'),
+                description:
+                    'Extends the height of the dock to become a panel.',
                 actionWidget: Radio<bool>(
                     value: true,
                     groupValue: model.extendDock,
                     onChanged: (value) => model.setExtendDock(value!)),
                 enabled: true),
-            SvgPicture.asset(
-              'assets/images/dock-mode.svg',
-              color: model.extendDock
-                  ? Theme.of(context).primaryColor.withOpacity(0.1)
-                  : Theme.of(context).backgroundColor,
-              colorBlendMode: BlendMode.color,
-              height: assetHeight,
+            Padding(
+              padding: const EdgeInsets.all(assetPadding),
+              child: SvgPicture.asset(
+                'assets/images/panel-mode.svg',
+                color: model.extendDock
+                    ? Theme.of(context).primaryColor.withOpacity(0.1)
+                    : Theme.of(context).backgroundColor,
+                colorBlendMode: BlendMode.color,
+                height: assetHeight,
+              ),
+            ),
+            YaruRow(
+                trailingWidget: const Text('Dock mode'),
+                description:
+                    'Displays the dock in a centered, free-floating mode.',
+                actionWidget: Radio<bool>(
+                    value: false,
+                    groupValue: model.extendDock,
+                    onChanged: (value) => model.setExtendDock(value!)),
+                enabled: true),
+            Padding(
+              padding: const EdgeInsets.all(assetPadding),
+              child: SvgPicture.asset(
+                'assets/images/dock-mode.svg',
+                color: !model.extendDock
+                    ? Theme.of(context).primaryColor.withOpacity(0.1)
+                    : Theme.of(context).backgroundColor,
+                colorBlendMode: BlendMode.color,
+                height: assetHeight,
+              ),
             ),
             YaruSwitchRow(
                 trailingWidget: const Text('Compact look'),
+                actionDescription: 'Slims the dock to use less space.',
                 value: model.customThemeShrink,
                 onChanged: (value) => model.customThemeShrink = value)
           ],
@@ -61,6 +72,7 @@ class DockSection extends StatelessWidget {
               children: [
                 YaruSwitchRow(
                   trailingWidget: const Text('Auto-hide the Dock'),
+                  actionDescription: 'The dock hides when windows touch it.',
                   value: !model.alwaysShowDock,
                   onChanged: (value) => model.setAlwaysShowDock(!value),
                 ),
@@ -79,11 +91,14 @@ class DockSection extends StatelessWidget {
             ),
             YaruSwitchRow(
               trailingWidget: const Text('Show Trash'),
+              actionDescription: 'Show the trash on the dock',
               value: model.showTrash,
               onChanged: (value) => model.setShowTrash(value),
             ),
             YaruSwitchRow(
               trailingWidget: const Text('Active App Glow'),
+              actionDescription:
+                  'Colors active app icons in their primary accent color.',
               value: model.appGlow,
               onChanged: (value) => model.setAppGlow(value),
             ),
@@ -110,6 +125,8 @@ class DockSection extends StatelessWidget {
             ),
             YaruRow(
               enabled: model.clickAction != null,
+              description:
+                  'Defines what happens when you click on active app icons.',
               trailingWidget: const Text('Click Action'),
               actionWidget: DropdownButton<String>(
                 onChanged: (value) => model.clickAction = value,
