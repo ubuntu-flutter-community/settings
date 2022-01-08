@@ -60,51 +60,48 @@ class MouseAndTouchpadModel extends ChangeNotifier {
 
   // Touchpad section
 
-  double get touchpadSpeed =>
-      _peripheralsTouchpadSettings?.doubleValue(_touchpadSpeedKey) ?? 0.0;
+  double? get touchpadSpeed =>
+      _peripheralsTouchpadSettings?.doubleValue(_touchpadSpeedKey);
 
   void setTouchpadSpeed(double value) {
     _peripheralsTouchpadSettings?.setValue(_touchpadSpeedKey, value);
     notifyListeners();
   }
 
-  bool get touchpadNaturalScroll =>
-      _peripheralsTouchpadSettings?.boolValue(_touchpadNaturalScrollKey) ??
-      true;
+  bool? get touchpadNaturalScroll =>
+      _peripheralsTouchpadSettings?.boolValue(_touchpadNaturalScrollKey);
 
   void setTouchpadNaturalScroll(bool value) {
     _peripheralsTouchpadSettings?.setValue(_touchpadNaturalScrollKey, value);
     notifyListeners();
   }
 
-  bool get touchpadTapToClick =>
-      _peripheralsTouchpadSettings?.boolValue(_touchpadTapToClickKey) ?? true;
+  bool? get touchpadTapToClick =>
+      _peripheralsTouchpadSettings?.boolValue(_touchpadTapToClickKey);
 
   void setTouchpadTapToClick(bool value) {
     _peripheralsTouchpadSettings?.setValue(_touchpadTapToClickKey, value);
     notifyListeners();
   }
 
-  bool get touchpadDisableWhileTyping =>
-      _peripheralsTouchpadSettings?.boolValue(_touchpadDisableWhileTyping) ??
-      false;
+  bool? get touchpadDisableWhileTyping =>
+      _peripheralsTouchpadSettings?.boolValue(_touchpadDisableWhileTyping);
 
   void setTouchpadDisableWhileTyping(bool value) {
     _peripheralsTouchpadSettings?.setValue(_touchpadDisableWhileTyping, value);
     notifyListeners();
   }
 
-  bool get twoFingerScrolling =>
-      _peripheralsTouchpadSettings?.boolValue(_touchpadTwoFingerScrolling) ??
-      true;
+  bool? get twoFingerScrolling =>
+      _peripheralsTouchpadSettings?.boolValue(_touchpadTwoFingerScrolling);
 
   void setTwoFingerScrolling(bool value) {
     _peripheralsTouchpadSettings?.setValue(_touchpadTwoFingerScrolling, value);
     notifyListeners();
   }
 
-  bool get edgeScrolling =>
-      _peripheralsTouchpadSettings?.boolValue(_touchpadEdgeScrolling) ?? false;
+  bool? get edgeScrolling =>
+      _peripheralsTouchpadSettings?.boolValue(_touchpadEdgeScrolling);
 
   void setEdgeScrolling(bool value) {
     _peripheralsTouchpadSettings?.setValue(_touchpadEdgeScrolling, value);
