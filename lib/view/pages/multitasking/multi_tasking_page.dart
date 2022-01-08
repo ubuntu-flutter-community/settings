@@ -35,7 +35,7 @@ class MultiTaskingPage extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.all(20.0),
                 child: SvgPicture.asset(
-                  'assets/images/hot-corner.svg',
+                  'assets/images/multitasking/hot-corner-panel-mode/hot-corner-panel-left.svg',
                   color: (model.enableHotCorners != null &&
                           model.enableHotCorners == true)
                       ? Theme.of(context).primaryColor.withOpacity(0.1)
@@ -58,7 +58,7 @@ class MultiTaskingPage extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.all(20.0),
                 child: SvgPicture.asset(
-                  'assets/images/active-screen-edges.svg',
+                  'assets/images/multitasking/active-screen-edges-panel-mode/active-screen-edges-panel-left.svg',
                   color: model.edgeTiling != null && model.edgeTiling == true
                       ? Theme.of(context).primaryColor.withOpacity(0.1)
                       : Theme.of(context).backgroundColor,
@@ -120,7 +120,7 @@ class MultiTaskingPage extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.all(10.0),
             child: SvgPicture.asset(
-              'assets/images/workspaces-span-displays.svg',
+              'assets/images/multitasking/workspaces-panel-mode/workspaces-span-displays-panel-left.svg',
               color: !(model.workSpaceOnlyOnPrimary != null &&
                       model.workSpaceOnlyOnPrimary == true)
                   ? Theme.of(context).primaryColor.withOpacity(0.1)
@@ -142,7 +142,7 @@ class MultiTaskingPage extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.all(10.0),
             child: SvgPicture.asset(
-              'assets/images/workspaces-primary-display.svg',
+              'assets/images/multitasking/workspaces-panel-mode/workspaces-primary-display-panel-left.svg',
               color: !(model.workSpaceOnlyOnPrimary != null &&
                       model.workSpaceOnlyOnPrimary == false)
                   ? Theme.of(context).primaryColor.withOpacity(0.1)

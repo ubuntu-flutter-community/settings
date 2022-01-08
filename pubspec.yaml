@@ -64,4 +64,14 @@ flutter:
   uses-material-design: true
 
   assets:
-    - assets/
+    - assets/images/multitasking/active-screen-edges-panel-mode/
+    - assets/images/multitasking/active-screen-edges-dock-mode/
+    - assets/images/multitasking/hot-corner-panel-mode/
+    - assets/images/multitasking/hot-corner-dock-mode/
+    - assets/images/multitasking/workspaces-panel-mode/
+    - assets/images/multitasking/workspaces-dock-mode/
+    - assets/images/cursor/
+    - assets/images/appearance/panel-mode/
+    - assets/images/appearance/dock-mode/
+    - assets/images/appearance/auto-hide-panel-mode/
+    - assets/images/appearance/auto-hide-dock-mode/
