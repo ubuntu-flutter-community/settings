@@ -122,4 +122,98 @@ class AppearanceModel extends ChangeNotifier {
       notifyListeners();
     }
   }
+
+  String getAutoHideAsset() {
+    final _extendDock = extendDock ?? true;
+    if (_extendDock == false) {
+      if (dockPosition == 'RIGHT') {
+        return 'assets/images/appearance/auto-hide-dock-mode/auto-hide-dock-right.svg';
+      }
+      if (dockPosition == 'BOTTOM') {
+        return 'assets/images/appearance/auto-hide-dock-mode/auto-hide-dock-bottom.svg';
+      } else {
+        return 'assets/images/appearance/auto-hide-dock-mode/auto-hide-dock-left.svg';
+      }
+    }
+    if (dockPosition == 'RIGHT') {
+      return 'assets/images/appearance/auto-hide-panel-mode/auto-hide-panel-right.svg';
+    }
+    if (dockPosition == 'BOTTOM') {
+      return 'assets/images/appearance/auto-hide-panel-mode/auto-hide-panel-bottom.svg';
+    }
+    return 'assets/images/appearance/auto-hide-panel-mode/auto-hide-panel-left.svg';
+  }
+
+  String getPanelModeAsset() {
+    if (dockPosition == 'RIGHT') {
+      return 'assets/images/appearance/panel-mode/panel-mode-right.svg';
+    }
+    if (dockPosition == 'BOTTOM') {
+      return 'assets/images/appearance/panel-mode/panel-mode-bottom.svg';
+    } else {
+      return 'assets/images/appearance/panel-mode/panel-mode-left.svg';
+    }
+  }
+
+  String getDockModeAsset() {
+    if (dockPosition == 'RIGHT') {
+      return 'assets/images/appearance/dock-mode/dock-mode-right.svg';
+    }
+    if (dockPosition == 'BOTTOM') {
+      return 'assets/images/appearance/dock-mode/dock-mode-bottom.svg';
+    } else {
+      return 'assets/images/appearance/dock-mode/dock-mode-left.svg';
+    }
+  }
+
+  String getDockPositionAsset() {
+    final _extendDock = extendDock ?? true;
+    if (!_extendDock) {
+      return getDockModeAsset();
+    }
+    return getPanelModeAsset();
+  }
+
+  DockPosition getDockPosition() {
+    if (dockPosition == 'RIGHT') {
+      return DockPosition.right;
+    }
+    if (dockPosition == 'BOTTOM') {
+      return DockPosition.bottom;
+    } else {
+      return DockPosition.left;
+    }
+  }
+
+  String getRightSideAsset() {
+    final _extendDock = extendDock ?? true;
+    if (!_extendDock) {
+      return 'assets/images/appearance/panel-mode/panel-mode-right.svg';
+    }
+    return 'assets/images/appearance/dock-mode/dock-mode-right.svg';
+  }
+
+  String getLeftSideAsset() {
+    final _extendDock = extendDock ?? true;
+    if (!_extendDock) {
+      return 'assets/images/appearance/panel-mode/panel-mode-left.svg';
+    }
+    return 'assets/images/appearance/dock-mode/dock-mode-left.svg';
+  }
+
+  String getBottomAsset() {
+    final _extendDock = extendDock ?? true;
+    if (!_extendDock) {
+      return 'assets/images/appearance/panel-mode/panel-mode-bottom.svg';
+    }
+    return 'assets/images/appearance/dock-mode/dock-mode-bottom.svg';
+  }
+
+  void setDockPosition(DockPosition dockPosition) {
+    _dashToDockSettings?.setValue(_dockPositionKey,
+        dockPosition.toString().replaceAll('DockPosition.', '').toUpperCase());
+    notifyListeners();
+  }
 }
+
+enum DockPosition { left, bottom, right }
