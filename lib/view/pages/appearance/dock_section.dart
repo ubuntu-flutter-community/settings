@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 import 'package:settings/view/pages/appearance/appearance_model.dart';
+import 'package:settings/view/selectable_svg_image.dart';
 import 'package:yaru_widgets/yaru_widgets.dart';
 
 class DockSection extends StatelessWidget {
@@ -60,6 +61,61 @@ class DockSection extends StatelessWidget {
             ),
           ],
         ),
+        YaruSection(headline: 'Dock Position', children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: Text('Left'),
+                  ),
+                  SelectableSvgImage(
+                    padding: 8.0,
+                    path: model.getLeftSideAsset(),
+                    selected: model.getDockPosition() == DockPosition.left,
+                    height: assetHeight,
+                    onTap: () => model.setDockPosition(DockPosition.left),
+                  ),
+                ],
+              ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: Text('Right'),
+                  ),
+                  SelectableSvgImage(
+                    padding: 8.0,
+                    path: model.getRightSideAsset(),
+                    selected: model.getDockPosition() == DockPosition.right,
+                    height: assetHeight,
+                    onTap: () => model.setDockPosition(DockPosition.right),
+                  ),
+                ],
+              ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: Text('Bottom'),
+                  ),
+                  SelectableSvgImage(
+                    padding: 8.0,
+                    path: model.getBottomAsset(),
+                    selected: model.getDockPosition() == DockPosition.bottom,
+                    height: assetHeight,
+                    onTap: () => model.setDockPosition(DockPosition.bottom),
+                  ),
+                ],
+              ),
+            ],
+          )
+        ]),
         YaruSection(
           headline: 'Dock options',
           children: [
@@ -126,66 +182,6 @@ class DockSection extends StatelessWidget {
             ),
           ],
         ),
-        YaruSection(headline: 'Dock Position', children: [
-          YaruRow(
-              trailingWidget: const Text('Left'),
-              description: 'Your dock appears on the left side of your screen.',
-              actionWidget: Radio<DockPosition>(
-                  value: DockPosition.left,
-                  groupValue: model.getDockPosition(),
-                  onChanged: (value) => model.setDockPosition(value!)),
-              enabled: model.extendDock != null),
-          Padding(
-            padding: const EdgeInsets.all(assetPadding),
-            child: SvgPicture.asset(
-              model.getLeftSideAsset(),
-              color: model.getDockPosition() == DockPosition.left
-                  ? Theme.of(context).primaryColor.withOpacity(0.1)
-                  : Theme.of(context).backgroundColor,
-              colorBlendMode: BlendMode.color,
-              height: assetHeight,
-            ),
-          ),
-          YaruRow(
-              trailingWidget: const Text('Right'),
-              description:
-                  'Your dock appears on the right side of your screen.',
-              actionWidget: Radio<DockPosition>(
-                  value: DockPosition.bottom,
-                  groupValue: model.getDockPosition(),
-                  onChanged: (value) => model.setDockPosition(value!)),
-              enabled: model.extendDock != null),
-          Padding(
-            padding: const EdgeInsets.all(assetPadding),
-            child: SvgPicture.asset(
-              model.getRightSideAsset(),
-              color: model.getDockPosition() == DockPosition.bottom
-                  ? Theme.of(context).primaryColor.withOpacity(0.1)
-                  : Theme.of(context).backgroundColor,
-              colorBlendMode: BlendMode.color,
-              height: assetHeight,
-            ),
-          ),
-          YaruRow(
-              trailingWidget: const Text('Bottom'),
-              description: 'Your dock appears on bottom side of your screen.',
-              actionWidget: Radio<DockPosition>(
-                  value: DockPosition.right,
-                  groupValue: model.getDockPosition(),
-                  onChanged: (value) => model.setDockPosition(value!)),
-              enabled: model.extendDock != null),
-          Padding(
-            padding: const EdgeInsets.all(assetPadding),
-            child: SvgPicture.asset(
-              model.getBottomAsset(),
-              color: model.getDockPosition() == DockPosition.right
-                  ? Theme.of(context).primaryColor.withOpacity(0.1)
-                  : Theme.of(context).backgroundColor,
-              colorBlendMode: BlendMode.color,
-              height: assetHeight,
-            ),
-          ),
-        ])
       ],
     );
   }
