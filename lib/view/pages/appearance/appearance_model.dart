@@ -165,4 +165,31 @@ class AppearanceModel extends ChangeNotifier {
       return 'assets/images/appearance/dock-mode/dock-mode-left.svg';
     }
   }
+
+  String getDockPositionAsset() {
+    final _extendDock = extendDock ?? true;
+    if (!_extendDock) {
+      return getDockModeAsset();
+    }
+    return getPanelModeAsset();
+  }
+
+  DockPosition getDockPosition() {
+    if (dockPosition == 'RIGHT') {
+      return DockPosition.right;
+    }
+    if (dockPosition == 'BOTTOM') {
+      return DockPosition.bottom;
+    } else {
+      return DockPosition.left;
+    }
+  }
+
+  void setDockPosition(DockPosition dockPosition) {
+    _dashToDockSettings?.setValue(_dockPositionKey,
+        dockPosition.toString().replaceAll('DockPosition.', '').toUpperCase());
+    notifyListeners();
+  }
 }
+
+enum DockPosition { left, bottom, right }
