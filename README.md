@@ -2,8 +2,9 @@
 
 The goal of this project is to build a feature complete settings app for the Ubuntu desktop with the Flutter UI toolkit.
 
-![Light Screenshot](.github/images/screenshot_light.png)
-![Dark Screenshot](.github/images/screenshot_dark.png)
+![](.github/images/appearance_panel.png)
+![](.github/images/multitasking_page.png)
+![](.github/images/power_panel.png)
 
 Mentionable packages that we use and want to thank are:
 
@@ -83,7 +84,7 @@ sudo apt install libhandy-1-dev
 - [X] Power page
 - [ ] Displays page
 - [X] Mouse and touchpad page
-- [ ] Keyboard shortcuts page - WIP
+- [X] Keyboard shortcuts page - WIP
 - [ ] Printers page - WIP
 - [X] Removeable Media page    
 - [ ] Color page
