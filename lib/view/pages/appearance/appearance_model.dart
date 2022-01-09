@@ -187,7 +187,7 @@ class AppearanceModel extends ChangeNotifier {
 
   String getRightSideAsset() {
     final _extendDock = extendDock ?? true;
-    if (!_extendDock) {
+    if (_extendDock) {
       return 'assets/images/appearance/panel-mode/panel-mode-right.svg';
     }
     return 'assets/images/appearance/dock-mode/dock-mode-right.svg';
@@ -195,7 +195,7 @@ class AppearanceModel extends ChangeNotifier {
 
   String getLeftSideAsset() {
     final _extendDock = extendDock ?? true;
-    if (!_extendDock) {
+    if (_extendDock) {
       return 'assets/images/appearance/panel-mode/panel-mode-left.svg';
     }
     return 'assets/images/appearance/dock-mode/dock-mode-left.svg';
@@ -203,7 +203,7 @@ class AppearanceModel extends ChangeNotifier {
 
   String getBottomAsset() {
     final _extendDock = extendDock ?? true;
-    if (!_extendDock) {
+    if (_extendDock) {
       return 'assets/images/appearance/panel-mode/panel-mode-bottom.svg';
     }
     return 'assets/images/appearance/dock-mode/dock-mode-bottom.svg';
