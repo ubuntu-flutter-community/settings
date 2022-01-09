@@ -30,7 +30,7 @@ class DockSection extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.all(assetPadding),
               child: SvgPicture.asset(
-                'assets/images/appearance/panel-mode/panel-mode-left.svg',
+                model.getPanelModeAsset(),
                 color: (model.extendDock != null && model.extendDock == true)
                     ? Theme.of(context).primaryColor.withOpacity(0.1)
                     : Theme.of(context).backgroundColor,
@@ -50,7 +50,7 @@ class DockSection extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.all(assetPadding),
               child: SvgPicture.asset(
-                'assets/images/appearance/dock-mode/dock-mode-left.svg',
+                model.getDockModeAsset(),
                 color: (model.extendDock != null && !model.extendDock!)
                     ? Theme.of(context).primaryColor.withOpacity(0.1)
                     : Theme.of(context).backgroundColor,
@@ -76,7 +76,7 @@ class DockSection extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.all(assetPadding),
                   child: SvgPicture.asset(
-                    'assets/images/appearance/auto-hide-panel-mode/auto-hide-panel-left.svg',
+                    model.getAutoHideAsset(),
                     color:
                         (model.alwaysShowDock != null && !model.alwaysShowDock!)
                             ? Theme.of(context).primaryColor.withOpacity(0.1)
