@@ -185,6 +185,30 @@ class AppearanceModel extends ChangeNotifier {
     }
   }
 
+  String getRightSideAsset() {
+    final _extendDock = extendDock ?? true;
+    if (!_extendDock) {
+      return 'assets/images/appearance/panel-mode/panel-mode-right.svg';
+    }
+    return 'assets/images/appearance/dock-mode/dock-mode-right.svg';
+  }
+
+  String getLeftSideAsset() {
+    final _extendDock = extendDock ?? true;
+    if (!_extendDock) {
+      return 'assets/images/appearance/panel-mode/panel-mode-left.svg';
+    }
+    return 'assets/images/appearance/dock-mode/dock-mode-left.svg';
+  }
+
+  String getBottomAsset() {
+    final _extendDock = extendDock ?? true;
+    if (!_extendDock) {
+      return 'assets/images/appearance/panel-mode/panel-mode-bottom.svg';
+    }
+    return 'assets/images/appearance/dock-mode/dock-mode-bottom.svg';
+  }
+
   void setDockPosition(DockPosition dockPosition) {
     _dashToDockSettings?.setValue(_dockPositionKey,
         dockPosition.toString().replaceAll('DockPosition.', '').toUpperCase());

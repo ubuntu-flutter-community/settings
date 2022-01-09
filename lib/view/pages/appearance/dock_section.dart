@@ -138,7 +138,7 @@ class DockSection extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.all(assetPadding),
             child: SvgPicture.asset(
-              model.getDockPositionAsset(),
+              model.getLeftSideAsset(),
               color: model.getDockPosition() == DockPosition.left
                   ? Theme.of(context).primaryColor.withOpacity(0.1)
                   : Theme.of(context).backgroundColor,
@@ -158,7 +158,7 @@ class DockSection extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.all(assetPadding),
             child: SvgPicture.asset(
-              model.getDockPositionAsset(),
+              model.getRightSideAsset(),
               color: model.getDockPosition() == DockPosition.bottom
                   ? Theme.of(context).primaryColor.withOpacity(0.1)
                   : Theme.of(context).backgroundColor,
@@ -177,7 +177,7 @@ class DockSection extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.all(assetPadding),
             child: SvgPicture.asset(
-              model.getDockPositionAsset(),
+              model.getBottomAsset(),
               color: model.getDockPosition() == DockPosition.right
                   ? Theme.of(context).primaryColor.withOpacity(0.1)
                   : Theme.of(context).backgroundColor,
