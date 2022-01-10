@@ -75,9 +75,9 @@ class DockSection extends StatelessWidget {
                   SelectableSvgImage(
                     padding: 8.0,
                     path: model.getLeftSideAsset(),
-                    selected: model.getDockPosition() == DockPosition.left,
+                    selected: model.dockPosition == DockPosition.left,
                     height: assetHeight,
-                    onTap: () => model.setDockPosition(DockPosition.left),
+                    onTap: () => model.dockPosition = DockPosition.left,
                   ),
                 ],
               ),
@@ -91,9 +91,9 @@ class DockSection extends StatelessWidget {
                   SelectableSvgImage(
                     padding: 8.0,
                     path: model.getRightSideAsset(),
-                    selected: model.getDockPosition() == DockPosition.right,
+                    selected: model.dockPosition == DockPosition.right,
                     height: assetHeight,
-                    onTap: () => model.setDockPosition(DockPosition.right),
+                    onTap: () => model.dockPosition = DockPosition.right,
                   ),
                 ],
               ),
@@ -107,9 +107,9 @@ class DockSection extends StatelessWidget {
                   SelectableSvgImage(
                     padding: 8.0,
                     path: model.getBottomAsset(),
-                    selected: model.getDockPosition() == DockPosition.bottom,
+                    selected: model.dockPosition == DockPosition.bottom,
                     height: assetHeight,
-                    onTap: () => model.setDockPosition(DockPosition.bottom),
+                    onTap: () => model.dockPosition = DockPosition.bottom,
                   ),
                 ],
               ),
@@ -157,6 +157,7 @@ class DockSection extends StatelessWidget {
               onChanged: (value) => model.appGlow = value,
             ),
             YaruSliderRow(
+              enabled: model.maxIconSize != null,
               actionLabel: 'Icon Size',
               value: model.maxIconSize ?? 48.0,
               min: 16,
@@ -169,14 +170,12 @@ class DockSection extends StatelessWidget {
               description:
                   'Defines what happens when you click on active app icons.',
               trailingWidget: const Text('Click Action'),
-              actionWidget: DropdownButton<String>(
+              actionWidget: DropdownButton<DockClickAction>(
                 onChanged: (value) => model.clickAction = value,
                 value: model.clickAction,
                 items: [
-                  for (var item in AppearanceModel.clickActions)
-                    DropdownMenuItem(
-                        child: Text(item.toLowerCase().replaceAll('-', ' ')),
-                        value: item)
+                  for (var item in DockClickAction.values)
+                    DropdownMenuItem(child: Text(item.name), value: item)
                 ],
               ),
             ),
