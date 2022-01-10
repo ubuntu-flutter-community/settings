@@ -64,54 +64,63 @@ class DockSection extends StatelessWidget {
         YaruSection(headline: 'Dock Position', children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            mainAxisSize: MainAxisSize.max,
             children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Padding(
-                    padding: EdgeInsets.all(8.0),
-                    child: Text('Left'),
-                  ),
-                  SelectableSvgImage(
-                    padding: 8.0,
-                    path: model.getLeftSideAsset(),
-                    selected: model.dockPosition == DockPosition.left,
-                    height: assetHeight,
-                    onTap: () => model.dockPosition = DockPosition.left,
-                  ),
-                ],
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Padding(
+                      padding: EdgeInsets.all(8.0),
+                      child: Text('Left'),
+                    ),
+                    SizedBox(
+                      child: SelectableSvgImage(
+                        padding: 8.0,
+                        path: model.getLeftSideAsset(),
+                        selected: model.dockPosition == DockPosition.left,
+                        height: assetHeight,
+                        onTap: () => model.dockPosition = DockPosition.left,
+                      ),
+                    ),
+                  ],
+                ),
               ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Padding(
-                    padding: EdgeInsets.all(8.0),
-                    child: Text('Right'),
-                  ),
-                  SelectableSvgImage(
-                    padding: 8.0,
-                    path: model.getRightSideAsset(),
-                    selected: model.dockPosition == DockPosition.right,
-                    height: assetHeight,
-                    onTap: () => model.dockPosition = DockPosition.right,
-                  ),
-                ],
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Padding(
+                      padding: EdgeInsets.all(8.0),
+                      child: Text('Right'),
+                    ),
+                    SelectableSvgImage(
+                      padding: 8.0,
+                      path: model.getRightSideAsset(),
+                      selected: model.dockPosition == DockPosition.right,
+                      height: assetHeight,
+                      onTap: () => model.dockPosition = DockPosition.right,
+                    ),
+                  ],
+                ),
               ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Padding(
-                    padding: EdgeInsets.all(8.0),
-                    child: Text('Bottom'),
-                  ),
-                  SelectableSvgImage(
-                    padding: 8.0,
-                    path: model.getBottomAsset(),
-                    selected: model.dockPosition == DockPosition.bottom,
-                    height: assetHeight,
-                    onTap: () => model.dockPosition = DockPosition.bottom,
-                  ),
-                ],
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Padding(
+                      padding: EdgeInsets.all(8.0),
+                      child: Text('Bottom'),
+                    ),
+                    SelectableSvgImage(
+                      padding: 8.0,
+                      path: model.getBottomAsset(),
+                      selected: model.dockPosition == DockPosition.bottom,
+                      height: assetHeight,
+                      onTap: () => model.dockPosition = DockPosition.bottom,
+                    ),
+                  ],
+                ),
               ),
             ],
           )
@@ -175,7 +184,9 @@ class DockSection extends StatelessWidget {
                 value: model.clickAction,
                 items: [
                   for (var item in DockClickAction.values)
-                    DropdownMenuItem(child: Text(item.name), value: item)
+                    DropdownMenuItem(
+                        child: Text(camelCaseToSplitByDash(item.name)),
+                        value: item)
                 ],
               ),
             ),
