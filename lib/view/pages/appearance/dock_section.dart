@@ -176,17 +176,20 @@ class DockSection extends StatelessWidget {
             ),
             YaruRow(
               enabled: model.clickAction != null,
-              description:
-                  'Defines what happens when you click on active app icons.',
-              trailingWidget: const Text('Click Action'),
+              trailingWidget: const Text('App icon click behavior'),
               actionWidget: DropdownButton<DockClickAction>(
                 onChanged: (value) => model.clickAction = value,
                 value: model.clickAction,
-                items: [
-                  for (var item in DockClickAction.values)
-                    DropdownMenuItem(
-                        child: Text(camelCaseToSplitByDash(item.name)),
-                        value: item)
+                items: const [
+                  DropdownMenuItem(
+                      child: Text('Minimize the app'),
+                      value: DockClickAction.minimize),
+                  DropdownMenuItem(
+                      child: Text('Cycle through windows'),
+                      value: DockClickAction.cycleWindows),
+                  DropdownMenuItem(
+                      child: Text('Focus or preview the window'),
+                      value: DockClickAction.focusOrPreviews),
                 ],
               ),
             ),
