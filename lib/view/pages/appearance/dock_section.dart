@@ -64,7 +64,6 @@ class DockSection extends StatelessWidget {
         YaruSection(headline: 'Dock Position', children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            mainAxisSize: MainAxisSize.max,
             children: [
               Expanded(
                 child: Column(
