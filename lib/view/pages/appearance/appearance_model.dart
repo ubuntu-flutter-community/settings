@@ -114,16 +114,7 @@ class AppearanceModel extends ChangeNotifier {
 
   set clickAction(DockClickAction? value) {
     if (value != null) {
-      final beforeCapitalLetterRegex = RegExp(r"(?=[A-Z])");
-      final parts = value.name.split(beforeCapitalLetterRegex);
-      var newString = '';
-      for (var part in parts) {
-        if (newString.isEmpty) {
-          newString = part.toLowerCase();
-        } else {
-          newString = newString.toLowerCase() + '-' + part.toLowerCase();
-        }
-      }
+      String newString = camelCaseToSplitByDash(value.name);
       _dashToDockSettings?.setValue(_clickActionKey, newString);
       notifyListeners();
     }
@@ -208,3 +199,17 @@ class AppearanceModel extends ChangeNotifier {
 enum DockPosition { left, bottom, right }
 
 enum DockClickAction { minimize, cycleWindows, focusOrPreviews }
+
+String camelCaseToSplitByDash(String value) {
+  final beforeCapitalLetterRegex = RegExp(r"(?=[A-Z])");
+  final parts = value.split(beforeCapitalLetterRegex);
+  var newString = '';
+  for (var part in parts) {
+    if (newString.isEmpty) {
+      newString = part.toLowerCase();
+    } else {
+      newString = newString.toLowerCase() + '-' + part.toLowerCase();
+    }
+  }
+  return newString;
+}
