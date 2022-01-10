@@ -10,7 +10,6 @@ class AppearanceModel extends ChangeNotifier {
   static const _dashMaxIconSizeKey = 'dash-max-icon-size';
   static const _dockPositionKey = 'dock-position';
   static const _clickActionKey = 'click-action';
-  static const _customThemeShrink = 'custom-theme-shrink';
 
   AppearanceModel(SettingsService service)
       : _dashToDockSettings = service.lookup(schemaDashToDock) {
@@ -77,48 +76,46 @@ class AppearanceModel extends ChangeNotifier {
     }
   }
 
-  static const dockPositions = ['LEFT', 'RIGHT', 'BOTTOM'];
+  DockPosition? get dockPosition {
+    var positionString = _dashToDockSettings?.stringValue(_dockPositionKey);
+    switch (positionString) {
+      case 'LEFT':
+        return DockPosition.left;
+      case 'RIGHT':
+        return DockPosition.right;
+      case 'BOTTOM':
+        return DockPosition.bottom;
+      default:
+        return null;
+    }
+  }
 
-  String? get _realDockPosition =>
-      _dashToDockSettings?.stringValue(_dockPositionKey);
-
-  String? get dockPosition =>
-      dockPositions.contains(_realDockPosition) ? _realDockPosition : 'LEFT';
-
-  set dockPosition(String? value) {
-    if (value != null) {
-      _dashToDockSettings!.setValue(_dockPositionKey, value);
+  set dockPosition(DockPosition? dockPosition) {
+    if (dockPosition != null) {
+      _dashToDockSettings?.setValue(
+          _dockPositionKey, dockPosition.name.toUpperCase());
       notifyListeners();
     }
   }
 
-  static const clickActions = [
-    'minimize',
-    'focus-or-previews',
-    'cycle-windows'
-  ];
-
-  String? get _realClickAction =>
-      _dashToDockSettings?.stringValue(_clickActionKey);
-
-  String? get clickAction => clickActions.contains(_realClickAction)
-      ? _realClickAction
-      : clickActions.first;
-
-  set clickAction(String? value) {
-    if (value != null) {
-      _dashToDockSettings?.setValue(_clickActionKey, value);
-      notifyListeners();
+  DockClickAction? get clickAction {
+    final clickActionString = _dashToDockSettings?.stringValue(_clickActionKey);
+    switch (clickActionString) {
+      case 'minimize':
+        return DockClickAction.minimize;
+      case 'focus-or-previews':
+        return DockClickAction.focusOrPreviews;
+      case 'cycle-windows':
+        return DockClickAction.cycleWindows;
+      default:
+        return null;
     }
   }
 
-  // Currently this option is unstable and thus not exposed to the UI
-  bool? get customThemeShrink =>
-      _dashToDockSettings?.getValue(_customThemeShrink);
-
-  set customThemeShrink(bool? value) {
+  set clickAction(DockClickAction? value) {
     if (value != null) {
-      _dashToDockSettings?.setValue(_customThemeShrink, value);
+      String newString = camelCaseToSplitByDash(value.name);
+      _dashToDockSettings?.setValue(_clickActionKey, newString);
       notifyListeners();
     }
   }
@@ -126,29 +123,29 @@ class AppearanceModel extends ChangeNotifier {
   String getAutoHideAsset() {
     final _extendDock = extendDock ?? true;
     if (_extendDock == false) {
-      if (dockPosition == 'RIGHT') {
+      if (dockPosition == DockPosition.right) {
         return 'assets/images/appearance/auto-hide-dock-mode/auto-hide-dock-right.svg';
       }
-      if (dockPosition == 'BOTTOM') {
+      if (dockPosition == DockPosition.bottom) {
         return 'assets/images/appearance/auto-hide-dock-mode/auto-hide-dock-bottom.svg';
       } else {
         return 'assets/images/appearance/auto-hide-dock-mode/auto-hide-dock-left.svg';
       }
     }
-    if (dockPosition == 'RIGHT') {
+    if (dockPosition == DockPosition.right) {
       return 'assets/images/appearance/auto-hide-panel-mode/auto-hide-panel-right.svg';
     }
-    if (dockPosition == 'BOTTOM') {
+    if (dockPosition == DockPosition.bottom) {
       return 'assets/images/appearance/auto-hide-panel-mode/auto-hide-panel-bottom.svg';
     }
     return 'assets/images/appearance/auto-hide-panel-mode/auto-hide-panel-left.svg';
   }
 
   String getPanelModeAsset() {
-    if (dockPosition == 'RIGHT') {
+    if (dockPosition == DockPosition.right) {
       return 'assets/images/appearance/panel-mode/panel-mode-right.svg';
     }
-    if (dockPosition == 'BOTTOM') {
+    if (dockPosition == DockPosition.bottom) {
       return 'assets/images/appearance/panel-mode/panel-mode-bottom.svg';
     } else {
       return 'assets/images/appearance/panel-mode/panel-mode-left.svg';
@@ -156,10 +153,10 @@ class AppearanceModel extends ChangeNotifier {
   }
 
   String getDockModeAsset() {
-    if (dockPosition == 'RIGHT') {
+    if (dockPosition == DockPosition.right) {
       return 'assets/images/appearance/dock-mode/dock-mode-right.svg';
     }
-    if (dockPosition == 'BOTTOM') {
+    if (dockPosition == DockPosition.bottom) {
       return 'assets/images/appearance/dock-mode/dock-mode-bottom.svg';
     } else {
       return 'assets/images/appearance/dock-mode/dock-mode-left.svg';
@@ -172,17 +169,6 @@ class AppearanceModel extends ChangeNotifier {
       return getDockModeAsset();
     }
     return getPanelModeAsset();
-  }
-
-  DockPosition getDockPosition() {
-    if (dockPosition == 'RIGHT') {
-      return DockPosition.right;
-    }
-    if (dockPosition == 'BOTTOM') {
-      return DockPosition.bottom;
-    } else {
-      return DockPosition.left;
-    }
   }
 
   String getRightSideAsset() {
@@ -208,12 +194,22 @@ class AppearanceModel extends ChangeNotifier {
     }
     return 'assets/images/appearance/dock-mode/dock-mode-bottom.svg';
   }
-
-  void setDockPosition(DockPosition dockPosition) {
-    _dashToDockSettings?.setValue(_dockPositionKey,
-        dockPosition.toString().replaceAll('DockPosition.', '').toUpperCase());
-    notifyListeners();
-  }
 }
 
 enum DockPosition { left, bottom, right }
+
+enum DockClickAction { minimize, cycleWindows, focusOrPreviews }
+
+String camelCaseToSplitByDash(String value) {
+  final beforeCapitalLetterRegex = RegExp(r"(?=[A-Z])");
+  final parts = value.split(beforeCapitalLetterRegex);
+  var newString = '';
+  for (var part in parts) {
+    if (newString.isEmpty) {
+      newString = part.toLowerCase();
+    } else {
+      newString = newString.toLowerCase() + '-' + part.toLowerCase();
+    }
+  }
+  return newString;
+}

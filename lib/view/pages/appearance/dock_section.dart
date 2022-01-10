@@ -65,53 +65,61 @@ class DockSection extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Padding(
-                    padding: EdgeInsets.all(8.0),
-                    child: Text('Left'),
-                  ),
-                  SelectableSvgImage(
-                    padding: 8.0,
-                    path: model.getLeftSideAsset(),
-                    selected: model.getDockPosition() == DockPosition.left,
-                    height: assetHeight,
-                    onTap: () => model.setDockPosition(DockPosition.left),
-                  ),
-                ],
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Padding(
+                      padding: EdgeInsets.all(8.0),
+                      child: Text('Left'),
+                    ),
+                    SizedBox(
+                      child: SelectableSvgImage(
+                        padding: 8.0,
+                        path: model.getLeftSideAsset(),
+                        selected: model.dockPosition == DockPosition.left,
+                        height: assetHeight,
+                        onTap: () => model.dockPosition = DockPosition.left,
+                      ),
+                    ),
+                  ],
+                ),
               ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Padding(
-                    padding: EdgeInsets.all(8.0),
-                    child: Text('Right'),
-                  ),
-                  SelectableSvgImage(
-                    padding: 8.0,
-                    path: model.getRightSideAsset(),
-                    selected: model.getDockPosition() == DockPosition.right,
-                    height: assetHeight,
-                    onTap: () => model.setDockPosition(DockPosition.right),
-                  ),
-                ],
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Padding(
+                      padding: EdgeInsets.all(8.0),
+                      child: Text('Right'),
+                    ),
+                    SelectableSvgImage(
+                      padding: 8.0,
+                      path: model.getRightSideAsset(),
+                      selected: model.dockPosition == DockPosition.right,
+                      height: assetHeight,
+                      onTap: () => model.dockPosition = DockPosition.right,
+                    ),
+                  ],
+                ),
               ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Padding(
-                    padding: EdgeInsets.all(8.0),
-                    child: Text('Bottom'),
-                  ),
-                  SelectableSvgImage(
-                    padding: 8.0,
-                    path: model.getBottomAsset(),
-                    selected: model.getDockPosition() == DockPosition.bottom,
-                    height: assetHeight,
-                    onTap: () => model.setDockPosition(DockPosition.bottom),
-                  ),
-                ],
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Padding(
+                      padding: EdgeInsets.all(8.0),
+                      child: Text('Bottom'),
+                    ),
+                    SelectableSvgImage(
+                      padding: 8.0,
+                      path: model.getBottomAsset(),
+                      selected: model.dockPosition == DockPosition.bottom,
+                      height: assetHeight,
+                      onTap: () => model.dockPosition = DockPosition.bottom,
+                    ),
+                  ],
+                ),
               ),
             ],
           )
@@ -157,6 +165,7 @@ class DockSection extends StatelessWidget {
               onChanged: (value) => model.appGlow = value,
             ),
             YaruSliderRow(
+              enabled: model.maxIconSize != null,
               actionLabel: 'Icon Size',
               value: model.maxIconSize ?? 48.0,
               min: 16,
@@ -166,17 +175,20 @@ class DockSection extends StatelessWidget {
             ),
             YaruRow(
               enabled: model.clickAction != null,
-              description:
-                  'Defines what happens when you click on active app icons.',
-              trailingWidget: const Text('Click Action'),
-              actionWidget: DropdownButton<String>(
+              trailingWidget: const Text('App icon click behavior'),
+              actionWidget: DropdownButton<DockClickAction>(
                 onChanged: (value) => model.clickAction = value,
                 value: model.clickAction,
-                items: [
-                  for (var item in AppearanceModel.clickActions)
-                    DropdownMenuItem(
-                        child: Text(item.toLowerCase().replaceAll('-', ' ')),
-                        value: item)
+                items: const [
+                  DropdownMenuItem(
+                      child: Text('Minimize the app'),
+                      value: DockClickAction.minimize),
+                  DropdownMenuItem(
+                      child: Text('Cycle through windows'),
+                      value: DockClickAction.cycleWindows),
+                  DropdownMenuItem(
+                      child: Text('Focus or preview the window'),
+                      value: DockClickAction.focusOrPreviews),
                 ],
               ),
             ),
