@@ -1,4 +1,5 @@
 import 'package:flutter/widgets.dart';
+import 'package:get_it/get_it.dart';
 import 'package:provider/provider.dart';
 import 'package:settings/services/settings_service.dart';
 import 'package:settings/view/pages/sound/sound_model.dart';
@@ -8,7 +9,7 @@ class SoundPage extends StatelessWidget {
   const SoundPage({Key? key}) : super(key: key);
 
   static Widget create(BuildContext context) {
-    final service = Provider.of<SettingsService>(context, listen: false);
+    final service = GetIt.instance.get<SettingsService>();
     return ChangeNotifierProvider<SoundModel>(
       create: (_) => SoundModel(service),
       child: const SoundPage(),
@@ -17,7 +18,7 @@ class SoundPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final model = Provider.of<SoundModel>(context);
+    final model = context.watch<SoundModel>();
 
     return Column(
       children: [

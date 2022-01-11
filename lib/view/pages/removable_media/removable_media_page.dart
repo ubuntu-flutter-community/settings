@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
 import 'package:provider/provider.dart';
 import 'package:settings/services/settings_service.dart';
 import 'package:settings/view/pages/removable_media/removable_media_model.dart';
@@ -8,7 +9,7 @@ class RemovableMediaPage extends StatelessWidget {
   const RemovableMediaPage({Key? key}) : super(key: key);
 
   static Widget create(BuildContext context) {
-    final service = Provider.of<SettingsService>(context, listen: false);
+    final service = GetIt.instance.get<SettingsService>();
     return ChangeNotifierProvider<RemovableMediaModel>(
       create: (_) => RemovableMediaModel(service),
       child: const RemovableMediaPage(),
@@ -17,7 +18,7 @@ class RemovableMediaPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final model = Provider.of<RemovableMediaModel>(context);
+    final model = context.watch<RemovableMediaModel>();
 
     return YaruSection(headline: 'Removable Media', children: [
       SizedBox(

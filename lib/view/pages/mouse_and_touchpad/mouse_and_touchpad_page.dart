@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
 import 'package:provider/provider.dart';
 import 'package:settings/services/settings_service.dart';
 import 'package:settings/view/pages/mouse_and_touchpad/general_section.dart';
@@ -10,7 +11,7 @@ class MouseAndTouchpadPage extends StatelessWidget {
   const MouseAndTouchpadPage({Key? key}) : super(key: key);
 
   static Widget create(BuildContext context) {
-    final service = Provider.of<SettingsService>(context, listen: false);
+    final service = GetIt.instance.get<SettingsService>();
     return ChangeNotifierProvider<MouseAndTouchpadModel>(
       create: (_) => MouseAndTouchpadModel(service),
       child: const MouseAndTouchpadPage(),

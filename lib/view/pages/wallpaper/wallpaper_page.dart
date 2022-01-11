@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:filesystem_picker/filesystem_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
 import 'package:provider/provider.dart';
 import 'package:settings/services/settings_service.dart';
 import 'package:settings/view/pages/wallpaper/color_shading_option_row.dart';
@@ -13,7 +14,7 @@ class WallpaperPage extends StatelessWidget {
   const WallpaperPage({Key? key}) : super(key: key);
 
   static Widget create(BuildContext context) {
-    final service = Provider.of<SettingsService>(context, listen: false);
+    final service = GetIt.instance.get<SettingsService>();
     return ChangeNotifierProvider<WallpaperModel>(
       create: (_) => WallpaperModel(service),
       child: const WallpaperPage(),
@@ -22,7 +23,7 @@ class WallpaperPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final model = Provider.of<WallpaperModel>(context);
+    final model = context.watch<WallpaperModel>();
 
     return YaruSection(headline: 'Set your wallpaper', children: [
       YaruRow(

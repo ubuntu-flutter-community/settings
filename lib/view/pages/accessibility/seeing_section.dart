@@ -2,16 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinbox/flutter_spinbox.dart';
 import 'package:provider/provider.dart';
 import 'package:settings/view/pages/accessibility/accessibility_model.dart';
-import 'package:yaru_widgets/yaru_widgets.dart';
-
 import 'package:yaru_icons/yaru_icons.dart';
+import 'package:yaru_widgets/yaru_widgets.dart';
 
 class SeeingSection extends StatelessWidget {
   const SeeingSection({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final model = Provider.of<AccessibilityModel>(context);
+    final model = context.watch<AccessibilityModel>();
     return YaruSection(
       headline: 'Seeing',
       children: [
@@ -63,7 +62,7 @@ class _CursorSize extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final model = Provider.of<AccessibilityModel>(context);
+    final model = context.watch<AccessibilityModel>();
     return YaruRow(
       enabled: model.cursorSize != null,
       trailingWidget: const Text('Cursor Size'),
@@ -100,7 +99,7 @@ class _CursorSizeSettings extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final model = Provider.of<AccessibilityModel>(context);
+    final model = context.watch<AccessibilityModel>();
     return YaruSimpleDialog(
       title: 'Cursor Size',
       closeIconData: YaruIcons.window_close,
@@ -205,7 +204,7 @@ class _MagnifierOptions extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final model = Provider.of<AccessibilityModel>(context);
+    final model = context.watch<AccessibilityModel>();
     return Padding(
       padding: const EdgeInsets.only(left: 16.0, right: 16.0, bottom: 16.0),
       child: Column(
@@ -244,7 +243,7 @@ class _MagnifierPositionOptions extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final model = Provider.of<AccessibilityModel>(context);
+    final model = context.watch<AccessibilityModel>();
     return Column(
       children: [
         _RadioRow(
@@ -366,7 +365,7 @@ class _CrosshairsOptions extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final model = Provider.of<AccessibilityModel>(context);
+    final model = context.watch<AccessibilityModel>();
 
     return Padding(
       padding: const EdgeInsets.only(left: 16.0, right: 16.0, bottom: 16.0),
@@ -427,7 +426,7 @@ class _ColorEffectsOptions extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final model = Provider.of<AccessibilityModel>(context);
+    final model = context.watch<AccessibilityModel>();
 
     return Padding(
       padding: const EdgeInsets.only(left: 16.0, right: 16.0, bottom: 16.0),

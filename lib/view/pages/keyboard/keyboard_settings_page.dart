@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
 import 'package:provider/provider.dart';
 import 'package:settings/services/input_source_service.dart';
 import 'package:settings/services/settings_service.dart';
@@ -15,10 +16,8 @@ class KeyboardSettingsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final settingsService =
-        Provider.of<SettingsService>(context, listen: false);
-    final inputSourceService =
-        Provider.of<InputSourceService>(context, listen: false);
+    final settingsService = GetIt.instance.get<SettingsService>();
+    final inputSourceService = GetIt.instance.get<InputSourceService>();
 
     return Column(
       children: [

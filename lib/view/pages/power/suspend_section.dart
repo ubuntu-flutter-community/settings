@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
 import 'package:provider/provider.dart';
 import 'package:settings/services/settings_service.dart';
 import 'package:settings/view/pages/power/suspend.dart';
@@ -11,7 +12,7 @@ class SuspendSection extends StatefulWidget {
   static Widget create(BuildContext context) {
     return ChangeNotifierProvider<SuspendModel>(
       create: (_) => SuspendModel(
-        context.read<SettingsService>(),
+        GetIt.instance.get<SettingsService>(),
       ),
       child: const SuspendSection(),
     );

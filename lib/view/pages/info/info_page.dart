@@ -1,5 +1,6 @@
 import 'package:filesize/filesize.dart';
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
 import 'package:open_file/open_file.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
@@ -18,8 +19,8 @@ class InfoPage extends StatefulWidget {
   static Widget create(BuildContext context) {
     return ChangeNotifierProvider<InfoModel>(
       create: (_) => InfoModel(
-        hostnameService: context.read<HostnameService>(),
-        uDisksClient: context.read<UDisksClient>(),
+        hostnameService: GetIt.instance.get<HostnameService>(),
+        uDisksClient: GetIt.instance.get<UDisksClient>(),
       ),
       child: const InfoPage(),
     );
@@ -137,7 +138,7 @@ class _Computer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final model = Provider.of<InfoModel>(context);
+    final model = context.read<InfoModel>();
 
     return YaruSection(headline: 'Computer', children: [
       YaruRow(

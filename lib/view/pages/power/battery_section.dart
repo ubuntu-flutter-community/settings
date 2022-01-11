@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
 import 'package:provider/provider.dart';
 import 'package:settings/view/pages/power/battery_model.dart';
 import 'package:settings/view/pages/power/battery_widgets.dart';
@@ -26,7 +27,7 @@ class _BatterySectionState extends State<BatterySection> {
     super.initState();
 
     final model = context.read<BatteryModel>();
-    model.init(context.read<UPowerClient>());
+    model.init(GetIt.instance.get<UPowerClient>());
   }
 
   @override

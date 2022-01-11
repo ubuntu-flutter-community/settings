@@ -1,5 +1,6 @@
 import 'package:bluez/bluez.dart';
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
 import 'package:nm/nm.dart';
 import 'package:provider/provider.dart';
 import 'package:settings/l10n/l10n.dart';
@@ -23,52 +24,24 @@ void main() async {
 
   final networkManagerClient = NetworkManagerClient();
   await networkManagerClient.connect();
+  final getIt = GetIt.instance;
+  getIt.registerSingleton<SettingsService>(SettingsService());
+  getIt.registerSingleton<NetworkManagerClient>(networkManagerClient);
+  getIt.registerSingleton<ChangeNotifierProvider>(ChangeNotifierProvider(
+    create: (_) => AppTheme(themeSettings),
+  ));
+  getIt.registerSingleton<HostnameService>(HostnameService());
+  getIt.registerSingleton<PowerProfileService>(PowerProfileService());
+  getIt.registerSingleton<BluetoothService>(BluetoothService());
+  getIt.registerSingleton<PowerSettingsService>(PowerSettingsService());
 
+  getIt.registerSingleton<UDisksClient>(UDisksClient());
+  getIt.registerSingleton<UPowerClient>(UPowerClient());
+  getIt.registerSingleton<BlueZClient>(BlueZClient());
+  getIt.registerSingleton<InputSourceService>(InputSourceService());
+  getIt.registerSingleton<AppTheme>(AppTheme(themeSettings));
   runApp(
-    MultiProvider(
-      providers: [
-        ChangeNotifierProvider(
-          create: (_) => AppTheme(themeSettings),
-        ),
-        Provider<BluetoothService>(
-          create: (_) => BluetoothService(),
-          dispose: (_, service) => service.dispose(),
-        ),
-        Provider<HostnameService>(
-          create: (_) => HostnameService(),
-          dispose: (_, service) => service.dispose(),
-        ),
-        Provider<NetworkManagerClient>.value(value: networkManagerClient),
-        Provider<PowerProfileService>(
-          create: (_) => PowerProfileService(),
-          dispose: (_, service) => service.dispose(),
-        ),
-        Provider<PowerSettingsService>(
-          create: (_) => PowerSettingsService(),
-          dispose: (_, service) => service.dispose(),
-        ),
-        Provider<SettingsService>(
-          create: (_) => SettingsService(),
-          dispose: (_, service) => service.dispose(),
-        ),
-        Provider<UDisksClient>(
-          create: (_) => UDisksClient(),
-          dispose: (_, client) => client.close(),
-        ),
-        Provider<UPowerClient>(
-          create: (_) => UPowerClient(),
-          dispose: (_, client) => client.close(),
-        ),
-        Provider<BlueZClient>(
-          create: (_) => BlueZClient(),
-          dispose: (_, client) => client.close(),
-        ),
-        Provider<InputSourceService>(
-          create: (_) => InputSourceService(),
-        )
-      ],
-      child: const UbuntuSettingsApp(),
-    ),
+    const UbuntuSettingsApp(),
   );
 }
 
@@ -96,7 +69,7 @@ class UbuntuSettingsApp extends StatelessWidget {
       },
       theme: yaruLight,
       darkTheme: yaruDark,
-      themeMode: context.watch<AppTheme>().value,
+      themeMode: GetIt.instance.get<AppTheme>().value,
       supportedLocales: AppLocalizations.supportedLocales,
       localizationsDelegates: AppLocalizations.localizationsDelegates,
     );

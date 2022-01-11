@@ -1,5 +1,6 @@
 import 'package:bluez/bluez.dart';
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
 import 'package:provider/provider.dart';
 import 'package:settings/view/pages/bluetooth/bluetooth_device_row.dart';
 import 'package:settings/view/pages/bluetooth/bluetooth_model.dart';
@@ -10,7 +11,7 @@ class BluetoothPage extends StatefulWidget {
 
   static Widget create(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (_) => BluetoothModel(context.read<BlueZClient>()),
+      create: (_) => BluetoothModel(GetIt.instance.get<BlueZClient>()),
       child: const BluetoothPage(),
     );
   }

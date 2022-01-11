@@ -7,12 +7,13 @@ import 'package:settings/view/pages/accessibility/hearing_section.dart';
 import 'package:settings/view/pages/accessibility/pointing_and_clicking_section.dart';
 import 'package:settings/view/pages/accessibility/seeing_section.dart';
 import 'package:settings/view/pages/accessibility/typing_section.dart';
+import 'package:get_it/get_it.dart';
 
 class AccessibilityPage extends StatelessWidget {
   const AccessibilityPage({Key? key}) : super(key: key);
 
   static Widget create(BuildContext context) {
-    final service = Provider.of<SettingsService>(context, listen: false);
+    final service = GetIt.instance.get<SettingsService>();
     return ChangeNotifierProvider<AccessibilityModel>(
       create: (_) => AccessibilityModel(service),
       child: const AccessibilityPage(),

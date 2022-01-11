@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
 import 'package:nm/nm.dart';
 import 'package:provider/provider.dart';
 import 'package:settings/view/pages/connections/wifi_content.dart';
@@ -9,7 +10,7 @@ import 'models/wifi_model.dart';
 
 class ConnectionsPage extends StatefulWidget {
   static Widget create(BuildContext context) {
-    final service = Provider.of<NetworkManagerClient>(context, listen: false);
+    final service = GetIt.instance.get<NetworkManagerClient>();
     return ChangeNotifierProvider<WifiModel>(
       create: (_) => WifiModel(service),
       child: const ConnectionsPage(),

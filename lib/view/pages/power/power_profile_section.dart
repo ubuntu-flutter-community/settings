@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
 import 'package:provider/provider.dart';
 import 'package:settings/services/power_profile_service.dart';
 import 'package:settings/view/pages/power/power_profile_model.dart';
@@ -9,7 +10,8 @@ class PowerProfileSection extends StatefulWidget {
 
   static Widget create(BuildContext context) {
     return ChangeNotifierProvider<PowerProfileModel>(
-      create: (_) => PowerProfileModel(context.read<PowerProfileService>()),
+      create: (_) =>
+          PowerProfileModel(GetIt.instance.get<PowerProfileService>()),
       child: const PowerProfileSection(),
     );
   }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
 import 'package:nm/nm.dart';
 import 'package:provider/provider.dart';
 import 'package:settings/services/bluetooth_service.dart';
@@ -17,10 +18,10 @@ class PowerSettingsSection extends StatefulWidget {
   static Widget create(BuildContext context) {
     return ChangeNotifierProvider<SuspendModel>(
       create: (_) => SuspendModel(
-        settings: context.read<SettingsService>(),
-        power: context.read<PowerSettingsService>(),
-        bluetooth: context.read<BluetoothService>(),
-        network: context.read<NetworkManagerClient>(),
+        settings: GetIt.instance.get<SettingsService>(),
+        power: GetIt.instance.get<PowerSettingsService>(),
+        bluetooth: GetIt.instance.get<BluetoothService>(),
+        network: GetIt.instance.get<NetworkManagerClient>(),
       ),
       child: const PowerSettingsSection(),
     );

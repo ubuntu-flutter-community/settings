@@ -49,6 +49,7 @@ dependencies:
   flutter_spinbox: ^0.7.0
   http: ^0.13.4
   xml: ^5.3.1
+  get_it: ^7.2.0
 
 dev_dependencies:
   build_runner: ^2.1.2
@@ -75,3 +76,4 @@ flutter:
     - assets/images/appearance/dock-mode/
     - assets/images/appearance/auto-hide-panel-mode/
     - assets/images/appearance/auto-hide-dock-mode/
+    - assets/rive/

@@ -1,16 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:settings/view/pages/accessibility/accessibility_model.dart';
-import 'package:yaru_widgets/yaru_widgets.dart';
-
 import 'package:yaru_icons/yaru_icons.dart';
+import 'package:yaru_widgets/yaru_widgets.dart';
 
 class PointingAndClickingSection extends StatelessWidget {
   const PointingAndClickingSection({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final model = Provider.of<AccessibilityModel>(context);
+    final model = context.watch<AccessibilityModel>();
     return YaruSection(
       headline: 'Pointing & Clicking',
       children: [
@@ -43,7 +42,7 @@ class _ClickAssist extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final model = Provider.of<AccessibilityModel>(context);
+    final model = context.watch<AccessibilityModel>();
     return YaruRow(
       enabled: model.clickAssistAvailable,
       trailingWidget: const Text('Click Assist'),
@@ -77,7 +76,7 @@ class _ClickAssistSettings extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final model = Provider.of<AccessibilityModel>(context);
+    final model = context.watch<AccessibilityModel>();
     return YaruSimpleDialog(
       title: 'Click Assist',
       closeIconData: YaruIcons.window_close,
