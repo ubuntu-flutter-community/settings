@@ -17,7 +17,7 @@ class SoundPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final model = Provider.of<SoundModel>(context);
+    final model = context.watch<SoundModel>();
 
     return YaruPage(
       child: Column(

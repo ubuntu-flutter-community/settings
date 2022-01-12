@@ -23,7 +23,7 @@ class _VisualAlerts extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final model = Provider.of<AccessibilityModel>(context);
+    final model = context.watch<AccessibilityModel>();
     return YaruExtraOptionRow(
       iconData: YaruIcons.settings,
       actionLabel: 'Visual Alerts',
@@ -46,7 +46,7 @@ class _VisualAlertsSettings extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final model = Provider.of<AccessibilityModel>(context);
+    final model = context.watch<AccessibilityModel>();
     return YaruSimpleDialog(
       title: 'Visual Alerts',
       closeIconData: YaruIcons.window_close,

@@ -9,7 +9,7 @@ class AppNotificationsSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final model = Provider.of<NotificationsModel>(context);
+    final model = context.watch<NotificationsModel>();
 
     return YaruSection(
       headline: 'App notifications',
@@ -35,7 +35,7 @@ class AppNotificationsSettingRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final model = Provider.of<AppNotificationsModel>(context);
+    final model = context.watch<AppNotificationsModel>();
     return YaruSwitchRow(
       trailingWidget: Text(model.appId),
       value: model.enable,

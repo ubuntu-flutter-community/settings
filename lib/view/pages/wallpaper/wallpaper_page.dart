@@ -22,7 +22,7 @@ class WallpaperPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final model = Provider.of<WallpaperModel>(context);
+    final model = context.watch<WallpaperModel>();
 
     return YaruPage(
       padding: const EdgeInsets.all(10),

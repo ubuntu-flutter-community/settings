@@ -12,7 +12,7 @@ class DockSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final model = Provider.of<AppearanceModel>(context);
+    final model = context.watch<AppearanceModel>();
 
     return Column(
       children: [

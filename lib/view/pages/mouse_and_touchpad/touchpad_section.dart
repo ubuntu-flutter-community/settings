@@ -8,7 +8,7 @@ class TouchpadSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final model = Provider.of<MouseAndTouchpadModel>(context);
+    final model = context.watch<MouseAndTouchpadModel>();
 
     return YaruSection(
       headline: 'Touchpad',

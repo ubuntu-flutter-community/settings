@@ -8,7 +8,7 @@ class GlobalNotificationsSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final model = Provider.of<NotificationsModel>(context);
+    final model = context.watch<NotificationsModel>();
 
     return YaruSection(
       headline: 'Global',

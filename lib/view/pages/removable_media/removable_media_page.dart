@@ -17,7 +17,7 @@ class RemovableMediaPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final model = Provider.of<RemovableMediaModel>(context);
+    final model = context.watch<RemovableMediaModel>();
 
     return YaruPage(
       child: YaruSection(headline: 'Removable Media', children: [
