@@ -46,7 +46,7 @@ class ColorShadingOptionRow extends StatelessWidget {
             ],
           ),
           const SizedBox(width: 8.0),
-          ColorPickerButton(
+          YaruColorPickerButton(
             color: fromHex(model.primaryColor),
             onPressed: () async {
               final colorBeforeDialog = model.primaryColor;
@@ -58,7 +58,7 @@ class ColorShadingOptionRow extends StatelessWidget {
           if (model.colorShadingType != ColorShadingType.solid)
             const SizedBox(width: 8.0),
           if (model.colorShadingType != ColorShadingType.solid)
-            ColorPickerButton(
+            YaruColorPickerButton(
                 color: fromHex(model.secondaryColor),
                 onPressed: () async {
                   final colorBeforeDialog = model.secondaryColor;
@@ -129,38 +129,6 @@ class ColorShadingOptionRow extends StatelessWidget {
       context,
       constraints:
           const BoxConstraints(minHeight: 480, minWidth: 300, maxWidth: 320),
-    );
-  }
-}
-
-class ColorPickerButton extends StatelessWidget {
-  const ColorPickerButton({
-    Key? key,
-    required this.color,
-    required this.onPressed,
-  }) : super(key: key);
-
-  final VoidCallback onPressed;
-  final Color color;
-
-  @override
-  Widget build(BuildContext context) {
-    const size = 40.0;
-    return SizedBox(
-      width: size,
-      height: size,
-      child: OutlinedButton(
-        style: OutlinedButton.styleFrom(padding: const EdgeInsets.all(0)),
-        onPressed: onPressed,
-        child: SizedBox(
-          width: size / 2,
-          height: size / 2,
-          child: DecoratedBox(
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(100), color: color),
-          ),
-        ),
-      ),
     );
   }
 }

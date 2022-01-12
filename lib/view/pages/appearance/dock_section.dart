@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
-import 'package:settings/view/pages/appearance/appearance_model.dart';
+import 'package:settings/view/pages/appearance/dock_model.dart';
 import 'package:settings/view/selectable_svg_image.dart';
 import 'package:yaru_widgets/yaru_widgets.dart';
 
@@ -12,7 +12,7 @@ class DockSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final model = context.watch<AppearanceModel>();
+    final model = context.watch<DockModel>();
 
     return Column(
       children: [

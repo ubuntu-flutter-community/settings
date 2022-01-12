@@ -27,6 +27,8 @@ void main() async {
   runApp(
     MultiProvider(
       providers: [
+        ChangeNotifierProvider(create: (_) => LightTheme(yaruLight)),
+        ChangeNotifierProvider(create: (_) => DarkTheme(yaruDark)),
         ChangeNotifierProvider(
           create: (_) => AppTheme(themeSettings),
         ),
@@ -94,8 +96,8 @@ class UbuntuSettingsApp extends StatelessWidget {
           );
         },
       },
-      theme: yaruLight,
-      darkTheme: yaruDark,
+      theme: context.watch<LightTheme>().value,
+      darkTheme: context.watch<DarkTheme>().value,
       themeMode: context.watch<AppTheme>().value,
       supportedLocales: AppLocalizations.supportedLocales,
       localizationsDelegates: AppLocalizations.localizationsDelegates,
