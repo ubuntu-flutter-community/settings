@@ -2,7 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:settings/schemas/schemas.dart';
 import 'package:settings/services/settings_service.dart';
 
-class AppearanceModel extends ChangeNotifier {
+class DockModel extends ChangeNotifier {
   static const _showTrashKey = 'show-trash';
   static const _dockFixedKey = 'dock-fixed';
   static const _extendHeightKey = 'extend-height';
@@ -11,7 +11,7 @@ class AppearanceModel extends ChangeNotifier {
   static const _dockPositionKey = 'dock-position';
   static const _clickActionKey = 'click-action';
 
-  AppearanceModel(SettingsService service)
+  DockModel(SettingsService service)
       : _dashToDockSettings = service.lookup(schemaDashToDock) {
     _dashToDockSettings?.addListener(notifyListeners);
   }

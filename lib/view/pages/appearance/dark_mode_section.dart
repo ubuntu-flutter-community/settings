@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:settings/view/app_theme.dart';
+import 'package:yaru/yaru.dart';
 import 'package:yaru_icons/yaru_icons.dart';
 import 'package:yaru_widgets/yaru_widgets.dart';
 
@@ -10,8 +11,10 @@ class DarkModeSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = context.watch<AppTheme>();
+    final lighTheme = context.watch<LightTheme>();
+    final darkTheme = context.watch<DarkTheme>();
     return YaruSection(
-      headline: 'Dark mode',
+      headline: 'Theme',
       children: [
         YaruSwitchRow(
             trailingWidget: Theme.of(context).brightness == Brightness.light
@@ -35,6 +38,40 @@ class DarkModeSection extends StatelessWidget {
                   ? Brightness.light
                   : Brightness.dark);
             }),
+        YaruRow(
+            trailingWidget: const Text('Change theme'),
+            actionWidget: Row(
+              children: [
+                YaruColorPickerButton(
+                    color: yaruLight.primaryColor,
+                    onPressed: () {
+                      lighTheme.value = yaruLight;
+                      darkTheme.value = yaruDark;
+                    }),
+                const SizedBox(
+                  width: 10,
+                ),
+                YaruColorPickerButton(
+                    color: yaruKubuntuLight.primaryColor,
+                    onPressed: () {
+                      lighTheme.value = yaruKubuntuLight;
+                      darkTheme.value = yaruKubuntuDark;
+                    }),
+                const SizedBox(
+                  width: 10,
+                ),
+                YaruColorPickerButton(
+                    color: yaruMateLight.primaryColor,
+                    onPressed: () {
+                      lighTheme.value = yaruMateLight;
+                      darkTheme.value = yaruMateDark;
+                    }),
+                const SizedBox(
+                  width: 10,
+                ),
+              ],
+            ),
+            enabled: true)
       ],
     );
   }
