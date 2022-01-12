@@ -13,38 +13,40 @@ class KeyboardShortcutsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final service = Provider.of<SettingsService>(context, listen: false);
 
-    return Column(
-      children: [
-        ChangeNotifierProvider(
-          create: (_) =>
-              KeyboardShortcutsModel(service, schemaId: schemaWmKeybindings),
-          child: const YaruSection(
-            headline: 'Navigation Shortcuts',
-            children: [
-              KeyboardShortcutRow(
-                label: 'Switch windows',
-                shortcutId: 'switch-windows',
-              ),
-              KeyboardShortcutRow(
-                label: 'Switch windows backward',
-                shortcutId: 'switch-windows-backward',
-              ),
-            ],
-          ),
-        ),
-        ChangeNotifierProvider(
-            create: (_) => KeyboardShortcutsModel(service,
-                schemaId: schemaGnomeShellKeybinding),
+    return YaruPage(
+      child: Column(
+        children: [
+          ChangeNotifierProvider(
+            create: (_) =>
+                KeyboardShortcutsModel(service, schemaId: schemaWmKeybindings),
             child: const YaruSection(
-              headline: 'System',
+              headline: 'Navigation Shortcuts',
               children: [
                 KeyboardShortcutRow(
-                  label: 'Toggle Apps Grid',
-                  shortcutId: 'toggle-application-view',
+                  label: 'Switch windows',
+                  shortcutId: 'switch-windows',
+                ),
+                KeyboardShortcutRow(
+                  label: 'Switch windows backward',
+                  shortcutId: 'switch-windows-backward',
                 ),
               ],
-            ))
-      ],
+            ),
+          ),
+          ChangeNotifierProvider(
+              create: (_) => KeyboardShortcutsModel(service,
+                  schemaId: schemaGnomeShellKeybinding),
+              child: const YaruSection(
+                headline: 'System',
+                children: [
+                  KeyboardShortcutRow(
+                    label: 'Toggle Apps Grid',
+                    shortcutId: 'toggle-application-view',
+                  ),
+                ],
+              ))
+        ],
+      ),
     );
   }
 }

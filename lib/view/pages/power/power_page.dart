@@ -4,6 +4,7 @@ import 'package:settings/view/pages/power/battery_section.dart';
 import 'package:settings/view/pages/power/power_profile_section.dart';
 import 'package:settings/view/pages/power/power_settings_section.dart';
 import 'package:settings/view/pages/power/suspend_section.dart';
+import 'package:yaru_widgets/yaru_widgets.dart';
 
 class PowerPage extends StatelessWidget {
   const PowerPage({Key? key}) : super(key: key);
@@ -12,13 +13,15 @@ class PowerPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: <Widget>[
-        BatterySection.create(context),
-        PowerProfileSection.create(context),
-        PowerSettingsSection.create(context),
-        SuspendSection.create(context),
-      ],
+    return YaruPage(
+      child: Column(
+        children: <Widget>[
+          BatterySection.create(context),
+          PowerProfileSection.create(context),
+          PowerSettingsSection.create(context),
+          SuspendSection.create(context),
+        ],
+      ),
     );
   }
 }

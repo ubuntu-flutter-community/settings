@@ -7,6 +7,7 @@ import 'package:settings/view/pages/keyboard/input_source_section.dart';
 import 'package:settings/view/pages/keyboard/input_source_selection_section.dart';
 import 'package:settings/view/pages/keyboard/special_characters_model.dart';
 import 'package:settings/view/pages/keyboard/special_characters_section.dart';
+import 'package:yaru_widgets/yaru_widgets.dart';
 
 class KeyboardSettingsPage extends StatelessWidget {
   const KeyboardSettingsPage({
@@ -20,7 +21,8 @@ class KeyboardSettingsPage extends StatelessWidget {
     final inputSourceService =
         Provider.of<InputSourceService>(context, listen: false);
 
-    return Column(
+    return YaruPage(
+        child: Column(
       children: [
         ChangeNotifierProvider(
           create: (_) => InputSourceModel(settingsService, inputSourceService),
@@ -35,6 +37,6 @@ class KeyboardSettingsPage extends StatelessWidget {
           child: const SpecialCharactersSection(),
         ),
       ],
-    );
+    ));
   }
 }

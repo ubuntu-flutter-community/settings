@@ -19,30 +19,32 @@ class RemovableMediaPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final model = Provider.of<RemovableMediaModel>(context);
 
-    return YaruSection(headline: 'Removable Media', children: [
-      SizedBox(
-        width: 500,
-        child: Padding(
-          padding: const EdgeInsets.only(top: 8, right: 8, bottom: 8),
-          child: YaruCheckboxRow(
-              enabled: true,
-              value: model.autoRunNever,
-              onChanged: (value) => model.autoRunNever = value!,
-              text: 'Never ask or start a program for any removable media'),
+    return YaruPage(
+      child: YaruSection(headline: 'Removable Media', children: [
+        SizedBox(
+          width: 500,
+          child: Padding(
+            padding: const EdgeInsets.only(top: 8, right: 8, bottom: 8),
+            child: YaruCheckboxRow(
+                enabled: true,
+                value: model.autoRunNever,
+                onChanged: (value) => model.autoRunNever = value!,
+                text: 'Never ask or start a program for any removable media'),
+          ),
         ),
-      ),
-      for (var mimeType in RemovableMediaModel.mimeTypes.entries)
-        YaruRow(
-            enabled: true,
-            trailingWidget: Text(mimeType.value),
-            actionWidget: DropdownButton<String>(
-                value: model.getMimeTypeBehavior(mimeType.key),
-                onChanged: (string) =>
-                    model.setMimeTypeBehavior(string!, mimeType.key),
-                items: [
-                  for (var string in RemovableMediaModel.mimeTypeBehaviors)
-                    DropdownMenuItem(child: Text(string), value: string),
-                ])),
-    ]);
+        for (var mimeType in RemovableMediaModel.mimeTypes.entries)
+          YaruRow(
+              enabled: true,
+              trailingWidget: Text(mimeType.value),
+              actionWidget: DropdownButton<String>(
+                  value: model.getMimeTypeBehavior(mimeType.key),
+                  onChanged: (string) =>
+                      model.setMimeTypeBehavior(string!, mimeType.key),
+                  items: [
+                    for (var string in RemovableMediaModel.mimeTypeBehaviors)
+                      DropdownMenuItem(child: Text(string), value: string),
+                  ])),
+      ]),
+    );
   }
 }

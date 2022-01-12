@@ -30,26 +30,28 @@ class _BluetoothPageState extends State<BluetoothPage> {
   @override
   Widget build(BuildContext context) {
     final model = context.watch<BluetoothModel>();
-    return Column(
-      children: [
-        YaruSection(
-            headerWidget: const SizedBox(
-              height: 15,
-              width: 15,
-              child: CircularProgressIndicator(),
-            ),
-            headline: 'Bluetooth devices',
-            children: [
-              ListView.builder(
-                shrinkWrap: true,
-                itemCount: model.devices.length,
-                itemBuilder: (context, index) => BluetoothDeviceRow.create(
-                    context,
-                    model.devices[index],
-                    () => model.removeDevice(model.devices[index])),
-              )
-            ]),
-      ],
+    return YaruPage(
+      child: Column(
+        children: [
+          YaruSection(
+              headerWidget: const SizedBox(
+                height: 15,
+                width: 15,
+                child: CircularProgressIndicator(),
+              ),
+              headline: 'Bluetooth devices',
+              children: [
+                ListView.builder(
+                  shrinkWrap: true,
+                  itemCount: model.devices.length,
+                  itemBuilder: (context, index) => BluetoothDeviceRow.create(
+                      context,
+                      model.devices[index],
+                      () => model.removeDevice(model.devices[index])),
+                )
+              ]),
+        ],
+      ),
     );
   }
 }
