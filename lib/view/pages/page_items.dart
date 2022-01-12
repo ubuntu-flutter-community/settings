@@ -49,27 +49,27 @@ final pageItems = <YaruPageItem>[
   YaruPageItem(
     title: 'Search',
     iconData: YaruIcons.search,
-    builder: (_) => const Text('Search'),
+    builder: (_) => const Center(child: Text('Search')),
   ),
   YaruPageItem(
     title: 'Apps',
     iconData: YaruIcons.app_grid,
-    builder: (_) => const Text('Apps'),
+    builder: (_) => const Center(child: Text('Apps')),
   ),
   YaruPageItem(
     title: 'Security',
     iconData: YaruIcons.lock,
-    builder: (_) => const Text('Security'),
+    builder: (_) => const Center(child: Text('Security')),
   ),
   YaruPageItem(
     title: 'Online Accounts',
     iconData: YaruIcons.desktop_online_accounts,
-    builder: (_) => const Text('Online Accounts'),
+    builder: (_) => const Center(child: Text('Online Accounts')),
   ),
   YaruPageItem(
     title: 'Sharing',
     iconData: YaruIcons.share,
-    builder: (_) => const Text('Sharing'),
+    builder: (_) => const Center(child: Text('Sharing')),
   ),
   const YaruPageItem(
     title: 'Sound',
@@ -84,7 +84,7 @@ final pageItems = <YaruPageItem>[
   YaruPageItem(
     title: 'Displays',
     iconData: YaruIcons.desktop_display,
-    builder: (_) => const Text('Displays'),
+    builder: (_) => const Center(child: Text('Displays')),
   ),
   const YaruPageItem(
     title: 'Mouse and touchpad',
@@ -99,7 +99,7 @@ final pageItems = <YaruPageItem>[
   YaruPageItem(
     title: 'Printers',
     iconData: YaruIcons.printer,
-    builder: (_) => const Text('Printers'),
+    builder: (_) => const Center(child: Text('Printers')),
   ),
   const YaruPageItem(
     title: 'Removable Media',
@@ -109,12 +109,12 @@ final pageItems = <YaruPageItem>[
   YaruPageItem(
     title: 'Color',
     iconData: YaruIcons.colors,
-    builder: (_) => const Text('Color'),
+    builder: (_) => const Center(child: Text('Color')),
   ),
   YaruPageItem(
     title: 'Region and language',
     iconData: YaruIcons.localization,
-    builder: (_) => const Text('Region and language'),
+    builder: (_) => const Center(child: Text('Region and language')),
   ),
   const YaruPageItem(
     title: 'Accessibility',
@@ -124,17 +124,17 @@ final pageItems = <YaruPageItem>[
   YaruPageItem(
     title: 'Users',
     iconData: YaruIcons.users,
-    builder: (_) => const Text('Users'),
+    builder: (_) => const Center(child: Text('Users')),
   ),
   YaruPageItem(
     title: 'Preferred Apps',
     iconData: YaruIcons.star,
-    builder: (_) => const Text('Preferred Apps'),
+    builder: (_) => const Center(child: Text('Preferred Apps')),
   ),
   YaruPageItem(
     title: 'Date and time',
     iconData: YaruIcons.clock,
-    builder: (_) => const Text('Date and time'),
+    builder: (_) => const Center(child: Text('Date and time')),
   ),
   const YaruPageItem(
     title: 'Info',

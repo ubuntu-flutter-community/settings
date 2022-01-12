@@ -52,82 +52,87 @@ class _InfoPageState extends State<InfoPage> {
       ),
     );
 
-    return Column(
-      children: [
-        const SizedBox(
-            height: 128,
-            width: 128,
-            child: RiveAnimation.asset('assets/rive/ubuntu_cof.riv')),
-        const SizedBox(height: 10),
-        Text('${model.osName} ${model.osVersion}',
-            style: Theme.of(context).textTheme.headline5),
-        const SizedBox(height: 10),
-        const SizedBox(height: 30),
-        const _Computer(),
-        YaruSection(headline: 'Hardware', children: [
-          YaruSingleInfoRow(
-            infoLabel: 'Processor',
-            infoValue: '${model.processorName} x ${model.processorCount}',
-          ),
-          YaruSingleInfoRow(
-            infoLabel: 'Memory',
-            infoValue: '${model.memory} Gb',
-          ),
-          YaruSingleInfoRow(
-            infoLabel: 'Graphics',
-            infoValue: model.graphics,
-          ),
-          YaruSingleInfoRow(
-            infoLabel: 'Disk Capacity',
-            infoValue:
-                model.diskCapacity != null ? filesize(model.diskCapacity) : '',
-          ),
-        ]),
-        YaruSection(headline: 'System', children: [
-          YaruSingleInfoRow(
-            infoLabel: 'OS',
-            infoValue:
-                '${model.osName} ${model.osVersion} (${model.osType}-bit)',
-          ),
-          YaruSingleInfoRow(
-            infoLabel: 'Kernel version',
-            infoValue: model.kernelVersion,
-          ),
-          YaruSingleInfoRow(
-            infoLabel: 'GNOME version',
-            infoValue: model.gnomeVersion,
-          ),
-          YaruSingleInfoRow(
-            infoLabel: 'Windowing System',
-            infoValue: model.windowServer,
-          ),
-        ]),
-        YaruPageContainer(
-            child: Align(
-          alignment: Alignment.topRight,
-          child: OutlinedButton.icon(
-            icon: const Icon(YaruIcons.save_as),
-            label: const Text('Export to PDF'),
-            onPressed: () async {
-              // ignore: unused_local_variable
-              final pdfFile = await PdfApi.generateSystemData(
-                model.osName,
-                model.osVersion,
-                model.kernelVersion,
-                model.processorName,
-                model.processorCount.toString(),
-                model.memory.toString(),
-                model.graphics,
-                model.diskCapacity != null ? filesize(model.diskCapacity) : '',
-                model.osType.toString(),
-                model.gnomeVersion,
-                model.windowServer,
-              );
-              ScaffoldMessenger.of(context).showSnackBar(sysInfoSnackBar);
-            },
-          ),
-        )),
-      ],
+    return YaruPage(
+      child: Column(
+        children: [
+          const SizedBox(
+              height: 128,
+              width: 128,
+              child: RiveAnimation.asset('assets/rive/ubuntu_cof.riv')),
+          const SizedBox(height: 10),
+          Text('${model.osName} ${model.osVersion}',
+              style: Theme.of(context).textTheme.headline5),
+          const SizedBox(height: 10),
+          const SizedBox(height: 30),
+          const _Computer(),
+          YaruSection(headline: 'Hardware', children: [
+            YaruSingleInfoRow(
+              infoLabel: 'Processor',
+              infoValue: '${model.processorName} x ${model.processorCount}',
+            ),
+            YaruSingleInfoRow(
+              infoLabel: 'Memory',
+              infoValue: '${model.memory} Gb',
+            ),
+            YaruSingleInfoRow(
+              infoLabel: 'Graphics',
+              infoValue: model.graphics,
+            ),
+            YaruSingleInfoRow(
+              infoLabel: 'Disk Capacity',
+              infoValue: model.diskCapacity != null
+                  ? filesize(model.diskCapacity)
+                  : '',
+            ),
+          ]),
+          YaruSection(headline: 'System', children: [
+            YaruSingleInfoRow(
+              infoLabel: 'OS',
+              infoValue:
+                  '${model.osName} ${model.osVersion} (${model.osType}-bit)',
+            ),
+            YaruSingleInfoRow(
+              infoLabel: 'Kernel version',
+              infoValue: model.kernelVersion,
+            ),
+            YaruSingleInfoRow(
+              infoLabel: 'GNOME version',
+              infoValue: model.gnomeVersion,
+            ),
+            YaruSingleInfoRow(
+              infoLabel: 'Windowing System',
+              infoValue: model.windowServer,
+            ),
+          ]),
+          YaruPageContainer(
+              child: Align(
+            alignment: Alignment.topRight,
+            child: OutlinedButton.icon(
+              icon: const Icon(YaruIcons.save_as),
+              label: const Text('Export to PDF'),
+              onPressed: () async {
+                // ignore: unused_local_variable
+                final pdfFile = await PdfApi.generateSystemData(
+                  model.osName,
+                  model.osVersion,
+                  model.kernelVersion,
+                  model.processorName,
+                  model.processorCount.toString(),
+                  model.memory.toString(),
+                  model.graphics,
+                  model.diskCapacity != null
+                      ? filesize(model.diskCapacity)
+                      : '',
+                  model.osType.toString(),
+                  model.gnomeVersion,
+                  model.windowServer,
+                );
+                ScaffoldMessenger.of(context).showSnackBar(sysInfoSnackBar);
+              },
+            ),
+          )),
+        ],
+      ),
     );
   }
 }

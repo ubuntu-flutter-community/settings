@@ -53,6 +53,6 @@ class _ConnectionsPageState extends State<ConnectionsPage>
       Column(
         children: const [Text('Cellular')],
       )
-    ], width: 516, height: 400);
+    ], width: 516);
   }
 }

@@ -292,7 +292,7 @@ packages:
       name: flutter_svg
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.0.0"
+    version: "1.0.1"
   flutter_test:
     dependency: "direct dev"
     description: flutter
@@ -374,7 +374,7 @@ packages:
       name: js
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.6.3"
+    version: "0.6.4"
   json_annotation:
     dependency: transitive
     description:
@@ -535,28 +535,28 @@ packages:
       name: path_provider_linux
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.1.4"
+    version: "2.1.5"
   path_provider_macos:
     dependency: transitive
     description:
       name: path_provider_macos
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.0.4"
+    version: "2.0.5"
   path_provider_platform_interface:
     dependency: transitive
     description:
       name: path_provider_platform_interface
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.0.1"
+    version: "2.0.3"
   path_provider_windows:
     dependency: transitive
     description:
       name: path_provider_windows
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.0.4"
+    version: "2.0.5"
   pdf:
     dependency: "direct main"
     description:
@@ -584,7 +584,7 @@ packages:
       name: plugin_platform_interface
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.0.2"
+    version: "2.1.2"
   pool:
     dependency: transitive
     description:
@@ -893,10 +893,10 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: "792924ef2b8c0fdc8ef17f65a36ed8d0ff4655a1"
+      resolved-ref: b09a93cb6d7d7b6caf92c49aa6ea7f9ec4a1c04d
       url: "https://github.com/ubuntu/yaru_widgets.dart"
     source: git
     version: "1.0.0+1"
 sdks:
-  dart: ">=2.15.0 <3.0.0"
+  dart: ">=2.16.0-100.0.dev <3.0.0"
   flutter: ">=2.5.0"
