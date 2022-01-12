@@ -10,7 +10,7 @@ class PointingAndClickingSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final model = Provider.of<AccessibilityModel>(context);
+    final model = context.watch<AccessibilityModel>();
     return YaruSection(
       headline: 'Pointing & Clicking',
       children: [
@@ -43,7 +43,7 @@ class _ClickAssist extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final model = Provider.of<AccessibilityModel>(context);
+    final model = context.watch<AccessibilityModel>();
     return YaruRow(
       enabled: model.clickAssistAvailable,
       trailingWidget: const Text('Click Assist'),
@@ -77,7 +77,7 @@ class _ClickAssistSettings extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final model = Provider.of<AccessibilityModel>(context);
+    final model = context.watch<AccessibilityModel>();
     return YaruSimpleDialog(
       title: 'Click Assist',
       closeIconData: YaruIcons.window_close,

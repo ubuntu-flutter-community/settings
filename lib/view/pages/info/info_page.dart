@@ -142,7 +142,7 @@ class _Computer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final model = Provider.of<InfoModel>(context);
+    final model = context.watch<InfoModel>();
 
     return YaruSection(headline: 'Computer', children: [
       YaruRow(
