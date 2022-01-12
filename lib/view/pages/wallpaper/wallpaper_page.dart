@@ -25,8 +25,10 @@ class WallpaperPage extends StatelessWidget {
     final model = Provider.of<WallpaperModel>(context);
 
     return YaruPage(
-      child: YaruSection(headline: 'Set your wallpaper', children: [
+      padding: const EdgeInsets.all(10),
+      child: Column(children: [
         YaruRow(
+            width: 540,
             enabled: true,
             trailingWidget: const Text('Background mode'),
             actionWidget: Row(
@@ -59,7 +61,7 @@ class WallpaperPage extends StatelessWidget {
             value: model.colorShadingType,
           ),
         SizedBox(
-          width: 500,
+          width: 540,
           child: model.pictureUri.isEmpty
               ? Padding(
                   padding: const EdgeInsets.all(8.0),
@@ -118,29 +120,27 @@ class WallpaperPage extends StatelessWidget {
               )),
         if (model.wallpaperMode == WallpaperMode.custom)
           Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const Padding(
-                padding: EdgeInsets.only(top: 10),
-                child: YaruRow(
-                    enabled: true,
-                    trailingWidget: Text('Your wallpapers'),
-                    actionWidget: SizedBox(
-                      width: 40,
-                    )),
+                padding: EdgeInsets.all(10),
+                child: Text('Your wallpapers'),
               ),
               FutureBuilder<List<String>>(
                   future: model.customBackgrounds,
                   builder: (context, snapshot) {
                     if (snapshot.hasData) {
                       return SizedBox(
-                        width: 500,
+                        // width: 500,
                         child: GridView(
                           gridDelegate:
-                              const SliverGridDelegateWithFixedCrossAxisCount(
-                                  crossAxisCount: 3,
-                                  childAspectRatio: 1.6,
-                                  mainAxisSpacing: 5,
-                                  crossAxisSpacing: 5),
+                              const SliverGridDelegateWithMaxCrossAxisExtent(
+                                  maxCrossAxisExtent: 200,
+                                  // crossAxisCount: 6,
+                                  childAspectRatio: 16 / 10,
+                                  mainAxisSpacing: 10,
+                                  crossAxisSpacing: 10),
                           shrinkWrap: true,
                           scrollDirection: Axis.vertical,
                           children: <Widget>[
@@ -206,25 +206,22 @@ class WallpaperPage extends StatelessWidget {
                     }
                   }),
               const Padding(
-                padding: EdgeInsets.only(top: 10),
-                child: YaruRow(
-                    enabled: true,
-                    trailingWidget: Text('Default wallpapers'),
-                    actionWidget: SizedBox(
-                      width: 0,
-                    )),
+                padding:
+                    EdgeInsets.only(top: 30, left: 10, right: 10, bottom: 10),
+                child: Text('Default wallpapers'),
               ),
               FutureBuilder<List<String>>(
                   future: model.preInstalledBackgrounds,
                   builder: (context, snapshot) {
                     if (snapshot.hasData) {
                       return SizedBox(
-                        width: 500,
+                        // width: 500,
                         child: GridView(
                             gridDelegate:
-                                const SliverGridDelegateWithFixedCrossAxisCount(
-                                    crossAxisCount: 3,
-                                    childAspectRatio: 1.6,
+                                const SliverGridDelegateWithMaxCrossAxisExtent(
+                                    maxCrossAxisExtent: 200,
+                                    // crossAxisCount: 6,
+                                    childAspectRatio: 16 / 10,
                                     mainAxisSpacing: 10,
                                     crossAxisSpacing: 10),
                             shrinkWrap: true,
