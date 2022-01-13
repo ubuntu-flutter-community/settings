@@ -406,10 +406,10 @@ class _CrosshairsOptions extends StatelessWidget {
             onChanged: (value) => model.setCrossHairsLength(value),
           ),
           YaruRow(
-            enabled: true,
+            enabled: model.crossHairsColor != null,
             trailingWidget: const Text('Color'),
             actionWidget: YaruColorPickerButton(
-              color: colorFromHex(model.crossHairsColor!),
+              color: colorFromHex(model.crossHairsColor ?? '#FF0000'),
               onPressed: () {},
             ),
           ),
