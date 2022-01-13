@@ -1,6 +1,7 @@
 import 'package:flex_color_picker/flex_color_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:settings/utils.dart';
 import 'package:settings/view/pages/wallpaper/wallpaper_model.dart';
 import 'package:yaru_widgets/yaru_widgets.dart';
 
@@ -47,7 +48,7 @@ class ColorShadingOptionRow extends StatelessWidget {
           ),
           const SizedBox(width: 8.0),
           YaruColorPickerButton(
-            color: fromHex(model.primaryColor),
+            color: colorFromHex(model.primaryColor),
             onPressed: () async {
               final colorBeforeDialog = model.primaryColor;
               if (!(await colorPickerDialog(context, true))) {
@@ -59,7 +60,7 @@ class ColorShadingOptionRow extends StatelessWidget {
             const SizedBox(width: 8.0),
           if (model.colorShadingType != ColorShadingType.solid)
             YaruColorPickerButton(
-                color: fromHex(model.secondaryColor),
+                color: colorFromHex(model.secondaryColor),
                 onPressed: () async {
                   final colorBeforeDialog = model.secondaryColor;
                   if (!(await colorPickerDialog(context, false))) {
@@ -71,17 +72,10 @@ class ColorShadingOptionRow extends StatelessWidget {
     );
   }
 
-  Color fromHex(String hexString) {
-    final buffer = StringBuffer();
-    if (hexString.length == 6 || hexString.length == 7) buffer.write('ff');
-    buffer.write(hexString.replaceFirst('#', ''));
-    return Color(int.tryParse(buffer.toString(), radix: 16) ?? 0);
-  }
-
   Future<bool> colorPickerDialog(BuildContext context, bool primary) async {
     final model = context.read<WallpaperModel>();
     return ColorPicker(
-      color: fromHex(primary ? model.primaryColor : model.secondaryColor),
+      color: colorFromHex(primary ? model.primaryColor : model.secondaryColor),
       onColorChanged: (Color color) => {
         if (primary)
           {model.primaryColor = '#' + color.hex}
