@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
+import 'package:settings/utils.dart';
 import 'package:settings/view/pages/appearance/dock_model.dart';
 import 'package:settings/view/selectable_svg_image.dart';
 import 'package:yaru_widgets/yaru_widgets.dart';
@@ -14,7 +15,9 @@ class DockSection extends StatelessWidget {
   Widget build(BuildContext context) {
     final model = context.watch<DockModel>();
     final unselectedColor = Theme.of(context).backgroundColor;
-    final selectedColor = Theme.of(context).primaryColor.withOpacity(0.9);
+    final selectedColor = Theme.of(context).brightness == Brightness.light
+        ? Theme.of(context).primaryColor
+        : lighten(Theme.of(context).primaryColor, 20);
 
     return Column(
       children: [
