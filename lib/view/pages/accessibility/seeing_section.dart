@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spinbox/flutter_spinbox.dart';
 import 'package:provider/provider.dart';
+import 'package:settings/utils.dart';
 import 'package:settings/view/pages/accessibility/accessibility_model.dart';
 import 'package:yaru_widgets/yaru_widgets.dart';
 
@@ -408,20 +409,13 @@ class _CrosshairsOptions extends StatelessWidget {
             enabled: true,
             trailingWidget: const Text('Color'),
             actionWidget: YaruColorPickerButton(
-              color: fromHex(model.crossHairsColor!),
+              color: colorFromHex(model.crossHairsColor!),
               onPressed: () {},
             ),
           ),
         ],
       ),
     );
-  }
-
-  Color fromHex(String hexString) {
-    final buffer = StringBuffer();
-    if (hexString.length == 6 || hexString.length == 7) buffer.write('ff');
-    buffer.write(hexString.replaceFirst('#', ''));
-    return Color(int.tryParse(buffer.toString(), radix: 16) ?? 0);
   }
 }
 
