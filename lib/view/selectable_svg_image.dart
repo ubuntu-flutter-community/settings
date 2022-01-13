@@ -8,6 +8,7 @@ class SelectableSvgImage extends StatelessWidget {
       this.onTap,
       required this.selected,
       required this.height,
+      required this.selectedColor,
       this.padding})
       : super(key: key);
 
@@ -16,6 +17,7 @@ class SelectableSvgImage extends StatelessWidget {
   final bool selected;
   final double height;
   final double? padding;
+  final Color selectedColor;
 
   @override
   Widget build(BuildContext context) {
@@ -32,10 +34,9 @@ class SelectableSvgImage extends StatelessWidget {
             borderRadius: BorderRadius.circular(4),
             child: SvgPicture.asset(
               path,
-              color: selected
-                  ? Theme.of(context).primaryColor.withOpacity(0.1)
-                  : Theme.of(context).backgroundColor,
-              colorBlendMode: BlendMode.color,
+              color:
+                  selected ? selectedColor : Theme.of(context).backgroundColor,
+              colorBlendMode: selected ? BlendMode.srcIn : BlendMode.color,
               height: height,
             ),
           ),
