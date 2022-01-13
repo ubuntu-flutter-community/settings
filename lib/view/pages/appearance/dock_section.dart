@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
+import 'package:settings/utils.dart';
 import 'package:settings/view/pages/appearance/dock_model.dart';
 import 'package:settings/view/selectable_svg_image.dart';
 import 'package:yaru_widgets/yaru_widgets.dart';
@@ -13,6 +14,10 @@ class DockSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final model = context.watch<DockModel>();
+    final unselectedColor = Theme.of(context).backgroundColor;
+    final selectedColor = Theme.of(context).brightness == Brightness.light
+        ? Theme.of(context).primaryColor
+        : lighten(Theme.of(context).primaryColor, 20);
 
     return Column(
       children: [
@@ -33,9 +38,12 @@ class DockSection extends StatelessWidget {
               child: SvgPicture.asset(
                 model.getPanelModeAsset(),
                 color: (model.extendDock != null && model.extendDock == true)
-                    ? Theme.of(context).primaryColor.withOpacity(0.1)
-                    : Theme.of(context).backgroundColor,
-                colorBlendMode: BlendMode.color,
+                    ? selectedColor
+                    : unselectedColor,
+                colorBlendMode:
+                    (model.extendDock != null && model.extendDock == true)
+                        ? BlendMode.srcIn
+                        : BlendMode.color,
                 height: assetHeight,
               ),
             ),
@@ -53,9 +61,11 @@ class DockSection extends StatelessWidget {
               child: SvgPicture.asset(
                 model.getDockModeAsset(),
                 color: (model.extendDock != null && !model.extendDock!)
-                    ? Theme.of(context).primaryColor.withOpacity(0.1)
-                    : Theme.of(context).backgroundColor,
-                colorBlendMode: BlendMode.color,
+                    ? selectedColor
+                    : unselectedColor,
+                colorBlendMode: (model.extendDock != null && !model.extendDock!)
+                    ? BlendMode.srcIn
+                    : BlendMode.color,
                 height: assetHeight,
               ),
             ),
@@ -75,6 +85,7 @@ class DockSection extends StatelessWidget {
                     ),
                     SizedBox(
                       child: SelectableSvgImage(
+                        selectedColor: selectedColor,
                         padding: 8.0,
                         path: model.getLeftSideAsset(),
                         selected: model.dockPosition == DockPosition.left,
@@ -94,6 +105,7 @@ class DockSection extends StatelessWidget {
                       child: Text('Right'),
                     ),
                     SelectableSvgImage(
+                      selectedColor: selectedColor,
                       padding: 8.0,
                       path: model.getRightSideAsset(),
                       selected: model.dockPosition == DockPosition.right,
@@ -112,6 +124,7 @@ class DockSection extends StatelessWidget {
                       child: Text('Bottom'),
                     ),
                     SelectableSvgImage(
+                      selectedColor: selectedColor,
                       padding: 8.0,
                       path: model.getBottomAsset(),
                       selected: model.dockPosition == DockPosition.bottom,
@@ -143,9 +156,12 @@ class DockSection extends StatelessWidget {
                     model.getAutoHideAsset(),
                     color:
                         (model.alwaysShowDock != null && !model.alwaysShowDock!)
-                            ? Theme.of(context).primaryColor.withOpacity(0.1)
-                            : Theme.of(context).backgroundColor,
-                    colorBlendMode: BlendMode.color,
+                            ? selectedColor
+                            : unselectedColor,
+                    colorBlendMode:
+                        (model.alwaysShowDock != null && !model.alwaysShowDock!)
+                            ? BlendMode.srcIn
+                            : BlendMode.color,
                     height: assetHeight,
                   ),
                 )

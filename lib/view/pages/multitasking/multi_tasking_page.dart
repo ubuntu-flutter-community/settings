@@ -3,6 +3,7 @@ import 'package:flutter_spinbox/flutter_spinbox.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 import 'package:settings/services/settings_service.dart';
+import 'package:settings/utils.dart';
 import 'package:settings/view/pages/multitasking/multi_tasking_model.dart';
 import 'package:yaru_widgets/yaru_widgets.dart';
 
@@ -20,6 +21,11 @@ class MultiTaskingPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final model = context.watch<MultiTaskingModel>();
+    final unselectedColor = Theme.of(context).backgroundColor;
+    final selectedColor = Theme.of(context).brightness == Brightness.light
+        ? Theme.of(context).primaryColor
+        : lighten(Theme.of(context).primaryColor, 20);
+
     return YaruPage(
       child: Column(
         children: [
@@ -39,9 +45,12 @@ class MultiTaskingPage extends StatelessWidget {
                     model.getHotCornerAsset(),
                     color: (model.enableHotCorners != null &&
                             model.enableHotCorners == true)
-                        ? Theme.of(context).primaryColor.withOpacity(0.1)
-                        : Theme.of(context).backgroundColor,
-                    colorBlendMode: BlendMode.color,
+                        ? selectedColor
+                        : unselectedColor,
+                    colorBlendMode: (model.enableHotCorners != null &&
+                            model.enableHotCorners == true)
+                        ? BlendMode.srcIn
+                        : BlendMode.color,
                     height: 80,
                   ),
                 ),
@@ -61,9 +70,12 @@ class MultiTaskingPage extends StatelessWidget {
                   child: SvgPicture.asset(
                     model.getActiveEdgesAsset(),
                     color: model.edgeTiling != null && model.edgeTiling == true
-                        ? Theme.of(context).primaryColor.withOpacity(0.1)
-                        : Theme.of(context).backgroundColor,
-                    colorBlendMode: BlendMode.color,
+                        ? selectedColor
+                        : unselectedColor,
+                    colorBlendMode:
+                        model.edgeTiling != null && model.edgeTiling == true
+                            ? BlendMode.srcIn
+                            : BlendMode.color,
                     height: 80,
                   ),
                 ),
@@ -124,9 +136,12 @@ class MultiTaskingPage extends StatelessWidget {
                 model.getWorkspacesSpanDisplayAsset(),
                 color: !(model.workSpaceOnlyOnPrimary != null &&
                         model.workSpaceOnlyOnPrimary == true)
-                    ? Theme.of(context).primaryColor.withOpacity(0.1)
-                    : Theme.of(context).backgroundColor,
-                colorBlendMode: BlendMode.color,
+                    ? selectedColor
+                    : unselectedColor,
+                colorBlendMode: !(model.workSpaceOnlyOnPrimary != null &&
+                        model.workSpaceOnlyOnPrimary == true)
+                    ? BlendMode.srcIn
+                    : BlendMode.color,
                 height: 60,
               ),
             ),
@@ -147,9 +162,12 @@ class MultiTaskingPage extends StatelessWidget {
                 model.getWorkspacesPrimaryDisplayAsset(),
                 color: !(model.workSpaceOnlyOnPrimary != null &&
                         model.workSpaceOnlyOnPrimary == false)
-                    ? Theme.of(context).primaryColor.withOpacity(0.1)
-                    : Theme.of(context).backgroundColor,
-                colorBlendMode: BlendMode.color,
+                    ? selectedColor
+                    : unselectedColor,
+                colorBlendMode: !(model.workSpaceOnlyOnPrimary != null &&
+                        model.workSpaceOnlyOnPrimary == false)
+                    ? BlendMode.srcIn
+                    : BlendMode.color,
                 height: 60,
               ),
             )
