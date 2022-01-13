@@ -404,21 +404,24 @@ class _CrosshairsOptions extends StatelessWidget {
             value: model.crossHairsLength,
             onChanged: (value) => model.setCrossHairsLength(value),
           ),
-          Row(
-            children: const [
-              Expanded(
-                child: Text('Color'),
-              ),
-              // TODO We need Color selector widget
-              OutlinedButton(
-                onPressed: null,
-                child: Text('Color'),
-              ),
-            ],
+          YaruRow(
+            enabled: true,
+            trailingWidget: const Text('Color'),
+            actionWidget: YaruColorPickerButton(
+              color: fromHex(model.crossHairsColor!),
+              onPressed: () {},
+            ),
           ),
         ],
       ),
     );
+  }
+
+  Color fromHex(String hexString) {
+    final buffer = StringBuffer();
+    if (hexString.length == 6 || hexString.length == 7) buffer.write('ff');
+    buffer.write(hexString.replaceFirst('#', ''));
+    return Color(int.tryParse(buffer.toString(), radix: 16) ?? 0);
   }
 }
 

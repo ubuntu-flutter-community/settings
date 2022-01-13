@@ -17,6 +17,7 @@ class AccessibilityModel extends ChangeNotifier {
   static const _crossHairsClipKey = 'cross-hairs-clip';
   static const _crossHairsThicknessKey = 'cross-hairs-thickness';
   static const _crossHairsLengthKey = 'cross-hairs-length';
+  static const _crossHairsColor = 'cross-hairs-color';
   static const _inverseLightnessKey = 'invert-lightness';
   static const _brightnessRedKey = 'brightness-red';
   static const _brightnessGreenKey = 'brightness-green';
@@ -264,6 +265,9 @@ class AccessibilityModel extends ChangeNotifier {
     _a11yMagnifierSettings?.setValue(_crossHairsLengthKey, value.toInt());
     notifyListeners();
   }
+
+  String? get crossHairsColor =>
+      _a11yMagnifierSettings?.stringValue(_crossHairsColor);
 
   bool? get inverseLightness =>
       _a11yMagnifierSettings?.boolValue(_inverseLightnessKey);
