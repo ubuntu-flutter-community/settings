@@ -410,6 +410,7 @@ class _CrosshairsOptions extends StatelessWidget {
             enabled: model.crossHairsColor != null,
             trailingWidget: const Text('Color'),
             actionWidget: YaruColorPickerButton(
+              enabled: model.crossHairsColor != null,
               color: colorFromHex(model.crossHairsColor ?? '#FF0000'),
               onPressed: () async {
                 final colorBeforeDialog = model.crossHairsColor;
