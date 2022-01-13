@@ -1,3 +1,4 @@
+import 'package:flex_color_picker/flex_color_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinbox/flutter_spinbox.dart';
 import 'package:provider/provider.dart';
@@ -410,11 +411,65 @@ class _CrosshairsOptions extends StatelessWidget {
             trailingWidget: const Text('Color'),
             actionWidget: YaruColorPickerButton(
               color: colorFromHex(model.crossHairsColor ?? '#FF0000'),
-              onPressed: () {},
+              onPressed: () async {
+                final colorBeforeDialog = model.crossHairsColor;
+                if (!(await colorPickerDialog(context))) {
+                  model.setCrossHairsColor(colorBeforeDialog!);
+                }
+              },
             ),
           ),
         ],
       ),
+    );
+  }
+
+  Future<bool> colorPickerDialog(BuildContext context) async {
+    final model = context.read<AccessibilityModel>();
+    return ColorPicker(
+      color: colorFromHex(model.crossHairsColor ?? '#FF0000'),
+      onColorChanged: (value) => model.setCrossHairsColor('#${value.hex}'),
+      width: 40,
+      height: 40,
+      borderRadius: 4,
+      spacing: 5,
+      runSpacing: 5,
+      wheelDiameter: 155,
+      heading: Text(
+        'Select crosshairs color',
+        style: Theme.of(context).textTheme.subtitle1,
+      ),
+      subheading: Text(
+        'Select color shade',
+        style: Theme.of(context).textTheme.subtitle1,
+      ),
+      wheelSubheading: Text(
+        'Selected color and its shades',
+        style: Theme.of(context).textTheme.subtitle1,
+      ),
+      showMaterialName: true,
+      showColorName: true,
+      showColorCode: true,
+      copyPasteBehavior: const ColorPickerCopyPasteBehavior(
+        longPressMenu: true,
+      ),
+      materialNameTextStyle: Theme.of(context).textTheme.caption,
+      colorNameTextStyle: Theme.of(context).textTheme.caption,
+      colorCodeTextStyle: Theme.of(context).textTheme.bodyText2,
+      colorCodePrefixStyle: Theme.of(context).textTheme.caption,
+      selectedPickerTypeColor: Theme.of(context).colorScheme.primary,
+      pickersEnabled: const <ColorPickerType, bool>{
+        ColorPickerType.both: false,
+        ColorPickerType.primary: true,
+        ColorPickerType.accent: true,
+        ColorPickerType.bw: false,
+        ColorPickerType.custom: true,
+        ColorPickerType.wheel: true,
+      },
+    ).showPickerDialog(
+      context,
+      constraints:
+          const BoxConstraints(minHeight: 480, minWidth: 300, maxWidth: 320),
     );
   }
 }

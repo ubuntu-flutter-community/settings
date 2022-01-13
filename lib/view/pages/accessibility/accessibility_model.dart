@@ -269,6 +269,11 @@ class AccessibilityModel extends ChangeNotifier {
   String? get crossHairsColor =>
       _a11yMagnifierSettings?.stringValue(_crossHairsColor);
 
+  void setCrossHairsColor(String value) {
+    _a11yMagnifierSettings?.setValue(_crossHairsColor, value);
+    notifyListeners();
+  }
+
   bool? get inverseLightness =>
       _a11yMagnifierSettings?.boolValue(_inverseLightnessKey);
 
