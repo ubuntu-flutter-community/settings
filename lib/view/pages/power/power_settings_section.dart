@@ -48,7 +48,7 @@ class _PowerSettingsSectionState extends State<PowerSettingsSection> {
             actionLabel: 'Screen Brightness',
             min: 0,
             max: 100,
-            value: model.screenBrightness ?? 0.0,
+            value: model.screenBrightness,
             onChanged: model.setScreenBrightness,
           ),
         YaruSwitchRow(
@@ -60,7 +60,7 @@ class _PowerSettingsSectionState extends State<PowerSettingsSection> {
           actionLabel: 'Keyboard Brightness',
           min: 0,
           max: 100,
-          value: model.keyboardBrightness ?? 0.0,
+          value: model.keyboardBrightness,
           onChanged: model.setKeyboardBrightness,
         ),
         YaruSwitchRow(
