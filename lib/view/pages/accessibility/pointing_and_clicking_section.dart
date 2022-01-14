@@ -90,16 +90,19 @@ class _ClickAssistSettings extends StatelessWidget {
           onChanged: (value) => model.setSimulatedSecondaryClick(value),
         ),
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16.0),
-          child: YaruSliderSecondary(
-            label: 'Delay',
-            enabled: model.simulatedSecondaryClick,
-            value: model.secondaryClickTime,
-            min: 0.5,
-            max: 3.0,
-            defaultValue: 1.2,
-            fractionDigits: 1,
-            onChanged: (value) => model.setSecondaryClickTime(value),
+          padding: const EdgeInsets.only(left: 16.0),
+          child: SizedBox(
+            height: 56,
+            child: YaruSliderRow(
+              enabled: model.simulatedSecondaryClick ?? false,
+              actionLabel: 'Delay',
+              value: model.secondaryClickTime,
+              min: 0.5,
+              max: 3.0,
+              defaultValue: 1.2,
+              fractionDigits: 1,
+              onChanged: model.setSecondaryClickTime,
+            ),
           ),
         ),
         YaruSwitchRow(
@@ -109,27 +112,33 @@ class _ClickAssistSettings extends StatelessWidget {
           onChanged: (value) => model.setDwellClick(value),
         ),
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16.0),
+          padding: const EdgeInsets.only(left: 16.0),
           child: Column(
             children: [
-              YaruSliderSecondary(
-                label: 'Delay',
-                enabled: model.dwellClick,
-                min: 0.2,
-                max: 3.0,
-                defaultValue: 1.2,
-                value: model.dwellTime,
-                fractionDigits: 1,
-                onChanged: (value) => model.setDwellTime(value),
+              SizedBox(
+                height: 56,
+                child: YaruSliderRow(
+                  enabled: model.dwellClick ?? false,
+                  actionLabel: 'Delay',
+                  value: model.dwellTime,
+                  min: 0.2,
+                  max: 3.0,
+                  defaultValue: 1.2,
+                  fractionDigits: 1,
+                  onChanged: model.setDwellTime,
+                ),
               ),
-              YaruSliderSecondary(
-                label: 'Motion thresshold',
-                enabled: model.dwellClick,
-                min: 0.0,
-                max: 30.0,
-                defaultValue: 10,
-                value: model.dwellThreshold,
-                onChanged: (value) => model.setDwellThreshold(value),
+              SizedBox(
+                height: 56,
+                child: YaruSliderRow(
+                  enabled: model.dwellClick ?? false,
+                  actionLabel: 'Motion thresshold',
+                  value: model.dwellThreshold,
+                  min: 0.0,
+                  max: 30.0,
+                  defaultValue: 10,
+                  onChanged: model.setDwellThreshold,
+                ),
               ),
             ],
           ),

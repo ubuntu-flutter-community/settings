@@ -244,17 +244,21 @@ class _SlowKeysSettings extends StatelessWidget {
   Widget build(BuildContext context) {
     final model = context.watch<AccessibilityModel>();
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+      padding: const EdgeInsets.only(left: 16.0),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          YaruSliderSecondary(
-            label: 'Acceptance delay',
-            enabled: model.slowKeys,
-            min: 0,
-            max: 500,
-            defaultValue: 300,
-            value: model.slowKeysDelay,
-            onChanged: (value) => model.setSlowKeysDelay(value),
+          SizedBox(
+            height: 56,
+            child: YaruSliderRow(
+              enabled: model.slowKeys ?? false,
+              actionLabel: 'Acceptance delay',
+              value: model.slowKeysDelay,
+              min: 0,
+              max: 500,
+              defaultValue: 300,
+              onChanged: model.setSlowKeysDelay,
+            ),
           ),
           YaruCheckboxRow(
             enabled: model.slowKeys ?? false,
@@ -287,17 +291,21 @@ class _BounceKeysSettings extends StatelessWidget {
   Widget build(BuildContext context) {
     final model = context.watch<AccessibilityModel>();
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+      padding: const EdgeInsets.only(left: 16.0),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          YaruSliderSecondary(
-            label: 'Acceptance delay',
-            enabled: model.bounceKeys,
-            min: 0,
-            max: 900,
-            defaultValue: 300,
-            value: model.bounceKeysDelay,
-            onChanged: (value) => model.setBounceKeysDelay(value),
+          SizedBox(
+            height: 56,
+            child: YaruSliderRow(
+              enabled: model.bounceKeys ?? false,
+              actionLabel: 'Acceptance delay',
+              value: model.bounceKeysDelay,
+              min: 0,
+              max: 900,
+              defaultValue: 300,
+              onChanged: model.setBounceKeysDelay,
+            ),
           ),
           YaruCheckboxRow(
             enabled: model.bounceKeys ?? false,
