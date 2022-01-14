@@ -43,14 +43,15 @@ class _PowerSettingsSectionState extends State<PowerSettingsSection> {
     return YaruSection(
       headline: 'Power Saving',
       children: <Widget>[
-        if (model.screenBrightness != null && model.screenBrightness != -1)
-          YaruSliderRow(
-            actionLabel: 'Screen Brightness',
-            min: 0,
-            max: 100,
-            value: model.screenBrightness,
-            onChanged: model.setScreenBrightness,
-          ),
+        YaruSliderRow(
+          enabled:
+              model.screenBrightness != null && model.screenBrightness != -1,
+          actionLabel: 'Screen Brightness',
+          min: 0,
+          max: 100,
+          value: model.screenBrightness,
+          onChanged: model.setScreenBrightness,
+        ),
         YaruSwitchRow(
           trailingWidget: const Text('Automatic Brightness'),
           value: model.ambientEnabled,
