@@ -203,7 +203,7 @@ packages:
       name: dbus
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.6.6"
+    version: "0.6.8"
   duration:
     dependency: "direct main"
     description:
@@ -353,7 +353,7 @@ packages:
       name: image
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "3.1.0"
+    version: "3.1.1"
   intl:
     dependency: "direct main"
     description:
@@ -893,7 +893,7 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: f93fbba83b25265c9941ef59d5eb6bbeafc0eaa0
+      resolved-ref: "83cb95c5aff3bde71f78fec5ad1e945f36c9e734"
       url: "https://github.com/ubuntu/yaru_widgets.dart"
     source: git
     version: "1.0.0+1"
