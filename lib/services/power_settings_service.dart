@@ -70,8 +70,14 @@ class Brightness {
   }
 
   void _updateProperties(DBusPropertiesChangedSignal signal) {
-    if (signal.hasChangedBrightness()) {
-      _object.getBrightness(_name).then(_updateBrightness);
+    if (_name == 'Screen') {
+      if (signal.hasChangedScreenBrightness()) {
+        _object.getBrightness(_name).then(_updateBrightness);
+      }
+    } else {
+      if (signal.hasChangedKeyboardBrightness()) {
+        _object.getBrightness(_name).then(_updateBrightness);
+      }
     }
   }
 }
@@ -90,5 +96,13 @@ extension _BrightnessObject on DBusRemoteObject {
 }
 
 extension _ChangedBrightness on DBusPropertiesChangedSignal {
-  bool hasChangedBrightness() => changedProperties.containsKey('Brightness');
+  bool hasChangedScreenBrightness() {
+    return changedProperties.containsKey('Brightness') &&
+        propertiesInterface.contains('Screen');
+  }
+
+  bool hasChangedKeyboardBrightness() {
+    return changedProperties.containsKey('Brightness') &&
+        propertiesInterface.contains('Keyboard');
+  }
 }
