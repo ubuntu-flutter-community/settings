@@ -5,13 +5,16 @@ import 'package:meta/meta.dart';
 
 @visibleForTesting
 const kPowerSettingsInterface = 'org.gnome.SettingsDaemon.Power';
+const kKeyboardSuffix = 'Keyboard';
+const kScreenSuffix = 'Screen';
+const kBrightnessProperty = 'Brightness';
 
 @visibleForTesting
 const kPowerSettingsPath = '/org/gnome/SettingsDaemon/Power';
 
 class PowerSettingsService {
-  final screen = Brightness('Screen');
-  final keyboard = Brightness('Keyboard');
+  final screen = Brightness(kScreenSuffix);
+  final keyboard = Brightness(kKeyboardSuffix);
 
   Future<void> init() => Future.wait([screen.init(), keyboard.init()]);
 
@@ -70,11 +73,11 @@ class Brightness {
   }
 
   void _updateProperties(DBusPropertiesChangedSignal signal) {
-    if (_name == 'Screen') {
+    if (_name == kScreenSuffix) {
       if (signal.hasChangedScreenBrightness()) {
         _object.getBrightness(_name).then(_updateBrightness);
       }
-    } else {
+    } else if (_name == kKeyboardSuffix) {
       if (signal.hasChangedKeyboardBrightness()) {
         _object.getBrightness(_name).then(_updateBrightness);
       }
@@ -84,25 +87,26 @@ class Brightness {
 
 extension _BrightnessObject on DBusRemoteObject {
   Future<int?> getBrightness(String name) async {
-    final value =
-        await getProperty('$kPowerSettingsInterface.$name', 'Brightness');
+    final value = await getProperty(
+        '$kPowerSettingsInterface.$name', kBrightnessProperty);
     return (value as DBusInt32).value;
   }
 
   Future<void> setBrightness(int? brightness, String name) {
     final value = DBusInt32(brightness ?? 100);
-    return setProperty('$kPowerSettingsInterface.$name', 'Brightness', value);
+    return setProperty(
+        '$kPowerSettingsInterface.$name', kBrightnessProperty, value);
   }
 }
 
 extension _ChangedBrightness on DBusPropertiesChangedSignal {
   bool hasChangedScreenBrightness() {
-    return changedProperties.containsKey('Brightness') &&
-        propertiesInterface.contains('Screen');
+    return changedProperties.containsKey(kBrightnessProperty) &&
+        propertiesInterface.contains(kScreenSuffix);
   }
 
   bool hasChangedKeyboardBrightness() {
-    return changedProperties.containsKey('Brightness') &&
-        propertiesInterface.contains('Keyboard');
+    return changedProperties.containsKey(kBrightnessProperty) &&
+        propertiesInterface.contains(kKeyboardSuffix);
   }
 }
