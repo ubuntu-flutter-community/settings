@@ -96,6 +96,9 @@ class MouseAndTouchpadModel extends ChangeNotifier {
       _peripheralsTouchpadSettings?.boolValue(_touchpadTwoFingerScrolling);
 
   void setTwoFingerScrolling(bool value) {
+    if (value) {
+      setEdgeScrolling(false);
+    }
     _peripheralsTouchpadSettings?.setValue(_touchpadTwoFingerScrolling, value);
     notifyListeners();
   }
@@ -104,6 +107,9 @@ class MouseAndTouchpadModel extends ChangeNotifier {
       _peripheralsTouchpadSettings?.boolValue(_touchpadEdgeScrolling);
 
   void setEdgeScrolling(bool value) {
+    if (value) {
+      setTwoFingerScrolling(false);
+    }
     _peripheralsTouchpadSettings?.setValue(_touchpadEdgeScrolling, value);
     notifyListeners();
   }
