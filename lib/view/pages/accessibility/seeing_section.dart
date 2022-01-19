@@ -187,14 +187,20 @@ class _ZoomSettings extends StatelessWidget {
           style: Theme.of(context).textTheme.headline6,
         ),
         const _MagnifierOptions(),
-        Text(
-          'Crosshairs',
-          style: Theme.of(context).textTheme.headline6,
+        Padding(
+          padding: const EdgeInsets.symmetric(vertical: 12.0),
+          child: Text(
+            'Crosshairs',
+            style: Theme.of(context).textTheme.headline6,
+          ),
         ),
         const _CrosshairsOptions(),
-        Text(
-          'Color Effects',
-          style: Theme.of(context).textTheme.headline6,
+        Padding(
+          padding: const EdgeInsets.symmetric(vertical: 12.0),
+          child: Text(
+            'Color Effects',
+            style: Theme.of(context).textTheme.headline6,
+          ),
         ),
         const _ColorEffectsOptions(),
       ],
@@ -208,35 +214,35 @@ class _MagnifierOptions extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final model = context.watch<AccessibilityModel>();
-    return Padding(
-      padding: const EdgeInsets.only(left: 16.0, right: 16.0, bottom: 16.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          YaruRow(
-            enabled: model.magFactor != null,
-            trailingWidget: const Text('Magnification'),
-            actionWidget: SizedBox(
-              height: 40,
-              width: 150,
-              child: SpinBox(
-                decoration: const InputDecoration(
-                  border: UnderlineInputBorder(),
-                ),
-                enabled: true,
-                min: 1,
-                max: 20,
-                step: 0.25,
-                decimals: 2,
-                value: model.magFactor ?? 2,
-                onChanged: (value) => model.setMagFactor(value),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        YaruRow(
+          enabled: model.magFactor != null,
+          trailingWidget: const Text('Magnification'),
+          actionWidget: SizedBox(
+            height: 40,
+            width: 150,
+            child: SpinBox(
+              decoration: const InputDecoration(
+                border: UnderlineInputBorder(),
               ),
+              enabled: true,
+              min: 1,
+              max: 20,
+              step: 0.25,
+              decimals: 2,
+              value: model.magFactor ?? 2,
+              onChanged: (value) => model.setMagFactor(value),
             ),
           ),
-          const Text('Magnifier Position'),
-          const _MagnifierPositionOptions(),
-        ],
-      ),
+        ),
+        const Padding(
+          padding: EdgeInsets.all(8.0),
+          child: Text('Magnifier Position'),
+        ),
+        const _MagnifierPositionOptions(),
+      ],
     );
   }
 }
@@ -247,69 +253,72 @@ class _MagnifierPositionOptions extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final model = context.watch<AccessibilityModel>();
-    return Column(
-      children: [
-        _RadioRow(
-          title: 'Follow mouse cursor',
-          value: true,
-          enabled: true,
-          groupValue: model.lensMode,
-          onChanged: (bool? value) => model.setLensMode(value!),
-        ),
-        _RadioRow(
-          title: 'Screen part',
-          enabled: true,
-          value: false,
-          groupValue: model.lensMode,
-          onChanged: (bool? value) => model.setLensMode(value!),
-          secondary: DropdownButton<String>(
-            onChanged: !model.screenPartEnabled
-                ? null
-                : (value) => model.setScreenPosition(value!),
-            value: model.screenPosition,
-            items: [
-              for (var item in AccessibilityModel.screenPositions)
-                DropdownMenuItem(
-                    child: Text(item.toLowerCase().replaceAll('-', ' ')),
-                    value: item)
-            ],
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Column(
+        children: [
+          _RadioRow(
+            title: 'Follow mouse cursor',
+            value: true,
+            enabled: true,
+            groupValue: model.lensMode,
+            onChanged: (bool? value) => model.setLensMode(value!),
           ),
-        ),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16.0),
-          child: Column(
-            children: [
-              YaruCheckboxRow(
-                enabled: model.screenPartEnabled,
-                value: model.scrollAtEdges ?? false,
-                onChanged: (value) => model.setScrollAtEdges(value!),
-                text: 'Magnifier extends outside of screen',
-              ),
-              _RadioRow(
-                title: 'Keep magnifier cursor centered',
-                value: 'centered',
-                groupValue: model.mouseTracking,
-                onChanged: (String? value) => model.setMouseTracking(value!),
-                enabled: model.screenPartEnabled,
-              ),
-              _RadioRow(
-                title: 'Magnifier cursor pushes contents around',
-                value: 'push',
-                groupValue: model.mouseTracking,
-                onChanged: (String? value) => model.setMouseTracking(value!),
-                enabled: model.screenPartEnabled,
-              ),
-              _RadioRow(
-                title: 'Magnifier cursor moves with contents',
-                value: 'proportional',
-                groupValue: model.mouseTracking,
-                onChanged: (String? value) => model.setMouseTracking(value!),
-                enabled: model.screenPartEnabled,
-              ),
-            ],
+          _RadioRow(
+            title: 'Screen part',
+            enabled: true,
+            value: false,
+            groupValue: model.lensMode,
+            onChanged: (bool? value) => model.setLensMode(value!),
+            secondary: DropdownButton<String>(
+              onChanged: !model.screenPartEnabled
+                  ? null
+                  : (value) => model.setScreenPosition(value!),
+              value: model.screenPosition,
+              items: [
+                for (var item in AccessibilityModel.screenPositions)
+                  DropdownMenuItem(
+                      child: Text(item.toLowerCase().replaceAll('-', ' ')),
+                      value: item)
+              ],
+            ),
           ),
-        ),
-      ],
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+            child: Column(
+              children: [
+                YaruCheckboxRow(
+                  enabled: model.screenPartEnabled,
+                  value: model.scrollAtEdges ?? false,
+                  onChanged: (value) => model.setScrollAtEdges(value!),
+                  text: 'Magnifier extends outside of screen',
+                ),
+                _RadioRow(
+                  title: 'Keep magnifier cursor centered',
+                  value: 'centered',
+                  groupValue: model.mouseTracking,
+                  onChanged: (String? value) => model.setMouseTracking(value!),
+                  enabled: model.screenPartEnabled,
+                ),
+                _RadioRow(
+                  title: 'Magnifier cursor pushes contents around',
+                  value: 'push',
+                  groupValue: model.mouseTracking,
+                  onChanged: (String? value) => model.setMouseTracking(value!),
+                  enabled: model.screenPartEnabled,
+                ),
+                _RadioRow(
+                  title: 'Magnifier cursor moves with contents',
+                  value: 'proportional',
+                  groupValue: model.mouseTracking,
+                  onChanged: (String? value) => model.setMouseTracking(value!),
+                  enabled: model.screenPartEnabled,
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
@@ -370,57 +379,61 @@ class _CrosshairsOptions extends StatelessWidget {
   Widget build(BuildContext context) {
     final model = context.watch<AccessibilityModel>();
 
-    return Padding(
-      padding: const EdgeInsets.only(left: 16.0, right: 16.0, bottom: 16.0),
-      child: Column(
-        children: [
-          YaruCheckboxRow(
-            enabled: model.crossHairs != null,
-            value: model.crossHairs ?? false,
-            onChanged: (value) => model.setCrossHairs(value!),
-            text: 'Visible',
-          ),
-          YaruCheckboxRow(
-            enabled: model.crossHairsClip != null,
-            value: model.crossHairsClip ?? false,
-            onChanged: (value) => model.setCrossHairsClip(value!),
-            text: 'Overlaps mouse cursor',
-          ),
-          YaruSliderSecondary(
-            label: 'Thickness',
-            enabled: true,
-            showValue: false,
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        YaruCheckboxRow(
+          enabled: model.crossHairs != null,
+          value: model.crossHairs ?? false,
+          onChanged: (value) => model.setCrossHairs(value!),
+          text: 'Visible',
+        ),
+        const SizedBox(height: 8),
+        YaruCheckboxRow(
+          enabled: model.crossHairsClip != null,
+          value: model.crossHairsClip ?? false,
+          onChanged: (value) => model.setCrossHairsClip(value!),
+          text: 'Overlaps mouse cursor',
+        ),
+        SizedBox(
+          height: 56,
+          child: YaruSliderRow(
+            actionLabel: 'Thickness',
+            value: model.crossHairsThickness,
             min: 1,
             max: 100,
             defaultValue: 8,
-            value: model.crossHairsThickness,
-            onChanged: (value) => model.setCrossHairsThickness(value),
-          ),
-          YaruSliderSecondary(
-            label: 'Length',
-            enabled: true,
+            onChanged: model.setCrossHairsThickness,
             showValue: false,
+          ),
+        ),
+        SizedBox(
+          height: 56,
+          child: YaruSliderRow(
+            actionLabel: 'Length',
+            value: model.crossHairsLength,
             min: 20,
             max: 4096,
             defaultValue: 4096,
-            value: model.crossHairsLength,
-            onChanged: (value) => model.setCrossHairsLength(value),
+            onChanged: model.setCrossHairsLength,
+            showValue: false,
           ),
-          YaruRow(
+        ),
+        YaruRow(
+          enabled: model.crossHairsColor != null,
+          trailingWidget: const Text('Color'),
+          actionWidget: YaruColorPickerButton(
             enabled: model.crossHairsColor != null,
-            trailingWidget: const Text('Color'),
-            actionWidget: YaruColorPickerButton(
-              color: colorFromHex(model.crossHairsColor ?? '#FF0000'),
-              onPressed: () async {
-                final colorBeforeDialog = model.crossHairsColor;
-                if (!(await colorPickerDialog(context))) {
-                  model.setCrossHairsColor(colorBeforeDialog!);
-                }
-              },
-            ),
+            color: colorFromHex(model.crossHairsColor ?? '#FF0000'),
+            onPressed: () async {
+              final colorBeforeDialog = model.crossHairsColor;
+              if (!(await colorPickerDialog(context))) {
+                model.setCrossHairsColor(colorBeforeDialog!);
+              }
+            },
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 
@@ -481,48 +494,52 @@ class _ColorEffectsOptions extends StatelessWidget {
   Widget build(BuildContext context) {
     final model = context.watch<AccessibilityModel>();
 
-    return Padding(
-      padding: const EdgeInsets.only(left: 16.0, right: 16.0, bottom: 16.0),
-      child: Column(
-        children: [
-          YaruCheckboxRow(
-            enabled: model.inverseLightness != null,
-            value: model.inverseLightness ?? false,
-            onChanged: (value) => model.setInverseLightness(value!),
-            text: 'White on black',
-          ),
-          YaruSliderSecondary(
-            label: 'Brightness',
-            enabled: true,
-            showValue: false,
-            min: -0.75,
-            max: 0.75,
-            defaultValue: 0,
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        YaruCheckboxRow(
+          enabled: model.inverseLightness != null,
+          value: model.inverseLightness ?? false,
+          onChanged: (value) => model.setInverseLightness(value!),
+          text: 'White on black',
+        ),
+        SizedBox(
+          height: 56,
+          child: YaruSliderRow(
+            actionLabel: 'Brightness',
             value: model.colorBrightness,
-            onChanged: (value) => model.setColorBrightness(value),
-          ),
-          YaruSliderSecondary(
-            label: 'Contrast',
-            enabled: true,
-            showValue: false,
             min: -0.75,
             max: 0.75,
             defaultValue: 0,
-            value: model.colorContrast,
-            onChanged: (value) => model.setColorContrast(value),
-          ),
-          YaruSliderSecondary(
-            label: 'Saturation',
-            enabled: true,
+            onChanged: model.setColorBrightness,
             showValue: false,
+          ),
+        ),
+        SizedBox(
+          height: 56,
+          child: YaruSliderRow(
+            actionLabel: 'Contrast',
+            value: model.colorContrast,
+            min: -0.75,
+            max: 0.75,
+            defaultValue: 0,
+            onChanged: model.setColorContrast,
+            showValue: false,
+          ),
+        ),
+        SizedBox(
+          height: 56,
+          child: YaruSliderRow(
+            actionLabel: 'Saturation',
+            value: model.colorSaturation,
             min: 0,
             max: 1,
             defaultValue: 1,
-            value: model.colorSaturation,
-            onChanged: (value) => model.setColorSaturation(value),
+            onChanged: model.setColorSaturation,
+            showValue: false,
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }
