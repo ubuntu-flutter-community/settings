@@ -78,15 +78,9 @@ class Brightness {
 
 extension _BrightnessObject on DBusRemoteObject {
   Future<int?> getBrightness(String name) async {
-    try {
-      final value = await getProperty(
-        '$kPowerSettingsInterface.$name',
-        'Brightness',
-      );
-      return (value as DBusInt32).value;
-    } on Exception catch (e) {
-      // TODO
-    }
+    final value =
+        await getProperty('$kPowerSettingsInterface.$name', 'Brightness');
+    return (value as DBusInt32).value;
   }
 
   Future<void> setBrightness(int? brightness, String name) {
