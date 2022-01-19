@@ -58,11 +58,12 @@ class _PowerSettingsSectionState extends State<PowerSettingsSection> {
           onChanged: model.setAmbientEnabled,
         ),
         YaruSliderRow(
-          enabled: model.keyboardBrightness != null,
+          enabled: model.keyboardBrightness != null &&
+              model.keyboardBrightness != -1,
           actionLabel: 'Keyboard Brightness',
-          min: 0,
+          min: model.keyboardBrightness != -1 ? 0 : -1,
           max: 100,
-          value: model.keyboardBrightness,
+          value: model.keyboardBrightness != -1 ? model.keyboardBrightness : 0,
           onChanged: model.setKeyboardBrightness,
         ),
         YaruSwitchRow(
