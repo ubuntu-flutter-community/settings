@@ -26,7 +26,7 @@ class WallpaperPage extends StatelessWidget {
 
     return YaruPage(
       padding: const EdgeInsets.all(10),
-      child: Column(children: [
+      children: [
         YaruRow(
             width: 540,
             enabled: true,
@@ -66,7 +66,6 @@ class WallpaperPage extends StatelessWidget {
               ? Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: SizedBox(
-                    width: 500,
                     height: 255,
                     child: DecoratedBox(
                       decoration: BoxDecoration(
@@ -132,7 +131,6 @@ class WallpaperPage extends StatelessWidget {
                   builder: (context, snapshot) {
                     if (snapshot.hasData) {
                       return SizedBox(
-                        // width: 500,
                         child: GridView(
                           gridDelegate:
                               const SliverGridDelegateWithMaxCrossAxisExtent(
@@ -215,7 +213,6 @@ class WallpaperPage extends StatelessWidget {
                   builder: (context, snapshot) {
                     if (snapshot.hasData) {
                       return SizedBox(
-                        // width: 500,
                         child: GridView(
                             gridDelegate:
                                 const SliverGridDelegateWithMaxCrossAxisExtent(
@@ -244,7 +241,7 @@ class WallpaperPage extends StatelessWidget {
                   }),
             ],
           ),
-      ]),
+      ],
     );
   }
 

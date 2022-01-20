@@ -2,6 +2,7 @@ import 'package:flex_color_picker/flex_color_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinbox/flutter_spinbox.dart';
 import 'package:provider/provider.dart';
+import 'package:settings/constants.dart';
 import 'package:settings/utils.dart';
 import 'package:settings/view/pages/accessibility/accessibility_model.dart';
 import 'package:yaru_widgets/yaru_widgets.dart';
@@ -15,6 +16,7 @@ class SeeingSection extends StatelessWidget {
   Widget build(BuildContext context) {
     final model = context.watch<AccessibilityModel>();
     return YaruSection(
+      width: kDefaultWidth,
       headline: 'Seeing',
       children: [
         YaruSwitchRow(

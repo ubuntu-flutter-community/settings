@@ -19,13 +19,11 @@ class NotificationsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return YaruPage(
-      child: Column(
-        children: const [
-          GlobalNotificationsSection(),
-          AppNotificationsSection(),
-        ],
-      ),
+    return const YaruPage(
+      children: [
+        GlobalNotificationsSection(),
+        AppNotificationsSection(),
+      ],
     );
   }
 }

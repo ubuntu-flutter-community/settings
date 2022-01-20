@@ -21,7 +21,7 @@ packages:
       name: archive
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "3.1.8"
+    version: "3.1.9"
   args:
     dependency: transitive
     description:
@@ -877,7 +877,7 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: f7586fd946742be816e55a7a61476f346134b960
+      resolved-ref: "408c2ef1d8e351220dae531611be94e749adc388"
       url: "https://github.com/ubuntu/yaru.dart"
     source: git
     version: "0.2.0"
@@ -893,7 +893,7 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: "21e120c7641dc6ffaa0bf69623b02f57b7ff974a"
+      resolved-ref: "9cbe01acf86bac41f8554fb8d0d52caf03d40f24"
       url: "https://github.com/ubuntu/yaru_widgets.dart"
     source: git
     version: "1.0.0+1"

@@ -20,14 +20,12 @@ class MouseAndTouchpadPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return YaruPage(
-      child: Column(
-        children: const [
-          GeneralSection(),
-          MouseSection(),
-          TouchpadSection(),
-        ],
-      ),
+    return const YaruPage(
+      children: [
+        GeneralSection(),
+        MouseSection(),
+        TouchpadSection(),
+      ],
     );
   }
 }

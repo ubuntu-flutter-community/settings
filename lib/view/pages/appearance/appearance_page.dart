@@ -19,13 +19,11 @@ class AppearancePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return YaruPage(
-      child: Column(
-        children: const [
-          DarkModeSection(),
-          DockSection(),
-        ],
-      ),
+    return const YaruPage(
+      children: [
+        DarkModeSection(),
+        DockSection(),
+      ],
     );
   }
 }
