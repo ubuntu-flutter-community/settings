@@ -69,6 +69,7 @@ class _Lv3OptionsDialog extends StatelessWidget {
     return FutureBuilder<Lv3Options?>(
       future: model.getLv3Options(),
       builder: (context, snapshot) => YaruSimpleDialog(
+          width: kDefaultWidth / 2,
           title: 'Lv3 Keys',
           closeIconData: YaruIcons.window_close,
           children: [
@@ -109,6 +110,7 @@ class _ComposeOptionsDialog extends StatelessWidget {
     return FutureBuilder<ComposeOptions>(
       future: model.getComposeOptions(),
       builder: (context, snapshot) => YaruSimpleDialog(
+        width: kDefaultWidth / 2,
         closeIconData: YaruIcons.window_close,
         title: 'Compose-Key',
         children: [

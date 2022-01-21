@@ -106,6 +106,7 @@ class _CursorSizeSettings extends StatelessWidget {
   Widget build(BuildContext context) {
     final model = context.watch<AccessibilityModel>();
     return YaruSimpleDialog(
+      width: kDefaultWidth / 2,
       title: 'Cursor Size',
       closeIconData: YaruIcons.window_close,
       children: [
@@ -181,6 +182,7 @@ class _ZoomSettings extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return YaruSimpleDialog(
+      width: kDefaultWidth,
       title: 'Zoom Options',
       closeIconData: YaruIcons.window_close,
       children: [
@@ -400,7 +402,6 @@ class _CrosshairsOptions extends StatelessWidget {
         SizedBox(
           height: 56,
           child: YaruSliderRow(
-            width: kDefaultWidth,
             actionLabel: 'Thickness',
             value: model.crossHairsThickness,
             min: 1,
@@ -413,7 +414,6 @@ class _CrosshairsOptions extends StatelessWidget {
         SizedBox(
           height: 56,
           child: YaruSliderRow(
-            width: kDefaultWidth,
             actionLabel: 'Length',
             value: model.crossHairsLength,
             min: 20,
@@ -510,7 +510,6 @@ class _ColorEffectsOptions extends StatelessWidget {
         SizedBox(
           height: 56,
           child: YaruSliderRow(
-            width: kDefaultWidth,
             actionLabel: 'Brightness',
             value: model.colorBrightness,
             min: -0.75,
@@ -523,7 +522,6 @@ class _ColorEffectsOptions extends StatelessWidget {
         SizedBox(
           height: 56,
           child: YaruSliderRow(
-            width: kDefaultWidth,
             actionLabel: 'Contrast',
             value: model.colorContrast,
             min: -0.75,
@@ -536,7 +534,6 @@ class _ColorEffectsOptions extends StatelessWidget {
         SizedBox(
           height: 56,
           child: YaruSliderRow(
-            width: kDefaultWidth,
             actionLabel: 'Saturation',
             value: model.colorSaturation,
             min: 0,

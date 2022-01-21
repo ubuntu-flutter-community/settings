@@ -103,36 +103,33 @@ class _InfoPageState extends State<InfoPage> {
             infoValue: model.windowServer,
           ),
         ]),
-        SizedBox(
-          width: kDefaultWidth,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              OutlinedButton.icon(
-                icon: const Icon(YaruIcons.save_as),
-                label: const Text('Export to PDF'),
-                onPressed: () async {
-                  // ignore: unused_local_variable
-                  final pdfFile = await PdfApi.generateSystemData(
-                    model.osName,
-                    model.osVersion,
-                    model.kernelVersion,
-                    model.processorName,
-                    model.processorCount.toString(),
-                    model.memory.toString(),
-                    model.graphics,
-                    model.diskCapacity != null
-                        ? filesize(model.diskCapacity)
-                        : '',
-                    model.osType.toString(),
-                    model.gnomeVersion,
-                    model.windowServer,
-                  );
-                  ScaffoldMessenger.of(context).showSnackBar(sysInfoSnackBar);
-                },
-              )
-            ],
-          ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            OutlinedButton.icon(
+              icon: const Icon(YaruIcons.save_as),
+              label: const Text('Export to PDF'),
+              onPressed: () async {
+                // ignore: unused_local_variable
+                final pdfFile = await PdfApi.generateSystemData(
+                  model.osName,
+                  model.osVersion,
+                  model.kernelVersion,
+                  model.processorName,
+                  model.processorCount.toString(),
+                  model.memory.toString(),
+                  model.graphics,
+                  model.diskCapacity != null
+                      ? filesize(model.diskCapacity)
+                      : '',
+                  model.osType.toString(),
+                  model.gnomeVersion,
+                  model.windowServer,
+                );
+                ScaffoldMessenger.of(context).showSnackBar(sysInfoSnackBar);
+              },
+            )
+          ],
         ),
       ],
     );
@@ -213,6 +210,7 @@ class _HostnameSettingsState extends State<_HostnameSettings> {
   Widget build(BuildContext context) {
     final model = context.watch<InfoModel>();
     return YaruSimpleDialog(
+      width: kDefaultWidth / 2,
       title: 'Edit Hostname',
       closeIconData: YaruIcons.window_close,
       children: [

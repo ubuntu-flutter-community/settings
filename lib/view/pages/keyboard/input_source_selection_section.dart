@@ -121,6 +121,7 @@ class _AddKeymapDialogState extends State<_AddKeymapDialog> {
     final model = context.watch<InputSourceModel>();
     return variantsLoad == false
         ? YaruSimpleDialog(
+            width: kDefaultWidth / 2,
             title: 'Add Keymap',
             closeIconData: YaruIcons.window_close,
             children: [
@@ -141,6 +142,7 @@ class _AddKeymapDialogState extends State<_AddKeymapDialog> {
                   ),
               ])
         : YaruSimpleDialog(
+            width: kDefaultWidth / 2,
             title: (model.inputSources[tabbedIndex].name ?? '') +
                 ': ' +
                 (model.inputSources[tabbedIndex].description ?? ''),

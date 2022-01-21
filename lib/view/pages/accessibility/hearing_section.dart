@@ -50,6 +50,7 @@ class _VisualAlertsSettings extends StatelessWidget {
   Widget build(BuildContext context) {
     final model = context.watch<AccessibilityModel>();
     return YaruSimpleDialog(
+      width: kDefaultWidth,
       title: 'Visual Alerts',
       closeIconData: YaruIcons.window_close,
       children: [
