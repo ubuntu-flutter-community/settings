@@ -62,6 +62,7 @@ class _RepeatKeysSettings extends StatelessWidget {
       closeIconData: YaruIcons.window_close,
       children: [
         YaruSliderRow(
+          width: 500,
           actionLabel: 'Delay',
           actionDescription: 'Initial key repeat delay',
           value: model.delay,
@@ -71,6 +72,7 @@ class _RepeatKeysSettings extends StatelessWidget {
           onChanged: (value) => model.setDelay(value),
         ),
         YaruSliderRow(
+          width: 500,
           actionLabel: 'Interval',
           actionDescription: 'Delay between repeats',
           value: model.interval,
@@ -118,6 +120,7 @@ class _CursorBlinkingSettings extends StatelessWidget {
       closeIconData: YaruIcons.window_close,
       children: [
         YaruSliderRow(
+          width: 500,
           actionLabel: 'Cursor Blink Time',
           actionDescription: 'Length of the cursor blink cycle',
           min: 100,
@@ -253,6 +256,7 @@ class _SlowKeysSettings extends StatelessWidget {
           SizedBox(
             height: 56,
             child: YaruSliderRow(
+              width: 500,
               enabled: model.slowKeys ?? false,
               actionLabel: 'Acceptance delay',
               value: model.slowKeysDelay,
@@ -300,6 +304,7 @@ class _BounceKeysSettings extends StatelessWidget {
           SizedBox(
             height: 56,
             child: YaruSliderRow(
+              width: 500,
               enabled: model.bounceKeys ?? false,
               actionLabel: 'Acceptance delay',
               value: model.bounceKeysDelay,
