@@ -55,10 +55,23 @@ class _InfoPageState extends State<InfoPage> {
 
     return YaruPage(
       children: [
-        const SizedBox(
-            height: 128,
-            width: 128,
-            child: RiveAnimation.asset('assets/rive/ubuntu_cof.riv')),
+        Stack(
+          alignment: Alignment.center,
+          children: [
+            Container(
+              height: 120,
+              width: 120,
+              decoration: const BoxDecoration(
+                shape: BoxShape.circle,
+                color: Colors.white, // inner circle color
+              ), // inner content
+            ),
+            const SizedBox(
+                height: 128,
+                width: 128,
+                child: RiveAnimation.asset('assets/rive/ubuntu_cof.riv')),
+          ],
+        ),
         const SizedBox(height: 10),
         Text('${model.osName} ${model.osVersion}',
             style: Theme.of(context).textTheme.headline5),
@@ -103,33 +116,36 @@ class _InfoPageState extends State<InfoPage> {
             infoValue: model.windowServer,
           ),
         ]),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: [
-            OutlinedButton.icon(
-              icon: const Icon(YaruIcons.save_as),
-              label: const Text('Export to PDF'),
-              onPressed: () async {
-                // ignore: unused_local_variable
-                final pdfFile = await PdfApi.generateSystemData(
-                  model.osName,
-                  model.osVersion,
-                  model.kernelVersion,
-                  model.processorName,
-                  model.processorCount.toString(),
-                  model.memory.toString(),
-                  model.graphics,
-                  model.diskCapacity != null
-                      ? filesize(model.diskCapacity)
-                      : '',
-                  model.osType.toString(),
-                  model.gnomeVersion,
-                  model.windowServer,
-                );
-                ScaffoldMessenger.of(context).showSnackBar(sysInfoSnackBar);
-              },
-            )
-          ],
+        SizedBox(
+          width: kDefaultWidth,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              OutlinedButton.icon(
+                icon: const Icon(YaruIcons.save_as),
+                label: const Text('Export to PDF'),
+                onPressed: () async {
+                  // ignore: unused_local_variable
+                  final pdfFile = await PdfApi.generateSystemData(
+                    model.osName,
+                    model.osVersion,
+                    model.kernelVersion,
+                    model.processorName,
+                    model.processorCount.toString(),
+                    model.memory.toString(),
+                    model.graphics,
+                    model.diskCapacity != null
+                        ? filesize(model.diskCapacity)
+                        : '',
+                    model.osType.toString(),
+                    model.gnomeVersion,
+                    model.windowServer,
+                  );
+                  ScaffoldMessenger.of(context).showSnackBar(sysInfoSnackBar);
+                },
+              )
+            ],
+          ),
         ),
       ],
     );
