@@ -94,7 +94,7 @@ class _ClickAssistSettings extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.only(left: 16.0),
           child: YaruSliderRow(
-            width: 500,
+            width: kDefaultWidth,
             enabled: model.simulatedSecondaryClick ?? false,
             actionLabel: 'Delay',
             value: model.secondaryClickTime,
@@ -119,7 +119,7 @@ class _ClickAssistSettings extends StatelessWidget {
               SizedBox(
                 height: 56,
                 child: YaruSliderRow(
-                  width: 500,
+                  width: kDefaultWidth,
                   enabled: model.dwellClick ?? false,
                   actionLabel: 'Delay',
                   value: model.dwellTime,
@@ -133,7 +133,7 @@ class _ClickAssistSettings extends StatelessWidget {
               SizedBox(
                 height: 56,
                 child: YaruSliderRow(
-                  width: 500,
+                  width: kDefaultWidth,
                   enabled: model.dwellClick ?? false,
                   actionLabel: 'Motion thresshold',
                   value: model.dwellThreshold,

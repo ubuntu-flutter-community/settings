@@ -400,7 +400,7 @@ class _CrosshairsOptions extends StatelessWidget {
         SizedBox(
           height: 56,
           child: YaruSliderRow(
-            width: 500,
+            width: kDefaultWidth,
             actionLabel: 'Thickness',
             value: model.crossHairsThickness,
             min: 1,
@@ -413,7 +413,7 @@ class _CrosshairsOptions extends StatelessWidget {
         SizedBox(
           height: 56,
           child: YaruSliderRow(
-            width: 500,
+            width: kDefaultWidth,
             actionLabel: 'Length',
             value: model.crossHairsLength,
             min: 20,
@@ -510,7 +510,7 @@ class _ColorEffectsOptions extends StatelessWidget {
         SizedBox(
           height: 56,
           child: YaruSliderRow(
-            width: 500,
+            width: kDefaultWidth,
             actionLabel: 'Brightness',
             value: model.colorBrightness,
             min: -0.75,
@@ -523,7 +523,7 @@ class _ColorEffectsOptions extends StatelessWidget {
         SizedBox(
           height: 56,
           child: YaruSliderRow(
-            width: 500,
+            width: kDefaultWidth,
             actionLabel: 'Contrast',
             value: model.colorContrast,
             min: -0.75,
@@ -536,7 +536,7 @@ class _ColorEffectsOptions extends StatelessWidget {
         SizedBox(
           height: 56,
           child: YaruSliderRow(
-            width: 500,
+            width: kDefaultWidth,
             actionLabel: 'Saturation',
             value: model.colorSaturation,
             min: 0,
