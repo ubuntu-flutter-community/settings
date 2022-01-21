@@ -81,6 +81,7 @@ class _ClickAssistSettings extends StatelessWidget {
   Widget build(BuildContext context) {
     final model = context.watch<AccessibilityModel>();
     return YaruSimpleDialog(
+      width: kDefaultWidth,
       title: 'Click Assist',
       closeIconData: YaruIcons.window_close,
       children: [
@@ -94,7 +95,6 @@ class _ClickAssistSettings extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.only(left: 16.0),
           child: YaruSliderRow(
-            width: kDefaultWidth,
             enabled: model.simulatedSecondaryClick ?? false,
             actionLabel: 'Delay',
             value: model.secondaryClickTime,
@@ -119,7 +119,6 @@ class _ClickAssistSettings extends StatelessWidget {
               SizedBox(
                 height: 56,
                 child: YaruSliderRow(
-                  width: kDefaultWidth,
                   enabled: model.dwellClick ?? false,
                   actionLabel: 'Delay',
                   value: model.dwellTime,
@@ -133,7 +132,6 @@ class _ClickAssistSettings extends StatelessWidget {
               SizedBox(
                 height: 56,
                 child: YaruSliderRow(
-                  width: kDefaultWidth,
                   enabled: model.dwellClick ?? false,
                   actionLabel: 'Motion thresshold',
                   value: model.dwellThreshold,

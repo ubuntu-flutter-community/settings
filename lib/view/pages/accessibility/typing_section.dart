@@ -58,11 +58,11 @@ class _RepeatKeysSettings extends StatelessWidget {
   Widget build(BuildContext context) {
     final model = context.watch<AccessibilityModel>();
     return YaruSimpleDialog(
+      width: kDefaultWidth,
       title: 'Repeat Keys',
       closeIconData: YaruIcons.window_close,
       children: [
         YaruSliderRow(
-          width: kDefaultWidth,
           actionLabel: 'Delay',
           actionDescription: 'Initial key repeat delay',
           value: model.delay,
@@ -72,7 +72,6 @@ class _RepeatKeysSettings extends StatelessWidget {
           onChanged: (value) => model.setDelay(value),
         ),
         YaruSliderRow(
-          width: kDefaultWidth,
           actionLabel: 'Interval',
           actionDescription: 'Delay between repeats',
           value: model.interval,
@@ -116,11 +115,11 @@ class _CursorBlinkingSettings extends StatelessWidget {
   Widget build(BuildContext context) {
     final model = context.watch<AccessibilityModel>();
     return YaruSimpleDialog(
+      width: kDefaultWidth,
       title: 'Cursor Blinking',
       closeIconData: YaruIcons.window_close,
       children: [
         YaruSliderRow(
-          width: kDefaultWidth,
           actionLabel: 'Cursor Blink Time',
           actionDescription: 'Length of the cursor blink cycle',
           min: 100,
@@ -176,6 +175,7 @@ class _TypingAssistSettings extends StatelessWidget {
   Widget build(BuildContext context) {
     final model = context.watch<AccessibilityModel>();
     return YaruSimpleDialog(
+      width: kDefaultWidth,
       title: 'Typing Assist',
       closeIconData: YaruIcons.window_close,
       children: [
@@ -256,7 +256,6 @@ class _SlowKeysSettings extends StatelessWidget {
           SizedBox(
             height: 56,
             child: YaruSliderRow(
-              width: kDefaultWidth,
               enabled: model.slowKeys ?? false,
               actionLabel: 'Acceptance delay',
               value: model.slowKeysDelay,
@@ -304,7 +303,6 @@ class _BounceKeysSettings extends StatelessWidget {
           SizedBox(
             height: 56,
             child: YaruSliderRow(
-              width: kDefaultWidth,
               enabled: model.bounceKeys ?? false,
               actionLabel: 'Acceptance delay',
               value: model.bounceKeysDelay,
