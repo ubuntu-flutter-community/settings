@@ -55,10 +55,23 @@ class _InfoPageState extends State<InfoPage> {
 
     return YaruPage(
       children: [
-        const SizedBox(
-            height: 128,
-            width: 128,
-            child: RiveAnimation.asset('assets/rive/ubuntu_cof.riv')),
+        Stack(
+          alignment: Alignment.center,
+          children: [
+            Container(
+              height: 120,
+              width: 120,
+              decoration: const BoxDecoration(
+                shape: BoxShape.circle,
+                color: Colors.white, // inner circle color
+              ), // inner content
+            ),
+            const SizedBox(
+                height: 128,
+                width: 128,
+                child: RiveAnimation.asset('assets/rive/ubuntu_cof.riv')),
+          ],
+        ),
         const SizedBox(height: 10),
         Text('${model.osName} ${model.osVersion}',
             style: Theme.of(context).textTheme.headline5),
