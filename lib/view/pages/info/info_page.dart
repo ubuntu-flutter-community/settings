@@ -116,33 +116,36 @@ class _InfoPageState extends State<InfoPage> {
             infoValue: model.windowServer,
           ),
         ]),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: [
-            OutlinedButton.icon(
-              icon: const Icon(YaruIcons.save_as),
-              label: const Text('Export to PDF'),
-              onPressed: () async {
-                // ignore: unused_local_variable
-                final pdfFile = await PdfApi.generateSystemData(
-                  model.osName,
-                  model.osVersion,
-                  model.kernelVersion,
-                  model.processorName,
-                  model.processorCount.toString(),
-                  model.memory.toString(),
-                  model.graphics,
-                  model.diskCapacity != null
-                      ? filesize(model.diskCapacity)
-                      : '',
-                  model.osType.toString(),
-                  model.gnomeVersion,
-                  model.windowServer,
-                );
-                ScaffoldMessenger.of(context).showSnackBar(sysInfoSnackBar);
-              },
-            )
-          ],
+        SizedBox(
+          width: kDefaultWidth,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              OutlinedButton.icon(
+                icon: const Icon(YaruIcons.save_as),
+                label: const Text('Export to PDF'),
+                onPressed: () async {
+                  // ignore: unused_local_variable
+                  final pdfFile = await PdfApi.generateSystemData(
+                    model.osName,
+                    model.osVersion,
+                    model.kernelVersion,
+                    model.processorName,
+                    model.processorCount.toString(),
+                    model.memory.toString(),
+                    model.graphics,
+                    model.diskCapacity != null
+                        ? filesize(model.diskCapacity)
+                        : '',
+                    model.osType.toString(),
+                    model.gnomeVersion,
+                    model.windowServer,
+                  );
+                  ScaffoldMessenger.of(context).showSnackBar(sysInfoSnackBar);
+                },
+              )
+            ],
+          ),
         ),
       ],
     );
