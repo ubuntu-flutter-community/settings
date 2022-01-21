@@ -22,7 +22,6 @@ class KeyboardSettingsPage extends StatelessWidget {
         Provider.of<InputSourceService>(context, listen: false);
 
     return YaruPage(
-        child: Column(
       children: [
         ChangeNotifierProvider(
           create: (_) => InputSourceModel(settingsService, inputSourceService),
@@ -37,6 +36,6 @@ class KeyboardSettingsPage extends StatelessWidget {
           child: const SpecialCharactersSection(),
         ),
       ],
-    ));
+    );
   }
 }

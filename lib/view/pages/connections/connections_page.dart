@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:nm/nm.dart';
 import 'package:provider/provider.dart';
+import 'package:settings/constants.dart';
 import 'package:settings/view/pages/connections/wifi_content.dart';
 import 'package:yaru_icons/yaru_icons.dart';
 import 'package:yaru_widgets/yaru_widgets.dart';
@@ -53,6 +54,6 @@ class _ConnectionsPageState extends State<ConnectionsPage>
       Column(
         children: const [Text('Cellular')],
       )
-    ], width: 516);
+    ], width: kDefaultWidth);
   }
 }

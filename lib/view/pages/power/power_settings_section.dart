@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:nm/nm.dart';
 import 'package:provider/provider.dart';
+import 'package:settings/constants.dart';
 import 'package:settings/services/bluetooth_service.dart';
 import 'package:settings/services/power_settings_service.dart';
 import 'package:settings/services/settings_service.dart';
@@ -41,6 +42,7 @@ class _PowerSettingsSectionState extends State<PowerSettingsSection> {
   Widget build(BuildContext context) {
     final model = context.watch<SuspendModel>();
     return YaruSection(
+      width: kDefaultWidth,
       headline: 'Power Saving',
       children: <Widget>[
         YaruSliderRow(

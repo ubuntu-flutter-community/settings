@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:settings/constants.dart';
 import 'package:settings/view/app_theme.dart';
 import 'package:yaru/yaru.dart';
 import 'package:yaru_icons/yaru_icons.dart';
@@ -14,6 +15,7 @@ class DarkModeSection extends StatelessWidget {
     final lighTheme = context.watch<LightTheme>();
     final darkTheme = context.watch<DarkTheme>();
     return YaruSection(
+      width: kDefaultWidth,
       headline: 'Theme',
       children: [
         YaruSwitchRow(

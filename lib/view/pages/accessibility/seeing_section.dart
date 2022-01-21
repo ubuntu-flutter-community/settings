@@ -2,6 +2,7 @@ import 'package:flex_color_picker/flex_color_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinbox/flutter_spinbox.dart';
 import 'package:provider/provider.dart';
+import 'package:settings/constants.dart';
 import 'package:settings/utils.dart';
 import 'package:settings/view/pages/accessibility/accessibility_model.dart';
 import 'package:yaru_widgets/yaru_widgets.dart';
@@ -15,6 +16,7 @@ class SeeingSection extends StatelessWidget {
   Widget build(BuildContext context) {
     final model = context.watch<AccessibilityModel>();
     return YaruSection(
+      width: kDefaultWidth,
       headline: 'Seeing',
       children: [
         YaruSwitchRow(
@@ -398,6 +400,7 @@ class _CrosshairsOptions extends StatelessWidget {
         SizedBox(
           height: 56,
           child: YaruSliderRow(
+            width: kDefaultWidth,
             actionLabel: 'Thickness',
             value: model.crossHairsThickness,
             min: 1,
@@ -410,6 +413,7 @@ class _CrosshairsOptions extends StatelessWidget {
         SizedBox(
           height: 56,
           child: YaruSliderRow(
+            width: kDefaultWidth,
             actionLabel: 'Length',
             value: model.crossHairsLength,
             min: 20,
@@ -506,6 +510,7 @@ class _ColorEffectsOptions extends StatelessWidget {
         SizedBox(
           height: 56,
           child: YaruSliderRow(
+            width: kDefaultWidth,
             actionLabel: 'Brightness',
             value: model.colorBrightness,
             min: -0.75,
@@ -518,6 +523,7 @@ class _ColorEffectsOptions extends StatelessWidget {
         SizedBox(
           height: 56,
           child: YaruSliderRow(
+            width: kDefaultWidth,
             actionLabel: 'Contrast',
             value: model.colorContrast,
             min: -0.75,
@@ -530,6 +536,7 @@ class _ColorEffectsOptions extends StatelessWidget {
         SizedBox(
           height: 56,
           child: YaruSliderRow(
+            width: kDefaultWidth,
             actionLabel: 'Saturation',
             value: model.colorSaturation,
             min: 0,

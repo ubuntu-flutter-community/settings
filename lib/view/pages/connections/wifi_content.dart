@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:settings/constants.dart';
 import 'package:yaru_icons/yaru_icons.dart';
 import 'package:yaru_widgets/yaru_widgets.dart';
 
@@ -16,51 +17,51 @@ class WifiDevicesContent extends StatelessWidget {
     final wifiModel = context.watch<WifiModel>();
 
     return YaruPage(
-      child: Column(
-        children: [
-          YaruRow(
-              enabled: true,
-              trailingWidget: const Text('Wi-Fi'),
-              actionWidget: Row(
-                children: [
-                  Text(
-                    wifiModel.isWifiEnabled ? 'connected' : 'disconnected',
-                    style: TextStyle(
-                        color: Theme.of(context)
-                            .colorScheme
-                            .onSurface
-                            .withOpacity(0.5)),
-                  ),
-                  Switch(
-                      onChanged: (newValue) => wifiModel.toggleWifi(newValue),
-                      value: wifiModel.isWifiEnabled),
-                ],
-              )),
-          if (wifiModel.isWifiEnabled)
-            for (final wifiDevice in wifiModel.wifiDevices)
-              AnimatedBuilder(
-                  animation: wifiDevice,
-                  builder: (_, __) {
-                    return YaruSection(
-                      headline: 'Visible Networks',
-                      children: [
-                        for (final accessPoint in wifiDevice.accesPoints)
-                          AccessPointTile(
-                            accessPointModel: accessPoint,
-                            onTap: () {
-                              wifiModel.connectToAccesPoint(
-                                accessPoint,
-                                wifiDevice,
-                                (wifiDevice, accessPoint) =>
-                                    authenticate(context, accessPoint),
-                              );
-                            },
-                          )
-                      ],
-                    );
-                  })
-        ],
-      ),
+      children: [
+        YaruRow(
+            width: kDefaultWidth,
+            enabled: true,
+            trailingWidget: const Text('Wi-Fi'),
+            actionWidget: Row(
+              children: [
+                Text(
+                  wifiModel.isWifiEnabled ? 'connected' : 'disconnected',
+                  style: TextStyle(
+                      color: Theme.of(context)
+                          .colorScheme
+                          .onSurface
+                          .withOpacity(0.5)),
+                ),
+                Switch(
+                    onChanged: (newValue) => wifiModel.toggleWifi(newValue),
+                    value: wifiModel.isWifiEnabled),
+              ],
+            )),
+        if (wifiModel.isWifiEnabled)
+          for (final wifiDevice in wifiModel.wifiDevices)
+            AnimatedBuilder(
+                animation: wifiDevice,
+                builder: (_, __) {
+                  return YaruSection(
+                    width: kDefaultWidth,
+                    headline: 'Visible Networks',
+                    children: [
+                      for (final accessPoint in wifiDevice.accesPoints)
+                        AccessPointTile(
+                          accessPointModel: accessPoint,
+                          onTap: () {
+                            wifiModel.connectToAccesPoint(
+                              accessPoint,
+                              wifiDevice,
+                              (wifiDevice, accessPoint) =>
+                                  authenticate(context, accessPoint),
+                            );
+                          },
+                        )
+                    ],
+                  );
+                })
+      ],
     );
   }
 

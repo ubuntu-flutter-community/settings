@@ -14,14 +14,12 @@ class PowerPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return YaruPage(
-      child: Column(
-        children: <Widget>[
-          BatterySection.create(context),
-          PowerProfileSection.create(context),
-          PowerSettingsSection.create(context),
-          SuspendSection.create(context),
-        ],
-      ),
+      children: <Widget>[
+        BatterySection.create(context),
+        PowerProfileSection.create(context),
+        PowerSettingsSection.create(context),
+        SuspendSection.create(context),
+      ],
     );
   }
 }

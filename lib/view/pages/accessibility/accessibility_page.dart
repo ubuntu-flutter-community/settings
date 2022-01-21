@@ -22,16 +22,14 @@ class AccessibilityPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return YaruPage(
-      child: Column(
-        children: const [
-          GlobalSection(),
-          SeeingSection(),
-          HearingSection(),
-          TypingSection(),
-          PointingAndClickingSection(),
-        ],
-      ),
+    return const YaruPage(
+      children: [
+        GlobalSection(),
+        SeeingSection(),
+        HearingSection(),
+        TypingSection(),
+        PointingAndClickingSection(),
+      ],
     );
   }
 }
