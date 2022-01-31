@@ -20,3 +20,5 @@ const String schemaNotifications = 'org.gnome.desktop.notifications';
 const String schemaMediaHandling = 'org.gnome.desktop.media-handling';
 const String schemaBackground = 'org.gnome.desktop.background';
 const String schemaMutter = 'org.gnome.mutter';
+const schemaSettingsDaemonPowerPlugin =
+    'org.gnome.settings-daemon.plugins.power';
