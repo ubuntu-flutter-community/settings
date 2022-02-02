@@ -563,7 +563,7 @@ packages:
       name: pdf
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "3.7.0"
+    version: "3.7.1"
   petitparser:
     dependency: transitive
     description:
@@ -850,7 +850,7 @@ packages:
       name: win32
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.3.9"
+    version: "2.3.10"
   xdg_directories:
     dependency: transitive
     description:
@@ -893,10 +893,10 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: a77b8ba92b4862fae8b4893ba53607c8942af264
+      resolved-ref: "945abf240f9a67f7a8af987b34146443d3984295"
       url: "https://github.com/ubuntu/yaru_widgets.dart"
     source: git
-    version: "1.0.0+1"
+    version: "1.0.1"
 sdks:
   dart: ">=2.16.0-100.0.dev <3.0.0"
   flutter: ">=2.5.0"
