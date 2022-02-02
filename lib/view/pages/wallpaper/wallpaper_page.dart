@@ -98,9 +98,10 @@ class WallpaperPage extends StatelessWidget {
                     ),
                   ),
                 )
-              : ImageTile(
-                  path: model.pictureUri.replaceAll('file://', ''),
-                  currentlySelected: false),
+              : YaruSelectableContainer(
+                  child: wallpaperImage(
+                      model.pictureUri.replaceAll('file://', '')),
+                  selected: false),
         ),
         if (model.wallpaperMode == WallpaperMode.imageOfTheDay)
           //TODO: Add the title and copyright info
@@ -161,12 +162,12 @@ class WallpaperPage extends StatelessWidget {
                                   .map((picPathString) => Stack(
                                         fit: StackFit.expand,
                                         children: [
-                                          ImageTile(
-                                              path: picPathString,
+                                          YaruSelectableContainer(
+                                              child:
+                                                  wallpaperImage(picPathString),
                                               onTap: () => model.pictureUri =
                                                   picPathString,
-                                              currentlySelected: model
-                                                  .pictureUri
+                                              selected: model.pictureUri
                                                   .contains(picPathString)),
                                           Align(
                                             alignment: Alignment.bottomRight,
@@ -217,18 +218,17 @@ class WallpaperPage extends StatelessWidget {
                             gridDelegate:
                                 const SliverGridDelegateWithMaxCrossAxisExtent(
                                     maxCrossAxisExtent: 200,
-                                    // crossAxisCount: 6,
                                     childAspectRatio: 16 / 10,
                                     mainAxisSpacing: 10,
                                     crossAxisSpacing: 10),
                             shrinkWrap: true,
                             scrollDirection: Axis.vertical,
                             children: snapshot.data!
-                                .map((picPathString) => ImageTile(
-                                    path: picPathString,
+                                .map((picPathString) => YaruSelectableContainer(
+                                    child: wallpaperImage(picPathString),
                                     onTap: () =>
                                         model.pictureUri = picPathString,
-                                    currentlySelected: model.pictureUri
+                                    selected: model.pictureUri
                                         .contains(picPathString)))
                                 .toList()),
                       );
@@ -242,6 +242,14 @@ class WallpaperPage extends StatelessWidget {
             ],
           ),
       ],
+    );
+  }
+
+  Image wallpaperImage(String picPathString) {
+    return Image.file(
+      File(picPathString),
+      filterQuality: FilterQuality.none,
+      fit: BoxFit.fill,
     );
   }
 
