@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:settings/view/pages/bluetooth/bluetooth_device_model.dart';
 import 'package:settings/view/pages/bluetooth/bluetooth_device_types.dart';
 import 'package:yaru_widgets/yaru_widgets.dart';
+import 'package:settings/l10n/l10n.dart';
 
 class BluetoothDeviceRow extends StatefulWidget {
   const BluetoothDeviceRow({Key? key, required this.removeDevice})
@@ -80,8 +81,8 @@ class _BluetoothDeviceRowState extends State<BluetoothDeviceRow> {
                             YaruRow(
                                 enabled: true,
                                 trailingWidget: model.connected
-                                    ? const Text('Connected')
-                                    : const Text('Disconnected'),
+                                    ? Text(context.l10n.connected)
+                                    : Text(context.l10n.disonnected),
                                 actionWidget: Switch(
                                     value: model.connected,
                                     onChanged: (connectRequested) async {
@@ -92,26 +93,28 @@ class _BluetoothDeviceRowState extends State<BluetoothDeviceRow> {
                                     })),
                             YaruRow(
                                 enabled: true,
-                                trailingWidget: const Text('Paired'),
+                                trailingWidget: Text(context.l10n.paired),
                                 actionWidget: Padding(
                                   padding: const EdgeInsets.only(right: 8),
-                                  child: Text(model.paired ? 'Yes' : 'No'),
+                                  child: Text(model.paired
+                                      ? context.l10n.yes
+                                      : context.l10n.no),
                                 )),
                             YaruRow(
                                 enabled: true,
-                                trailingWidget: const Text('Address'),
+                                trailingWidget: Text(context.l10n.address),
                                 actionWidget: Padding(
                                   padding: const EdgeInsets.only(right: 8),
                                   child: Text(model.address),
                                 )),
                             YaruRow(
                                 enabled: true,
-                                trailingWidget: const Text('Type'),
+                                trailingWidget: Text(context.l10n.type),
                                 actionWidget: Padding(
                                   padding: const EdgeInsets.only(right: 8),
                                   child: Text(BluetoothDeviceTypes
                                           .map[model.appearance] ??
-                                      'Unkown'),
+                                      context.l10n.unknown),
                                 )),
                             Padding(
                               padding: const EdgeInsets.only(
@@ -127,7 +130,8 @@ class _BluetoothDeviceRowState extends State<BluetoothDeviceRow> {
                                             .pushNamed('routeName');
                                       }
                                     },
-                                    child: const Text('Open device settings')),
+                                    child: Text(context
+                                        .l10n.bluetoothOpenDeviceSettings)),
                               ),
                             ),
                             Padding(
@@ -141,7 +145,8 @@ class _BluetoothDeviceRowState extends State<BluetoothDeviceRow> {
 
                                       Navigator.of(context).pop();
                                     },
-                                    child: const Text('Remove device')),
+                                    child: Text(
+                                        context.l10n.bluetoothRemoveDevice)),
                               ),
                             ),
                             if (model.errorMessage.isNotEmpty)
@@ -163,7 +168,9 @@ class _BluetoothDeviceRowState extends State<BluetoothDeviceRow> {
             enabled: true,
             trailingWidget: Text(model.name),
             actionWidget: Text(
-              model.connected ? 'connected' : 'disconnected',
+              model.connected
+                  ? context.l10n.connected.toLowerCase()
+                  : context.l10n.disonnected.toLowerCase(),
               style: TextStyle(
                   color:
                       Theme.of(context).colorScheme.onSurface.withOpacity(0.7)),

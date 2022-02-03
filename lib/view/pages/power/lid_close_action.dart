@@ -1,4 +1,5 @@
 import 'package:flutter/widgets.dart';
+import 'package:settings/l10n/l10n.dart';
 
 enum LidCloseAction {
   blank,
@@ -38,7 +39,7 @@ extension LidCloseActionL10n on LidCloseAction {
       case LidCloseAction.logout:
         return 'Logout';
       default:
-        return 'Unknown';
+        return context.l10n.unknown;
     }
   }
 }
