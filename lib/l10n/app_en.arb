@@ -1,4 +1,14 @@
 {
   "appTitle": "Ubuntu Settings",
-  "searchHint": "Search..."
+  "searchHint": "Search...",
+  "connected": "Connected",
+  "disonnected": "Disconnected",
+  "yes": "Yes",
+  "no": "No",
+  "paired": "Paired",
+  "address": "Address",
+  "type": "Type",
+  "unknown": "Unknown",
+  "bluetoothOpenDeviceSettings": "Open device settings",
+  "bluetoothRemoveDevice" : "Remove device"
 }
