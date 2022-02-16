@@ -35,9 +35,7 @@ dependencies:
   safe_change_notifier: ^0.1.0
   scrollable_positioned_list: ^0.2.0-nullsafety.0
   udisks: ^0.3.0
-  upower:
-    git:
-      url: https://github.com/canonical/upower.dart
+  upower: ^0.6.2
   yaru:
     git:
       url: https://github.com/ubuntu/yaru.dart
