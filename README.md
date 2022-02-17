@@ -77,9 +77,8 @@ sudo apt install libhandy-1-dev
 - [X] Notifications page
 - [ ] Search page
 - [ ] Apps page
-- [ ] Security page
+- [X] Privacy/Security page - WIP
 - [ ] Online Accounts page
-- [ ] Sharing page
 - [ ] Sound page - WIP    
 - [X] Power page
 - [ ] Displays page
