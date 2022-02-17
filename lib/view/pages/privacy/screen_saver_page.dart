@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:settings/constants.dart';
 import 'package:settings/services/settings_service.dart';
 import 'package:settings/view/pages/power/power_settings.dart';
 import 'package:settings/view/pages/power/power_settings_widgets.dart';
@@ -20,6 +21,7 @@ class ScreenSaverPage extends StatelessWidget {
     final model = context.watch<ScreenSaverModel>();
     return YaruPage(children: [
       YaruRow(
+        width: kDefaultWidth,
         enabled: model.idleDelay != null,
         trailingWidget: const Text('Blank Screen'),
         actionWidget: DurationDropdownButton(
@@ -29,20 +31,28 @@ class ScreenSaverPage extends StatelessWidget {
         ),
       ),
       YaruSwitchRow(
+          enabled: model.showOnLockScreen != null,
+          width: kDefaultWidth,
           trailingWidget: const Text('Show notifications on lock screen'),
           value: model.showOnLockScreen,
           onChanged: (v) => model.showOnLockScreen = v),
       YaruSwitchRow(
+          enabled: model.lockEnabled != null,
+          width: kDefaultWidth,
           trailingWidget: const Text('Auto lock screen'),
           value: model.lockEnabled,
           onChanged: (v) => model.lockEnabled = v),
       YaruSliderRow(
+          enabled: model.lockDelay != null,
+          width: kDefaultWidth,
           actionLabel: 'Time',
           value: model.lockDelay?.toDouble(),
           min: 0,
           max: 3600,
           onChanged: (v) => model.lockDelay = v.toInt()),
       YaruSwitchRow(
+          enabled: model.ubuntuLockOnSuspend != null,
+          width: kDefaultWidth,
           trailingWidget: const Text('Lock screen on suspend'),
           value: model.ubuntuLockOnSuspend,
           onChanged: (v) => model.ubuntuLockOnSuspend = v),
