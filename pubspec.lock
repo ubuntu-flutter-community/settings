@@ -848,7 +848,7 @@ packages:
       name: win32
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.4.0"
+    version: "2.4.1"
   xdg_directories:
     dependency: transitive
     description:
@@ -891,10 +891,10 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: "9a76fcc83756e5eba3ac5240b7278e4a1a70384c"
+      resolved-ref: "591f4805d0a245ae9c804968ba461ee71c8031fd"
       url: "https://github.com/ubuntu/yaru_widgets.dart"
     source: git
-    version: "1.0.3"
+    version: "1.0.4"
 sdks:
   dart: ">=2.16.0-100.0.dev <3.0.0"
   flutter: ">=2.5.0"
