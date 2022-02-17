@@ -43,7 +43,7 @@ class HouseCleaningPage extends StatelessWidget {
               model.rememberRecentFiles == true)
             YaruSliderRow(
                 enabled: model.recentFilesMaxAge != null,
-                actionLabel: 'Days',
+                actionLabel: 'Days recorded',
                 value: model.recentFilesMaxAge?.toDouble() == -1
                     ? -1
                     : model.recentFilesMaxAge?.toDouble(),
@@ -68,23 +68,14 @@ class HouseCleaningPage extends StatelessWidget {
             value: model.removeOldTrashFiles,
             onChanged: (value) => model.removeOldTrashFiles = value,
           ),
-          YaruSwitchRow(
-              enabled: model.oldFilesAge != null,
-              trailingWidget:
-                  const Text('Remember old trash and temp files forever'),
-              value: model.oldFilesAge?.toDouble() == -1,
-              onChanged: (value) {
-                final intValue = value ? -1 : 1;
-                return model.oldFilesAge = intValue;
-              }),
           if (model.oldFilesAge != null && model.oldFilesAge?.toDouble() != -1)
             YaruSliderRow(
                 enabled: model.oldFilesAge != null,
-                actionLabel: 'Days',
+                actionLabel: 'Days until auto-delete',
                 value: model.oldFilesAge?.toDouble() == -1
                     ? -1
                     : model.oldFilesAge?.toDouble(),
-                min: -1,
+                min: 0,
                 max: 30,
                 onChanged: (value) => model.oldFilesAge = value.toInt())
         ],
