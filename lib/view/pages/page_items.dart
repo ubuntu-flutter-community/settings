@@ -10,6 +10,7 @@ import 'package:settings/view/pages/mouse_and_touchpad/mouse_and_touchpad_page.d
 import 'package:settings/view/pages/multitasking/multi_tasking_page.dart';
 import 'package:settings/view/pages/notifications/notifications_page.dart';
 import 'package:settings/view/pages/power/power_page.dart';
+import 'package:settings/view/pages/privacy/privacy_page.dart';
 import 'package:settings/view/pages/removable_media/removable_media_page.dart';
 import 'package:settings/view/pages/sound/sound_page.dart';
 import 'package:settings/view/pages/wallpaper/wallpaper_page.dart';
@@ -37,6 +38,10 @@ final pageItems = <YaruPageItem>[
     iconData: YaruIcons.desktop_panel_look,
     builder: AppearancePage.create,
   ),
+  const YaruPageItem(
+      title: 'Privacy',
+      builder: PrivacyPage.create,
+      iconData: YaruIcons.shield),
   const YaruPageItem(
       title: 'Multi-tasking',
       builder: MultiTaskingPage.create,
