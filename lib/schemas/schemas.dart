@@ -24,3 +24,5 @@ const schemaSettingsDaemonPowerPlugin =
     'org.gnome.settings-daemon.plugins.power';
 const schemaPrivacy = 'org.gnome.desktop.privacy';
 const schemaLocation = 'org.gnome.system.location';
+const schemaScreenSaver = 'org.gnome.desktop.screensaver';
+const schemaSession = 'org.gnome.desktop.session';

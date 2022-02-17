@@ -3,9 +3,6 @@ import 'package:settings/schemas/schemas.dart';
 import 'package:settings/services/house_keeping_service.dart';
 import 'package:settings/services/settings_service.dart';
 
-// trash: org.gnome.desktop.privacy remove-old-trash-files false
-// temp files: org.gnome.desktop.privacy remove-old-temp-files true
-
 const _removeOldTrashFilesKey = 'remove-old-trash-files';
 const _removeOldTempFilesKey = 'remove-old-temp-files';
 const _rememberRecentFilesKey = 'remember-recent-files';

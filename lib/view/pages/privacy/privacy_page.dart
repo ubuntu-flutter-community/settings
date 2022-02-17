@@ -3,6 +3,8 @@ import 'package:settings/constants.dart';
 import 'package:settings/view/pages/privacy/connectivity_page.dart';
 import 'package:settings/view/pages/privacy/house_keeping_page.dart';
 import 'package:settings/view/pages/privacy/location_page.dart';
+import 'package:settings/view/pages/privacy/reporting_page.dart';
+import 'package:settings/view/pages/privacy/screen_saver_page.dart';
 import 'package:yaru_icons/yaru_icons.dart';
 import 'package:yaru_widgets/yaru_widgets.dart';
 
@@ -34,8 +36,8 @@ class PrivacyPage extends StatelessWidget {
           // TODO: implement Thunderbolt!
           children: [Center(child: Text('Thunderbolt - Please implement'))]),
       HouseKeepingPage.create(context),
-      const YaruPage(children: []),
-      const YaruPage(children: []),
+      ScreenSaverPage.create(context),
+      ReportingPage.create(context),
     ]);
   }
 }
