@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:settings/constants.dart';
 import 'package:settings/view/pages/privacy/connectivity_page.dart';
-import 'package:settings/view/pages/privacy/house_cleaning_page.dart';
+import 'package:settings/view/pages/privacy/house_keeping_page.dart';
 import 'package:settings/view/pages/privacy/location_page.dart';
 import 'package:yaru_icons/yaru_icons.dart';
 import 'package:yaru_widgets/yaru_widgets.dart';
@@ -33,7 +33,7 @@ class PrivacyPage extends StatelessWidget {
       const YaruPage(
           // TODO: implement Thunderbolt!
           children: [Center(child: Text('Thunderbolt - Please implement'))]),
-      HouseCleaningPage.create(context),
+      HouseKeepingPage.create(context),
       const YaruPage(children: []),
       const YaruPage(children: []),
     ]);

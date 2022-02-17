@@ -1,5 +1,6 @@
 import 'package:safe_change_notifier/safe_change_notifier.dart';
 import 'package:settings/schemas/schemas.dart';
+import 'package:settings/services/house_keeping_service.dart';
 import 'package:settings/services/settings_service.dart';
 
 // trash: org.gnome.desktop.privacy remove-old-trash-files false
@@ -13,9 +14,12 @@ const _oldFilesAgeKey = 'old-files-age';
 
 class PrivacyModel extends SafeChangeNotifier {
   final Settings? _privacySettings;
+  final HouseKeepingService _houseKeepingService;
 
-  PrivacyModel(SettingsService service)
-      : _privacySettings = service.lookup(schemaPrivacy) {
+  PrivacyModel(
+      SettingsService settingsService, HouseKeepingService houseKeepingService)
+      : _privacySettings = settingsService.lookup(schemaPrivacy),
+        _houseKeepingService = houseKeepingService {
     _privacySettings?.addListener(notifyListeners);
   }
 
@@ -66,4 +70,8 @@ class PrivacyModel extends SafeChangeNotifier {
     _privacySettings?.setValue(_oldFilesAgeKey, value);
     notifyListeners();
   }
+
+  void emptyTrash() => _houseKeepingService.emptyTrash();
+
+  void removeTempFiles() => _houseKeepingService.removeTempFiles();
 }
