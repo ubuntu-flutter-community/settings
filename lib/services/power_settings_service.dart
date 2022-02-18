@@ -14,6 +14,7 @@ class PowerSettingsService {
   final keyboard = Brightness('Keyboard');
 
   Future<void> init() => Future.wait([screen.init(), keyboard.init()]);
+
   Future<void> dispose() => Future.wait([screen.dispose(), keyboard.dispose()]);
 }
 
@@ -48,6 +49,7 @@ class Brightness {
   int? _brightness;
 
   int? get brightness => _brightness;
+
   Stream<int?> get brightnessChanged => _brightnessController.stream;
   final _brightnessController = StreamController<int?>.broadcast();
 
@@ -76,9 +78,15 @@ class Brightness {
 
 extension _BrightnessObject on DBusRemoteObject {
   Future<int?> getBrightness(String name) async {
-    final value =
-        await getProperty('$kPowerSettingsInterface.$name', 'Brightness');
-    return (value as DBusInt32).value;
+    try {
+      final value = await getProperty(
+        '$kPowerSettingsInterface.$name',
+        'Brightness',
+      );
+      return (value as DBusInt32).value;
+    } on Exception catch (e) {
+      // TODO
+    }
   }
 
   Future<void> setBrightness(int? brightness, String name) {

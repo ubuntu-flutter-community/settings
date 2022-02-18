@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:settings/constants.dart';
 import 'package:settings/view/pages/mouse_and_touchpad/mouse_and_touchpad_model.dart';
 import 'package:yaru_widgets/yaru_widgets.dart';
 
@@ -8,9 +9,10 @@ class MouseSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final model = Provider.of<MouseAndTouchpadModel>(context);
+    final model = context.watch<MouseAndTouchpadModel>();
 
     return YaruSection(
+      width: kDefaultWidth,
       headline: 'Mouse',
       children: [
         YaruSliderRow(
@@ -26,7 +28,7 @@ class MouseSection extends StatelessWidget {
           trailingWidget: const Text('Natural Scrolling'),
           actionDescription: 'Scrolling moves the content, not the view',
           value: model.mouseNaturalScroll,
-          onChanged: (value) => model.setMouseNaturalScroll(value),
+          onChanged: model.setMouseNaturalScroll,
         ),
       ],
     );

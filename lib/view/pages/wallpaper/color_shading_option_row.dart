@@ -1,6 +1,7 @@
 import 'package:flex_color_picker/flex_color_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:settings/utils.dart';
 import 'package:settings/view/pages/wallpaper/wallpaper_model.dart';
 import 'package:yaru_widgets/yaru_widgets.dart';
 
@@ -22,6 +23,7 @@ class ColorShadingOptionRow extends StatelessWidget {
   Widget build(BuildContext context) {
     final model = context.read<WallpaperModel>();
     return YaruRow(
+      enabled: true,
       trailingWidget: Text(actionLabel),
       description: actionDescription,
       actionWidget: Row(
@@ -45,8 +47,8 @@ class ColorShadingOptionRow extends StatelessWidget {
             ],
           ),
           const SizedBox(width: 8.0),
-          ColorPickerButton(
-            color: fromHex(model.primaryColor),
+          YaruColorPickerButton(
+            color: colorFromHex(model.primaryColor),
             onPressed: () async {
               final colorBeforeDialog = model.primaryColor;
               if (!(await colorPickerDialog(context, true))) {
@@ -57,8 +59,8 @@ class ColorShadingOptionRow extends StatelessWidget {
           if (model.colorShadingType != ColorShadingType.solid)
             const SizedBox(width: 8.0),
           if (model.colorShadingType != ColorShadingType.solid)
-            ColorPickerButton(
-                color: fromHex(model.secondaryColor),
+            YaruColorPickerButton(
+                color: colorFromHex(model.secondaryColor),
                 onPressed: () async {
                   final colorBeforeDialog = model.secondaryColor;
                   if (!(await colorPickerDialog(context, false))) {
@@ -70,17 +72,10 @@ class ColorShadingOptionRow extends StatelessWidget {
     );
   }
 
-  Color fromHex(String hexString) {
-    final buffer = StringBuffer();
-    if (hexString.length == 6 || hexString.length == 7) buffer.write('ff');
-    buffer.write(hexString.replaceFirst('#', ''));
-    return Color(int.tryParse(buffer.toString(), radix: 16) ?? 0);
-  }
-
   Future<bool> colorPickerDialog(BuildContext context, bool primary) async {
     final model = context.read<WallpaperModel>();
     return ColorPicker(
-      color: fromHex(primary ? model.primaryColor : model.secondaryColor),
+      color: colorFromHex(primary ? model.primaryColor : model.secondaryColor),
       onColorChanged: (Color color) => {
         if (primary)
           {model.primaryColor = '#' + color.hex}
@@ -128,38 +123,6 @@ class ColorShadingOptionRow extends StatelessWidget {
       context,
       constraints:
           const BoxConstraints(minHeight: 480, minWidth: 300, maxWidth: 320),
-    );
-  }
-}
-
-class ColorPickerButton extends StatelessWidget {
-  const ColorPickerButton({
-    Key? key,
-    required this.color,
-    required this.onPressed,
-  }) : super(key: key);
-
-  final VoidCallback onPressed;
-  final Color color;
-
-  @override
-  Widget build(BuildContext context) {
-    const size = 40.0;
-    return SizedBox(
-      width: size,
-      height: size,
-      child: OutlinedButton(
-        style: OutlinedButton.styleFrom(padding: const EdgeInsets.all(0)),
-        onPressed: onPressed,
-        child: SizedBox(
-          width: size / 2,
-          height: size / 2,
-          child: DecoratedBox(
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(100), color: color),
-          ),
-        ),
-      ),
     );
   }
 }

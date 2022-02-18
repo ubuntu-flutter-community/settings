@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:settings/constants.dart';
 import 'package:settings/services/settings_service.dart';
 import 'package:settings/view/pages/power/suspend.dart';
 import 'package:settings/view/pages/power/suspend_model.dart';
@@ -26,9 +27,11 @@ class _SuspendSectionState extends State<SuspendSection> {
   Widget build(BuildContext context) {
     final model = context.watch<SuspendModel>();
     return YaruSection(
+      width: kDefaultWidth,
       headline: 'Suspend & Power Button',
       children: <Widget>[
         YaruRow(
+          enabled: model.powerButtonAction != null,
           trailingWidget: const Text('Power Button Behavior'),
           actionWidget: DropdownButton<PowerButtonAction?>(
             value: model.powerButtonAction,

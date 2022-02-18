@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:settings/constants.dart';
 import 'package:settings/view/pages/accessibility/accessibility_model.dart';
 import 'package:yaru_widgets/yaru_widgets.dart';
 
@@ -10,8 +11,9 @@ class PointingAndClickingSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final model = Provider.of<AccessibilityModel>(context);
+    final model = context.watch<AccessibilityModel>();
     return YaruSection(
+      width: kDefaultWidth,
       headline: 'Pointing & Clicking',
       children: [
         YaruSwitchRow(
@@ -43,8 +45,9 @@ class _ClickAssist extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final model = Provider.of<AccessibilityModel>(context);
+    final model = context.watch<AccessibilityModel>();
     return YaruRow(
+      enabled: model.clickAssistAvailable,
       trailingWidget: const Text('Click Assist'),
       actionWidget: Row(
         children: [
@@ -76,8 +79,9 @@ class _ClickAssistSettings extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final model = Provider.of<AccessibilityModel>(context);
+    final model = context.watch<AccessibilityModel>();
     return YaruSimpleDialog(
+      width: kDefaultWidth,
       title: 'Click Assist',
       closeIconData: YaruIcons.window_close,
       children: [
@@ -89,16 +93,16 @@ class _ClickAssistSettings extends StatelessWidget {
           onChanged: (value) => model.setSimulatedSecondaryClick(value),
         ),
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16.0),
-          child: YaruSliderSecondary(
-            label: 'Delay',
-            enabled: model.simulatedSecondaryClick,
+          padding: const EdgeInsets.only(left: 16.0),
+          child: YaruSliderRow(
+            enabled: model.simulatedSecondaryClick ?? false,
+            actionLabel: 'Delay',
             value: model.secondaryClickTime,
             min: 0.5,
             max: 3.0,
             defaultValue: 1.2,
             fractionDigits: 1,
-            onChanged: (value) => model.setSecondaryClickTime(value),
+            onChanged: model.setSecondaryClickTime,
           ),
         ),
         YaruSwitchRow(
@@ -108,27 +112,34 @@ class _ClickAssistSettings extends StatelessWidget {
           onChanged: (value) => model.setDwellClick(value),
         ),
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16.0),
+          padding: const EdgeInsets.only(left: 16.0),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              YaruSliderSecondary(
-                label: 'Delay',
-                enabled: model.dwellClick,
-                min: 0.2,
-                max: 3.0,
-                defaultValue: 1.2,
-                value: model.dwellTime,
-                fractionDigits: 1,
-                onChanged: (value) => model.setDwellTime(value),
+              SizedBox(
+                height: 56,
+                child: YaruSliderRow(
+                  enabled: model.dwellClick ?? false,
+                  actionLabel: 'Delay',
+                  value: model.dwellTime,
+                  min: 0.2,
+                  max: 3.0,
+                  defaultValue: 1.2,
+                  fractionDigits: 1,
+                  onChanged: model.setDwellTime,
+                ),
               ),
-              YaruSliderSecondary(
-                label: 'Motion thresshold',
-                enabled: model.dwellClick,
-                min: 0.0,
-                max: 30.0,
-                defaultValue: 10,
-                value: model.dwellThreshold,
-                onChanged: (value) => model.setDwellThreshold(value),
+              SizedBox(
+                height: 56,
+                child: YaruSliderRow(
+                  enabled: model.dwellClick ?? false,
+                  actionLabel: 'Motion thresshold',
+                  value: model.dwellThreshold,
+                  min: 0.0,
+                  max: 30.0,
+                  defaultValue: 10,
+                  onChanged: model.setDwellThreshold,
+                ),
               ),
             ],
           ),

@@ -25,3 +25,11 @@ class AppTheme extends ValueNotifier<ThemeMode> {
     super.dispose();
   }
 }
+
+class LightTheme extends ValueNotifier<ThemeData> {
+  LightTheme(ThemeData value) : super(value);
+}
+
+class DarkTheme extends ValueNotifier<ThemeData> {
+  DarkTheme(ThemeData value) : super(value);
+}

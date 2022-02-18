@@ -33,8 +33,7 @@ class MouseAndTouchpadModel extends ChangeNotifier {
 
   // Global section
 
-  bool get leftHanded =>
-      _peripheralsMouseSettings?.boolValue(_leftHanded) ?? false;
+  bool? get leftHanded => _peripheralsMouseSettings?.boolValue(_leftHanded);
 
   void setLeftHanded(bool value) {
     _peripheralsMouseSettings?.setValue(_leftHanded, value);
@@ -43,16 +42,16 @@ class MouseAndTouchpadModel extends ChangeNotifier {
 
   // Mouse section
 
-  double get mouseSpeed =>
-      _peripheralsMouseSettings?.doubleValue(_mouseSpeedKey) ?? 0.0;
+  double? get mouseSpeed =>
+      _peripheralsMouseSettings?.doubleValue(_mouseSpeedKey);
 
   void setMouseSpeed(double value) {
     _peripheralsMouseSettings?.setValue(_mouseSpeedKey, value);
     notifyListeners();
   }
 
-  bool get mouseNaturalScroll =>
-      _peripheralsMouseSettings?.boolValue(_mouseNaturalScrollKey) ?? false;
+  bool? get mouseNaturalScroll =>
+      _peripheralsMouseSettings?.boolValue(_mouseNaturalScrollKey);
 
   void setMouseNaturalScroll(bool value) {
     _peripheralsMouseSettings?.setValue(_mouseNaturalScrollKey, value);
@@ -61,53 +60,56 @@ class MouseAndTouchpadModel extends ChangeNotifier {
 
   // Touchpad section
 
-  double get touchpadSpeed =>
-      _peripheralsTouchpadSettings?.doubleValue(_touchpadSpeedKey) ?? 0.0;
+  double? get touchpadSpeed =>
+      _peripheralsTouchpadSettings?.doubleValue(_touchpadSpeedKey);
 
   void setTouchpadSpeed(double value) {
     _peripheralsTouchpadSettings?.setValue(_touchpadSpeedKey, value);
     notifyListeners();
   }
 
-  bool get touchpadNaturalScroll =>
-      _peripheralsTouchpadSettings?.boolValue(_touchpadNaturalScrollKey) ??
-      true;
+  bool? get touchpadNaturalScroll =>
+      _peripheralsTouchpadSettings?.boolValue(_touchpadNaturalScrollKey);
 
   void setTouchpadNaturalScroll(bool value) {
     _peripheralsTouchpadSettings?.setValue(_touchpadNaturalScrollKey, value);
     notifyListeners();
   }
 
-  bool get touchpadTapToClick =>
-      _peripheralsTouchpadSettings?.boolValue(_touchpadTapToClickKey) ?? true;
+  bool? get touchpadTapToClick =>
+      _peripheralsTouchpadSettings?.boolValue(_touchpadTapToClickKey);
 
   void setTouchpadTapToClick(bool value) {
     _peripheralsTouchpadSettings?.setValue(_touchpadTapToClickKey, value);
     notifyListeners();
   }
 
-  bool get touchpadDisableWhileTyping =>
-      _peripheralsTouchpadSettings?.boolValue(_touchpadDisableWhileTyping) ??
-      false;
+  bool? get touchpadDisableWhileTyping =>
+      _peripheralsTouchpadSettings?.boolValue(_touchpadDisableWhileTyping);
 
   void setTouchpadDisableWhileTyping(bool value) {
     _peripheralsTouchpadSettings?.setValue(_touchpadDisableWhileTyping, value);
     notifyListeners();
   }
 
-  bool get twoFingerScrolling =>
-      _peripheralsTouchpadSettings?.boolValue(_touchpadTwoFingerScrolling) ??
-      true;
+  bool? get twoFingerScrolling =>
+      _peripheralsTouchpadSettings?.boolValue(_touchpadTwoFingerScrolling);
 
   void setTwoFingerScrolling(bool value) {
+    if (value) {
+      setEdgeScrolling(false);
+    }
     _peripheralsTouchpadSettings?.setValue(_touchpadTwoFingerScrolling, value);
     notifyListeners();
   }
 
-  bool get edgeScrolling =>
-      _peripheralsTouchpadSettings?.boolValue(_touchpadEdgeScrolling) ?? false;
+  bool? get edgeScrolling =>
+      _peripheralsTouchpadSettings?.boolValue(_touchpadEdgeScrolling);
 
   void setEdgeScrolling(bool value) {
+    if (value) {
+      setTwoFingerScrolling(false);
+    }
     _peripheralsTouchpadSettings?.setValue(_touchpadEdgeScrolling, value);
     notifyListeners();
   }

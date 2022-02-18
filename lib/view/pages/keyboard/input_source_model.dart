@@ -1,7 +1,10 @@
+import 'dart:io';
+
 import 'package:dbus/dbus.dart';
 import 'package:gsettings/gsettings.dart';
 import 'package:safe_change_notifier/safe_change_notifier.dart';
 import 'package:settings/schemas/schemas.dart';
+import 'package:settings/services/input_source_service.dart';
 import 'package:settings/services/settings_service.dart';
 
 class InputSourceModel extends SafeChangeNotifier {
@@ -9,9 +12,12 @@ class InputSourceModel extends SafeChangeNotifier {
   static const _perWindowKey = 'per-window';
   static const _sourcesKey = 'sources';
   static const _mruSourcesKey = 'mru-sources';
+  final List<InputSource> inputSources;
 
-  InputSourceModel(SettingsService service)
-      : _inputSourceSettings = service.lookup(schemaInputSources) {
+  InputSourceModel(
+      SettingsService settingsService, InputSourceService inputSourceService)
+      : _inputSourceSettings = settingsService.lookup(schemaInputSources),
+        inputSources = inputSourceService.inputSources {
     _inputSourceSettings?.addListener(notifyListeners);
   }
 
@@ -44,7 +50,7 @@ class InputSourceModel extends SafeChangeNotifier {
     return inputTypes ?? [];
   }
 
-  setInputSources(List<String>? inputTypes) async {
+  Future<void> setInputSources(List<String>? inputTypes) async {
     final settings = GSettings(schemaInputSources);
 
     final DBusArray array = DBusArray(DBusSignature('(ss)'), [
@@ -58,5 +64,24 @@ class InputSourceModel extends SafeChangeNotifier {
     await settings.close();
 
     notifyListeners();
+  }
+
+  Future<void> removeInputSource(String inputType) async {
+    final types = await getInputSources();
+    if (types!.length > 1) {
+      types.remove(inputType);
+      await setInputSources(types);
+    }
+  }
+
+  Future<void> addInputSource(String inputSource) async {
+    final sources = await getInputSources();
+    sources?.add(inputSource);
+    await setInputSources(sources);
+  }
+
+  Future<void> showKeyboardLayout(String inputType) async {
+    await Process.run('gkbd-keyboard-display',
+        ['-l', inputType.split('+').first, inputType.split('+').last, '&']);
   }
 }

@@ -5,6 +5,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:rive/rive.dart';
 import 'package:settings/api/pdf_api.dart';
+import 'package:settings/constants.dart';
 import 'package:settings/services/hostname_service.dart';
 import 'package:udisks/udisks.dart';
 import 'package:yaru_icons/yaru_icons.dart';
@@ -52,19 +53,32 @@ class _InfoPageState extends State<InfoPage> {
       ),
     );
 
-    return Column(
+    return YaruPage(
       children: [
-        const SizedBox(
-            height: 128,
-            width: 128,
-            child: RiveAnimation.asset('assets/rive/ubuntu_cof.riv')),
+        Stack(
+          alignment: Alignment.center,
+          children: [
+            Container(
+              height: 120,
+              width: 120,
+              decoration: const BoxDecoration(
+                shape: BoxShape.circle,
+                color: Colors.white, // inner circle color
+              ), // inner content
+            ),
+            const SizedBox(
+                height: 128,
+                width: 128,
+                child: RiveAnimation.asset('assets/rive/ubuntu_cof.riv')),
+          ],
+        ),
         const SizedBox(height: 10),
         Text('${model.osName} ${model.osVersion}',
             style: Theme.of(context).textTheme.headline5),
         const SizedBox(height: 10),
         const SizedBox(height: 30),
         const _Computer(),
-        YaruSection(headline: 'Hardware', children: [
+        YaruSection(width: kDefaultWidth, headline: 'Hardware', children: [
           YaruSingleInfoRow(
             infoLabel: 'Processor',
             infoValue: '${model.processorName} x ${model.processorCount}',
@@ -83,7 +97,7 @@ class _InfoPageState extends State<InfoPage> {
                 model.diskCapacity != null ? filesize(model.diskCapacity) : '',
           ),
         ]),
-        YaruSection(headline: 'System', children: [
+        YaruSection(width: kDefaultWidth, headline: 'System', children: [
           YaruSingleInfoRow(
             infoLabel: 'OS',
             infoValue:
@@ -102,31 +116,37 @@ class _InfoPageState extends State<InfoPage> {
             infoValue: model.windowServer,
           ),
         ]),
-        YaruPageContainer(
-            child: Align(
-          alignment: Alignment.topRight,
-          child: OutlinedButton.icon(
-            icon: const Icon(YaruIcons.save_as),
-            label: const Text('Export to PDF'),
-            onPressed: () async {
-              // ignore: unused_local_variable
-              final pdfFile = await PdfApi.generateSystemData(
-                model.osName,
-                model.osVersion,
-                model.kernelVersion,
-                model.processorName,
-                model.processorCount.toString(),
-                model.memory.toString(),
-                model.graphics,
-                model.diskCapacity != null ? filesize(model.diskCapacity) : '',
-                model.osType.toString(),
-                model.gnomeVersion,
-                model.windowServer,
-              );
-              ScaffoldMessenger.of(context).showSnackBar(sysInfoSnackBar);
-            },
+        SizedBox(
+          width: kDefaultWidth,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              OutlinedButton.icon(
+                icon: const Icon(YaruIcons.save_as),
+                label: const Text('Export to PDF'),
+                onPressed: () async {
+                  // ignore: unused_local_variable
+                  final pdfFile = await PdfApi.generateSystemData(
+                    model.osName,
+                    model.osVersion,
+                    model.kernelVersion,
+                    model.processorName,
+                    model.processorCount.toString(),
+                    model.memory.toString(),
+                    model.graphics,
+                    model.diskCapacity != null
+                        ? filesize(model.diskCapacity)
+                        : '',
+                    model.osType.toString(),
+                    model.gnomeVersion,
+                    model.windowServer,
+                  );
+                  ScaffoldMessenger.of(context).showSnackBar(sysInfoSnackBar);
+                },
+              )
+            ],
           ),
-        )),
+        ),
       ],
     );
   }
@@ -137,10 +157,11 @@ class _Computer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final model = Provider.of<InfoModel>(context);
+    final model = context.watch<InfoModel>();
 
-    return YaruSection(headline: 'Computer', children: [
+    return YaruSection(width: kDefaultWidth, headline: 'Computer', children: [
       YaruRow(
+        enabled: true,
         trailingWidget: const Text('Hostname'),
         actionWidget: Row(
           children: [
@@ -205,6 +226,7 @@ class _HostnameSettingsState extends State<_HostnameSettings> {
   Widget build(BuildContext context) {
     final model = context.watch<InfoModel>();
     return YaruSimpleDialog(
+      width: kDefaultWidth / 2,
       title: 'Edit Hostname',
       closeIconData: YaruIcons.window_close,
       children: [

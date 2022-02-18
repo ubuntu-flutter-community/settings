@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:settings/constants.dart';
 import 'package:settings/services/power_profile_service.dart';
 import 'package:settings/view/pages/power/power_profile_model.dart';
 import 'package:yaru_widgets/yaru_widgets.dart';
@@ -29,6 +30,7 @@ class _PowerProfileSectionState extends State<PowerProfileSection> {
   Widget build(BuildContext context) {
     final model = context.watch<PowerProfileModel>();
     return YaruSection(
+      width: kDefaultWidth,
       headline: 'Power Mode',
       children: <Widget>[
         RadioListTile<PowerProfile>(

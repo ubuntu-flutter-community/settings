@@ -22,6 +22,7 @@ class AccessPointTile extends StatelessWidget {
             borderRadius: BorderRadius.circular(4),
             onTap: onTap,
             child: YaruRow(
+              enabled: true,
               trailingWidget: Row(
                 children: [
                   Icon(accessPointModel.wifiIconData),

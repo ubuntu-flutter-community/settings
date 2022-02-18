@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:settings/constants.dart';
 import 'package:settings/view/pages/power/battery_model.dart';
 import 'package:settings/view/pages/power/battery_widgets.dart';
 import 'package:upower/upower.dart';
@@ -33,6 +34,7 @@ class _BatterySectionState extends State<BatterySection> {
   Widget build(BuildContext context) {
     final model = context.watch<BatteryModel>();
     return YaruSection(
+      width: kDefaultWidth,
       headline: 'Battery',
       children: <Widget>[
         Padding(

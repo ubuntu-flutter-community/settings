@@ -4,6 +4,7 @@ import 'package:settings/services/settings_service.dart';
 import 'package:settings/view/pages/notifications/app_notifications_section.dart';
 import 'package:settings/view/pages/notifications/global_notifications_section.dart';
 import 'package:settings/view/pages/notifications/notifications_model.dart';
+import 'package:yaru_widgets/yaru_widgets.dart';
 
 class NotificationsPage extends StatelessWidget {
   const NotificationsPage({Key? key}) : super(key: key);
@@ -18,8 +19,8 @@ class NotificationsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: const [
+    return const YaruPage(
+      children: [
         GlobalNotificationsSection(),
         AppNotificationsSection(),
       ],
