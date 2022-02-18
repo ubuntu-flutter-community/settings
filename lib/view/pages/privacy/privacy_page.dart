@@ -15,7 +15,7 @@ class PrivacyPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return YaruTabbedPage(width: kDefaultWidth, tabIcons: const [
+    return YaruTabbedPage(width: kDefaultWidth * 2, tabIcons: const [
       YaruIcons.network,
       YaruIcons.location,
       YaruIcons.thunderbolt,
@@ -34,16 +34,15 @@ class PrivacyPage extends StatelessWidget {
       LocationPage.create(context),
       const YaruPage(
           // TODO: implement Thunderbolt!
-          children: [Center(child: Text('Thunderbolt - Please implement'))]),
+          children: [
+            Padding(
+              padding: EdgeInsets.all(8.0),
+              child: Text('Thunderbolt - Please implement 🥲️'),
+            )
+          ]),
       HouseKeepingPage.create(context),
       ScreenSaverPage.create(context),
       ReportingPage.create(context),
     ]);
   }
 }
-
-// lock-screen: org.gnome.desktop.screensaver
-// trash: org.gnome.desktop.privacy remove-old-trash-files false
-// temp files: org.gnome.desktop.privacy remove-old-temp-files true
-// reporting: org.gnome.desktop.privacy report-technical-problems true
-// location: org.gnome.system.location enabled false

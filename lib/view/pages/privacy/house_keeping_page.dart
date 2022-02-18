@@ -175,6 +175,7 @@ class _ConfirmationDialogState extends State<_ConfirmationDialog>
     return AlertDialog(
       titlePadding: EdgeInsets.zero,
       title: YaruDialogTitle(
+        closeIconData: YaruIcons.window_close,
         title: widget.title,
       ),
       content: Icon(

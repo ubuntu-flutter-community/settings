@@ -30,5 +30,15 @@
   "removableMediaVideoHdDvd" : "Video HD DVD",
   "removableMediaVideoSvCd" : "Video SV CD",
   "removableMediaVideoVCd" : "Video V CD",
-  "removableMediaWindowsSoftware" : "Windows Software"
+  "removableMediaWindowsSoftware" : "Windows Software",
+  "checkConnectivityLabel": "Check connectivity",
+  "checkConnectivityDescription": "The connectivity check is used to detect connection problems and help you stay online. If your network communications are monitored, they could be used to collect technical information about this computer.",
+  "screenSaverDescription": "The automatic screen lock protects your computer from being accessed by others while you are away.",
+  "screenSaverTimerLabel": "Delay until screen turns off",
+  "screenSaverTimerDescription": "Duration of inactivity before the screen turns off.",
+  "screenSaverAutoScreenLockLabel": "Automatic screen lock",
+  "screenSaverAutoDelayLabel": "Delay before automatic screen saver",
+  "screenSaverAutoDelayDescription": "Duration of inactivity before the screen turns off automatically",
+  "screenSaverLockScreenOnSuspendLabel": "Lock the screen on suspend",
+  "screenSaverNotificationsOnLockScreen": "Show notifications on lock screen"
 }
