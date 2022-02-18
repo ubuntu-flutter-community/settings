@@ -12,17 +12,20 @@ class ColorShadingOptionRow extends StatelessWidget {
     this.actionDescription,
     required this.value,
     required this.onDropDownChanged,
+    this.width,
   }) : super(key: key);
 
   final String actionLabel;
   final String? actionDescription;
   final ColorShadingType value;
   final Function(ColorShadingType) onDropDownChanged;
+  final double? width;
 
   @override
   Widget build(BuildContext context) {
     final model = context.read<WallpaperModel>();
     return YaruRow(
+      width: width,
       enabled: true,
       trailingWidget: Text(actionLabel),
       description: actionDescription,
