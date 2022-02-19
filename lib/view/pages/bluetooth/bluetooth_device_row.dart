@@ -53,7 +53,7 @@ class _BluetoothDeviceRowState extends State<BluetoothDeviceRow> {
                 ),
               )),
       child: Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: const EdgeInsets.only(bottom: 4, top: 4),
         child: YaruRow(
             enabled: true,
             trailingWidget: Text(model.name),

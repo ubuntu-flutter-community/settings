@@ -3,7 +3,9 @@ import 'package:nm/nm.dart';
 import 'package:provider/provider.dart';
 import 'package:settings/constants.dart';
 import 'package:settings/view/pages/privacy/connectivity_model.dart';
+import 'package:settings/view/section_description.dart';
 import 'package:yaru_widgets/yaru_widgets.dart';
+import 'package:settings/l10n/l10n.dart';
 
 class ConnectivityPage extends StatefulWidget {
   const ConnectivityPage({Key? key}) : super(key: key);
@@ -28,13 +30,22 @@ class _ConnectivityPageState extends State<ConnectivityPage> {
   Widget build(BuildContext context) {
     final model = context.watch<ConnectivityModel>();
     return YaruPage(children: [
-      YaruSwitchRow(
+      SectionDescription(
         width: kDefaultWidth,
-        enabled: model.checkConnectiviy != null,
-        trailingWidget: const Text('Check Connectivity'),
-        value: model.checkConnectiviy,
-        onChanged: (v) => model.checkConnectiviy = v,
-      )
+        text: context.l10n.checkConnectivityDescription,
+      ),
+      YaruSection(
+        width: kDefaultWidth,
+        children: [
+          YaruSwitchRow(
+            width: kDefaultWidth,
+            enabled: model.checkConnectiviy != null,
+            trailingWidget: Text(context.l10n.checkConnectivityLabel),
+            value: model.checkConnectiviy,
+            onChanged: (v) => model.checkConnectiviy = v,
+          ),
+        ],
+      ),
     ]);
   }
 }

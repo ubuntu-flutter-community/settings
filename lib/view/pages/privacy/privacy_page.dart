@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:settings/constants.dart';
+import 'package:settings/l10n/l10n.dart';
 import 'package:settings/view/pages/privacy/connectivity_page.dart';
 import 'package:settings/view/pages/privacy/house_keeping_page.dart';
 import 'package:settings/view/pages/privacy/location_page.dart';
@@ -15,35 +16,34 @@ class PrivacyPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return YaruTabbedPage(width: kDefaultWidth, tabIcons: const [
+    return YaruTabbedPage(width: kDefaultWidth * 2, tabIcons: const [
       YaruIcons.network,
       YaruIcons.location,
       YaruIcons.thunderbolt,
       YaruIcons.trash,
       YaruIcons.lock,
       YaruIcons.question
-    ], tabTitles: const [
-      'Connectivity',
-      'Location Services',
-      'Thunderbolt',
-      'House Cleaning',
-      'Screen Lock',
-      'Diagnostics'
+    ], tabTitles: [
+      context.l10n.connectivityPageTitle,
+      context.l10n.locationPageTitle,
+      context.l10n.thunderBoltPageTitle,
+      context.l10n.houseKeepingPageTitle,
+      context.l10n.screenLockPageTitle,
+      context.l10n.diagnosisPageTitle
     ], views: [
       ConnectivityPage.create(context),
       LocationPage.create(context),
       const YaruPage(
           // TODO: implement Thunderbolt!
-          children: [Center(child: Text('Thunderbolt - Please implement'))]),
+          children: [
+            Padding(
+              padding: EdgeInsets.all(8.0),
+              child: Text('Thunderbolt - Please implement 🥲️'),
+            )
+          ]),
       HouseKeepingPage.create(context),
       ScreenSaverPage.create(context),
       ReportingPage.create(context),
     ]);
   }
 }
-
-// lock-screen: org.gnome.desktop.screensaver
-// trash: org.gnome.desktop.privacy remove-old-trash-files false
-// temp files: org.gnome.desktop.privacy remove-old-temp-files true
-// reporting: org.gnome.desktop.privacy report-technical-problems true
-// location: org.gnome.system.location enabled false
