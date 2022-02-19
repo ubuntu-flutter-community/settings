@@ -64,5 +64,12 @@
   "houseKeepingTempTrashAutoDeleteDays": "Zeitraum für automatisches Löschen",
   "houseKeepingTempTrashActionLabel": "Bereinigen",
   "houseKeepingEmptyTrash": "Papierkorb leeren",
-  "houseKeepingRemoveTempFiles": "Temporäre Dateien löschen"
+  "houseKeepingRemoveTempFiles": "Temporäre Dateien löschen",
+  "privacyPageTitle": "Datenschutz",
+  "connectivityPageTitle": "Konnektivität",
+  "locationPageTitle": "Standortdienste",
+  "thunderBoltPageTitle": "Thunderbolt",
+  "houseKeepingPageTitle": "Datenbereinigung",
+  "screenLockPageTitle": "Bildschirmsperre",
+  "diagnosisPageTitle": "Fehlerdiagnose"
 }

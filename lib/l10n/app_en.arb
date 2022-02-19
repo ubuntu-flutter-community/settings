@@ -64,5 +64,12 @@
   "houseKeepingTempTrashAutoDeleteDays": "Period for automatic deletion",
   "houseKeepingTempTrashActionLabel": "Clean up",
   "houseKeepingEmptyTrash": "Empty trash",
-  "houseKeepingRemoveTempFiles": "Delete temporary files"
+  "houseKeepingRemoveTempFiles": "Delete temporary files",
+  "privacyPageTitle": "Privacy",
+  "connectivityPageTitle": "Connectivity",
+  "locationPageTitle": "Location Services",
+  "thunderBoltPageTitle": "Thunderbolt",
+  "houseKeepingPageTitle": "House Keeping",
+  "screenLockPageTitle": "Screen Lock",
+  "diagnosisPageTitle": "Diagnostics"
 }

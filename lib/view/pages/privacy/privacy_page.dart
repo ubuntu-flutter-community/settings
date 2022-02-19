@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:settings/constants.dart';
+import 'package:settings/l10n/l10n.dart';
 import 'package:settings/view/pages/privacy/connectivity_page.dart';
 import 'package:settings/view/pages/privacy/house_keeping_page.dart';
 import 'package:settings/view/pages/privacy/location_page.dart';
@@ -22,13 +23,13 @@ class PrivacyPage extends StatelessWidget {
       YaruIcons.trash,
       YaruIcons.lock,
       YaruIcons.question
-    ], tabTitles: const [
-      'Connectivity',
-      'Location Services',
-      'Thunderbolt',
-      'House Cleaning',
-      'Screen Lock',
-      'Diagnostics'
+    ], tabTitles: [
+      context.l10n.connectivityPageTitle,
+      context.l10n.locationPageTitle,
+      context.l10n.thunderBoltPageTitle,
+      context.l10n.houseKeepingPageTitle,
+      context.l10n.screenLockPageTitle,
+      context.l10n.diagnosisPageTitle
     ], views: [
       ConnectivityPage.create(context),
       LocationPage.create(context),
