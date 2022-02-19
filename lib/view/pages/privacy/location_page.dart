@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:settings/constants.dart';
 import 'package:settings/l10n/l10n.dart';
 import 'package:settings/services/settings_service.dart';
-import 'package:settings/view/pages/link.dart';
+import 'package:settings/view/link.dart';
 import 'package:settings/view/pages/privacy/location_model.dart';
 import 'package:settings/view/section_description.dart';
 import 'package:yaru_widgets/yaru_widgets.dart';

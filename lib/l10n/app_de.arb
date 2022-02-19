@@ -5,6 +5,8 @@
   "disonnected": "Nicht verbunden",
   "yes": "Ja",
   "no": "Nein",
+  "cancel": "Abbrechen",
+  "confirm": "Bestätigen",
   "paired": "Gekoppelt",
   "address": "Adresse",
   "type": "Typ",
@@ -49,5 +51,18 @@
   "locationDescription": "Ortungsdienste ermöglichen Anwendungen, Ihre geografische Position zu kennen. Die Verwendung von WLAN oder mobilem Breitband erhöht die Genauigkeit.",
   "locationInfoPrefix": "Verwendet den Mozilla-Ortungsdienst:",
   "locationInfoLink": "Regeln zum Schutz der Privatsphäre",
-  "locationActionLabel": "Standortdienst"
+  "locationActionLabel": "Standortdienst",
+  "houseKeepingRecentFilesHeadline": "Dateichronik",
+  "houseKeepingRecentFilesDescription": "Die Dateichronik merkt sich, welche Dateien Sie verwendet haben. Diese Information wird zwischen Anwendungen geteilt und erleichtert das Finden von Dateien, die Sie verwenden möchten.",
+  "houseKeepingRecentFilesRememberAction": "Dateichronik",
+  "houseKeepingRecentFilesRememberForeverAction": "Dateichronik für immer behalten",
+  "houseKeepingRecentFilesDaysAction": "Zeitraum der Dateichronik",
+  "houseKeepingTempTrashHeadline": "Papierkorb und temporäre Datelen",
+  "houseKeepingTempTrashDescription": "Der Papierkorb sowie temporare Dateien können persönliche und sensible Informationen enthalten. Eine automatische Löschung kann dem Erhalt Ihrer Privatsphäre dienen.",
+  "houseKeepingTrashAutoRemoveAction": "Automatisch den Papierkorb leeren",
+  "houseKeepingTempAutoRemoveAction": "Automatisch temporäre Dateien löschen",
+  "houseKeepingTempTrashAutoDeleteDays": "Zeitraum für automatisches Löschen",
+  "houseKeepingTempTrashActionLabel": "Bereinigen",
+  "houseKeepingEmptyTrash": "Papierkorb leeren",
+  "houseKeepingRemoveTempFiles": "Temporäre Dateien löschen"
 }

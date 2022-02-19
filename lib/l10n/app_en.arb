@@ -5,6 +5,8 @@
   "disonnected": "Disconnected",
   "yes": "Yes",
   "no": "No",
+  "cancel": "Cancel",
+  "confirm": "Confirm",
   "paired": "Paired",
   "address": "Address",
   "type": "Type",
@@ -49,5 +51,18 @@
   "locationDescription": "Location services allow applications to know your geographic location. Using WiFi or mobile broadband increases accuracy.",
   "locationInfoPrefix": "Uses the Mozilla location service:",
   "locationInfoLink": "privacy protection rules",
-  "locationActionLabel": "Location service"
+  "locationActionLabel": "Location service",
+  "houseKeepingRecentFilesHeadline": "File history",
+  "houseKeepingRecentFilesDescription": "File history remembers which files you've used. This information is shared between applications and makes it easier to find files that you want to use.",
+  "houseKeepingRecentFilesRememberAction": "File history",
+  "houseKeepingRecentFilesRememberForeverAction": "Keep file history forever",
+  "houseKeepingRecentFilesDaysAction": "Period of file history",
+  "houseKeepingTempTrashHeadline": "Recycle bin and temporary files",
+  "houseKeepingTempTrashDescription": "The recycle bin and temporary files can contain personal and sensitive information. Automatic deletion can serve to preserve your privacy.",
+  "houseKeepingTrashAutoRemoveAction": "Automatically empty the recycle bin",
+  "houseKeepingTempAutoRemoveAction": "Automatically delete temporary files",
+  "houseKeepingTempTrashAutoDeleteDays": "Period for automatic deletion",
+  "houseKeepingTempTrashActionLabel": "Clean up",
+  "houseKeepingEmptyTrash": "Empty trash",
+  "houseKeepingRemoveTempFiles": "Delete temporary files"
 }

@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:settings/constants.dart';
+import 'package:settings/l10n/l10n.dart';
 import 'package:settings/services/house_keeping_service.dart';
 import 'package:settings/services/settings_service.dart';
 import 'package:settings/view/pages/privacy/privacy_model.dart';
+import 'package:settings/view/section_description.dart';
 import 'package:yaru_icons/yaru_icons.dart';
 import 'package:yaru_widgets/yaru_widgets.dart';
 
@@ -22,11 +24,18 @@ class HouseKeepingPage extends StatelessWidget {
     return YaruPage(children: [
       YaruSection(
         width: kDefaultWidth,
-        headline: 'Recent Files History',
+        headline: context.l10n.houseKeepingRecentFilesHeadline,
         children: [
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: SectionDescription(
+                width: kDefaultWidth,
+                text: context.l10n.houseKeepingRecentFilesDescription),
+          ),
           YaruSwitchRow(
             enabled: model.rememberRecentFiles != null,
-            trailingWidget: const Text('Remember recent files'),
+            trailingWidget:
+                Text(context.l10n.houseKeepingRecentFilesRememberAction),
             value: model.rememberRecentFiles,
             onChanged: (value) => model.rememberRecentFiles = value,
           ),
@@ -34,7 +43,8 @@ class HouseKeepingPage extends StatelessWidget {
               model.rememberRecentFiles == true)
             YaruSwitchRow(
                 enabled: model.recentFilesMaxAge != null,
-                trailingWidget: const Text('Remember recent files forever'),
+                trailingWidget: Text(
+                    context.l10n.houseKeepingRecentFilesRememberForeverAction),
                 value: model.recentFilesMaxAge?.toDouble() == -1,
                 onChanged: (value) {
                   final intValue = value ? -1 : 1;
@@ -46,7 +56,7 @@ class HouseKeepingPage extends StatelessWidget {
               model.rememberRecentFiles == true)
             YaruSliderRow(
                 enabled: model.recentFilesMaxAge != null,
-                actionLabel: 'Days recorded',
+                actionLabel: context.l10n.houseKeepingRecentFilesDaysAction,
                 value: model.recentFilesMaxAge?.toDouble() == -1
                     ? -1
                     : model.recentFilesMaxAge?.toDouble(),
@@ -57,39 +67,47 @@ class HouseKeepingPage extends StatelessWidget {
       ),
       YaruSection(
         width: kDefaultWidth,
-        headline: 'Trash & Temp Files',
+        headline: context.l10n.houseKeepingTempTrashHeadline,
         children: [
+          Padding(
+            padding: const EdgeInsets.all(8),
+            child: SectionDescription(
+                width: kDefaultWidth,
+                text: context.l10n.houseKeepingTempTrashDescription),
+          ),
           YaruSwitchRow(
             enabled: model.removeOldTempFiles != null,
-            trailingWidget: const Text('Auto-remove old temp files'),
+            trailingWidget: Text(context.l10n.houseKeepingTempAutoRemoveAction),
             value: model.removeOldTempFiles,
             onChanged: (value) => model.removeOldTempFiles = value,
           ),
           YaruSwitchRow(
             enabled: model.removeOldTrashFiles != null,
-            trailingWidget: const Text('Auto-remove old trash files'),
+            trailingWidget:
+                Text(context.l10n.houseKeepingTrashAutoRemoveAction),
             value: model.removeOldTrashFiles,
             onChanged: (value) => model.removeOldTrashFiles = value,
           ),
           if (model.oldFilesAge != null && model.oldFilesAge?.toDouble() != -1)
             YaruSliderRow(
                 enabled: model.oldFilesAge != null,
-                actionLabel: 'Days until auto-delete',
+                actionLabel: context.l10n.houseKeepingTempTrashAutoDeleteDays,
                 value: model.oldFilesAge?.toDouble() == -1
                     ? -1
                     : model.oldFilesAge?.toDouble(),
                 min: 0,
                 max: 30,
                 onChanged: (value) => model.oldFilesAge = value.toInt()),
-          YaruRow(
-              trailingWidget: const Text('Clean the house'),
-              actionWidget: Row(
-                children: [
-                  OutlinedButton(
+          SizedBox(
+            width: kDefaultWidth,
+            child: Row(
+              children: [
+                Expanded(
+                  child: OutlinedButton(
                       onPressed: () => showDialog(
                             context: context,
                             builder: (context) => _ConfirmationDialog(
-                              title: 'Empty trash',
+                              title: context.l10n.houseKeepingEmptyTrash,
                               iconData: YaruIcons.trash_full,
                               onConfirm: () {
                                 model.emptyTrash();
@@ -97,17 +115,19 @@ class HouseKeepingPage extends StatelessWidget {
                               },
                             ),
                           ),
-                      child: Text('Empty Trash',
+                      child: Text(context.l10n.houseKeepingEmptyTrash,
                           style:
                               TextStyle(color: Theme.of(context).errorColor))),
-                  const SizedBox(
-                    width: 10,
-                  ),
-                  OutlinedButton(
+                ),
+                const SizedBox(
+                  width: 10,
+                ),
+                Expanded(
+                  child: OutlinedButton(
                       onPressed: () => showDialog(
                             context: context,
                             builder: (context) => _ConfirmationDialog(
-                              title: 'Remove Temp Files',
+                              title: context.l10n.houseKeepingRemoveTempFiles,
                               iconData: YaruIcons.document,
                               onConfirm: () {
                                 model.removeTempFiles();
@@ -115,12 +135,13 @@ class HouseKeepingPage extends StatelessWidget {
                               },
                             ),
                           ),
-                      child: Text('Remove Temp Files',
+                      child: Text(context.l10n.houseKeepingRemoveTempFiles,
                           style:
                               TextStyle(color: Theme.of(context).errorColor))),
-                ],
-              ),
-              enabled: true)
+                ),
+              ],
+            ),
+          ),
         ],
       ),
     ]);
@@ -172,28 +193,46 @@ class _ConfirmationDialogState extends State<_ConfirmationDialog>
 
   @override
   Widget build(BuildContext context) {
-    return AlertDialog(
+    return SimpleDialog(
       titlePadding: EdgeInsets.zero,
       title: YaruDialogTitle(
+        mainAxisAlignment: MainAxisAlignment.center,
         closeIconData: YaruIcons.window_close,
         title: widget.title,
       ),
-      content: Icon(
-        widget.iconData,
-        size: 100,
-        color: colorAnimation.value,
-      ),
-      contentPadding: const EdgeInsets.only(top: 20, bottom: 50),
-      actions: [
-        OutlinedButton(
-            onPressed: () => Navigator.of(context).pop(),
-            child: const Text('Cancel')),
-        OutlinedButton(
-            onPressed: widget.onConfirm,
-            child: Text(
-              'Confirm',
-              style: TextStyle(color: Theme.of(context).errorColor),
-            ))
+      contentPadding: EdgeInsets.zero,
+      children: [
+        Icon(
+          widget.iconData,
+          size: 100,
+          color: colorAnimation.value,
+        ),
+        const SizedBox(
+          height: 40,
+        ),
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: SizedBox(
+            width: kDefaultWidth / 3,
+            child: Row(children: [
+              Expanded(
+                child: OutlinedButton(
+                    onPressed: () => Navigator.of(context).pop(),
+                    child: Text(context.l10n.cancel)),
+              ),
+              const SizedBox(
+                width: 8,
+              ),
+              Expanded(
+                child: ElevatedButton(
+                    onPressed: widget.onConfirm,
+                    child: Text(
+                      context.l10n.confirm,
+                    )),
+              )
+            ]),
+          ),
+        )
       ],
     );
   }
