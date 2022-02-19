@@ -43,9 +43,27 @@ class PrintersPage extends StatelessWidget {
                       context: context,
                       builder: (_) =>
                           StatefulBuilder(builder: (context, setState) {
-                        return const AddPrinterDialog();
+                        return AddPrinterDialog(
+                          children: [
+                            Icon(
+                              YaruIcons.printer,
+                              color: Theme.of(context).colorScheme.primary,
+                              size: 50,
+                            )
+                          ],
+                          onConfirm: () {
+                            Navigator.of(context).pop();
+                            return ScaffoldMessenger.of(context)
+                                .showSnackBar(SnackBar(
+                                    content: Icon(
+                              YaruIcons.printer,
+                              color: Theme.of(context).colorScheme.primary,
+                            )));
+                          },
+                          title: 'Add Printer',
+                        );
                       }),
-                    ).then((shortcut) {});
+                    );
                   },
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -145,25 +163,56 @@ class PrintersPage extends StatelessWidget {
 }
 
 class AddPrinterDialog extends StatelessWidget {
-  const AddPrinterDialog({Key? key}) : super(key: key);
+  const AddPrinterDialog({Key? key, this.onConfirm, this.title, this.children})
+      : super(key: key);
+
+  final Function()? onConfirm;
+  final String? title;
+  final List<Widget>? children;
 
   @override
   Widget build(BuildContext context) {
-    return AlertDialog(
-      title: const Text('Add a printer'),
-      content: SizedBox(
-        height: 300,
-        width: 380,
-        child: Column(
-          children: const [],
+    return SizedBox(
+      height: 500,
+      child: SimpleDialog(
+        titlePadding: EdgeInsets.zero,
+        title: YaruDialogTitle(
+          mainAxisAlignment: MainAxisAlignment.center,
+          closeIconData: YaruIcons.window_close,
+          title: title,
         ),
+        contentPadding: EdgeInsets.zero,
+        children: [
+          const Icon(
+            YaruIcons.printer,
+            size: 80,
+          ),
+          const SizedBox(height: 20),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: SizedBox(
+              width: kDefaultWidth / 3,
+              child: Row(children: [
+                Expanded(
+                  child: OutlinedButton(
+                      onPressed: () => Navigator.of(context).pop(),
+                      child: Text(context.l10n.cancel)),
+                ),
+                const SizedBox(
+                  width: 8,
+                ),
+                Expanded(
+                  child: ElevatedButton(
+                      onPressed: onConfirm,
+                      child: Text(
+                        context.l10n.confirm,
+                      )),
+                )
+              ]),
+            ),
+          )
+        ],
       ),
-      actions: [
-        OutlinedButton(
-            onPressed: () => Navigator.of(context).pop(),
-            child: const Text('Cancel')),
-        ElevatedButton(onPressed: () {}, child: const Text('Add printer'))
-      ],
     );
   }
 }
