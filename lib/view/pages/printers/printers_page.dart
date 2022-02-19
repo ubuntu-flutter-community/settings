@@ -60,9 +60,7 @@ class PrintersPage extends StatelessWidget {
               const SizedBox(
                 width: 12,
               ),
-              OutlinedButton(
-                  onPressed: () {},
-                  child: const Text('Additional printer settings ...'))
+              YaruOptionButton(onPressed: () {}, iconData: YaruIcons.settings)
             ],
           ),
         ),
@@ -79,30 +77,40 @@ class PrintersPage extends StatelessWidget {
                     children: [
                       SizedBox(
                         width: 70,
-                        child: Image.asset(
-                            i.isEven
-                                ? 'assets/images/icons/printer.png'
-                                : 'assets/images/icons/printer-network.png',
-                            fit: BoxFit.fill),
+                        child: Expanded(
+                          child: Image.asset(
+                              i.isEven
+                                  ? 'assets/images/icons/printer.png'
+                                  : 'assets/images/icons/printer-network.png',
+                              fit: BoxFit.fill),
+                        ),
                       ),
                       const SizedBox(
                         width: 20,
                       ),
-                      SizedBox(
-                        height: 60,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            const Text('Model XYZ'), // printer.type
-                            const SizedBox(
-                              height: 3,
-                            ),
-                            Text(i.isEven
-                                ? 'local'
-                                : '192.168.1.1337'), // printer.location
-                            // printer.status
-                          ],
+                      Expanded(
+                        child: SizedBox(
+                          height: 60,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              const Flexible(
+                                  child: Text(
+                                'Model XYZ',
+                                overflow: TextOverflow.ellipsis,
+                              )), // printer.type
+                              const SizedBox(
+                                height: 3,
+                              ),
+                              Flexible(
+                                child: Text(
+                                    i.isEven ? 'local' : '192.168.1.1337',
+                                    overflow: TextOverflow.ellipsis),
+                              ), // printer.location
+                              // printer.status
+                            ],
+                          ),
                         ),
                       )
                     ],
