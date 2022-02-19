@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:settings/l10n/l10n.dart';
 import 'package:settings/view/pages/printers/printers_model.dart';
 import 'package:yaru_icons/yaru_icons.dart';
 import 'package:yaru_widgets/yaru_widgets.dart';
@@ -14,6 +15,16 @@ class PrintersPage extends StatelessWidget {
       child: const PrintersPage(),
     );
   }
+
+  static Widget createTitle(BuildContext context) =>
+      Text(context.l10n.printersPageTitle);
+
+  static bool searchMatches(String value, BuildContext context) =>
+      value.isNotEmpty
+          ? context.l10n.printersPageTitle
+              .toLowerCase()
+              .contains(value.toLowerCase())
+          : false;
 
   @override
   Widget build(BuildContext context) {
@@ -65,59 +76,61 @@ class PrintersPage extends StatelessWidget {
         for (var i = 0; i < 10; i++)
           YaruSection(headline: 'Printer ${i + 1}', children: [
             YaruRow(
-                trailingWidget: Row(
-                  children: [
-                    SizedBox(
-                      width: 70,
-                      child: Image.asset(
-                          i.isEven
-                              ? 'assets/images/icons/printer.png'
-                              : 'assets/images/icons/printer-network.png',
-                          fit: BoxFit.fill),
+              trailingWidget: Row(
+                children: [
+                  SizedBox(
+                    width: 70,
+                    child: Image.asset(
+                        i.isEven
+                            ? 'assets/images/icons/printer.png'
+                            : 'assets/images/icons/printer-network.png',
+                        fit: BoxFit.fill),
+                  ),
+                  const SizedBox(
+                    width: 20,
+                  ),
+                  SizedBox(
+                    height: 60,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Text('Model XYZ'), // printer.type
+                        const SizedBox(
+                          height: 3,
+                        ),
+                        Text(i.isEven
+                            ? 'local'
+                            : '192.168.1.1337'), // printer.location
+                        // printer.status
+                      ],
                     ),
-                    const SizedBox(
-                      width: 20,
-                    ),
-                    SizedBox(
-                      height: 60,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          const Text('Model XYZ'), // printer.type
-                          const SizedBox(
-                            height: 3,
-                          ),
-                          Text(i.isEven
-                              ? 'local'
-                              : '192.168.1.1337'), // printer.location
-                          // printer.status
-                        ],
-                      ),
-                    )
-                  ],
-                ),
-                actionWidget: Row(
-                  children: [
-                    const SizedBox(
-                      height: 40,
-                      child: OutlinedButton(
-                          onPressed: null, // printer.activejobs ?
-                          child: Text(
-                            'No active jobs',
-                            // style: TextStyle(
-                            //     color: Theme.of(context).disabledColor),
-                          )),
-                    ),
-                    const SizedBox(
-                      width: 10,
-                    ),
-                    YaruOptionButton(
-                      iconData: YaruIcons.settings,
-                      onPressed: () => {},
-                    ),
-                  ],
-                ))
+                  )
+                ],
+              ),
+              actionWidget: Row(
+                children: [
+                  const SizedBox(
+                    height: 40,
+                    child: OutlinedButton(
+                        onPressed: null, // printer.activejobs ?
+                        child: Text(
+                          'No active jobs',
+                          // style: TextStyle(
+                          //     color: Theme.of(context).disabledColor),
+                        )),
+                  ),
+                  const SizedBox(
+                    width: 10,
+                  ),
+                  YaruOptionButton(
+                    iconData: YaruIcons.settings,
+                    onPressed: () => {},
+                  ),
+                ],
+              ),
+              enabled: true,
+            )
           ])
       ],
     );

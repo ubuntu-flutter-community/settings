@@ -15,6 +15,7 @@ import 'package:settings/view/pages/multitasking/multi_tasking_page.dart';
 import 'package:settings/view/pages/notifications/notifications_page.dart';
 import 'package:settings/view/pages/online_accounts/online_accounts_page.dart';
 import 'package:settings/view/pages/power/power_page.dart';
+import 'package:settings/view/pages/printers/printers_page.dart';
 import 'package:settings/view/pages/privacy/privacy_page.dart';
 import 'package:settings/view/pages/region_and_language/region_and_language_page.dart';
 import 'package:settings/view/pages/removable_media/removable_media_page.dart';
@@ -114,10 +115,11 @@ List<YaruPageItem> getPageItems(BuildContext context) => [
         builder: KeyboardPage.create,
         searchMatches: KeyboardPage.searchMatches,
       ),
-      YaruPageItem(
-        titleBuilder: (context) => const Text('Printers'),
+      const YaruPageItem(
+        titleBuilder: PrintersPage.createTitle,
         iconData: YaruIcons.printer,
-        builder: (_) => const Center(child: Text('Printers')),
+        builder: PrintersPage.create,
+        searchMatches: PrintersPage.searchMatches,
       ),
       const YaruPageItem(
         titleBuilder: RemovableMediaPage.createTitle,
