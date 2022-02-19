@@ -6,6 +6,7 @@ import 'package:settings/services/settings_service.dart';
 import 'package:settings/view/pages/power/power_settings.dart';
 import 'package:settings/view/pages/power/power_settings_widgets.dart';
 import 'package:settings/view/pages/privacy/screen_saver_model.dart';
+import 'package:settings/view/section_description.dart';
 import 'package:yaru_widgets/yaru_widgets.dart';
 
 class ScreenSaverPage extends StatelessWidget {
@@ -22,21 +23,8 @@ class ScreenSaverPage extends StatelessWidget {
     final model = context.watch<ScreenSaverModel>();
     return YaruPage(
       children: [
-        Padding(
-          padding: const EdgeInsets.only(bottom: 20),
-          child: SizedBox(
-            width: kDefaultWidth,
-            child: Row(
-              children: [
-                Flexible(
-                    child: Text(
-                  context.l10n.screenSaverDescription,
-                  style: Theme.of(context).textTheme.caption,
-                )),
-              ],
-            ),
-          ),
-        ),
+        SectionDescription(
+            width: kDefaultWidth, text: context.l10n.screenSaverDescription),
         YaruSection(width: kDefaultWidth, children: [
           YaruRow(
             width: kDefaultWidth,

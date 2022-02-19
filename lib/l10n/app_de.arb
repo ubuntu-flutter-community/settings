@@ -40,5 +40,14 @@
   "screenSaverAutoDelayLabel": "Verzögerung bis zur automatischen Bildschirmsperre",
   "screenSaverAutoDelayDescription": "Dauer an Inaktivität, bis der abgeschaltete Bildschirm automatisch sperrt",
   "screenSaverLockScreenOnSuspendLabel": "Den Bildschirm bei Bereitschaft sperren",
-  "screenSaverNotificationsOnLockScreen": "Benachrichtigungen auf Sperrbildschirm anzeigen"
+  "screenSaverNotificationsOnLockScreen": "Benachrichtigungen auf Sperrbildschirm anzeigen",
+  "reportingHeader": "Problemberichterstattung",
+  "reportingDescription": "Der Versand von Reports bei technischen Problemen hilft den Entwicklern Ubuntu zu verbessern. Reports sind frei von personenbezogenen Daten und werden anonym versandt.",
+  "reportingLink": "Mehr erfahren",
+  "reportingActionLabel": "Problemberichte an Canonical schicken",
+  "reportingUsageActionLabel": "Software-Nutzungsdaten an Canonical schicken",
+  "locationDescription": "Ortungsdienste ermöglichen Anwendungen, Ihre geografische Position zu kennen. Die Verwendung von WLAN oder mobilem Breitband erhöht die Genauigkeit.",
+  "locationInfoPrefix": "Verwendet den Mozilla-Ortungsdienst:",
+  "locationInfoLink": "Regeln zum Schutz der Privatsphäre",
+  "locationActionLabel": "Standortdienst"
 }

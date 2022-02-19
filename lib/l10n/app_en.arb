@@ -40,5 +40,14 @@
   "screenSaverAutoDelayLabel": "Delay before automatic screen saver",
   "screenSaverAutoDelayDescription": "Duration of inactivity before the screen turns off automatically",
   "screenSaverLockScreenOnSuspendLabel": "Lock the screen on suspend",
-  "screenSaverNotificationsOnLockScreen": "Show notifications on lock screen"
+  "screenSaverNotificationsOnLockScreen": "Show notifications on lock screen",
+  "reportingHeader": "Issue Reporting",
+  "reportingDescription": "Sending reports on technical problems helps the developers to improve Ubuntu. Reports are free of personal data and are sent anonymously. Learn more",
+  "reportingLink": "Learn more",
+  "reportingActionLabel": "Send issue reports to canonical",
+  "reportingUsageActionLabel": "Send software usage to Ubuntu",
+  "locationDescription": "Location services allow applications to know your geographic location. Using WiFi or mobile broadband increases accuracy.",
+  "locationInfoPrefix": "Uses the Mozilla location service:",
+  "locationInfoLink": "privacy protection rules",
+  "locationActionLabel": "Location service"
 }
