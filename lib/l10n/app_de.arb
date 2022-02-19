@@ -97,7 +97,7 @@
   "regionAndLanguagePageTitle": "Region und Sprache",
   "accessibilityPageTitle": "Erleichterte Bedienung",
   "usersPageTitle": "Benutzer",
-  "preferredAppsPageTitle": "Vorgabeanwendungen",
+  "defaultAppsPageTitle": "Vorgabeanwendungen",
   "dateAndTimePageTitle": "Datum und Uhrzeit",
   "infoPageTitle": "Info"
 }

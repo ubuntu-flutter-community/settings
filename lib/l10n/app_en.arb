@@ -97,7 +97,7 @@
   "regionAndLanguagePageTitle": "Region and language",
   "accessibilityPageTitle": "Accessibility",
   "usersPageTitle": "Users",
-  "preferredAppsPageTitle": "Preferred Apps",
+  "defaultAppsPageTitle": "Default Applications",
   "dateAndTimePageTitle": "Date and time",
   "infoPageTitle": "Info"
 }

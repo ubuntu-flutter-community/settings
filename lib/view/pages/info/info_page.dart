@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 import 'package:rive/rive.dart';
 import 'package:settings/api/pdf_api.dart';
 import 'package:settings/constants.dart';
+import 'package:settings/l10n/l10n.dart';
 import 'package:settings/services/hostname_service.dart';
 import 'package:udisks/udisks.dart';
 import 'package:yaru_icons/yaru_icons.dart';
@@ -25,6 +26,14 @@ class InfoPage extends StatefulWidget {
       child: const InfoPage(),
     );
   }
+
+  static Widget createTitle(BuildContext context) =>
+      Text(context.l10n.infoPageTitle);
+
+  static bool searchMatches(String value, BuildContext context) => value
+          .isNotEmpty
+      ? context.l10n.infoPageTitle.toLowerCase().contains(value.toLowerCase())
+      : false;
 
   @override
   _InfoPageState createState() => _InfoPageState();

@@ -6,6 +6,8 @@ import 'package:settings/view/pages/apps/apps_page.dart';
 import 'package:settings/view/pages/bluetooth/bluetooth_page.dart';
 import 'package:settings/view/pages/color/color_page.dart';
 import 'package:settings/view/pages/connections/connections_page.dart';
+import 'package:settings/view/pages/date_and_time/date_and_time_page.dart';
+import 'package:settings/view/pages/default_apps/default_apps_page.dart';
 import 'package:settings/view/pages/info/info_page.dart';
 import 'package:settings/view/pages/keyboard/keyboard_page.dart';
 import 'package:settings/view/pages/mouse_and_touchpad/mouse_and_touchpad_page.dart';
@@ -147,19 +149,22 @@ List<YaruPageItem> getPageItems(BuildContext context) => [
         builder: UsersPage.create,
         searchMatches: UsersPage.searchMatches,
       ),
-      YaruPageItem(
-        titleBuilder: (context) => const Text('Preferred Apps'),
+      const YaruPageItem(
+        titleBuilder: DefaultAppsPage.createTitle,
         iconData: YaruIcons.star,
-        builder: (_) => const Center(child: Text('Preferred Apps')),
+        builder: DefaultAppsPage.create,
+        searchMatches: DefaultAppsPage.searchMatches,
       ),
-      YaruPageItem(
-        titleBuilder: (context) => const Text('Date and time'),
+      const YaruPageItem(
+        titleBuilder: DateAndTimePage.createTitle,
         iconData: YaruIcons.clock,
-        builder: (_) => const Center(child: Text('Date and time')),
+        builder: DateAndTimePage.create,
+        searchMatches: DateAndTimePage.searchMatches,
       ),
-      YaruPageItem(
-        titleBuilder: (context) => const Text('Info'),
+      const YaruPageItem(
+        titleBuilder: InfoPage.createTitle,
         iconData: YaruIcons.information,
         builder: InfoPage.create,
+        searchMatches: InfoPage.searchMatches,
       ),
     ];

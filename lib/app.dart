@@ -51,7 +51,7 @@ class _UbuntuSettingsAppState extends State<UbuntuSettingsApp> {
             searchHint: context.l10n.searchHint,
             searchIconData: YaruIcons.search,
             appBar: YaruSearchAppBar(
-              searchHint: 'Search...',
+              searchHint: context.l10n.searchHint,
               clearSearchIconData: YaruIcons.window_close,
               searchController: _searchController,
               onChanged: (v) => _onSearchChanged(v, context),
