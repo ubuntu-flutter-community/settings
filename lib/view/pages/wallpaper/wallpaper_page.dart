@@ -179,15 +179,30 @@ class _AddWallpaperTile extends StatelessWidget {
     final model = context.read<WallpaperModel>();
     return Padding(
       padding: const EdgeInsets.all(6.0),
-      child: OutlinedButton(
-        onPressed: () async {
+      child: InkWell(
+        borderRadius: BorderRadius.circular(8),
+        onTap: () async {
           final picPath = await openFilePicker(context);
           if (null != picPath) {
             model.pictureUri = picPath;
             model.copyToCollection(picPath);
           }
         },
-        child: const Icon(YaruIcons.plus),
+        child: Container(
+          decoration: BoxDecoration(
+            border: Border.all(
+              color: Theme.of(context).colorScheme.onSurface.withOpacity(0.15),
+            ),
+            borderRadius: BorderRadius.circular(8),
+          ),
+          child: Padding(
+            padding: const EdgeInsets.all(6.0),
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(8),
+              child: const Icon(YaruIcons.plus),
+            ),
+          ),
+        ),
       ),
     );
   }

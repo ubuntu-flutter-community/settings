@@ -1,7 +1,7 @@
 {
   "appTitle": "Ubuntu Einstellungen",
   "searchHint": "Suche...",
-  "connected": "Verbunden",
+  "connected": "verbunden",
   "disonnected": "Nicht verbunden",
   "yes": "Ja",
   "no": "Nein",
@@ -73,6 +73,7 @@
   "screenLockPageTitle": "Bildschirmsperre",
   "diagnosisPageTitle": "Fehlerdiagnose",
   "connectionsPageTitle": "Verbindungen",
+  "connectionsPageHeadline": "Sichtbare Netzwerke",
   "wifiPageTitle": "Wi-Fi",
   "ethernetPageTitle": "Ethernet",
   "cellularPageTitle": "Mobilfunk",
