@@ -18,17 +18,22 @@ class UbuntuSettingsApp extends StatefulWidget {
 class _UbuntuSettingsAppState extends State<UbuntuSettingsApp> {
   final _filteredItems = <YaruPageItem>[];
   final _searchController = TextEditingController();
+  late List<YaruPageItem> pageItems = getPageItems(context);
 
   void _onEscape() => setState(() {
         _filteredItems.clear();
         _searchController.clear();
       });
 
-  void _onSearchChanged(String value) {
+  void _onSearchChanged(String value, BuildContext context) {
     setState(() {
       _filteredItems.clear();
-      _filteredItems.addAll(pageItems.where((element) =>
-          element.title.toLowerCase().contains(value.toLowerCase())));
+      _filteredItems.addAll(pageItems.where((pageItem) {
+        if (pageItem.searchMatches != null) {
+          return pageItem.searchMatches!(value, context);
+        }
+        return false;
+      }));
     });
   }
 
@@ -49,7 +54,7 @@ class _UbuntuSettingsAppState extends State<UbuntuSettingsApp> {
               searchHint: 'Search...',
               clearSearchIconData: YaruIcons.window_close,
               searchController: _searchController,
-              onChanged: _onSearchChanged,
+              onChanged: (v) => _onSearchChanged(v, context),
               onEscape: _onEscape,
               appBarHeight: 48,
               searchIconData: YaruIcons.search,
@@ -63,5 +68,31 @@ class _UbuntuSettingsAppState extends State<UbuntuSettingsApp> {
       supportedLocales: AppLocalizations.supportedLocales,
       localizationsDelegates: AppLocalizations.localizationsDelegates,
     );
+  }
+}
+
+class MySearchDelegate extends SearchDelegate<String> {
+  @override
+  List<Widget>? buildActions(BuildContext context) {
+    // TODO: implement buildActions
+    throw UnimplementedError();
+  }
+
+  @override
+  Widget? buildLeading(BuildContext context) {
+    // TODO: implement buildLeading
+    throw UnimplementedError();
+  }
+
+  @override
+  Widget buildResults(BuildContext context) {
+    // TODO: implement buildResults
+    throw UnimplementedError();
+  }
+
+  @override
+  Widget buildSuggestions(BuildContext context) {
+    // TODO: implement buildSuggestions
+    throw UnimplementedError();
   }
 }

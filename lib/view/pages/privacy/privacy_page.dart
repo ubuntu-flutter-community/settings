@@ -14,6 +14,19 @@ class PrivacyPage extends StatelessWidget {
 
   static Widget create(BuildContext context) => const PrivacyPage();
 
+  static Widget createTitle(BuildContext context) =>
+      Text(context.l10n.privacyPageTitle);
+
+  static bool searchMatches(String value, BuildContext context) =>
+      value.isNotEmpty
+          ? context.l10n.privacyPageTitle
+                  .toLowerCase()
+                  .contains(value.toLowerCase()) ||
+              context.l10n.connectivityPageTitle
+                  .toLowerCase()
+                  .contains(value.toLowerCase())
+          : false;
+
   @override
   Widget build(BuildContext context) {
     return YaruTabbedPage(width: kDefaultWidth * 2, tabIcons: const [
