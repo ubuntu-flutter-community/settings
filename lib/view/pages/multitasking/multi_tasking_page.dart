@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinbox/flutter_spinbox.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
+import 'package:settings/constants.dart';
+import 'package:settings/l10n/l10n.dart';
 import 'package:settings/services/settings_service.dart';
+import 'package:settings/utils.dart';
 import 'package:settings/view/pages/multitasking/multi_tasking_model.dart';
 import 'package:yaru_widgets/yaru_widgets.dart';
 
@@ -17,12 +20,27 @@ class MultiTaskingPage extends StatelessWidget {
     );
   }
 
+  static Widget createTitle(BuildContext context) =>
+      Text(context.l10n.multiTaskingPageTitle);
+
+  static bool searchMatches(String value, BuildContext context) =>
+      value.isNotEmpty
+          ? context.l10n.multiTaskingPageTitle
+              .toLowerCase()
+              .contains(value.toLowerCase())
+          : false;
+
   @override
   Widget build(BuildContext context) {
     final model = context.watch<MultiTaskingModel>();
-    return Column(
+    final unselectedColor = Theme.of(context).backgroundColor;
+    final selectedColor = Theme.of(context).brightness == Brightness.light
+        ? Theme.of(context).primaryColor
+        : lighten(Theme.of(context).primaryColor, 20);
+
+    return YaruPage(
       children: [
-        YaruSection(headline: 'General', children: [
+        YaruSection(width: kDefaultWidth, headline: 'General', children: [
           Column(
             children: [
               YaruSwitchRow(
@@ -35,11 +53,15 @@ class MultiTaskingPage extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.all(20.0),
                 child: SvgPicture.asset(
-                  'assets/images/hot-corner.svg',
-                  color: model.enableHotCorners
-                      ? Theme.of(context).primaryColor.withOpacity(0.1)
-                      : Theme.of(context).backgroundColor,
-                  colorBlendMode: BlendMode.color,
+                  model.getHotCornerAsset(),
+                  color: (model.enableHotCorners != null &&
+                          model.enableHotCorners == true)
+                      ? selectedColor
+                      : unselectedColor,
+                  colorBlendMode: (model.enableHotCorners != null &&
+                          model.enableHotCorners == true)
+                      ? BlendMode.srcIn
+                      : BlendMode.color,
                   height: 80,
                 ),
               ),
@@ -57,83 +79,111 @@ class MultiTaskingPage extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.all(20.0),
                 child: SvgPicture.asset(
-                  'assets/images/active-screen-edges.svg',
-                  color: model.edgeTiling
-                      ? Theme.of(context).primaryColor.withOpacity(0.1)
-                      : Theme.of(context).backgroundColor,
-                  colorBlendMode: BlendMode.color,
+                  model.getActiveEdgesAsset(),
+                  color: model.edgeTiling != null && model.edgeTiling == true
+                      ? selectedColor
+                      : unselectedColor,
+                  colorBlendMode:
+                      model.edgeTiling != null && model.edgeTiling == true
+                          ? BlendMode.srcIn
+                          : BlendMode.color,
                   height: 80,
                 ),
               ),
             ],
           )
         ]),
-        YaruSection(headline: 'Workspaces', children: [
-          RadioListTile(
+        YaruSection(width: kDefaultWidth, headline: 'Workspaces', children: [
+          RadioListTile<bool>(
             shape:
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
             title: const Text('Dynamic Workspaces'),
             value: true,
             groupValue: model.dynamicWorkspaces,
-            onChanged: (bool? value) => model.dynamicWorkspaces = value!,
+            onChanged: (value) => model.dynamicWorkspaces = value,
           ),
-          RadioListTile(
+          RadioListTile<bool>(
             shape:
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
             title: const Text('Fixed number of workspaces'),
             value: false,
             groupValue: model.dynamicWorkspaces,
-            onChanged: (bool? value) => model.dynamicWorkspaces = value!,
+            onChanged: (value) => model.dynamicWorkspaces = value!,
           ),
           YaruRow(
-              trailingWidget: Text(
-                'Number of workspaces',
-                style: model.dynamicWorkspaces
-                    ? TextStyle(color: Theme.of(context).disabledColor)
-                    : null,
-              ),
+              enabled: model.dynamicWorkspaces != null &&
+                  model.dynamicWorkspaces == false,
+              trailingWidget: const Text('Number of workspaces'),
               actionWidget: SizedBox(
                 height: 40,
                 width: 150,
                 child: SpinBox(
+                  min: 1,
                   decoration:
                       const InputDecoration(border: UnderlineInputBorder()),
-                  enabled: !model.dynamicWorkspaces,
-                  value: model.numWorkspaces.toDouble(),
+                  enabled: model.dynamicWorkspaces != null &&
+                      model.dynamicWorkspaces == false,
+                  value: model.numWorkspaces != null
+                      ? model.numWorkspaces!.toDouble()
+                      : 0,
                   onChanged: (value) => model.numWorkspaces = value.toInt(),
                 ),
               ))
         ]),
-        YaruSection(headline: 'Multi-Monitor', children: [
-          YaruSwitchRow(
-            trailingWidget: const Text('Workspaces on primary display only'),
-            value: model.workSpaceOnlyOnPrimary,
-            onChanged: (value) => model.workSpaceOnlyOnPrimary = value,
-          ),
+        YaruSection(width: kDefaultWidth, headline: 'Multi-Monitor', children: [
+          YaruRow(
+              trailingWidget: const Text('Workspaces span all displays'),
+              description:
+                  'All displays are included in one workspace and follow when you switch workspaces.',
+              actionWidget: Radio(
+                  value: false,
+                  groupValue: model.workSpaceOnlyOnPrimary,
+                  onChanged: (bool? value) =>
+                      model.workSpaceOnlyOnPrimary = value),
+              enabled: model.workSpaceOnlyOnPrimary != null),
           Padding(
             padding: const EdgeInsets.all(10.0),
             child: SvgPicture.asset(
-              'assets/images/workspaces-primary-display.svg',
-              color: model.workSpaceOnlyOnPrimary
-                  ? Theme.of(context).primaryColor.withOpacity(0.1)
-                  : Theme.of(context).backgroundColor,
-              colorBlendMode: BlendMode.color,
+              model.getWorkspacesSpanDisplayAsset(),
+              color: !(model.workSpaceOnlyOnPrimary != null &&
+                      model.workSpaceOnlyOnPrimary == true)
+                  ? selectedColor
+                  : unselectedColor,
+              colorBlendMode: !(model.workSpaceOnlyOnPrimary != null &&
+                      model.workSpaceOnlyOnPrimary == true)
+                  ? BlendMode.srcIn
+                  : BlendMode.color,
               height: 60,
             ),
           ),
+          YaruRow(
+              trailingWidget: const Text('Workspaces only on primary display'),
+              description:
+                  'Only your primary display is included in workspace switching.',
+              actionWidget: Radio(
+                  value: true,
+                  groupValue: model.workSpaceOnlyOnPrimary,
+                  onChanged: (bool? value) =>
+                      model.workSpaceOnlyOnPrimary = value),
+              enabled: model.workSpaceOnlyOnPrimary != null),
           Padding(
             padding: const EdgeInsets.all(10.0),
             child: SvgPicture.asset(
-              'assets/images/workspaces-span-displays.svg',
-              color: !model.workSpaceOnlyOnPrimary
-                  ? Theme.of(context).primaryColor.withOpacity(0.1)
-                  : Theme.of(context).backgroundColor,
-              colorBlendMode: BlendMode.color,
+              model.getWorkspacesPrimaryDisplayAsset(),
+              color: !(model.workSpaceOnlyOnPrimary != null &&
+                      model.workSpaceOnlyOnPrimary == false)
+                  ? selectedColor
+                  : unselectedColor,
+              colorBlendMode: !(model.workSpaceOnlyOnPrimary != null &&
+                      model.workSpaceOnlyOnPrimary == false)
+                  ? BlendMode.srcIn
+                  : BlendMode.color,
               height: 60,
             ),
           )
         ]),
         YaruSection(
+          width: kDefaultWidth,
           headline: 'Application Switching',
           children: [
             YaruSwitchRow(

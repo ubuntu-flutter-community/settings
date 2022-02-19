@@ -1,5 +1,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
+import 'package:settings/constants.dart';
 import 'package:settings/view/pages/notifications/notifications_model.dart';
 import 'package:yaru_widgets/yaru_widgets.dart';
 
@@ -8,9 +9,10 @@ class GlobalNotificationsSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final model = Provider.of<NotificationsModel>(context);
+    final model = context.watch<NotificationsModel>();
 
     return YaruSection(
+      width: kDefaultWidth,
       headline: 'Global',
       children: [
         YaruSwitchRow(

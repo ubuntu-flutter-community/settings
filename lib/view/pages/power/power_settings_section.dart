@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:nm/nm.dart';
 import 'package:provider/provider.dart';
+import 'package:settings/constants.dart';
 import 'package:settings/services/bluetooth_service.dart';
 import 'package:settings/services/power_settings_service.dart';
 import 'package:settings/services/settings_service.dart';
@@ -41,26 +42,30 @@ class _PowerSettingsSectionState extends State<PowerSettingsSection> {
   Widget build(BuildContext context) {
     final model = context.watch<SuspendModel>();
     return YaruSection(
+      width: kDefaultWidth,
       headline: 'Power Saving',
       children: <Widget>[
-        if (model.screenBrightness != null && model.screenBrightness != -1)
-          YaruSliderRow(
-            actionLabel: 'Screen Brightness',
-            min: 0,
-            max: 100,
-            value: model.screenBrightness ?? 0.0,
-            onChanged: model.setScreenBrightness,
-          ),
+        YaruSliderRow(
+          enabled:
+              model.screenBrightness != null && model.screenBrightness != -1,
+          actionLabel: 'Screen Brightness',
+          min: model.screenBrightness != -1 ? 0 : -1,
+          max: 100,
+          value: model.screenBrightness != -1 ? model.screenBrightness : 0,
+          onChanged: model.setScreenBrightness,
+        ),
         YaruSwitchRow(
           trailingWidget: const Text('Automatic Brightness'),
           value: model.ambientEnabled,
           onChanged: model.setAmbientEnabled,
         ),
         YaruSliderRow(
+          enabled: model.keyboardBrightness != null &&
+              model.keyboardBrightness != -1,
           actionLabel: 'Keyboard Brightness',
-          min: 0,
+          min: model.keyboardBrightness != -1 ? 0 : -1,
           max: 100,
-          value: model.keyboardBrightness ?? 0.0,
+          value: model.keyboardBrightness != -1 ? model.keyboardBrightness : 0,
           onChanged: model.setKeyboardBrightness,
         ),
         YaruSwitchRow(
@@ -69,6 +74,7 @@ class _PowerSettingsSectionState extends State<PowerSettingsSection> {
           onChanged: model.setIdleDim,
         ),
         YaruRow(
+          enabled: model.idleDelay != null,
           trailingWidget: const Text('Blank Screen'),
           actionWidget: DurationDropdownButton(
             value: model.idleDelay,
@@ -77,6 +83,7 @@ class _PowerSettingsSectionState extends State<PowerSettingsSection> {
           ),
         ),
         YaruRow(
+          enabled: true,
           trailingWidget: const Text('Automatic Suspend'),
           description: model.automaticSuspend.localize(context),
           actionWidget: SizedBox(

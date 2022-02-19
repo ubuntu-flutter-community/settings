@@ -1,14 +1,15 @@
 import 'package:safe_change_notifier/safe_change_notifier.dart';
+import 'package:settings/schemas/schemas.dart';
 import 'package:settings/services/settings_service.dart';
 import 'package:settings/view/pages/power/suspend.dart';
 
-const _kDaemonSchema = 'org.gnome.settings-daemon.plugins.power';
-const _kInterfaceSchema = 'org.gnome.desktop.interface';
+const _showBatteryPercentageKey = 'show-battery-percentage';
+const _powerButtonActionKey = 'power-button-action';
 
 class SuspendModel extends SafeChangeNotifier {
   SuspendModel(SettingsService settings)
-      : _daemonSettings = settings.lookup(_kDaemonSchema),
-        _interfaceSettings = settings.lookup(_kInterfaceSchema) {
+      : _daemonSettings = settings.lookup(schemaSettingsDaemonPowerPlugin),
+        _interfaceSettings = settings.lookup(schemaInterface) {
     _daemonSettings?.addListener(notifyListeners);
     _interfaceSettings?.addListener(notifyListeners);
   }
@@ -24,14 +25,15 @@ class SuspendModel extends SafeChangeNotifier {
   final Settings? _interfaceSettings;
 
   bool? get showBatteryPercentage =>
-      _interfaceSettings?.boolValue('show-battery-percentage');
+      _interfaceSettings?.boolValue(_showBatteryPercentageKey);
+
   void setShowBatteryPercentage(bool value) {
-    _interfaceSettings?.setValue('show-battery-percentage', value);
+    _interfaceSettings?.setValue(_showBatteryPercentageKey, value);
     notifyListeners();
   }
 
   PowerButtonAction? get _realPowerButtonAction => _daemonSettings
-      ?.stringValue('power-button-action')
+      ?.stringValue(_powerButtonActionKey)
       ?.toPowerButtonAction();
 
   PowerButtonAction? get powerButtonAction =>
@@ -41,7 +43,7 @@ class SuspendModel extends SafeChangeNotifier {
 
   void setPowerButtonAction(PowerButtonAction? value) {
     if (value == null) return;
-    _daemonSettings?.setValue('power-button-action', value.name);
+    _daemonSettings?.setValue(_powerButtonActionKey, value.name);
     notifyListeners();
   }
 }

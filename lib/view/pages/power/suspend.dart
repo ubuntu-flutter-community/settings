@@ -1,4 +1,5 @@
 import 'package:flutter/widgets.dart';
+import 'package:settings/l10n/l10n.dart';
 
 enum PowerButtonAction {
   nothing,
@@ -29,7 +30,7 @@ extension PowerButtonActionL10n on PowerButtonAction {
       case PowerButtonAction.interactive:
         return 'Power Off';
       default:
-        return 'Unknown';
+        return context.l10n.unknown;
     }
   }
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:settings/constants.dart';
 import 'package:settings/view/pages/accessibility/accessibility_model.dart';
 import 'package:yaru_icons/yaru_icons.dart';
 import 'package:yaru_widgets/yaru_widgets.dart';
@@ -9,8 +10,9 @@ class TypingSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final model = Provider.of<AccessibilityModel>(context);
+    final model = context.watch<AccessibilityModel>();
     return YaruSection(
+      width: kDefaultWidth,
       headline: 'Typing',
       children: [
         YaruSwitchRow(
@@ -31,7 +33,7 @@ class _RepeatKeys extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final model = Provider.of<AccessibilityModel>(context);
+    final model = context.watch<AccessibilityModel>();
     return YaruExtraOptionRow(
       iconData: YaruIcons.settings,
       actionLabel: 'Repeat Keys',
@@ -54,8 +56,9 @@ class _RepeatKeysSettings extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final model = Provider.of<AccessibilityModel>(context);
+    final model = context.watch<AccessibilityModel>();
     return YaruSimpleDialog(
+      width: kDefaultWidth,
       title: 'Repeat Keys',
       closeIconData: YaruIcons.window_close,
       children: [
@@ -87,7 +90,7 @@ class _CursorBlinking extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final model = Provider.of<AccessibilityModel>(context);
+    final model = context.watch<AccessibilityModel>();
     return YaruExtraOptionRow(
       iconData: YaruIcons.settings,
       actionLabel: 'Cursor Blinking',
@@ -110,8 +113,9 @@ class _CursorBlinkingSettings extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final model = Provider.of<AccessibilityModel>(context);
+    final model = context.watch<AccessibilityModel>();
     return YaruSimpleDialog(
+      width: kDefaultWidth,
       title: 'Cursor Blinking',
       closeIconData: YaruIcons.window_close,
       children: [
@@ -134,9 +138,10 @@ class _TypingAssist extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final model = Provider.of<AccessibilityModel>(context);
+    final model = context.watch<AccessibilityModel>();
 
     return YaruRow(
+      enabled: model.typingAssistAvailable,
       trailingWidget: const Text('Typing Assist (AccessX)'),
       actionWidget: Row(
         children: [
@@ -168,8 +173,9 @@ class _TypingAssistSettings extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final model = Provider.of<AccessibilityModel>(context);
+    final model = context.watch<AccessibilityModel>();
     return YaruSimpleDialog(
+      width: kDefaultWidth,
       title: 'Typing Assist',
       closeIconData: YaruIcons.window_close,
       children: [
@@ -213,20 +219,20 @@ class _StickyKeysSettings extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final model = Provider.of<AccessibilityModel>(context);
+    final model = context.watch<AccessibilityModel>();
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16.0),
       child: Column(
         children: [
           YaruCheckboxRow(
-            enabled: model.stickyKeys,
-            value: model.stickyKeysTwoKey,
+            enabled: model.stickyKeys ?? false,
+            value: model.stickyKeysTwoKey ?? false,
             onChanged: (value) => model.setStickyKeysTwoKey(value!),
             text: 'Disable if two keys are pressed at the same time',
           ),
           YaruCheckboxRow(
-            enabled: model.stickyKeys,
-            value: model.stickyKeysBeep,
+            enabled: model.stickyKeys ?? false,
+            value: model.stickyKeysBeep ?? false,
             onChanged: (value) => model.setStickyKeysBeep(value!),
             text: 'Beep when a modifier key is pressed',
           ),
@@ -241,35 +247,39 @@ class _SlowKeysSettings extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final model = Provider.of<AccessibilityModel>(context);
+    final model = context.watch<AccessibilityModel>();
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+      padding: const EdgeInsets.only(left: 16.0),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          YaruSliderSecondary(
-            label: 'Acceptance delay',
-            enabled: model.slowKeys,
-            min: 0,
-            max: 500,
-            defaultValue: 300,
-            value: model.slowKeysDelay,
-            onChanged: (value) => model.setSlowKeysDelay(value),
+          SizedBox(
+            height: 56,
+            child: YaruSliderRow(
+              enabled: model.slowKeys ?? false,
+              actionLabel: 'Acceptance delay',
+              value: model.slowKeysDelay,
+              min: 0,
+              max: 500,
+              defaultValue: 300,
+              onChanged: model.setSlowKeysDelay,
+            ),
           ),
           YaruCheckboxRow(
-            enabled: model.slowKeys,
-            value: model.slowKeysBeepPress,
+            enabled: model.slowKeys ?? false,
+            value: model.slowKeysBeepPress ?? false,
             onChanged: (value) => model.setSlowKeysBeepPress(value!),
             text: 'Beep when a key is pressed',
           ),
           YaruCheckboxRow(
-            enabled: model.slowKeys,
-            value: model.slowKeysBeepAccept,
+            enabled: model.slowKeys ?? false,
+            value: model.slowKeysBeepAccept ?? false,
             onChanged: (value) => model.setSlowKeysBeepAccept(value!),
             text: 'Beep when a key is accepted',
           ),
           YaruCheckboxRow(
-            enabled: model.slowKeys,
-            value: model.slowKeysBeepReject,
+            enabled: model.slowKeys ?? false,
+            value: model.slowKeysBeepReject ?? false,
             onChanged: (value) => model.setSlowKeysBeepReject(value!),
             text: 'Beep when a key is rejected',
           ),
@@ -284,23 +294,27 @@ class _BounceKeysSettings extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final model = Provider.of<AccessibilityModel>(context);
+    final model = context.watch<AccessibilityModel>();
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+      padding: const EdgeInsets.only(left: 16.0),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          YaruSliderSecondary(
-            label: 'Acceptance delay',
-            enabled: model.bounceKeys,
-            min: 0,
-            max: 900,
-            defaultValue: 300,
-            value: model.bounceKeysDelay,
-            onChanged: (value) => model.setBounceKeysDelay(value),
+          SizedBox(
+            height: 56,
+            child: YaruSliderRow(
+              enabled: model.bounceKeys ?? false,
+              actionLabel: 'Acceptance delay',
+              value: model.bounceKeysDelay,
+              min: 0,
+              max: 900,
+              defaultValue: 300,
+              onChanged: model.setBounceKeysDelay,
+            ),
           ),
           YaruCheckboxRow(
-            enabled: model.bounceKeys,
-            value: model.bounceKeysBeepReject,
+            enabled: model.bounceKeys ?? false,
+            value: model.bounceKeysBeepReject ?? false,
             onChanged: (value) => model.setBounceKeysBeepReject(value!),
             text: 'Beep when a key is rejected',
           ),

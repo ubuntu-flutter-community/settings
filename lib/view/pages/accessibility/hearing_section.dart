@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:settings/constants.dart';
 import 'package:settings/view/pages/accessibility/accessibility_model.dart';
 import 'package:yaru_icons/yaru_icons.dart';
 import 'package:yaru_widgets/yaru_widgets.dart';
@@ -10,6 +11,7 @@ class HearingSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const YaruSection(
+      width: kDefaultWidth,
       headline: 'Hearing',
       children: [
         _VisualAlerts(),
@@ -23,7 +25,7 @@ class _VisualAlerts extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final model = Provider.of<AccessibilityModel>(context);
+    final model = context.watch<AccessibilityModel>();
     return YaruExtraOptionRow(
       iconData: YaruIcons.settings,
       actionLabel: 'Visual Alerts',
@@ -46,8 +48,9 @@ class _VisualAlertsSettings extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final model = Provider.of<AccessibilityModel>(context);
+    final model = context.watch<AccessibilityModel>();
     return YaruSimpleDialog(
+      width: kDefaultWidth,
       title: 'Visual Alerts',
       closeIconData: YaruIcons.window_close,
       children: [

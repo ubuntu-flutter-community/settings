@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:settings/view/pages/power/power_utils.dart';
 import 'package:upower/upower.dart';
+import 'package:settings/l10n/l10n.dart';
 
 class BatteryStateLabel extends StatelessWidget {
   const BatteryStateLabel({
@@ -35,7 +36,7 @@ class BatteryStateLabel extends StatelessWidget {
         return const Text('Empty');
       case UPowerDeviceState.unknown:
       default:
-        return const Text('Unknown');
+        return Text(context.l10n.unknown);
     }
   }
 }

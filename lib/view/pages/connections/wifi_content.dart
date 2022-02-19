@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:settings/constants.dart';
 import 'package:yaru_icons/yaru_icons.dart';
 import 'package:yaru_widgets/yaru_widgets.dart';
 
@@ -15,9 +16,11 @@ class WifiDevicesContent extends StatelessWidget {
   Widget build(BuildContext context) {
     final wifiModel = context.watch<WifiModel>();
 
-    return Column(
+    return YaruPage(
       children: [
         YaruRow(
+            width: kDefaultWidth,
+            enabled: true,
             trailingWidget: const Text('Wi-Fi'),
             actionWidget: Row(
               children: [
@@ -40,6 +43,7 @@ class WifiDevicesContent extends StatelessWidget {
                 animation: wifiDevice,
                 builder: (_, __) {
                   return YaruSection(
+                    width: kDefaultWidth,
                     headline: 'Visible Networks',
                     children: [
                       for (final accessPoint in wifiDevice.accesPoints)

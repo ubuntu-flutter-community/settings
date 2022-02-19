@@ -1,0 +1,14 @@
+{
+  "appTitle": "Paramètres Ubuntu",
+  "searchHint": "Recherche...",
+  "connected": "Connecté",
+  "disonnected": "Déconnecté",
+  "yes": "Oui",
+  "no": "Non",
+  "paired": "Appairé",
+  "address": "Adresse",
+  "type": "Type",
+  "unknown": "Inconnu",
+  "bluetoothOpenDeviceSettings": "Ouvrir les paramètres de l'appareil",
+  "bluetoothRemoveDevice" : "Supprimer l'appareil"
+}
