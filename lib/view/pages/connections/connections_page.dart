@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:nm/nm.dart';
 import 'package:provider/provider.dart';
 import 'package:settings/constants.dart';
+import 'package:settings/l10n/l10n.dart';
 import 'package:settings/view/pages/connections/wifi_content.dart';
 import 'package:yaru_icons/yaru_icons.dart';
 import 'package:yaru_widgets/yaru_widgets.dart';
@@ -16,6 +17,16 @@ class ConnectionsPage extends StatefulWidget {
       child: const ConnectionsPage(),
     );
   }
+
+  static Widget createTitle(BuildContext context) =>
+      Text(context.l10n.connectionsPageTitle);
+
+  static bool searchMatches(String value, BuildContext context) =>
+      value.isNotEmpty
+          ? context.l10n.connectionsPageTitle
+              .toLowerCase()
+              .contains(value.toLowerCase())
+          : false;
 
   const ConnectionsPage({Key? key}) : super(key: key);
 

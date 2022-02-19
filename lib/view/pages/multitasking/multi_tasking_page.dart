@@ -3,6 +3,7 @@ import 'package:flutter_spinbox/flutter_spinbox.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 import 'package:settings/constants.dart';
+import 'package:settings/l10n/l10n.dart';
 import 'package:settings/services/settings_service.dart';
 import 'package:settings/utils.dart';
 import 'package:settings/view/pages/multitasking/multi_tasking_model.dart';
@@ -18,6 +19,16 @@ class MultiTaskingPage extends StatelessWidget {
       child: const MultiTaskingPage(),
     );
   }
+
+  static Widget createTitle(BuildContext context) =>
+      Text(context.l10n.multiTaskingPageTitle);
+
+  static bool searchMatches(String value, BuildContext context) =>
+      value.isNotEmpty
+          ? context.l10n.multiTaskingPageTitle
+              .toLowerCase()
+              .contains(value.toLowerCase())
+          : false;
 
   @override
   Widget build(BuildContext context) {

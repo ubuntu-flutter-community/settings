@@ -43,6 +43,7 @@ dependencies:
   yaru_widgets:
     git:
       url: https://github.com/ubuntu/yaru_widgets.dart
+      ref: titlebuilder
   flutter_svg: ^1.0.0
   flutter_spinbox: ^0.8.0
   http: ^0.13.4

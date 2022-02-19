@@ -4,6 +4,7 @@ import 'package:filesystem_picker/filesystem_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:settings/constants.dart';
+import 'package:settings/l10n/l10n.dart';
 import 'package:settings/services/settings_service.dart';
 import 'package:settings/utils.dart';
 import 'package:settings/view/pages/wallpaper/color_shading_option_row.dart';
@@ -12,6 +13,16 @@ import 'package:yaru_icons/yaru_icons.dart';
 import 'package:yaru_widgets/yaru_widgets.dart';
 
 class WallpaperPage extends StatelessWidget {
+  static Widget createTitle(BuildContext context) =>
+      Text(context.l10n.wallpaperPageTitle);
+
+  static bool searchMatches(String value, BuildContext context) =>
+      value.isNotEmpty
+          ? context.l10n.wallpaperPageTitle
+              .toLowerCase()
+              .contains(value.toLowerCase())
+          : false;
+
   const WallpaperPage({Key? key}) : super(key: key);
 
   static Widget create(BuildContext context) {
