@@ -39,7 +39,7 @@ class ReportingPage extends StatelessWidget {
           ),
         ),
       ),
-      YaruSection(children: [
+      YaruSection(width: kDefaultWidth, children: [
         YaruSwitchRow(
           width: kDefaultWidth,
           trailingWidget: Text(context.l10n.reportingActionLabel),
