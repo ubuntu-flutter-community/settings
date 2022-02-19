@@ -12,7 +12,7 @@ class KeyboardPage extends StatefulWidget {
   static Widget create(BuildContext context) => const KeyboardPage();
 
   static Widget createTitle(BuildContext context) =>
-      Text(context.l10n.onlineAccountsPageTitle);
+      Text(context.l10n.keyboardPageTitle);
 
   static bool searchMatches(String value, BuildContext context) =>
       value.isNotEmpty
