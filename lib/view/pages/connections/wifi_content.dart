@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:settings/constants.dart';
+import 'package:settings/l10n/l10n.dart';
 import 'package:yaru_icons/yaru_icons.dart';
 import 'package:yaru_widgets/yaru_widgets.dart';
 
@@ -25,7 +26,9 @@ class WifiDevicesContent extends StatelessWidget {
             actionWidget: Row(
               children: [
                 Text(
-                  wifiModel.isWifiEnabled ? 'connected' : 'disconnected',
+                  wifiModel.isWifiEnabled
+                      ? context.l10n.connected
+                      : context.l10n.disonnected,
                   style: TextStyle(
                       color: Theme.of(context)
                           .colorScheme
@@ -44,7 +47,7 @@ class WifiDevicesContent extends StatelessWidget {
                 builder: (_, __) {
                   return YaruSection(
                     width: kDefaultWidth,
-                    headline: 'Visible Networks',
+                    headline: context.l10n.connectionsPageHeadline,
                     children: [
                       for (final accessPoint in wifiDevice.accesPoints)
                         AccessPointTile(

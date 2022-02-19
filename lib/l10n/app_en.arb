@@ -73,6 +73,7 @@
   "screenLockPageTitle": "Screen Lock",
   "diagnosisPageTitle": "Diagnostics",
   "connectionsPageTitle": "Connections",
+  "connectionsPageHeadline": "Visible networks",
   "wifiPageTitle": "Wi-Fi",
   "ethernetPageTitle": "Ethernet",
   "cellularPageTitle": "Cellular",

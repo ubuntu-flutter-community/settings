@@ -9,7 +9,7 @@ import 'package:yaru_widgets/yaru_widgets.dart';
 
 import 'models/wifi_model.dart';
 
-class ConnectionsPage extends StatefulWidget {
+class ConnectionsPage extends StatelessWidget {
   static Widget create(BuildContext context) {
     final service = Provider.of<NetworkManagerClient>(context, listen: false);
     return ChangeNotifierProvider<WifiModel>(
@@ -31,20 +31,6 @@ class ConnectionsPage extends StatefulWidget {
   const ConnectionsPage({Key? key}) : super(key: key);
 
   @override
-  State<ConnectionsPage> createState() => _ConnectionsPageState();
-}
-
-class _ConnectionsPageState extends State<ConnectionsPage>
-    with TickerProviderStateMixin {
-  late TabController tabController;
-
-  @override
-  void initState() {
-    tabController = TabController(length: 3, vsync: this);
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
     final wifiModel = context.watch<WifiModel>();
     return YaruTabbedPage(tabIcons: const [
@@ -59,12 +45,14 @@ class _ConnectionsPageState extends State<ConnectionsPage>
       wifiModel.isWifiDeviceAvailable
           ? const WifiDevicesContent()
           : const WifiAdaptorNotFound(),
-      Column(
-        children: const [Text('Ethernet')],
-      ),
-      Column(
-        children: const [Text('Cellular')],
-      )
+      const YaruPage(children: [
+        // TODO: Implement Ethernet page
+        Text('Ethernet - Please implement 🥲️'),
+      ]),
+      const YaruPage(children: [
+        // TODO: Implement Cellular page
+        Text('Cellular - Please implement 🥲️'),
+      ]),
     ], width: kDefaultWidth);
   }
 }
