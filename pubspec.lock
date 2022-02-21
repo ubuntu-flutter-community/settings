@@ -853,7 +853,7 @@ packages:
       name: url_launcher_web
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.0.6"
+    version: "2.0.8"
   url_launcher_windows:
     dependency: transitive
     description:
@@ -947,4 +947,4 @@ packages:
     version: "1.0.6"
 sdks:
   dart: ">=2.16.0-100.0.dev <3.0.0"
-  flutter: ">=2.8.0"
+  flutter: ">=2.10.0"
