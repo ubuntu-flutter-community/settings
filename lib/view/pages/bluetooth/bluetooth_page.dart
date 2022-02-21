@@ -53,7 +53,7 @@ class _BluetoothPageState extends State<BluetoothPage> {
             onChanged: (v) => model.setPowered(v)),
         YaruSection(
             width: kDefaultWidth,
-            headline: 'Devices',
+            headline: context.l10n.devices,
             headerWidget: Flexible(
               child: TextButton(
                   onPressed: model.powered
