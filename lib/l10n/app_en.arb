@@ -51,7 +51,7 @@
   "reportingHeader": "Issue Reporting",
   "reportingDescription": "Sending reports on technical problems helps the developers to improve Ubuntu. Reports are free of personal data and are sent anonymously. Learn more",
   "reportingLink": "Learn more",
-  "reportingActionLabel": "Send issue reports to canonical",
+  "reportingActionLabel": "Send issue reports to Canonical",
   "reportingUsageActionLabel": "Send software usage to Ubuntu",
   "locationDescription": "Location services allow applications to know your geographic location. Using WiFi or mobile broadband increases accuracy.",
   "locationInfoPrefix": "Uses the Mozilla location service:",
