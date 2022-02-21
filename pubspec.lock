@@ -653,13 +653,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.1.0"
-  scrollable_positioned_list:
-    dependency: "direct main"
-    description:
-      name: scrollable_positioned_list
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.2.3"
   shelf:
     dependency: transitive
     description:
@@ -934,12 +927,10 @@ packages:
   yaru:
     dependency: "direct main"
     description:
-      path: "."
-      ref: HEAD
-      resolved-ref: "29c88e53046b8a1ef9eb514eb702437f4c003009"
-      url: "https://github.com/ubuntu/yaru.dart"
-    source: git
-    version: "0.2.1"
+      name: yaru
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.2.2"
   yaru_icons:
     dependency: "direct main"
     description:
@@ -950,12 +941,10 @@ packages:
   yaru_widgets:
     dependency: "direct main"
     description:
-      path: "."
-      ref: HEAD
-      resolved-ref: "5148015afc952dbe0770aea4af44f7abaf921be8"
-      url: "https://github.com/ubuntu/yaru_widgets.dart"
-    source: git
-    version: "1.0.5"
+      name: yaru_widgets
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.6"
 sdks:
   dart: ">=2.16.0-100.0.dev <3.0.0"
   flutter: ">=2.8.0"
