@@ -1,4 +1,5 @@
 import 'package:flutter/widgets.dart';
+import 'package:settings/l10n/l10n.dart';
 
 enum AutomaticSuspend {
   off,
@@ -19,7 +20,7 @@ extension AutomaticSuspendL10n on AutomaticSuspend {
       case AutomaticSuspend.both:
         return 'On';
       default:
-        return 'Unknown';
+        return context.l10n.unknown;
     }
   }
 }

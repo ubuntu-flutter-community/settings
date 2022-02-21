@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:settings/constants.dart';
+import 'package:settings/l10n/l10n.dart';
 import 'package:yaru_icons/yaru_icons.dart';
 import 'package:yaru_widgets/yaru_widgets.dart';
 
@@ -16,51 +18,58 @@ class WifiDevicesContent extends StatelessWidget {
     final wifiModel = context.watch<WifiModel>();
 
     return YaruPage(
-      child: Column(
-        children: [
-          YaruRow(
-              enabled: true,
-              trailingWidget: const Text('Wi-Fi'),
-              actionWidget: Row(
-                children: [
-                  Text(
-                    wifiModel.isWifiEnabled ? 'connected' : 'disconnected',
-                    style: TextStyle(
-                        color: Theme.of(context)
-                            .colorScheme
-                            .onSurface
-                            .withOpacity(0.5)),
-                  ),
-                  Switch(
-                      onChanged: (newValue) => wifiModel.toggleWifi(newValue),
-                      value: wifiModel.isWifiEnabled),
-                ],
-              )),
-          if (wifiModel.isWifiEnabled)
-            for (final wifiDevice in wifiModel.wifiDevices)
-              AnimatedBuilder(
-                  animation: wifiDevice,
-                  builder: (_, __) {
-                    return YaruSection(
-                      headline: 'Visible Networks',
-                      children: [
-                        for (final accessPoint in wifiDevice.accesPoints)
-                          AccessPointTile(
-                            accessPointModel: accessPoint,
-                            onTap: () {
-                              wifiModel.connectToAccesPoint(
-                                accessPoint,
-                                wifiDevice,
-                                (wifiDevice, accessPoint) =>
-                                    authenticate(context, accessPoint),
-                              );
-                            },
-                          )
-                      ],
-                    );
-                  })
-        ],
-      ),
+      children: [
+        YaruSwitchRow(
+            width: kDefaultWidth,
+            enabled: wifiModel.isWifiDeviceAvailable,
+            trailingWidget: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(context.l10n.wifiPageTitle),
+                Text(
+                  wifiModel.isWifiEnabled
+                      ? context.l10n.connected
+                      : context.l10n.disonnected,
+                  style: TextStyle(
+                      color: Theme.of(context)
+                          .colorScheme
+                          .onSurface
+                          .withOpacity(0.5)),
+                )
+              ],
+            ),
+            onChanged: (newValue) => wifiModel.toggleWifi(newValue),
+            value: wifiModel.isWifiEnabled),
+        if (wifiModel.isWifiEnabled)
+          for (final wifiDevice in wifiModel.wifiDevices)
+            AnimatedBuilder(
+                animation: wifiDevice,
+                builder: (_, __) {
+                  return YaruSection(
+                    width: kDefaultWidth,
+                    headline: context.l10n.connectionsPageHeadline,
+                    children: [
+                      for (final accessPoint in wifiDevice.accesPoints)
+                        AccessPointTile(
+                          accessPointModel: accessPoint,
+                          onTap: () {
+                            wifiModel.connectToAccesPoint(
+                              accessPoint,
+                              wifiDevice,
+                              (wifiDevice, accessPoint) =>
+                                  authenticate(context, accessPoint),
+                            );
+                            if (wifiModel.errorMessage.isNotEmpty) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                      content: Text(wifiModel.errorMessage)));
+                            }
+                          },
+                        )
+                    ],
+                  );
+                })
+      ],
     );
   }
 

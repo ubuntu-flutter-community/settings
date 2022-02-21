@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:settings/constants.dart';
 import 'package:settings/view/pages/power/power_settings_model.dart';
 import 'package:settings/view/pages/power/power_settings_widgets.dart';
 import 'package:yaru_icons/yaru_icons.dart';
@@ -22,6 +23,7 @@ class AutomaticSuspendDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     final model = context.watch<SuspendModel>();
     return YaruSimpleDialog(
+      width: kDefaultWidth,
       title: 'Automatic Suspend',
       closeIconData: YaruIcons.window_close,
       children: <Widget>[

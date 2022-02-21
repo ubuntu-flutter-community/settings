@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:settings/constants.dart';
 import 'package:settings/view/pages/keyboard/special_characters_model.dart';
 import 'package:yaru_icons/yaru_icons.dart';
 import 'package:yaru_widgets/yaru_widgets.dart';
@@ -13,46 +14,49 @@ class SpecialCharactersSection extends StatelessWidget {
   Widget build(BuildContext context) {
     final model = context.watch<SpecialCharactersModel>();
 
-    return YaruSection(headline: 'Special characters', children: [
-      FutureBuilder<ComposeOptions>(
-          future: model.getComposeOptions(),
-          builder: (context, snapshot) => InkWell(
-                borderRadius: BorderRadius.circular(4),
-                onTap: () => showDialog(
+    return YaruSection(
+        width: kDefaultWidth,
+        headline: 'Special characters',
+        children: [
+          FutureBuilder<ComposeOptions>(
+              future: model.getComposeOptions(),
+              builder: (context, snapshot) => InkWell(
+                    borderRadius: BorderRadius.circular(4),
+                    onTap: () => showDialog(
+                      context: context,
+                      builder: (_) => ChangeNotifierProvider.value(
+                        value: model,
+                        child: const _ComposeOptionsDialog(),
+                      ),
+                    ),
+                    child: YaruRow(
+                      enabled: true,
+                      trailingWidget: const Text('Compose Key'),
+                      actionWidget: Text(snapshot.hasData
+                          ? model.composeOptionsToStringMap[snapshot.data]!
+                          : ''),
+                    ),
+                  )),
+          FutureBuilder<Lv3Options?>(
+            future: model.getLv3Options(),
+            builder: (context, snapshot) => InkWell(
+              borderRadius: BorderRadius.circular(4),
+              onTap: () => showDialog(
                   context: context,
                   builder: (_) => ChangeNotifierProvider.value(
-                    value: model,
-                    child: const _ComposeOptionsDialog(),
-                  ),
-                ),
-                child: YaruRow(
-                  enabled: true,
-                  trailingWidget: const Text('Compose Key'),
-                  actionWidget: Text(snapshot.hasData
-                      ? model.composeOptionsToStringMap[snapshot.data]!
-                      : ''),
-                ),
-              )),
-      FutureBuilder<Lv3Options?>(
-        future: model.getLv3Options(),
-        builder: (context, snapshot) => InkWell(
-          borderRadius: BorderRadius.circular(4),
-          onTap: () => showDialog(
-              context: context,
-              builder: (_) => ChangeNotifierProvider.value(
-                    value: model,
-                    child: const _Lv3OptionsDialog(),
-                  )),
-          child: YaruRow(
-            enabled: true,
-            trailingWidget: const Text('Lv3 Key'),
-            actionWidget: Text(snapshot.hasData
-                ? model.lv3OptionsToStringMap[snapshot.data]!
-                : 'Default Layout'),
-          ),
-        ),
-      )
-    ]);
+                        value: model,
+                        child: const _Lv3OptionsDialog(),
+                      )),
+              child: YaruRow(
+                enabled: true,
+                trailingWidget: const Text('Lv3 Key'),
+                actionWidget: Text(snapshot.hasData
+                    ? model.lv3OptionsToStringMap[snapshot.data]!
+                    : 'Default Layout'),
+              ),
+            ),
+          )
+        ]);
   }
 }
 
@@ -65,6 +69,7 @@ class _Lv3OptionsDialog extends StatelessWidget {
     return FutureBuilder<Lv3Options?>(
       future: model.getLv3Options(),
       builder: (context, snapshot) => YaruSimpleDialog(
+          width: kDefaultWidth / 2,
           title: 'Lv3 Keys',
           closeIconData: YaruIcons.window_close,
           children: [
@@ -105,6 +110,7 @@ class _ComposeOptionsDialog extends StatelessWidget {
     return FutureBuilder<ComposeOptions>(
       future: model.getComposeOptions(),
       builder: (context, snapshot) => YaruSimpleDialog(
+        width: kDefaultWidth / 2,
         closeIconData: YaruIcons.window_close,
         title: 'Compose-Key',
         children: [

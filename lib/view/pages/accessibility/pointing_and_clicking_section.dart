@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:settings/constants.dart';
 import 'package:settings/view/pages/accessibility/accessibility_model.dart';
 import 'package:yaru_widgets/yaru_widgets.dart';
 
@@ -12,6 +13,7 @@ class PointingAndClickingSection extends StatelessWidget {
   Widget build(BuildContext context) {
     final model = context.watch<AccessibilityModel>();
     return YaruSection(
+      width: kDefaultWidth,
       headline: 'Pointing & Clicking',
       children: [
         YaruSwitchRow(
@@ -79,6 +81,7 @@ class _ClickAssistSettings extends StatelessWidget {
   Widget build(BuildContext context) {
     final model = context.watch<AccessibilityModel>();
     return YaruSimpleDialog(
+      width: kDefaultWidth,
       title: 'Click Assist',
       closeIconData: YaruIcons.window_close,
       children: [
@@ -91,18 +94,15 @@ class _ClickAssistSettings extends StatelessWidget {
         ),
         Padding(
           padding: const EdgeInsets.only(left: 16.0),
-          child: SizedBox(
-            height: 56,
-            child: YaruSliderRow(
-              enabled: model.simulatedSecondaryClick ?? false,
-              actionLabel: 'Delay',
-              value: model.secondaryClickTime,
-              min: 0.5,
-              max: 3.0,
-              defaultValue: 1.2,
-              fractionDigits: 1,
-              onChanged: model.setSecondaryClickTime,
-            ),
+          child: YaruSliderRow(
+            enabled: model.simulatedSecondaryClick ?? false,
+            actionLabel: 'Delay',
+            value: model.secondaryClickTime,
+            min: 0.5,
+            max: 3.0,
+            defaultValue: 1.2,
+            fractionDigits: 1,
+            onChanged: model.setSecondaryClickTime,
           ),
         ),
         YaruSwitchRow(
@@ -114,6 +114,7 @@ class _ClickAssistSettings extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.only(left: 16.0),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               SizedBox(
                 height: 56,

@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:nm/nm.dart';
 import 'package:provider/provider.dart';
+import 'package:settings/constants.dart';
+import 'package:settings/l10n/l10n.dart';
 import 'package:settings/view/pages/connections/wifi_content.dart';
 import 'package:yaru_icons/yaru_icons.dart';
 import 'package:yaru_widgets/yaru_widgets.dart';
 
 import 'models/wifi_model.dart';
 
-class ConnectionsPage extends StatefulWidget {
+class ConnectionsPage extends StatelessWidget {
   static Widget create(BuildContext context) {
     final service = Provider.of<NetworkManagerClient>(context, listen: false);
     return ChangeNotifierProvider<WifiModel>(
@@ -16,21 +18,17 @@ class ConnectionsPage extends StatefulWidget {
     );
   }
 
+  static Widget createTitle(BuildContext context) =>
+      Text(context.l10n.connectionsPageTitle);
+
+  static bool searchMatches(String value, BuildContext context) =>
+      value.isNotEmpty
+          ? context.l10n.connectionsPageTitle
+              .toLowerCase()
+              .contains(value.toLowerCase())
+          : false;
+
   const ConnectionsPage({Key? key}) : super(key: key);
-
-  @override
-  State<ConnectionsPage> createState() => _ConnectionsPageState();
-}
-
-class _ConnectionsPageState extends State<ConnectionsPage>
-    with TickerProviderStateMixin {
-  late TabController tabController;
-
-  @override
-  void initState() {
-    tabController = TabController(length: 3, vsync: this);
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -47,12 +45,14 @@ class _ConnectionsPageState extends State<ConnectionsPage>
       wifiModel.isWifiDeviceAvailable
           ? const WifiDevicesContent()
           : const WifiAdaptorNotFound(),
-      Column(
-        children: const [Text('Ethernet')],
-      ),
-      Column(
-        children: const [Text('Cellular')],
-      )
-    ], width: 516);
+      const YaruPage(children: [
+        // TODO: Implement Ethernet page
+        Text('Ethernet - Please implement 🥲️'),
+      ]),
+      const YaruPage(children: [
+        // TODO: Implement Cellular page
+        Text('Cellular - Please implement 🥲️'),
+      ]),
+    ], width: kDefaultWidth);
   }
 }

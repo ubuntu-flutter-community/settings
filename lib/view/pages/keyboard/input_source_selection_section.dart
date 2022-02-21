@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:settings/constants.dart';
 import 'package:settings/view/pages/keyboard/input_source_model.dart';
 import 'package:yaru_icons/yaru_icons.dart';
 import 'package:yaru_widgets/yaru_widgets.dart';
@@ -20,6 +21,7 @@ class InputSourceSelectionSection extends StatelessWidget {
           return const CircularProgressIndicator();
         }
         return YaruSection(
+            width: kDefaultWidth,
             headline: 'Input Sources',
             headerWidget: SizedBox(
               height: 40,
@@ -119,6 +121,7 @@ class _AddKeymapDialogState extends State<_AddKeymapDialog> {
     final model = context.watch<InputSourceModel>();
     return variantsLoad == false
         ? YaruSimpleDialog(
+            width: kDefaultWidth / 2,
             title: 'Add Keymap',
             closeIconData: YaruIcons.window_close,
             children: [
@@ -139,6 +142,7 @@ class _AddKeymapDialogState extends State<_AddKeymapDialog> {
                   ),
               ])
         : YaruSimpleDialog(
+            width: kDefaultWidth / 2,
             title: (model.inputSources[tabbedIndex].name ?? '') +
                 ': ' +
                 (model.inputSources[tabbedIndex].description ?? ''),
