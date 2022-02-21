@@ -56,9 +56,11 @@ class _BluetoothPageState extends State<BluetoothPage> {
             headline: 'Devices',
             headerWidget: Flexible(
               child: TextButton(
-                  onPressed: () => model.discovering
-                      ? model.stopDiscovery()
-                      : model.startDiscovery(),
+                  onPressed: model.powered
+                      ? () => model.discovering
+                          ? model.stopDiscovery()
+                          : model.startDiscovery()
+                      : null,
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
