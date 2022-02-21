@@ -6,9 +6,8 @@ import 'package:safe_change_notifier/safe_change_notifier.dart';
 class BluetoothModel extends SafeChangeNotifier {
   final BlueZClient _client;
 
-  late StreamSubscription<BlueZDevice>? _devicesAdded;
-  late StreamSubscription<BlueZDevice>? _devicesRemoved;
-  late BlueZAdapter? firstAdapter;
+  StreamSubscription<BlueZDevice>? _devicesAdded;
+  StreamSubscription<BlueZDevice>? _devicesRemoved;
 
   BluetoothModel(this._client);
 
@@ -18,9 +17,8 @@ class BluetoothModel extends SafeChangeNotifier {
         _client.close();
         return;
       }
-      firstAdapter = _client.adapters[0];
-      if (!firstAdapter!.discovering) {
-        firstAdapter?.startDiscovery();
+      for (var adapter in _client.adapters) {
+        adapter.startDiscovery();
       }
       _devicesAdded = _client.deviceAdded.listen((event) {
         notifyListeners();
@@ -29,6 +27,9 @@ class BluetoothModel extends SafeChangeNotifier {
         notifyListeners();
       });
       notifyListeners();
+    }).onError((error, stackTrace) {
+      _client.close();
+      return;
     });
   }
 
@@ -37,15 +38,16 @@ class BluetoothModel extends SafeChangeNotifier {
   }
 
   Future<void> removeDevice(BlueZDevice device) async {
-    await firstAdapter?.removeDevice(device);
-
+    for (var adapter in _client.adapters) {
+      await adapter.removeDevice(device);
+    }
     notifyListeners();
   }
 
   @override
   void dispose() {
-    if (firstAdapter!.discovering) {
-      firstAdapter?.stopDiscovery();
+    for (var adapter in _client.adapters) {
+      adapter.stopDiscovery();
     }
     _devicesAdded?.cancel();
     _devicesRemoved?.cancel();
