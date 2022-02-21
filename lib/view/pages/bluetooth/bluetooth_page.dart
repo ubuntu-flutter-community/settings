@@ -46,10 +46,28 @@ class _BluetoothPageState extends State<BluetoothPage> {
       children: [
         YaruSection(
             width: kDefaultWidth,
-            headerWidget: const SizedBox(
-              height: 15,
-              width: 15,
-              child: CircularProgressIndicator(),
+            headerWidget: Row(
+              children: [
+                SizedBox(
+                  height: 15,
+                  width: 15,
+                  child: model.discovering
+                      ? const CircularProgressIndicator()
+                      : const SizedBox(),
+                ),
+                const SizedBox(
+                  width: 20,
+                ),
+                TextButton(
+                    onPressed: () => model.discovering
+                        ? model.stopDiscovery()
+                        : model.startDiscovery(),
+                    child: Text(model.discovering
+                        ? 'Stop Discovery'
+                        : 'Start Discovery')),
+                Switch(
+                    value: model.powered, onChanged: (v) => model.setPowered(v))
+              ],
             ),
             headline: 'Bluetooth devices',
             children: [
