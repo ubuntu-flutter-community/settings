@@ -44,32 +44,41 @@ class _BluetoothPageState extends State<BluetoothPage> {
     final model = context.watch<BluetoothModel>();
     return YaruPage(
       children: [
+        YaruSwitchRow(
+            width: kDefaultWidth,
+            trailingWidget: Text(model.powered
+                ? context.l10n.switchedOn
+                : context.l10n.switchedOff),
+            value: model.powered,
+            onChanged: (v) => model.setPowered(v)),
         YaruSection(
             width: kDefaultWidth,
-            headerWidget: Row(
-              children: [
-                SizedBox(
-                  height: 15,
-                  width: 15,
-                  child: model.discovering
-                      ? const CircularProgressIndicator()
-                      : const SizedBox(),
-                ),
-                const SizedBox(
-                  width: 20,
-                ),
-                TextButton(
-                    onPressed: () => model.discovering
-                        ? model.stopDiscovery()
-                        : model.startDiscovery(),
-                    child: Text(model.discovering
-                        ? 'Stop Discovery'
-                        : 'Start Discovery')),
-                Switch(
-                    value: model.powered, onChanged: (v) => model.setPowered(v))
-              ],
+            headline: 'Devices',
+            headerWidget: Flexible(
+              child: TextButton(
+                  onPressed: () => model.discovering
+                      ? model.stopDiscovery()
+                      : model.startDiscovery(),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      model.discovering
+                          ? const SizedBox(
+                              width: 10,
+                              height: 10,
+                              child: CircularProgressIndicator(
+                                strokeWidth: 2,
+                              ))
+                          : const SizedBox(),
+                      const SizedBox(
+                        width: 10,
+                      ),
+                      Text(model.discovering
+                          ? context.l10n.bluetoothStopDiscovery
+                          : context.l10n.bluetoothStartDiscovery),
+                    ],
+                  )),
             ),
-            headline: 'Bluetooth devices',
             children: [
               ListView.builder(
                 shrinkWrap: true,
