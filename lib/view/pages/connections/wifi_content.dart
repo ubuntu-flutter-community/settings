@@ -19,12 +19,13 @@ class WifiDevicesContent extends StatelessWidget {
 
     return YaruPage(
       children: [
-        YaruRow(
+        YaruSwitchRow(
             width: kDefaultWidth,
-            enabled: true,
-            trailingWidget: const Text('Wi-Fi'),
-            actionWidget: Row(
+            enabled: wifiModel.isWifiDeviceAvailable,
+            trailingWidget: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
+                Text(context.l10n.wifiPageTitle),
                 Text(
                   wifiModel.isWifiEnabled
                       ? context.l10n.connected
@@ -34,12 +35,11 @@ class WifiDevicesContent extends StatelessWidget {
                           .colorScheme
                           .onSurface
                           .withOpacity(0.5)),
-                ),
-                Switch(
-                    onChanged: (newValue) => wifiModel.toggleWifi(newValue),
-                    value: wifiModel.isWifiEnabled),
+                )
               ],
-            )),
+            ),
+            onChanged: (newValue) => wifiModel.toggleWifi(newValue),
+            value: wifiModel.isWifiEnabled),
         if (wifiModel.isWifiEnabled)
           for (final wifiDevice in wifiModel.wifiDevices)
             AnimatedBuilder(
@@ -59,6 +59,11 @@ class WifiDevicesContent extends StatelessWidget {
                               (wifiDevice, accessPoint) =>
                                   authenticate(context, accessPoint),
                             );
+                            if (wifiModel.errorMessage.isNotEmpty) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                      content: Text(wifiModel.errorMessage)));
+                            }
                           },
                         )
                     ],

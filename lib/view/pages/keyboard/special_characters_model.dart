@@ -114,7 +114,6 @@ class SpecialCharactersModel extends SafeChangeNotifier {
     return ComposeOptions.defaultLayout;
   }
 
-  // TODO: Add translations here
   final composeOptionsToStringMap = <ComposeOptions, String>{
     ComposeOptions.rightAlt: 'Right Alt-Key',
     ComposeOptions.leftAlt: 'Left Alt-Key',
@@ -146,7 +145,6 @@ class SpecialCharactersModel extends SafeChangeNotifier {
     return null;
   }
 
-  // TODO: add translations here
   final lv3OptionsToStringMap = <Lv3Options?, String>{
     null: 'Default Layout',
     Lv3Options.none: 'None',
