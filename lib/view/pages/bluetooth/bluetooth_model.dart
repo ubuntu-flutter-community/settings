@@ -22,19 +22,19 @@ class BluetoothModel extends SafeChangeNotifier {
     return false;
   }
 
-  void startDiscovery() {
+  Future<void> startDiscovery() async {
     for (var adapter in _client.adapters) {
       if (!adapter.discovering && adapter.powered) {
-        adapter.startDiscovery();
+        await adapter.startDiscovery();
       }
       notifyListeners();
     }
   }
 
-  void stopDiscovery() {
+  Future<void> stopDiscovery() async {
     for (var adapter in _client.adapters) {
       if (adapter.discovering && adapter.powered) {
-        adapter.stopDiscovery();
+        await adapter.stopDiscovery();
       }
       notifyListeners();
     }
@@ -92,6 +92,7 @@ class BluetoothModel extends SafeChangeNotifier {
 
   Future<void> removeDevice(BlueZDevice device) async {
     for (var adapter in _client.adapters) {
+      await stopDiscovery();
       await adapter.removeDevice(device);
     }
 
