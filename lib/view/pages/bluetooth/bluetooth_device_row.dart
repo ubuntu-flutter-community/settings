@@ -3,7 +3,6 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:settings/view/pages/bluetooth/bluetooth_device_model.dart';
-import 'package:settings/view/pages/bluetooth/bluetooth_device_types.dart';
 import 'package:yaru_icons/yaru_icons.dart';
 import 'package:yaru_widgets/yaru_widgets.dart';
 import 'package:settings/l10n/l10n.dart';
@@ -79,14 +78,15 @@ class _BluetoothDeviceDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final model = context.watch<BluetoothDeviceModel>();
+    final iconName = model.icon;
     return SimpleDialog(
       titlePadding: EdgeInsets.zero,
       contentPadding: const EdgeInsets.only(left: 20, right: 20, bottom: 20),
       title: YaruDialogTitle(
         closeIconData: YaruIcons.window_close,
         title: model.name,
-        titleWidget: Icon(
-            BluetoothDeviceTypes.getIconForAppearanceCode(model.appearance)),
+        titleWidget:
+            Icon(iconName.isEmpty ? YaruIcons.question : yaruIcons[model.icon]),
       ),
       children: [
         YaruRow(
@@ -120,8 +120,8 @@ class _BluetoothDeviceDialog extends StatelessWidget {
             trailingWidget: Text(context.l10n.type),
             actionWidget: Padding(
               padding: const EdgeInsets.only(right: 8),
-              child: Text(BluetoothDeviceTypes.map[model.appearance] ??
-                  context.l10n.unknown),
+              child:
+                  Text(model.icon.isEmpty ? context.l10n.unknown : model.icon),
             )),
         Padding(
           padding: const EdgeInsets.only(top: 16, bottom: 8, right: 8, left: 8),
@@ -129,10 +129,7 @@ class _BluetoothDeviceDialog extends StatelessWidget {
             width: 300,
             child: OutlinedButton(
                 onPressed: () {
-                  if (BluetoothDeviceTypes.isMouse(model.appearance)) {
-                    // TODO: get route name from model
-                    Navigator.of(context).pushNamed('routeName');
-                  }
+                  // TODO: get route name from model
                 },
                 child: Text(context.l10n.bluetoothOpenDeviceSettings)),
           ),
