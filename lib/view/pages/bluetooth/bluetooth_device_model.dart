@@ -26,6 +26,7 @@ const yaruIcons = <String, IconData>{
   'input-keyboard': YaruIcons.input_keyboard,
   'input-mouse': YaruIcons.input_mouse,
   'input-touchpad': YaruIcons.input_touchpad,
+  'input-tablet': YaruIcons.input_tablet,
   'media-flash': YaruIcons.media_flash,
   'media-floppy': YaruIcons.media_floppy,
   'media-optical': YaruIcons.media_optical,
