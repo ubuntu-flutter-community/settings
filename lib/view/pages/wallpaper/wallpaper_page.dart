@@ -36,6 +36,8 @@ class WallpaperPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final model = context.watch<WallpaperModel>();
+    const headlineInsets =
+        EdgeInsets.only(top: 30, left: 10, right: 10, bottom: 10);
 
     return YaruPage(
       children: [
@@ -82,14 +84,15 @@ class WallpaperPage extends StatelessWidget {
                 )
               : YaruSelectableContainer(
                   child: _WallpaperImage(
-                      path: model.pictureUri.replaceAll('file://', '')),
+                      path: model.pictureUri
+                          .replaceAll(gnomeWallpaperSuffix, '')),
                   selected: false),
         ),
         if (model.wallpaperMode == WallpaperMode.imageOfTheDay)
           //TODO: Add the title and copyright info
           YaruRow(
             enabled: true,
-            leadingWidget: const Text('Image of the day from '),
+            leadingWidget: const Text('Image of the day from'),
             trailingWidget: DropdownButton<ImageOfTheDayProvider>(
                 value: model.imageOfTheDayProvider,
                 onChanged: (value) => model.setUrlWallpaperProvider(value!),
@@ -104,7 +107,16 @@ class WallpaperPage extends StatelessWidget {
                   ),
                 ]),
             actionWidget: YaruOptionButton(
-              onPressed: () async => model.refreshUrlWallpaper(),
+              onPressed: () async {
+                await model.refreshUrlWallpaper();
+                if (model.errorMessage.isNotEmpty) {
+                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                      content: Text(
+                    model.errorMessage,
+                    style: TextStyle(color: Theme.of(context).primaryColor),
+                  )));
+                }
+              },
               iconData: YaruIcons.refresh,
             ),
           ),
@@ -114,37 +126,33 @@ class WallpaperPage extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const Padding(
-                padding:
-                    EdgeInsets.only(top: 30, left: 10, right: 10, bottom: 10),
+                padding: headlineInsets,
                 child: Text('Your wallpapers'),
               ),
-              FutureBuilder<List<String>>(
+              FutureBuilder<List<String>?>(
                   future: model.customBackgrounds,
                   builder: (context, snapshot) {
                     if (snapshot.hasData) {
                       return _WallpaperGrid(
                           data: snapshot.data!, customizableGrid: true);
                     } else {
-                      return const Padding(
-                        padding: EdgeInsets.all(40.0),
+                      return const Center(
                         child: CircularProgressIndicator(),
                       );
                     }
                   }),
               const Padding(
-                padding:
-                    EdgeInsets.only(top: 30, left: 10, right: 10, bottom: 10),
+                padding: headlineInsets,
                 child: Text('Default wallpapers'),
               ),
-              FutureBuilder<List<String>>(
+              FutureBuilder<List<String>?>(
                   future: model.preInstalledBackgrounds,
                   builder: (context, snapshot) {
                     if (snapshot.hasData) {
                       return _WallpaperGrid(
                           data: snapshot.data!, customizableGrid: false);
                     } else {
-                      return const Padding(
-                        padding: EdgeInsets.all(40.0),
+                      return const Center(
                         child: CircularProgressIndicator(),
                       );
                     }
