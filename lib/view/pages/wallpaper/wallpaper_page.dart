@@ -36,29 +36,34 @@ class WallpaperPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final model = context.watch<WallpaperModel>();
+    const headlineInsets =
+        EdgeInsets.only(top: 30, left: 10, right: 10, bottom: 10);
 
     return YaruPage(
       children: [
         YaruRow(
             width: kDefaultWidth,
             enabled: true,
-            trailingWidget: const Text('Background mode'),
+            trailingWidget: Text(context.l10n.wallpaperPageBackgroundModeLabel),
             actionWidget: Row(
               children: [
                 DropdownButton<WallpaperMode>(
                     value: model.wallpaperMode,
                     onChanged: (value) => model.setWallpaperMode(value!),
-                    items: const [
+                    items: [
                       DropdownMenuItem(
-                        child: Text('Colored background'),
+                        child: Text(context
+                            .l10n.wallpaperPageBackgroundModeColoredBackground),
                         value: WallpaperMode.solid,
                       ),
                       DropdownMenuItem(
-                        child: Text('Wallpaper'),
+                        child: Text(
+                            context.l10n.wallpaperPageBackgroundModeWallpaper),
                         value: WallpaperMode.custom,
                       ),
                       DropdownMenuItem(
-                        child: Text('Image of the day'),
+                        child: Text(context
+                            .l10n.wallpaperPageBackgroundModeImageOfTheDay),
                         value: WallpaperMode.imageOfTheDay,
                       ),
                     ]),
@@ -67,7 +72,7 @@ class WallpaperPage extends StatelessWidget {
         if (model.wallpaperMode == WallpaperMode.solid)
           ColorShadingOptionRow(
             width: kDefaultWidth,
-            actionLabel: 'Color mode',
+            actionLabel: context.l10n.wallpaperPageColorModeLabel,
             onDropDownChanged: (value) {
               model.colorShadingType = value;
             },
@@ -82,14 +87,16 @@ class WallpaperPage extends StatelessWidget {
                 )
               : YaruSelectableContainer(
                   child: _WallpaperImage(
-                      path: model.pictureUri.replaceAll('file://', '')),
+                      path: model.pictureUri
+                          .replaceAll(gnomeWallpaperSuffix, '')),
                   selected: false),
         ),
         if (model.wallpaperMode == WallpaperMode.imageOfTheDay)
           //TODO: Add the title and copyright info
           YaruRow(
             enabled: true,
-            leadingWidget: const Text('Image of the day from '),
+            leadingWidget:
+                Text(context.l10n.wallpaperPageBackgroundModeImageOfTheDay),
             trailingWidget: DropdownButton<ImageOfTheDayProvider>(
                 value: model.imageOfTheDayProvider,
                 onChanged: (value) => model.setUrlWallpaperProvider(value!),
@@ -104,7 +111,16 @@ class WallpaperPage extends StatelessWidget {
                   ),
                 ]),
             actionWidget: YaruOptionButton(
-              onPressed: () async => model.refreshUrlWallpaper(),
+              onPressed: () async {
+                await model.refreshUrlWallpaper();
+                if (model.errorMessage.isNotEmpty) {
+                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                      content: Text(
+                    model.errorMessage,
+                    style: TextStyle(color: Theme.of(context).primaryColor),
+                  )));
+                }
+              },
               iconData: YaruIcons.refresh,
             ),
           ),
@@ -114,37 +130,33 @@ class WallpaperPage extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const Padding(
-                padding:
-                    EdgeInsets.only(top: 30, left: 10, right: 10, bottom: 10),
+                padding: headlineInsets,
                 child: Text('Your wallpapers'),
               ),
-              FutureBuilder<List<String>>(
+              FutureBuilder<List<String>?>(
                   future: model.customBackgrounds,
                   builder: (context, snapshot) {
                     if (snapshot.hasData) {
                       return _WallpaperGrid(
                           data: snapshot.data!, customizableGrid: true);
                     } else {
-                      return const Padding(
-                        padding: EdgeInsets.all(40.0),
+                      return const Center(
                         child: CircularProgressIndicator(),
                       );
                     }
                   }),
               const Padding(
-                padding:
-                    EdgeInsets.only(top: 30, left: 10, right: 10, bottom: 10),
+                padding: headlineInsets,
                 child: Text('Default wallpapers'),
               ),
-              FutureBuilder<List<String>>(
+              FutureBuilder<List<String>?>(
                   future: model.preInstalledBackgrounds,
                   builder: (context, snapshot) {
                     if (snapshot.hasData) {
                       return _WallpaperGrid(
                           data: snapshot.data!, customizableGrid: false);
                     } else {
-                      return const Padding(
-                        padding: EdgeInsets.all(40.0),
+                      return const Center(
                         child: CircularProgressIndicator(),
                       );
                     }
@@ -157,9 +169,11 @@ class WallpaperPage extends StatelessWidget {
 }
 
 class _WallpaperImage extends StatelessWidget {
-  const _WallpaperImage({Key? key, required this.path}) : super(key: key);
+  const _WallpaperImage({Key? key, required this.path, this.height})
+      : super(key: key);
 
   final String path;
+  final int? height;
 
   @override
   Widget build(BuildContext context) {
@@ -167,6 +181,7 @@ class _WallpaperImage extends StatelessWidget {
       File(path),
       filterQuality: FilterQuality.none,
       fit: BoxFit.fill,
+      cacheHeight: height,
     );
   }
 }
@@ -233,10 +248,11 @@ class _WallpaperGrid extends StatelessWidget {
 
     return GridView(
       gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-          maxCrossAxisExtent: 200,
-          childAspectRatio: 16 / 10,
-          mainAxisSpacing: 10,
-          crossAxisSpacing: 10),
+        maxCrossAxisExtent: 180,
+        childAspectRatio: 16 / 10,
+        mainAxisSpacing: 10,
+        crossAxisSpacing: 10,
+      ),
       shrinkWrap: true,
       scrollDirection: Axis.vertical,
       children: <Widget>[
@@ -251,7 +267,8 @@ class _WallpaperGrid extends StatelessWidget {
                     fit: StackFit.expand,
                     children: [
                       YaruSelectableContainer(
-                          child: _WallpaperImage(path: picPathString),
+                          child:
+                              _WallpaperImage(path: picPathString, height: 90),
                           onTap: () => model.pictureUri = picPathString,
                           selected: model.pictureUri.contains(picPathString)),
                       if (customizableGrid)
