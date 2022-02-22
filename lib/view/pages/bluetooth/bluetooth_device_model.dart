@@ -86,7 +86,6 @@ class BluetoothDeviceModel extends SafeChangeNotifier {
     adapter = _device.adapter;
     addressType = _device.addressType;
     icon = _device.icon;
-    print(icon);
     legacyPairing = _device.legacyPairing;
     wakeAllowed = _device.wakeAllowed;
     txPower = _device.txPower;
