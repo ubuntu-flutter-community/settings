@@ -141,7 +141,7 @@ class _BluetoothDeviceDialog extends StatelessWidget {
             child: TextButton(
                 onPressed: () async {
                   await model.disconnect();
-                  removeDevice();
+                  await removeDevice();
                   Navigator.of(context).pop();
                 },
                 child: Text(context.l10n.bluetoothRemoveDevice)),
