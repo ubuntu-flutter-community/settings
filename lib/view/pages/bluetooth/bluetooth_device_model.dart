@@ -63,6 +63,7 @@ class BluetoothDeviceModel extends SafeChangeNotifier {
   late bool legacyPairing;
   late bool wakeAllowed;
   late int txPower;
+  late List<BlueZGattService> gattServices;
 
   BluetoothDeviceModel(this._device) {
     updateFromClient();
@@ -90,6 +91,7 @@ class BluetoothDeviceModel extends SafeChangeNotifier {
     legacyPairing = _device.legacyPairing;
     wakeAllowed = _device.wakeAllowed;
     txPower = _device.txPower;
+    gattServices = _device.gattServices;
   }
 
   Future<void> connect() async {
