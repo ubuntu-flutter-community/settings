@@ -88,7 +88,7 @@ class _BluetoothPageState extends State<BluetoothPage> {
                 itemBuilder: (context, index) => BluetoothDeviceRow.create(
                     context,
                     model.devices[index],
-                    () => model.removeDevice(model.devices[index])),
+                    () async => model.removeDevice(model.devices[index])),
               )
             ]),
       ],
