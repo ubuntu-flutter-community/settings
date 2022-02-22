@@ -44,23 +44,26 @@ class WallpaperPage extends StatelessWidget {
         YaruRow(
             width: kDefaultWidth,
             enabled: true,
-            trailingWidget: const Text('Background mode'),
+            trailingWidget: Text(context.l10n.wallpaperPageBackgroundModeLabel),
             actionWidget: Row(
               children: [
                 DropdownButton<WallpaperMode>(
                     value: model.wallpaperMode,
                     onChanged: (value) => model.setWallpaperMode(value!),
-                    items: const [
+                    items: [
                       DropdownMenuItem(
-                        child: Text('Colored background'),
+                        child: Text(context
+                            .l10n.wallpaperPageBackgroundModeColoredBackground),
                         value: WallpaperMode.solid,
                       ),
                       DropdownMenuItem(
-                        child: Text('Wallpaper'),
+                        child: Text(
+                            context.l10n.wallpaperPageBackgroundModeWallpaper),
                         value: WallpaperMode.custom,
                       ),
                       DropdownMenuItem(
-                        child: Text('Image of the day'),
+                        child: Text(context
+                            .l10n.wallpaperPageBackgroundModeImageOfTheDay),
                         value: WallpaperMode.imageOfTheDay,
                       ),
                     ]),
@@ -69,7 +72,7 @@ class WallpaperPage extends StatelessWidget {
         if (model.wallpaperMode == WallpaperMode.solid)
           ColorShadingOptionRow(
             width: kDefaultWidth,
-            actionLabel: 'Color mode',
+            actionLabel: context.l10n.wallpaperPageColorModeLabel,
             onDropDownChanged: (value) {
               model.colorShadingType = value;
             },
@@ -92,7 +95,8 @@ class WallpaperPage extends StatelessWidget {
           //TODO: Add the title and copyright info
           YaruRow(
             enabled: true,
-            leadingWidget: const Text('Image of the day from'),
+            leadingWidget:
+                Text(context.l10n.wallpaperPageBackgroundModeImageOfTheDay),
             trailingWidget: DropdownButton<ImageOfTheDayProvider>(
                 value: model.imageOfTheDayProvider,
                 onChanged: (value) => model.setUrlWallpaperProvider(value!),
