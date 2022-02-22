@@ -157,9 +157,11 @@ class WallpaperPage extends StatelessWidget {
 }
 
 class _WallpaperImage extends StatelessWidget {
-  const _WallpaperImage({Key? key, required this.path}) : super(key: key);
+  const _WallpaperImage({Key? key, required this.path, this.height})
+      : super(key: key);
 
   final String path;
+  final int? height;
 
   @override
   Widget build(BuildContext context) {
@@ -167,6 +169,7 @@ class _WallpaperImage extends StatelessWidget {
       File(path),
       filterQuality: FilterQuality.none,
       fit: BoxFit.fill,
+      cacheHeight: height,
     );
   }
 }
@@ -233,10 +236,11 @@ class _WallpaperGrid extends StatelessWidget {
 
     return GridView(
       gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-          maxCrossAxisExtent: 200,
-          childAspectRatio: 16 / 10,
-          mainAxisSpacing: 10,
-          crossAxisSpacing: 10),
+        maxCrossAxisExtent: 180,
+        childAspectRatio: 16 / 10,
+        mainAxisSpacing: 10,
+        crossAxisSpacing: 10,
+      ),
       shrinkWrap: true,
       scrollDirection: Axis.vertical,
       children: <Widget>[
@@ -251,7 +255,8 @@ class _WallpaperGrid extends StatelessWidget {
                     fit: StackFit.expand,
                     children: [
                       YaruSelectableContainer(
-                          child: _WallpaperImage(path: picPathString),
+                          child:
+                              _WallpaperImage(path: picPathString, height: 90),
                           onTap: () => model.pictureUri = picPathString,
                           selected: model.pictureUri.contains(picPathString)),
                       if (customizableGrid)
