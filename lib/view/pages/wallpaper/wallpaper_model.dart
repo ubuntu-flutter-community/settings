@@ -20,7 +20,6 @@ class WallpaperModel extends SafeChangeNotifier {
   WallpaperMode wallpaperMode = WallpaperMode.custom;
   ImageOfTheDayProvider imageOfTheDayProvider = ImageOfTheDayProvider.bing;
 
-
   final String? _userWallpapersDir =
       Platform.environment['HOME']! + '/.local/share/backgrounds/';
 
@@ -141,11 +140,11 @@ class WallpaperModel extends SafeChangeNotifier {
     pictureUri = list.first;
   }
 
-void refreshUrlWallpaper(){
-  setUrlWallpaperProvider(imageOfTheDayProvider);
-}
+  void refreshUrlWallpaper() {
+    setUrlWallpaperProvider(imageOfTheDayProvider);
+  }
 
-Future<void> setUrlWallpaperProvider(
+  Future<void> setUrlWallpaperProvider(
       ImageOfTheDayProvider newImageOfTheDayProvider) async {
     //Set the new provider
     imageOfTheDayProvider = newImageOfTheDayProvider;
@@ -200,4 +199,7 @@ enum ColorShadingType { solid, vertical, horizontal }
 
 enum WallpaperMode { solid, custom, imageOfTheDay }
 
-enum ImageOfTheDayProvider { bing, nasa,}
+enum ImageOfTheDayProvider {
+  bing,
+  nasa,
+}
