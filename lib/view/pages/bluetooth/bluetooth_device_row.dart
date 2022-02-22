@@ -73,7 +73,7 @@ class _BluetoothDeviceDialog extends StatelessWidget {
   const _BluetoothDeviceDialog({Key? key, required this.removeDevice})
       : super(key: key);
 
-  final Function() removeDevice;
+  final AsyncCallback removeDevice;
 
   @override
   Widget build(BuildContext context) {
@@ -140,9 +140,12 @@ class _BluetoothDeviceDialog extends StatelessWidget {
             width: 300,
             child: TextButton(
                 onPressed: () async {
-                  await model.disconnect();
-                  await removeDevice();
-                  Navigator.of(context).pop();
+                  if (model.connected) {
+                    await model.disconnect().onError((error, stackTrace) =>
+                        model.errorMessage = error.toString());
+                  }
+                  await removeDevice().onError((error, stackTrace) =>
+                      model.errorMessage = error.toString());
                 },
                 child: Text(context.l10n.bluetoothRemoveDevice)),
           ),
