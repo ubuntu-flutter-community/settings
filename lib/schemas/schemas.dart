@@ -26,3 +26,4 @@ const schemaPrivacy = 'org.gnome.desktop.privacy';
 const schemaLocation = 'org.gnome.system.location';
 const schemaScreenSaver = 'org.gnome.desktop.screensaver';
 const schemaSession = 'org.gnome.desktop.session';
+const schemaDateTime = 'org.gnome.desktop.datetime';
