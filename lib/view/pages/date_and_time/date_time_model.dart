@@ -51,6 +51,7 @@ class DateTimeModel extends SafeChangeNotifier {
 
   String? get timezone => _dateTimeService.timezone;
   DateTime? get dateTime => _dateTimeService.dateTime;
+  Future<DateTime?> getDateTime() async => await _dateTimeService.getDateTime();
 
   bool? get automaticTimezone =>
       _dateTimeSettings?.getValue(_kAutomaticTimezone);

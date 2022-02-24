@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:settings/l10n/l10n.dart';
@@ -31,10 +33,28 @@ class DateTimePage extends StatefulWidget {
 }
 
 class _DateTimePageState extends State<DateTimePage> {
+  Timer? timer;
+  late Future<DateTime?> _dateTime;
   @override
   void initState() {
     super.initState();
-    context.read<DateTimeModel>().init();
+    final model = context.read<DateTimeModel>();
+    model.init();
+    timer = Timer.periodic(
+      const Duration(seconds: 1),
+      (timer) {
+        setState(() {
+          _dateTime = model.getDateTime();
+        });
+      },
+    );
+    _dateTime = model.getDateTime();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    timer!.cancel();
   }
 
   @override
@@ -44,8 +64,12 @@ class _DateTimePageState extends State<DateTimePage> {
       YaruSection(children: [
         YaruSingleInfoRow(
             infoLabel: 'Timezone', infoValue: model.timezone ?? ''),
-        YaruSingleInfoRow(
-            infoLabel: 'DateTime', infoValue: model.dateTime.toString()),
+        FutureBuilder<DateTime?>(
+          future: _dateTime,
+          builder: (context, snapshot) => YaruSingleInfoRow(
+              infoLabel: 'DateTime',
+              infoValue: snapshot.hasData ? snapshot.data.toString() : ''),
+        ),
         YaruSwitchRow(
           trailingWidget: const Text('Auotmatic Timezone'),
           value: model.automaticTimezone,

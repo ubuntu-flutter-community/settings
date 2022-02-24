@@ -73,6 +73,10 @@ class DateTimeService {
     _updateDateTime(await _object.getDateTime());
   }
 
+  Future<DateTime?> getDateTime() async {
+    return await _object.getDateTime();
+  }
+
   void _updateProperties(DBusPropertiesChangedSignal signal) {
     if (signal.hasChangedTimeZone()) {
       _object.getTimezone().then(_updateTimezone);
@@ -98,7 +102,7 @@ extension _DateTimeRemoteObject on DBusRemoteObject {
   Future<DateTime?> getDateTime() async {
     final timeUSec =
         await getProperty(_kDateTimeInterface, _kTimeUSecPropertyName);
-    return DateTime.fromMillisecondsSinceEpoch((timeUSec as DBusUint64).value);
+    return DateTime.fromMicrosecondsSinceEpoch((timeUSec as DBusUint64).value);
   }
 }
 
