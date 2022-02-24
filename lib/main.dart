@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:settings/app.dart';
 import 'package:settings/schemas/schemas.dart';
 import 'package:settings/services/bluetooth_service.dart';
+import 'package:settings/services/date_time_service.dart';
 import 'package:settings/services/hostname_service.dart';
 import 'package:settings/services/house_keeping_service.dart';
 import 'package:settings/services/input_source_service.dart';
@@ -68,7 +69,11 @@ void main() async {
         ),
         Provider<HouseKeepingService>(
           create: (_) => HouseKeepingService(),
-        )
+          dispose: (_, service) => service.dispose(),
+        ),
+        Provider<DateTimeService>(
+            create: (_) => DateTimeService(),
+            dispose: (_, service) => service.dispose())
       ],
       child: const UbuntuSettingsApp(),
     ),

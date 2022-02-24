@@ -6,7 +6,7 @@ import 'package:settings/view/pages/apps/apps_page.dart';
 import 'package:settings/view/pages/bluetooth/bluetooth_page.dart';
 import 'package:settings/view/pages/color/color_page.dart';
 import 'package:settings/view/pages/connections/connections_page.dart';
-import 'package:settings/view/pages/date_and_time/date_and_time_page.dart';
+import 'package:settings/view/pages/date_and_time/date_time_page.dart';
 import 'package:settings/view/pages/default_apps/default_apps_page.dart';
 import 'package:settings/view/pages/info/info_page.dart';
 import 'package:settings/view/pages/keyboard/keyboard_page.dart';
@@ -156,10 +156,10 @@ List<YaruPageItem> getPageItems(BuildContext context) => [
         searchMatches: DefaultAppsPage.searchMatches,
       ),
       const YaruPageItem(
-        titleBuilder: DateAndTimePage.createTitle,
+        titleBuilder: DateTimePage.createTitle,
         iconData: YaruIcons.clock,
-        builder: DateAndTimePage.create,
-        searchMatches: DateAndTimePage.searchMatches,
+        builder: DateTimePage.create,
+        searchMatches: DateTimePage.searchMatches,
       ),
       const YaruPageItem(
         titleBuilder: InfoPage.createTitle,
