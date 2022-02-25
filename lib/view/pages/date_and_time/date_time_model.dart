@@ -57,7 +57,7 @@ class DateTimeModel extends SafeChangeNotifier {
   }
 
   String get timezone {
-    if (dateTime == null && _dateTimeService.timezone == null) return '';
+    if (dateTime == null || _dateTimeService.timezone == null) return '';
     return dateTime!.timeZoneName +
         ': ' +
         _dateTimeService.timezone!.toString();
