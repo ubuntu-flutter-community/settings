@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:settings/constants.dart';
 import 'package:settings/l10n/l10n.dart';
 import 'package:settings/services/date_time_service.dart';
 import 'package:settings/services/settings_service.dart';
@@ -42,7 +43,19 @@ class _DateTimePageState extends State<DateTimePage> {
   Widget build(BuildContext context) {
     final model = context.watch<DateTimeModel>();
     return YaruPage(children: [
-      YaruSection(children: [
+      SizedBox(
+        width: kDefaultWidth,
+        child: Center(
+          child: Padding(
+            padding: const EdgeInsets.only(bottom: 30),
+            child: Text(
+              _buildClockText(model),
+              style: Theme.of(context).textTheme.headline1,
+            ),
+          ),
+        ),
+      ),
+      YaruSection(width: kDefaultWidth, children: [
         YaruSingleInfoRow(
             infoLabel: 'Timezone', infoValue: model.timezone ?? ''),
         YaruSingleInfoRow(
@@ -62,5 +75,15 @@ class _DateTimePageState extends State<DateTimePage> {
         )
       ]),
     ]);
+  }
+
+  String _buildClockText(DateTimeModel model) {
+    return model.dateTime != null
+        ? model.dateTime!.hour.toString().padLeft(2, '0') +
+            ':' +
+            model.dateTime!.minute.toString().padLeft(2, '0') +
+            ':' +
+            model.dateTime!.second.toString().padLeft(2, '0')
+        : '';
   }
 }
