@@ -43,24 +43,21 @@ class _DateTimePageState extends State<DateTimePage> {
   Widget build(BuildContext context) {
     final model = context.watch<DateTimeModel>();
     return YaruPage(children: [
-      SizedBox(
-        width: kDefaultWidth,
-        child: Center(
+      YaruSection(width: kDefaultWidth, children: [
+        Center(
           child: Padding(
-            padding: const EdgeInsets.only(bottom: 30),
+            padding: const EdgeInsets.only(bottom: 20, top: 20),
             child: Text(
-              _buildClockText(model),
+              model.clock,
               style: Theme.of(context).textTheme.headline1,
             ),
           ),
-        ),
-      ),
+        )
+      ]),
       YaruSection(width: kDefaultWidth, children: [
+        YaruSingleInfoRow(infoLabel: 'Timezone', infoValue: model.timezone),
         YaruSingleInfoRow(
-            infoLabel: 'Timezone', infoValue: model.timezone ?? ''),
-        YaruSingleInfoRow(
-            infoLabel: 'DateTime',
-            infoValue: model.dateTime == null ? '' : model.dateTime.toString()),
+            infoLabel: 'Date', infoValue: model.getLocalDateName(context)),
         YaruSwitchRow(
           trailingWidget: const Text('Auotmatic Timezone'),
           value: model.automaticTimezone,
@@ -75,15 +72,5 @@ class _DateTimePageState extends State<DateTimePage> {
         )
       ]),
     ]);
-  }
-
-  String _buildClockText(DateTimeModel model) {
-    return model.dateTime != null
-        ? model.dateTime!.hour.toString().padLeft(2, '0') +
-            ':' +
-            model.dateTime!.minute.toString().padLeft(2, '0') +
-            ':' +
-            model.dateTime!.second.toString().padLeft(2, '0')
-        : '';
   }
 }

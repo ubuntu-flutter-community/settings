@@ -1,9 +1,12 @@
 import 'dart:async';
 
+import 'package:flutter/material.dart';
 import 'package:safe_change_notifier/safe_change_notifier.dart';
+import 'package:settings/l10n/l10n.dart';
 import 'package:settings/schemas/schemas.dart';
 import 'package:settings/services/date_time_service.dart';
 import 'package:settings/services/settings_service.dart';
+import 'package:intl/intl.dart';
 
 const _kAutomaticTimezone = 'automatic-timezone';
 const _kClockFormat = 'clock-format';
@@ -53,7 +56,18 @@ class DateTimeModel extends SafeChangeNotifier {
     super.dispose();
   }
 
-  String? get timezone => _dateTimeService.timezone;
+  String get timezone {
+    if (dateTime == null && _dateTimeService.timezone == null) return '';
+    return dateTime!.timeZoneName +
+        ': ' +
+        _dateTimeService.timezone!.toString();
+  }
+
+  String getLocalDateName(BuildContext context) {
+    if (dateTime == null) return '';
+    return DateFormat.yMMMMEEEEd(context.l10n.localeName).format(dateTime!);
+  }
+
   DateTime? get dateTime => _dateTime;
   Future<DateTime?> getDateTime() async => await _dateTimeService.getDateTime();
 
@@ -77,4 +91,12 @@ class DateTimeModel extends SafeChangeNotifier {
     if (value == null) return;
     _clockFormat = value ? '24h' : '12h';
   }
+
+  String get clock => dateTime != null
+      ? dateTime!.hour.toString().padLeft(2, '0') +
+          ':' +
+          dateTime!.minute.toString().padLeft(2, '0') +
+          ':' +
+          dateTime!.second.toString().padLeft(2, '0')
+      : '';
 }
