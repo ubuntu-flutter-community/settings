@@ -27,17 +27,17 @@ class DateTimeModel extends SafeChangeNotifier {
   }
 
   Future<void> init() {
-    return _dateTimeService.init().then((_) {
+    return _dateTimeService.init().then((_) async {
       _timezoneSub = _dateTimeService.timezoneChanged.listen((_) {
         notifyListeners();
       });
-      _dateTime = _dateTimeService.dateTime;
+      _dateTime = await _dateTimeService.getDateTime();
       notifyListeners();
 
       _fetchDateTimeTimer = Timer.periodic(
         const Duration(seconds: 1),
         (timer) async {
-          _dateTime = await getDateTime();
+          _dateTime = await _dateTimeService.getDateTime();
           notifyListeners();
         },
       );

@@ -29,8 +29,18 @@ class DateTimeService {
 
   Future<void> init() async {
     await _initTimezone();
-    dateTime = await getDateTime();
+    _dateTime = await getDateTime();
     _propertyListener ??= _object.propertiesChanged.listen(_updateProperties);
+  }
+
+  void _updateProperties(DBusPropertiesChangedSignal signal) {
+    if (signal.hasChangedTimeZone()) {
+      _object.getTimezone().then(_updateTimezone);
+      _object.getDateTime().then(_updateDateTime);
+    }
+    if (signal.hasChangedDateTime()) {
+      _object.getDateTime().then(_updateDateTime);
+    }
   }
 
   Future<void> dispose() async {
@@ -58,15 +68,16 @@ class DateTimeService {
   }
 
   // Date and time
-  DateTime? dateTime;
-  Future<DateTime?> getDateTime() async {
-    return await _object.getDateTime();
+  DateTime? _dateTime;
+  DateTime? get dateTime => _dateTime;
+
+  void _updateDateTime(DateTime? value) {
+    if (_dateTime?.second == value?.second) return;
+    getDateTime().then((value) => _dateTime = value);
   }
 
-  void _updateProperties(DBusPropertiesChangedSignal signal) {
-    if (signal.hasChangedTimeZone()) {
-      _object.getTimezone().then(_updateTimezone);
-    }
+  Future<DateTime?> getDateTime() async {
+    return await _object.getDateTime();
   }
 }
 
@@ -92,5 +103,9 @@ extension _DateTimeRemoteObject on DBusRemoteObject {
 extension _ChangedDateTime on DBusPropertiesChangedSignal {
   bool hasChangedTimeZone() {
     return changedProperties.containsKey(_kTimezonePropertyName);
+  }
+
+  bool hasChangedDateTime() {
+    return changedProperties.containsKey(_kTimeUSecPropertyName);
   }
 }
