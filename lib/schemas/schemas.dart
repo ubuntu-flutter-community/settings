@@ -27,3 +27,4 @@ const schemaLocation = 'org.gnome.system.location';
 const schemaScreenSaver = 'org.gnome.desktop.screensaver';
 const schemaSession = 'org.gnome.desktop.session';
 const schemaDateTime = 'org.gnome.desktop.datetime';
+const schemaCalendar = 'org.gnome.desktop.calendar';

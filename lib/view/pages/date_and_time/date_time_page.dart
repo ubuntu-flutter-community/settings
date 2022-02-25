@@ -43,10 +43,20 @@ class _DateTimePageState extends State<DateTimePage> {
   Widget build(BuildContext context) {
     final model = context.watch<DateTimeModel>();
     return YaruPage(children: [
+      YaruRow(
+          enabled: true,
+          width: kDefaultWidth,
+          trailingWidget: TextButton(
+              onPressed: () {}, child: Text(model.getLocalDateName(context))),
+          actionWidget: TextButton(
+            onPressed: () {},
+            child: Text(model.timezone),
+          )),
       YaruSection(width: kDefaultWidth, children: [
-        Center(
-          child: Padding(
-            padding: const EdgeInsets.only(bottom: 20, top: 20),
+        Padding(
+          padding: const EdgeInsets.only(bottom: 20, top: 20),
+          child: TextButton(
+            onPressed: () {},
             child: Text(
               model.clock,
               style: Theme.of(context).textTheme.headline1,
@@ -55,9 +65,6 @@ class _DateTimePageState extends State<DateTimePage> {
         )
       ]),
       YaruSection(width: kDefaultWidth, children: [
-        YaruSingleInfoRow(infoLabel: 'Timezone', infoValue: model.timezone),
-        YaruSingleInfoRow(
-            infoLabel: 'Date', infoValue: model.getLocalDateName(context)),
         YaruSwitchRow(
           trailingWidget: const Text('Auotmatic Timezone'),
           value: model.automaticTimezone,
@@ -81,6 +88,12 @@ class _DateTimePageState extends State<DateTimePage> {
           value: model.clockShowWeekDay,
           onChanged: (v) => model.clockShowWeekDay = v,
           enabled: model.clockShowWeekDay != null,
+        ),
+        YaruSwitchRow(
+          trailingWidget: const Text('Show week number in calendar'),
+          value: model.calendarShowWeekNumber,
+          onChanged: (v) => model.calendarShowWeekNumber = v,
+          enabled: model.calendarShowWeekNumber != null,
         ),
       ]),
     ]);

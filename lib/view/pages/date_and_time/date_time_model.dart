@@ -12,10 +12,12 @@ const _kAutomaticTimezone = 'automatic-timezone';
 const _kClockFormat = 'clock-format';
 const _kClockShowSeconds = 'clock-show-seconds';
 const _kClockShowWeekDay = 'clock-show-weekday';
+const _kCalendarShowWeekNumber = 'show-weekdate';
 
 class DateTimeModel extends SafeChangeNotifier {
   final Settings? _dateTimeSettings;
   final Settings? _interfaceSettings;
+  final Settings? _calendarSettings;
   final DateTimeService _dateTimeService;
   StreamSubscription<String?>? _timezoneSub;
   Timer? _fetchDateTimeTimer;
@@ -26,9 +28,11 @@ class DateTimeModel extends SafeChangeNotifier {
       required SettingsService settingsService})
       : _dateTimeService = dateTimeService,
         _dateTimeSettings = settingsService.lookup(schemaDateTime),
-        _interfaceSettings = settingsService.lookup(schemaInterface) {
+        _interfaceSettings = settingsService.lookup(schemaInterface),
+        _calendarSettings = settingsService.lookup(schemaCalendar) {
     _dateTimeSettings?.addListener(notifyListeners);
     _interfaceSettings?.addListener(notifyListeners);
+    _calendarSettings?.addListener(notifyListeners);
   }
 
   Future<void> init() {
@@ -55,6 +59,7 @@ class DateTimeModel extends SafeChangeNotifier {
     await _timezoneSub?.cancel();
     _dateTimeSettings?.removeListener(notifyListeners);
     _interfaceSettings?.removeListener(notifyListeners);
+    _calendarSettings?.removeListener(notifyListeners);
     super.dispose();
   }
 
@@ -115,6 +120,14 @@ class DateTimeModel extends SafeChangeNotifier {
   set clockShowWeekDay(bool? value) {
     if (value == null) return;
     _interfaceSettings?.setValue(_kClockShowWeekDay, value);
+    notifyListeners();
+  }
+
+  bool? get calendarShowWeekNumber =>
+      _calendarSettings?.getValue(_kCalendarShowWeekNumber);
+  set calendarShowWeekNumber(bool? value) {
+    if (value == null) return;
+    _calendarSettings?.setValue(_kCalendarShowWeekNumber, value);
     notifyListeners();
   }
 }
