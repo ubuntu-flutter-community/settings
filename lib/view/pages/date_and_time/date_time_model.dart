@@ -46,7 +46,7 @@ class DateTimeModel extends SafeChangeNotifier {
 
   @override
   Future<void> dispose() async {
-    _fetchDateTimeTimer!.cancel();
+    _fetchDateTimeTimer?.cancel();
     await _timezoneSub?.cancel();
     _dateTimeSettings?.dispose();
     _interfaceSettings?.dispose();
@@ -72,7 +72,7 @@ class DateTimeModel extends SafeChangeNotifier {
     notifyListeners();
   }
 
-  bool? get clockIsTwentyFourFormat => _clockFormat == '24h';
+  bool? get clockIsTwentyFourFormat => _clockFormat?.contains('24h');
   set clockIsTwentyFourFormat(bool? value) {
     if (value == null) return;
     _clockFormat = value ? '24h' : '12h';
