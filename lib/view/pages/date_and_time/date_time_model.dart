@@ -10,6 +10,8 @@ import 'package:intl/intl.dart';
 
 const _kAutomaticTimezone = 'automatic-timezone';
 const _kClockFormat = 'clock-format';
+const _kClockShowSeconds = 'clock-show-seconds';
+const _kClockShowWeekDay = 'clock-show-weekday';
 
 class DateTimeModel extends SafeChangeNotifier {
   final Settings? _dateTimeSettings;
@@ -51,8 +53,8 @@ class DateTimeModel extends SafeChangeNotifier {
   Future<void> dispose() async {
     _fetchDateTimeTimer?.cancel();
     await _timezoneSub?.cancel();
-    _dateTimeSettings?.dispose();
-    _interfaceSettings?.dispose();
+    _dateTimeSettings?.removeListener(notifyListeners);
+    _interfaceSettings?.removeListener(notifyListeners);
     super.dispose();
   }
 
@@ -99,4 +101,20 @@ class DateTimeModel extends SafeChangeNotifier {
           ':' +
           dateTime!.second.toString().padLeft(2, '0')
       : '';
+
+  bool? get clockShowSeconds =>
+      _interfaceSettings?.getValue(_kClockShowSeconds);
+  set clockShowSeconds(bool? value) {
+    if (value == null) return;
+    _interfaceSettings?.setValue(_kClockShowSeconds, value);
+    notifyListeners();
+  }
+
+  bool? get clockShowWeekDay =>
+      _interfaceSettings?.getValue(_kClockShowWeekDay);
+  set clockShowWeekDay(bool? value) {
+    if (value == null) return;
+    _interfaceSettings?.setValue(_kClockShowWeekDay, value);
+    notifyListeners();
+  }
 }

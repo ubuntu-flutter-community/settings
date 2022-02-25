@@ -69,7 +69,19 @@ class _DateTimePageState extends State<DateTimePage> {
           value: model.clockIsTwentyFourFormat,
           onChanged: (v) => model.clockIsTwentyFourFormat = v,
           enabled: model.clockIsTwentyFourFormat != null,
-        )
+        ),
+        YaruSwitchRow(
+          trailingWidget: const Text('Show seconds in panel'),
+          value: model.clockShowSeconds,
+          onChanged: (v) => model.clockShowSeconds = v,
+          enabled: model.clockShowSeconds != null,
+        ),
+        YaruSwitchRow(
+          trailingWidget: const Text('Show weekday in panel'),
+          value: model.clockShowWeekDay,
+          onChanged: (v) => model.clockShowWeekDay = v,
+          enabled: model.clockShowWeekDay != null,
+        ),
       ]),
     ]);
   }

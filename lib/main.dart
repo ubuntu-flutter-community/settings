@@ -72,8 +72,9 @@ void main() async {
           dispose: (_, service) => service.dispose(),
         ),
         Provider<DateTimeService>(
-            create: (_) => DateTimeService(),
-            dispose: (_, service) => service.dispose())
+          create: (_) => DateTimeService(),
+          dispose: (_, service) => service.dispose(),
+        ),
       ],
       child: const UbuntuSettingsApp(),
     ),
