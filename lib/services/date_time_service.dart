@@ -29,7 +29,7 @@ class DateTimeService {
 
   Future<void> init() async {
     await _initTimezone();
-    await _initDateTime();
+    dateTime = await getDateTime();
     _propertyListener ??= _object.propertiesChanged.listen(_updateProperties);
   }
 
@@ -39,6 +39,7 @@ class DateTimeService {
     _propertyListener = null;
   }
 
+  // Timezone
   String? _timezone;
   String? get timezone => _timezone;
   Stream<String?> get timezoneChanged => _timezoneController.stream;
@@ -56,23 +57,8 @@ class DateTimeService {
     _updateTimezone(await _object.getTimezone());
   }
 
-  DateTime? _dateTime;
-  DateTime? get dateTime => _dateTime;
-  Stream<DateTime?> get dateTimeChanged => _dateTimeController.stream;
-  final _dateTimeController = StreamController<DateTime?>.broadcast();
-
-  void _updateDateTime(DateTime? value) {
-    if (_dateTime?.second == value?.second) return;
-    _dateTime = value;
-    if (!_dateTimeController.isClosed) {
-      _dateTimeController.add(_dateTime);
-    }
-  }
-
-  Future<void> _initDateTime() async {
-    _updateDateTime(await _object.getDateTime());
-  }
-
+  // Date and time
+  DateTime? dateTime;
   Future<DateTime?> getDateTime() async {
     return await _object.getDateTime();
   }
@@ -80,9 +66,6 @@ class DateTimeService {
   void _updateProperties(DBusPropertiesChangedSignal signal) {
     if (signal.hasChangedTimeZone()) {
       _object.getTimezone().then(_updateTimezone);
-    }
-    if (signal.hasChangedDateTime()) {
-      _object.getDateTime().then(_updateDateTime);
     }
   }
 }
@@ -109,9 +92,5 @@ extension _DateTimeRemoteObject on DBusRemoteObject {
 extension _ChangedDateTime on DBusPropertiesChangedSignal {
   bool hasChangedTimeZone() {
     return changedProperties.containsKey(_kTimezonePropertyName);
-  }
-
-  bool hasChangedDateTime() {
-    return changedProperties.containsKey(_kTimeUSecPropertyName);
   }
 }

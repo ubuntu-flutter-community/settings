@@ -5,9 +5,6 @@ import 'package:settings/schemas/schemas.dart';
 import 'package:settings/services/date_time_service.dart';
 import 'package:settings/services/settings_service.dart';
 
-// org.gnome.desktop.datetime automatic-timezone false
-// org.gnome.desktop.interface clock-format '24h'
-// org.gnome.desktop.interface clock-show-weekday true
 const _kAutomaticTimezone = 'automatic-timezone';
 const _kClockFormat = 'clock-format';
 
@@ -16,7 +13,8 @@ class DateTimeModel extends SafeChangeNotifier {
   final Settings? _interfaceSettings;
   final DateTimeService _dateTimeService;
   StreamSubscription<String?>? _timezoneSub;
-  StreamSubscription<DateTime?>? _dateTimeSub;
+  Timer? _fetchDateTimeTimer;
+  DateTime? _dateTime;
 
   DateTimeModel(
       {required DateTimeService dateTimeService,
@@ -33,24 +31,30 @@ class DateTimeModel extends SafeChangeNotifier {
       _timezoneSub = _dateTimeService.timezoneChanged.listen((_) {
         notifyListeners();
       });
-      _dateTimeSub = _dateTimeService.dateTimeChanged.listen((_) {
-        notifyListeners();
-      });
+      _dateTime = _dateTimeService.dateTime;
       notifyListeners();
+
+      _fetchDateTimeTimer = Timer.periodic(
+        const Duration(seconds: 1),
+        (timer) async {
+          _dateTime = await getDateTime();
+          notifyListeners();
+        },
+      );
     });
   }
 
   @override
   Future<void> dispose() async {
+    _fetchDateTimeTimer!.cancel();
     await _timezoneSub?.cancel();
-    await _dateTimeSub?.cancel();
     _dateTimeSettings?.dispose();
     _interfaceSettings?.dispose();
     super.dispose();
   }
 
   String? get timezone => _dateTimeService.timezone;
-  DateTime? get dateTime => _dateTimeService.dateTime;
+  DateTime? get dateTime => _dateTime;
   Future<DateTime?> getDateTime() async => await _dateTimeService.getDateTime();
 
   bool? get automaticTimezone =>
