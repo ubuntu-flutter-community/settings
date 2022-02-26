@@ -58,7 +58,7 @@ class _DateTimePageState extends State<DateTimePage> {
                                 initialDate: model.dateTime ?? DateTime.now(),
                                 firstDate: DateTime(2000),
                                 lastDate: DateTime(2050))
-                            .then((value) => '')
+                            .then((value) => model.setDate(value))
                         : null,
                 child: Text(model.getLocalDateName(context))),
             TextButton(
@@ -83,17 +83,8 @@ class _DateTimePageState extends State<DateTimePage> {
             onPressed:
                 model.automaticDateTime != null && !model.automaticDateTime!
                     ? () => showTimePicker(
-                                context: context, initialTime: TimeOfDay.now())
-                            .then((value) {
-                          DateTime dateTime = model.dateTime ?? DateTime.now();
-                          DateTime ya = DateTime.utc(
-                            dateTime.year,
-                            dateTime.month,
-                            TimeOfDay.hoursPerPeriod,
-                            TimeOfDay.minutesPerHour,
-                          );
-                          return model.dateTime = ya;
-                        })
+                            context: context, initialTime: TimeOfDay.now())
+                        .then((value) => model.setTime(value))
                     : null,
             child: Text(
               model.clock,

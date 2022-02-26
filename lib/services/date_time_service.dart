@@ -80,7 +80,7 @@ class DateTimeService {
   DateTime? _dateTime;
   DateTime? get dateTime => _dateTime;
   set dateTime(DateTime? dateTime) {
-    if (dateTime == null || dateTime == _dateTime) return;
+    if (dateTime == null) return;
     _object.setTime(dateTime.microsecondsSinceEpoch);
   }
 

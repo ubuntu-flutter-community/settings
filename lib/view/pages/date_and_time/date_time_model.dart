@@ -92,6 +92,39 @@ class DateTimeModel extends SafeChangeNotifier {
     notifyListeners();
   }
 
+  void setTime(TimeOfDay? value) {
+    if (value == null) return;
+    final dateTimeFromService = _dateTimeService.dateTime;
+    if (dateTimeFromService == null) return;
+    final year = dateTimeFromService.year;
+    final month = dateTimeFromService.month;
+    final day = dateTimeFromService.day;
+    final second = dateTimeFromService.second;
+    final millisecond = dateTimeFromService.millisecond;
+    final microsecond = dateTimeFromService.microsecond;
+    final newDateTime = DateTime(year, month, day, value.hour, value.minute,
+            second, millisecond, microsecond)
+        .toUtc();
+    dateTime = newDateTime;
+    notifyListeners();
+  }
+
+  void setDate(DateTime? value) {
+    if (value == null) return;
+    final dateTimeFromService = _dateTimeService.dateTime;
+    if (dateTimeFromService == null) return;
+    final hour = dateTimeFromService.hour;
+    final minute = dateTimeFromService.minute;
+    final second = dateTimeFromService.second;
+    final millisecond = dateTimeFromService.millisecond;
+    final microsecond = dateTimeFromService.microsecond;
+    final newDateTime = DateTime(value.year, value.month, value.day, hour,
+            minute, second, millisecond, microsecond)
+        .toUtc();
+    dateTime = newDateTime;
+    notifyListeners();
+  }
+
   bool? get automaticDateTime => _dateTimeService.ntp;
   set automaticDateTime(bool? value) {
     if (value == null) return;
