@@ -44,32 +44,38 @@ class _DateTimePageState extends State<DateTimePage> {
   Widget build(BuildContext context) {
     final model = context.watch<DateTimeModel>();
     return YaruPage(children: [
-      YaruRow(
-          enabled: true,
-          width: kDefaultWidth,
-          trailingWidget: TextButton(
+      SizedBox(
+        width: kDefaultWidth,
+        child: Padding(
+          padding: const EdgeInsets.only(bottom: 4),
+          child:
+              Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+            TextButton(
+                onPressed:
+                    model.automaticDateTime != null && !model.automaticDateTime!
+                        ? () => showDatePicker(
+                                context: context,
+                                initialDate: model.dateTime ?? DateTime.now(),
+                                firstDate: DateTime(2000),
+                                lastDate: DateTime(2050))
+                            .then((value) => '')
+                        : null,
+                child: Text(model.getLocalDateName(context))),
+            TextButton(
               onPressed:
-                  model.automaticDateTime != null && !model.automaticDateTime!
-                      ? () => showDatePicker(
-                              context: context,
-                              initialDate: model.dateTime ?? DateTime.now(),
-                              firstDate: DateTime(2000),
-                              lastDate: DateTime(2050))
-                          .then((value) => '')
+                  model.automaticTimezone != null && !model.automaticTimezone!
+                      ? () => showDialog(
+                          context: context,
+                          builder: (context) => ChangeNotifierProvider.value(
+                                value: model,
+                                child: const _TimezoneSelectDialog(),
+                              ))
                       : null,
-              child: Text(model.getLocalDateName(context))),
-          actionWidget: TextButton(
-            onPressed:
-                model.automaticTimezone != null && !model.automaticTimezone!
-                    ? () => showDialog(
-                        context: context,
-                        builder: (context) => ChangeNotifierProvider.value(
-                              value: model,
-                              child: const _TimezoneSelectDialog(),
-                            ))
-                    : null,
-            child: Text(model.timezone),
-          )),
+              child: Text(model.timezone),
+            ),
+          ]),
+        ),
+      ),
       YaruSection(width: kDefaultWidth, children: [
         Padding(
           padding: const EdgeInsets.only(bottom: 20, top: 20),
