@@ -95,37 +95,38 @@ class _DateTimePageState extends State<DateTimePage> {
       ]),
       YaruSection(width: kDefaultWidth, children: [
         YaruSwitchRow(
-          trailingWidget: const Text('Auto DateTime'),
+          trailingWidget: Text(context.l10n.dateAndTimePageAutoDateTime),
           value: model.automaticDateTime,
           onChanged: (v) => model.automaticDateTime = v,
           enabled: model.automaticDateTime != null,
         ),
         YaruSwitchRow(
-          trailingWidget: const Text('Auotmatic Timezone'),
+          trailingWidget: Text(context.l10n.dateAndTimePageAutoTimezone),
           value: model.automaticTimezone,
           onChanged: (v) => model.automaticTimezone = v,
           enabled: model.automaticTimezone != null,
         ),
         YaruSwitchRow(
-          trailingWidget: const Text('24h format'),
+          trailingWidget: Text(context.l10n.dateAndTimePageTwentyFour),
           value: model.clockIsTwentyFourFormat,
           onChanged: (v) => model.clockIsTwentyFourFormat = v,
           enabled: model.clockIsTwentyFourFormat != null,
         ),
         YaruSwitchRow(
-          trailingWidget: const Text('Show seconds in panel'),
+          trailingWidget: Text(context.l10n.dateAndTimePageSecondsInPanel),
           value: model.clockShowSeconds,
           onChanged: (v) => model.clockShowSeconds = v,
           enabled: model.clockShowSeconds != null,
         ),
         YaruSwitchRow(
-          trailingWidget: const Text('Show weekday in panel'),
+          trailingWidget: Text(context.l10n.dateAndTimePageWeekdayInPanel),
           value: model.clockShowWeekDay,
           onChanged: (v) => model.clockShowWeekDay = v,
           enabled: model.clockShowWeekDay != null,
         ),
         YaruSwitchRow(
-          trailingWidget: const Text('Show week number in calendar'),
+          trailingWidget:
+              Text(context.l10n.dateAndTimePageWeekNumberInCalendar),
           value: model.calendarShowWeekNumber,
           onChanged: (v) => model.calendarShowWeekNumber = v,
           enabled: model.calendarShowWeekNumber != null,

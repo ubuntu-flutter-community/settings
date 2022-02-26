@@ -120,5 +120,11 @@
   "usersPageTitle": "Users",
   "defaultAppsPageTitle": "Default Applications",
   "dateAndTimePageTitle": "Date and time",
+  "dateAndTimePageAutoDateTime": "Automatic date and time",
+  "dateAndTimePageAutoTimezone": "Automatic timezone",
+  "dateAndTimePageTwentyFour": "24h format",
+  "dateAndTimePageSecondsInPanel": "Show seconds in panel",
+  "dateAndTimePageWeekdayInPanel": "Show weekday in panel",
+  "dateAndTimePageWeekNumberInCalendar": "Show week number in calendar",
   "infoPageTitle": "Info"
 }
