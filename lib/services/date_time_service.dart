@@ -130,6 +130,8 @@ extension _DateTimeRemoteObject on DBusRemoteObject {
   }
 
   Future<void> setTime(int time) async {
+    bool? ntp = await getNtp();
+    if (ntp == null || ntp == true) return;
     final args = [
       DBusInt64(time),
       const DBusBoolean(false),
