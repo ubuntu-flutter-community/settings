@@ -20,6 +20,7 @@ class DateTimeModel extends SafeChangeNotifier {
   final Settings? _calendarSettings;
   final DateTimeService _dateTimeService;
   StreamSubscription<String?>? _timezoneSub;
+  StreamSubscription<bool?>? _ntpSyncSub;
   Timer? _fetchDateTimeTimer;
   DateTime? _dateTime;
 
@@ -40,6 +41,9 @@ class DateTimeModel extends SafeChangeNotifier {
       _timezoneSub = _dateTimeService.timezoneChanged.listen((_) {
         notifyListeners();
       });
+      _ntpSyncSub = _dateTimeService.ntpChanged.listen((_) {
+        notifyListeners();
+      });
       _dateTime = await _dateTimeService.getDateTime();
       notifyListeners();
 
@@ -57,6 +61,7 @@ class DateTimeModel extends SafeChangeNotifier {
   Future<void> dispose() async {
     _fetchDateTimeTimer?.cancel();
     await _timezoneSub?.cancel();
+    await _ntpSyncSub?.cancel();
     _dateTimeSettings?.removeListener(notifyListeners);
     _interfaceSettings?.removeListener(notifyListeners);
     _calendarSettings?.removeListener(notifyListeners);
@@ -70,13 +75,29 @@ class DateTimeModel extends SafeChangeNotifier {
         _dateTimeService.timezone!.toString();
   }
 
+  set timezone(String value) {
+    _dateTimeService.timezone = value;
+    notifyListeners();
+  }
+
   String getLocalDateName(BuildContext context) {
     if (dateTime == null) return '';
     return DateFormat.yMMMMEEEEd(context.l10n.localeName).format(dateTime!);
   }
 
   DateTime? get dateTime => _dateTime;
-  Future<DateTime?> getDateTime() async => await _dateTimeService.getDateTime();
+  set dateTime(DateTime? dateTime) {
+    if (dateTime == null) return;
+    _dateTimeService.dateTime = dateTime;
+    notifyListeners();
+  }
+
+  bool? get automaticDateTime => _dateTimeService.ntp;
+  set automaticDateTime(bool? value) {
+    if (value == null) return;
+    _dateTimeService.ntp = value;
+    notifyListeners();
+  }
 
   bool? get automaticTimezone =>
       _dateTimeSettings?.getValue(_kAutomaticTimezone);

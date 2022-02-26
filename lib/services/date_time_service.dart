@@ -6,12 +6,12 @@ const _kDateTimeInterface = 'org.freedesktop.timedate1';
 const _kDateTimePath = '/org/freedesktop/timedate1';
 // const _kListTimezoneMethodName = 'ListTimezones';
 // const _kSetLocalRtcMethodName = 'SetLocalRTC';
-// const _kSetNtpMethodName = 'SetNTP';
-// const _kSetTimeMethodName = 'SetTime';
+const _kSetNtpMethodName = 'SetNTP';
+const _kSetTimeMethodName = 'SetTime';
 const _kSetTimezoneMethodName = 'SetTimezone';
 // const _kCanNTPPropertyName = 'CanNTP';
 // const _kLocalRTCPropertyName = 'LocalRTC';
-// const _kNTPPropertyName = 'NTP';
+const _kNTPPropertyName = 'NTP';
 // const _kNTPSynchronizedPropertyName = 'NTPSynchronized';
 // const _kRTCTimeUSecPropertyName = 'RTCTimeUSec';
 const _kTimeUSecPropertyName = 'TimeUSec';
@@ -29,6 +29,7 @@ class DateTimeService {
 
   Future<void> init() async {
     await _initTimezone();
+    await _initNtp();
     _dateTime = await getDateTime();
     _propertyListener ??= _object.propertiesChanged.listen(_updateProperties);
   }
@@ -41,6 +42,9 @@ class DateTimeService {
     if (signal.hasChangedDateTime()) {
       _object.getDateTime().then(_updateDateTime);
     }
+    if (signal.hasChangedNtp()) {
+      _object.getNtp().then(_updateNtp);
+    }
   }
 
   Future<void> dispose() async {
@@ -52,6 +56,11 @@ class DateTimeService {
   // Timezone
   String? _timezone;
   String? get timezone => _timezone;
+  set timezone(String? value) {
+    if (value == null) return;
+    _object.setTimeZone(value);
+  }
+
   Stream<String?> get timezoneChanged => _timezoneController.stream;
   final _timezoneController = StreamController<String?>.broadcast();
 
@@ -70,6 +79,10 @@ class DateTimeService {
   // Date and time
   DateTime? _dateTime;
   DateTime? get dateTime => _dateTime;
+  set dateTime(DateTime? dateTime) {
+    if (dateTime == null || dateTime == _dateTime) return;
+    _object.setTime(dateTime.microsecondsSinceEpoch);
+  }
 
   void _updateDateTime(DateTime? value) {
     if (_dateTime?.second == value?.second) return;
@@ -78,6 +91,29 @@ class DateTimeService {
 
   Future<DateTime?> getDateTime() async {
     return await _object.getDateTime();
+  }
+
+  // NTP
+  bool? _ntp;
+  bool? get ntp => _ntp;
+  set ntp(bool? value) {
+    if (value == null) return;
+    _object.setNtp(value);
+  }
+
+  Stream<bool?> get ntpChanged => _ntpController.stream;
+  final _ntpController = StreamController<bool?>.broadcast();
+
+  void _updateNtp(bool? value) {
+    if (_ntp == value) return;
+    _ntp = value;
+    if (!_ntpController.isClosed) {
+      _ntpController.add(_ntp);
+    }
+  }
+
+  Future<void> _initNtp() async {
+    _updateNtp(await _object.getNtp());
   }
 }
 
@@ -89,14 +125,34 @@ extension _DateTimeRemoteObject on DBusRemoteObject {
   }
 
   Future<void> setTimeZone(String timezone) async {
-    return setProperty(
-        _kDateTimeInterface, _kSetTimezoneMethodName, DBusString(timezone));
+    final args = [DBusString(timezone), const DBusBoolean(false)];
+    callMethod(_kDateTimeInterface, _kSetTimezoneMethodName, args);
+  }
+
+  Future<void> setTime(int time) async {
+    final args = [
+      DBusInt64(time),
+      const DBusBoolean(false),
+      const DBusBoolean(false)
+    ];
+    callMethod(_kDateTimeInterface, _kSetTimeMethodName, args);
   }
 
   Future<DateTime?> getDateTime() async {
     final timeUSec =
         await getProperty(_kDateTimeInterface, _kTimeUSecPropertyName);
     return DateTime.fromMicrosecondsSinceEpoch((timeUSec as DBusUint64).value);
+  }
+
+  Future<bool?> getNtp() async {
+    final ntpSync = await getProperty(_kDateTimeInterface, _kNTPPropertyName);
+    return (ntpSync as DBusBoolean).value;
+  }
+
+  Future<void> setNtp(bool? value) async {
+    if (value == null) return;
+    final args = [DBusBoolean(value), const DBusBoolean(false)];
+    callMethod(_kDateTimeInterface, _kSetNtpMethodName, args);
   }
 }
 
@@ -107,5 +163,9 @@ extension _ChangedDateTime on DBusPropertiesChangedSignal {
 
   bool hasChangedDateTime() {
     return changedProperties.containsKey(_kTimeUSecPropertyName);
+  }
+
+  bool hasChangedNtp() {
+    return changedProperties.containsKey(_kNTPPropertyName);
   }
 }
