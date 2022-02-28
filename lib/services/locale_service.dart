@@ -1,8 +1,3 @@
-// org.freedesktop.locale1
-
-// Method: SetLocale (Array of [String] locale, Boolean interactive) ↦ ()
-// Property: Locale Array of [String]
-
 import 'dart:async';
 
 import 'package:dbus/dbus.dart';

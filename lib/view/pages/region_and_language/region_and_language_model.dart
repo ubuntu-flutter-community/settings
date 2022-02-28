@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:safe_change_notifier/safe_change_notifier.dart';
 import 'package:settings/services/locale_service.dart';
@@ -24,5 +25,9 @@ class RegionAndLanguageModel extends SafeChangeNotifier {
   void dispose() async {
     await _localeSub?.cancel();
     super.dispose();
+  }
+
+  Future<void> openGnomeLanguageSelector() async {
+    await Process.run('gnome-language-selector', []);
   }
 }
