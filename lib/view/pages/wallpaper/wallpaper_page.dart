@@ -129,9 +129,9 @@ class WallpaperPage extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Padding(
+              Padding(
                 padding: headlineInsets,
-                child: Text('Your wallpapers'),
+                child: Text(context.l10n.wallpaperPageYourWallpapersHeadline),
               ),
               FutureBuilder<List<String>?>(
                   future: model.customBackgrounds,
@@ -145,9 +145,10 @@ class WallpaperPage extends StatelessWidget {
                       );
                     }
                   }),
-              const Padding(
+              Padding(
                 padding: headlineInsets,
-                child: Text('Default wallpapers'),
+                child:
+                    Text(context.l10n.wallpaperPageDefaultWallpapersHeadline),
               ),
               FutureBuilder<List<String>?>(
                   future: model.preInstalledBackgrounds,
