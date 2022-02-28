@@ -1,6 +1,7 @@
 import 'package:flex_color_picker/flex_color_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:settings/l10n/l10n.dart';
 import 'package:settings/utils.dart';
 import 'package:settings/view/pages/wallpaper/wallpaper_model.dart';
 import 'package:yaru_widgets/yaru_widgets.dart';
@@ -34,17 +35,17 @@ class ColorShadingOptionRow extends StatelessWidget {
           DropdownButton<ColorShadingType>(
             onChanged: (value) => model.colorShadingType = value,
             value: value,
-            items: const [
+            items: [
               DropdownMenuItem(
-                child: Text('solid color'),
+                child: Text(context.l10n.wallpaperPageSolid),
                 value: ColorShadingType.solid,
               ),
               DropdownMenuItem(
-                child: Text('horizontal gradient'),
+                child: Text(context.l10n.wallpaperPageHorizontalGradient),
                 value: ColorShadingType.horizontal,
               ),
               DropdownMenuItem(
-                child: Text('vertical gradient'),
+                child: Text(context.l10n.wallpaperPageVerticalGradient),
                 value: ColorShadingType.vertical,
               ),
             ],
@@ -87,20 +88,18 @@ class ColorShadingOptionRow extends StatelessWidget {
       },
       width: 40,
       height: 40,
-      borderRadius: 4,
-      spacing: 5,
+      borderRadius: 8,
+      spacing: 10,
       runSpacing: 5,
       wheelDiameter: 155,
       heading: Text(
-        primary ? 'Select a primary color' : 'Select a secondary color',
-        style: Theme.of(context).textTheme.subtitle1,
-      ),
-      subheading: Text(
-        'Select color shade',
-        style: Theme.of(context).textTheme.subtitle1,
+        primary
+            ? context.l10n.wallpaperPagePickerTitlePrimary
+            : context.l10n.wallpaperPagePickerTitleSecondary,
+        style: Theme.of(context).textTheme.titleLarge,
       ),
       wheelSubheading: Text(
-        'Selected color and its shades',
+        context.l10n.wallpaperPagePickerWheelHeading,
         style: Theme.of(context).textTheme.subtitle1,
       ),
       showMaterialName: true,
@@ -116,8 +115,8 @@ class ColorShadingOptionRow extends StatelessWidget {
       selectedPickerTypeColor: Theme.of(context).colorScheme.primary,
       pickersEnabled: const <ColorPickerType, bool>{
         ColorPickerType.both: false,
-        ColorPickerType.primary: true,
-        ColorPickerType.accent: true,
+        ColorPickerType.primary: false,
+        ColorPickerType.accent: false,
         ColorPickerType.bw: false,
         ColorPickerType.custom: true,
         ColorPickerType.wheel: true,
@@ -125,7 +124,7 @@ class ColorShadingOptionRow extends StatelessWidget {
     ).showPickerDialog(
       context,
       constraints:
-          const BoxConstraints(minHeight: 480, minWidth: 300, maxWidth: 320),
+          const BoxConstraints(minHeight: 300, minWidth: 300, maxWidth: 320),
     );
   }
 }

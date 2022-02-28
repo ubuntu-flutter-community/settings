@@ -21,10 +21,12 @@ class AppearancePage extends StatelessWidget {
   static Widget createTitle(BuildContext context) =>
       Text(context.l10n.appearancePageTitle);
 
-  static bool searchMatches(String value, BuildContext context) => value
-          .isNotEmpty
-      ? context.l10n.appsPageTitle.toLowerCase().contains(value.toLowerCase())
-      : false;
+  static bool searchMatches(String value, BuildContext context) =>
+      value.isNotEmpty
+          ? context.l10n.appearancePageTitle
+              .toLowerCase()
+              .contains(value.toLowerCase())
+          : false;
 
   @override
   Widget build(BuildContext context) {

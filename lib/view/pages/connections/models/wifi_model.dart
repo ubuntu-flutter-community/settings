@@ -37,6 +37,14 @@ class WifiModel extends PropertyStreamNotifier {
     addPropertyListener('NetworkingEnabled', notifyListeners);
   }
 
+  String _errorMessage = '';
+  set errorMessage(String value) {
+    _errorMessage = value;
+    notifyListeners();
+  }
+
+  String get errorMessage => _errorMessage;
+
   void connectToAccesPoint(
     AccessPointModel accessPointModel,
     WifiDeviceModel wifiAdaptorModel,
@@ -71,10 +79,9 @@ class WifiModel extends PropertyStreamNotifier {
         accessPoint: accessPointModel._networkManagerAccessPoint,
       );
     } on DBusMethodResponseException catch (e) {
-      //TODO: reflect error on ui
+      errorMessage = e.toString();
     } on Exception catch (e) {
-      //TODO: reflect error on ui
-
+      errorMessage = e.toString();
     }
   }
 
@@ -83,6 +90,7 @@ class WifiModel extends PropertyStreamNotifier {
       await _networkManagerClient.setWirelessEnabled(value);
       return true;
     } on Exception catch (e) {
+      errorMessage = e.toString();
       return false;
     }
   }

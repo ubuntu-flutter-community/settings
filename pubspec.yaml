@@ -33,12 +33,9 @@ dependencies:
   provider: ^6.0.1
   rive: ^0.8.1
   safe_change_notifier: ^0.1.0
-  scrollable_positioned_list: ^0.2.0-nullsafety.0
   udisks: ^0.3.0
   upower: ^0.6.2
-  yaru:
-    git:
-      url: https://github.com/ubuntu/yaru.dart
+  yaru: ^0.2.2
   yaru_icons: ^0.1.2
   yaru_widgets:
     git:

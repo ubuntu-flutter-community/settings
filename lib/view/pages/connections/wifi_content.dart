@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:settings/constants.dart';
+import 'package:settings/l10n/l10n.dart';
 import 'package:yaru_icons/yaru_icons.dart';
 import 'package:yaru_widgets/yaru_widgets.dart';
 
@@ -18,25 +19,27 @@ class WifiDevicesContent extends StatelessWidget {
 
     return YaruPage(
       children: [
-        YaruRow(
+        YaruSwitchRow(
             width: kDefaultWidth,
-            enabled: true,
-            trailingWidget: const Text('Wi-Fi'),
-            actionWidget: Row(
+            enabled: wifiModel.isWifiDeviceAvailable,
+            trailingWidget: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
+                Text(context.l10n.wifiPageTitle),
                 Text(
-                  wifiModel.isWifiEnabled ? 'connected' : 'disconnected',
+                  wifiModel.isWifiEnabled
+                      ? context.l10n.connected
+                      : context.l10n.disonnected,
                   style: TextStyle(
                       color: Theme.of(context)
                           .colorScheme
                           .onSurface
                           .withOpacity(0.5)),
-                ),
-                Switch(
-                    onChanged: (newValue) => wifiModel.toggleWifi(newValue),
-                    value: wifiModel.isWifiEnabled),
+                )
               ],
-            )),
+            ),
+            onChanged: (newValue) => wifiModel.toggleWifi(newValue),
+            value: wifiModel.isWifiEnabled),
         if (wifiModel.isWifiEnabled)
           for (final wifiDevice in wifiModel.wifiDevices)
             AnimatedBuilder(
@@ -44,7 +47,7 @@ class WifiDevicesContent extends StatelessWidget {
                 builder: (_, __) {
                   return YaruSection(
                     width: kDefaultWidth,
-                    headline: 'Visible Networks',
+                    headline: context.l10n.connectionsPageHeadline,
                     children: [
                       for (final accessPoint in wifiDevice.accesPoints)
                         AccessPointTile(
@@ -56,6 +59,11 @@ class WifiDevicesContent extends StatelessWidget {
                               (wifiDevice, accessPoint) =>
                                   authenticate(context, accessPoint),
                             );
+                            if (wifiModel.errorMessage.isNotEmpty) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                      content: Text(wifiModel.errorMessage)));
+                            }
                           },
                         )
                     ],

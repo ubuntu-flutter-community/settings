@@ -44,14 +44,43 @@ class _BluetoothPageState extends State<BluetoothPage> {
     final model = context.watch<BluetoothModel>();
     return YaruPage(
       children: [
+        YaruSwitchRow(
+            width: kDefaultWidth,
+            trailingWidget: Text(model.powered
+                ? context.l10n.switchedOn
+                : context.l10n.switchedOff),
+            value: model.powered,
+            onChanged: (v) => model.setPowered(v)),
         YaruSection(
             width: kDefaultWidth,
-            headerWidget: const SizedBox(
-              height: 15,
-              width: 15,
-              child: CircularProgressIndicator(),
+            headline: context.l10n.devices,
+            headerWidget: Flexible(
+              child: TextButton(
+                  onPressed: model.powered
+                      ? () => model.discovering
+                          ? model.stopDiscovery()
+                          : model.startDiscovery()
+                      : null,
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      model.discovering
+                          ? const SizedBox(
+                              width: 10,
+                              height: 10,
+                              child: CircularProgressIndicator(
+                                strokeWidth: 2,
+                              ))
+                          : const SizedBox(),
+                      const SizedBox(
+                        width: 10,
+                      ),
+                      Text(model.discovering
+                          ? context.l10n.bluetoothStopDiscovery
+                          : context.l10n.bluetoothStartDiscovery),
+                    ],
+                  )),
             ),
-            headline: 'Bluetooth devices',
             children: [
               ListView.builder(
                 shrinkWrap: true,
@@ -59,7 +88,7 @@ class _BluetoothPageState extends State<BluetoothPage> {
                 itemBuilder: (context, index) => BluetoothDeviceRow.create(
                     context,
                     model.devices[index],
-                    () => model.removeDevice(model.devices[index])),
+                    () async => model.removeDevice(model.devices[index])),
               )
             ]),
       ],

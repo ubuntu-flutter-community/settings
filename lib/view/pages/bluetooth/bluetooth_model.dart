@@ -6,11 +6,53 @@ import 'package:safe_change_notifier/safe_change_notifier.dart';
 class BluetoothModel extends SafeChangeNotifier {
   final BlueZClient _client;
 
-  late StreamSubscription<BlueZDevice>? _devicesAdded;
-  late StreamSubscription<BlueZDevice>? _devicesRemoved;
-  late BlueZAdapter? firstAdapter;
+  StreamSubscription<BlueZDevice>? _devicesAdded;
+  StreamSubscription<BlueZDevice>? _devicesRemoved;
+  StreamSubscription<BlueZAdapter>? _adaptersRemoved;
+  StreamSubscription<BlueZAdapter>? _adaptersAdded;
 
   BluetoothModel(this._client);
+
+  bool get discovering {
+    for (var adapter in _client.adapters) {
+      if (adapter.discovering) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  Future<void> startDiscovery() async {
+    for (var adapter in _client.adapters) {
+      if (!adapter.discovering && adapter.powered) {
+        await adapter.startDiscovery();
+      }
+      notifyListeners();
+    }
+  }
+
+  Future<void> stopDiscovery() async {
+    for (var adapter in _client.adapters) {
+      if (adapter.discovering && adapter.powered) {
+        await adapter.stopDiscovery();
+      }
+      notifyListeners();
+    }
+  }
+
+  bool get powered {
+    for (var adapter in _client.adapters) {
+      return adapter.powered;
+    }
+    return false;
+  }
+
+  void setPowered(bool value) async {
+    for (var adapter in _client.adapters) {
+      await adapter.setPowered(value);
+    }
+    notifyListeners();
+  }
 
   void init() async {
     await _client.connect().then((value) {
@@ -18,17 +60,29 @@ class BluetoothModel extends SafeChangeNotifier {
         _client.close();
         return;
       }
-      firstAdapter = _client.adapters[0];
-      if (!firstAdapter!.discovering) {
-        firstAdapter?.startDiscovery();
-      }
+
       _devicesAdded = _client.deviceAdded.listen((event) {
         notifyListeners();
       });
       _devicesRemoved = _client.deviceRemoved.listen((event) {
         notifyListeners();
       });
+      _adaptersAdded = _client.adapterAdded.listen((event) {
+        notifyListeners();
+      });
+      _adaptersRemoved = _client.adapterRemoved.listen((event) {
+        notifyListeners();
+      });
+      for (var adapter in _client.adapters) {
+        if (!adapter.discovering && adapter.powered) {
+          adapter.startDiscovery();
+          notifyListeners();
+        }
+      }
       notifyListeners();
+    }).onError((error, stackTrace) {
+      _client.close();
+      return;
     });
   }
 
@@ -37,18 +91,25 @@ class BluetoothModel extends SafeChangeNotifier {
   }
 
   Future<void> removeDevice(BlueZDevice device) async {
-    await firstAdapter?.removeDevice(device);
+    for (var adapter in _client.adapters) {
+      await stopDiscovery();
+      await adapter.removeDevice(device);
+    }
 
     notifyListeners();
   }
 
   @override
   void dispose() {
-    if (firstAdapter!.discovering) {
-      firstAdapter?.stopDiscovery();
+    for (var adapter in _client.adapters) {
+      if (adapter.discovering && adapter.powered) {
+        adapter.stopDiscovery();
+      }
     }
     _devicesAdded?.cancel();
     _devicesRemoved?.cancel();
+    _adaptersAdded?.cancel();
+    _adaptersRemoved?.cancel();
     super.dispose();
   }
 }
