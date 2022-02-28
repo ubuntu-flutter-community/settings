@@ -1,11 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:settings/l10n/l10n.dart';
+import 'package:settings/services/locale_service.dart';
+import 'package:settings/view/pages/region_and_language/region_and_language_model.dart';
 import 'package:yaru_widgets/yaru_widgets.dart';
 
-class RegionAndLanguagePage extends StatelessWidget {
+class RegionAndLanguagePage extends StatefulWidget {
   const RegionAndLanguagePage({Key? key}) : super(key: key);
 
-  static Widget create(BuildContext context) => const RegionAndLanguagePage();
+  static Widget create(BuildContext context) => ChangeNotifierProvider(
+        create: (context) => RegionAndLanguageModel(
+            localeService: context.read<LocaleService>()),
+        child: const RegionAndLanguagePage(),
+      );
 
   static Widget createTitle(BuildContext context) =>
       Text(context.l10n.regionAndLanguagePageTitle);
@@ -18,11 +25,26 @@ class RegionAndLanguagePage extends StatelessWidget {
           : false;
 
   @override
+  State<RegionAndLanguagePage> createState() => _RegionAndLanguagePageState();
+}
+
+class _RegionAndLanguagePageState extends State<RegionAndLanguagePage> {
+  @override
+  void initState() {
+    super.initState();
+    context.read<RegionAndLanguageModel>().init();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return YaruPage(children: [
-      Center(
-        child: Text(context.l10n.regionAndLanguagePageTitle),
-      )
-    ]);
+    final model = context.watch<RegionAndLanguageModel>();
+    return YaruPage(
+        children: model.locale != null
+            ? model.locale!
+                .map((e) => ListTile(
+                      title: Text(e!),
+                    ))
+                .toList()
+            : []);
   }
 }
