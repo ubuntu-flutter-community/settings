@@ -89,6 +89,6 @@ sudo apt install libhandy-1-dev
 - [X] Accessability page
 - [ ] Users page
 - [ ] Preferred apps page
-- [ ] Date and time page
+- [X] Date and time page
 - [ ] Wacom page
 - [X] Info page

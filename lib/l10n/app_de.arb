@@ -120,5 +120,11 @@
   "usersPageTitle": "Benutzer",
   "defaultAppsPageTitle": "Vorgabeanwendungen",
   "dateAndTimePageTitle": "Datum und Uhrzeit",
+  "dateAndTimePageAutoDateTime": "Datum und Zeit automatisch setzen",
+  "dateAndTimePageAutoTimezone": "Zeitzone automatisch setzen ",
+  "dateAndTimePageTwentyFour": "24-Stunden Format",
+  "dateAndTimePageSecondsInPanel": "Zeige Sekunden in Leiste",
+  "dateAndTimePageWeekdayInPanel": "Zeige Wochentag in Leiste",
+  "dateAndTimePageWeekNumberInCalendar": "Zeige Kalenderwoche in Leiste",
   "infoPageTitle": "Info"
 }
