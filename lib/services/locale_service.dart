@@ -6,6 +6,7 @@ const _kLocaleInterfaceName = 'org.freedesktop.locale1';
 const _kLocaleInterfacePath = '/org/freedesktop/locale1';
 const _kLocalePropertyName = 'Locale';
 const _kSetLocaleMethodName = 'SetLocale';
+const _kLocaleLocation = '/usr/share/i18n/SUPPORTED';
 
 class LocaleService {
   LocaleService() : _object = _createObject();
