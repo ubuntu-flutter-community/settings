@@ -95,13 +95,11 @@ class PrintersPage extends StatelessWidget {
                     children: [
                       SizedBox(
                         width: 70,
-                        child: Expanded(
-                          child: Image.asset(
-                              i.isEven
-                                  ? 'assets/images/icons/printer.png'
-                                  : 'assets/images/icons/printer-network.png',
-                              fit: BoxFit.fill),
-                        ),
+                        child: Image.asset(
+                            i.isEven
+                                ? 'assets/images/icons/printer.png'
+                                : 'assets/images/icons/printer-network.png',
+                            fit: BoxFit.fill),
                       ),
                       const SizedBox(
                         width: 20,
