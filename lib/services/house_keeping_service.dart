@@ -1,11 +1,13 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:dbus/dbus.dart';
 
-const kHouseKeepingInterface = 'org.gnome.SettingsDaemon.Housekeeping';
-const kHouseKeepingPath = '/org/gnome/SettingsDaemon/Housekeeping';
-const kEmptyTrashMethodName = 'EmptyTrash';
-const kRemoveTempFiles = 'RemoveTempFiles';
+const _kHouseKeepingInterface = 'org.gnome.SettingsDaemon.Housekeeping';
+const _kHouseKeepingPath = '/org/gnome/SettingsDaemon/Housekeeping';
+const _kEmptyTrashMethodName = 'EmptyTrash';
+const _kRemoveTempFiles = 'RemoveTempFiles';
+const _kRecentlyUsedFilePathSuffix = '/.local/share/recently-used.xbel';
 
 class HouseKeepingService {
   final DBusRemoteObject _object;
@@ -15,8 +17,8 @@ class HouseKeepingService {
   static DBusRemoteObject _createObject() {
     return DBusRemoteObject(
       DBusClient.session(),
-      name: kHouseKeepingInterface,
-      path: DBusObjectPath(kHouseKeepingPath),
+      name: _kHouseKeepingInterface,
+      path: DBusObjectPath(_kHouseKeepingPath),
     );
   }
 
@@ -27,14 +29,27 @@ class HouseKeepingService {
   void emptyTrash() => _object.emptyTrash();
 
   void removeTempFiles() => _object.removeTempFiles();
+
+  void clearRecentlyUsed() {
+    final String? path =
+        Platform.environment['HOME']! + _kRecentlyUsedFilePathSuffix;
+    if (Platform.environment['HOME'] == null || path == null) return;
+    var file = File(path);
+    var sink = file.openWrite();
+    const cleanContent = '''<?xml version="1.0" encoding="UTF-8"?>
+                            <xbel version="1.0" xmlns:bookmark="http://www.freedesktop.org/standards/desktop-bookmarks" xmlns:mime="http://www.freedesktop.org/standards/shared-mime-info">
+                            </xbel>''';
+    sink.write(cleanContent);
+    sink.close();
+  }
 }
 
 extension _HouseKeepingObject on DBusRemoteObject {
   Future<DBusMethodSuccessResponse> emptyTrash() {
-    return callMethod(kHouseKeepingInterface, kEmptyTrashMethodName, []);
+    return callMethod(_kHouseKeepingInterface, _kEmptyTrashMethodName, []);
   }
 
   Future<DBusMethodSuccessResponse> removeTempFiles() {
-    return callMethod(kHouseKeepingInterface, kRemoveTempFiles, []);
+    return callMethod(_kHouseKeepingInterface, _kRemoveTempFiles, []);
   }
 }

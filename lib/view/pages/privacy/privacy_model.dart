@@ -71,4 +71,6 @@ class PrivacyModel extends SafeChangeNotifier {
   void emptyTrash() => _houseKeepingService.emptyTrash();
 
   void removeTempFiles() => _houseKeepingService.removeTempFiles();
+
+  void clearRecentlyUsed() => _houseKeepingService.clearRecentlyUsed();
 }
