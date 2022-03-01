@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:settings/constants.dart';
@@ -46,10 +48,7 @@ class _RegionAndLanguagePageState extends State<RegionAndLanguagePage> {
           Padding(
             padding: const EdgeInsets.only(top: 8, bottom: 8),
             child: YaruSingleInfoRow(
-                infoLabel: 'Current language',
-                infoValue: model.locale != null && model.locale!.first != null
-                    ? model.locale!.first!
-                    : ''),
+                infoLabel: 'Current language', infoValue: Platform.localeName),
           ),
           YaruRow(
               trailingWidget: const Text('Select a language'),
@@ -85,11 +84,21 @@ class _LocaleSelectDialog extends StatelessWidget {
     final title = model.locale != null && model.locale!.first != null
         ? model.locale!.first!
         : '';
+
     return SimpleDialog(
       titlePadding: EdgeInsets.zero,
       contentPadding: EdgeInsets.zero,
       title: YaruDialogTitle(title: title),
       children: [
+        ...model.installedLocales
+            .map(
+              (e) => ListTile(
+                onTap: (() =>
+                    model.locale = ['LANG=$e'.replaceAll('utf8', 'UTF-8')]),
+                title: Text(e),
+              ),
+            )
+            .toList(),
         Padding(
           padding: const EdgeInsets.all(8.0),
           child: SizedBox(

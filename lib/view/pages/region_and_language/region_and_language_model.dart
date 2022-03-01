@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:safe_change_notifier/safe_change_notifier.dart';
@@ -6,17 +7,22 @@ import 'package:settings/services/locale_service.dart';
 
 class RegionAndLanguageModel extends SafeChangeNotifier {
   final LocaleService _localeService;
+  List<String?>? get locales => _localeService.locales;
+  List<String> installedLocales = [];
 
   RegionAndLanguageModel({required LocaleService localeService})
       : _localeService = localeService;
 
   StreamSubscription? _localeSub;
 
-  Future<void> init() => _localeService.init().then((_) async {
-        _localeSub =
-            _localeService.localeChanged.listen((_) => notifyListeners());
-        notifyListeners();
-      });
+  Future<void> init() {
+    _initInstalledLocales();
+    return _localeService.init().then((_) async {
+      _localeSub =
+          _localeService.localeChanged.listen((_) => notifyListeners());
+      notifyListeners();
+    });
+  }
 
   List<String?>? get locale => _localeService.locale;
   set locale(List<String?>? locale) => _localeService.locale = locale;
@@ -27,7 +33,12 @@ class RegionAndLanguageModel extends SafeChangeNotifier {
     super.dispose();
   }
 
-  Future<void> openGnomeLanguageSelector() async {
-    await Process.run('gnome-language-selector', []);
+  void openGnomeLanguageSelector() {
+    Process.run('gnome-language-selector', []);
+  }
+
+  void _initInstalledLocales() async {
+    await Process.run('locale', ['-a']).then((value) =>
+        installedLocales = const LineSplitter().convert(value.stdout));
   }
 }

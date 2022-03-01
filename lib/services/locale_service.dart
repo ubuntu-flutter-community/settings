@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:dbus/dbus.dart';
 
@@ -19,12 +20,16 @@ class LocaleService {
     _object.setLocale(locale);
   }
 
+  List<String?>? _locales;
+  List<String?>? get locales => _locales;
+
   static DBusRemoteObject _createObject() =>
       DBusRemoteObject(DBusClient.system(),
           name: _kLocaleInterfaceName,
           path: DBusObjectPath(_kLocaleInterfacePath));
 
   Future<void> init() async {
+    _locales = await _getLocales();
     await _initLocale();
     _propertyListener ??= _object.propertiesChanged.listen(_updateProperties);
   }
@@ -54,6 +59,10 @@ class LocaleService {
 
   Future<void> _initLocale() async {
     _updateLocale(await _object.getLocale());
+  }
+
+  Future<List<String?>?> _getLocales() async {
+    return await File(_kLocaleLocation).readAsLines();
   }
 }
 
