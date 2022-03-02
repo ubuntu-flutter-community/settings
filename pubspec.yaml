@@ -9,7 +9,7 @@ environment:
   sdk: ">=2.15.0 <3.0.0"
 
 dependencies:
-  dbus: ^0.6.3
+  dbus: ^0.6.8
   duration: ^3.0.6
   filesize: ^2.0.1
   filesystem_picker:

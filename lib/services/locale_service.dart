@@ -77,12 +77,16 @@ extension _LocaleRemoteObject on DBusRemoteObject {
   }
 
   Future<void> setLocale(List<String?>? value) async {
-    final args = [
-      DBusArray(DBusSignature('as')),
-      [for (var item in value ?? []) DBusString(item)]
-    ];
-    callMethod(
-        _kLocaleInterfaceName, _kSetLocaleMethodName, args as List<DBusValue>);
+    if (value == null) return;
+    final children = <DBusString>[];
+    for (var string in value) {
+      if (string != null) {
+        children.add(DBusString(string));
+      }
+    }
+    final array = DBusArray(DBusSignature('s'), children);
+    final args = [array, const DBusBoolean(false)];
+    callMethod(_kLocaleInterfaceName, _kSetLocaleMethodName, args);
   }
 }
 

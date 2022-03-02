@@ -24,8 +24,12 @@ class RegionAndLanguageModel extends SafeChangeNotifier {
     });
   }
 
-  List<String?>? get locale => _localeService.locale;
-  set locale(List<String?>? locale) => _localeService.locale = locale;
+  String get locale =>
+      _localeService.locale != null && _localeService.locale!.first != null
+          ? _localeService.locale!.first!
+          : '';
+  set locale(String locale) =>
+      _localeService.locale = ['LANG=$locale'.replaceAll('utf8', 'UTF-8')];
 
   @override
   void dispose() async {

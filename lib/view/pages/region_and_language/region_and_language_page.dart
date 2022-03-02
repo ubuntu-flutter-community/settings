@@ -73,29 +73,36 @@ class _RegionAndLanguagePageState extends State<RegionAndLanguagePage> {
   }
 }
 
-class _LocaleSelectDialog extends StatelessWidget {
+class _LocaleSelectDialog extends StatefulWidget {
   const _LocaleSelectDialog({
     Key? key,
   }) : super(key: key);
 
   @override
+  State<_LocaleSelectDialog> createState() => _LocaleSelectDialogState();
+}
+
+class _LocaleSelectDialogState extends State<_LocaleSelectDialog> {
+  late String localeToBeSet;
+  @override
+  void initState() {
+    localeToBeSet = context.read<RegionAndLanguageModel>().locale;
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final model = context.watch<RegionAndLanguageModel>();
-    final title = model.locale != null && model.locale!.first != null
-        ? model.locale!.first!
-        : '';
-
     return SimpleDialog(
       titlePadding: EdgeInsets.zero,
       contentPadding: EdgeInsets.zero,
-      title: YaruDialogTitle(title: title),
+      title: YaruDialogTitle(title: 'Locale: ' + model.locale),
       children: [
         ...model.installedLocales
             .map(
-              (e) => ListTile(
-                onTap: (() =>
-                    model.locale = ['LANG=$e'.replaceAll('utf8', 'UTF-8')]),
-                title: Text(e),
+              (localeString) => ListTile(
+                onTap: (() => localeToBeSet = localeString),
+                title: Text(localeString),
               ),
             )
             .toList(),
@@ -114,7 +121,11 @@ class _LocaleSelectDialog extends StatelessWidget {
               ),
               Expanded(
                 child: ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      if (model.locale != localeToBeSet) {
+                        model.locale = localeToBeSet;
+                      }
+                    },
                     child: Text(
                       context.l10n.confirm,
                     )),
