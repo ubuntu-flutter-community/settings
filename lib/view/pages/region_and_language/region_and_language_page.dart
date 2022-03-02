@@ -48,7 +48,7 @@ class _RegionAndLanguagePageState extends State<RegionAndLanguagePage> {
           Padding(
             padding: const EdgeInsets.only(top: 8, bottom: 8),
             child: YaruSingleInfoRow(
-                infoLabel: 'Current language', infoValue: Platform.localeName),
+                infoLabel: 'Current language', infoValue: model.locale),
           ),
           YaruRow(
               trailingWidget: const Text('Select a language'),
@@ -84,56 +84,75 @@ class _LocaleSelectDialog extends StatefulWidget {
 
 class _LocaleSelectDialogState extends State<_LocaleSelectDialog> {
   late String localeToBeSet;
+  late int _selectedIndex;
   @override
   void initState() {
-    localeToBeSet = context.read<RegionAndLanguageModel>().locale;
+    final model = context.read<RegionAndLanguageModel>();
+    localeToBeSet = model.locale;
+    _selectedIndex = model.installedLocales.indexOf(model.installedLocales
+        .firstWhere((element) =>
+            model.locale.contains(element.replaceAll('utf8', 'UTF-8'))));
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     final model = context.watch<RegionAndLanguageModel>();
-    return SimpleDialog(
-      titlePadding: EdgeInsets.zero,
-      contentPadding: EdgeInsets.zero,
-      title: YaruDialogTitle(title: 'Locale: ' + model.locale),
-      children: [
-        ...model.installedLocales
-            .map(
-              (localeString) => ListTile(
-                onTap: (() => localeToBeSet = localeString),
-                title: Text(localeString),
-              ),
-            )
-            .toList(),
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: SizedBox(
-            width: kDefaultWidth / 3,
-            child: Row(children: [
-              Expanded(
-                child: OutlinedButton(
-                    onPressed: () => Navigator.of(context).pop(),
-                    child: Text(context.l10n.cancel)),
-              ),
-              const SizedBox(
-                width: 8,
-              ),
-              Expanded(
-                child: ElevatedButton(
-                    onPressed: () {
-                      if (model.locale != localeToBeSet) {
-                        model.locale = localeToBeSet;
-                      }
-                    },
-                    child: Text(
-                      context.l10n.confirm,
-                    )),
-              )
-            ]),
+    return SizedBox(
+      width: kDefaultWidth / 2,
+      child: AlertDialog(
+        titlePadding: EdgeInsets.zero,
+        contentPadding: EdgeInsets.zero,
+        title: YaruDialogTitle(
+            title:
+                model.locale.contains(localeToBeSet.replaceAll('utf8', 'UTF-8'))
+                    ? 'Select a language'
+                    : 'Relog after save'),
+        content: SizedBox(
+          height: 500,
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: List.generate(
+                  model.installedLocales.length,
+                  (index) => ListTile(
+                        selected: _selectedIndex == index,
+                        onTap: (() {
+                          setState(() {
+                            _selectedIndex = index;
+                          });
+                          localeToBeSet = model.installedLocales[index];
+                        }),
+                        title: Text(model.installedLocales[index]),
+                      )),
+            ),
           ),
-        )
-      ],
+        ),
+        actionsAlignment: MainAxisAlignment.spaceBetween,
+        actionsOverflowButtonSpacing: 0,
+        actions: [
+          SizedBox(
+            width: kDefaultWidth / 3,
+            child: OutlinedButton(
+                onPressed: () => Navigator.of(context).pop(),
+                child: Text(context.l10n.cancel)),
+          ),
+          SizedBox(
+            width: kDefaultWidth / 3,
+            child: ElevatedButton(
+                onPressed: () {
+                  if (model.locale != localeToBeSet) {
+                    model.locale = localeToBeSet;
+                    Navigator.of(context).pop();
+                  }
+                },
+                child: Text(
+                  context.l10n.confirm,
+                )),
+          )
+        ],
+      ),
     );
   }
 }
