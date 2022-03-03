@@ -43,6 +43,7 @@ dependencies:
   http: ^0.13.4
   xml: ^5.3.1
   url_launcher: ^6.0.20
+  flutter_localized_locales: ^2.0.3
 
 dev_dependencies:
   build_runner: ^2.1.2

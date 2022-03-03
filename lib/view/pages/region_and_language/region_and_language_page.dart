@@ -1,6 +1,5 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
+import 'package:flutter_localized_locales/flutter_localized_locales.dart';
 import 'package:provider/provider.dart';
 import 'package:settings/constants.dart';
 import 'package:settings/l10n/l10n.dart';
@@ -48,7 +47,10 @@ class _RegionAndLanguagePageState extends State<RegionAndLanguagePage> {
           Padding(
             padding: const EdgeInsets.only(top: 8, bottom: 8),
             child: YaruSingleInfoRow(
-                infoLabel: 'Current language', infoValue: model.locale),
+                infoLabel: 'Current language',
+                infoValue:
+                    LocaleNames.of(context)!.nameOf(model.prettyLocale) ??
+                        model.prettyLocale),
           ),
           YaruRow(
               trailingWidget: const Text('Select a language'),
@@ -104,6 +106,7 @@ class _LocaleSelectDialogState extends State<_LocaleSelectDialog> {
         titlePadding: EdgeInsets.zero,
         contentPadding: EdgeInsets.zero,
         title: YaruDialogTitle(
+            mainAxisAlignment: MainAxisAlignment.center,
             title:
                 model.locale.contains(localeToBeSet.replaceAll('utf8', 'UTF-8'))
                     ? 'Select a language'
@@ -112,8 +115,6 @@ class _LocaleSelectDialogState extends State<_LocaleSelectDialog> {
           height: 500,
           child: SingleChildScrollView(
             child: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.stretch,
               children: List.generate(
                   model.installedLocales.length,
                   (index) => ListTile(
@@ -124,7 +125,13 @@ class _LocaleSelectDialogState extends State<_LocaleSelectDialog> {
                           });
                           localeToBeSet = model.installedLocales[index];
                         }),
-                        title: Text(model.installedLocales[index]),
+                        title: Text(LocaleNames.of(context)!.nameOf(model
+                                .installedLocales[index]
+                                .replaceAll('.utf8', '')
+                                .replaceAll('UTF-8', '')) ??
+                            model.installedLocales[index]
+                                .replaceAll('.utf8', '')
+                                .replaceAll('.UTF-8', '')),
                       )),
             ),
           ),

@@ -31,6 +31,9 @@ class RegionAndLanguageModel extends SafeChangeNotifier {
   set locale(String locale) =>
       _localeService.locale = ['LANG=$locale'.replaceAll('utf8', 'UTF-8')];
 
+  String get prettyLocale =>
+      locale.replaceAll('.UTF-8', '').replaceAll('LANG=', '');
+
   @override
   void dispose() async {
     await _localeSub?.cancel();
