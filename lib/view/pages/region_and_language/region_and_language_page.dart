@@ -46,23 +46,21 @@ class _RegionAndLanguagePageState extends State<RegionAndLanguagePage> {
         YaruSection(width: kDefaultWidth, children: [
           Padding(
             padding: const EdgeInsets.only(top: 8, bottom: 8),
-            child: YaruSingleInfoRow(
-                infoLabel: 'Current language',
-                infoValue:
-                    LocaleNames.of(context)!.nameOf(model.prettyLocale) ??
-                        model.prettyLocale),
-          ),
-          YaruRow(
-              trailingWidget: const Text('Select a language'),
-              actionWidget: YaruOptionButton(
+            child: YaruRow(
+                enabled: true,
+                trailingWidget: const Text('Select your language'),
+                actionWidget: OutlinedButton(
                   onPressed: () => showDialog(
                       context: context,
                       builder: (context) => ChangeNotifierProvider.value(
                             value: model,
                             child: const _LocaleSelectDialog(),
                           )),
-                  iconData: YaruIcons.localization),
-              enabled: true),
+                  child: Text(
+                      LocaleNames.of(context)!.nameOf(model.prettyLocale) ??
+                          model.prettyLocale),
+                )),
+          ),
           YaruRow(
               trailingWidget: const Text('Manage and install languages'),
               actionWidget: YaruOptionButton(
@@ -129,9 +127,7 @@ class _LocaleSelectDialogState extends State<_LocaleSelectDialog> {
                                 .installedLocales[index]
                                 .replaceAll('.utf8', '')
                                 .replaceAll('UTF-8', '')) ??
-                            model.installedLocales[index]
-                                .replaceAll('.utf8', '')
-                                .replaceAll('.UTF-8', '')),
+                            model.installedLocales[index]),
                       )),
             ),
           ),
