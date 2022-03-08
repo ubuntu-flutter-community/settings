@@ -98,7 +98,7 @@ class _InfoPageState extends State<InfoPage> {
           ),
           YaruSingleInfoRow(
             infoLabel: 'Graphics',
-            infoValue: model.graphics,
+            infoValue: model.graphics ?? 'No GPU info found',
           ),
           YaruSingleInfoRow(
             infoLabel: 'Disk Capacity',
@@ -142,7 +142,7 @@ class _InfoPageState extends State<InfoPage> {
                     model.processorName,
                     model.processorCount.toString(),
                     model.memory.toString(),
-                    model.graphics,
+                    model.graphics ?? 'No GPU info found',
                     model.diskCapacity != null
                         ? filesize(model.diskCapacity)
                         : '',
