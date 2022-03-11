@@ -48,7 +48,8 @@ class _RegionAndLanguagePageState extends State<RegionAndLanguagePage> {
             padding: const EdgeInsets.only(top: 8, bottom: 8),
             child: YaruRow(
                 enabled: true,
-                trailingWidget: const Text('Select your language'),
+                trailingWidget: Text(
+                    context.l10n.regionAndLanguagePageSelectLanguageAction),
                 actionWidget: OutlinedButton(
                   onPressed: () => showDialog(
                       context: context,
@@ -62,7 +63,8 @@ class _RegionAndLanguagePageState extends State<RegionAndLanguagePage> {
                 )),
           ),
           YaruRow(
-              trailingWidget: const Text('Manage and install languages'),
+              trailingWidget:
+                  Text(context.l10n.regionAndLanguagePageManageLanguageAction),
               actionWidget: YaruOptionButton(
                   onPressed: () => model.openGnomeLanguageSelector(),
                   iconData: YaruIcons.download),
@@ -107,8 +109,8 @@ class _LocaleSelectDialogState extends State<_LocaleSelectDialog> {
             mainAxisAlignment: MainAxisAlignment.center,
             title:
                 model.locale.contains(localeToBeSet.replaceAll('utf8', 'UTF-8'))
-                    ? 'Select a language'
-                    : 'Relog after save'),
+                    ? context.l10n.regionAndLanguagePageSelectLanguageAction
+                    : context.l10n.regionAndLanguageDialogTitleAfterChange),
         content: SizedBox(
           height: 500,
           child: SingleChildScrollView(
