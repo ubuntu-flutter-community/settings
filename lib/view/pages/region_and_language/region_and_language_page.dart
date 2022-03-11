@@ -123,10 +123,8 @@ class _LocaleSelectDialogState extends State<_LocaleSelectDialog> {
                           });
                           localeToBeSet = model.installedLocales[index];
                         }),
-                        title: Text(LocaleNames.of(context)!.nameOf(model
-                                .installedLocales[index]
-                                .replaceAll('.utf8', '')
-                                .replaceAll('UTF-8', '')) ??
+                        title: Text(LocaleNames.of(context)!
+                                .nameOf(model.installedLocales[index]) ??
                             model.installedLocales[index]),
                       )),
             ),

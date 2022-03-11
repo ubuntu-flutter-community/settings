@@ -47,8 +47,9 @@ class RegionAndLanguageModel extends SafeChangeNotifier {
   void _initInstalledLocales() async {
     await Process.run('locale', ['-a']).then((value) {
       installedLocales = const LineSplitter().convert(value.stdout);
-      installedLocales.removeWhere((element) =>
-          element == 'C' || element == 'C.UTF-8' || element == 'POSIX');
+      installedLocales.retainWhere((element) => element.endsWith('.utf8'));
+      installedLocales =
+          installedLocales.map((e) => e.replaceAll('.utf8', '')).toList();
     });
   }
 }
