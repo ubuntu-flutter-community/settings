@@ -129,5 +129,26 @@
   "dateAndTimePageSecondsInPanel": "Show seconds in panel",
   "dateAndTimePageWeekdayInPanel": "Show weekday in panel",
   "dateAndTimePageWeekNumberInCalendar": "Show week number in calendar",
-  "infoPageTitle": "Info"
+  "infoPageTitle": "Info",
+  "bluetoothRemoveDevice" : "Remove device",
+  "apply" : "Apply",
+  "displays": "Displays",
+  "nightMode": "Night Mode",
+  "orientation": "Orientation",
+  "resolution": "Resolution",
+  "refreshRate": "Refresh Rate",
+  "scale" : "Scale",
+  "fractionalScaling" : "Fractional Scaling",
+  "fractionalScaling_description" : "May increase power usage, lower speed, or reduce display sharpness",
+  "landscape" : "Landscape",
+  "portraitLeft" : "Portrait on the left",
+  "portraitRight" : "Portrait on the right",
+  "flippedLandscape" : "Flipped landscape",
+
+  "scaleFormat": "{percent}%",
+  "@scaleFormat" : {
+    "placeholders": {
+      "percent": {}
+    }
+  }
 }
