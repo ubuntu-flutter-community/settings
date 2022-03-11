@@ -85,7 +85,7 @@ sudo apt install libhandy-1-dev
 - [ ] Printers page - WIP
 - [X] Removable Media page    
 - [ ] Color page
-- [ ] Region and language page
+- [X] Region and language page
 - [X] Accessability page
 - [ ] Users page
 - [ ] Preferred apps page
