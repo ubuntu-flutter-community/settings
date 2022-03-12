@@ -8,6 +8,7 @@ import 'package:settings/view/pages/color/color_page.dart';
 import 'package:settings/view/pages/connections/connections_page.dart';
 import 'package:settings/view/pages/date_and_time/date_time_page.dart';
 import 'package:settings/view/pages/default_apps/default_apps_page.dart';
+import 'package:settings/view/pages/displays/displays_page.dart';
 import 'package:settings/view/pages/info/info_page.dart';
 import 'package:settings/view/pages/keyboard/keyboard_page.dart';
 import 'package:settings/view/pages/mouse_and_touchpad/mouse_and_touchpad_page.dart';
@@ -97,10 +98,10 @@ List<YaruPageItem> getPageItems(BuildContext context) => [
         builder: PowerPage.create,
         searchMatches: PowerPage.searchMatches,
       ),
-      YaruPageItem(
-        titleBuilder: (context) => const Text('Displays'),
+      const YaruPageItem(
+        titleBuilder: DisplaysPage.createTitle,
         iconData: YaruIcons.desktop_display,
-        builder: (_) => const Center(child: Text('Displays')),
+        builder: DisplaysPage.create,
       ),
       const YaruPageItem(
         titleBuilder: MouseAndTouchpadPage.createTitle,

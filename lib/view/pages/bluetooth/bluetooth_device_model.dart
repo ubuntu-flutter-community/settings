@@ -85,7 +85,7 @@ class BluetoothDeviceModel extends SafeChangeNotifier {
     blocked = _device.blocked;
     address = _device.address;
     paired = _device.paired;
-    adapter = _device.adapter;
+    adapter = _device.adapter!;//TODO forced to put non nullable
     addressType = _device.addressType;
     icon = _device.icon;
     legacyPairing = _device.legacyPairing;
