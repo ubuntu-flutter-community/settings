@@ -3,6 +3,9 @@ import 'package:provider/provider.dart';
 import 'package:settings/constants.dart';
 import 'package:settings/services/power_profile_service.dart';
 import 'package:settings/view/pages/power/power_profile_model.dart';
+import 'package:settings/view/pages/power/power_profile_widgets.dart';
+import 'package:yaru/yaru.dart';
+import 'package:yaru_icons/yaru_icons.dart';
 import 'package:yaru_widgets/yaru_widgets.dart';
 
 class PowerProfileSection extends StatefulWidget {
@@ -35,7 +38,12 @@ class _PowerProfileSectionState extends State<PowerProfileSection> {
       children: <Widget>[
         RadioListTile<PowerProfile>(
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
-          title: const Text('Performance'),
+          title: const ProfileModeTitle(
+              icon: Icon(
+                YaruIcons.meter_5,
+                color: YaruColors.red,
+              ),
+              title: Text('Performance')),
           subtitle: const Text('High performance and power usage.'),
           value: PowerProfile.performance,
           groupValue: model.profile,
@@ -43,7 +51,8 @@ class _PowerProfileSectionState extends State<PowerProfileSection> {
         ),
         RadioListTile<PowerProfile>(
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
-          title: const Text('Balanced Power'),
+          title: const ProfileModeTitle(
+              icon: Icon(YaruIcons.meter_3), title: Text('Balanced Power')),
           subtitle: const Text('Standard performance and power usage.'),
           value: PowerProfile.balanced,
           groupValue: model.profile,
@@ -51,7 +60,12 @@ class _PowerProfileSectionState extends State<PowerProfileSection> {
         ),
         RadioListTile<PowerProfile>(
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
-          title: const Text('Power Saver'),
+          title: const ProfileModeTitle(
+              icon: Icon(
+                YaruIcons.meter_1,
+                color: YaruColors.green,
+              ),
+              title: Text('Power save')),
           subtitle: const Text('Reduced performance and power usage.'),
           value: PowerProfile.powerSaver,
           groupValue: model.profile,
