@@ -98,9 +98,16 @@ class DisplayService {
   DisplaysConfiguration _mapToModel(DBusDisplaysConfig dbusConfiguration) {
     final int monitorsCount = dbusConfiguration.monitorsLength;
     final List<DisplayMonitorConfiguration> confs = [];
+
     for (int i = 0; i < monitorsCount; i++) {
-      confs.add(
-          DisplayMonitorConfiguration.newConstructor(dbusConfiguration, i));
+      /// map data only if there's a current option
+      /// if no current option
+      ///   => monitor not used
+      ///   => monitor ignored and not displayed
+      if(dbusConfiguration.currentOption(i) != null){
+        confs.add(
+            DisplayMonitorConfiguration.newConstructor(dbusConfiguration, i));
+      }
     }
 
     return DisplaysConfiguration(configurations: confs);

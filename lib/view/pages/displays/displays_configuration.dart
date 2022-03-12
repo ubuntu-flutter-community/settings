@@ -47,20 +47,19 @@ class DisplayMonitorConfiguration extends Equatable {
         availableScales = _config.currentOption(_index)?.availableScales ?? [];
 
   DisplayMonitorConfiguration.newConstructor(this._config, this._index)
-      // todo check on null
-      : _fullResolution = _config.currentOption(_index)?.modeId ?? '',
-        _resolution = _config.currentOption(_index)?.modeId.split('@')[0] ?? '',
+      : _fullResolution = _config.currentOption(_index)!.modeId,
+        _resolution = _config.currentOption(_index)!.modeId.split('@')[0],
         _scale = _config.currentLogicalConfiguration(_index).scale,
         _transform = _config.currentLogicalConfiguration(_index).orientation,
         _primary = _config.currentLogicalConfiguration(_index).primary,
         _refreshRate =
-            _config.currentOption(_index)?.modeId.split('@')[1] ?? '',
+            _config.currentOption(_index)!.modeId.split('@')[1],
         _name = _config.displayName(_index),
         availableRefreshRates = _config
             .availableOptions(_index)
             .where((element) =>
                 element.modeId.split('@')[0] ==
-                _config.currentOption(_index)?.modeId.split('@')[0])
+                _config.currentOption(_index)!.modeId.split('@')[0])
             .map((e) => e.modeId.split('@')[1])
             .toSet()
             .toList(),
@@ -69,7 +68,7 @@ class DisplayMonitorConfiguration extends Equatable {
             .map((e) => e.modeId.split('@')[0])
             .toSet()
             .toList(),
-        availableScales = _config.currentOption(_index)?.availableScales ?? [];
+        availableScales = _config.currentOption(_index)!.availableScales;
 
   final int _index;
   final DBusDisplaysConfig _config;

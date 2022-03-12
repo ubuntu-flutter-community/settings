@@ -1,3 +1,4 @@
+import 'package:dbus/code_generator.dart';
 import 'package:dbus/dbus.dart';
 import 'package:settings/services/display/objects/dbus_displays_config.dart';
 import 'package:settings/generated/dbus/display-config-remote-object.dart';
@@ -47,9 +48,7 @@ class DisplayDBusService {
 
   Future<DBusDisplaysConfig> getCurrent() async {
     List<DBusValue>? state = await _object.callGetCurrentState();
-
     List<dynamic> list = state.map((e) => _toNative(e)).toList();
-
     return DBusDisplaysConfig(list);
   }
 
