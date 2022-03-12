@@ -1,4 +1,3 @@
-import 'package:dbus/code_generator.dart';
 import 'package:dbus/dbus.dart';
 import 'package:settings/services/display/objects/dbus_displays_config.dart';
 import 'package:settings/generated/dbus/display-config-remote-object.dart';

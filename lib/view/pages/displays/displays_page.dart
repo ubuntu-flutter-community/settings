@@ -71,7 +71,7 @@ class _DisplaysPageState extends State<DisplaysPage> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: <Widget>[
-                        OutlinedButton(
+                        ElevatedButton(
                           onPressed: model.apply,
                           child: Text(context.l10n.apply),
                         ),

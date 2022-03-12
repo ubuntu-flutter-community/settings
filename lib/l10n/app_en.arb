@@ -130,7 +130,6 @@
   "dateAndTimePageWeekdayInPanel": "Show weekday in panel",
   "dateAndTimePageWeekNumberInCalendar": "Show week number in calendar",
   "infoPageTitle": "Info",
-  "bluetoothRemoveDevice" : "Remove device",
   "apply" : "Apply",
   "displays": "Displays",
   "nightMode": "Night Mode",
@@ -145,10 +144,10 @@
   "portraitRight" : "Portrait on the right",
   "flippedLandscape" : "Flipped landscape",
 
-  "scaleFormat": "{percent}%",
+  "scaleFormat": "{factor}x",
   "@scaleFormat" : {
     "placeholders": {
-      "percent": {}
+      "factor": {}
     }
   }
 }

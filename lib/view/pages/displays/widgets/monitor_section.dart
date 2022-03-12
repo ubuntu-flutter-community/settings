@@ -95,7 +95,7 @@ class MonitorSection extends StatelessWidget {
                 trailingWidget: YaruToggleButtonsRow(
                   actionLabel: '',
                   labels: config.availableScales
-                      .map((scale) => scale.toInt() * 100)
+                      .map((scale) => scale.toInt())
                       .map(context.l10n.scaleFormat)
                       .toList(),
                   selectedValues: config.availableScales
