@@ -140,9 +140,7 @@ class WallpaperPage extends StatelessWidget {
                       return _WallpaperGrid(
                           data: snapshot.data!, customizableGrid: true);
                     } else {
-                      return const Center(
-                        child: CircularProgressIndicator(),
-                      );
+                      return const _AddWallpaperTile();
                     }
                   }),
               Padding(

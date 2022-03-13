@@ -53,7 +53,7 @@ class WallpaperModel extends SafeChangeNotifier {
 
   Future<void> copyToCollection(String picPathString) async {
     File image = File(picPathString);
-    if (_userWallpapersDir != null) return;
+    if (_userWallpapersDir == null) return;
     await image
         .copy(_userWallpapersDir! + File(picPathString).uri.pathSegments.last);
     notifyListeners();

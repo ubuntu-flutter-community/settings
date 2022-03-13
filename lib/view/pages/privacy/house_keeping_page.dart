@@ -62,7 +62,24 @@ class HouseKeepingPage extends StatelessWidget {
                     : model.recentFilesMaxAge?.toDouble(),
                 min: -1,
                 max: 30,
-                onChanged: (value) => model.recentFilesMaxAge = value.toInt())
+                onChanged: (value) => model.recentFilesMaxAge = value.toInt()),
+          YaruRow(
+              trailingWidget:
+                  Text(context.l10n.houseKeepingRecentFilesClearAction),
+              actionWidget: _TrashButton(
+                  onPressed: () => showDialog(
+                        context: context,
+                        builder: (context) => _ConfirmationDialog(
+                          title:
+                              context.l10n.houseKeepingRecentFilesClearAction,
+                          iconData: YaruIcons.clock,
+                          onConfirm: () {
+                            model.clearRecentlyUsed();
+                            Navigator.of(context).pop();
+                          },
+                        ),
+                      )),
+              enabled: true)
         ],
       ),
       YaruSection(
@@ -98,50 +115,36 @@ class HouseKeepingPage extends StatelessWidget {
                 min: 0,
                 max: 30,
                 onChanged: (value) => model.oldFilesAge = value.toInt()),
-          SizedBox(
-            width: kDefaultWidth,
-            child: Row(
-              children: [
-                Expanded(
-                  child: OutlinedButton(
-                      onPressed: () => showDialog(
-                            context: context,
-                            builder: (context) => _ConfirmationDialog(
-                              title: context.l10n.houseKeepingEmptyTrash,
-                              iconData: YaruIcons.trash_full,
-                              onConfirm: () {
-                                model.emptyTrash();
-                                Navigator.of(context).pop();
-                              },
-                            ),
-                          ),
-                      child: Text(context.l10n.houseKeepingEmptyTrash,
-                          style:
-                              TextStyle(color: Theme.of(context).errorColor))),
-                ),
-                const SizedBox(
-                  width: 10,
-                ),
-                Expanded(
-                  child: OutlinedButton(
-                      onPressed: () => showDialog(
-                            context: context,
-                            builder: (context) => _ConfirmationDialog(
-                              title: context.l10n.houseKeepingRemoveTempFiles,
-                              iconData: YaruIcons.document,
-                              onConfirm: () {
-                                model.removeTempFiles();
-                                Navigator.of(context).pop();
-                              },
-                            ),
-                          ),
-                      child: Text(context.l10n.houseKeepingRemoveTempFiles,
-                          style:
-                              TextStyle(color: Theme.of(context).errorColor))),
-                ),
-              ],
-            ),
-          ),
+          YaruRow(
+              trailingWidget: Text(context.l10n.houseKeepingEmptyTrash),
+              actionWidget: _TrashButton(
+                  onPressed: () => showDialog(
+                        context: context,
+                        builder: (context) => _ConfirmationDialog(
+                          title: context.l10n.houseKeepingEmptyTrash,
+                          iconData: YaruIcons.trash_full,
+                          onConfirm: () {
+                            model.emptyTrash();
+                            Navigator.of(context).pop();
+                          },
+                        ),
+                      )),
+              enabled: true),
+          YaruRow(
+              trailingWidget: Text(context.l10n.houseKeepingRemoveTempFiles),
+              actionWidget: _TrashButton(
+                  onPressed: () => showDialog(
+                        context: context,
+                        builder: (context) => _ConfirmationDialog(
+                          title: context.l10n.houseKeepingRemoveTempFiles,
+                          iconData: YaruIcons.document,
+                          onConfirm: () {
+                            model.removeTempFiles();
+                            Navigator.of(context).pop();
+                          },
+                        ),
+                      )),
+              enabled: true),
         ],
       ),
     ]);
@@ -234,6 +237,25 @@ class _ConfirmationDialogState extends State<_ConfirmationDialog>
           ),
         )
       ],
+    );
+  }
+}
+
+class _TrashButton extends StatelessWidget {
+  const _TrashButton({Key? key, required this.onPressed}) : super(key: key);
+
+  final void Function()? onPressed;
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: 40,
+      width: 40,
+      child: OutlinedButton(
+        style: OutlinedButton.styleFrom(padding: const EdgeInsets.all(0)),
+        onPressed: onPressed,
+        child: Icon(YaruIcons.trash, color: Theme.of(context).errorColor),
+      ),
     );
   }
 }

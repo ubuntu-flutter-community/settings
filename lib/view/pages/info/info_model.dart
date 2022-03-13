@@ -28,14 +28,14 @@ class InfoModel extends SafeChangeNotifier {
   final MemInfo _memInfo;
   final GnomeInfo _gnomeInfo;
 
-  String _gpuName = '';
+  String? _gpuName = '';
   int? _diskCapacity;
 
   Future<void> init() async {
     await _hostnameService.init();
 
     await GpuInfo.load().then((gpus) {
-      _gpuName = gpus.first.model;
+      _gpuName = gpus.isNotEmpty ? gpus.first.model : null;
     });
 
     await _uDisksClient.connect().then((value) {
@@ -61,7 +61,7 @@ class InfoModel extends SafeChangeNotifier {
   String get processorName => _cpus[0].model_name;
   int get processorCount => _cpus.length + 1;
   int get memory => _memInfo.mem_total_gb;
-  String get graphics => _gpuName;
+  String? get graphics => _gpuName;
   int? get diskCapacity => _diskCapacity;
 
   String get gnomeVersion => _gnomeInfo.version;

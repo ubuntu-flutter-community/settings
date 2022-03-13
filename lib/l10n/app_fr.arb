@@ -107,5 +107,17 @@
   "usersPageTitle": "Utilisateurs",
   "defaultAppsPageTitle": "Applications par défaut",
   "dateAndTimePageTitle": "Date et heure",
-  "infoPageTitle": "À propos"
+  "infoPageTitle": "À propos",
+  "apply" : "Appliquer",
+  "displays": "Écran",
+  "nightMode": "Mode Nuit",
+  "orientation": "Orientation",
+  "resolution": "Résolution",
+  "refreshRate": "Fréquence de rafraîchissement",
+  "scale" : "Échelle",
+  "fractionalScaling_description" : "Peut augmenter votre consommation d'energie, réduire la vitesse ou réduire la netteté de l'affichage",
+  "landscape" : "Paysage",
+  "portraitLeft" : "Portrait sur la gauche",
+  "portraitRight" : "Portrait sur la droite",
+  "flippedLandscape" : "Paysage inversé"
 }

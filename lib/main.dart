@@ -6,9 +6,11 @@ import 'package:settings/app.dart';
 import 'package:settings/schemas/schemas.dart';
 import 'package:settings/services/bluetooth_service.dart';
 import 'package:settings/services/date_time_service.dart';
+import 'package:settings/services/display/display_service.dart';
 import 'package:settings/services/hostname_service.dart';
 import 'package:settings/services/house_keeping_service.dart';
 import 'package:settings/services/input_source_service.dart';
+import 'package:settings/services/locale_service.dart';
 import 'package:settings/services/power_profile_service.dart';
 import 'package:settings/services/power_settings_service.dart';
 import 'package:settings/services/settings_service.dart';
@@ -74,6 +76,14 @@ void main() async {
         Provider<DateTimeService>(
           create: (_) => DateTimeService(),
           dispose: (_, service) => service.dispose(),
+        ),
+        Provider<LocaleService>(
+          create: (_) => LocaleService(),
+          dispose: (_, service) => service.dispose(),
+        ),
+        Provider<DisplayService>(
+          create: (_) => DisplayService(),
+          dispose: (_, DisplayService service) => service.dispose(),
         ),
       ],
       child: const UbuntuSettingsApp(),

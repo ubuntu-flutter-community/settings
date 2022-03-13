@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinbox/flutter_spinbox.dart';
 import 'package:provider/provider.dart';
 import 'package:settings/constants.dart';
+import 'package:settings/l10n/l10n.dart';
 import 'package:settings/utils.dart';
 import 'package:settings/view/pages/accessibility/accessibility_model.dart';
 import 'package:yaru_widgets/yaru_widgets.dart';
@@ -17,22 +18,22 @@ class SeeingSection extends StatelessWidget {
     final model = context.watch<AccessibilityModel>();
     return YaruSection(
       width: kDefaultWidth,
-      headline: 'Seeing',
+      headline: context.l10n.seeing,
       children: [
         YaruSwitchRow(
-          trailingWidget: const Text('High Contrast'),
+          trailingWidget: Text(context.l10n.highContrast),
           value: model.highContrast,
           onChanged: (value) => model.setHighContrast(value),
         ),
         YaruSwitchRow(
-          trailingWidget: const Text('Large Text'),
+          trailingWidget: Text(context.l10n.largeText),
           value: model.largeText,
           onChanged: (value) => model.setLargeText(value),
         ),
         const _CursorSize(),
         YaruExtraOptionRow(
           iconData: YaruIcons.settings,
-          actionLabel: 'Zoom',
+          actionLabel: context.l10n.zoom,
           value: model.zoom,
           onChanged: (value) => model.setZoom(value),
           onPressed: () => showDialog(
@@ -44,16 +45,14 @@ class SeeingSection extends StatelessWidget {
           ),
         ),
         YaruSwitchRow(
-          trailingWidget: const Text('Screen Reader'),
-          actionDescription:
-              'The screen reader reads displayed text as you move the focus',
+          trailingWidget: Text(context.l10n.screenReader),
+          actionDescription: context.l10n.screenReaderDescription,
           value: model.screenReader,
           onChanged: (value) => model.setScreenReader(value),
         ),
         YaruSwitchRow(
-          trailingWidget: const Text('Sound Keys'),
-          actionDescription:
-              'Beep when Num Lock or Caps Lock are turned on or off',
+          trailingWidget: Text(context.l10n.soundKeys),
+          actionDescription: context.l10n.soundKeysDescription,
           value: model.toggleKeys,
           onChanged: (value) => model.setToggleKeys(value),
         ),
@@ -70,9 +69,8 @@ class _CursorSize extends StatelessWidget {
     final model = context.watch<AccessibilityModel>();
     return YaruRow(
       enabled: model.cursorSize != null,
-      trailingWidget: const Text('Cursor Size'),
-      description: 'Cursor size can be combined with zoom '
-          'to make it easier to see the cursor',
+      trailingWidget: Text(context.l10n.cursorSize),
+      description: context.l10n.cursorSizeDescription,
       actionWidget: Row(
         children: [
           const SizedBox(width: 24.0),
@@ -107,7 +105,7 @@ class _CursorSizeSettings extends StatelessWidget {
     final model = context.watch<AccessibilityModel>();
     return YaruSimpleDialog(
       width: kDefaultWidth / 2,
-      title: 'Cursor Size',
+      title: context.l10n.cursorSize,
       closeIconData: YaruIcons.window_close,
       children: [
         _CursorButton(
@@ -183,18 +181,18 @@ class _ZoomSettings extends StatelessWidget {
   Widget build(BuildContext context) {
     return YaruSimpleDialog(
       width: kDefaultWidth,
-      title: 'Zoom Options',
+      title: context.l10n.zoomOptions,
       closeIconData: YaruIcons.window_close,
       children: [
         Text(
-          'Magnifier',
+          context.l10n.zoomOption_Magnifier,
           style: Theme.of(context).textTheme.headline6,
         ),
         const _MagnifierOptions(),
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 12.0),
           child: Text(
-            'Crosshairs',
+            context.l10n.zoomOption_Crosshairs,
             style: Theme.of(context).textTheme.headline6,
           ),
         ),
@@ -202,7 +200,7 @@ class _ZoomSettings extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 12.0),
           child: Text(
-            'Color Effects',
+            context.l10n.zoomOption_ColorEffects,
             style: Theme.of(context).textTheme.headline6,
           ),
         ),
@@ -223,7 +221,7 @@ class _MagnifierOptions extends StatelessWidget {
       children: [
         YaruRow(
           enabled: model.magFactor != null,
-          trailingWidget: const Text('Magnification'),
+          trailingWidget: Text(context.l10n.magnification),
           actionWidget: SizedBox(
             height: 40,
             width: 150,
@@ -241,9 +239,9 @@ class _MagnifierOptions extends StatelessWidget {
             ),
           ),
         ),
-        const Padding(
-          padding: EdgeInsets.all(8.0),
-          child: Text('Magnifier Position'),
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Text(context.l10n.magnifierPosition),
         ),
         const _MagnifierPositionOptions(),
       ],
@@ -262,14 +260,14 @@ class _MagnifierPositionOptions extends StatelessWidget {
       child: Column(
         children: [
           _RadioRow(
-            title: 'Follow mouse cursor',
+            title: context.l10n.followMouseCursor,
             value: true,
             enabled: true,
             groupValue: model.lensMode,
             onChanged: (bool? value) => model.setLensMode(value!),
           ),
           _RadioRow(
-            title: 'Screen part',
+            title: context.l10n.screenPart,
             enabled: true,
             value: false,
             groupValue: model.lensMode,
@@ -295,24 +293,24 @@ class _MagnifierPositionOptions extends StatelessWidget {
                   enabled: model.screenPartEnabled,
                   value: model.scrollAtEdges ?? false,
                   onChanged: (value) => model.setScrollAtEdges(value!),
-                  text: 'Magnifier extends outside of screen',
+                  text: context.l10n.magnifierExtendsOutsideScreen,
                 ),
                 _RadioRow(
-                  title: 'Keep magnifier cursor centered',
+                  title: context.l10n.keepMagnifierCursorCentered,
                   value: 'centered',
                   groupValue: model.mouseTracking,
                   onChanged: (String? value) => model.setMouseTracking(value!),
                   enabled: model.screenPartEnabled,
                 ),
                 _RadioRow(
-                  title: 'Magnifier cursor pushes contents around',
+                  title: context.l10n.magnifierCursorPushesContentsAround,
                   value: 'push',
                   groupValue: model.mouseTracking,
                   onChanged: (String? value) => model.setMouseTracking(value!),
                   enabled: model.screenPartEnabled,
                 ),
                 _RadioRow(
-                  title: 'Magnifier cursor moves with contents',
+                  title: context.l10n.magnifierCursorMovesWithContents,
                   value: 'proportional',
                   groupValue: model.mouseTracking,
                   onChanged: (String? value) => model.setMouseTracking(value!),
@@ -397,12 +395,12 @@ class _CrosshairsOptions extends StatelessWidget {
           enabled: model.crossHairsClip != null,
           value: model.crossHairsClip ?? false,
           onChanged: (value) => model.setCrossHairsClip(value!),
-          text: 'Overlaps mouse cursor',
+          text: context.l10n.overlapsMouseCursor,
         ),
         SizedBox(
           height: 56,
           child: YaruSliderRow(
-            actionLabel: 'Thickness',
+            actionLabel: context.l10n.thickness,
             value: model.crossHairsThickness,
             min: 1,
             max: 100,
@@ -414,7 +412,7 @@ class _CrosshairsOptions extends StatelessWidget {
         SizedBox(
           height: 56,
           child: YaruSliderRow(
-            actionLabel: 'Length',
+            actionLabel: context.l10n.length,
             value: model.crossHairsLength,
             min: 20,
             max: 4096,
@@ -425,7 +423,7 @@ class _CrosshairsOptions extends StatelessWidget {
         ),
         YaruRow(
           enabled: model.crossHairsColor != null,
-          trailingWidget: const Text('Color'),
+          trailingWidget: Text(context.l10n.color),
           actionWidget: YaruColorPickerButton(
             enabled: model.crossHairsColor != null,
             color: colorFromHex(model.crossHairsColor ?? '#FF0000'),
@@ -453,15 +451,15 @@ class _CrosshairsOptions extends StatelessWidget {
       runSpacing: 5,
       wheelDiameter: 155,
       heading: Text(
-        'Select crosshairs color',
+        context.l10n.selectCrossHairsColor,
         style: Theme.of(context).textTheme.subtitle1,
       ),
       subheading: Text(
-        'Select color shade',
+        context.l10n.selectColorShade,
         style: Theme.of(context).textTheme.subtitle1,
       ),
       wheelSubheading: Text(
-        'Selected color and its shades',
+        context.l10n.selectedColorsShade,
         style: Theme.of(context).textTheme.subtitle1,
       ),
       showMaterialName: true,
@@ -505,12 +503,12 @@ class _ColorEffectsOptions extends StatelessWidget {
           enabled: model.inverseLightness != null,
           value: model.inverseLightness ?? false,
           onChanged: (value) => model.setInverseLightness(value!),
-          text: 'White on black',
+          text: context.l10n.whiteOnBlack,
         ),
         SizedBox(
           height: 56,
           child: YaruSliderRow(
-            actionLabel: 'Brightness',
+            actionLabel: context.l10n.brightness,
             value: model.colorBrightness,
             min: -0.75,
             max: 0.75,
@@ -522,7 +520,7 @@ class _ColorEffectsOptions extends StatelessWidget {
         SizedBox(
           height: 56,
           child: YaruSliderRow(
-            actionLabel: 'Contrast',
+            actionLabel: context.l10n.contrast,
             value: model.colorContrast,
             min: -0.75,
             max: 0.75,
@@ -534,7 +532,7 @@ class _ColorEffectsOptions extends StatelessWidget {
         SizedBox(
           height: 56,
           child: YaruSliderRow(
-            actionLabel: 'Saturation',
+            actionLabel: context.l10n.saturation,
             value: model.colorSaturation,
             min: 0,
             max: 1,

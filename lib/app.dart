@@ -5,6 +5,7 @@ import 'package:settings/view/app_theme.dart';
 import 'package:settings/view/pages/page_items.dart';
 import 'package:yaru_icons/yaru_icons.dart';
 import 'package:yaru_widgets/yaru_widgets.dart';
+import 'package:flutter_localized_locales/flutter_localized_locales.dart';
 
 class UbuntuSettingsApp extends StatefulWidget {
   const UbuntuSettingsApp({
@@ -66,7 +67,8 @@ class _UbuntuSettingsAppState extends State<UbuntuSettingsApp> {
       darkTheme: context.watch<DarkTheme>().value,
       themeMode: context.watch<AppTheme>().value,
       supportedLocales: AppLocalizations.supportedLocales,
-      localizationsDelegates: AppLocalizations.localizationsDelegates,
+      localizationsDelegates: AppLocalizations.localizationsDelegates +
+          [const LocaleNamesLocalizationsDelegate()],
     );
   }
 }
