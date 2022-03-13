@@ -45,6 +45,10 @@ class DisplayDBusService {
         DBusObjectPath(_displayPath),
       );
 
+  Future<void> dispose() async {
+    await _object.client.close();
+  }
+
   Future<DBusDisplaysConfig> getCurrent() async {
     List<DBusValue>? state = await _object.callGetCurrentState();
     List<dynamic> list = state.map((e) => _toNative(e)).toList();
