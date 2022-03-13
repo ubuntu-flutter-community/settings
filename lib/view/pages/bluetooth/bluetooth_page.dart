@@ -40,13 +40,6 @@ class _BluetoothPageState extends State<BluetoothPage> {
   }
 
   @override
-  void dispose() {
-    final model = context.read<BluetoothModel>();
-    model.dispose();
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
     final model = context.watch<BluetoothModel>();
     return YaruPage(
