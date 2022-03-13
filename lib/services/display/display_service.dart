@@ -11,7 +11,6 @@ class DisplayService {
       : _displayDBusService = DisplayDBusService(),
         _currentNotifier = ValueNotifier(null),
         _initialNotifier = ValueNotifier(null) {
-
     _loadState(notifyStream: true).then((DisplaysConfiguration value) {
       _initialNotifier.value = value;
       _currentNotifier.value = value;
@@ -34,15 +33,26 @@ class DisplayService {
 
   /// NOTIFIERS
   final ValueNotifier<DisplaysConfiguration?> _initialNotifier;
+
   ValueNotifier<DisplaysConfiguration?> get initialNotifier => _initialNotifier;
 
   final ValueNotifier<DisplaysConfiguration?> _currentNotifier;
+
   ValueNotifier<DisplaysConfiguration?> get currentNotifier => _currentNotifier;
+
+  Future<void> dispose() async {
+    _initialNotifier.dispose();
+    _currentNotifier.dispose();
+    await Future.wait([
+      _displayDBusService.dispose(),
+      _monitorStateStreamController.close(),
+    ]);
+  }
 
   Future<void> applyConfig() async {
     /// do nothing if no way to perform applyConfig (made to be safe, but we may
     /// never pass here)
-    if(_currentNotifier.value == null){}
+    if (_currentNotifier.value == null) {}
 
     final DBusDisplaysConfig displayConfig =
         await _displayDBusService.getCurrent();
@@ -51,7 +61,7 @@ class DisplayService {
 
     for (int i = 0; i < displayConfig.monitorsLength; i++) {
       final DisplayMonitorConfiguration confMonitor =
-      _currentNotifier.value!.configurations[i];
+          _currentNotifier.value!.configurations[i];
 
       // x ; y ; scale ; transform(rotation) ; primary ; monitors
       logicalParameterValues.add(DBusStruct([
@@ -104,7 +114,7 @@ class DisplayService {
       /// if no current option
       ///   => monitor not used
       ///   => monitor ignored and not displayed
-      if(dbusConfiguration.currentOption(i) != null){
+      if (dbusConfiguration.currentOption(i) != null) {
         confs.add(
             DisplayMonitorConfiguration.newConstructor(dbusConfiguration, i));
       }
