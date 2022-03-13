@@ -8,16 +8,16 @@ class ColorPage extends StatelessWidget {
   static Widget create(BuildContext context) => const ColorPage();
 
   static Widget createTitle(BuildContext context) =>
-      Text(context.l10n.colorPageTitle);
+      Text(context.l10n.color);
 
   static bool searchMatches(String value, BuildContext context) => value
           .isNotEmpty
-      ? context.l10n.colorPageTitle.toLowerCase().contains(value.toLowerCase())
+      ? context.l10n.color.toLowerCase().contains(value.toLowerCase())
       : false;
 
   @override
   Widget build(BuildContext context) {
     return YaruPage(
-        children: [Center(child: Text(context.l10n.colorPageTitle))]);
+        children: [Center(child: Text(context.l10n.color))]);
   }
 }

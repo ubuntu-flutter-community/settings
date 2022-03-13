@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:settings/constants.dart';
+import 'package:settings/l10n/l10n.dart';
 import 'package:settings/view/pages/accessibility/accessibility_model.dart';
 import 'package:yaru_icons/yaru_icons.dart';
 import 'package:yaru_widgets/yaru_widgets.dart';
@@ -10,10 +11,10 @@ class HearingSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const YaruSection(
+    return YaruSection(
       width: kDefaultWidth,
-      headline: 'Hearing',
-      children: [
+      headline: context.l10n.hearing,
+      children: const <Widget>[
         _VisualAlerts(),
       ],
     );
@@ -28,8 +29,8 @@ class _VisualAlerts extends StatelessWidget {
     final model = context.watch<AccessibilityModel>();
     return YaruExtraOptionRow(
       iconData: YaruIcons.settings,
-      actionLabel: 'Visual Alerts',
-      actionDescription: 'Use a visual indication when an alert sound occurs',
+      actionLabel: context.l10n.visualAlerts,
+      actionDescription: context.l10n.visualAlertsDescription,
       value: model.visualAlerts,
       onChanged: (value) => model.setVisualAlerts(value),
       onPressed: () => showDialog(
@@ -51,17 +52,17 @@ class _VisualAlertsSettings extends StatelessWidget {
     final model = context.watch<AccessibilityModel>();
     return YaruSimpleDialog(
       width: kDefaultWidth,
-      title: 'Visual Alerts',
+      title: context.l10n.visualAlerts,
       closeIconData: YaruIcons.window_close,
       children: [
         RadioListTile(
-          title: const Text('Flash the entire window'),
+          title: Text(context.l10n.flashEntireWindow),
           value: 'frame-flash',
           groupValue: model.visualAlertsType,
           onChanged: (String? value) => model.setVisualAlertsType(value!),
         ),
         RadioListTile(
-          title: const Text('Flash the entire screen'),
+          title: Text(context.l10n.flashEntireScreen),
           value: 'fullscreen-flash',
           groupValue: model.visualAlertsType,
           onChanged: (String? value) => model.setVisualAlertsType(value!),
