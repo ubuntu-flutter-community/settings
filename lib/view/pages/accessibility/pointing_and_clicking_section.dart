@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:settings/constants.dart';
+import 'package:settings/l10n/l10n.dart';
 import 'package:settings/view/pages/accessibility/accessibility_model.dart';
 import 'package:yaru_widgets/yaru_widgets.dart';
 
@@ -14,21 +15,21 @@ class PointingAndClickingSection extends StatelessWidget {
     final model = context.watch<AccessibilityModel>();
     return YaruSection(
       width: kDefaultWidth,
-      headline: 'Pointing & Clicking',
+      headline: context.l10n.pointingAndClicking,
       children: [
         YaruSwitchRow(
-          trailingWidget: const Text('Mouse Keys'),
+          trailingWidget: Text(context.l10n.mouseKeys),
           value: model.mouseKeys,
           onChanged: (value) => model.setMouseKeys(value),
         ),
         YaruSwitchRow(
-          trailingWidget: const Text('Locate Pointer'),
+          trailingWidget: Text(context.l10n.locatePointer),
           value: model.locatePointer,
           onChanged: (value) => model.setLocatePointer(value),
         ),
         const _ClickAssist(),
         YaruSliderRow(
-          actionLabel: 'Double-Click Delay',
+          actionLabel: context.l10n.doubleClickDelay,
           value: model.doubleClickDelay,
           min: 100,
           max: 1000,
@@ -48,7 +49,7 @@ class _ClickAssist extends StatelessWidget {
     final model = context.watch<AccessibilityModel>();
     return YaruRow(
       enabled: model.clickAssistAvailable,
-      trailingWidget: const Text('Click Assist'),
+      trailingWidget: Text(context.l10n.clickAssist),
       actionWidget: Row(
         children: [
           Text(model.clickAssistString),
@@ -82,13 +83,13 @@ class _ClickAssistSettings extends StatelessWidget {
     final model = context.watch<AccessibilityModel>();
     return YaruSimpleDialog(
       width: kDefaultWidth,
-      title: 'Click Assist',
+      title: context.l10n.clickAssist,
       closeIconData: YaruIcons.window_close,
       children: [
         YaruSwitchRow(
-          trailingWidget: const Text('Simulated Secondary Click'),
+          trailingWidget: Text(context.l10n.simulatedSecondaryClick),
           actionDescription:
-              'Trigger a secondary click by holding down the primary button.',
+              context.l10n.simulatedSecondaryClickDescription,
           value: model.simulatedSecondaryClick,
           onChanged: (value) => model.setSimulatedSecondaryClick(value),
         ),
@@ -96,7 +97,7 @@ class _ClickAssistSettings extends StatelessWidget {
           padding: const EdgeInsets.only(left: 16.0),
           child: YaruSliderRow(
             enabled: model.simulatedSecondaryClick ?? false,
-            actionLabel: 'Delay',
+            actionLabel: context.l10n.delay,
             value: model.secondaryClickTime,
             min: 0.5,
             max: 3.0,
@@ -106,8 +107,8 @@ class _ClickAssistSettings extends StatelessWidget {
           ),
         ),
         YaruSwitchRow(
-          trailingWidget: const Text('Hover Click'),
-          actionDescription: 'Trigger a click when the pointer hovers',
+          trailingWidget: Text(context.l10n.hoverClick),
+          actionDescription: context.l10n.hoverClickDescription,
           value: model.dwellClick,
           onChanged: (value) => model.setDwellClick(value),
         ),
@@ -120,7 +121,7 @@ class _ClickAssistSettings extends StatelessWidget {
                 height: 56,
                 child: YaruSliderRow(
                   enabled: model.dwellClick ?? false,
-                  actionLabel: 'Delay',
+                  actionLabel: context.l10n.delay,
                   value: model.dwellTime,
                   min: 0.2,
                   max: 3.0,
@@ -133,7 +134,7 @@ class _ClickAssistSettings extends StatelessWidget {
                 height: 56,
                 child: YaruSliderRow(
                   enabled: model.dwellClick ?? false,
-                  actionLabel: 'Motion thresshold',
+                  actionLabel: context.l10n.motionThreshold,
                   value: model.dwellThreshold,
                   min: 0.0,
                   max: 30.0,
