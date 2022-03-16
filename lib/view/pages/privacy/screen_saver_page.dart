@@ -46,8 +46,8 @@ class ScreenSaverPage extends StatelessWidget {
           YaruSliderRow(
               enabled: model.lockDelay != null,
               width: kDefaultWidth,
-              actionLabel: context.l10n.screenSaverTimerLabel,
-              actionDescription: context.l10n.screenSaverTimerDescription,
+              actionLabel: context.l10n.screenSaverAutoDelayLabel,
+              actionDescription: context.l10n.screenSaverAutoDelayDescription,
               value: model.lockDelay?.toDouble(),
               min: 0,
               max: 3600,
