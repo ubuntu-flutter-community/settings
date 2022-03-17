@@ -43,15 +43,17 @@ class ScreenSaverPage extends StatelessWidget {
               trailingWidget: Text(context.l10n.screenSaverAutoScreenLockLabel),
               value: model.lockEnabled,
               onChanged: (v) => model.lockEnabled = v),
-          YaruSliderRow(
-              enabled: model.lockDelay != null,
-              width: kDefaultWidth,
-              actionLabel: context.l10n.screenSaverAutoDelayLabel,
-              actionDescription: context.l10n.screenSaverAutoDelayDescription,
-              value: model.lockDelay?.toDouble(),
-              min: 0,
-              max: 3600,
-              onChanged: (v) => model.lockDelay = v.toInt()),
+          YaruRow(
+            width: kDefaultWidth,
+            enabled: model.lockDelay != null,
+            trailingWidget: Text(context.l10n.screenSaverAutoDelayLabel),
+            description: context.l10n.screenSaverAutoDelayDescription,
+            actionWidget: DurationDropdownButton(
+              value: model.lockDelay,
+              values: ScreenLockDelay.values,
+              onChanged: (v) => model.lockDelay = v!.toInt(),
+            ),
+          ),
           YaruSwitchRow(
               enabled: model.ubuntuLockOnSuspend != null,
               width: kDefaultWidth,

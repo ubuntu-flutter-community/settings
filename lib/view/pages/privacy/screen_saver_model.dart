@@ -55,7 +55,9 @@ class ScreenSaverModel extends SafeChangeNotifier {
     notifyListeners();
   }
 
-  int? get lockDelay => _screenSaverSettings?.intValue(_lockDelayKey);
+  int? get _realLockDelay => _screenSaverSettings?.intValue(_lockDelayKey);
+  int? get lockDelay =>
+      ScreenLockDelay.values.contains(_realLockDelay) ? _realLockDelay : null;
   set lockDelay(int? value) {
     if (value == null) return;
     _screenSaverSettings?.setValue(_lockDelayKey, value);
