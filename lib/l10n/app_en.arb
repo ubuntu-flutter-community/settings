@@ -16,6 +16,7 @@
   "address": "Address",
   "type": "Type",
   "unknown": "Unknown",
+  "never": "Never",
   "bluetoothOpenDeviceSettings": "Open device settings",
   "bluetoothRemoveDevice": "Remove device",
   "removableMediaNeverAsk": "Never ask or start a program for any removable media",

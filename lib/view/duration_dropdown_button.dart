@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:settings/l10n/l10n.dart';
 import 'package:settings/utils.dart';
 
 class DurationDropdownButton extends StatelessWidget {
@@ -7,7 +8,7 @@ class DurationDropdownButton extends StatelessWidget {
     required this.value,
     required this.values,
     required this.onChanged,
-    this.zeroValueText = 'Never',
+    this.zeroValueText,
   }) : super(key: key);
 
   /// The current value of the [DropdownButton]
@@ -22,7 +23,7 @@ class DurationDropdownButton extends StatelessWidget {
   /// Optional string for value 0
   ///
   /// Defaults to 'Never'
-  final String zeroValueText;
+  final String? zeroValueText;
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +38,7 @@ class DurationDropdownButton extends StatelessWidget {
         if (values.contains(0))
           DropdownMenuItem(
             value: 0,
-            child: Text(zeroValueText),
+            child: Text(zeroValueText ?? context.l10n.never),
           ),
       ],
       onChanged: onChanged,
