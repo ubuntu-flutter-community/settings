@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:filesystem_picker/filesystem_picker.dart';
+import 'package:file_selector/file_selector.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:settings/constants.dart';
@@ -196,10 +196,15 @@ class _AddWallpaperTile extends StatelessWidget {
       child: InkWell(
         borderRadius: BorderRadius.circular(8),
         onTap: () async {
-          final picPath = await openFilePicker(context);
+          final picPath = await openFile(acceptedTypeGroups: [
+            XTypeGroup(
+              label: 'images',
+              extensions: <String>['jpg', 'png'],
+            )
+          ]);
           if (null != picPath) {
-            model.pictureUri = picPath;
-            model.copyToCollection(picPath);
+            model.pictureUri = picPath.path;
+            model.copyToCollection(picPath.path);
           }
         },
         child: Container(
@@ -219,17 +224,6 @@ class _AddWallpaperTile extends StatelessWidget {
         ),
       ),
     );
-  }
-
-  Future<String?> openFilePicker(BuildContext context) async {
-    return await FilesystemPicker.open(
-        title: 'Select a wallpaper',
-        allowedExtensions: ['.jpg', '.jpeg', '.png'],
-        context: context,
-        rootDirectory: Directory('/home/'),
-        fsType: FilesystemType.file,
-        pickText: 'Select a wallpaper',
-        fileTileSelectMode: FileTileSelectMode.wholeTile);
   }
 }
 
