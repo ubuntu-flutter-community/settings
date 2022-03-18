@@ -7,11 +7,22 @@ class DurationDropdownButton extends StatelessWidget {
     required this.value,
     required this.values,
     required this.onChanged,
+    this.zeroValueText = 'Never',
   }) : super(key: key);
 
+  /// The current value of the [DropdownButton]
   final int? value;
+
+  /// The list of values for [DropdownMenuItem] elements
   final List<int> values;
+
+  /// The callback that gets invoked when the [DropdownButton] value changes
   final ValueChanged<int?> onChanged;
+
+  /// Optional string for value 0
+  ///
+  /// Defaults to 'Never'
+  final String zeroValueText;
 
   @override
   Widget build(BuildContext context) {
@@ -24,9 +35,9 @@ class DurationDropdownButton extends StatelessWidget {
             child: Text(formatTime(value)),
           ),
         if (values.contains(0))
-          const DropdownMenuItem(
+          DropdownMenuItem(
             value: 0,
-            child: Text('Never'),
+            child: Text(zeroValueText),
           ),
       ],
       onChanged: onChanged,
