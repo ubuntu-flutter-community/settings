@@ -1,3 +1,4 @@
+import 'package:duration/duration.dart';
 import 'package:flutter/material.dart';
 
 Color colorFromHex(String hexString) {
@@ -24,4 +25,12 @@ Color lighten(Color c, [int percent = 10]) {
       c.red + ((255 - c.red) * p).round(),
       c.green + ((255 - c.green) * p).round(),
       c.blue + ((255 - c.blue) * p).round());
+}
+
+/// Convert duration in seconds into legible string
+String formatTime(int seconds) {
+  return prettyDuration(
+    Duration(seconds: seconds),
+    tersity: DurationTersity.second,
+  );
 }
