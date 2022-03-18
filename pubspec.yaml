@@ -12,10 +12,6 @@ dependencies:
   dbus: ^0.6.8
   duration: ^3.0.6
   filesize: ^2.0.1
-  filesystem_picker:
-    git:
-      url: https://github.com/Feichtmeier/filesystem_picker
-      path: package
   flutter:
     sdk: flutter
   flutter_localizations:
@@ -45,6 +41,8 @@ dependencies:
   url_launcher: ^6.0.20
   flutter_localized_locales: ^2.0.3
   equatable: ^2.0.3
+  file_selector_linux: ^0.0.2+1
+  file_selector: ^0.8.4+1
 
 dev_dependencies:
   build_runner: ^2.1.2
