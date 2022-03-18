@@ -62,6 +62,7 @@
   "houseKeepingRecentFilesRememberAction": "File history",
   "houseKeepingRecentFilesRememberForeverAction": "Keep file history forever",
   "houseKeepingRecentFilesDaysAction": "Period of file history",
+  "houseKeepingRecentFilesDaysDescription": "Delete files after this many days",
   "houseKeepingRecentFilesClearAction": "Delete recent file history",
   "houseKeepingTempTrashHeadline": "Recycle bin and temporary files",
   "houseKeepingTempTrashDescription": "The recycle bin and temporary files can contain personal and sensitive information. Automatic deletion can serve to preserve your privacy.",
