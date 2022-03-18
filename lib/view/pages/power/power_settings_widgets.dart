@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:settings/utils.dart';
 import 'package:settings/view/pages/power/power_settings.dart';
-import 'package:settings/view/pages/power/power_utils.dart';
 import 'package:yaru_widgets/yaru_widgets.dart';
 
 class DurationDropdownButton extends StatelessWidget {

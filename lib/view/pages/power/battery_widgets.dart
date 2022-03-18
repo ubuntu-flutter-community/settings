@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:settings/view/pages/power/power_utils.dart';
+import 'package:settings/utils.dart';
 import 'package:upower/upower.dart';
 import 'package:settings/l10n/l10n.dart';
 
