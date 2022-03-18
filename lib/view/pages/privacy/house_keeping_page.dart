@@ -57,6 +57,8 @@ class HouseKeepingPage extends StatelessWidget {
             YaruSliderRow(
                 enabled: model.recentFilesMaxAge != null,
                 actionLabel: context.l10n.houseKeepingRecentFilesDaysAction,
+                actionDescription:
+                    context.l10n.houseKeepingRecentFilesDaysDescription,
                 value: model.recentFilesMaxAge?.toDouble() == -1
                     ? -1
                     : model.recentFilesMaxAge?.toDouble(),
@@ -109,6 +111,8 @@ class HouseKeepingPage extends StatelessWidget {
             YaruSliderRow(
                 enabled: model.oldFilesAge != null,
                 actionLabel: context.l10n.houseKeepingTempTrashAutoDeleteDays,
+                actionDescription:
+                    context.l10n.houseKeepingRecentFilesDaysDescription,
                 value: model.oldFilesAge?.toDouble() == -1
                     ? -1
                     : model.oldFilesAge?.toDouble(),
