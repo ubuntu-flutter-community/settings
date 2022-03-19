@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:settings/constants.dart';
 import 'package:settings/view/app_theme.dart';
+import 'package:settings/view/pages/appearance/color_disk.dart';
 import 'package:yaru/yaru.dart';
 import 'package:yaru_icons/yaru_icons.dart';
 import 'package:yaru_widgets/yaru_widgets.dart';
@@ -14,6 +15,9 @@ class DarkModeSection extends StatelessWidget {
     final theme = context.watch<AppTheme>();
     final lighTheme = context.watch<LightTheme>();
     final darkTheme = context.watch<DarkTheme>();
+    final lightGtkTheme = context.watch<LightGtkTheme>();
+    final darkGtkTheme = context.watch<DarkGtkTheme>();
+
     return YaruSection(
       width: kDefaultWidth,
       headline: 'Theme',
@@ -36,41 +40,31 @@ class DarkModeSection extends StatelessWidget {
                   ),
             value: Theme.of(context).brightness == Brightness.dark,
             onChanged: (_) {
-              theme.apply(Theme.of(context).brightness == Brightness.dark
-                  ? Brightness.light
-                  : Brightness.dark);
+              theme.apply(
+                  Theme.of(context).brightness == Brightness.dark
+                      ? Brightness.light
+                      : Brightness.dark,
+                  lightGtkTheme.value,
+                  darkGtkTheme.value);
             }),
         YaruRow(
             trailingWidget: const Text('Change theme'),
             actionWidget: Row(
               children: [
-                YaruColorPickerButton(
-                    color: yaruLight.primaryColor,
-                    onPressed: () {
-                      lighTheme.value = yaruLight;
-                      darkTheme.value = yaruDark;
-                    }),
-                const SizedBox(
-                  width: 10,
-                ),
-                YaruColorPickerButton(
-                    color: yaruKubuntuLight.primaryColor,
-                    onPressed: () {
-                      lighTheme.value = yaruKubuntuLight;
-                      darkTheme.value = yaruKubuntuDark;
-                    }),
-                const SizedBox(
-                  width: 10,
-                ),
-                YaruColorPickerButton(
-                    color: yaruMateLight.primaryColor,
-                    onPressed: () {
-                      lighTheme.value = yaruMateLight;
-                      darkTheme.value = yaruMateDark;
-                    }),
-                const SizedBox(
-                  width: 10,
-                ),
+                for (var globalTheme in globalThemeList)
+                  ColorDisk(
+                      onPressed: () {
+                        lighTheme.value = globalTheme.lightTheme;
+                        darkTheme.value = globalTheme.darkTheme;
+                        lightGtkTheme.value = globalTheme.lightGtkTheme;
+                        darkGtkTheme.value = globalTheme.darkGtkTheme;
+                        theme.setGtkTheme(theme.value == ThemeMode.light
+                            ? lightGtkTheme.value
+                            : darkGtkTheme.value);
+                      },
+                      color: globalTheme.primaryColor,
+                      selected: Theme.of(context).primaryColor ==
+                          globalTheme.primaryColor),
               ],
             ),
             enabled: true)

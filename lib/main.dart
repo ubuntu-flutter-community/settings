@@ -30,6 +30,8 @@ void main() async {
       providers: [
         ChangeNotifierProvider(create: (_) => LightTheme(yaruLight)),
         ChangeNotifierProvider(create: (_) => DarkTheme(yaruDark)),
+        ChangeNotifierProvider(create: (_) => LightGtkTheme('Yaru')),
+        ChangeNotifierProvider(create: (_) => DarkGtkTheme('Yaru-dark')),
         ChangeNotifierProvider(
           create: (_) => AppTheme(themeSettings),
         ),

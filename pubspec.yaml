@@ -31,7 +31,7 @@ dependencies:
   safe_change_notifier: ^0.1.0
   udisks: ^0.3.0
   upower: ^0.6.2
-  yaru: ^0.2.2
+  yaru: ^0.2.4
   yaru_icons: ^0.1.3
   yaru_widgets: ^1.0.6
   flutter_svg: ^1.0.0
