@@ -18,7 +18,7 @@ void main() {
         (realInvocation) async {},
       );
 
-      theme.apply(Brightness.dark);
+      theme.apply(Brightness.dark, 'Yaru', 'Yaru-dark');
       verify(settings.setValue('gtk-theme', 'Yaru-dark')).called(1);
     },
   );
@@ -33,7 +33,7 @@ void main() {
         (realInvocation) async {},
       );
 
-      theme.apply(Brightness.light);
+      theme.apply(Brightness.light, 'Yaru', 'Yaru-dark');
       verify(settings.setValue('gtk-theme', 'Yaru')).called(1);
     },
   );
