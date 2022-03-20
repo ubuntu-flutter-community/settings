@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:settings/l10n/l10n.dart';
 import 'package:settings/services/settings_service.dart';
 import 'package:settings/view/pages/appearance/dock_model.dart';
-import 'package:settings/view/pages/appearance/dark_mode_section.dart';
+import 'package:settings/view/pages/appearance/theme_section.dart';
 import 'package:settings/view/pages/appearance/dock_section.dart';
 import 'package:yaru_widgets/yaru_widgets.dart';
 
@@ -32,7 +32,7 @@ class AppearancePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return const YaruPage(
       children: [
-        DarkModeSection(),
+        ThemeSection(),
         DockSection(),
       ],
     );
