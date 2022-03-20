@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:linux_system_info/linux_system_info.dart';
 import 'package:provider/provider.dart';
 import 'package:settings/constants.dart';
 import 'package:settings/view/app_theme.dart';
@@ -6,8 +7,20 @@ import 'package:settings/view/pages/appearance/color_disk.dart';
 import 'package:yaru_icons/yaru_icons.dart';
 import 'package:yaru_widgets/yaru_widgets.dart';
 
-class ThemeSection extends StatelessWidget {
+class ThemeSection extends StatefulWidget {
   const ThemeSection({Key? key}) : super(key: key);
+
+  @override
+  State<ThemeSection> createState() => _ThemeSectionState();
+}
+
+class _ThemeSectionState extends State<ThemeSection> {
+  late String _osVersion;
+  @override
+  void initState() {
+    _osVersion = SystemInfo().os_version;
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -46,25 +59,26 @@ class ThemeSection extends StatelessWidget {
                   lightGtkTheme.value,
                   darkGtkTheme.value);
             }),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            for (var globalTheme in globalThemeList)
-              ColorDisk(
-                  onPressed: () {
-                    lighTheme.value = globalTheme.lightTheme;
-                    darkTheme.value = globalTheme.darkTheme;
-                    lightGtkTheme.value = globalTheme.lightGtkTheme;
-                    darkGtkTheme.value = globalTheme.darkGtkTheme;
-                    theme.setGnomeTheme(theme.value == ThemeMode.light
-                        ? lightGtkTheme.value
-                        : darkGtkTheme.value);
-                  },
-                  color: globalTheme.primaryColor,
-                  selected: Theme.of(context).primaryColor ==
-                      globalTheme.primaryColor),
-          ],
-        )
+        if (int.parse(_osVersion.substring(0, 2)) >= 22)
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              for (var globalTheme in globalThemeList)
+                ColorDisk(
+                    onPressed: () {
+                      lighTheme.value = globalTheme.lightTheme;
+                      darkTheme.value = globalTheme.darkTheme;
+                      lightGtkTheme.value = globalTheme.lightGtkTheme;
+                      darkGtkTheme.value = globalTheme.darkGtkTheme;
+                      theme.setGnomeTheme(theme.value == ThemeMode.light
+                          ? lightGtkTheme.value
+                          : darkGtkTheme.value);
+                    },
+                    color: globalTheme.primaryColor,
+                    selected: Theme.of(context).primaryColor ==
+                        globalTheme.primaryColor),
+            ],
+          )
       ],
     );
   }
