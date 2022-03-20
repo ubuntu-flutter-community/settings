@@ -20,8 +20,10 @@ class AppTheme extends ValueNotifier<ThemeMode> {
     }
   }
 
-  void setGtkTheme(String gtkTheme) =>
-      _settings.setValue('gtk-theme', gtkTheme);
+  void setGnomeTheme(String gnomeThemeName) {
+    _settings.setValue('gtk-theme', gnomeThemeName);
+    _settings.setValue('icon-theme', gnomeThemeName);
+  }
 
   @override
   void dispose() {
@@ -54,58 +56,69 @@ final List<GlobalTheme> globalThemeList = [
     darkGtkTheme: 'Yaru-dark',
     primaryColor: YaruColors.ubuntuOrange,
   ),
-  // GlobalTheme(
-  //     lightTheme: yaruSageLight,
-  //     darkTheme: yaruSageDark,
-  //     lightGtkTheme: 'Yaru-sage',
-  //     darkGtkTheme: 'Yaru-sage-dark'),
-  // GlobalTheme(
-  //     lightTheme: yaruBarkLight,
-  //     darkTheme: yaruBarkDark,
-  //     lightGtkTheme: 'Yaru-bark',
-  //     darkGtkTheme: 'Yaru-bark-dark'),
-  // GlobalTheme(
-  //     lightTheme: yaruOliveLight,
-  //     darkTheme: yaruOliveDark,
-  //     lightGtkTheme: 'Yaru-olive',
-  //     darkGtkTheme: 'Yaru-olive-dark'),
-  // GlobalTheme(
-  //     lightTheme: yaruViridianLight,
-  //     darkTheme: yaruViridianDark,
-  //     lightGtkTheme: 'Yaru-viridian',
-  //     darkGtkTheme: 'Yaru-viridian-dark'),
-  // GlobalTheme(
-  //     lightTheme: yaruPrussianGreenLight,
-  //     darkTheme: yaruPrussianGreenDark,
-  //     lightGtkTheme: 'Yaru-prussiangreen',
-  //     darkGtkTheme: 'Yaru-prussiangreen-dark'),
-  // GlobalTheme(
-  //     lightTheme: yaruBlueLight,
-  //     darkTheme: yaruBlueDark,
-  //     lightGtkTheme: 'Yaru-blue',
-  //     darkGtkTheme: 'Yaru-blue-dark'),
-  // GlobalTheme(
-  //     lightTheme: yaruPurpleLight,
-  //     darkTheme: yaruPurpleDark,
-  //     lightGtkTheme: 'Yaru-purple',
-  //     darkGtkTheme: 'Yaru-purple-dark'),
-  // GlobalTheme(
-  //     lightTheme: yarMagentaLight,
-  //     darkTheme: yaruMagentaDark,
-  //     lightGtkTheme: 'Yaru-magenta',
-  //     darkGtkTheme: 'Yaru-magenta-dark'),
-  // GlobalTheme(
-  //     lightTheme: yaruRedLight,
-  //     darkTheme: yaruRedDark,
-  //     lightGtkTheme: 'Yaru-red',
-  //     darkGtkTheme: 'Yaru-red-dark'),
   GlobalTheme(
-    lightTheme: yaruKubuntuLight,
-    darkTheme: yaruKubuntuDark,
-    lightGtkTheme: 'Adwaita',
-    darkGtkTheme: 'Adwaita-dark',
-    primaryColor: FlavorColors.kubuntuBlue,
-  )
+    lightTheme: yaruSageLight,
+    darkTheme: yaruSageDark,
+    lightGtkTheme: 'Yaru-sage',
+    darkGtkTheme: 'Yaru-sage-dark',
+    primaryColor: sageMaterialColor,
+  ),
+  GlobalTheme(
+    lightTheme: yaruBarkLight,
+    darkTheme: yaruBarkDark,
+    lightGtkTheme: 'Yaru-bark',
+    darkGtkTheme: 'Yaru-bark-dark',
+    primaryColor: barkMaterialColor,
+  ),
+  GlobalTheme(
+    lightTheme: yaruOliveLight,
+    darkTheme: yaruOliveDark,
+    lightGtkTheme: 'Yaru-olive',
+    darkGtkTheme: 'Yaru-olive-dark',
+    primaryColor: oliveMaterialColor,
+  ),
+  GlobalTheme(
+    lightTheme: yaruViridianLight,
+    darkTheme: yaruViridianDark,
+    lightGtkTheme: 'Yaru-viridian',
+    darkGtkTheme: 'Yaru-viridian-dark',
+    primaryColor: viridianMaterialColor,
+  ),
+  GlobalTheme(
+    lightTheme: yaruPrussianGreenLight,
+    darkTheme: yaruPrussianGreenDark,
+    lightGtkTheme: 'Yaru-prussiangreen',
+    darkGtkTheme: 'Yaru-prussiangreen-dark',
+    primaryColor: prussianGreenMaterialColor,
+  ),
+  GlobalTheme(
+    lightTheme: yaruBlueLight,
+    darkTheme: yaruBlueDark,
+    lightGtkTheme: 'Yaru-blue',
+    darkGtkTheme: 'Yaru-blue-dark',
+    primaryColor: blueMaterialColor,
+  ),
+  GlobalTheme(
+    lightTheme: yaruPurpleLight,
+    darkTheme: yaruPurpleDark,
+    lightGtkTheme: 'Yaru-purple',
+    darkGtkTheme: 'Yaru-purple-dark',
+    primaryColor: purpleMaterialColor,
+  ),
+  GlobalTheme(
+    lightTheme: yarMagentaLight,
+    darkTheme: yaruMagentaDark,
+    lightGtkTheme: 'Yaru-magenta',
+    darkGtkTheme: 'Yaru-magenta-dark',
+    primaryColor: magentaMaterialColor,
+  ),
+  GlobalTheme(
+    lightTheme: yaruRedLight,
+    darkTheme: yaruRedDark,
+    lightGtkTheme: 'Yaru-red',
+    darkGtkTheme: 'Yaru-red-dark',
+    primaryColor: lightRedMaterialColor,
+  ),
 ];
 
 class GlobalTheme {
