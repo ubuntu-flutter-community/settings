@@ -64,7 +64,7 @@ class PrivacyModel extends SafeChangeNotifier {
   int? get oldFilesAge => _privacySettings?.getValue(_oldFilesAgeKey);
   set oldFilesAge(int? value) {
     if (value == null) return;
-    _privacySettings?.setValue(_oldFilesAgeKey, value);
+    _privacySettings?.setUint32Value(_oldFilesAgeKey, value);
     notifyListeners();
   }
 
