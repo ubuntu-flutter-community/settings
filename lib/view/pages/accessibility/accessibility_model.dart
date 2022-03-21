@@ -360,7 +360,8 @@ class AccessibilityModel extends ChangeNotifier {
       _peripheralsKeyboardSettings?.intValue(_delayKeyboardKey)?.toDouble();
 
   void setDelay(double value) {
-    _peripheralsKeyboardSettings?.setValue(_delayKeyboardKey, value.toInt());
+    _peripheralsKeyboardSettings?.setUint32Value(
+        _delayKeyboardKey, value.toInt());
     notifyListeners();
   }
 
@@ -369,7 +370,7 @@ class AccessibilityModel extends ChangeNotifier {
       ?.toDouble();
 
   void setInterval(double value) {
-    _peripheralsKeyboardSettings?.setValue(
+    _peripheralsKeyboardSettings?.setUint32Value(
         _repeatIntervalKeyboardKey, value.toInt());
     notifyListeners();
   }
