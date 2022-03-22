@@ -91,6 +91,14 @@ class Settings {
     throw UnsupportedError('Unsupported type: $T');
   }
 
+  Future<void> setUint32Value(String key, int value) async {
+    if (_values[key] == value) {
+      return;
+    }
+    _values[key] = value;
+    _settings.set(key, DBusUint32(value));
+  }
+
   Future<void> resetValue(String key) {
     return _settings.setAll(<String, DBusValue?>{key: null});
   }
