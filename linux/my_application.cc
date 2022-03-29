@@ -4,7 +4,7 @@
 #ifdef GDK_WINDOWING_X11
 #include <gdk/gdkx.h>
 #endif
-#include <handy.h>
+#include <adwaita.h>
 
 #include "flutter/generated_plugin_registrant.h"
 
@@ -18,17 +18,17 @@ G_DEFINE_TYPE(MyApplication, my_application, GTK_TYPE_APPLICATION)
 // Implements GApplication::activate.
 static void my_application_activate(GApplication* application) {
   MyApplication* self = MY_APPLICATION(application);
-  GtkWindow* window = GTK_WINDOW(hdy_application_window_new());
+  GtkWindow* window = GTK_WINDOW(adw_application_window_new());
   gtk_window_set_application(window, GTK_APPLICATION(application));
 
   GtkBox* box = GTK_BOX(gtk_box_new(GTK_ORIENTATION_VERTICAL, 0));
   gtk_widget_show(GTK_WIDGET(box));
   gtk_container_add(GTK_CONTAINER(window), GTK_WIDGET(box));
 
-  HdyHeaderBar* header_bar = HDY_HEADER_BAR(hdy_header_bar_new());
+  AdwHeaderBar* header_bar = ADW_HEADER_BAR(adw_header_bar_new());
   gtk_widget_show(GTK_WIDGET(header_bar));
-  hdy_header_bar_set_title(header_bar, "Ubuntu Settings");
-  hdy_header_bar_set_show_close_button(header_bar, TRUE);
+  adw_header_bar_set_title_widget(header_bar, "Ubuntu Settings");
+  adw_header_bar_set_show_end_title_buttons(header_bar, TRUE);
   gtk_box_pack_start(GTK_BOX(box), GTK_WIDGET(header_bar), false, true, 0);
 
   GdkGeometry geometry;
@@ -64,7 +64,7 @@ static gboolean my_application_local_command_line(GApplication* application, gch
      return TRUE;
   }
 
-  hdy_init();
+  adw_init();
 
   g_application_activate(application);
   *exit_status = 0;
