@@ -43,6 +43,7 @@ dependencies:
   equatable: ^2.0.3
   file_selector_linux: ^0.0.2+1
   file_selector: ^0.8.4+1
+  handy_window: ^0.1.2
 
 dev_dependencies:
   build_runner: ^2.1.2
