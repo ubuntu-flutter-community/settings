@@ -20,6 +20,8 @@ const _nasaUrl =
 class WallpaperModel extends SafeChangeNotifier {
   final Settings? _wallpaperSettings;
   static const _pictureUriKey = 'picture-uri';
+  static const _pictureUriDarkKey = 'picture-uri-dark';
+
   static const _preinstalledWallpapersDir = '/usr/share/backgrounds';
   static const _colorShadingTypeKey = 'color-shading-type';
   static const _primaryColorKey = 'primary-color';
@@ -47,6 +49,15 @@ class WallpaperModel extends SafeChangeNotifier {
 
   set pictureUri(String picPathString) {
     _wallpaperSettings?.setValue(_pictureUriKey,
+        picPathString.isEmpty ? '' : gnomeWallpaperSuffix + picPathString);
+    notifyListeners();
+  }
+
+  String get pictureUriDark =>
+      _wallpaperSettings?.stringValue(_pictureUriDarkKey) ?? '';
+
+  set pictureUriDark(String picPathString) {
+    _wallpaperSettings?.setValue(_pictureUriDarkKey,
         picPathString.isEmpty ? '' : gnomeWallpaperSuffix + picPathString);
     notifyListeners();
   }
