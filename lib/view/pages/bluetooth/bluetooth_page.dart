@@ -85,10 +85,16 @@ class _BluetoothPageState extends State<BluetoothPage> {
               ListView.builder(
                 shrinkWrap: true,
                 itemCount: model.devices.length,
-                itemBuilder: (context, index) => BluetoothDeviceRow.create(
-                    context,
-                    model.devices[index],
-                    () async => model.removeDevice(model.devices[index])),
+                itemBuilder: (context, index) {
+                  if (model.devices[index].name.isNotEmpty) {
+                    return BluetoothDeviceRow.create(
+                        context,
+                        model.devices[index],
+                        () async => model.removeDevice(model.devices[index]));
+                  } else {
+                    return const SizedBox();
+                  }
+                },
               )
             ]),
       ],

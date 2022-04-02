@@ -73,12 +73,7 @@ class BluetoothModel extends SafeChangeNotifier {
       _adaptersRemoved = _client.adapterRemoved.listen((event) {
         notifyListeners();
       });
-      for (var adapter in _client.adapters) {
-        if (!adapter.discovering && adapter.powered) {
-          adapter.startDiscovery();
-          notifyListeners();
-        }
-      }
+      startDiscovery();
       notifyListeners();
     }).onError((error, stackTrace) {
       _client.close();
