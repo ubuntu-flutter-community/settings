@@ -141,6 +141,7 @@ class WallpaperModel extends SafeChangeNotifier {
     switch (wallpaperMode) {
       case WallpaperMode.solid:
         pictureUri = '';
+        pictureUriDark = '';
         break;
       case WallpaperMode.custom:
         if (pictureUri.isEmpty) {
