@@ -53,12 +53,6 @@ source ~/.bashrc
 flutter config --enable-linux-desktop
 ```
 
-## Install libhandy
-
-```bash
-sudo apt install libhandy-1-dev
-```
-
 # TODO
 
 - [X] use real yaru icons - thanks to @Jupi007
@@ -79,7 +73,7 @@ sudo apt install libhandy-1-dev
 - [ ] Online Accounts page
 - [ ] Sound page - WIP    
 - [X] Power page
-- [ ] Displays page
+- [X] Displays page - WIP
 - [X] Mouse and touchpad page
 - [X] Keyboard shortcuts page - WIP
 - [ ] Printers page - WIP
