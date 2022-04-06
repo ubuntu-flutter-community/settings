@@ -39,6 +39,10 @@ class WallpaperPage extends StatelessWidget {
     const headlineInsets =
         EdgeInsets.only(top: 30, left: 10, right: 10, bottom: 10);
 
+    final pictureUri = Theme.of(context).brightness == Brightness.light
+        ? model.pictureUri
+        : model.pictureUriDark;
+
     return YaruPage(
       children: [
         YaruRow(
@@ -80,15 +84,14 @@ class WallpaperPage extends StatelessWidget {
           ),
         SizedBox(
           width: kDefaultWidth,
-          child: model.pictureUri.isEmpty
+          child: pictureUri.isEmpty
               ? ChangeNotifierProvider.value(
                   value: model,
                   child: const _ColoredBackground(),
                 )
               : YaruSelectableContainer(
                   child: _WallpaperImage(
-                      path: model.pictureUri
-                          .replaceAll(gnomeWallpaperSuffix, '')),
+                      path: pictureUri.replaceAll(gnomeWallpaperSuffix, '')),
                   selected: false),
         ),
         if (model.wallpaperMode == WallpaperMode.imageOfTheDay)
@@ -203,7 +206,11 @@ class _AddWallpaperTile extends StatelessWidget {
             )
           ]);
           if (null != picPath) {
-            model.pictureUri = picPath.path;
+            if (Theme.of(context).brightness == Brightness.light) {
+              model.pictureUri = picPath.path;
+            } else {
+              model.pictureUriDark = picPath.path;
+            }
             model.copyToCollection(picPath.path);
           }
         },
@@ -238,6 +245,9 @@ class _WallpaperGrid extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final model = context.watch<WallpaperModel>();
+    final pictureUri = Theme.of(context).brightness == Brightness.light
+        ? model.pictureUri
+        : model.pictureUriDark;
 
     return GridView(
       gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
@@ -262,8 +272,15 @@ class _WallpaperGrid extends StatelessWidget {
                       YaruSelectableContainer(
                           child:
                               _WallpaperImage(path: picPathString, height: 90),
-                          onTap: () => model.pictureUri = picPathString,
-                          selected: model.pictureUri.contains(picPathString)),
+                          onTap: () {
+                            if (Theme.of(context).brightness ==
+                                Brightness.light) {
+                              model.pictureUri = picPathString;
+                            } else {
+                              model.pictureUriDark = picPathString;
+                            }
+                          },
+                          selected: pictureUri.contains(picPathString)),
                       if (customizableGrid)
                         ChangeNotifierProvider.value(
                           value: model,

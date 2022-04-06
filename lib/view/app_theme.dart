@@ -12,10 +12,12 @@ class AppTheme extends ValueNotifier<ThemeMode> {
       case Brightness.dark:
         value = ThemeMode.dark;
         _settings.setValue('gtk-theme', darkGtkTheme);
+        _settings.setValue('color-scheme', 'prefer-dark');
         break;
       case Brightness.light:
         value = ThemeMode.light;
         _settings.setValue('gtk-theme', lightGtkTheme);
+        _settings.setValue('color-scheme', 'default');
         break;
     }
   }
