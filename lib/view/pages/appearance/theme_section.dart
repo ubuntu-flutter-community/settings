@@ -3,7 +3,6 @@ import 'package:linux_system_info/linux_system_info.dart';
 import 'package:provider/provider.dart';
 import 'package:settings/constants.dart';
 import 'package:settings/view/app_theme.dart';
-import 'package:settings/view/pages/appearance/color_disk.dart';
 import 'package:yaru_icons/yaru_icons.dart';
 import 'package:yaru_widgets/yaru_widgets.dart';
 
@@ -25,7 +24,7 @@ class _ThemeSectionState extends State<ThemeSection> {
   @override
   Widget build(BuildContext context) {
     final theme = context.watch<AppTheme>();
-    final lighTheme = context.watch<LightTheme>();
+    final lightTheme = context.watch<LightTheme>();
     final darkTheme = context.watch<DarkTheme>();
     final lightGtkTheme = context.watch<LightGtkTheme>();
     final darkGtkTheme = context.watch<DarkGtkTheme>();
@@ -64,15 +63,14 @@ class _ThemeSectionState extends State<ThemeSection> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               for (var globalTheme in globalThemeList)
-                ColorDisk(
+                YaruColorDisk(
                     onPressed: () {
-                      lighTheme.value = globalTheme.lightTheme;
+                      lightTheme.value = globalTheme.lightTheme;
                       darkTheme.value = globalTheme.darkTheme;
                       lightGtkTheme.value = globalTheme.lightGtkTheme;
                       darkGtkTheme.value = globalTheme.darkGtkTheme;
-                      theme.setGnomeTheme(theme.value == ThemeMode.light
-                          ? lightGtkTheme.value
-                          : darkGtkTheme.value);
+                      theme.apply(Theme.of(context).brightness,
+                          lightGtkTheme.value, darkGtkTheme.value);
                     },
                     color: globalTheme.primaryColor,
                     selected: Theme.of(context).primaryColor ==

@@ -13,18 +13,15 @@ class AppTheme extends ValueNotifier<ThemeMode> {
         value = ThemeMode.dark;
         _settings.setValue('gtk-theme', darkGtkTheme);
         _settings.setValue('color-scheme', 'prefer-dark');
+        _settings.setValue('icon-theme', darkGtkTheme);
         break;
       case Brightness.light:
         value = ThemeMode.light;
         _settings.setValue('gtk-theme', lightGtkTheme);
         _settings.setValue('color-scheme', 'default');
+        _settings.setValue('icon-theme', lightGtkTheme);
         break;
     }
-  }
-
-  void setGnomeTheme(String gnomeThemeName) {
-    _settings.setValue('gtk-theme', gnomeThemeName);
-    _settings.setValue('icon-theme', gnomeThemeName);
   }
 
   @override

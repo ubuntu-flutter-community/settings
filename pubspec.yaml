@@ -32,8 +32,8 @@ dependencies:
   udisks: ^0.3.0
   upower: ^0.6.2
   yaru: ^0.2.4
-  yaru_icons: ^0.1.3
-  yaru_widgets: ^1.0.6
+  yaru_icons: ^0.2.0
+  yaru_widgets: ^1.0.8
   flutter_svg: ^1.0.0
   flutter_spinbox: ^0.8.0
   http: ^0.13.4
