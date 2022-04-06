@@ -49,8 +49,6 @@ class _UbuntuSettingsAppState extends State<UbuntuSettingsApp> {
             leftPaneWidth: 280,
             pageItems: _filteredItems.isNotEmpty ? _filteredItems : pageItems,
             previousIconData: YaruIcons.go_previous,
-            searchHint: context.l10n.searchHint,
-            searchIconData: YaruIcons.search,
             appBar: YaruSearchAppBar(
               searchHint: context.l10n.searchHint,
               clearSearchIconData: YaruIcons.window_close,
