@@ -10,31 +10,31 @@ environment:
 
 dependencies:
   dbus: ^0.6.8
-  duration: ^3.0.6
+  duration: ^3.0.11
   filesize: ^2.0.1
   flutter:
     sdk: flutter
   flutter_localizations:
     sdk: flutter
-  gsettings: ^0.2.3
+  gsettings: ^0.2.4
   intl: ^0.17.0
   linux_system_info: ^0.0.7
   mime: ^1.0.0
-  bluez: ^0.7.4
+  bluez: ^0.7.9
   flex_color_picker: ^2.1.2
-  nm: ^0.4.0
+  nm: ^0.4.4
   open_file: ^3.2.1
   path_provider: ^2.0.5
   pdf: ^3.6.0
-  provider: ^6.0.1
-  rive: ^0.8.1
+  provider: ^6.0.2
+  rive: ^0.8.4
   safe_change_notifier: ^0.1.0
-  udisks: ^0.3.0
+  udisks: ^0.3.1
   upower: ^0.6.2
-  yaru: ^0.2.4
-  yaru_icons: ^0.2.0
+  yaru: ^0.2.5
+  yaru_icons: ^0.2.1
   yaru_widgets: ^1.0.8
-  flutter_svg: ^1.0.0
+  flutter_svg: ^1.0.3
   flutter_spinbox: ^0.8.0
   http: ^0.13.4
   xml: ^5.3.1
@@ -51,7 +51,7 @@ dev_dependencies:
   flutter_lints: ^1.0.0
   flutter_test:
     sdk: flutter
-  mockingjay: ^0.2.0
+  mockingjay: ^0.3.0
   mockito: ^5.0.16
 
 flutter:
