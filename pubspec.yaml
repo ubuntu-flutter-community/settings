@@ -1,7 +1,7 @@
 name: settings
 description: A new Flutter project.
 
-publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+publish_to: "none" # Remove this line if you wish to publish to pub.dev
 
 version: 1.0.0+1
 
@@ -9,41 +9,40 @@ environment:
   sdk: ">=2.15.0 <3.0.0"
 
 dependencies:
+  bluez: ^0.7.9
   dbus: ^0.6.8
   duration: ^3.0.11
+  equatable: ^2.0.3
+  file_selector: ^0.8.4+1
+  file_selector_linux: ^0.0.2+1
   filesize: ^2.0.1
+  flex_color_picker: ^2.1.2
   flutter:
     sdk: flutter
   flutter_localizations:
     sdk: flutter
+  flutter_localized_locales: ^2.0.3
+  flutter_spinbox: ^0.8.0
+  flutter_svg: ^1.0.3
   gsettings: ^0.2.4
+  handy_window: ^0.1.2
+  http: ^0.13.4
   intl: ^0.17.0
   linux_system_info: ^0.0.7
   mime: ^1.0.0
-  bluez: ^0.7.9
-  flex_color_picker: ^2.1.2
   nm: ^0.4.4
   open_file: ^3.2.1
   path_provider: ^2.0.5
   pdf: ^3.6.0
   provider: ^6.0.2
-  rive: ^0.8.4
   safe_change_notifier: ^0.1.0
   udisks: ^0.3.1
   upower: ^0.6.2
+  url_launcher: ^6.0.20
+  xml: ^5.3.1
   yaru: ^0.2.5
   yaru_icons: ^0.2.1
   yaru_widgets: ^1.0.8
-  flutter_svg: ^1.0.3
-  flutter_spinbox: ^0.8.0
-  http: ^0.13.4
-  xml: ^5.3.1
-  url_launcher: ^6.0.20
-  flutter_localized_locales: ^2.0.3
-  equatable: ^2.0.3
-  file_selector_linux: ^0.0.2+1
-  file_selector: ^0.8.4+1
-  handy_window: ^0.1.2
 
 dev_dependencies:
   build_runner: ^2.1.2

@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:open_file/open_file.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
-import 'package:rive/rive.dart';
 import 'package:settings/api/pdf_api.dart';
 import 'package:settings/constants.dart';
 import 'package:settings/l10n/l10n.dart';
@@ -75,10 +74,11 @@ class _InfoPageState extends State<InfoPage> {
                 color: Colors.white, // inner circle color
               ), // inner content
             ),
-            const SizedBox(
-                height: 128,
-                width: 128,
-                child: RiveAnimation.asset('assets/rive/ubuntu_cof.riv')),
+            SizedBox(
+              height: 128,
+              width: 128,
+              child: Image.asset('assets/pdf_assets/cof.png'),
+            ),
           ],
         ),
         const SizedBox(height: 10),
