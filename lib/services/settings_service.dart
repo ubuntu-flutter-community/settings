@@ -69,7 +69,7 @@ class Settings {
   }
 
   Future<void> setValue<T>(String key, T value) async {
-    if (_values[key] == key) {
+    if (_values[key] == value) {
       return;
     }
     _values[key] = value;
