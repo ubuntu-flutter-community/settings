@@ -15,7 +15,6 @@ Mentionable packages that we use and want to thank are:
 - [dbus.dart](https://github.com/canonical/dbus.dart)
 - [upower.dart](https://github.com/canonical/upower.dart)
 - [udisks.dart](https://github.com/canonical/udisks.dart)
-- [filesystem_picker](https://github.com/andyduke/filesystem_picker)
 - [flex_color_picker](https://github.com/rydmike/flex_color_picker)
 
 
