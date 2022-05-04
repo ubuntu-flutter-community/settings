@@ -3,6 +3,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:settings/services/settings_service.dart';
 import 'package:settings/view/app_theme.dart';
+import 'package:yaru/yaru.dart';
 import 'app_theme_test.mocks.dart';
 import 'package:mockito/mockito.dart';
 
@@ -18,7 +19,7 @@ void main() {
         (realInvocation) async {},
       );
 
-      theme.apply(Brightness.dark, 'Yaru', 'Yaru-dark');
+      theme.apply(Brightness.dark, YaruVariant.orange);
       verify(settings.setValue('gtk-theme', 'Yaru-dark')).called(1);
     },
   );
@@ -33,7 +34,7 @@ void main() {
         (realInvocation) async {},
       );
 
-      theme.apply(Brightness.light, 'Yaru', 'Yaru-dark');
+      theme.apply(Brightness.light, YaruVariant.orange);
       verify(settings.setValue('gtk-theme', 'Yaru')).called(1);
     },
   );
