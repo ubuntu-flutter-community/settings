@@ -75,7 +75,7 @@ final List<GlobalTheme> globalThemeList = [
     darkTheme: yaruOliveDark,
     lightGtkTheme: 'Yaru-olive',
     darkGtkTheme: 'Yaru-olive-dark',
-    primaryColor: YaruColors.bark,
+    primaryColor: YaruColors.olive,
   ),
   GlobalTheme(
     lightTheme: yaruViridianLight,
