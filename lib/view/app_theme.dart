@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:settings/services/settings_service.dart';
 import 'package:yaru/yaru.dart';
+import 'package:yaru_colors/yaru_colors.dart';
 
 class AppTheme extends ValueNotifier<ThemeMode> {
   AppTheme(this._settings) : super(ThemeMode.system);
@@ -53,70 +54,70 @@ final List<GlobalTheme> globalThemeList = [
     darkTheme: yaruDark,
     lightGtkTheme: 'Yaru',
     darkGtkTheme: 'Yaru-dark',
-    primaryColor: YaruColors.ubuntuOrange,
+    primaryColor: YaruColors.orange,
   ),
   GlobalTheme(
     lightTheme: yaruSageLight,
     darkTheme: yaruSageDark,
     lightGtkTheme: 'Yaru-sage',
     darkGtkTheme: 'Yaru-sage-dark',
-    primaryColor: sageMaterialColor,
+    primaryColor: YaruColors.sage,
   ),
   GlobalTheme(
     lightTheme: yaruBarkLight,
     darkTheme: yaruBarkDark,
     lightGtkTheme: 'Yaru-bark',
     darkGtkTheme: 'Yaru-bark-dark',
-    primaryColor: barkMaterialColor,
+    primaryColor: YaruColors.bark,
   ),
   GlobalTheme(
     lightTheme: yaruOliveLight,
     darkTheme: yaruOliveDark,
     lightGtkTheme: 'Yaru-olive',
     darkGtkTheme: 'Yaru-olive-dark',
-    primaryColor: oliveMaterialColor,
+    primaryColor: YaruColors.bark,
   ),
   GlobalTheme(
     lightTheme: yaruViridianLight,
     darkTheme: yaruViridianDark,
     lightGtkTheme: 'Yaru-viridian',
     darkGtkTheme: 'Yaru-viridian-dark',
-    primaryColor: viridianMaterialColor,
+    primaryColor: YaruColors.viridian,
   ),
   GlobalTheme(
     lightTheme: yaruPrussianGreenLight,
     darkTheme: yaruPrussianGreenDark,
     lightGtkTheme: 'Yaru-prussiangreen',
     darkGtkTheme: 'Yaru-prussiangreen-dark',
-    primaryColor: prussianGreenMaterialColor,
+    primaryColor: YaruColors.prussianGreen,
   ),
   GlobalTheme(
     lightTheme: yaruBlueLight,
     darkTheme: yaruBlueDark,
     lightGtkTheme: 'Yaru-blue',
     darkGtkTheme: 'Yaru-blue-dark',
-    primaryColor: blueMaterialColor,
+    primaryColor: YaruColors.blue,
   ),
   GlobalTheme(
     lightTheme: yaruPurpleLight,
     darkTheme: yaruPurpleDark,
     lightGtkTheme: 'Yaru-purple',
     darkGtkTheme: 'Yaru-purple-dark',
-    primaryColor: purpleMaterialColor,
+    primaryColor: YaruColors.purple,
   ),
   GlobalTheme(
-    lightTheme: yarMagentaLight,
+    lightTheme: yaruMagentaLight,
     darkTheme: yaruMagentaDark,
     lightGtkTheme: 'Yaru-magenta',
     darkGtkTheme: 'Yaru-magenta-dark',
-    primaryColor: magentaMaterialColor,
+    primaryColor: YaruColors.magenta,
   ),
   GlobalTheme(
     lightTheme: yaruRedLight,
     darkTheme: yaruRedDark,
     lightGtkTheme: 'Yaru-red',
     darkGtkTheme: 'Yaru-red-dark',
-    primaryColor: lightRedMaterialColor,
+    primaryColor: YaruColors.red,
   ),
 ];
 
