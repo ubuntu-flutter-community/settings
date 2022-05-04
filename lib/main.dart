@@ -17,7 +17,6 @@ import 'package:settings/services/settings_service.dart';
 import 'package:settings/view/app_theme.dart';
 import 'package:udisks/udisks.dart';
 import 'package:upower/upower.dart';
-import 'package:yaru/yaru.dart';
 
 void main() async {
   final themeSettings = Settings(schemaInterface);
@@ -28,10 +27,6 @@ void main() async {
   runApp(
     MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (_) => LightTheme(yaruLight)),
-        ChangeNotifierProvider(create: (_) => DarkTheme(yaruDark)),
-        ChangeNotifierProvider(create: (_) => LightGtkTheme('Yaru')),
-        ChangeNotifierProvider(create: (_) => DarkGtkTheme('Yaru-dark')),
         ChangeNotifierProvider(
           create: (_) => AppTheme(themeSettings),
         ),
