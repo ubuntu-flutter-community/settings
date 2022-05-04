@@ -1,6 +1,5 @@
 import 'package:bluez/bluez.dart';
 import 'package:flutter/material.dart';
-import 'package:gsettings/gsettings.dart';
 import 'package:nm/nm.dart';
 import 'package:provider/provider.dart';
 import 'package:settings/app.dart';
@@ -15,17 +14,27 @@ import 'package:settings/services/locale_service.dart';
 import 'package:settings/services/power_profile_service.dart';
 import 'package:settings/services/power_settings_service.dart';
 import 'package:settings/services/settings_service.dart';
+import 'package:settings/view/app_theme.dart';
 import 'package:udisks/udisks.dart';
 import 'package:upower/upower.dart';
+import 'package:yaru/yaru.dart';
 
 void main() async {
+  final themeSettings = Settings(schemaInterface);
+
   final networkManagerClient = NetworkManagerClient();
   await networkManagerClient.connect();
 
   runApp(
     MultiProvider(
       providers: [
-        Provider<GSettings>(create: (_) => GSettings(schemaInterface)),
+        ChangeNotifierProvider(create: (_) => LightTheme(yaruLight)),
+        ChangeNotifierProvider(create: (_) => DarkTheme(yaruDark)),
+        ChangeNotifierProvider(create: (_) => LightGtkTheme('Yaru')),
+        ChangeNotifierProvider(create: (_) => DarkGtkTheme('Yaru-dark')),
+        ChangeNotifierProvider(
+          create: (_) => AppTheme(themeSettings),
+        ),
         Provider<BluetoothService>(
           create: (_) => BluetoothService(),
           dispose: (_, service) => service.dispose(),
