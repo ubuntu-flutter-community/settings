@@ -3,6 +3,7 @@ import 'package:linux_system_info/linux_system_info.dart';
 import 'package:provider/provider.dart';
 import 'package:settings/constants.dart';
 import 'package:settings/view/app_theme.dart';
+import 'package:yaru/yaru.dart';
 import 'package:yaru_icons/yaru_icons.dart';
 import 'package:yaru_widgets/yaru_widgets.dart';
 
@@ -23,12 +24,7 @@ class _ThemeSectionState extends State<ThemeSection> {
 
   @override
   Widget build(BuildContext context) {
-    final theme = context.watch<AppTheme>();
-    final lightTheme = context.watch<LightTheme>();
-    final darkTheme = context.watch<DarkTheme>();
-    final lightGtkTheme = context.watch<LightGtkTheme>();
-    final darkGtkTheme = context.watch<DarkGtkTheme>();
-
+    final theme = YaruTheme.of(context);
     return YaruSection(
       width: kDefaultWidth,
       headline: 'Theme',
@@ -49,32 +45,23 @@ class _ThemeSectionState extends State<ThemeSection> {
                       Text('Dark mode is turned on'),
                     ],
                   ),
-            value: Theme.of(context).brightness == Brightness.dark,
-            onChanged: (_) {
-              theme.apply(
-                  Theme.of(context).brightness == Brightness.dark
-                      ? Brightness.light
-                      : Brightness.dark,
-                  lightGtkTheme.value,
-                  darkGtkTheme.value);
-            }),
+            value: YaruTheme.of(context).themeMode == ThemeMode.dark,
+            onChanged: (_) => AppTheme.apply(context,
+                themeMode: theme.themeMode == ThemeMode.light
+                    ? ThemeMode.dark
+                    : ThemeMode.light)),
         if (int.parse(_osVersion.substring(0, 2)) >= 22)
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              for (var globalTheme in globalThemeList)
+              for (final variant in YaruVariant.values.take(10)) // skip flavors
                 YaruColorDisk(
-                    onPressed: () {
-                      lightTheme.value = globalTheme.lightTheme;
-                      darkTheme.value = globalTheme.darkTheme;
-                      lightGtkTheme.value = globalTheme.lightGtkTheme;
-                      darkGtkTheme.value = globalTheme.darkGtkTheme;
-                      theme.apply(Theme.of(context).brightness,
-                          lightGtkTheme.value, darkGtkTheme.value);
-                    },
-                    color: globalTheme.primaryColor,
-                    selected: Theme.of(context).primaryColor ==
-                        globalTheme.primaryColor),
+                  color: variant.color,
+                  selected:
+                      variant == theme.variant && theme.highContrast != true,
+                  onPressed: () => AppTheme.apply(context,
+                      variant: variant, highContrast: false),
+                ),
             ],
           )
       ],

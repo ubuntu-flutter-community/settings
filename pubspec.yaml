@@ -24,7 +24,7 @@ dependencies:
   flutter_localized_locales: ^2.0.3
   flutter_spinbox: ^0.8.0
   flutter_svg: ^1.0.3
-  gsettings: ^0.2.4
+  gsettings: ^0.2.5
   handy_window: ^0.1.2
   http: ^0.13.4
   intl: ^0.17.0
