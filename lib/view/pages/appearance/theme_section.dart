@@ -3,6 +3,7 @@ import 'package:linux_system_info/linux_system_info.dart';
 import 'package:provider/provider.dart';
 import 'package:settings/constants.dart';
 import 'package:settings/view/app_theme.dart';
+import 'package:yaru/yaru.dart';
 import 'package:yaru_icons/yaru_icons.dart';
 import 'package:yaru_widgets/yaru_widgets.dart';
 
@@ -24,10 +25,6 @@ class _ThemeSectionState extends State<ThemeSection> {
   @override
   Widget build(BuildContext context) {
     final theme = context.watch<AppTheme>();
-    final lightTheme = context.watch<LightTheme>();
-    final darkTheme = context.watch<DarkTheme>();
-    final lightGtkTheme = context.watch<LightGtkTheme>();
-    final darkGtkTheme = context.watch<DarkGtkTheme>();
 
     return YaruSection(
       width: kDefaultWidth,
@@ -55,8 +52,7 @@ class _ThemeSectionState extends State<ThemeSection> {
                   Theme.of(context).brightness == Brightness.dark
                       ? Brightness.light
                       : Brightness.dark,
-                  lightGtkTheme.value,
-                  darkGtkTheme.value);
+                  YaruTheme.of(context).variant ?? YaruVariant.orange);
             }),
         if (int.parse(_osVersion.substring(0, 2)) >= 22)
           Row(
@@ -65,16 +61,10 @@ class _ThemeSectionState extends State<ThemeSection> {
               for (var globalTheme in globalThemeList)
                 YaruColorDisk(
                     onPressed: () {
-                      lightTheme.value = globalTheme.lightTheme;
-                      darkTheme.value = globalTheme.darkTheme;
-                      lightGtkTheme.value = globalTheme.lightGtkTheme;
-                      darkGtkTheme.value = globalTheme.darkGtkTheme;
-                      theme.apply(Theme.of(context).brightness,
-                          lightGtkTheme.value, darkGtkTheme.value);
+                      theme.apply(Theme.of(context).brightness, globalTheme);
                     },
-                    color: globalTheme.primaryColor,
-                    selected: Theme.of(context).primaryColor ==
-                        globalTheme.primaryColor),
+                    color: globalTheme.color,
+                    selected: YaruTheme.of(context).variant == globalTheme),
             ],
           )
       ],

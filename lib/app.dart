@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_localized_locales/flutter_localized_locales.dart';
 import 'package:provider/provider.dart';
 import 'package:settings/l10n/l10n.dart';
 import 'package:settings/view/app_theme.dart';
 import 'package:settings/view/pages/page_items.dart';
+import 'package:yaru/yaru.dart';
 import 'package:yaru_icons/yaru_icons.dart';
 import 'package:yaru_widgets/yaru_widgets.dart';
-import 'package:flutter_localized_locales/flutter_localized_locales.dart';
 
 class UbuntuSettingsApp extends StatefulWidget {
   const UbuntuSettingsApp({
@@ -45,25 +46,27 @@ class _UbuntuSettingsAppState extends State<UbuntuSettingsApp> {
       onGenerateTitle: (context) => context.l10n.appTitle,
       routes: {
         Navigator.defaultRouteName: (context) {
-          return YaruMasterDetailPage(
-            leftPaneWidth: 280,
-            pageItems: _filteredItems.isNotEmpty ? _filteredItems : pageItems,
-            previousIconData: YaruIcons.go_previous,
-            appBar: YaruSearchAppBar(
-              searchHint: context.l10n.searchHint,
-              clearSearchIconData: YaruIcons.window_close,
-              searchController: _searchController,
-              onChanged: (v) => _onSearchChanged(v, context),
-              onEscape: _onEscape,
-              appBarHeight: 48,
-              searchIconData: YaruIcons.search,
+          return YaruTheme(
+            data: YaruThemeData(
+              themeMode: context.watch<AppTheme>().value,
+            ),
+            child: YaruMasterDetailPage(
+              leftPaneWidth: 280,
+              pageItems: _filteredItems.isNotEmpty ? _filteredItems : pageItems,
+              previousIconData: YaruIcons.go_previous,
+              appBar: YaruSearchAppBar(
+                searchHint: context.l10n.searchHint,
+                clearSearchIconData: YaruIcons.window_close,
+                searchController: _searchController,
+                onChanged: (v) => _onSearchChanged(v, context),
+                onEscape: _onEscape,
+                appBarHeight: 48,
+                searchIconData: YaruIcons.search,
+              ),
             ),
           );
         },
       },
-      theme: context.watch<LightTheme>().value,
-      darkTheme: context.watch<DarkTheme>().value,
-      themeMode: context.watch<AppTheme>().value,
       supportedLocales: AppLocalizations.supportedLocales,
       localizationsDelegates: AppLocalizations.localizationsDelegates +
           [const LocaleNamesLocalizationsDelegate()],

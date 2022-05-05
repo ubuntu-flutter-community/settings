@@ -4,7 +4,7 @@ import 'package:settings/constants.dart';
 import 'package:settings/services/power_profile_service.dart';
 import 'package:settings/view/pages/power/power_profile_model.dart';
 import 'package:settings/view/pages/power/power_profile_widgets.dart';
-import 'package:yaru/yaru.dart';
+import 'package:yaru_colors/yaru_colors.dart';
 import 'package:yaru_icons/yaru_icons.dart';
 import 'package:yaru_widgets/yaru_widgets.dart';
 
@@ -41,7 +41,7 @@ class _PowerProfileSectionState extends State<PowerProfileSection> {
           title: const ProfileModeTitle(
               icon: Icon(
                 YaruIcons.meter_5,
-                color: YaruColors.red,
+                color: YaruColors.error,
               ),
               title: Text('Performance')),
           subtitle: const Text('High performance and power usage.'),
@@ -63,7 +63,7 @@ class _PowerProfileSectionState extends State<PowerProfileSection> {
           title: const ProfileModeTitle(
               icon: Icon(
                 YaruIcons.meter_1,
-                color: YaruColors.green,
+                color: YaruColors.success,
               ),
               title: Text('Power save')),
           subtitle: const Text('Reduced performance and power usage.'),
