@@ -16,15 +16,15 @@ dependencies:
   file_selector: ^0.8.4+1
   file_selector_linux: ^0.0.2+1
   filesize: ^2.0.1
-  flex_color_picker: ^2.1.2
+  flex_color_picker: ^2.5.0
   flutter:
     sdk: flutter
   flutter_localizations:
     sdk: flutter
   flutter_localized_locales: ^2.0.3
-  flutter_spinbox: ^0.8.0
+  flutter_spinbox: ^0.9.0
   flutter_svg: ^1.0.3
-  gsettings: ^0.2.4
+  gsettings: ^0.2.5
   handy_window: ^0.1.2
   http: ^0.13.4
   intl: ^0.17.0
@@ -32,20 +32,18 @@ dependencies:
     git:
       url: https://github.com/Feichtmeier/linux_system_info.git
       ref: update_dbus
-
-  mime: ^1.0.0
+  mime: ^1.0.2
   nm: ^0.5.0
   open_file: ^3.2.1
-  path_provider: ^2.0.5
-  pdf: ^3.6.0
+  path_provider: ^2.0.9
+  pdf: ^3.7.4
   provider: ^6.0.2
   safe_change_notifier: ^0.1.0
   udisks: ^0.4.0
   upower: ^0.7.0
   url_launcher: ^6.0.20
   xml: ^5.3.1
-  yaru:
-    git: https://github.com/ubuntu/yaru.dart.git
+  yaru: ^0.3.0
   yaru_icons: ^0.2.1
   yaru_widgets: ^1.0.8
 

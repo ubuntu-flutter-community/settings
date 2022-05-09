@@ -182,7 +182,7 @@ packages:
       name: cross_file
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.3.2"
+    version: "0.3.3"
   crypto:
     dependency: transitive
     description:
@@ -339,7 +339,7 @@ packages:
       name: flutter_spinbox
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.8.0"
+    version: "0.9.0"
   flutter_svg:
     dependency: "direct main"
     description:
@@ -951,7 +951,7 @@ packages:
       name: webkit_inspection_protocol
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.0.0"
+    version: "1.0.1"
   win32:
     dependency: transitive
     description:
@@ -983,12 +983,10 @@ packages:
   yaru:
     dependency: "direct main"
     description:
-      path: "."
-      ref: HEAD
-      resolved-ref: b638da9a2652fcfd97628dd98a0cffc370ed95cd
-      url: "https://github.com/ubuntu/yaru.dart.git"
-    source: git
-    version: "0.2.5"
+      name: yaru
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.3.0"
   yaru_color_generator:
     dependency: transitive
     description:
