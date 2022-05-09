@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:open_file/open_file.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
-import 'package:settings/api/pdf_api.dart';
+import 'package:settings/services/pdf_service.dart';
 import 'package:settings/constants.dart';
 import 'package:settings/l10n/l10n.dart';
 import 'package:settings/services/hostname_service.dart';
@@ -135,7 +135,7 @@ class _InfoPageState extends State<InfoPage> {
                 label: const Text('Export to PDF'),
                 onPressed: () async {
                   // ignore: unused_local_variable
-                  final pdfFile = await PdfApi.generateSystemData(
+                  final pdfFile = await PdfService.generateSystemData(
                     model.osName,
                     model.osVersion,
                     model.kernelVersion,
