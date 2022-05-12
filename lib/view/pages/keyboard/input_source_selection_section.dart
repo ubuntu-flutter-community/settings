@@ -18,7 +18,7 @@ class InputSourceSelectionSection extends StatelessWidget {
       future: model.getInputSources(),
       builder: (context, snapshot) {
         if (!snapshot.hasData) {
-          return const CircularProgressIndicator();
+          return const YaruCircularProgressIndicator();
         }
         return YaruSection(
             width: kDefaultWidth,
