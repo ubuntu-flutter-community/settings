@@ -68,7 +68,7 @@ class _BluetoothPageState extends State<BluetoothPage> {
                           ? const SizedBox(
                               width: 10,
                               height: 10,
-                              child: CircularProgressIndicator(
+                              child: YaruCircularProgressIndicator(
                                 strokeWidth: 2,
                               ))
                           : const SizedBox(),

@@ -159,7 +159,7 @@ class WallpaperPage extends StatelessWidget {
                           data: snapshot.data!, customizableGrid: false);
                     } else {
                       return const Center(
-                        child: CircularProgressIndicator(),
+                        child: YaruCircularProgressIndicator(),
                       );
                     }
                   }),
