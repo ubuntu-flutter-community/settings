@@ -169,7 +169,7 @@ static void my_application_activate(GApplication* application) {
   g_autoptr(FlMethodChannel) keyboard_channel = fl_method_channel_new(
       messenger, "settings/keyboard", FL_METHOD_CODEC(codec));
   fl_method_channel_set_method_call_handler(
-      keyboard_channel, keyboard_method_call_cb, self, g_object_unref);
+      keyboard_channel, keyboard_method_call_cb, self, nullptr);
 
   gtk_widget_show(GTK_WIDGET(window));
   gtk_widget_show(GTK_WIDGET(view));
