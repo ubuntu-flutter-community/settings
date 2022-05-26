@@ -51,9 +51,9 @@ class _KeyboardShortcutRowState extends State<KeyboardShortcutRow> {
         ),
       ),
       borderRadius: BorderRadius.circular(4.0),
-      onTap: () {
+      onTap: () async {
         final oldShortcut = model.getShortcutStrings(widget.shortcutId);
-        // TODO: grab the keyboard from gnome-shell
+        await model.grabKeyboard();
         showDialog<List<String>>(
           context: context,
           builder: (_) => StatefulBuilder(builder: (context, setState) {
@@ -76,6 +76,7 @@ class _KeyboardShortcutRowState extends State<KeyboardShortcutRow> {
         ).then((shortcut) {
           keys.clear();
           model.setShortcut(widget.shortcutId, shortcut ?? oldShortcut);
+          model.ungrabKeyboard();
         });
       },
     );

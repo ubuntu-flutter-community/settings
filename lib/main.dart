@@ -10,6 +10,7 @@ import 'package:settings/services/display/display_service.dart';
 import 'package:settings/services/hostname_service.dart';
 import 'package:settings/services/house_keeping_service.dart';
 import 'package:settings/services/input_source_service.dart';
+import 'package:settings/services/keyboard_service.dart';
 import 'package:settings/services/locale_service.dart';
 import 'package:settings/services/power_profile_service.dart';
 import 'package:settings/services/power_settings_service.dart';
@@ -37,6 +38,9 @@ void main() async {
         Provider<HostnameService>(
           create: (_) => HostnameService(),
           dispose: (_, service) => service.dispose(),
+        ),
+        Provider<KeyboardService>(
+          create: (_) => KeyboardMethodChannel(),
         ),
         Provider<NetworkManagerClient>.value(value: networkManagerClient),
         Provider<PowerProfileService>(
