@@ -135,26 +135,34 @@ class KeyboardShortcutDialog extends StatelessWidget {
         ElevatedButton(
           child: const Text('Confirm'),
           onPressed: () {
-            final keyBuffer = StringBuffer();
-            for (var key in keys) {
-              var keyLabel = key.keyLabel;
-              if (keyLabel == 'Alt Left' ||
-                  keyLabel == 'Control Left' ||
-                  keyLabel == 'Meta Left' ||
-                  keyLabel == 'Shift Left') {
-                keyLabel = '<' + keyLabel.replaceAll(' Left', '') + '>';
-              } else if (keyLabel == 'Alt Right' ||
-                  keyLabel == 'Control Right' ||
-                  keyLabel == 'Meta Right' ||
-                  keyLabel == 'Shift Right') {
-                keyLabel = '<' + keyLabel.replaceAll(' Right', '') + '>';
-              }
-              keyBuffer.write(keyLabel);
-            }
-            Navigator.of(context).pop([keyBuffer.toString()]);
+            Navigator.of(context).pop([processKeys(keys)]);
           },
         )
       ],
     );
+  }
+
+  String processKeys(List<LogicalKeyboardKey> keys) {
+    final keyBuffer = StringBuffer();
+    for (final key in keys) {
+      var keyLabel = key.keyLabel;
+      if (keyLabel == 'Alt Left' ||
+          keyLabel == 'Control Left' ||
+          keyLabel == 'Meta Left' ||
+          keyLabel == 'Super Left' ||
+          keyLabel == 'Shift Left') {
+        keyLabel = '<' + keyLabel.replaceAll(' Left', '') + '>';
+      } else if (keyLabel == 'Alt Right' ||
+          keyLabel == 'Control Right' ||
+          keyLabel == 'Meta Right' ||
+          keyLabel == 'Super Right' ||
+          keyLabel == 'Shift Right') {
+        keyLabel = '<' + keyLabel.replaceAll(' Right', '') + '>';
+      } else if (keyLabel == 'Meta' || keyLabel == 'Super') {
+        keyLabel = '<$keyLabel>';
+      }
+      keyBuffer.write(keyLabel);
+    }
+    return keyBuffer.toString();
   }
 }
