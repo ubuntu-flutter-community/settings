@@ -134,9 +134,7 @@ class KeyboardShortcutDialog extends StatelessWidget {
             child: const Text('Cancel')),
         ElevatedButton(
           child: const Text('Confirm'),
-          onPressed: () {
-            Navigator.of(context).pop([processKeys(keys)]);
-          },
+          onPressed: () => Navigator.of(context).pop([processKeys(keys)]),
         )
       ],
     );
