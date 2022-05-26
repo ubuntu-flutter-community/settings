@@ -10,9 +10,107 @@
 struct _MyApplication {
   GtkApplication parent_instance;
   char** dart_entrypoint_arguments;
+  GdkDevice* grab_pointer;
+  FlView* view;
 };
 
 G_DEFINE_TYPE(MyApplication, my_application, GTK_TYPE_APPLICATION)
+
+static const gchar* gdk_grab_status_code(GdkGrabStatus status) {
+  switch (status) {
+    case GDK_GRAB_SUCCESS:
+      return "GDK_GRAB_SUCCESS";
+    case GDK_GRAB_ALREADY_GRABBED:
+      return "GDK_GRAB_ALREADY_GRABBED";
+    case GDK_GRAB_INVALID_TIME:
+      return "GDK_GRAB_INVALID_TIME";
+    case GDK_GRAB_NOT_VIEWABLE:
+      return "GDK_GRAB_NOT_VIEWABLE";
+    case GDK_GRAB_FROZEN:
+      return "GDK_GRAB_FROZEN";
+    case GDK_GRAB_FAILED:
+      return "GDK_GRAB_FAILED";
+    default:
+      return "GDK_GRAB_???";
+  }
+}
+
+static const gchar* gdk_grab_status_message(GdkGrabStatus status) {
+  switch (status) {
+    case GDK_GRAB_SUCCESS:
+      return "The resource was successfully grabbed.";
+    case GDK_GRAB_ALREADY_GRABBED:
+      return "The resource is actively grabbed by another client.";
+    case GDK_GRAB_INVALID_TIME:
+      return "The resource was grabbed more recently than the specified time.";
+    case GDK_GRAB_NOT_VIEWABLE:
+      return "The grab window or the confine_to window are not viewable.";
+    case GDK_GRAB_FROZEN:
+      return "The resource is frozen by an active grab of another client.";
+    case GDK_GRAB_FAILED:
+      return "The grab failed for some other reason.";
+    default:
+      return "The grab status is unknown.";
+  }
+}
+
+static GdkGrabStatus keyboard_ungrab(MyApplication* self) {
+  g_return_val_if_fail(MY_IS_APPLICATION(self), GDK_GRAB_FAILED);
+  g_return_val_if_fail(self->grab_pointer == nullptr, GDK_GRAB_FAILED);
+
+  GtkWidget* widget = gtk_widget_get_toplevel(GTK_WIDGET(self->view));
+  GdkWindow* window = gtk_widget_get_window(widget);
+  GdkDisplay* display = gdk_window_get_display(window);
+  GdkSeat* seat = gdk_display_get_default_seat(display);
+
+  GdkGrabStatus status = gdk_seat_grab(
+      seat, window, GDK_SEAT_CAPABILITY_KEYBOARD, false /* owner_events */,
+      nullptr /* cursor */, nullptr /* event */, nullptr /*prepare_func */,
+      nullptr /* prepare_func_data */);
+
+  self->grab_pointer = gdk_seat_get_keyboard(seat);
+  if (!self->grab_pointer) {
+    self->grab_pointer = gdk_seat_get_pointer(seat);
+  }
+
+  return status;
+}
+
+static bool keyboard_grab(MyApplication* self) {
+  g_return_val_if_fail(MY_IS_APPLICATION(self), false);
+  g_return_val_if_fail(self->grab_pointer != nullptr, false);
+
+  gdk_seat_ungrab(gdk_device_get_seat(self->grab_pointer));
+  self->grab_pointer = nullptr;
+  return true;
+}
+
+static void keyboard_method_call_cb(FlMethodChannel* method_channel,
+                                    FlMethodCall* method_call,
+                                    gpointer user_data) {
+  MyApplication* self = MY_APPLICATION(user_data);
+
+  g_autoptr(FlMethodResponse) response = nullptr;
+  const gchar* method_name = fl_method_call_get_name(method_call);
+  if (strcmp(method_name, "grabKeyboard") == 0) {
+    GdkGrabStatus status = keyboard_ungrab(self);
+    if (status == GDK_GRAB_SUCCESS) {
+      response = FL_METHOD_RESPONSE(
+          fl_method_success_response_new(fl_value_new_bool(true)));
+    } else {
+      response = FL_METHOD_RESPONSE(fl_method_error_response_new(
+          gdk_grab_status_code(status), gdk_grab_status_message(status),
+          nullptr));
+    }
+  } else if (strcmp(method_name, "ungrabKeyboard") == 0) {
+    bool result = keyboard_grab(self);
+    response = FL_METHOD_RESPONSE(
+        fl_method_success_response_new(fl_value_new_bool(result)));
+  } else {
+    response = FL_METHOD_RESPONSE(fl_method_not_implemented_response_new());
+  }
+  fl_method_call_respond(method_call, response, nullptr);
+}
 
 // Implements GApplication::activate.
 static void my_application_activate(GApplication* application) {
@@ -62,6 +160,16 @@ static void my_application_activate(GApplication* application) {
   gtk_container_add(GTK_CONTAINER(window), GTK_WIDGET(view));
 
   fl_register_plugins(FL_PLUGIN_REGISTRY(view));
+
+  self->view = view;
+  FlEngine* engine = fl_view_get_engine(self->view);
+  FlBinaryMessenger* messenger = fl_engine_get_binary_messenger(engine);
+  g_autoptr(FlStandardMethodCodec) codec = fl_standard_method_codec_new();
+
+  g_autoptr(FlMethodChannel) keyboard_channel = fl_method_channel_new(
+      messenger, "settings/keyboard", FL_METHOD_CODEC(codec));
+  fl_method_channel_set_method_call_handler(
+      keyboard_channel, keyboard_method_call_cb, self, g_object_unref);
 
   gtk_widget_show(GTK_WIDGET(window));
   gtk_widget_show(GTK_WIDGET(view));

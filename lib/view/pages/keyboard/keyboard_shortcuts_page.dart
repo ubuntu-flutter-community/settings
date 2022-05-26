@@ -2,6 +2,7 @@ import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 import 'package:settings/constants.dart';
 import 'package:settings/schemas/schemas.dart';
+import 'package:settings/services/keyboard_service.dart';
 import 'package:settings/services/settings_service.dart';
 import 'package:settings/view/pages/keyboard/keyboard_shortcut_row.dart';
 import 'package:settings/view/pages/keyboard/keyboard_shortcuts_model.dart';
@@ -12,13 +13,14 @@ class KeyboardShortcutsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final service = Provider.of<SettingsService>(context, listen: false);
-
     return YaruPage(
       children: [
         ChangeNotifierProvider(
-          create: (_) =>
-              KeyboardShortcutsModel(service, schemaId: schemaWmKeybindings),
+          create: (_) => KeyboardShortcutsModel(
+            keyboard: context.read<KeyboardService>(),
+            settings: context.read<SettingsService>(),
+            schemaId: schemaWmKeybindings,
+          ),
           child: const YaruSection(
             width: kDefaultWidth,
             headline: 'Navigation Shortcuts',
@@ -35,8 +37,11 @@ class KeyboardShortcutsPage extends StatelessWidget {
           ),
         ),
         ChangeNotifierProvider(
-            create: (_) => KeyboardShortcutsModel(service,
-                schemaId: schemaGnomeShellKeybinding),
+            create: (_) => KeyboardShortcutsModel(
+                  keyboard: context.read<KeyboardService>(),
+                  settings: context.read<SettingsService>(),
+                  schemaId: schemaGnomeShellKeybinding,
+                ),
             child: const YaruSection(
               width: kDefaultWidth,
               headline: 'System',
