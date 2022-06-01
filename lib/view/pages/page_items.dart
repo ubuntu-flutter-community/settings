@@ -102,6 +102,7 @@ List<YaruPageItem> getPageItems(BuildContext context) => [
         titleBuilder: DisplaysPage.createTitle,
         iconData: YaruIcons.desktop_display,
         builder: DisplaysPage.create,
+        searchMatches: DisplaysPage.searchMatches,
       ),
       const YaruPageItem(
         titleBuilder: MouseAndTouchpadPage.createTitle,
