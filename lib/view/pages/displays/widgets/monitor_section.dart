@@ -26,13 +26,16 @@ class MonitorSection extends StatelessWidget {
           constraints: const BoxConstraints(maxWidth: kDefaultWidth),
           child: YaruSection(
             headline: config.name,
+            headerWidget: ElevatedButton(
+              onPressed: model.modifyMode ? model.apply : null,
+              child: Text(context.l10n.apply),
+            ),
             //width: kDefaultWidth,
             children: <Widget>[
               /// Orientation row
               YaruRow(
                 enabled: true,
-                trailingWidget: Container(),
-                leadingWidget: Text(context.l10n.orientation),
+                trailingWidget: Text(context.l10n.orientation),
                 actionWidget: DropdownButton<LogicalMonitorOrientation>(
                   value: config.transform!,
                   items: [
@@ -52,8 +55,7 @@ class MonitorSection extends StatelessWidget {
               /// Resolution row
               YaruRow(
                 enabled: true,
-                trailingWidget: Container(),
-                leadingWidget: Text(context.l10n.resolution),
+                trailingWidget: Text(context.l10n.resolution),
                 actionWidget: DropdownButton<String>(
                   value: config.resolution,
                   items: [
@@ -70,8 +72,7 @@ class MonitorSection extends StatelessWidget {
               /// Refresh rate row
               YaruRow(
                 enabled: true,
-                trailingWidget: Container(),
-                leadingWidget: Text(context.l10n.refreshRate),
+                trailingWidget: Text(context.l10n.refreshRate),
                 actionWidget: DropdownButton<String>(
                   value: config.refreshRate,
                   items: [
@@ -90,23 +91,20 @@ class MonitorSection extends StatelessWidget {
               /// Scale row
               YaruRow(
                 enabled: true,
-                leadingWidget: Text(context.l10n.scale),
-                actionWidget: const SizedBox(),
-                trailingWidget: YaruToggleButtonsRow(
-                  actionLabel: '',
-                  labels: config.availableScales
-                      .map((scale) => scale.toInt())
-                      .map(context.l10n.scaleFormat)
-                      .toList(),
-                  selectedValues: config.availableScales
-                      .map((double scale) => scale == config.scale)
-                      .toList(),
-                  onPressed: (int scaleIndex) {
-                    model.setScale(
-                      index,
-                      config.availableScales[scaleIndex],
-                    );
-                  },
+                trailingWidget: Text(context.l10n.scale),
+                actionWidget: DropdownButton<int>(
+                  value: config.scale!.toInt(),
+                  items: [
+                    for (final scale in config.availableScales)
+                      DropdownMenuItem(
+                          value: scale.toInt(),
+                          child:
+                              Text('x${scale.toString().replaceAll('.0', '')}'))
+                  ],
+                  onChanged: (v) => model.setScale(
+                    index,
+                    config.availableScales[v! - 1],
+                  ),
                 ),
               ),
 

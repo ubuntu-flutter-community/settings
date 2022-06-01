@@ -24,6 +24,13 @@ class DisplaysPage extends StatefulWidget {
     );
   }
 
+  static bool searchMatches(String value, BuildContext context) =>
+      value.isNotEmpty
+          ? context.l10n.displaysPageTitle
+              .toLowerCase()
+              .contains(value.toLowerCase())
+          : false;
+
   @override
   State<DisplaysPage> createState() => _DisplaysPageState();
 }
@@ -59,31 +66,6 @@ class _DisplaysPageState extends State<DisplaysPage> {
       case DisplaysPageSection.displays:
         return YaruPage(
           children: [
-            SizedBox(
-              width: kDefaultWidth,
-              child: Visibility(
-                visible: model.modifyMode,
-                maintainSize: true,
-                maintainAnimation: true,
-                maintainState: true,
-                child: Column(
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: <Widget>[
-                        ElevatedButton(
-                          onPressed: model.apply,
-                          child: Text(context.l10n.apply),
-                        ),
-                      ],
-                    ),
-                    const Divider(
-                      color: Colors.transparent,
-                    ),
-                  ],
-                ),
-              ),
-            ),
             SizedBox(
               width: kDefaultWidth,
               child: ListView.builder(
