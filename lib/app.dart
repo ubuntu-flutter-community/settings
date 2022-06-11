@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localized_locales/flutter_localized_locales.dart';
-import 'package:provider/provider.dart';
 import 'package:settings/l10n/l10n.dart';
-import 'package:settings/view/app_theme.dart';
 import 'package:settings/view/pages/page_items.dart';
 import 'package:yaru/yaru.dart';
 import 'package:yaru_icons/yaru_icons.dart';
@@ -47,9 +45,6 @@ class _UbuntuSettingsAppState extends State<UbuntuSettingsApp> {
       routes: {
         Navigator.defaultRouteName: (context) {
           return YaruTheme(
-            data: YaruThemeData(
-              themeMode: context.watch<AppTheme>().value,
-            ),
             child: YaruMasterDetailPage(
               leftPaneWidth: 280,
               pageItems: _filteredItems.isNotEmpty ? _filteredItems : pageItems,
