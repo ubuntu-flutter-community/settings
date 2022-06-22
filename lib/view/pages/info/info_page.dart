@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:filesize/filesize.dart';
 import 'package:flutter/material.dart';
 import 'package:open_file/open_file.dart';
@@ -8,6 +10,7 @@ import 'package:settings/constants.dart';
 import 'package:settings/l10n/l10n.dart';
 import 'package:settings/services/hostname_service.dart';
 import 'package:udisks/udisks.dart';
+import 'package:yaru_colors/yaru_colors.dart';
 import 'package:yaru_icons/yaru_icons.dart';
 import 'package:yaru_widgets/yaru_widgets.dart';
 
@@ -63,29 +66,41 @@ class _InfoPageState extends State<InfoPage> {
 
     return YaruPage(
       children: [
-        Stack(
-          alignment: Alignment.center,
+        const SizedBox(height: 20),
+        Row(
+          crossAxisAlignment: CrossAxisAlignment.end,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Container(
-              height: 120,
-              width: 120,
-              decoration: const BoxDecoration(
-                shape: BoxShape.circle,
-                color: Colors.white, // inner circle color
-              ), // inner content
-            ),
-            SizedBox(
-              height: 128,
-              width: 128,
-              child: Image.asset('assets/pdf_assets/cof.png'),
-            ),
+            if (model.osName == 'Ubuntu')
+              Stack(
+                children: [
+                  Positioned(
+                    bottom: 10,
+                    left: 25,
+                    child: Container(
+                      height: 50,
+                      width: 50,
+                      decoration: const BoxDecoration(
+                          shape: BoxShape.circle, color: Colors.white),
+                    ),
+                  ),
+                  const Icon(
+                    YaruIcons.ubuntu_logo_large,
+                    size: 100,
+                    color: YaruColors.orange,
+                  ),
+                ],
+              ),
+            Text(
+              model.osName,
+              style: Theme.of(context)
+                  .textTheme
+                  .headline2!
+                  .copyWith(color: Theme.of(context).colorScheme.onSurface),
+            )
           ],
         ),
-        const SizedBox(height: 10),
-        Text('${model.osName} ${model.osVersion}',
-            style: Theme.of(context).textTheme.headline5),
-        const SizedBox(height: 10),
-        const SizedBox(height: 30),
+        const SizedBox(height: 50),
         const _Computer(),
         YaruSection(width: kDefaultWidth, headline: 'Hardware', children: [
           YaruSingleInfoRow(

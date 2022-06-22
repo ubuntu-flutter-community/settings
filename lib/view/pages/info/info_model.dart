@@ -6,6 +6,8 @@ import 'package:safe_change_notifier/safe_change_notifier.dart';
 import 'package:settings/services/hostname_service.dart';
 import 'package:udisks/udisks.dart';
 
+const kUbuntuLogoPath = '/usr/share/plymouth/ubuntu-logo.png';
+
 class InfoModel extends SafeChangeNotifier {
   InfoModel(
       {required HostnameService hostnameService,
