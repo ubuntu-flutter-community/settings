@@ -6,6 +6,8 @@ import 'package:safe_change_notifier/safe_change_notifier.dart';
 import 'package:settings/services/hostname_service.dart';
 import 'package:udisks/udisks.dart';
 
+const kUbuntuLogoPath = '/usr/share/plymouth/ubuntu-logo.png';
+
 class InfoModel extends SafeChangeNotifier {
   InfoModel(
       {required HostnameService hostnameService,
@@ -27,6 +29,7 @@ class InfoModel extends SafeChangeNotifier {
   final SystemInfo _systemInfo;
   final MemInfo _memInfo;
   final GnomeInfo _gnomeInfo;
+  bool logoExists = false;
 
   String? _gpuName = '';
   int? _diskCapacity;
@@ -42,6 +45,7 @@ class InfoModel extends SafeChangeNotifier {
       _diskCapacity =
           _uDisksClient.drives.fold<int>(0, (sum, drive) => sum + drive.size);
     });
+    logoExists = await File(kUbuntuLogoPath).exists();
 
     notifyListeners();
   }

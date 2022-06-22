@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:filesize/filesize.dart';
 import 'package:flutter/material.dart';
 import 'package:open_file/open_file.dart';
@@ -63,29 +65,9 @@ class _InfoPageState extends State<InfoPage> {
 
     return YaruPage(
       children: [
-        Stack(
-          alignment: Alignment.center,
-          children: [
-            Container(
-              height: 120,
-              width: 120,
-              decoration: const BoxDecoration(
-                shape: BoxShape.circle,
-                color: Colors.white, // inner circle color
-              ), // inner content
-            ),
-            SizedBox(
-              height: 128,
-              width: 128,
-              child: Image.asset('assets/pdf_assets/cof.png'),
-            ),
-          ],
-        ),
-        const SizedBox(height: 10),
-        Text('${model.osName} ${model.osVersion}',
-            style: Theme.of(context).textTheme.headline5),
-        const SizedBox(height: 10),
-        const SizedBox(height: 30),
+        const SizedBox(height: 20),
+        if (model.logoExists) Image.file(File(kUbuntuLogoPath)),
+        const SizedBox(height: 50),
         const _Computer(),
         YaruSection(width: kDefaultWidth, headline: 'Hardware', children: [
           YaruSingleInfoRow(
