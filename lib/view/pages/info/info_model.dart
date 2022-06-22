@@ -29,7 +29,6 @@ class InfoModel extends SafeChangeNotifier {
   final SystemInfo _systemInfo;
   final MemInfo _memInfo;
   final GnomeInfo _gnomeInfo;
-  bool logoExists = false;
 
   String? _gpuName = '';
   int? _diskCapacity;
@@ -45,7 +44,6 @@ class InfoModel extends SafeChangeNotifier {
       _diskCapacity =
           _uDisksClient.drives.fold<int>(0, (sum, drive) => sum + drive.size);
     });
-    logoExists = await File(kUbuntuLogoPath).exists();
 
     notifyListeners();
   }
