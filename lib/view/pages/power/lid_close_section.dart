@@ -19,35 +19,39 @@ class LidCloseSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final model = context.watch<LidCloseModel>();
-    return YaruSection(width: kDefaultWidth, headline: 'Lid Close', children: [
-      YaruRow(
-        enabled: model.acLidCloseAction != null,
-        trailingWidget: const Text('Lid Close Action on Ac'),
-        actionWidget: DropdownButton<LidCloseAction?>(
-          value: model.acLidCloseAction,
-          items: LidCloseAction.values.map((action) {
-            return DropdownMenuItem<LidCloseAction>(
-              value: action,
-              child: Text(action.localize(context)),
-            );
-          }).toList(),
-          onChanged: (value) => model.acLidCloseAction = value,
+    return YaruSection(
+      width: kDefaultWidth,
+      headline: 'Lid Close',
+      children: [
+        YaruRow(
+          enabled: model.acLidCloseAction != null,
+          trailingWidget: const Text('Lid Close Action on Ac'),
+          actionWidget: DropdownButton<LidCloseAction?>(
+            value: model.acLidCloseAction,
+            items: LidCloseAction.values.map((action) {
+              return DropdownMenuItem<LidCloseAction>(
+                value: action,
+                child: Text(action.localize(context)),
+              );
+            }).toList(),
+            onChanged: (value) => model.acLidCloseAction = value,
+          ),
         ),
-      ),
-      YaruRow(
-        enabled: model.batteryLidCloseAction != null,
-        trailingWidget: const Text('Lid Close Action on Battery'),
-        actionWidget: DropdownButton<LidCloseAction?>(
-          value: model.batteryLidCloseAction,
-          items: LidCloseAction.values.map((action) {
-            return DropdownMenuItem<LidCloseAction>(
-              value: action,
-              child: Text(action.localize(context)),
-            );
-          }).toList(),
-          onChanged: (value) => model.batteryLidCloseAction = value,
-        ),
-      )
-    ]);
+        YaruRow(
+          enabled: model.batteryLidCloseAction != null,
+          trailingWidget: const Text('Lid Close Action on Battery'),
+          actionWidget: DropdownButton<LidCloseAction?>(
+            value: model.batteryLidCloseAction,
+            items: LidCloseAction.values.map((action) {
+              return DropdownMenuItem<LidCloseAction>(
+                value: action,
+                child: Text(action.localize(context)),
+              );
+            }).toList(),
+            onChanged: (value) => model.batteryLidCloseAction = value,
+          ),
+        )
+      ],
+    );
   }
 }

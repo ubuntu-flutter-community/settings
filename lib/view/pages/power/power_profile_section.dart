@@ -39,11 +39,12 @@ class _PowerProfileSectionState extends State<PowerProfileSection> {
         RadioListTile<PowerProfile>(
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
           title: const ProfileModeTitle(
-              icon: Icon(
-                YaruIcons.meter_5,
-                color: YaruColors.error,
-              ),
-              title: Text('Performance')),
+            icon: Icon(
+              YaruIcons.meter_5,
+              color: YaruColors.error,
+            ),
+            title: Text('Performance'),
+          ),
           subtitle: const Text('High performance and power usage.'),
           value: PowerProfile.performance,
           groupValue: model.profile,
@@ -52,7 +53,9 @@ class _PowerProfileSectionState extends State<PowerProfileSection> {
         RadioListTile<PowerProfile>(
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
           title: const ProfileModeTitle(
-              icon: Icon(YaruIcons.meter_3), title: Text('Balanced Power')),
+            icon: Icon(YaruIcons.meter_3),
+            title: Text('Balanced Power'),
+          ),
           subtitle: const Text('Standard performance and power usage.'),
           value: PowerProfile.balanced,
           groupValue: model.profile,
@@ -61,11 +64,12 @@ class _PowerProfileSectionState extends State<PowerProfileSection> {
         RadioListTile<PowerProfile>(
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
           title: const ProfileModeTitle(
-              icon: Icon(
-                YaruIcons.meter_1,
-                color: YaruColors.success,
-              ),
-              title: Text('Power save')),
+            icon: Icon(
+              YaruIcons.meter_1,
+              color: YaruColors.success,
+            ),
+            title: Text('Power save'),
+          ),
           subtitle: const Text('Reduced performance and power usage.'),
           value: PowerProfile.powerSaver,
           groupValue: model.profile,

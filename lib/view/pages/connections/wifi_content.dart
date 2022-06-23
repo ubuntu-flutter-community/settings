@@ -20,55 +20,58 @@ class WifiDevicesContent extends StatelessWidget {
     return YaruPage(
       children: [
         YaruSwitchRow(
-            width: kDefaultWidth,
-            enabled: wifiModel.isWifiDeviceAvailable,
-            trailingWidget: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(context.l10n.wifiPageTitle),
-                Text(
-                  wifiModel.isWifiEnabled
-                      ? context.l10n.connected
-                      : context.l10n.disonnected,
-                  style: TextStyle(
-                      color: Theme.of(context)
-                          .colorScheme
-                          .onSurface
-                          .withOpacity(0.5)),
-                )
-              ],
-            ),
-            onChanged: (newValue) => wifiModel.toggleWifi(newValue),
-            value: wifiModel.isWifiEnabled),
+          width: kDefaultWidth,
+          enabled: wifiModel.isWifiDeviceAvailable,
+          trailingWidget: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(context.l10n.wifiPageTitle),
+              Text(
+                wifiModel.isWifiEnabled
+                    ? context.l10n.connected
+                    : context.l10n.disonnected,
+                style: TextStyle(
+                  color:
+                      Theme.of(context).colorScheme.onSurface.withOpacity(0.5),
+                ),
+              )
+            ],
+          ),
+          onChanged: (newValue) => wifiModel.toggleWifi(newValue),
+          value: wifiModel.isWifiEnabled,
+        ),
         if (wifiModel.isWifiEnabled)
           for (final wifiDevice in wifiModel.wifiDevices)
             AnimatedBuilder(
-                animation: wifiDevice,
-                builder: (_, __) {
-                  return YaruSection(
-                    width: kDefaultWidth,
-                    headline: context.l10n.connectionsPageHeadline,
-                    children: [
-                      for (final accessPoint in wifiDevice.accesPoints)
-                        AccessPointTile(
-                          accessPointModel: accessPoint,
-                          onTap: () {
-                            wifiModel.connectToAccesPoint(
-                              accessPoint,
-                              wifiDevice,
-                              (wifiDevice, accessPoint) =>
-                                  authenticate(context, accessPoint),
+              animation: wifiDevice,
+              builder: (_, __) {
+                return YaruSection(
+                  width: kDefaultWidth,
+                  headline: context.l10n.connectionsPageHeadline,
+                  children: [
+                    for (final accessPoint in wifiDevice.accesPoints)
+                      AccessPointTile(
+                        accessPointModel: accessPoint,
+                        onTap: () {
+                          wifiModel.connectToAccesPoint(
+                            accessPoint,
+                            wifiDevice,
+                            (wifiDevice, accessPoint) =>
+                                authenticate(context, accessPoint),
+                          );
+                          if (wifiModel.errorMessage.isNotEmpty) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content: Text(wifiModel.errorMessage),
+                              ),
                             );
-                            if (wifiModel.errorMessage.isNotEmpty) {
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                  SnackBar(
-                                      content: Text(wifiModel.errorMessage)));
-                            }
-                          },
-                        )
-                    ],
-                  );
-                })
+                          }
+                        },
+                      )
+                  ],
+                );
+              },
+            )
       ],
     );
   }

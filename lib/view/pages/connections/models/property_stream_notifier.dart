@@ -9,11 +9,13 @@ class PropertyStreamNotifier extends ChangeNotifier {
 
   /// Adds a stream of [properties].
   void addProperties(Stream<List<String>> properties) {
-    _subscriptions.add(properties.listen((changedProperties) {
-      for (final property in changedProperties) {
-        _callbacks[property]?.call();
-      }
-    }));
+    _subscriptions.add(
+      properties.listen((changedProperties) {
+        for (final property in changedProperties) {
+          _callbacks[property]?.call();
+        }
+      }),
+    );
   }
 
   /// Listens [property] and calls [onChanged] when it changes.

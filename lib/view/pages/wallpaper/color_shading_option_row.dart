@@ -64,13 +64,14 @@ class ColorShadingOptionRow extends StatelessWidget {
             const SizedBox(width: 8.0),
           if (model.colorShadingType != ColorShadingType.solid)
             YaruColorPickerButton(
-                color: colorFromHex(model.secondaryColor),
-                onPressed: () async {
-                  final colorBeforeDialog = model.secondaryColor;
-                  if (!(await colorPickerDialog(context, false))) {
-                    model.secondaryColor = colorBeforeDialog;
-                  }
-                }),
+              color: colorFromHex(model.secondaryColor),
+              onPressed: () async {
+                final colorBeforeDialog = model.secondaryColor;
+                if (!(await colorPickerDialog(context, false))) {
+                  model.secondaryColor = colorBeforeDialog;
+                }
+              },
+            ),
         ],
       ),
     );

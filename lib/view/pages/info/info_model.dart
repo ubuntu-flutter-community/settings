@@ -9,14 +9,14 @@ import 'package:udisks/udisks.dart';
 const kUbuntuLogoPath = '/usr/share/plymouth/ubuntu-logo.png';
 
 class InfoModel extends SafeChangeNotifier {
-  InfoModel(
-      {required HostnameService hostnameService,
-      required UDisksClient uDisksClient,
-      List<Cpu>? cpus,
-      SystemInfo? systemInfo,
-      MemInfo? memInfo,
-      GnomeInfo? gnomeInfo})
-      : _hostnameService = hostnameService,
+  InfoModel({
+    required HostnameService hostnameService,
+    required UDisksClient uDisksClient,
+    List<Cpu>? cpus,
+    SystemInfo? systemInfo,
+    MemInfo? memInfo,
+    GnomeInfo? gnomeInfo,
+  })  : _hostnameService = hostnameService,
         _uDisksClient = uDisksClient,
         _cpus = cpus ?? CpuInfo.getProcessors(),
         _systemInfo = systemInfo ?? SystemInfo(),

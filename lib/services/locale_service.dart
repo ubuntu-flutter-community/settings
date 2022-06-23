@@ -23,10 +23,11 @@ class LocaleService {
   List<String?>? _locales;
   List<String?>? get locales => _locales;
 
-  static DBusRemoteObject _createObject() =>
-      DBusRemoteObject(DBusClient.system(),
-          name: _kLocaleInterfaceName,
-          path: DBusObjectPath(_kLocaleInterfacePath));
+  static DBusRemoteObject _createObject() => DBusRemoteObject(
+        DBusClient.system(),
+        name: _kLocaleInterfaceName,
+        path: DBusObjectPath(_kLocaleInterfacePath),
+      );
 
   Future<void> init() async {
     _locales = await _getLocales();

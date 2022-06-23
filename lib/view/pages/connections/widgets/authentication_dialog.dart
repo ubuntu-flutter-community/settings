@@ -30,7 +30,8 @@ class AuthenticationDialog extends StatelessWidget {
         children: [
           _DialogRow(
             field: Text(
-                'Passwords or encryption keys are required to access the Wi-Fi network "$accessPointSsid"'),
+              'Passwords or encryption keys are required to access the Wi-Fi network "$accessPointSsid"',
+            ),
           ),
           const SizedBox(height: 16),
           _DialogRow(
@@ -52,16 +53,17 @@ class AuthenticationDialog extends StatelessWidget {
           _DialogRow(
             title: const Text('Password'),
             field: ValueListenableBuilder<bool>(
-                valueListenable: canShowPassword,
-                builder: (_, showPassword, ___) {
-                  return TextField(
-                    controller: passwordController,
-                    obscureText: !showPassword,
-                    decoration: const InputDecoration(
-                      hintText: 'Password',
-                    ),
-                  );
-                }),
+              valueListenable: canShowPassword,
+              builder: (_, showPassword, ___) {
+                return TextField(
+                  controller: passwordController,
+                  obscureText: !showPassword,
+                  decoration: const InputDecoration(
+                    hintText: 'Password',
+                  ),
+                );
+              },
+            ),
           ),
           const SizedBox(height: 16),
           _DialogRow(
@@ -73,18 +75,19 @@ class AuthenticationDialog extends StatelessWidget {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     ValueListenableBuilder<bool>(
-                        valueListenable: canShowPassword,
-                        builder: (_, showPassword, __) {
-                          return IgnorePointer(
-                            child: Checkbox(
-                              hoverColor: Colors.transparent,
-                              materialTapTargetSize:
-                                  MaterialTapTargetSize.shrinkWrap,
-                              value: showPassword,
-                              onChanged: (_) {},
-                            ),
-                          );
-                        }),
+                      valueListenable: canShowPassword,
+                      builder: (_, showPassword, __) {
+                        return IgnorePointer(
+                          child: Checkbox(
+                            hoverColor: Colors.transparent,
+                            materialTapTargetSize:
+                                MaterialTapTargetSize.shrinkWrap,
+                            value: showPassword,
+                            onChanged: (_) {},
+                          ),
+                        );
+                      },
+                    ),
                     const Text('Show Password'),
                   ],
                 ),

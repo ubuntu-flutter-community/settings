@@ -64,33 +64,45 @@ class DisplayService {
           _currentNotifier.value!.configurations[i];
 
       // x ; y ; scale ; transform(rotation) ; primary ; monitors
-      logicalParameterValues.add(DBusStruct([
-        DBusInt32(
-            displayConfig.currentLogicalConfiguration(i).offsetX), //offset x
-        DBusInt32(
-            displayConfig.currentLogicalConfiguration(i).offsetY), // offset y
-        DBusDouble(confMonitor.scale ??
-            displayConfig.currentLogicalConfiguration(i).scale), // scale
-        DBusUint32(confMonitor.transform?.index ??
-            displayConfig
-                .currentLogicalConfiguration(i)
-                .orientation), //transform
-        DBusBoolean(confMonitor.primary ??
-            displayConfig.currentLogicalConfiguration(i).primary), // primary
-        // monitors
-        DBusArray(DBusSignature('(ssa{sv})'), [
-          DBusStruct([
-            DBusString(
-                displayConfig.identity(i).connector), // maybe monitorId ?
-            DBusString(confMonitor.monitorModeId), // option selected
-            DBusDict.stringVariant({})
-          ])
+      logicalParameterValues.add(
+        DBusStruct([
+          DBusInt32(
+            displayConfig.currentLogicalConfiguration(i).offsetX,
+          ), //offset x
+          DBusInt32(
+            displayConfig.currentLogicalConfiguration(i).offsetY,
+          ), // offset y
+          DBusDouble(
+            confMonitor.scale ??
+                displayConfig.currentLogicalConfiguration(i).scale,
+          ), // scale
+          DBusUint32(
+            confMonitor.transform?.index ??
+                displayConfig.currentLogicalConfiguration(i).orientation,
+          ), //transform
+          DBusBoolean(
+            confMonitor.primary ??
+                displayConfig.currentLogicalConfiguration(i).primary,
+          ), // primary
+          // monitors
+          DBusArray(DBusSignature('(ssa{sv})'), [
+            DBusStruct([
+              DBusString(
+                displayConfig.identity(i).connector,
+              ), // maybe monitorId ?
+              DBusString(confMonitor.monitorModeId), // option selected
+              DBusDict.stringVariant({})
+            ])
+          ]),
         ]),
-      ]));
+      );
     }
 
-    await _displayDBusService.apply(displayConfig.serial,
-        ConfigurationMethod.persistent, logicalParameterValues);
+    await _displayDBusService.apply(
+      displayConfig.serial,
+      ConfigurationMethod.persistent,
+      logicalParameterValues,
+    );
   }
 
   Future<DisplaysConfiguration> _loadState({required bool notifyStream}) {
@@ -116,7 +128,8 @@ class DisplayService {
       ///   => monitor ignored and not displayed
       if (dbusConfiguration.currentOption(i) != null) {
         confs.add(
-            DisplayMonitorConfiguration.newConstructor(dbusConfiguration, i));
+          DisplayMonitorConfiguration.newConstructor(dbusConfiguration, i),
+        );
       }
     }
 

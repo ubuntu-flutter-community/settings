@@ -48,8 +48,10 @@ class WallpaperModel extends SafeChangeNotifier {
       _wallpaperSettings?.stringValue(_pictureUriKey) ?? '';
 
   set pictureUri(String picPathString) {
-    _wallpaperSettings?.setValue(_pictureUriKey,
-        picPathString.isEmpty ? '' : gnomeWallpaperSuffix + picPathString);
+    _wallpaperSettings?.setValue(
+      _pictureUriKey,
+      picPathString.isEmpty ? '' : gnomeWallpaperSuffix + picPathString,
+    );
     notifyListeners();
   }
 
@@ -57,8 +59,10 @@ class WallpaperModel extends SafeChangeNotifier {
       _wallpaperSettings?.stringValue(_pictureUriDarkKey) ?? '';
 
   set pictureUriDark(String picPathString) {
-    _wallpaperSettings?.setValue(_pictureUriDarkKey,
-        picPathString.isEmpty ? '' : gnomeWallpaperSuffix + picPathString);
+    _wallpaperSettings?.setValue(
+      _pictureUriDarkKey,
+      picPathString.isEmpty ? '' : gnomeWallpaperSuffix + picPathString,
+    );
     notifyListeners();
   }
 
@@ -166,7 +170,8 @@ class WallpaperModel extends SafeChangeNotifier {
   }
 
   Future<void> setUrlWallpaperProvider(
-      ImageOfTheDayProvider newImageOfTheDayProvider) async {
+    ImageOfTheDayProvider newImageOfTheDayProvider,
+  ) async {
     errorMessage = '';
     //Set the new provider
     imageOfTheDayProvider = newImageOfTheDayProvider;

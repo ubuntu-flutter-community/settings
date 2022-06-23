@@ -14,8 +14,9 @@ class PrivacyModel extends SafeChangeNotifier {
   final HouseKeepingService _houseKeepingService;
 
   PrivacyModel(
-      SettingsService settingsService, HouseKeepingService houseKeepingService)
-      : _privacySettings = settingsService.lookup(schemaPrivacy),
+    SettingsService settingsService,
+    HouseKeepingService houseKeepingService,
+  )   : _privacySettings = settingsService.lookup(schemaPrivacy),
         _houseKeepingService = houseKeepingService {
     _privacySettings?.addListener(notifyListeners);
   }

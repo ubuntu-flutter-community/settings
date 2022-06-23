@@ -45,17 +45,19 @@ class RemovableMediaPage extends StatelessWidget {
         if (!model.autoRunNever)
           for (var mimeType in RemovableMediaModel.mimeTypes.entries)
             YaruRow(
-                width: kDefaultWidth,
-                enabled: !model.autoRunNever,
-                trailingWidget: Text(mimeType.value),
-                actionWidget: DropdownButton<String>(
-                    value: model.getMimeTypeBehavior(mimeType.key),
-                    onChanged: (string) =>
-                        model.setMimeTypeBehavior(string!, mimeType.key),
-                    items: [
-                      for (var string in RemovableMediaModel.mimeTypeBehaviors)
-                        DropdownMenuItem(child: Text(string), value: string),
-                    ])),
+              width: kDefaultWidth,
+              enabled: !model.autoRunNever,
+              trailingWidget: Text(mimeType.value),
+              actionWidget: DropdownButton<String>(
+                value: model.getMimeTypeBehavior(mimeType.key),
+                onChanged: (string) =>
+                    model.setMimeTypeBehavior(string!, mimeType.key),
+                items: [
+                  for (var string in RemovableMediaModel.mimeTypeBehaviors)
+                    DropdownMenuItem(child: Text(string), value: string),
+                ],
+              ),
+            ),
       ],
     );
   }

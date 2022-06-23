@@ -25,7 +25,8 @@ class _KeyboardShortcutRowState extends State<KeyboardShortcutRow> {
   Widget build(BuildContext context) {
     final model = context.watch<KeyboardShortcutsModel>();
     final shortcut = context.select<KeyboardShortcutsModel, List<String>>(
-        (model) => model.getShortcutStrings(widget.shortcutId));
+      (model) => model.getShortcutStrings(widget.shortcutId),
+    );
 
     return InkWell(
       child: YaruRow(
@@ -40,10 +41,11 @@ class _KeyboardShortcutRowState extends State<KeyboardShortcutRow> {
                   child: Text(
                     string,
                     style: TextStyle(
-                        color: Theme.of(context)
-                            .colorScheme
-                            .onSurface
-                            .withOpacity(0.7)),
+                      color: Theme.of(context)
+                          .colorScheme
+                          .onSurface
+                          .withOpacity(0.7),
+                    ),
                   ),
                 ),
               )
@@ -56,23 +58,25 @@ class _KeyboardShortcutRowState extends State<KeyboardShortcutRow> {
         await model.grabKeyboard();
         showDialog<List<String>>(
           context: context,
-          builder: (_) => StatefulBuilder(builder: (context, setState) {
-            return RawKeyboardListener(
-              focusNode: FocusNode(),
-              autofocus: true,
-              onKey: (event) {
-                if (event.logicalKey != LogicalKeyboardKey.escape &&
-                    !keys.contains(event.logicalKey) &&
-                    keys.length < 4) {
-                  setState(() => keys.add(event.logicalKey));
-                }
-              },
-              child: KeyboardShortcutDialog(
-                keys: keys,
-                oldShortcut: oldShortcut,
-              ),
-            );
-          }),
+          builder: (_) => StatefulBuilder(
+            builder: (context, setState) {
+              return RawKeyboardListener(
+                focusNode: FocusNode(),
+                autofocus: true,
+                onKey: (event) {
+                  if (event.logicalKey != LogicalKeyboardKey.escape &&
+                      !keys.contains(event.logicalKey) &&
+                      keys.length < 4) {
+                    setState(() => keys.add(event.logicalKey));
+                  }
+                },
+                child: KeyboardShortcutDialog(
+                  keys: keys,
+                  oldShortcut: oldShortcut,
+                ),
+              );
+            },
+          ),
         ).then((shortcut) {
           keys.clear();
           model.setShortcut(widget.shortcutId, shortcut ?? oldShortcut);
@@ -128,10 +132,11 @@ class KeyboardShortcutDialog extends StatelessWidget {
       ),
       actions: [
         OutlinedButton(
-            onPressed: () {
-              Navigator.of(context).pop(oldShortcut);
-            },
-            child: const Text('Cancel')),
+          onPressed: () {
+            Navigator.of(context).pop(oldShortcut);
+          },
+          child: const Text('Cancel'),
+        ),
         ElevatedButton(
           child: const Text('Confirm'),
           onPressed: () => Navigator.of(context).pop([processKeys(keys)]),

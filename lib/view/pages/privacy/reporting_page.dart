@@ -23,36 +23,44 @@ class ReportingPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final model = context.watch<ReportingModel>();
-    return YaruPage(children: [
-      SectionDescription(
-          width: kDefaultWidth, text: context.l10n.reportingDescription),
-      Padding(
-        padding: const EdgeInsets.only(bottom: 20),
-        child: SizedBox(
+    return YaruPage(
+      children: [
+        SectionDescription(
           width: kDefaultWidth,
-          child: Row(
-            children: [
-              Link(
+          text: context.l10n.reportingDescription,
+        ),
+        Padding(
+          padding: const EdgeInsets.only(bottom: 20),
+          child: SizedBox(
+            width: kDefaultWidth,
+            child: Row(
+              children: [
+                Link(
                   url: kUbuntuReportingLink,
-                  linkText: context.l10n.reportingLink),
-            ],
+                  linkText: context.l10n.reportingLink,
+                ),
+              ],
+            ),
           ),
         ),
-      ),
-      YaruSection(width: kDefaultWidth, children: [
-        YaruSwitchRow(
+        YaruSection(
           width: kDefaultWidth,
-          trailingWidget: Text(context.l10n.reportingActionLabel),
-          value: model.reportTechnicalProblems,
-          onChanged: (value) => model.reportTechnicalProblems = value,
-        ),
-        YaruSwitchRow(
-          width: kDefaultWidth,
-          trailingWidget: Text(context.l10n.reportingUsageActionLabel),
-          value: model.sendSoftwareUsageStats,
-          onChanged: (value) => model.sendSoftwareUsageStats = value,
-        ),
-      ])
-    ]);
+          children: [
+            YaruSwitchRow(
+              width: kDefaultWidth,
+              trailingWidget: Text(context.l10n.reportingActionLabel),
+              value: model.reportTechnicalProblems,
+              onChanged: (value) => model.reportTechnicalProblems = value,
+            ),
+            YaruSwitchRow(
+              width: kDefaultWidth,
+              trailingWidget: Text(context.l10n.reportingUsageActionLabel),
+              value: model.sendSoftwareUsageStats,
+              onChanged: (value) => model.sendSoftwareUsageStats = value,
+            ),
+          ],
+        )
+      ],
+    );
   }
 }

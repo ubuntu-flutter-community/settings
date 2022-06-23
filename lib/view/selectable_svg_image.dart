@@ -2,15 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class SelectableSvgImage extends StatelessWidget {
-  const SelectableSvgImage(
-      {Key? key,
-      required this.path,
-      this.onTap,
-      required this.selected,
-      required this.height,
-      required this.selectedColor,
-      this.padding})
-      : super(key: key);
+  const SelectableSvgImage({
+    Key? key,
+    required this.path,
+    this.onTap,
+    required this.selected,
+    required this.height,
+    required this.selectedColor,
+    this.padding,
+  }) : super(key: key);
 
   final String path;
   final VoidCallback? onTap;

@@ -14,13 +14,15 @@ class ProfileModeTitle extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 5),
-      child: Row(children: [
-        Padding(
-          padding: const EdgeInsets.only(right: 5),
-          child: icon,
-        ),
-        title
-      ]),
+      child: Row(
+        children: [
+          Padding(
+            padding: const EdgeInsets.only(right: 5),
+            child: icon,
+          ),
+          title
+        ],
+      ),
     );
   }
 }

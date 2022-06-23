@@ -29,34 +29,40 @@ class PrivacyPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return YaruTabbedPage(width: kDefaultWidth * 2, tabIcons: const [
-      YaruIcons.network,
-      YaruIcons.location,
-      YaruIcons.thunderbolt,
-      YaruIcons.trash,
-      YaruIcons.lock,
-      YaruIcons.question
-    ], tabTitles: [
-      context.l10n.connectivityPageTitle,
-      context.l10n.locationPageTitle,
-      context.l10n.thunderBoltPageTitle,
-      context.l10n.houseKeepingPageTitle,
-      context.l10n.screenLockPageTitle,
-      context.l10n.diagnosisPageTitle
-    ], views: [
-      ConnectivityPage.create(context),
-      LocationPage.create(context),
-      const YaruPage(
+    return YaruTabbedPage(
+      width: kDefaultWidth * 2,
+      tabIcons: const [
+        YaruIcons.network,
+        YaruIcons.location,
+        YaruIcons.thunderbolt,
+        YaruIcons.trash,
+        YaruIcons.lock,
+        YaruIcons.question
+      ],
+      tabTitles: [
+        context.l10n.connectivityPageTitle,
+        context.l10n.locationPageTitle,
+        context.l10n.thunderBoltPageTitle,
+        context.l10n.houseKeepingPageTitle,
+        context.l10n.screenLockPageTitle,
+        context.l10n.diagnosisPageTitle
+      ],
+      views: [
+        ConnectivityPage.create(context),
+        LocationPage.create(context),
+        const YaruPage(
           // TODO: implement Thunderbolt!
           children: [
             Padding(
               padding: EdgeInsets.all(8.0),
               child: Text('Thunderbolt - Please implement 🥲️'),
             )
-          ]),
-      HouseKeepingPage.create(context),
-      ScreenSaverPage.create(context),
-      ReportingPage.create(context),
-    ]);
+          ],
+        ),
+        HouseKeepingPage.create(context),
+        ScreenSaverPage.create(context),
+        ReportingPage.create(context),
+      ],
+    );
   }
 }

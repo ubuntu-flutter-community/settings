@@ -18,6 +18,7 @@ class SearchPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return YaruPage(
-        children: [Center(child: Text(context.l10n.searchPageTitle))]);
+      children: [Center(child: Text(context.l10n.searchPageTitle))],
+    );
   }
 }

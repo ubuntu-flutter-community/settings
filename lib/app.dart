@@ -28,12 +28,14 @@ class _UbuntuSettingsAppState extends State<UbuntuSettingsApp> {
   void _onSearchChanged(String value, BuildContext context) {
     setState(() {
       _filteredItems.clear();
-      _filteredItems.addAll(pageItems.where((pageItem) {
-        if (pageItem.searchMatches != null) {
-          return pageItem.searchMatches!(value, context);
-        }
-        return false;
-      }));
+      _filteredItems.addAll(
+        pageItems.where((pageItem) {
+          if (pageItem.searchMatches != null) {
+            return pageItem.searchMatches!(value, context);
+          }
+          return false;
+        }),
+      );
     });
   }
 

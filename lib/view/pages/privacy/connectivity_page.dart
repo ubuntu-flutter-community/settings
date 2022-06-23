@@ -11,8 +11,9 @@ class ConnectivityPage extends StatefulWidget {
   const ConnectivityPage({Key? key}) : super(key: key);
 
   static Widget create(BuildContext context) => ChangeNotifierProvider(
-      create: (_) => ConnectivityModel(context.read<NetworkManagerClient>()),
-      child: const ConnectivityPage());
+        create: (_) => ConnectivityModel(context.read<NetworkManagerClient>()),
+        child: const ConnectivityPage(),
+      );
 
   @override
   State<ConnectivityPage> createState() => _ConnectivityPageState();
@@ -29,23 +30,25 @@ class _ConnectivityPageState extends State<ConnectivityPage> {
   @override
   Widget build(BuildContext context) {
     final model = context.watch<ConnectivityModel>();
-    return YaruPage(children: [
-      SectionDescription(
-        width: kDefaultWidth,
-        text: context.l10n.checkConnectivityDescription,
-      ),
-      YaruSection(
-        width: kDefaultWidth,
-        children: [
-          YaruSwitchRow(
-            width: kDefaultWidth,
-            enabled: model.checkConnectiviy != null,
-            trailingWidget: Text(context.l10n.checkConnectivityLabel),
-            value: model.checkConnectiviy,
-            onChanged: (v) => model.checkConnectiviy = v,
-          ),
-        ],
-      ),
-    ]);
+    return YaruPage(
+      children: [
+        SectionDescription(
+          width: kDefaultWidth,
+          text: context.l10n.checkConnectivityDescription,
+        ),
+        YaruSection(
+          width: kDefaultWidth,
+          children: [
+            YaruSwitchRow(
+              width: kDefaultWidth,
+              enabled: model.checkConnectiviy != null,
+              trailingWidget: Text(context.l10n.checkConnectivityLabel),
+              value: model.checkConnectiviy,
+              onChanged: (v) => model.checkConnectiviy = v,
+            ),
+          ],
+        ),
+      ],
+    );
   }
 }

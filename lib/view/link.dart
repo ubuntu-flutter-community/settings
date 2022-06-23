@@ -11,7 +11,7 @@ class Link extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () async => await launch(url),
+      onTap: () async => await launchUrl(Uri.parse(url)),
       child: Text(
         linkText,
         style: Theme.of(context)

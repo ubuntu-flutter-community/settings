@@ -46,10 +46,11 @@ List<YaruPageItem> getPageItems(BuildContext context) => [
         searchMatches: WallpaperPage.searchMatches,
       ),
       const YaruPageItem(
-          titleBuilder: AppearancePage.createTitle,
-          iconData: YaruIcons.desktop_panel_look,
-          builder: AppearancePage.create,
-          searchMatches: AppearancePage.searchMatches),
+        titleBuilder: AppearancePage.createTitle,
+        iconData: YaruIcons.desktop_panel_look,
+        builder: AppearancePage.create,
+        searchMatches: AppearancePage.searchMatches,
+      ),
       const YaruPageItem(
         titleBuilder: PrivacyPage.createTitle,
         builder: PrivacyPage.create,
