@@ -234,13 +234,32 @@ class _AddWallpaperTile extends StatelessWidget {
   }
 }
 
-class _WallpaperGrid extends StatelessWidget {
+class _WallpaperGrid extends StatefulWidget {
   const _WallpaperGrid(
       {Key? key, required this.data, required this.customizableGrid})
       : super(key: key);
 
   final List<String> data;
   final bool customizableGrid;
+
+  @override
+  State<_WallpaperGrid> createState() => _WallpaperGridState();
+}
+
+class _WallpaperGridState extends State<_WallpaperGrid> {
+  late ScrollController _controller;
+
+  @override
+  void initState() {
+    _controller = ScrollController();
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -250,6 +269,7 @@ class _WallpaperGrid extends StatelessWidget {
         : model.pictureUriDark;
 
     return GridView(
+      controller: _controller,
       gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
         maxCrossAxisExtent: 180,
         childAspectRatio: 16 / 10,
@@ -259,13 +279,13 @@ class _WallpaperGrid extends StatelessWidget {
       shrinkWrap: true,
       scrollDirection: Axis.vertical,
       children: <Widget>[
-            if (customizableGrid)
+            if (widget.customizableGrid)
               ChangeNotifierProvider.value(
                 value: model,
                 child: const _AddWallpaperTile(),
               )
           ] +
-          data
+          widget.data
               .map((picPathString) => Stack(
                     fit: StackFit.expand,
                     children: [
@@ -281,7 +301,7 @@ class _WallpaperGrid extends StatelessWidget {
                             }
                           },
                           selected: pictureUri.contains(picPathString)),
-                      if (customizableGrid)
+                      if (widget.customizableGrid)
                         ChangeNotifierProvider.value(
                           value: model,
                           child: _RemoveWallpaperButton(path: picPathString),
