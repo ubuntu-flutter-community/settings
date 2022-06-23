@@ -31,40 +31,43 @@ class _ThemeSectionState extends State<ThemeSection> {
       headline: 'Theme',
       children: [
         YaruSwitchRow(
-            trailingWidget: Theme.of(context).brightness == Brightness.light
-                ? Row(
-                    children: const [
-                      Icon(YaruIcons.weather_clear),
-                      SizedBox(width: 8),
-                      Text('Dark mode is turned off'),
-                    ],
-                  )
-                : Row(
-                    children: const [
-                      Icon(YaruIcons.weather_clear_night),
-                      SizedBox(width: 8),
-                      Text('Dark mode is turned on'),
-                    ],
-                  ),
-            value: Theme.of(context).brightness == Brightness.dark,
-            onChanged: (_) {
-              theme.apply(
-                  Theme.of(context).brightness == Brightness.dark
-                      ? Brightness.light
-                      : Brightness.dark,
-                  YaruTheme.of(context).variant ?? YaruVariant.orange);
-            }),
+          trailingWidget: Theme.of(context).brightness == Brightness.light
+              ? Row(
+                  children: const [
+                    Icon(YaruIcons.weather_clear),
+                    SizedBox(width: 8),
+                    Text('Dark mode is turned off'),
+                  ],
+                )
+              : Row(
+                  children: const [
+                    Icon(YaruIcons.weather_clear_night),
+                    SizedBox(width: 8),
+                    Text('Dark mode is turned on'),
+                  ],
+                ),
+          value: Theme.of(context).brightness == Brightness.dark,
+          onChanged: (_) {
+            theme.apply(
+              Theme.of(context).brightness == Brightness.dark
+                  ? Brightness.light
+                  : Brightness.dark,
+              YaruTheme.of(context).variant ?? YaruVariant.orange,
+            );
+          },
+        ),
         if (int.parse(_osVersion.substring(0, 2)) >= 22)
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               for (var globalTheme in globalThemeList)
                 YaruColorDisk(
-                    onPressed: () {
-                      theme.apply(Theme.of(context).brightness, globalTheme);
-                    },
-                    color: globalTheme.color,
-                    selected: YaruTheme.of(context).variant == globalTheme),
+                  onPressed: () {
+                    theme.apply(Theme.of(context).brightness, globalTheme);
+                  },
+                  color: globalTheme.color,
+                  selected: YaruTheme.of(context).variant == globalTheme,
+                ),
             ],
           )
       ],

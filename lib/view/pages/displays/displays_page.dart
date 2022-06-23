@@ -41,20 +41,21 @@ class _DisplaysPageState extends State<DisplaysPage> {
     final model = context.watch<DisplaysModel>();
 
     return ValueListenableBuilder<DisplaysConfiguration?>(
-        valueListenable: model.configuration,
-        builder:
-            (BuildContext context, DisplaysConfiguration? configurations, _) {
-          return YaruTabbedPage(
-            width: kDefaultWidth,
-            tabIcons:
-                DisplaysPageSection.values.map((e) => e.icon(context)).toList(),
-            tabTitles:
-                DisplaysPageSection.values.map((e) => e.name(context)).toList(),
-            views: DisplaysPageSection.values
-                .map((e) => _buildPage(e, model, configurations))
-                .toList(),
-          );
-        });
+      valueListenable: model.configuration,
+      builder:
+          (BuildContext context, DisplaysConfiguration? configurations, _) {
+        return YaruTabbedPage(
+          width: kDefaultWidth,
+          tabIcons:
+              DisplaysPageSection.values.map((e) => e.icon(context)).toList(),
+          tabTitles:
+              DisplaysPageSection.values.map((e) => e.name(context)).toList(),
+          views: DisplaysPageSection.values
+              .map((e) => _buildPage(e, model, configurations))
+              .toList(),
+        );
+      },
+    );
   }
 
   Widget _buildPage(

@@ -35,8 +35,7 @@ class DisplayDBusService {
   final OrgGnomeMutterDisplayConfig _object;
 
   Stream<DBusDisplaysConfig> get streamChanges =>
-      _object.monitorsChanged
-          .asyncMap((event) async => getCurrent());
+      _object.monitorsChanged.asyncMap((event) async => getCurrent());
 
   static OrgGnomeMutterDisplayConfig _createObject() =>
       OrgGnomeMutterDisplayConfig(
@@ -55,8 +54,11 @@ class DisplayDBusService {
     return DBusDisplaysConfig(list);
   }
 
-  Future<void> apply(int serial, ConfigurationMethod configurationMethod,
-      List<DBusStruct> logicalParameterValues) =>
+  Future<void> apply(
+    int serial,
+    ConfigurationMethod configurationMethod,
+    List<DBusStruct> logicalParameterValues,
+  ) =>
       _object.callApplyMonitorsConfig(
         serial,
         configurationMethod.index,
@@ -82,7 +84,6 @@ class DisplayDBusService {
 
     return output;
   }
-
 }
 
 enum ConfigurationMethod { verify, temporary, persistent }

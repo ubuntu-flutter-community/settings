@@ -17,10 +17,12 @@ class AppsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return YaruPage(children: [
-      Center(
-        child: Text(context.l10n.appsPageTitle),
-      )
-    ]);
+    return YaruPage(
+      children: [
+        Center(
+          child: Text(context.l10n.appsPageTitle),
+        )
+      ],
+    );
   }
 }

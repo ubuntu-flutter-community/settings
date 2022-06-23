@@ -10,9 +10,11 @@ class WifiDeviceModel extends PropertyStreamNotifier {
     /// filter duplicate access points
     // ignore: prefer_function_declarations_over_variables
     final isAccessPointAlreadyAdded = (NetworkManagerAccessPoint newAP) {
-      return acceptedAccessPoints.any((ap) =>
-          // ap.hwAddress == newAP.hwAddress  &&
-          listEquals(ap.ssid, newAP.ssid));
+      return acceptedAccessPoints.any(
+        (ap) =>
+            // ap.hwAddress == newAP.hwAddress  &&
+            listEquals(ap.ssid, newAP.ssid),
+      );
     };
 
     // filter hidden or empyty SSIDs
@@ -33,10 +35,12 @@ class WifiDeviceModel extends PropertyStreamNotifier {
 
     return _networkManagerDeviceWireless.accessPoints
         .where(isAccessPointAccepted)
-        .map((networkManagerAccessPoint) => AccessPointModel(
-              networkManagerAccessPoint,
-              _networkManagerDeviceWireless,
-            ))
+        .map(
+          (networkManagerAccessPoint) => AccessPointModel(
+            networkManagerAccessPoint,
+            _networkManagerDeviceWireless,
+          ),
+        )
         .sorted((ap1, ap2) => ap2.strength.compareTo(ap1.strength));
   }
 

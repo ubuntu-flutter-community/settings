@@ -37,21 +37,22 @@ class KeyboardShortcutsPage extends StatelessWidget {
           ),
         ),
         ChangeNotifierProvider(
-            create: (_) => KeyboardShortcutsModel(
-                  keyboard: context.read<KeyboardService>(),
-                  settings: context.read<SettingsService>(),
-                  schemaId: schemaGnomeShellKeybinding,
-                ),
-            child: const YaruSection(
-              width: kDefaultWidth,
-              headline: 'System',
-              children: [
-                KeyboardShortcutRow(
-                  label: 'Toggle Apps Grid',
-                  shortcutId: 'toggle-application-view',
-                ),
-              ],
-            ))
+          create: (_) => KeyboardShortcutsModel(
+            keyboard: context.read<KeyboardService>(),
+            settings: context.read<SettingsService>(),
+            schemaId: schemaGnomeShellKeybinding,
+          ),
+          child: const YaruSection(
+            width: kDefaultWidth,
+            headline: 'System',
+            children: [
+              KeyboardShortcutRow(
+                label: 'Toggle Apps Grid',
+                shortcutId: 'toggle-application-view',
+              ),
+            ],
+          ),
+        )
       ],
     );
   }

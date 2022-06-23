@@ -1,14 +1,12 @@
-import 'dart:io';
-
 import 'package:filesize/filesize.dart';
 import 'package:flutter/material.dart';
 import 'package:open_file/open_file.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
-import 'package:settings/services/pdf_service.dart';
 import 'package:settings/constants.dart';
 import 'package:settings/l10n/l10n.dart';
 import 'package:settings/services/hostname_service.dart';
+import 'package:settings/services/pdf_service.dart';
 import 'package:udisks/udisks.dart';
 import 'package:yaru_colors/yaru_colors.dart';
 import 'package:yaru_icons/yaru_icons.dart';
@@ -81,7 +79,9 @@ class _InfoPageState extends State<InfoPage> {
                       height: 50,
                       width: 50,
                       decoration: const BoxDecoration(
-                          shape: BoxShape.circle, color: Colors.white),
+                        shape: BoxShape.circle,
+                        color: Colors.white,
+                      ),
                     ),
                   ),
                   const Icon(
@@ -102,44 +102,53 @@ class _InfoPageState extends State<InfoPage> {
         ),
         const SizedBox(height: 50),
         const _Computer(),
-        YaruSection(width: kDefaultWidth, headline: 'Hardware', children: [
-          YaruSingleInfoRow(
-            infoLabel: 'Processor',
-            infoValue: '${model.processorName} x ${model.processorCount}',
-          ),
-          YaruSingleInfoRow(
-            infoLabel: 'Memory',
-            infoValue: '${model.memory} Gb',
-          ),
-          YaruSingleInfoRow(
-            infoLabel: 'Graphics',
-            infoValue: model.graphics ?? 'No GPU info found',
-          ),
-          YaruSingleInfoRow(
-            infoLabel: 'Disk Capacity',
-            infoValue:
-                model.diskCapacity != null ? filesize(model.diskCapacity) : '',
-          ),
-        ]),
-        YaruSection(width: kDefaultWidth, headline: 'System', children: [
-          YaruSingleInfoRow(
-            infoLabel: 'OS',
-            infoValue:
-                '${model.osName} ${model.osVersion} (${model.osType}-bit)',
-          ),
-          YaruSingleInfoRow(
-            infoLabel: 'Kernel version',
-            infoValue: model.kernelVersion,
-          ),
-          YaruSingleInfoRow(
-            infoLabel: 'GNOME version',
-            infoValue: model.gnomeVersion,
-          ),
-          YaruSingleInfoRow(
-            infoLabel: 'Windowing System',
-            infoValue: model.windowServer,
-          ),
-        ]),
+        YaruSection(
+          width: kDefaultWidth,
+          headline: 'Hardware',
+          children: [
+            YaruSingleInfoRow(
+              infoLabel: 'Processor',
+              infoValue: '${model.processorName} x ${model.processorCount}',
+            ),
+            YaruSingleInfoRow(
+              infoLabel: 'Memory',
+              infoValue: '${model.memory} Gb',
+            ),
+            YaruSingleInfoRow(
+              infoLabel: 'Graphics',
+              infoValue: model.graphics ?? 'No GPU info found',
+            ),
+            YaruSingleInfoRow(
+              infoLabel: 'Disk Capacity',
+              infoValue: model.diskCapacity != null
+                  ? filesize(model.diskCapacity)
+                  : '',
+            ),
+          ],
+        ),
+        YaruSection(
+          width: kDefaultWidth,
+          headline: 'System',
+          children: [
+            YaruSingleInfoRow(
+              infoLabel: 'OS',
+              infoValue:
+                  '${model.osName} ${model.osVersion} (${model.osType}-bit)',
+            ),
+            YaruSingleInfoRow(
+              infoLabel: 'Kernel version',
+              infoValue: model.kernelVersion,
+            ),
+            YaruSingleInfoRow(
+              infoLabel: 'GNOME version',
+              infoValue: model.gnomeVersion,
+            ),
+            YaruSingleInfoRow(
+              infoLabel: 'Windowing System',
+              infoValue: model.windowServer,
+            ),
+          ],
+        ),
         SizedBox(
           width: kDefaultWidth,
           child: Row(
@@ -183,39 +192,44 @@ class _Computer extends StatelessWidget {
   Widget build(BuildContext context) {
     final model = context.watch<InfoModel>();
 
-    return YaruSection(width: kDefaultWidth, headline: 'Computer', children: [
-      YaruRow(
-        enabled: true,
-        trailingWidget: const Text('Hostname'),
-        actionWidget: Row(
-          children: [
-            SelectableText(
-              model.hostname,
-              style: TextStyle(
-                color: Theme.of(context).colorScheme.onSurface.withAlpha(150),
-              ),
-            ),
-            const SizedBox(width: 16.0),
-            SizedBox(
-              width: 40,
-              height: 40,
-              child: OutlinedButton(
-                style:
-                    OutlinedButton.styleFrom(padding: const EdgeInsets.all(0)),
-                onPressed: () => showDialog(
-                  context: context,
-                  builder: (_) => ChangeNotifierProvider.value(
-                    value: model,
-                    child: const _HostnameSettings(),
-                  ),
+    return YaruSection(
+      width: kDefaultWidth,
+      headline: 'Computer',
+      children: [
+        YaruRow(
+          enabled: true,
+          trailingWidget: const Text('Hostname'),
+          actionWidget: Row(
+            children: [
+              SelectableText(
+                model.hostname,
+                style: TextStyle(
+                  color: Theme.of(context).colorScheme.onSurface.withAlpha(150),
                 ),
-                child: const Icon(YaruIcons.settings),
               ),
-            ),
-          ],
-        ),
-      )
-    ]);
+              const SizedBox(width: 16.0),
+              SizedBox(
+                width: 40,
+                height: 40,
+                child: OutlinedButton(
+                  style: OutlinedButton.styleFrom(
+                    padding: const EdgeInsets.all(0),
+                  ),
+                  onPressed: () => showDialog(
+                    context: context,
+                    builder: (_) => ChangeNotifierProvider.value(
+                      value: model,
+                      child: const _HostnameSettings(),
+                    ),
+                  ),
+                  child: const Icon(YaruIcons.settings),
+                ),
+              ),
+            ],
+          ),
+        )
+      ],
+    );
   }
 }
 

@@ -80,7 +80,8 @@ class MonitorSection extends StatelessWidget {
                       DropdownMenuItem(
                         value: value,
                         child: Text(
-                            double.parse(value).toStringAsFixed(2).toString()),
+                          double.parse(value).toStringAsFixed(2).toString(),
+                        ),
                       ),
                   ],
                   onChanged: (String? value) =>
@@ -97,9 +98,10 @@ class MonitorSection extends StatelessWidget {
                   items: [
                     for (final scale in config.availableScales)
                       DropdownMenuItem(
-                          value: scale.toInt(),
-                          child:
-                              Text('x${scale.toString().replaceAll('.0', '')}'))
+                        value: scale.toInt(),
+                        child:
+                            Text('x${scale.toString().replaceAll('.0', '')}'),
+                      )
                   ],
                   onChanged: (v) => model.setScale(
                     index,

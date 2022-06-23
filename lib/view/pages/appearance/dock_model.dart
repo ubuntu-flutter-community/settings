@@ -93,7 +93,9 @@ class DockModel extends ChangeNotifier {
   set dockPosition(DockPosition? dockPosition) {
     if (dockPosition != null) {
       _dashToDockSettings?.setValue(
-          _dockPositionKey, dockPosition.name.toUpperCase());
+        _dockPositionKey,
+        dockPosition.name.toUpperCase(),
+      );
       notifyListeners();
     }
   }
@@ -201,7 +203,7 @@ enum DockPosition { left, bottom, right }
 enum DockClickAction { minimize, cycleWindows, focusOrPreviews }
 
 String camelCaseToSplitByDash(String value) {
-  final beforeCapitalLetterRegex = RegExp(r"(?=[A-Z])");
+  final beforeCapitalLetterRegex = RegExp(r'(?=[A-Z])');
   final parts = value.split(beforeCapitalLetterRegex);
   var newString = '';
   for (var part in parts) {

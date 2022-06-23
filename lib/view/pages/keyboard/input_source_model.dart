@@ -15,8 +15,9 @@ class InputSourceModel extends SafeChangeNotifier {
   final List<InputSource> inputSources;
 
   InputSourceModel(
-      SettingsService settingsService, InputSourceService inputSourceService)
-      : _inputSourceSettings = settingsService.lookup(schemaInputSources),
+    SettingsService settingsService,
+    InputSourceService inputSourceService,
+  )   : _inputSourceSettings = settingsService.lookup(schemaInputSources),
         inputSources = inputSourceService.inputSources {
     _inputSourceSettings?.addListener(notifyListeners);
   }
@@ -81,7 +82,9 @@ class InputSourceModel extends SafeChangeNotifier {
   }
 
   Future<void> showKeyboardLayout(String inputType) async {
-    await Process.run('gkbd-keyboard-display',
-        ['-l', inputType.split('+').first, inputType.split('+').last, '&']);
+    await Process.run(
+      'gkbd-keyboard-display',
+      ['-l', inputType.split('+').first, inputType.split('+').last, '&'],
+    );
   }
 }

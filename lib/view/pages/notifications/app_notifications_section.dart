@@ -16,8 +16,10 @@ class AppNotificationsSection extends StatelessWidget {
       width: kDefaultWidth,
       headline: 'App notifications',
       children: model.applications
-              ?.map((appId) =>
-                  AppNotificationsSettingRow.create(context, appId: appId))
+              ?.map(
+                (appId) =>
+                    AppNotificationsSettingRow.create(context, appId: appId),
+              )
               .toList() ??
           const [Text('Schema not installed ')],
     );

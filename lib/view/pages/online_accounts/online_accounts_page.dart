@@ -20,6 +20,7 @@ class OnlineAccountsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return YaruPage(
-        children: [Center(child: Text(context.l10n.onlineAccountsPageTitle))]);
+      children: [Center(child: Text(context.l10n.onlineAccountsPageTitle))],
+    );
   }
 }

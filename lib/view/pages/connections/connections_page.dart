@@ -33,26 +33,31 @@ class ConnectionsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final wifiModel = context.watch<WifiModel>();
-    return YaruTabbedPage(tabIcons: const [
-      YaruIcons.network_wireless,
-      YaruIcons.network_wired,
-      YaruIcons.network_cellular
-    ], tabTitles: const [
-      'Wi-Fi',
-      'Ethernet',
-      'Cellular'
-    ], views: [
-      wifiModel.isWifiDeviceAvailable
-          ? const WifiDevicesContent()
-          : const WifiAdaptorNotFound(),
-      const YaruPage(children: [
-        // TODO: Implement Ethernet page
-        Text('Ethernet - Please implement 🥲️'),
-      ]),
-      const YaruPage(children: [
-        // TODO: Implement Cellular page
-        Text('Cellular - Please implement 🥲️'),
-      ]),
-    ], width: kDefaultWidth);
+    return YaruTabbedPage(
+      tabIcons: const [
+        YaruIcons.network_wireless,
+        YaruIcons.network_wired,
+        YaruIcons.network_cellular
+      ],
+      tabTitles: const ['Wi-Fi', 'Ethernet', 'Cellular'],
+      views: [
+        wifiModel.isWifiDeviceAvailable
+            ? const WifiDevicesContent()
+            : const WifiAdaptorNotFound(),
+        const YaruPage(
+          children: [
+            // TODO: Implement Ethernet page
+            Text('Ethernet - Please implement 🥲️'),
+          ],
+        ),
+        const YaruPage(
+          children: [
+            // TODO: Implement Cellular page
+            Text('Cellular - Please implement 🥲️'),
+          ],
+        ),
+      ],
+      width: kDefaultWidth,
+    );
   }
 }

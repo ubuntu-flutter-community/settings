@@ -22,32 +22,42 @@ class LocationPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final model = context.watch<LocationModel>();
-    return YaruPage(children: [
-      SectionDescription(
-          width: kDefaultWidth, text: context.l10n.locationDescription),
-      Padding(
-        padding: const EdgeInsets.only(bottom: 20),
-        child: SizedBox(
+    return YaruPage(
+      children: [
+        SectionDescription(
           width: kDefaultWidth,
-          child: Row(
-            children: [
-              Text(context.l10n.locationInfoPrefix,
-                  style: Theme.of(context).textTheme.caption),
-              const SizedBox(
-                width: 5,
-              ),
-              Link(url: kPrivacyUrl, linkText: context.l10n.locationInfoLink),
-            ],
+          text: context.l10n.locationDescription,
+        ),
+        Padding(
+          padding: const EdgeInsets.only(bottom: 20),
+          child: SizedBox(
+            width: kDefaultWidth,
+            child: Row(
+              children: [
+                Text(
+                  context.l10n.locationInfoPrefix,
+                  style: Theme.of(context).textTheme.caption,
+                ),
+                const SizedBox(
+                  width: 5,
+                ),
+                Link(url: kPrivacyUrl, linkText: context.l10n.locationInfoLink),
+              ],
+            ),
           ),
         ),
-      ),
-      YaruSection(width: kDefaultWidth, children: [
-        YaruSwitchRow(
-            width: kDefaultWidth,
-            trailingWidget: Text(context.l10n.locationActionLabel),
-            value: model.enabled,
-            onChanged: (v) => model.enabled = v)
-      ])
-    ]);
+        YaruSection(
+          width: kDefaultWidth,
+          children: [
+            YaruSwitchRow(
+              width: kDefaultWidth,
+              trailingWidget: Text(context.l10n.locationActionLabel),
+              value: model.enabled,
+              onChanged: (v) => model.enabled = v,
+            )
+          ],
+        )
+      ],
+    );
   }
 }

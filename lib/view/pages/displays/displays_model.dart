@@ -8,7 +8,6 @@ import 'package:settings/view/pages/displays/displays_configuration.dart';
 class DisplaysModel extends SafeChangeNotifier {
   /// Constructor
   DisplaysModel(this._service) {
-
     /// listen display stream
     /// on each, re-set new configuration
     _service.monitorStateStream.listen((DisplaysConfiguration configuration) {
@@ -17,8 +16,10 @@ class DisplaysModel extends SafeChangeNotifier {
     });
   }
 
-  ValueNotifier<DisplaysConfiguration?> get _initialNotifier=>_service.initialNotifier;
-  ValueNotifier<DisplaysConfiguration?> get _currentNotifier=>_service.currentNotifier;
+  ValueNotifier<DisplaysConfiguration?> get _initialNotifier =>
+      _service.initialNotifier;
+  ValueNotifier<DisplaysConfiguration?> get _currentNotifier =>
+      _service.currentNotifier;
 
   /// SERVICES
   final DisplayService _service;
@@ -37,7 +38,6 @@ class DisplaysModel extends SafeChangeNotifier {
 
   /// Apply current configuration
   void apply() => _service.applyConfig();
-
 }
 
 /// All setters to update current configurations
@@ -55,18 +55,23 @@ extension DisplayModelSetters on DisplaysModel {
         configurationMonitorUpdate.copyWith(resolution: resolution);
 
     final currentRefreshRate = double.parse(updated.refreshRate);
-    
+
     /// select new refresh rate : choose the closest from current
-    final String newRefreshRate = updated.availableRefreshRates.map((rate) => MapEntry(rate, (double.parse(rate)-currentRefreshRate).abs())).reduce((map1, map2) {
-      if(map1.value < map2.value){
+    final String newRefreshRate = updated.availableRefreshRates
+        .map(
+      (rate) => MapEntry(rate, (double.parse(rate) - currentRefreshRate).abs()),
+    )
+        .reduce((map1, map2) {
+      if (map1.value < map2.value) {
         return map1;
       }
       return map2;
     }).key;
 
     updated = updated.copyWith(
-        refreshRate: newRefreshRate,
-        fullResolution: '$resolution@$newRefreshRate');
+      refreshRate: newRefreshRate,
+      fullResolution: '$resolution@$newRefreshRate',
+    );
 
     configurations.insert(index, updated);
 
@@ -88,12 +93,12 @@ extension DisplayModelSetters on DisplaysModel {
         configurations.removeAt(index);
 
     configurations.insert(
-        index,
-        configurationMonitorUpdate.copyWith(
-          fullResolution:
-              '${configurationMonitorUpdate.resolution}@$refreshRate',
-          refreshRate: refreshRate,
-        ));
+      index,
+      configurationMonitorUpdate.copyWith(
+        fullResolution: '${configurationMonitorUpdate.resolution}@$refreshRate',
+        refreshRate: refreshRate,
+      ),
+    );
     _currentNotifier.value =
         DisplaysConfiguration(configurations: configurations);
   }
@@ -107,10 +112,11 @@ extension DisplayModelSetters on DisplaysModel {
         configurations.removeAt(index);
 
     configurations.insert(
-        index,
-        configurationMonitorUpdate.copyWith(
-          transform: orientation.index,
-        ));
+      index,
+      configurationMonitorUpdate.copyWith(
+        transform: orientation.index,
+      ),
+    );
     _currentNotifier.value =
         DisplaysConfiguration(configurations: configurations);
   }
@@ -124,10 +130,11 @@ extension DisplayModelSetters on DisplaysModel {
         configurations.removeAt(index);
 
     configurations.insert(
-        index,
-        configurationMonitorUpdate.copyWith(
-          scale: scale,
-        ));
+      index,
+      configurationMonitorUpdate.copyWith(
+        scale: scale,
+      ),
+    );
     _currentNotifier.value =
         DisplaysConfiguration(configurations: configurations);
   }

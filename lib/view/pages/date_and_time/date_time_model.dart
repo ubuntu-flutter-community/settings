@@ -24,10 +24,10 @@ class DateTimeModel extends SafeChangeNotifier {
   Timer? _fetchDateTimeTimer;
   DateTime? _dateTime;
 
-  DateTimeModel(
-      {required DateTimeService dateTimeService,
-      required SettingsService settingsService})
-      : _dateTimeService = dateTimeService,
+  DateTimeModel({
+    required DateTimeService dateTimeService,
+    required SettingsService settingsService,
+  })  : _dateTimeService = dateTimeService,
         _dateTimeSettings = settingsService.lookup(schemaDateTime),
         _interfaceSettings = settingsService.lookup(schemaInterface),
         _calendarSettings = settingsService.lookup(schemaCalendar) {
@@ -102,9 +102,16 @@ class DateTimeModel extends SafeChangeNotifier {
     final second = dateTimeFromService.second;
     final millisecond = dateTimeFromService.millisecond;
     final microsecond = dateTimeFromService.microsecond;
-    final newDateTime = DateTime(year, month, day, value.hour, value.minute,
-            second, millisecond, microsecond)
-        .toUtc();
+    final newDateTime = DateTime(
+      year,
+      month,
+      day,
+      value.hour,
+      value.minute,
+      second,
+      millisecond,
+      microsecond,
+    ).toUtc();
     dateTime = newDateTime;
     notifyListeners();
   }
@@ -118,9 +125,16 @@ class DateTimeModel extends SafeChangeNotifier {
     final second = dateTimeFromService.second;
     final millisecond = dateTimeFromService.millisecond;
     final microsecond = dateTimeFromService.microsecond;
-    final newDateTime = DateTime(value.year, value.month, value.day, hour,
-            minute, second, millisecond, microsecond)
-        .toUtc();
+    final newDateTime = DateTime(
+      value.year,
+      value.month,
+      value.day,
+      hour,
+      minute,
+      second,
+      millisecond,
+      microsecond,
+    ).toUtc();
     dateTime = newDateTime;
     notifyListeners();
   }

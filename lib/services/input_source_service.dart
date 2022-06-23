@@ -17,30 +17,31 @@ class InputSourceService {
     return layouts
         .map(
           (layout) => InputSource(
-              variants: layout.getElement('variantList') != null
-                  ? layout
-                      .getElement('variantList')!
-                      .childElements
-                      .map((variant) => InputSourceVariant(
-                            name: variant
-                                .getElement('configItem')!
-                                .getElement('name')!
-                                .innerText,
-                            description: variant
-                                .getElement('configItem')!
-                                .getElement('description')!
-                                .innerText,
-                          ))
-                      .toList()
-                  : [],
-              description: layout
-                  .getElement('configItem')
-                  ?.getElement('description')
-                  ?.innerText,
-              name: layout
-                  .getElement('configItem')
-                  ?.getElement('name')
-                  ?.innerText),
+            variants: layout.getElement('variantList') != null
+                ? layout
+                    .getElement('variantList')!
+                    .childElements
+                    .map(
+                      (variant) => InputSourceVariant(
+                        name: variant
+                            .getElement('configItem')!
+                            .getElement('name')!
+                            .innerText,
+                        description: variant
+                            .getElement('configItem')!
+                            .getElement('description')!
+                            .innerText,
+                      ),
+                    )
+                    .toList()
+                : [],
+            description: layout
+                .getElement('configItem')
+                ?.getElement('description')
+                ?.innerText,
+            name:
+                layout.getElement('configItem')?.getElement('name')?.innerText,
+          ),
         )
         .toList();
   }

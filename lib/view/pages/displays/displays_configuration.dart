@@ -52,14 +52,15 @@ class DisplayMonitorConfiguration extends Equatable {
         _scale = _config.currentLogicalConfiguration(_index).scale,
         _transform = _config.currentLogicalConfiguration(_index).orientation,
         _primary = _config.currentLogicalConfiguration(_index).primary,
-        _refreshRate =
-            _config.currentOption(_index)!.modeId.split('@')[1],
+        _refreshRate = _config.currentOption(_index)!.modeId.split('@')[1],
         _name = _config.displayName(_index),
         availableRefreshRates = _config
             .availableOptions(_index)
-            .where((element) =>
-                element.modeId.split('@')[0] ==
-                _config.currentOption(_index)!.modeId.split('@')[0])
+            .where(
+              (element) =>
+                  element.modeId.split('@')[0] ==
+                  _config.currentOption(_index)!.modeId.split('@')[0],
+            )
             .map((e) => e.modeId.split('@')[1])
             .toSet()
             .toList(),

@@ -28,14 +28,16 @@ class DockSection extends StatelessWidget {
             headline: 'Dock appearance',
             children: [
               YaruRow(
-                  trailingWidget: const Text('Panel mode'),
-                  description:
-                      'Extends the height of the dock to become a panel.',
-                  actionWidget: Radio<bool>(
-                      value: true,
-                      groupValue: model.extendDock,
-                      onChanged: (value) => model.extendDock = value),
-                  enabled: model.extendDock != null),
+                trailingWidget: const Text('Panel mode'),
+                description:
+                    'Extends the height of the dock to become a panel.',
+                actionWidget: Radio<bool>(
+                  value: true,
+                  groupValue: model.extendDock,
+                  onChanged: (value) => model.extendDock = value,
+                ),
+                enabled: model.extendDock != null,
+              ),
               Padding(
                 padding: const EdgeInsets.all(assetPadding),
                 child: SvgPicture.asset(
@@ -51,14 +53,16 @@ class DockSection extends StatelessWidget {
                 ),
               ),
               YaruRow(
-                  trailingWidget: const Text('Dock mode'),
-                  description:
-                      'Displays the dock in a centered, free-floating mode.',
-                  actionWidget: Radio<bool>(
-                      value: false,
-                      groupValue: model.extendDock,
-                      onChanged: (value) => model.extendDock = value!),
-                  enabled: true),
+                trailingWidget: const Text('Dock mode'),
+                description:
+                    'Displays the dock in a centered, free-floating mode.',
+                actionWidget: Radio<bool>(
+                  value: false,
+                  groupValue: model.extendDock,
+                  onChanged: (value) => model.extendDock = value!,
+                ),
+                enabled: true,
+              ),
               Padding(
                 padding: const EdgeInsets.all(assetPadding),
                 child: SvgPicture.asset(
@@ -75,72 +79,75 @@ class DockSection extends StatelessWidget {
               ),
             ],
           ),
-          YaruSection(headline: 'Dock Position', children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const Padding(
-                        padding: EdgeInsets.all(8.0),
-                        child: Text('Left'),
-                      ),
-                      SizedBox(
-                        child: SelectableSvgImage(
+          YaruSection(
+            headline: 'Dock Position',
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Padding(
+                          padding: EdgeInsets.all(8.0),
+                          child: Text('Left'),
+                        ),
+                        SizedBox(
+                          child: SelectableSvgImage(
+                            selectedColor: selectedColor,
+                            padding: 8.0,
+                            path: model.getLeftSideAsset(),
+                            selected: model.dockPosition == DockPosition.left,
+                            height: assetHeight,
+                            onTap: () => model.dockPosition = DockPosition.left,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Padding(
+                          padding: EdgeInsets.all(8.0),
+                          child: Text('Right'),
+                        ),
+                        SelectableSvgImage(
                           selectedColor: selectedColor,
                           padding: 8.0,
-                          path: model.getLeftSideAsset(),
-                          selected: model.dockPosition == DockPosition.left,
+                          path: model.getRightSideAsset(),
+                          selected: model.dockPosition == DockPosition.right,
                           height: assetHeight,
-                          onTap: () => model.dockPosition = DockPosition.left,
+                          onTap: () => model.dockPosition = DockPosition.right,
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
-                ),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const Padding(
-                        padding: EdgeInsets.all(8.0),
-                        child: Text('Right'),
-                      ),
-                      SelectableSvgImage(
-                        selectedColor: selectedColor,
-                        padding: 8.0,
-                        path: model.getRightSideAsset(),
-                        selected: model.dockPosition == DockPosition.right,
-                        height: assetHeight,
-                        onTap: () => model.dockPosition = DockPosition.right,
-                      ),
-                    ],
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Padding(
+                          padding: EdgeInsets.all(8.0),
+                          child: Text('Bottom'),
+                        ),
+                        SelectableSvgImage(
+                          selectedColor: selectedColor,
+                          padding: 8.0,
+                          path: model.getBottomAsset(),
+                          selected: model.dockPosition == DockPosition.bottom,
+                          height: assetHeight,
+                          onTap: () => model.dockPosition = DockPosition.bottom,
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const Padding(
-                        padding: EdgeInsets.all(8.0),
-                        child: Text('Bottom'),
-                      ),
-                      SelectableSvgImage(
-                        selectedColor: selectedColor,
-                        padding: 8.0,
-                        path: model.getBottomAsset(),
-                        selected: model.dockPosition == DockPosition.bottom,
-                        height: assetHeight,
-                        onTap: () => model.dockPosition = DockPosition.bottom,
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            )
-          ]),
+                ],
+              )
+            ],
+          ),
           YaruSection(
             headline: 'Dock options',
             children: [
@@ -201,14 +208,17 @@ class DockSection extends StatelessWidget {
                   value: model.clickAction,
                   items: const [
                     DropdownMenuItem(
-                        child: Text('Minimize the app'),
-                        value: DockClickAction.minimize),
+                      child: Text('Minimize the app'),
+                      value: DockClickAction.minimize,
+                    ),
                     DropdownMenuItem(
-                        child: Text('Cycle through windows'),
-                        value: DockClickAction.cycleWindows),
+                      child: Text('Cycle through windows'),
+                      value: DockClickAction.cycleWindows,
+                    ),
                     DropdownMenuItem(
-                        child: Text('Focus or preview the window'),
-                        value: DockClickAction.focusOrPreviews),
+                      child: Text('Focus or preview the window'),
+                      value: DockClickAction.focusOrPreviews,
+                    ),
                   ],
                 ),
               ),

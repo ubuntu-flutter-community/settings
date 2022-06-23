@@ -280,8 +280,9 @@ class _MagnifierPositionOptions extends StatelessWidget {
               items: [
                 for (var item in AccessibilityModel.screenPositions)
                   DropdownMenuItem(
-                      child: Text(item.toLowerCase().replaceAll('-', ' ')),
-                      value: item)
+                    child: Text(item.toLowerCase().replaceAll('-', ' ')),
+                    value: item,
+                  )
               ],
             ),
           ),

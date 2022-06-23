@@ -23,9 +23,11 @@ class DateTimeService {
   final DBusRemoteObject _object;
   StreamSubscription<DBusPropertiesChangedSignal>? _propertyListener;
 
-  static DBusRemoteObject _createObject() =>
-      DBusRemoteObject(DBusClient.system(),
-          name: _kDateTimeInterface, path: DBusObjectPath(_kDateTimePath));
+  static DBusRemoteObject _createObject() => DBusRemoteObject(
+        DBusClient.system(),
+        name: _kDateTimeInterface,
+        path: DBusObjectPath(_kDateTimePath),
+      );
 
   Future<void> init() async {
     await _initTimezone();

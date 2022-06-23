@@ -84,8 +84,8 @@ extension _BrightnessObject on DBusRemoteObject {
         'Brightness',
       );
       return (value as DBusInt32).value;
-    } on Exception catch (e) {
-      // TODO
+    } on Exception {
+      return null;
     }
   }
 
