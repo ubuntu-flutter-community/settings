@@ -14,7 +14,7 @@ import 'package:yaru_widgets/yaru_widgets.dart';
 
 class WallpaperPage extends StatelessWidget {
   static Widget createTitle(BuildContext context) =>
-      Text(context.l10n.wallpaperPageTitle);
+      YaruPageItemTitle.text(context.l10n.wallpaperPageTitle);
 
   static bool searchMatches(String value, BuildContext context) =>
       value.isNotEmpty

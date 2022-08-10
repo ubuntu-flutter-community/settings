@@ -19,7 +19,7 @@ class RegionAndLanguagePage extends StatefulWidget {
       );
 
   static Widget createTitle(BuildContext context) =>
-      Text(context.l10n.regionAndLanguagePageTitle);
+      YaruPageItemTitle.text(context.l10n.regionAndLanguagePageTitle);
 
   static bool searchMatches(String value, BuildContext context) =>
       value.isNotEmpty

@@ -28,7 +28,7 @@ class InfoPage extends StatefulWidget {
   }
 
   static Widget createTitle(BuildContext context) =>
-      Text(context.l10n.infoPageTitle);
+      YaruPageItemTitle.text(context.l10n.infoPageTitle);
 
   static bool searchMatches(String value, BuildContext context) => value
           .isNotEmpty

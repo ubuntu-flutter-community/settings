@@ -8,7 +8,7 @@ class OnlineAccountsPage extends StatelessWidget {
   static Widget create(BuildContext context) => const OnlineAccountsPage();
 
   static Widget createTitle(BuildContext context) =>
-      Text(context.l10n.onlineAccountsPageTitle);
+      YaruPageItemTitle.text(context.l10n.onlineAccountsPageTitle);
 
   static bool searchMatches(String value, BuildContext context) =>
       value.isNotEmpty
