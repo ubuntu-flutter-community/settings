@@ -15,7 +15,7 @@ class PrivacyPage extends StatelessWidget {
   static Widget create(BuildContext context) => const PrivacyPage();
 
   static Widget createTitle(BuildContext context) =>
-      Text(context.l10n.privacyPageTitle);
+      YaruPageItemTitle.text(context.l10n.privacyPageTitle);
 
   static bool searchMatches(String value, BuildContext context) =>
       value.isNotEmpty

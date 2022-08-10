@@ -7,7 +7,8 @@ class ColorPage extends StatelessWidget {
 
   static Widget create(BuildContext context) => const ColorPage();
 
-  static Widget createTitle(BuildContext context) => Text(context.l10n.color);
+  static Widget createTitle(BuildContext context) =>
+      YaruPageItemTitle.text(context.l10n.color);
 
   static bool searchMatches(String value, BuildContext context) =>
       value.isNotEmpty

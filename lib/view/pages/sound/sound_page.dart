@@ -18,7 +18,7 @@ class SoundPage extends StatelessWidget {
   }
 
   static Widget createTitle(BuildContext context) =>
-      Text(context.l10n.soundPageTitle);
+      YaruPageItemTitle.text(context.l10n.soundPageTitle);
 
   static bool searchMatches(String value, BuildContext context) => value
           .isNotEmpty

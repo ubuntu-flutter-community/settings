@@ -19,7 +19,7 @@ class ConnectionsPage extends StatelessWidget {
   }
 
   static Widget createTitle(BuildContext context) =>
-      Text(context.l10n.connectionsPageTitle);
+      YaruPageItemTitle.text(context.l10n.connectionsPageTitle);
 
   static bool searchMatches(String value, BuildContext context) =>
       value.isNotEmpty

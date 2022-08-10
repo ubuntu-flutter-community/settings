@@ -8,7 +8,7 @@ class DefaultAppsPage extends StatelessWidget {
   static Widget create(BuildContext context) => const DefaultAppsPage();
 
   static Widget createTitle(BuildContext context) =>
-      Text(context.l10n.defaultAppsPageTitle);
+      YaruPageItemTitle.text(context.l10n.defaultAppsPageTitle);
 
   static bool searchMatches(String value, BuildContext context) =>
       value.isNotEmpty

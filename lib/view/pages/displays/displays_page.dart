@@ -14,7 +14,7 @@ class DisplaysPage extends StatefulWidget {
   const DisplaysPage._({Key? key}) : super(key: key);
 
   static Widget createTitle(BuildContext context) =>
-      Text(context.l10n.displaysPageTitle);
+      YaruPageItemTitle.text(context.l10n.displaysPageTitle);
 
   static Widget create(BuildContext context) {
     final service = Provider.of<DisplayService>(context, listen: false);

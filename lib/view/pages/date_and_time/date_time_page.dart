@@ -20,7 +20,7 @@ class DateTimePage extends StatefulWidget {
       );
 
   static Widget createTitle(BuildContext context) =>
-      Text(context.l10n.dateAndTimePageTitle);
+      YaruPageItemTitle.text(context.l10n.dateAndTimePageTitle);
 
   static bool searchMatches(String value, BuildContext context) =>
       value.isNotEmpty

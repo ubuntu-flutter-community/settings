@@ -16,7 +16,7 @@ class BluetoothPage extends StatefulWidget {
           : false;
 
   static Widget createTitle(BuildContext context) =>
-      Text(context.l10n.bluetoothPageTitle);
+      YaruPageItemTitle.text(context.l10n.bluetoothPageTitle);
 
   const BluetoothPage({Key? key}) : super(key: key);
 

@@ -19,7 +19,7 @@ class NotificationsPage extends StatelessWidget {
   }
 
   static Widget createTitle(BuildContext context) =>
-      Text(context.l10n.notificationsPageTitle);
+      YaruPageItemTitle.text(context.l10n.notificationsPageTitle);
 
   static bool searchMatches(String value, BuildContext context) =>
       value.isNotEmpty

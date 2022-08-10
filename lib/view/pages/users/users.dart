@@ -8,7 +8,7 @@ class UsersPage extends StatelessWidget {
   static Widget create(BuildContext context) => const UsersPage();
 
   static Widget createTitle(BuildContext context) =>
-      Text(context.l10n.usersPageTitle);
+      YaruPageItemTitle.text(context.l10n.usersPageTitle);
 
   static bool searchMatches(String value, BuildContext context) => value
           .isNotEmpty
