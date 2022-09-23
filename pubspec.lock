@@ -463,7 +463,7 @@ packages:
       name: logging
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.0.2"
+    version: "1.1.0"
   matcher:
     dependency: transitive
     description:
@@ -783,7 +783,7 @@ packages:
       name: stream_transform
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.0.0"
+    version: "2.0.1"
   string_scanner:
     dependency: transitive
     description:
@@ -1001,12 +1001,19 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.2.4"
+  yaru_settings:
+    dependency: "direct main"
+    description:
+      path: "packages/yaru_settings"
+      relative: true
+    source: path
+    version: "0.0.0"
   yaru_widgets:
     dependency: "direct main"
     description:
       path: "."
-      ref: "0e04f50fc2b52274948318059ceb6be668401f94"
-      resolved-ref: "0e04f50fc2b52274948318059ceb6be668401f94"
+      ref: HEAD
+      resolved-ref: "588fd06d52ab166163a125a729976998d2a9338a"
       url: "https://github.com/ubuntu/yaru_widgets.dart.git"
     source: git
     version: "1.1.5"
