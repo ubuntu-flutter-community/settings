@@ -41,32 +41,37 @@ class _UbuntuSettingsAppState extends State<UbuntuSettingsApp> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      onGenerateTitle: (context) => context.l10n.appTitle,
-      routes: {
-        Navigator.defaultRouteName: (context) {
-          return YaruTheme(
-            child: YaruMasterDetailPage(
-              leftPaneWidth: 280,
-              pageItems: _filteredItems.isNotEmpty ? _filteredItems : pageItems,
-              previousIconData: YaruIcons.go_previous,
-              appBar: YaruSearchAppBar(
-                searchHint: context.l10n.searchHint,
-                clearSearchIconData: YaruIcons.window_close,
-                searchController: _searchController,
-                onChanged: (v) => _onSearchChanged(v, context),
-                onEscape: _onEscape,
-                appBarHeight: 48,
-                searchIconData: YaruIcons.search,
-              ),
-            ),
-          );
-        },
+    return YaruTheme(
+      builder: (context, yaru, child) {
+        return MaterialApp(
+          theme: yaru.theme,
+          darkTheme: yaru.darkTheme,
+          debugShowCheckedModeBanner: false,
+          onGenerateTitle: (context) => context.l10n.appTitle,
+          routes: {
+            Navigator.defaultRouteName: (context) {
+              return YaruMasterDetailPage(
+                leftPaneWidth: 280,
+                pageItems:
+                    _filteredItems.isNotEmpty ? _filteredItems : pageItems,
+                previousIconData: YaruIcons.go_previous,
+                appBar: YaruSearchAppBar(
+                  searchHint: context.l10n.searchHint,
+                  clearSearchIconData: YaruIcons.window_close,
+                  searchController: _searchController,
+                  onChanged: (v) => _onSearchChanged(v, context),
+                  onEscape: _onEscape,
+                  appBarHeight: 48,
+                  searchIconData: YaruIcons.search,
+                ),
+              );
+            },
+          },
+          supportedLocales: AppLocalizations.supportedLocales,
+          localizationsDelegates: AppLocalizations.localizationsDelegates +
+              [const LocaleNamesLocalizationsDelegate()],
+        );
       },
-      supportedLocales: AppLocalizations.supportedLocales,
-      localizationsDelegates: AppLocalizations.localizationsDelegates +
-          [const LocaleNamesLocalizationsDelegate()],
     );
   }
 }
