@@ -47,13 +47,11 @@ class ReportingPage extends StatelessWidget {
           width: kDefaultWidth,
           children: [
             YaruSwitchRow(
-              width: kDefaultWidth,
               trailingWidget: Text(context.l10n.reportingActionLabel),
               value: model.reportTechnicalProblems,
               onChanged: (value) => model.reportTechnicalProblems = value,
             ),
             YaruSwitchRow(
-              width: kDefaultWidth,
               trailingWidget: Text(context.l10n.reportingUsageActionLabel),
               value: model.sendSoftwareUsageStats,
               onChanged: (value) => model.sendSoftwareUsageStats = value,

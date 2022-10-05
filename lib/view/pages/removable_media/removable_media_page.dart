@@ -33,29 +33,33 @@ class RemovableMediaPage extends StatelessWidget {
 
     return YaruPage(
       children: [
-        YaruSwitchRow(
+        SizedBox(
           width: kDefaultWidth,
-          trailingWidget: Text(context.l10n.removableMediaNeverAsk),
-          value: model.autoRunNever,
-          onChanged: (value) => model.autoRunNever = value,
+          child: YaruSwitchRow(
+            trailingWidget: Text(context.l10n.removableMediaNeverAsk),
+            value: model.autoRunNever,
+            onChanged: (value) => model.autoRunNever = value,
+          ),
         ),
         const SizedBox(
           height: 20,
         ),
         if (!model.autoRunNever)
           for (var mimeType in RemovableMediaModel.mimeTypes.entries)
-            YaruRow(
+            SizedBox(
               width: kDefaultWidth,
-              enabled: !model.autoRunNever,
-              title: Text(mimeType.value),
-              trailing: DropdownButton<String>(
-                value: model.getMimeTypeBehavior(mimeType.key),
-                onChanged: (string) =>
-                    model.setMimeTypeBehavior(string!, mimeType.key),
-                items: [
-                  for (var string in RemovableMediaModel.mimeTypeBehaviors)
-                    DropdownMenuItem(child: Text(string), value: string),
-                ],
+              child: YaruRow(
+                enabled: !model.autoRunNever,
+                title: Text(mimeType.value),
+                trailing: DropdownButton<String>(
+                  value: model.getMimeTypeBehavior(mimeType.key),
+                  onChanged: (string) =>
+                      model.setMimeTypeBehavior(string!, mimeType.key),
+                  items: [
+                    for (var string in RemovableMediaModel.mimeTypeBehaviors)
+                      DropdownMenuItem(child: Text(string), value: string),
+                  ],
+                ),
               ),
             ),
       ],

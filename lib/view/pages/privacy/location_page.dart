@@ -50,7 +50,6 @@ class LocationPage extends StatelessWidget {
           width: kDefaultWidth,
           children: [
             YaruSwitchRow(
-              width: kDefaultWidth,
               trailingWidget: Text(context.l10n.locationActionLabel),
               value: model.enabled,
               onChanged: (v) => model.enabled = v,

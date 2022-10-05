@@ -45,36 +45,39 @@ class WallpaperPage extends StatelessWidget {
 
     return YaruPage(
       children: [
-        YaruRow(
+        SizedBox(
           width: kDefaultWidth,
-          title: Text(context.l10n.wallpaperPageBackgroundModeLabel),
-          trailing: Row(
-            children: [
-              DropdownButton<WallpaperMode>(
-                value: model.wallpaperMode,
-                onChanged: (value) => model.setWallpaperMode(value!),
-                items: [
-                  DropdownMenuItem(
-                    child: Text(
-                      context.l10n.wallpaperPageBackgroundModeColoredBackground,
+          child: YaruRow(
+            title: Text(context.l10n.wallpaperPageBackgroundModeLabel),
+            trailing: Row(
+              children: [
+                DropdownButton<WallpaperMode>(
+                  value: model.wallpaperMode,
+                  onChanged: (value) => model.setWallpaperMode(value!),
+                  items: [
+                    DropdownMenuItem(
+                      child: Text(
+                        context
+                            .l10n.wallpaperPageBackgroundModeColoredBackground,
+                      ),
+                      value: WallpaperMode.solid,
                     ),
-                    value: WallpaperMode.solid,
-                  ),
-                  DropdownMenuItem(
-                    child: Text(
-                      context.l10n.wallpaperPageBackgroundModeWallpaper,
+                    DropdownMenuItem(
+                      child: Text(
+                        context.l10n.wallpaperPageBackgroundModeWallpaper,
+                      ),
+                      value: WallpaperMode.custom,
                     ),
-                    value: WallpaperMode.custom,
-                  ),
-                  DropdownMenuItem(
-                    child: Text(
-                      context.l10n.wallpaperPageBackgroundModeImageOfTheDay,
+                    DropdownMenuItem(
+                      child: Text(
+                        context.l10n.wallpaperPageBackgroundModeImageOfTheDay,
+                      ),
+                      value: WallpaperMode.imageOfTheDay,
                     ),
-                    value: WallpaperMode.imageOfTheDay,
-                  ),
-                ],
-              ),
-            ],
+                  ],
+                ),
+              ],
+            ),
           ),
         ),
         if (model.wallpaperMode == WallpaperMode.solid)

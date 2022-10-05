@@ -19,26 +19,30 @@ class WifiDevicesContent extends StatelessWidget {
 
     return YaruPage(
       children: [
-        YaruSwitchRow(
+        SizedBox(
           width: kDefaultWidth,
-          enabled: wifiModel.isWifiDeviceAvailable,
-          trailingWidget: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(context.l10n.wifiPageTitle),
-              Text(
-                wifiModel.isWifiEnabled
-                    ? context.l10n.connected
-                    : context.l10n.disonnected,
-                style: TextStyle(
-                  color:
-                      Theme.of(context).colorScheme.onSurface.withOpacity(0.5),
-                ),
-              )
-            ],
+          child: YaruSwitchRow(
+            enabled: wifiModel.isWifiDeviceAvailable,
+            trailingWidget: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(context.l10n.wifiPageTitle),
+                Text(
+                  wifiModel.isWifiEnabled
+                      ? context.l10n.connected
+                      : context.l10n.disonnected,
+                  style: TextStyle(
+                    color: Theme.of(context)
+                        .colorScheme
+                        .onSurface
+                        .withOpacity(0.5),
+                  ),
+                )
+              ],
+            ),
+            onChanged: (newValue) => wifiModel.toggleWifi(newValue),
+            value: wifiModel.isWifiEnabled,
           ),
-          onChanged: (newValue) => wifiModel.toggleWifi(newValue),
-          value: wifiModel.isWifiEnabled,
         ),
         if (wifiModel.isWifiEnabled)
           for (final wifiDevice in wifiModel.wifiDevices)

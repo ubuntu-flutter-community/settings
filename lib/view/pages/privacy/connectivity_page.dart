@@ -40,7 +40,6 @@ class _ConnectivityPageState extends State<ConnectivityPage> {
           width: kDefaultWidth,
           children: [
             YaruSwitchRow(
-              width: kDefaultWidth,
               enabled: model.checkConnectiviy != null,
               trailingWidget: Text(context.l10n.checkConnectivityLabel),
               value: model.checkConnectiviy,

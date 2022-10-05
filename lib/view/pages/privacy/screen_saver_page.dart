@@ -31,7 +31,6 @@ class ScreenSaverPage extends StatelessWidget {
           width: kDefaultWidth,
           children: [
             YaruRow(
-              width: kDefaultWidth,
               enabled: model.idleDelay != null,
               title: Text(context.l10n.screenSaverTimerLabel),
               subtitle: Text(context.l10n.screenSaverTimerDescription),
@@ -43,13 +42,11 @@ class ScreenSaverPage extends StatelessWidget {
             ),
             YaruSwitchRow(
               enabled: model.lockEnabled != null,
-              width: kDefaultWidth,
               trailingWidget: Text(context.l10n.screenSaverAutoScreenLockLabel),
               value: model.lockEnabled,
               onChanged: (v) => model.lockEnabled = v,
             ),
             YaruRow(
-              width: kDefaultWidth,
               enabled: model.lockDelay != null,
               title: Text(context.l10n.screenSaverAutoDelayLabel),
               subtitle: Text(context.l10n.screenSaverAutoDelayDescription),
@@ -61,7 +58,6 @@ class ScreenSaverPage extends StatelessWidget {
             ),
             YaruSwitchRow(
               enabled: model.ubuntuLockOnSuspend != null,
-              width: kDefaultWidth,
               trailingWidget:
                   Text(context.l10n.screenSaverLockScreenOnSuspendLabel),
               value: model.ubuntuLockOnSuspend,
@@ -69,7 +65,6 @@ class ScreenSaverPage extends StatelessWidget {
             ),
             YaruSwitchRow(
               enabled: model.showOnLockScreen != null,
-              width: kDefaultWidth,
               trailingWidget:
                   Text(context.l10n.screenSaverNotificationsOnLockScreen),
               value: model.showOnLockScreen,
