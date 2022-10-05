@@ -425,15 +425,16 @@ class _CrosshairsOptions extends StatelessWidget {
         YaruRow(
           enabled: model.crossHairsColor != null,
           trailingWidget: Text(context.l10n.color),
-          actionWidget: YaruColorPickerButton(
-            enabled: model.crossHairsColor != null,
+          actionWidget: YaruOptionButton.color(
             color: colorFromHex(model.crossHairsColor ?? '#FF0000'),
-            onPressed: () async {
-              final colorBeforeDialog = model.crossHairsColor;
-              if (!(await colorPickerDialog(context))) {
-                model.setCrossHairsColor(colorBeforeDialog!);
-              }
-            },
+            onPressed: model.crossHairsColor != null
+                ? () async {
+                    final colorBeforeDialog = model.crossHairsColor;
+                    if (!(await colorPickerDialog(context))) {
+                      model.setCrossHairsColor(colorBeforeDialog!);
+                    }
+                  }
+                : null,
           ),
         ),
       ],
