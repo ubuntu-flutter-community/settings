@@ -28,10 +28,10 @@ class DockSection extends StatelessWidget {
             headline: 'Dock appearance',
             children: [
               YaruRow(
-                trailingWidget: const Text('Panel mode'),
-                description:
-                    'Extends the height of the dock to become a panel.',
-                actionWidget: Radio<bool>(
+                title: const Text('Panel mode'),
+                subtitle: const Text(
+                    'Extends the height of the dock to become a panel.'),
+                trailing: Radio<bool>(
                   value: true,
                   groupValue: model.extendDock,
                   onChanged: (value) => model.extendDock = value,
@@ -53,10 +53,10 @@ class DockSection extends StatelessWidget {
                 ),
               ),
               YaruRow(
-                trailingWidget: const Text('Dock mode'),
-                description:
-                    'Displays the dock in a centered, free-floating mode.',
-                actionWidget: Radio<bool>(
+                title: const Text('Dock mode'),
+                subtitle: const Text(
+                    'Displays the dock in a centered, free-floating mode.'),
+                trailing: Radio<bool>(
                   value: false,
                   groupValue: model.extendDock,
                   onChanged: (value) => model.extendDock = value!,
@@ -201,8 +201,8 @@ class DockSection extends StatelessWidget {
               ),
               YaruRow(
                 enabled: model.clickAction != null,
-                trailingWidget: const Text('App icon click behavior'),
-                actionWidget: DropdownButton<DockClickAction>(
+                title: const Text('App icon click behavior'),
+                trailing: DropdownButton<DockClickAction>(
                   onChanged: (value) => model.clickAction = value,
                   value: model.clickAction,
                   items: const [

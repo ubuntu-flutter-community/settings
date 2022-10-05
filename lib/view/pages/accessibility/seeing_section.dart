@@ -69,9 +69,9 @@ class _CursorSize extends StatelessWidget {
     final model = context.watch<AccessibilityModel>();
     return YaruRow(
       enabled: model.cursorSize != null,
-      trailingWidget: Text(context.l10n.cursorSize),
-      description: context.l10n.cursorSizeDescription,
-      actionWidget: Row(
+      title: Text(context.l10n.cursorSize),
+      subtitle: Text(context.l10n.cursorSizeDescription),
+      trailing: Row(
         children: [
           const SizedBox(width: 24.0),
           Text(model.cursorSizeString()),
@@ -221,8 +221,8 @@ class _MagnifierOptions extends StatelessWidget {
       children: [
         YaruRow(
           enabled: model.magFactor != null,
-          trailingWidget: Text(context.l10n.magnification),
-          actionWidget: SizedBox(
+          title: Text(context.l10n.magnification),
+          trailing: SizedBox(
             height: 40,
             width: 150,
             child: SpinBox(
@@ -424,8 +424,8 @@ class _CrosshairsOptions extends StatelessWidget {
         ),
         YaruRow(
           enabled: model.crossHairsColor != null,
-          trailingWidget: Text(context.l10n.color),
-          actionWidget: YaruOptionButton.color(
+          title: Text(context.l10n.color),
+          trailing: YaruOptionButton.color(
             color: colorFromHex(model.crossHairsColor ?? '#FF0000'),
             onPressed: model.crossHairsColor != null
                 ? () async {

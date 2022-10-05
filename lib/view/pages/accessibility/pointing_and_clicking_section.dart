@@ -49,8 +49,8 @@ class _ClickAssist extends StatelessWidget {
     final model = context.watch<AccessibilityModel>();
     return YaruRow(
       enabled: model.clickAssistAvailable,
-      trailingWidget: Text(context.l10n.clickAssist),
-      actionWidget: Row(
+      title: Text(context.l10n.clickAssist),
+      trailing: Row(
         children: [
           Text(model.clickAssistString),
           const SizedBox(width: 24.0),
@@ -88,8 +88,7 @@ class _ClickAssistSettings extends StatelessWidget {
       children: [
         YaruSwitchRow(
           trailingWidget: Text(context.l10n.simulatedSecondaryClick),
-          actionDescription:
-              context.l10n.simulatedSecondaryClickDescription,
+          actionDescription: context.l10n.simulatedSecondaryClickDescription,
           value: model.simulatedSecondaryClick,
           onChanged: (value) => model.setSimulatedSecondaryClick(value),
         ),

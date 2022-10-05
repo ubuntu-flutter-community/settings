@@ -168,11 +168,11 @@ class _TimezoneSelectDialog extends StatelessWidget {
                 Navigator.of(context).pop();
               },
               child: YaruRow(
-                trailingWidget: Padding(
+                title: Padding(
                   padding: const EdgeInsets.only(top: 4, bottom: 4),
                   child: Text(timezone),
                 ),
-                actionWidget: const Text(''),
+                trailing: const Text(''),
               ),
             )
         ],

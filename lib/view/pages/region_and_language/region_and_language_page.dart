@@ -50,10 +50,10 @@ class _RegionAndLanguagePageState extends State<RegionAndLanguagePage> {
             Padding(
               padding: const EdgeInsets.only(top: 8, bottom: 8),
               child: YaruRow(
-                trailingWidget: Text(
+                title: Text(
                   context.l10n.regionAndLanguagePageSelectLanguageAction,
                 ),
-                actionWidget: OutlinedButton(
+                trailing: OutlinedButton(
                   onPressed: () => showDialog(
                     context: context,
                     builder: (context) => ChangeNotifierProvider.value(
@@ -69,9 +69,9 @@ class _RegionAndLanguagePageState extends State<RegionAndLanguagePage> {
               ),
             ),
             YaruRow(
-              trailingWidget:
+              title:
                   Text(context.l10n.regionAndLanguagePageManageLanguageAction),
-              actionWidget: YaruOptionButton(
+              trailing: YaruOptionButton(
                 onPressed: () => model.openGnomeLanguageSelector(),
                 child: const Icon(YaruIcons.download),
               ),
