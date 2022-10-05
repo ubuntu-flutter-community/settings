@@ -30,8 +30,8 @@ class SpecialCharactersSection extends StatelessWidget {
               ),
             ),
             child: YaruRow(
-              trailingWidget: const Text('Compose Key'),
-              actionWidget: Text(
+              title: const Text('Compose Key'),
+              trailing: Text(
                 snapshot.hasData
                     ? model.composeOptionsToStringMap[snapshot.data]!
                     : '',
@@ -51,8 +51,8 @@ class SpecialCharactersSection extends StatelessWidget {
               ),
             ),
             child: YaruRow(
-              trailingWidget: const Text('Lv3 Key'),
-              actionWidget: Text(
+              title: const Text('Lv3 Key'),
+              trailing: Text(
                 snapshot.hasData
                     ? model.lv3OptionsToStringMap[snapshot.data]!
                     : 'Default Layout',

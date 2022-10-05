@@ -122,8 +122,8 @@ class MultiTaskingPage extends StatelessWidget {
             YaruRow(
               enabled: model.dynamicWorkspaces != null &&
                   model.dynamicWorkspaces == false,
-              trailingWidget: const Text('Number of workspaces'),
-              actionWidget: SizedBox(
+              title: const Text('Number of workspaces'),
+              trailing: SizedBox(
                 height: 40,
                 width: 150,
                 child: SpinBox(
@@ -146,10 +146,10 @@ class MultiTaskingPage extends StatelessWidget {
           headline: 'Multi-Monitor',
           children: [
             YaruRow(
-              trailingWidget: const Text('Workspaces span all displays'),
-              description:
-                  'All displays are included in one workspace and follow when you switch workspaces.',
-              actionWidget: Radio(
+              title: const Text('Workspaces span all displays'),
+              subtitle: const Text(
+                  'All displays are included in one workspace and follow when you switch workspaces.'),
+              trailing: Radio(
                 value: false,
                 groupValue: model.workSpaceOnlyOnPrimary,
                 onChanged: (bool? value) =>
@@ -173,10 +173,10 @@ class MultiTaskingPage extends StatelessWidget {
               ),
             ),
             YaruRow(
-              trailingWidget: const Text('Workspaces only on primary display'),
-              description:
-                  'Only your primary display is included in workspace switching.',
-              actionWidget: Radio(
+              title: const Text('Workspaces only on primary display'),
+              subtitle: const Text(
+                  'Only your primary display is included in workspace switching.'),
+              trailing: Radio(
                 value: true,
                 groupValue: model.workSpaceOnlyOnPrimary,
                 onChanged: (bool? value) =>

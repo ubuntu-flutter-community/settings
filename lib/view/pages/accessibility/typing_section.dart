@@ -143,8 +143,8 @@ class _TypingAssist extends StatelessWidget {
 
     return YaruRow(
       enabled: model.typingAssistAvailable,
-      trailingWidget: Text(context.l10n.typingAssistAccessX),
-      actionWidget: Row(
+      title: Text(context.l10n.typingAssistAccessX),
+      trailing: Row(
         children: [
           Text(model.typingAssistString),
           const SizedBox(width: 24.0),

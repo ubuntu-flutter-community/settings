@@ -58,8 +58,8 @@ class _BluetoothDeviceRowState extends State<BluetoothDeviceRow> {
       child: Padding(
         padding: const EdgeInsets.only(bottom: 4, top: 4),
         child: YaruRow(
-          trailingWidget: Text(model.name),
-          actionWidget: Text(
+          title: Text(model.name),
+          trailing: Text(
             model.connected
                 ? context.l10n.connected.toLowerCase()
                 : context.l10n.disonnected.toLowerCase(),
@@ -94,10 +94,10 @@ class _BluetoothDeviceDialog extends StatelessWidget {
       ),
       children: [
         YaruRow(
-          trailingWidget: model.connected
+          title: model.connected
               ? Text(context.l10n.connected)
               : Text(context.l10n.disonnected),
-          actionWidget: Switch(
+          trailing: Switch(
             value: model.connected,
             onChanged: (connectRequested) async {
               connectRequested
@@ -107,22 +107,22 @@ class _BluetoothDeviceDialog extends StatelessWidget {
           ),
         ),
         YaruRow(
-          trailingWidget: Text(context.l10n.paired),
-          actionWidget: Padding(
+          title: Text(context.l10n.paired),
+          trailing: Padding(
             padding: const EdgeInsets.only(right: 8),
             child: Text(model.paired ? context.l10n.yes : context.l10n.no),
           ),
         ),
         YaruRow(
-          trailingWidget: Text(context.l10n.address),
-          actionWidget: Padding(
+          title: Text(context.l10n.address),
+          trailing: Padding(
             padding: const EdgeInsets.only(right: 8),
             child: Text(model.address),
           ),
         ),
         YaruRow(
-          trailingWidget: Text(context.l10n.type),
-          actionWidget: Padding(
+          title: Text(context.l10n.type),
+          trailing: Padding(
             padding: const EdgeInsets.only(right: 8),
             child: Text(model.icon.isEmpty ? context.l10n.unknown : model.icon),
           ),

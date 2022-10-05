@@ -33,9 +33,9 @@ class ScreenSaverPage extends StatelessWidget {
             YaruRow(
               width: kDefaultWidth,
               enabled: model.idleDelay != null,
-              trailingWidget: Text(context.l10n.screenSaverTimerLabel),
-              description: context.l10n.screenSaverTimerDescription,
-              actionWidget: DurationDropdownButton(
+              title: Text(context.l10n.screenSaverTimerLabel),
+              subtitle: Text(context.l10n.screenSaverTimerDescription),
+              trailing: DurationDropdownButton(
                 value: model.idleDelay,
                 values: IdleDelay.values,
                 onChanged: model.setIdleDelay,
@@ -51,9 +51,9 @@ class ScreenSaverPage extends StatelessWidget {
             YaruRow(
               width: kDefaultWidth,
               enabled: model.lockDelay != null,
-              trailingWidget: Text(context.l10n.screenSaverAutoDelayLabel),
-              description: context.l10n.screenSaverAutoDelayDescription,
-              actionWidget: DurationDropdownButton(
+              title: Text(context.l10n.screenSaverAutoDelayLabel),
+              subtitle: Text(context.l10n.screenSaverAutoDelayDescription),
+              trailing: DurationDropdownButton(
                 value: model.lockDelay,
                 values: ScreenLockDelay.values,
                 onChanged: (v) => model.lockDelay = v!.toInt(),

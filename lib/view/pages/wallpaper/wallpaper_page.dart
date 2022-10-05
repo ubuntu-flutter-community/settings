@@ -47,8 +47,8 @@ class WallpaperPage extends StatelessWidget {
       children: [
         YaruRow(
           width: kDefaultWidth,
-          trailingWidget: Text(context.l10n.wallpaperPageBackgroundModeLabel),
-          actionWidget: Row(
+          title: Text(context.l10n.wallpaperPageBackgroundModeLabel),
+          trailing: Row(
             children: [
               DropdownButton<WallpaperMode>(
                 value: model.wallpaperMode,
@@ -103,9 +103,9 @@ class WallpaperPage extends StatelessWidget {
         if (model.wallpaperMode == WallpaperMode.imageOfTheDay)
           //TODO: Add the title and copyright info
           YaruRow(
-            leadingWidget:
+            leading:
                 Text(context.l10n.wallpaperPageBackgroundModeImageOfTheDay),
-            trailingWidget: DropdownButton<ImageOfTheDayProvider>(
+            title: DropdownButton<ImageOfTheDayProvider>(
               value: model.imageOfTheDayProvider,
               onChanged: (value) => model.setUrlWallpaperProvider(value!),
               items: const [
@@ -119,7 +119,7 @@ class WallpaperPage extends StatelessWidget {
                 ),
               ],
             ),
-            actionWidget: YaruOptionButton(
+            trailing: YaruOptionButton(
               onPressed: () async {
                 await model.refreshUrlWallpaper();
                 if (model.errorMessage.isNotEmpty) {

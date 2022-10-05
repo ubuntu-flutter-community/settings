@@ -30,8 +30,8 @@ class _KeyboardShortcutRowState extends State<KeyboardShortcutRow> {
 
     return InkWell(
       child: YaruRow(
-        trailingWidget: Text(widget.label),
-        actionWidget: Row(
+        title: Text(widget.label),
+        trailing: Row(
           children: [
             for (var string in shortcut)
               Card(

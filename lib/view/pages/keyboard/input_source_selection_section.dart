@@ -83,7 +83,7 @@ class _InputTypeRow extends StatelessWidget {
   Widget build(BuildContext context) {
     final model = context.watch<InputSourceModel>();
     return YaruRow(
-      actionWidget: Row(
+      trailing: Row(
         children: [
           YaruOptionButton(
             onPressed: () => model.showKeyboardLayout(inputType),
@@ -98,11 +98,11 @@ class _InputTypeRow extends StatelessWidget {
           )
         ],
       ),
-      trailingWidget: Text(
+      title: Text(
         inputType,
         style: const TextStyle(fontSize: 16, fontWeight: FontWeight.normal),
       ),
-      leadingWidget: Icon(
+      leading: Icon(
         YaruIcons.drag_handle,
         color: Theme.of(context).colorScheme.onSurface.withOpacity(0.5),
       ),
@@ -139,9 +139,9 @@ class _AddKeymapDialogState extends State<_AddKeymapDialog> {
                   }),
                   child: YaruRow(
                     width: 100,
-                    description: model.inputSources[i].name,
-                    actionWidget: const SizedBox(),
-                    trailingWidget: Text(model.inputSources[i].description!),
+                    subtitle: Text(model.inputSources[i].name ?? ''),
+                    trailing: const SizedBox(),
+                    title: Text(model.inputSources[i].description!),
                   ),
                 ),
             ],
@@ -171,9 +171,9 @@ class _AddKeymapDialogState extends State<_AddKeymapDialog> {
                   borderRadius: BorderRadius.circular(4.0),
                   child: YaruRow(
                     width: 100,
-                    trailingWidget: Text(variant.description ?? ''),
-                    description: variant.name ?? '',
-                    actionWidget: const SizedBox(),
+                    title: Text(variant.description ?? ''),
+                    subtitle: Text(variant.name ?? ''),
+                    trailing: const SizedBox(),
                   ),
                 ),
               TextButton(
