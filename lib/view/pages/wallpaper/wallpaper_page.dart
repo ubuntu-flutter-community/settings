@@ -135,7 +135,7 @@ class WallpaperPage extends StatelessWidget {
                   );
                 }
               },
-              iconData: YaruIcons.refresh,
+              child: const Icon(YaruIcons.refresh),
             ),
           ),
         if (model.wallpaperMode == WallpaperMode.custom)

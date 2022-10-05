@@ -74,7 +74,7 @@ class _RegionAndLanguagePageState extends State<RegionAndLanguagePage> {
                   Text(context.l10n.regionAndLanguagePageManageLanguageAction),
               actionWidget: YaruOptionButton(
                 onPressed: () => model.openGnomeLanguageSelector(),
-                iconData: YaruIcons.download,
+                child: const Icon(YaruIcons.download),
               ),
               enabled: true,
             ),

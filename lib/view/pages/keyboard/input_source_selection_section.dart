@@ -88,14 +88,14 @@ class _InputTypeRow extends StatelessWidget {
         children: [
           YaruOptionButton(
             onPressed: () => model.showKeyboardLayout(inputType),
-            iconData: YaruIcons.input_keyboard,
+            child: const Icon(YaruIcons.input_keyboard),
           ),
           const SizedBox(
             width: 10,
           ),
           YaruOptionButton(
             onPressed: () => model.removeInputSource(inputType),
-            iconData: YaruIcons.trash,
+            child: const Icon(YaruIcons.trash),
           )
         ],
       ),
