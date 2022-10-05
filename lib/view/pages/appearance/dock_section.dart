@@ -61,7 +61,6 @@ class DockSection extends StatelessWidget {
                   groupValue: model.extendDock,
                   onChanged: (value) => model.extendDock = value!,
                 ),
-                enabled: true,
               ),
               Padding(
                 padding: const EdgeInsets.all(assetPadding),

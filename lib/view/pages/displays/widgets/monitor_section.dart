@@ -34,7 +34,6 @@ class MonitorSection extends StatelessWidget {
             children: <Widget>[
               /// Orientation row
               YaruRow(
-                enabled: true,
                 trailingWidget: Text(context.l10n.orientation),
                 actionWidget: DropdownButton<LogicalMonitorOrientation>(
                   value: config.transform!,
@@ -54,7 +53,6 @@ class MonitorSection extends StatelessWidget {
 
               /// Resolution row
               YaruRow(
-                enabled: true,
                 trailingWidget: Text(context.l10n.resolution),
                 actionWidget: DropdownButton<String>(
                   value: config.resolution,
@@ -71,7 +69,6 @@ class MonitorSection extends StatelessWidget {
 
               /// Refresh rate row
               YaruRow(
-                enabled: true,
                 trailingWidget: Text(context.l10n.refreshRate),
                 actionWidget: DropdownButton<String>(
                   value: config.refreshRate,
@@ -91,7 +88,6 @@ class MonitorSection extends StatelessWidget {
 
               /// Scale row
               YaruRow(
-                enabled: true,
                 trailingWidget: Text(context.l10n.scale),
                 actionWidget: DropdownButton<int>(
                   value: config.scale!.toInt(),

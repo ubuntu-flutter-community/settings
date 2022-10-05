@@ -27,7 +27,6 @@ class ColorShadingOptionRow extends StatelessWidget {
     final model = context.read<WallpaperModel>();
     return YaruRow(
       width: width,
-      enabled: true,
       trailingWidget: Text(actionLabel),
       description: actionDescription,
       actionWidget: Row(

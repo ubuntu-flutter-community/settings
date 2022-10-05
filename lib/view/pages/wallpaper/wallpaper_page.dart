@@ -47,7 +47,6 @@ class WallpaperPage extends StatelessWidget {
       children: [
         YaruRow(
           width: kDefaultWidth,
-          enabled: true,
           trailingWidget: Text(context.l10n.wallpaperPageBackgroundModeLabel),
           actionWidget: Row(
             children: [
@@ -104,7 +103,6 @@ class WallpaperPage extends StatelessWidget {
         if (model.wallpaperMode == WallpaperMode.imageOfTheDay)
           //TODO: Add the title and copyright info
           YaruRow(
-            enabled: true,
             leadingWidget:
                 Text(context.l10n.wallpaperPageBackgroundModeImageOfTheDay),
             trailingWidget: DropdownButton<ImageOfTheDayProvider>(

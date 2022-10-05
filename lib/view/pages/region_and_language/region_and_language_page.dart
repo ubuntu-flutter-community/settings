@@ -50,7 +50,6 @@ class _RegionAndLanguagePageState extends State<RegionAndLanguagePage> {
             Padding(
               padding: const EdgeInsets.only(top: 8, bottom: 8),
               child: YaruRow(
-                enabled: true,
                 trailingWidget: Text(
                   context.l10n.regionAndLanguagePageSelectLanguageAction,
                 ),
@@ -76,7 +75,6 @@ class _RegionAndLanguagePageState extends State<RegionAndLanguagePage> {
                 onPressed: () => model.openGnomeLanguageSelector(),
                 child: const Icon(YaruIcons.download),
               ),
-              enabled: true,
             ),
           ],
         )

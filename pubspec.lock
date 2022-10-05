@@ -1005,8 +1005,8 @@ packages:
     dependency: "direct main"
     description:
       path: "."
-      ref: HEAD
-      resolved-ref: "8fd12d57f07cb1ad651fbe2a79a19cb92e5f14df"
+      ref: "62496a24c31850776713a18f8687ca203286ed92"
+      resolved-ref: "62496a24c31850776713a18f8687ca203286ed92"
       url: "https://github.com/ubuntu/yaru_widgets.dart.git"
     source: git
     version: "1.1.5"

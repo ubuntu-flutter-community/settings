@@ -83,7 +83,6 @@ class _PowerSettingsSectionState extends State<PowerSettingsSection> {
           ),
         ),
         YaruRow(
-          enabled: true,
           trailingWidget: const Text('Automatic Suspend'),
           description: model.automaticSuspend.localize(context),
           actionWidget: SizedBox(

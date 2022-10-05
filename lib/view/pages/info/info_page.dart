@@ -197,7 +197,6 @@ class _Computer extends StatelessWidget {
       headline: 'Computer',
       children: [
         YaruRow(
-          enabled: true,
           trailingWidget: const Text('Hostname'),
           actionWidget: Row(
             children: [

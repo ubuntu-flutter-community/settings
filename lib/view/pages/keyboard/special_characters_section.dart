@@ -30,7 +30,6 @@ class SpecialCharactersSection extends StatelessWidget {
               ),
             ),
             child: YaruRow(
-              enabled: true,
               trailingWidget: const Text('Compose Key'),
               actionWidget: Text(
                 snapshot.hasData
@@ -52,7 +51,6 @@ class SpecialCharactersSection extends StatelessWidget {
               ),
             ),
             child: YaruRow(
-              enabled: true,
               trailingWidget: const Text('Lv3 Key'),
               actionWidget: Text(
                 snapshot.hasData
