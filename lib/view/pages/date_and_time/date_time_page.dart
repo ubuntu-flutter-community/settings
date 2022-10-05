@@ -173,7 +173,6 @@ class _TimezoneSelectDialog extends StatelessWidget {
                   child: Text(timezone),
                 ),
                 actionWidget: const Text(''),
-                enabled: true,
               ),
             )
         ],

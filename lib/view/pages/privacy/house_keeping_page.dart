@@ -88,7 +88,6 @@ class HouseKeepingPage extends StatelessWidget {
                   ),
                 ),
               ),
-              enabled: true,
             )
           ],
         ),
@@ -146,7 +145,6 @@ class HouseKeepingPage extends StatelessWidget {
                   ),
                 ),
               ),
-              enabled: true,
             ),
             YaruRow(
               trailingWidget: Text(context.l10n.houseKeepingRemoveTempFiles),
@@ -163,7 +161,6 @@ class HouseKeepingPage extends StatelessWidget {
                   ),
                 ),
               ),
-              enabled: true,
             ),
           ],
         ),
