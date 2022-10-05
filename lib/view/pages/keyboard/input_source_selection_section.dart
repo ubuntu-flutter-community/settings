@@ -137,11 +137,13 @@ class _AddKeymapDialogState extends State<_AddKeymapDialog> {
                     tabbedIndex = i;
                     variantsLoad = true;
                   }),
-                  child: YaruRow(
+                  child: SizedBox(
                     width: 100,
-                    subtitle: Text(model.inputSources[i].name ?? ''),
-                    trailing: const SizedBox(),
-                    title: Text(model.inputSources[i].description!),
+                    child: YaruRow(
+                      subtitle: Text(model.inputSources[i].name ?? ''),
+                      trailing: const SizedBox(),
+                      title: Text(model.inputSources[i].description!),
+                    ),
                   ),
                 ),
             ],
@@ -169,11 +171,13 @@ class _AddKeymapDialogState extends State<_AddKeymapDialog> {
                     setState(() {});
                   },
                   borderRadius: BorderRadius.circular(4.0),
-                  child: YaruRow(
+                  child: SizedBox(
                     width: 100,
-                    title: Text(variant.description ?? ''),
-                    subtitle: Text(variant.name ?? ''),
-                    trailing: const SizedBox(),
+                    child: YaruRow(
+                      title: Text(variant.description ?? ''),
+                      subtitle: Text(variant.name ?? ''),
+                      trailing: const SizedBox(),
+                    ),
                   ),
                 ),
               TextButton(

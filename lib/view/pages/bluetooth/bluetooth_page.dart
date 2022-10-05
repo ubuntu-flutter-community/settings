@@ -44,13 +44,17 @@ class _BluetoothPageState extends State<BluetoothPage> {
     final model = context.watch<BluetoothModel>();
     return YaruPage(
       children: [
-        YaruSwitchRow(
+        SizedBox(
           width: kDefaultWidth,
-          trailingWidget: Text(
-            model.powered ? context.l10n.switchedOn : context.l10n.switchedOff,
+          child: YaruSwitchRow(
+            trailingWidget: Text(
+              model.powered
+                  ? context.l10n.switchedOn
+                  : context.l10n.switchedOff,
+            ),
+            value: model.powered,
+            onChanged: (v) => model.setPowered(v),
           ),
-          value: model.powered,
-          onChanged: (v) => model.setPowered(v),
         ),
         YaruSection(
           width: kDefaultWidth,
