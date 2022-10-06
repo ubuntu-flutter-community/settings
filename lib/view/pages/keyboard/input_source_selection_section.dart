@@ -82,7 +82,7 @@ class _InputTypeRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final model = context.watch<InputSourceModel>();
-    return YaruRow(
+    return YaruTile(
       trailing: Row(
         children: [
           YaruOptionButton(
@@ -139,7 +139,7 @@ class _AddKeymapDialogState extends State<_AddKeymapDialog> {
                   }),
                   child: SizedBox(
                     width: 100,
-                    child: YaruRow(
+                    child: YaruTile(
                       subtitle: Text(model.inputSources[i].name ?? ''),
                       trailing: const SizedBox(),
                       title: Text(model.inputSources[i].description!),
@@ -173,7 +173,7 @@ class _AddKeymapDialogState extends State<_AddKeymapDialog> {
                   borderRadius: BorderRadius.circular(4.0),
                   child: SizedBox(
                     width: 100,
-                    child: YaruRow(
+                    child: YaruTile(
                       title: Text(variant.description ?? ''),
                       subtitle: Text(variant.name ?? ''),
                       trailing: const SizedBox(),

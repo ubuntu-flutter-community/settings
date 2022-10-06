@@ -30,7 +30,7 @@ class _SuspendSectionState extends State<SuspendSection> {
       width: kDefaultWidth,
       headline: 'Suspend & Power Button',
       children: <Widget>[
-        YaruRow(
+        YaruTile(
           enabled: model.powerButtonAction != null,
           title: const Text('Power Button Behavior'),
           trailing: DropdownButton<PowerButtonAction?>(

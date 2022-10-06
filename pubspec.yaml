@@ -48,7 +48,7 @@ dependencies:
   yaru_icons: ^0.2.1
   yaru_widgets:
     git:
-      ref: 6b82c8ee7031d1af720e5300d6de1cfe2c6e0beb
+      ref: 0e04f50fc2b52274948318059ceb6be668401f94
       url: https://github.com/ubuntu/yaru_widgets.dart.git
 
 dev_dependencies:

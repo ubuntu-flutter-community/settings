@@ -167,7 +167,7 @@ class _TimezoneSelectDialog extends StatelessWidget {
                 model.timezone = timezone;
                 Navigator.of(context).pop();
               },
-              child: YaruRow(
+              child: YaruTile(
                 title: Padding(
                   padding: const EdgeInsets.only(top: 4, bottom: 4),
                   child: Text(timezone),

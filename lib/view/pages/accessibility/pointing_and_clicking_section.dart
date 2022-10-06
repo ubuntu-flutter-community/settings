@@ -47,7 +47,7 @@ class _ClickAssist extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final model = context.watch<AccessibilityModel>();
-    return YaruRow(
+    return YaruTile(
       enabled: model.clickAssistAvailable,
       title: Text(context.l10n.clickAssist),
       trailing: Row(

@@ -29,7 +29,7 @@ class SpecialCharactersSection extends StatelessWidget {
                 child: const _ComposeOptionsDialog(),
               ),
             ),
-            child: YaruRow(
+            child: YaruTile(
               title: const Text('Compose Key'),
               trailing: Text(
                 snapshot.hasData
@@ -50,7 +50,7 @@ class SpecialCharactersSection extends StatelessWidget {
                 child: const _Lv3OptionsDialog(),
               ),
             ),
-            child: YaruRow(
+            child: YaruTile(
               title: const Text('Lv3 Key'),
               trailing: Text(
                 snapshot.hasData

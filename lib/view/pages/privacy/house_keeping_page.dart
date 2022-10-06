@@ -72,7 +72,7 @@ class HouseKeepingPage extends StatelessWidget {
                 max: 30,
                 onChanged: (value) => model.recentFilesMaxAge = value.toInt(),
               ),
-            YaruRow(
+            YaruTile(
               title: Text(context.l10n.houseKeepingRecentFilesClearAction),
               trailing: _TrashButton(
                 onPressed: () => showDialog(
@@ -129,7 +129,7 @@ class HouseKeepingPage extends StatelessWidget {
                 max: 30,
                 onChanged: (value) => model.oldFilesAge = value.toInt(),
               ),
-            YaruRow(
+            YaruTile(
               title: Text(context.l10n.houseKeepingEmptyTrash),
               trailing: _TrashButton(
                 onPressed: () => showDialog(
@@ -145,7 +145,7 @@ class HouseKeepingPage extends StatelessWidget {
                 ),
               ),
             ),
-            YaruRow(
+            YaruTile(
               title: Text(context.l10n.houseKeepingRemoveTempFiles),
               trailing: _TrashButton(
                 onPressed: () => showDialog(

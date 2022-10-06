@@ -119,7 +119,7 @@ class MultiTaskingPage extends StatelessWidget {
               groupValue: model.dynamicWorkspaces,
               onChanged: (value) => model.dynamicWorkspaces = value!,
             ),
-            YaruRow(
+            YaruTile(
               enabled: model.dynamicWorkspaces != null &&
                   model.dynamicWorkspaces == false,
               title: const Text('Number of workspaces'),
@@ -145,7 +145,7 @@ class MultiTaskingPage extends StatelessWidget {
           width: kDefaultWidth,
           headline: 'Multi-Monitor',
           children: [
-            YaruRow(
+            YaruTile(
               title: const Text('Workspaces span all displays'),
               subtitle: const Text(
                   'All displays are included in one workspace and follow when you switch workspaces.'),
@@ -172,7 +172,7 @@ class MultiTaskingPage extends StatelessWidget {
                 height: 60,
               ),
             ),
-            YaruRow(
+            YaruTile(
               title: const Text('Workspaces only on primary display'),
               subtitle: const Text(
                   'Only your primary display is included in workspace switching.'),
