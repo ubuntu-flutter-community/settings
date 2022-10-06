@@ -219,7 +219,7 @@ class _AddWallpaperTile extends StatelessWidget {
         onTap: () async {
           final picPath = await openFile(
             acceptedTypeGroups: [
-              XTypeGroup(
+              const XTypeGroup(
                 label: 'images',
                 extensions: <String>['jpg', 'png'],
               )

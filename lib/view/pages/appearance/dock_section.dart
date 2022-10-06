@@ -31,7 +31,8 @@ class DockSection extends StatelessWidget {
               YaruTile(
                 title: const Text('Panel mode'),
                 subtitle: const Text(
-                    'Extends the height of the dock to become a panel.'),
+                  'Extends the height of the dock to become a panel.',
+                ),
                 trailing: Radio<bool>(
                   value: true,
                   groupValue: model.extendDock,
@@ -56,7 +57,8 @@ class DockSection extends StatelessWidget {
               YaruTile(
                 title: const Text('Dock mode'),
                 subtitle: const Text(
-                    'Displays the dock in a centered, free-floating mode.'),
+                  'Displays the dock in a centered, free-floating mode.',
+                ),
                 trailing: Radio<bool>(
                   value: false,
                   groupValue: model.extendDock,
