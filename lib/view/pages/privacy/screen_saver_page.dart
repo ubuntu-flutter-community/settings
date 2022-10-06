@@ -7,6 +7,7 @@ import 'package:settings/view/duration_dropdown_button.dart';
 import 'package:settings/view/pages/power/power_settings.dart';
 import 'package:settings/view/pages/privacy/screen_saver_model.dart';
 import 'package:settings/view/section_description.dart';
+import 'package:yaru_settings/yaru_settings.dart';
 import 'package:yaru_widgets/yaru_widgets.dart';
 
 class ScreenSaverPage extends StatelessWidget {

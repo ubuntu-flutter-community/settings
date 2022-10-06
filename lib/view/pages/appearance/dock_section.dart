@@ -5,6 +5,7 @@ import 'package:settings/constants.dart';
 import 'package:settings/utils.dart';
 import 'package:settings/view/pages/appearance/dock_model.dart';
 import 'package:settings/view/selectable_svg_image.dart';
+import 'package:yaru_settings/yaru_settings.dart';
 import 'package:yaru_widgets/yaru_widgets.dart';
 
 class DockSection extends StatelessWidget {

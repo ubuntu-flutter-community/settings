@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:settings/constants.dart';
 import 'package:settings/l10n/l10n.dart';
 import 'package:yaru_icons/yaru_icons.dart';
+import 'package:yaru_settings/yaru_settings.dart';
 import 'package:yaru_widgets/yaru_widgets.dart';
 
 import 'data/authentication.dart';
