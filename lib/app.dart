@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localized_locales/flutter_localized_locales.dart';
 import 'package:settings/l10n/l10n.dart';
 import 'package:settings/view/pages/page_items.dart';
+import 'package:settings/view/search_app_bar.dart';
 import 'package:yaru/yaru.dart';
 import 'package:yaru_icons/yaru_icons.dart';
 import 'package:yaru_widgets/yaru_widgets.dart';
@@ -55,7 +56,7 @@ class _UbuntuSettingsAppState extends State<UbuntuSettingsApp> {
                 pageItems:
                     _filteredItems.isNotEmpty ? _filteredItems : pageItems,
                 previousIconData: YaruIcons.go_previous,
-                appBar: YaruSearchAppBar(
+                appBar: SearchAppBar(
                   searchHint: context.l10n.searchHint,
                   clearSearchIconData: YaruIcons.window_close,
                   searchController: _searchController,
