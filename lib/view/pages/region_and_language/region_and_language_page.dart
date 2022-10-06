@@ -49,7 +49,7 @@ class _RegionAndLanguagePageState extends State<RegionAndLanguagePage> {
           children: [
             Padding(
               padding: const EdgeInsets.only(top: 8, bottom: 8),
-              child: YaruRow(
+              child: YaruTile(
                 title: Text(
                   context.l10n.regionAndLanguagePageSelectLanguageAction,
                 ),
@@ -68,7 +68,7 @@ class _RegionAndLanguagePageState extends State<RegionAndLanguagePage> {
                 ),
               ),
             ),
-            YaruRow(
+            YaruTile(
               title:
                   Text(context.l10n.regionAndLanguagePageManageLanguageAction),
               trailing: YaruOptionButton(

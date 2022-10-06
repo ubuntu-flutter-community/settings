@@ -48,7 +48,7 @@ class RemovableMediaPage extends StatelessWidget {
           for (var mimeType in RemovableMediaModel.mimeTypes.entries)
             SizedBox(
               width: kDefaultWidth,
-              child: YaruRow(
+              child: YaruTile(
                 enabled: !model.autoRunNever,
                 title: Text(mimeType.value),
                 trailing: DropdownButton<String>(

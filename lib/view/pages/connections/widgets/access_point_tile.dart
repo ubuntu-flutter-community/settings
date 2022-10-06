@@ -21,7 +21,7 @@ class AccessPointTile extends StatelessWidget {
         return InkWell(
           borderRadius: BorderRadius.circular(4),
           onTap: onTap,
-          child: YaruRow(
+          child: YaruTile(
             title: Row(
               children: [
                 Icon(accessPointModel.wifiIconData),

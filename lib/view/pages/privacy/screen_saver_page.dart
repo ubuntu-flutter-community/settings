@@ -30,7 +30,7 @@ class ScreenSaverPage extends StatelessWidget {
         YaruSection(
           width: kDefaultWidth,
           children: [
-            YaruRow(
+            YaruTile(
               enabled: model.idleDelay != null,
               title: Text(context.l10n.screenSaverTimerLabel),
               subtitle: Text(context.l10n.screenSaverTimerDescription),
@@ -46,7 +46,7 @@ class ScreenSaverPage extends StatelessWidget {
               value: model.lockEnabled,
               onChanged: (v) => model.lockEnabled = v,
             ),
-            YaruRow(
+            YaruTile(
               enabled: model.lockDelay != null,
               title: Text(context.l10n.screenSaverAutoDelayLabel),
               subtitle: Text(context.l10n.screenSaverAutoDelayDescription),

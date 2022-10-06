@@ -141,7 +141,7 @@ class _TypingAssist extends StatelessWidget {
   Widget build(BuildContext context) {
     final model = context.watch<AccessibilityModel>();
 
-    return YaruRow(
+    return YaruTile(
       enabled: model.typingAssistAvailable,
       title: Text(context.l10n.typingAssistAccessX),
       trailing: Row(

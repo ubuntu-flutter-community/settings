@@ -67,7 +67,7 @@ class _CursorSize extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final model = context.watch<AccessibilityModel>();
-    return YaruRow(
+    return YaruTile(
       enabled: model.cursorSize != null,
       title: Text(context.l10n.cursorSize),
       subtitle: Text(context.l10n.cursorSizeDescription),
@@ -219,7 +219,7 @@ class _MagnifierOptions extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        YaruRow(
+        YaruTile(
           enabled: model.magFactor != null,
           title: Text(context.l10n.magnification),
           trailing: SizedBox(
@@ -422,7 +422,7 @@ class _CrosshairsOptions extends StatelessWidget {
             showValue: false,
           ),
         ),
-        YaruRow(
+        YaruTile(
           enabled: model.crossHairsColor != null,
           title: Text(context.l10n.color),
           trailing: YaruOptionButton.color(

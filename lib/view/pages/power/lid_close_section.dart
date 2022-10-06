@@ -23,7 +23,7 @@ class LidCloseSection extends StatelessWidget {
       width: kDefaultWidth,
       headline: 'Lid Close',
       children: [
-        YaruRow(
+        YaruTile(
           enabled: model.acLidCloseAction != null,
           title: const Text('Lid Close Action on Ac'),
           trailing: DropdownButton<LidCloseAction?>(
@@ -37,7 +37,7 @@ class LidCloseSection extends StatelessWidget {
             onChanged: (value) => model.acLidCloseAction = value,
           ),
         ),
-        YaruRow(
+        YaruTile(
           enabled: model.batteryLidCloseAction != null,
           title: const Text('Lid Close Action on Battery'),
           trailing: DropdownButton<LidCloseAction?>(

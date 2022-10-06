@@ -27,7 +27,7 @@ class DockSection extends StatelessWidget {
           YaruSection(
             headline: 'Dock appearance',
             children: [
-              YaruRow(
+              YaruTile(
                 title: const Text('Panel mode'),
                 subtitle: const Text(
                     'Extends the height of the dock to become a panel.'),
@@ -52,7 +52,7 @@ class DockSection extends StatelessWidget {
                   height: assetHeight,
                 ),
               ),
-              YaruRow(
+              YaruTile(
                 title: const Text('Dock mode'),
                 subtitle: const Text(
                     'Displays the dock in a centered, free-floating mode.'),
@@ -199,7 +199,7 @@ class DockSection extends StatelessWidget {
                 defaultValue: 48,
                 onChanged: (value) => model.maxIconSize = value,
               ),
-              YaruRow(
+              YaruTile(
                 enabled: model.clickAction != null,
                 title: const Text('App icon click behavior'),
                 trailing: DropdownButton<DockClickAction>(
