@@ -10,6 +10,7 @@ import 'package:settings/services/pdf_service.dart';
 import 'package:udisks/udisks.dart';
 import 'package:yaru_colors/yaru_colors.dart';
 import 'package:yaru_icons/yaru_icons.dart';
+import 'package:yaru_settings/yaru_settings.dart';
 import 'package:yaru_widgets/yaru_widgets.dart';
 
 import 'info_model.dart';

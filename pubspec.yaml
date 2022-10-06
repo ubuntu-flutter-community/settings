@@ -46,9 +46,10 @@ dependencies:
   yaru: ^0.4.1
   yaru_colors: ^0.1.0
   yaru_icons: ^0.2.1
+  yaru_settings:
+    path: packages/yaru_settings
   yaru_widgets:
     git:
-      ref: 0e04f50fc2b52274948318059ceb6be668401f94
       url: https://github.com/ubuntu/yaru_widgets.dart.git
 
 dev_dependencies:

@@ -6,6 +6,7 @@ import 'package:settings/services/date_time_service.dart';
 import 'package:settings/services/settings_service.dart';
 import 'package:settings/view/pages/date_and_time/date_time_model.dart';
 import 'package:settings/view/pages/date_and_time/timezones.dart';
+import 'package:yaru_settings/yaru_settings.dart';
 import 'package:yaru_widgets/yaru_widgets.dart';
 
 class DateTimePage extends StatefulWidget {

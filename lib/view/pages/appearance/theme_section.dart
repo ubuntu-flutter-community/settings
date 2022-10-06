@@ -5,6 +5,7 @@ import 'package:settings/constants.dart';
 import 'package:settings/view/app_theme.dart';
 import 'package:yaru/yaru.dart';
 import 'package:yaru_icons/yaru_icons.dart';
+import 'package:yaru_settings/yaru_settings.dart';
 import 'package:yaru_widgets/yaru_widgets.dart';
 
 class ThemeSection extends StatefulWidget {
