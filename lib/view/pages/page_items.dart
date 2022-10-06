@@ -20,153 +20,159 @@ import 'package:settings/view/pages/privacy/privacy_page.dart';
 import 'package:settings/view/pages/region_and_language/region_and_language_page.dart';
 import 'package:settings/view/pages/removable_media/removable_media_page.dart';
 import 'package:settings/view/pages/search/search_page.dart';
+import 'package:settings/view/pages/settings_page_item.dart';
 import 'package:settings/view/pages/sound/sound_page.dart';
 import 'package:settings/view/pages/users/users.dart';
 import 'package:settings/view/pages/wallpaper/wallpaper_page.dart';
 import 'package:yaru_icons/yaru_icons.dart';
-import 'package:yaru_widgets/yaru_widgets.dart';
 
-List<YaruPageItem> getPageItems(BuildContext context) => [
-      const YaruPageItem(
+List<SettingsPageItem> getPageItems(BuildContext context) => [
+      SettingsPageItem(
         titleBuilder: ConnectionsPage.createTitle,
-        iconData: YaruIcons.network,
+        iconBuilder: (context, selected) => const Icon(YaruIcons.network),
         builder: ConnectionsPage.create,
         searchMatches: ConnectionsPage.searchMatches,
       ),
-      const YaruPageItem(
+      SettingsPageItem(
         titleBuilder: BluetoothPage.createTitle,
-        iconData: YaruIcons.bluetooth,
+        iconBuilder: (context, selected) => const Icon(YaruIcons.bluetooth),
         builder: BluetoothPage.create,
         searchMatches: BluetoothPage.searchMatches,
       ),
-      const YaruPageItem(
+      SettingsPageItem(
         titleBuilder: WallpaperPage.createTitle,
-        iconData: YaruIcons.desktop_wallpaper,
+        iconBuilder: (context, selected) =>
+            const Icon(YaruIcons.desktop_wallpaper),
         builder: WallpaperPage.create,
         searchMatches: WallpaperPage.searchMatches,
       ),
-      const YaruPageItem(
+      SettingsPageItem(
         titleBuilder: AppearancePage.createTitle,
-        iconData: YaruIcons.desktop_panel_look,
+        iconBuilder: (context, selected) =>
+            const Icon(YaruIcons.desktop_panel_look),
         builder: AppearancePage.create,
         searchMatches: AppearancePage.searchMatches,
       ),
-      const YaruPageItem(
+      SettingsPageItem(
         titleBuilder: PrivacyPage.createTitle,
         builder: PrivacyPage.create,
         searchMatches: PrivacyPage.searchMatches,
-        iconData: YaruIcons.lock,
+        iconBuilder: (context, selected) => const Icon(YaruIcons.lock),
       ),
-      const YaruPageItem(
+      SettingsPageItem(
         titleBuilder: MultiTaskingPage.createTitle,
         builder: MultiTaskingPage.create,
-        iconData: YaruIcons.windows,
+        iconBuilder: (context, selected) => const Icon(YaruIcons.windows),
         searchMatches: MultiTaskingPage.searchMatches,
       ),
-      const YaruPageItem(
+      SettingsPageItem(
         titleBuilder: NotificationsPage.createTitle,
-        iconData: YaruIcons.notification,
+        iconBuilder: (context, selected) => const Icon(YaruIcons.notification),
         builder: NotificationsPage.create,
         searchMatches: NotificationsPage.searchMatches,
       ),
-      const YaruPageItem(
+      SettingsPageItem(
         titleBuilder: SearchPage.createTitle,
-        iconData: YaruIcons.search,
+        iconBuilder: (context, selected) => const Icon(YaruIcons.search),
         builder: SearchPage.create,
         searchMatches: SearchPage.searchMatches,
       ),
-      const YaruPageItem(
+      SettingsPageItem(
         titleBuilder: AppsPage.createTitle,
-        iconData: YaruIcons.app_grid,
+        iconBuilder: (context, selected) => const Icon(YaruIcons.app_grid),
         builder: AppsPage.create,
         searchMatches: AppsPage.searchMatches,
       ),
-      const YaruPageItem(
+      SettingsPageItem(
         titleBuilder: OnlineAccountsPage.createTitle,
-        iconData: YaruIcons.desktop_online_accounts,
+        iconBuilder: (context, selected) =>
+            const Icon(YaruIcons.desktop_online_accounts),
         builder: OnlineAccountsPage.create,
         searchMatches: OnlineAccountsPage.searchMatches,
       ),
-      const YaruPageItem(
+      SettingsPageItem(
         titleBuilder: SoundPage.createTitle,
-        iconData: YaruIcons.audio,
+        iconBuilder: (context, selected) => const Icon(YaruIcons.audio),
         builder: SoundPage.create,
         searchMatches: SoundPage.searchMatches,
       ),
-      const YaruPageItem(
+      SettingsPageItem(
         titleBuilder: PowerPage.createTitle,
-        iconData: YaruIcons.power,
+        iconBuilder: (context, selected) => const Icon(YaruIcons.power),
         builder: PowerPage.create,
         searchMatches: PowerPage.searchMatches,
       ),
-      const YaruPageItem(
+      SettingsPageItem(
         titleBuilder: DisplaysPage.createTitle,
-        iconData: YaruIcons.desktop_display,
+        iconBuilder: (context, selected) =>
+            const Icon(YaruIcons.desktop_display),
         builder: DisplaysPage.create,
         searchMatches: DisplaysPage.searchMatches,
       ),
-      const YaruPageItem(
+      SettingsPageItem(
         titleBuilder: MouseAndTouchpadPage.createTitle,
-        iconData: YaruIcons.input_mouse,
+        iconBuilder: (context, selected) => const Icon(YaruIcons.input_mouse),
         builder: MouseAndTouchpadPage.create,
         searchMatches: MouseAndTouchpadPage.searchMatches,
       ),
-      const YaruPageItem(
+      SettingsPageItem(
         titleBuilder: KeyboardPage.createTitle,
-        iconData: YaruIcons.input_keyboard,
+        iconBuilder: (context, selected) =>
+            const Icon(YaruIcons.input_keyboard),
         builder: KeyboardPage.create,
         searchMatches: KeyboardPage.searchMatches,
       ),
-      YaruPageItem(
+      SettingsPageItem(
         titleBuilder: (context) => const Text('Printers'),
-        iconData: YaruIcons.printer,
+        iconBuilder: (context, selected) => const Icon(YaruIcons.printer),
         builder: (_) => const Center(child: Text('Printers')),
       ),
-      const YaruPageItem(
+      SettingsPageItem(
         titleBuilder: RemovableMediaPage.createTitle,
-        iconData: YaruIcons.media_removable,
+        iconBuilder: (context, selected) =>
+            const Icon(YaruIcons.media_removable),
         builder: RemovableMediaPage.create,
         searchMatches: RemovableMediaPage.searchMatches,
       ),
-      const YaruPageItem(
+      SettingsPageItem(
         titleBuilder: ColorPage.createTitle,
-        iconData: YaruIcons.colors,
+        iconBuilder: (context, selected) => const Icon(YaruIcons.colors),
         builder: ColorPage.create,
         searchMatches: ColorPage.searchMatches,
       ),
-      const YaruPageItem(
+      SettingsPageItem(
         titleBuilder: RegionAndLanguagePage.createTitle,
-        iconData: YaruIcons.localization,
+        iconBuilder: (context, selected) => const Icon(YaruIcons.localization),
         builder: RegionAndLanguagePage.create,
         searchMatches: RegionAndLanguagePage.searchMatches,
       ),
-      const YaruPageItem(
+      SettingsPageItem(
         titleBuilder: AccessibilityPage.createTitle,
-        iconData: YaruIcons.accessibility,
+        iconBuilder: (context, selected) => const Icon(YaruIcons.accessibility),
         builder: AccessibilityPage.create,
         searchMatches: AccessibilityPage.searchMatches,
       ),
-      const YaruPageItem(
+      SettingsPageItem(
         titleBuilder: UsersPage.createTitle,
-        iconData: YaruIcons.users,
+        iconBuilder: (context, selected) => const Icon(YaruIcons.users),
         builder: UsersPage.create,
         searchMatches: UsersPage.searchMatches,
       ),
-      const YaruPageItem(
+      SettingsPageItem(
         titleBuilder: DefaultAppsPage.createTitle,
-        iconData: YaruIcons.star,
+        iconBuilder: (context, selected) => const Icon(YaruIcons.star),
         builder: DefaultAppsPage.create,
         searchMatches: DefaultAppsPage.searchMatches,
       ),
-      const YaruPageItem(
+      SettingsPageItem(
         titleBuilder: DateTimePage.createTitle,
-        iconData: YaruIcons.clock,
+        iconBuilder: (context, selected) => const Icon(YaruIcons.clock),
         builder: DateTimePage.create,
         searchMatches: DateTimePage.searchMatches,
       ),
-      const YaruPageItem(
+      SettingsPageItem(
         titleBuilder: InfoPage.createTitle,
-        iconData: YaruIcons.information,
+        iconBuilder: (context, selected) => const Icon(YaruIcons.information),
         builder: InfoPage.create,
         searchMatches: InfoPage.searchMatches,
       ),

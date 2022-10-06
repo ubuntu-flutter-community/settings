@@ -149,7 +149,8 @@ class MultiTaskingPage extends StatelessWidget {
             YaruTile(
               title: const Text('Workspaces span all displays'),
               subtitle: const Text(
-                  'All displays are included in one workspace and follow when you switch workspaces.'),
+                'All displays are included in one workspace and follow when you switch workspaces.',
+              ),
               trailing: Radio(
                 value: false,
                 groupValue: model.workSpaceOnlyOnPrimary,
@@ -176,7 +177,8 @@ class MultiTaskingPage extends StatelessWidget {
             YaruTile(
               title: const Text('Workspaces only on primary display'),
               subtitle: const Text(
-                  'Only your primary display is included in workspace switching.'),
+                'Only your primary display is included in workspace switching.',
+              ),
               trailing: Radio(
                 value: true,
                 groupValue: model.workSpaceOnlyOnPrimary,
