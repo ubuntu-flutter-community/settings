@@ -5,6 +5,7 @@ import 'package:settings/services/settings_service.dart';
 import 'package:settings/view/pages/appearance/dock_model.dart';
 import 'package:settings/view/pages/appearance/theme_section.dart';
 import 'package:settings/view/pages/appearance/dock_section.dart';
+import 'package:settings/view/pages/settings_page.dart';
 import 'package:yaru_widgets/yaru_widgets.dart';
 
 class AppearancePage extends StatelessWidget {
@@ -30,7 +31,7 @@ class AppearancePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const YaruPage(
+    return const SettingsPage(
       children: [
         ThemeSection(),
         DockSection(),

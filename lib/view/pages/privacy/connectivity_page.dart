@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:settings/constants.dart';
 import 'package:settings/l10n/l10n.dart';
 import 'package:settings/view/pages/privacy/connectivity_model.dart';
+import 'package:settings/view/pages/settings_page.dart';
 import 'package:settings/view/section_description.dart';
 import 'package:yaru_settings/yaru_settings.dart';
 import 'package:yaru_widgets/yaru_widgets.dart';
@@ -31,7 +32,7 @@ class _ConnectivityPageState extends State<ConnectivityPage> {
   @override
   Widget build(BuildContext context) {
     final model = context.watch<ConnectivityModel>();
-    return YaruPage(
+    return SettingsPage(
       children: [
         SectionDescription(
           width: kDefaultWidth,

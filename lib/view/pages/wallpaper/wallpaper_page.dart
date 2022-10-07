@@ -7,6 +7,7 @@ import 'package:settings/constants.dart';
 import 'package:settings/l10n/l10n.dart';
 import 'package:settings/services/settings_service.dart';
 import 'package:settings/utils.dart';
+import 'package:settings/view/pages/settings_page.dart';
 import 'package:settings/view/pages/wallpaper/color_shading_option_row.dart';
 import 'package:settings/view/pages/wallpaper/wallpaper_model.dart';
 import 'package:yaru_icons/yaru_icons.dart';
@@ -43,7 +44,7 @@ class WallpaperPage extends StatelessWidget {
         ? model.pictureUri
         : model.pictureUriDark;
 
-    return YaruPage(
+    return SettingsPage(
       children: [
         SizedBox(
           width: kDefaultWidth,

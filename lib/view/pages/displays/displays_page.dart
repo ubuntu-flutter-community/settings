@@ -6,6 +6,7 @@ import 'package:settings/services/display/display_service.dart';
 import 'package:settings/view/pages/displays/displays_configuration.dart';
 import 'package:settings/view/pages/displays/displays_model.dart';
 import 'package:settings/view/pages/displays/widgets/monitor_section.dart';
+import 'package:settings/view/pages/settings_page.dart';
 import 'package:yaru_icons/yaru_icons.dart';
 import 'package:yaru_widgets/yaru_widgets.dart';
 
@@ -65,7 +66,7 @@ class _DisplaysPageState extends State<DisplaysPage> {
   ) {
     switch (section) {
       case DisplaysPageSection.displays:
-        return YaruPage(
+        return SettingsPage(
           children: [
             SizedBox(
               width: kDefaultWidth,
@@ -80,7 +81,7 @@ class _DisplaysPageState extends State<DisplaysPage> {
           ],
         );
       case DisplaysPageSection.night:
-        return YaruPage(
+        return SettingsPage(
           children: [
             Center(
               child: Text(context.l10n.nightMode),
