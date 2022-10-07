@@ -6,6 +6,7 @@ import 'package:settings/services/keyboard_service.dart';
 import 'package:settings/services/settings_service.dart';
 import 'package:settings/view/pages/keyboard/keyboard_shortcut_row.dart';
 import 'package:settings/view/pages/keyboard/keyboard_shortcuts_model.dart';
+import 'package:settings/view/pages/settings_page.dart';
 import 'package:yaru_widgets/yaru_widgets.dart';
 
 class KeyboardShortcutsPage extends StatelessWidget {
@@ -13,7 +14,7 @@ class KeyboardShortcutsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return YaruPage(
+    return SettingsPage(
       children: [
         ChangeNotifierProvider(
           create: (_) => KeyboardShortcutsModel(

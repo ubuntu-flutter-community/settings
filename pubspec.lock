@@ -688,13 +688,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "3.0.1"
-  quiver:
-    dependency: transitive
-    description:
-      name: quiver
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "3.1.0"
   safe_change_notifier:
     dependency: "direct main"
     description:
@@ -832,7 +825,7 @@ packages:
       name: tuple
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.0.0"
+    version: "2.0.1"
   typed_data:
     dependency: transitive
     description:
@@ -1013,7 +1006,7 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: "9ed635963ba1f025ee3ea42da4071cf2c1046dd0"
+      resolved-ref: c2861bfca1ff75a5f186b6d4d5495c90ecf2389c
       url: "https://github.com/ubuntu/yaru_widgets.dart.git"
     source: git
     version: "1.1.5"

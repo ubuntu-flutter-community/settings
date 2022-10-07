@@ -7,6 +7,7 @@ import 'package:settings/constants.dart';
 import 'package:settings/l10n/l10n.dart';
 import 'package:settings/services/hostname_service.dart';
 import 'package:settings/services/pdf_service.dart';
+import 'package:settings/view/pages/settings_page.dart';
 import 'package:udisks/udisks.dart';
 import 'package:yaru_colors/yaru_colors.dart';
 import 'package:yaru_icons/yaru_icons.dart';
@@ -63,7 +64,7 @@ class _InfoPageState extends State<InfoPage> {
       ),
     );
 
-    return YaruPage(
+    return SettingsPage(
       children: [
         const SizedBox(height: 20),
         Row(

@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:settings/constants.dart';
 import 'package:settings/l10n/l10n.dart';
 import 'package:settings/view/pages/connections/wifi_content.dart';
+import 'package:settings/view/pages/settings_page.dart';
 import 'package:yaru_icons/yaru_icons.dart';
 import 'package:yaru_widgets/yaru_widgets.dart';
 
@@ -44,13 +45,13 @@ class ConnectionsPage extends StatelessWidget {
         wifiModel.isWifiDeviceAvailable
             ? const WifiDevicesContent()
             : const WifiAdaptorNotFound(),
-        const YaruPage(
+        const SettingsPage(
           children: [
             // TODO: Implement Ethernet page
             Text('Ethernet - Please implement 🥲️'),
           ],
         ),
-        const YaruPage(
+        const SettingsPage(
           children: [
             // TODO: Implement Cellular page
             Text('Cellular - Please implement 🥲️'),

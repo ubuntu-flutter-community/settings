@@ -6,6 +6,7 @@ import 'package:settings/view/pages/mouse_and_touchpad/general_section.dart';
 import 'package:settings/view/pages/mouse_and_touchpad/mouse_and_touchpad_model.dart';
 import 'package:settings/view/pages/mouse_and_touchpad/mouse_section.dart';
 import 'package:settings/view/pages/mouse_and_touchpad/touchpad_section.dart';
+import 'package:settings/view/pages/settings_page.dart';
 import 'package:yaru_widgets/yaru_widgets.dart';
 
 class MouseAndTouchpadPage extends StatelessWidget {
@@ -31,7 +32,7 @@ class MouseAndTouchpadPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const YaruPage(
+    return const SettingsPage(
       children: [
         GeneralSection(),
         MouseSection(),
