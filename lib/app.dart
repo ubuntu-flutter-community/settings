@@ -43,7 +43,6 @@ class _UbuntuSettingsAppState extends State<UbuntuSettingsApp> {
 
   @override
   Widget build(BuildContext context) {
-    final pages = _filteredItems.isNotEmpty ? _filteredItems : pageItems;
     return YaruTheme(
       builder: (context, yaru, child) {
         return MaterialApp(
@@ -53,6 +52,8 @@ class _UbuntuSettingsAppState extends State<UbuntuSettingsApp> {
           onGenerateTitle: (context) => context.l10n.appTitle,
           routes: {
             Navigator.defaultRouteName: (context) {
+              final pages =
+                  _filteredItems.isNotEmpty ? _filteredItems : pageItems;
               return YaruMasterDetailPage(
                 leftPaneWidth: 280,
                 length: pages.length,
