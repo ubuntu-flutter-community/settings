@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:settings/constants.dart';
 import 'package:settings/l10n/l10n.dart';
 import 'package:settings/view/pages/accessibility/accessibility_model.dart';
+import 'package:settings/view/pages/settings_simple_dialog.dart';
 import 'package:yaru_icons/yaru_icons.dart';
 import 'package:yaru_settings/yaru_settings.dart';
 import 'package:yaru_widgets/yaru_widgets.dart';
@@ -59,7 +60,7 @@ class _RepeatKeysSettings extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final model = context.watch<AccessibilityModel>();
-    return YaruSimpleDialog(
+    return SettingsSimpleDialog(
       width: kDefaultWidth,
       title: context.l10n.repeatKeys,
       closeIconData: YaruIcons.window_close,
@@ -116,7 +117,7 @@ class _CursorBlinkingSettings extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final model = context.watch<AccessibilityModel>();
-    return YaruSimpleDialog(
+    return SettingsSimpleDialog(
       width: kDefaultWidth,
       title: context.l10n.cursorBlinking,
       closeIconData: YaruIcons.window_close,
@@ -176,7 +177,7 @@ class _TypingAssistSettings extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final model = context.watch<AccessibilityModel>();
-    return YaruSimpleDialog(
+    return SettingsSimpleDialog(
       width: kDefaultWidth,
       title: context.l10n.typingAssist,
       closeIconData: YaruIcons.window_close,

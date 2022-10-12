@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:settings/constants.dart';
 import 'package:settings/view/pages/keyboard/special_characters_model.dart';
+import 'package:settings/view/pages/settings_simple_dialog.dart';
 import 'package:yaru_icons/yaru_icons.dart';
 import 'package:yaru_settings/yaru_settings.dart';
 import 'package:yaru_widgets/yaru_widgets.dart';
@@ -74,7 +75,7 @@ class _Lv3OptionsDialog extends StatelessWidget {
     final model = context.watch<SpecialCharactersModel>();
     return FutureBuilder<Lv3Options?>(
       future: model.getLv3Options(),
-      builder: (context, snapshot) => YaruSimpleDialog(
+      builder: (context, snapshot) => SettingsSimpleDialog(
         width: kDefaultWidth / 2,
         title: 'Lv3 Keys',
         closeIconData: YaruIcons.window_close,
@@ -119,7 +120,7 @@ class _ComposeOptionsDialog extends StatelessWidget {
     final model = context.watch<SpecialCharactersModel>();
     return FutureBuilder<ComposeOptions>(
       future: model.getComposeOptions(),
-      builder: (context, snapshot) => YaruSimpleDialog(
+      builder: (context, snapshot) => SettingsSimpleDialog(
         width: kDefaultWidth / 2,
         closeIconData: YaruIcons.window_close,
         title: 'Compose-Key',
