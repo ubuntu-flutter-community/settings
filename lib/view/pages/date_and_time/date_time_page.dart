@@ -7,6 +7,7 @@ import 'package:settings/services/settings_service.dart';
 import 'package:settings/view/pages/date_and_time/date_time_model.dart';
 import 'package:settings/view/pages/date_and_time/timezones.dart';
 import 'package:settings/view/pages/settings_page.dart';
+import 'package:settings/view/pages/settings_alert_dialog.dart';
 import 'package:yaru_settings/yaru_settings.dart';
 import 'package:yaru_widgets/yaru_widgets.dart';
 
@@ -158,7 +159,7 @@ class _TimezoneSelectDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final model = context.read<DateTimeModel>();
-    return YaruAlertDialog(
+    return SettingsAlertDialog(
       title: 'Select a timezone',
       child: SettingsPage(
         children: [

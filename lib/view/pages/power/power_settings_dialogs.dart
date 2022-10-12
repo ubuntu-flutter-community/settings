@@ -4,9 +4,9 @@ import 'package:settings/constants.dart';
 import 'package:settings/view/duration_dropdown_button.dart';
 import 'package:settings/view/pages/power/power_settings.dart';
 import 'package:settings/view/pages/power/power_settings_model.dart';
+import 'package:settings/view/pages/settings_simple_dialog.dart';
 import 'package:yaru_icons/yaru_icons.dart';
 import 'package:yaru_settings/yaru_settings.dart';
-import 'package:yaru_widgets/yaru_widgets.dart';
 
 Future<void> showAutomaticSuspendDialog(BuildContext context) async {
   return showDialog(
@@ -24,7 +24,7 @@ class AutomaticSuspendDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final model = context.watch<SuspendModel>();
-    return YaruSimpleDialog(
+    return SettingsSimpleDialog(
       width: kDefaultWidth,
       title: 'Automatic Suspend',
       closeIconData: YaruIcons.window_close,

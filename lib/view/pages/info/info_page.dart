@@ -8,6 +8,7 @@ import 'package:settings/l10n/l10n.dart';
 import 'package:settings/services/hostname_service.dart';
 import 'package:settings/services/pdf_service.dart';
 import 'package:settings/view/pages/settings_page.dart';
+import 'package:settings/view/pages/settings_simple_dialog.dart';
 import 'package:udisks/udisks.dart';
 import 'package:yaru_colors/yaru_colors.dart';
 import 'package:yaru_icons/yaru_icons.dart';
@@ -264,7 +265,7 @@ class _HostnameSettingsState extends State<_HostnameSettings> {
   @override
   Widget build(BuildContext context) {
     final model = context.watch<InfoModel>();
-    return YaruSimpleDialog(
+    return SettingsSimpleDialog(
       width: kDefaultWidth / 2,
       title: 'Edit Hostname',
       closeIconData: YaruIcons.window_close,
