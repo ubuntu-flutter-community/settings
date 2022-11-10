@@ -34,15 +34,20 @@ class _SuspendSectionState extends State<SuspendSection> {
         YaruTile(
           enabled: model.powerButtonAction != null,
           title: const Text('Power Button Behavior'),
-          trailing: DropdownButton<PowerButtonAction?>(
-            value: model.powerButtonAction,
-            items: PowerButtonAction.values.map((action) {
-              return DropdownMenuItem(
+          trailing: YaruPopupMenuButton<PowerButtonAction?>(
+            initialValue: model.powerButtonAction,
+            itemBuilder: (c) => PowerButtonAction.values.map((action) {
+              return PopupMenuItem(
                 value: action,
                 child: Text(action.localize(context)),
+                onTap: () => model.setPowerButtonAction(action),
               );
             }).toList(),
-            onChanged: model.setPowerButtonAction,
+            child: Text(
+              model.powerButtonAction != null
+                  ? model.powerButtonAction!.localize(context)
+                  : '',
+            ),
           ),
         ),
         YaruSwitchRow(
