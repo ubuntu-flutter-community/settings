@@ -76,7 +76,7 @@ class YaruExtraOptionRow extends StatelessWidget {
       subtitle: actionDescription != null ? Text(actionDescription!) : null,
       trailing: Row(
         children: [
-          Switch(
+          YaruSwitch(
             value: value ?? false,
             onChanged: enabled ? onChanged : null,
           ),

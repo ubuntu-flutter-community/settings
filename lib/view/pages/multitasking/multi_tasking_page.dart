@@ -103,23 +103,27 @@ class MultiTaskingPage extends StatelessWidget {
           width: kDefaultWidth,
           headline: const Text('Workspaces'),
           children: [
-            RadioListTile<bool>(
+            ListTile(
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(4),
               ),
               title: const Text('Dynamic Workspaces'),
-              value: true,
-              groupValue: model.dynamicWorkspaces,
-              onChanged: (value) => model.dynamicWorkspaces = value,
+              leading: YaruRadio<bool>(
+                value: true,
+                groupValue: model.dynamicWorkspaces,
+                onChanged: (value) => model.dynamicWorkspaces = value,
+              ),
             ),
-            RadioListTile<bool>(
+            ListTile(
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(4),
               ),
               title: const Text('Fixed number of workspaces'),
-              value: false,
-              groupValue: model.dynamicWorkspaces,
-              onChanged: (value) => model.dynamicWorkspaces = value!,
+              leading: YaruRadio<bool>(
+                value: false,
+                groupValue: model.dynamicWorkspaces,
+                onChanged: (value) => model.dynamicWorkspaces = value!,
+              ),
             ),
             YaruTile(
               enabled: model.dynamicWorkspaces != null &&
@@ -152,7 +156,7 @@ class MultiTaskingPage extends StatelessWidget {
               subtitle: const Text(
                 'All displays are included in one workspace and follow when you switch workspaces.',
               ),
-              trailing: Radio(
+              trailing: YaruRadio(
                 value: false,
                 groupValue: model.workSpaceOnlyOnPrimary,
                 onChanged: (bool? value) =>
@@ -180,7 +184,7 @@ class MultiTaskingPage extends StatelessWidget {
               subtitle: const Text(
                 'Only your primary display is included in workspace switching.',
               ),
-              trailing: Radio(
+              trailing: YaruRadio(
                 value: true,
                 groupValue: model.workSpaceOnlyOnPrimary,
                 onChanged: (bool? value) =>

@@ -356,7 +356,7 @@ class _RadioRow<T> extends StatelessWidget {
 
     return Row(
       children: [
-        Radio(
+        YaruRadio(
           value: _value,
           groupValue: groupValue,
           onChanged: _enabled ? onChanged : null,
