@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:settings/constants.dart';
+import 'package:settings/l10n/l10n.dart';
 import 'package:settings/services/power_profile_service.dart';
 import 'package:settings/view/pages/power/power_profile_model.dart';
 import 'package:settings/view/pages/power/power_profile_widgets.dart';
-import 'package:yaru_colors/yaru_colors.dart';
-import 'package:yaru_icons/yaru_icons.dart';
 import 'package:yaru_widgets/yaru_widgets.dart';
 
 class PowerProfileSection extends StatefulWidget {
@@ -35,52 +34,22 @@ class _PowerProfileSectionState extends State<PowerProfileSection> {
     return YaruSection(
       width: kDefaultWidth,
       headline: const Text('Power Mode'),
-      children: <Widget>[
-        ListTile(
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
-          title: const ProfileModeTitle(
-            icon: Icon(
-              YaruIcons.meter_5,
-              color: YaruColors.error,
+      children: [
+        for (final profile in PowerProfile.values)
+          ListTile(
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
+            title: ProfileModeTitle(
+              powerProfile: profile,
+              title: Text(profile.localize(context.l10n)),
             ),
-            title: Text('Performance'),
-          ),
-          subtitle: const Text('High performance and power usage.'),
-          leading: YaruRadio<PowerProfile>(
-            value: PowerProfile.performance,
-            groupValue: model.profile,
-            onChanged: model.setProfile,
-          ),
-        ),
-        ListTile(
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
-          title: const ProfileModeTitle(
-            icon: Icon(YaruIcons.meter_3),
-            title: Text('Balanced Power'),
-          ),
-          subtitle: const Text('Standard performance and power usage.'),
-          leading: YaruRadio<PowerProfile>(
-            value: PowerProfile.balanced,
-            groupValue: model.profile,
-            onChanged: model.setProfile,
-          ),
-        ),
-        ListTile(
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
-          title: const ProfileModeTitle(
-            icon: Icon(
-              YaruIcons.meter_1,
-              color: YaruColors.success,
+            subtitle: Text(profile.localizeDescription(context.l10n)),
+            leading: YaruRadio<PowerProfile?>(
+              value: profile,
+              groupValue: model.profile,
+              onChanged: (v) => model.setProfile(v),
             ),
-            title: Text('Power save'),
           ),
-          subtitle: const Text('Reduced performance and power usage.'),
-          leading: YaruRadio<PowerProfile>(
-            value: PowerProfile.powerSaver,
-            groupValue: model.profile,
-            onChanged: model.setProfile,
-          ),
-        ),
       ],
     );
   }
