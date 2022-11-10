@@ -51,16 +51,34 @@ class RemovableMediaPage extends StatelessWidget {
             SizedBox(
               width: kDefaultWidth,
               child: YaruTile(
-                enabled: !model.autoRunNever,
+                enabled: model.mimeTypeBehavior != null,
                 title: Text(mimeType.value),
-                trailing: DropdownButton<String>(
-                  value: model.getMimeTypeBehavior(mimeType.key),
-                  onChanged: (string) =>
-                      model.setMimeTypeBehavior(string!, mimeType.key),
-                  items: [
-                    for (var string in RemovableMediaModel.mimeTypeBehaviors)
-                      DropdownMenuItem(child: Text(string), value: string),
-                  ],
+                trailing: YaruPopupMenuButton<MimeTypeBehavior?>(
+                  enabled: model.mimeTypeBehavior != null,
+                  initialValue: model.getMimeTypeBehavior(mimeType.key),
+                  itemBuilder: (p0) {
+                    return [
+                      for (var behavior in MimeTypeBehavior.values)
+                        PopupMenuItem(
+                          child: Text(
+                            behavior.localize(context.l10n),
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                          value: behavior,
+                          onTap: () => model.setMimeTypeBehavior(
+                            behavior,
+                            mimeType.key,
+                          ),
+                        ),
+                    ];
+                  },
+                  child: Text(
+                    model.getMimeTypeBehavior(mimeType.key) != null
+                        ? model
+                            .getMimeTypeBehavior(mimeType.key)!
+                            .localize(context.l10n)
+                        : '',
+                  ),
                 ),
               ),
             ),
