@@ -29,7 +29,7 @@ class _SuspendSectionState extends State<SuspendSection> {
     final model = context.watch<SuspendModel>();
     return YaruSection(
       width: kDefaultWidth,
-      headline: 'Suspend & Power Button',
+      headline: const Text('Suspend & Power Button'),
       children: <Widget>[
         YaruTile(
           enabled: model.powerButtonAction != null,

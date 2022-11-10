@@ -15,7 +15,7 @@ class HearingSection extends StatelessWidget {
   Widget build(BuildContext context) {
     return YaruSection(
       width: kDefaultWidth,
-      headline: context.l10n.hearing,
+      headline: Text(context.l10n.hearing),
       children: const <Widget>[
         _VisualAlerts(),
       ],

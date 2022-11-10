@@ -23,7 +23,7 @@ class MultiTaskingPage extends StatelessWidget {
   }
 
   static Widget createTitle(BuildContext context) =>
-      YaruPageItemTitle.text(context.l10n.multiTaskingPageTitle);
+      Text(context.l10n.multiTaskingPageTitle);
 
   static bool searchMatches(String value, BuildContext context) =>
       value.isNotEmpty
@@ -44,7 +44,7 @@ class MultiTaskingPage extends StatelessWidget {
       children: [
         YaruSection(
           width: kDefaultWidth,
-          headline: 'General',
+          headline: const Text('General'),
           children: [
             Column(
               children: [
@@ -101,7 +101,7 @@ class MultiTaskingPage extends StatelessWidget {
         ),
         YaruSection(
           width: kDefaultWidth,
-          headline: 'Workspaces',
+          headline: const Text('Workspaces'),
           children: [
             RadioListTile<bool>(
               shape: RoundedRectangleBorder(
@@ -145,7 +145,7 @@ class MultiTaskingPage extends StatelessWidget {
         ),
         YaruSection(
           width: kDefaultWidth,
-          headline: 'Multi-Monitor',
+          headline: const Text('Multi-Monitor'),
           children: [
             YaruTile(
               title: const Text('Workspaces span all displays'),
@@ -207,7 +207,7 @@ class MultiTaskingPage extends StatelessWidget {
         ),
         YaruSection(
           width: kDefaultWidth,
-          headline: 'Application Switching',
+          headline: const Text('Application Switching'),
           children: [
             YaruSwitchRow(
               trailingWidget:

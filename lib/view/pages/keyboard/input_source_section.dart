@@ -15,7 +15,7 @@ class InputSourceSection extends StatelessWidget {
       children: [
         YaruSection(
           width: kDefaultWidth,
-          headline: 'Change input sources',
+          headline: const Text('Change input sources'),
           children: [
             RadioListTile(
               shape: RoundedRectangleBorder(

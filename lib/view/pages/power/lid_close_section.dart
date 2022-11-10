@@ -21,7 +21,7 @@ class LidCloseSection extends StatelessWidget {
     final model = context.watch<LidCloseModel>();
     return YaruSection(
       width: kDefaultWidth,
-      headline: 'Lid Close',
+      headline: const Text('Lid Close'),
       children: [
         YaruTile(
           enabled: model.acLidCloseAction != null,

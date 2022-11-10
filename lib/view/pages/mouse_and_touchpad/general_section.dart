@@ -15,7 +15,7 @@ class GeneralSection extends StatelessWidget {
 
     return YaruSection(
       width: kDefaultWidth,
-      headline: 'General',
+      headline: const Text('General'),
       children: [
         YaruToggleButtonsRow(
           actionLabel: 'Primary Button',

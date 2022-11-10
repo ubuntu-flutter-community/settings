@@ -44,7 +44,7 @@ class _PowerSettingsSectionState extends State<PowerSettingsSection> {
     final model = context.watch<SuspendModel>();
     return YaruSection(
       width: kDefaultWidth,
-      headline: 'Power Saving',
+      headline: const Text('Power Saving'),
       children: <Widget>[
         YaruSliderRow(
           enabled:

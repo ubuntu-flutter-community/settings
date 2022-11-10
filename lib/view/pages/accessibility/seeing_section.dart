@@ -19,7 +19,7 @@ class SeeingSection extends StatelessWidget {
     final model = context.watch<AccessibilityModel>();
     return YaruSection(
       width: kDefaultWidth,
-      headline: context.l10n.seeing,
+      headline: Text(context.l10n.seeing),
       children: [
         YaruSwitchRow(
           trailingWidget: Text(context.l10n.highContrast),

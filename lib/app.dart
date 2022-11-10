@@ -57,12 +57,17 @@ class _UbuntuSettingsAppState extends State<UbuntuSettingsApp> {
               return YaruMasterDetailPage(
                 leftPaneWidth: 280,
                 length: pages.length,
-                iconBuilder: (context, index, selected) =>
-                    pages[index].iconBuilder(context, selected),
-                titleBuilder: (context, index, selected) =>
-                    pages[index].titleBuilder(context),
-                pageBuilder: (context, index) => pages[index].builder(context),
-                previousIconData: YaruIcons.go_previous,
+                tileBuilder: (context, index, selected) => YaruMasterTile(
+                  title: pages[index].titleBuilder(context),
+                  leading: pages[index].iconBuilder(context, selected),
+                ),
+                pageBuilder: (context, index) => Scaffold(
+                  body: pages[index].builder(context),
+                  appBar: AppBar(
+                    title: pages[index].titleBuilder(context),
+                    leading: const YaruBackButton(),
+                  ),
+                ),
                 appBar: SearchAppBar(
                   searchHint: context.l10n.searchHint,
                   clearSearchIconData: YaruIcons.window_close,

@@ -23,7 +23,7 @@ class InputSourceSelectionSection extends StatelessWidget {
         }
         return YaruSection(
           width: kDefaultWidth,
-          headline: 'Input Sources',
+          headline: const Text('Input Sources'),
           headerWidget: SizedBox(
             height: 40,
             width: 40,

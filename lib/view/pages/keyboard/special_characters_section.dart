@@ -18,7 +18,7 @@ class SpecialCharactersSection extends StatelessWidget {
 
     return YaruSection(
       width: kDefaultWidth,
-      headline: 'Special characters',
+      headline: const Text('Special characters'),
       children: [
         FutureBuilder<ComposeOptions>(
           future: model.getComposeOptions(),

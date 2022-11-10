@@ -20,7 +20,7 @@ class ConnectionsPage extends StatelessWidget {
   }
 
   static Widget createTitle(BuildContext context) =>
-      YaruPageItemTitle.text(context.l10n.connectionsPageTitle);
+      Text(context.l10n.connectionsPageTitle);
 
   static bool searchMatches(String value, BuildContext context) =>
       value.isNotEmpty
@@ -36,9 +36,9 @@ class ConnectionsPage extends StatelessWidget {
     final wifiModel = context.watch<WifiModel>();
     return YaruTabbedPage(
       tabIcons: const [
-        YaruIcons.network_wireless,
-        YaruIcons.network_wired,
-        YaruIcons.network_cellular
+        Icon(YaruIcons.network_wireless),
+        Icon(YaruIcons.network_wired),
+        Icon(YaruIcons.network_cellular),
       ],
       tabTitles: const ['Wi-Fi', 'Ethernet', 'Cellular'],
       views: [

@@ -26,7 +26,7 @@ class DockSection extends StatelessWidget {
       child: Column(
         children: [
           YaruSection(
-            headline: 'Dock appearance',
+            headline: const Text('Dock appearance'),
             children: [
               YaruTile(
                 title: const Text('Panel mode'),
@@ -82,7 +82,7 @@ class DockSection extends StatelessWidget {
             ],
           ),
           YaruSection(
-            headline: 'Dock Position',
+            headline: const Text('Dock Position'),
             children: [
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -151,7 +151,7 @@ class DockSection extends StatelessWidget {
             ],
           ),
           YaruSection(
-            headline: 'Dock options',
+            headline: const Text('Dock options'),
             children: [
               Column(
                 children: [

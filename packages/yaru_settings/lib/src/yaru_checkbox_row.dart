@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:yaru_widgets/yaru_widgets.dart';
 
 class YaruCheckboxRow extends StatelessWidget {
   /// Creates a check box in a row along with a text
@@ -76,7 +77,7 @@ class YaruCheckboxRow extends StatelessWidget {
       verticalDirection: verticalDirection,
       textBaseline: textBaseline,
       children: [
-        Checkbox(
+        YaruCheckbox(
           value: value,
           onChanged: enabled ? onChanged : null,
         ),

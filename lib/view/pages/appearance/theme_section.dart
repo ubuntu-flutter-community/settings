@@ -29,7 +29,7 @@ class _ThemeSectionState extends State<ThemeSection> {
 
     return YaruSection(
       width: kDefaultWidth,
-      headline: 'Theme',
+      headline: const Text('Theme'),
       children: [
         YaruSwitchRow(
           trailingWidget: Theme.of(context).brightness == Brightness.light

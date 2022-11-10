@@ -26,7 +26,7 @@ class MonitorSection extends StatelessWidget {
         return ConstrainedBox(
           constraints: const BoxConstraints(maxWidth: kDefaultWidth),
           child: YaruSection(
-            headline: config.name,
+            headline: Text(config.name),
             headerWidget: ElevatedButton(
               onPressed: model.modifyMode ? model.apply : null,
               child: Text(context.l10n.apply),

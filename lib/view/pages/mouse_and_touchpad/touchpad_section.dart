@@ -14,7 +14,7 @@ class TouchpadSection extends StatelessWidget {
 
     return YaruSection(
       width: kDefaultWidth,
-      headline: 'Touchpad',
+      headline: const Text('Touchpad'),
       children: [
         YaruSliderRow(
           actionLabel: 'Speed',

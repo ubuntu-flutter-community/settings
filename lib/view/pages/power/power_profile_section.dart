@@ -34,7 +34,7 @@ class _PowerProfileSectionState extends State<PowerProfileSection> {
     final model = context.watch<PowerProfileModel>();
     return YaruSection(
       width: kDefaultWidth,
-      headline: 'Power Mode',
+      headline: const Text('Power Mode'),
       children: <Widget>[
         RadioListTile<PowerProfile>(
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),

@@ -14,7 +14,7 @@ class GlobalSection extends StatelessWidget {
     final model = context.watch<AccessibilityModel>();
     return YaruSection(
       width: kDefaultWidth,
-      headline: context.l10n.global,
+      headline: Text(context.l10n.global),
       children: [
         YaruSwitchRow(
           trailingWidget: Text(context.l10n.alwaysShowUniversalAccessMenu),

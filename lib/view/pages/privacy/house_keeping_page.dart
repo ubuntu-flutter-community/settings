@@ -29,7 +29,7 @@ class HouseKeepingPage extends StatelessWidget {
       children: [
         YaruSection(
           width: kDefaultWidth,
-          headline: context.l10n.houseKeepingRecentFilesHeadline,
+          headline: Text(context.l10n.houseKeepingRecentFilesHeadline),
           children: [
             Padding(
               padding: const EdgeInsets.all(8.0),
@@ -94,7 +94,7 @@ class HouseKeepingPage extends StatelessWidget {
         ),
         YaruSection(
           width: kDefaultWidth,
-          headline: context.l10n.houseKeepingTempTrashHeadline,
+          headline: Text(context.l10n.houseKeepingTempTrashHeadline),
           children: [
             Padding(
               padding: const EdgeInsets.all(8),
@@ -217,10 +217,8 @@ class _ConfirmationDialogState extends State<_ConfirmationDialog>
   Widget build(BuildContext context) {
     return SimpleDialog(
       titlePadding: EdgeInsets.zero,
-      title: YaruDialogTitle(
-        mainAxisAlignment: MainAxisAlignment.center,
-        closeIconData: YaruIcons.window_close,
-        title: widget.title,
+      title: YaruTitleBar(
+        title: Text(widget.title ?? ''),
       ),
       contentPadding: EdgeInsets.zero,
       children: [

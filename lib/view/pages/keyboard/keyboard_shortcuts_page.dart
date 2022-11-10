@@ -24,7 +24,7 @@ class KeyboardShortcutsPage extends StatelessWidget {
           ),
           child: const YaruSection(
             width: kDefaultWidth,
-            headline: 'Navigation Shortcuts',
+            headline: Text('Navigation Shortcuts'),
             children: [
               KeyboardShortcutRow(
                 label: 'Switch windows',
@@ -45,7 +45,7 @@ class KeyboardShortcutsPage extends StatelessWidget {
           ),
           child: const YaruSection(
             width: kDefaultWidth,
-            headline: 'System',
+            headline: Text('System'),
             children: [
               KeyboardShortcutRow(
                 label: 'Toggle Apps Grid',

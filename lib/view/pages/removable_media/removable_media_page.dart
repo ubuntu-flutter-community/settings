@@ -20,7 +20,7 @@ class RemovableMediaPage extends StatelessWidget {
   }
 
   static Widget createTitle(BuildContext context) =>
-      YaruPageItemTitle.text(context.l10n.removableMediaPageTitle);
+      Text(context.l10n.removableMediaPageTitle);
 
   static bool searchMatches(String value, BuildContext context) =>
       value.isNotEmpty
