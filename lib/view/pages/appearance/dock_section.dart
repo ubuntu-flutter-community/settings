@@ -33,7 +33,7 @@ class DockSection extends StatelessWidget {
                 subtitle: const Text(
                   'Extends the height of the dock to become a panel.',
                 ),
-                trailing: Radio<bool>(
+                trailing: YaruRadio<bool>(
                   value: true,
                   groupValue: model.extendDock,
                   onChanged: (value) => model.extendDock = value,
@@ -59,7 +59,7 @@ class DockSection extends StatelessWidget {
                 subtitle: const Text(
                   'Displays the dock in a centered, free-floating mode.',
                 ),
-                trailing: Radio<bool>(
+                trailing: YaruRadio<bool>(
                   value: false,
                   groupValue: model.extendDock,
                   onChanged: (value) => model.extendDock = value!,
