@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:mime/mime.dart';
 import 'package:safe_change_notifier/safe_change_notifier.dart';
+import 'package:settings/l10n/l10n.dart';
 import 'package:settings/schemas/schemas.dart';
 import 'package:settings/services/settings_service.dart';
 
@@ -222,9 +223,33 @@ class WallpaperModel extends SafeChangeNotifier {
 
 enum ColorShadingType { solid, vertical, horizontal }
 
-enum WallpaperMode { solid, custom, imageOfTheDay }
+enum WallpaperMode {
+  solid,
+  custom,
+  imageOfTheDay;
+
+  String localize(AppLocalizations l10n) {
+    switch (this) {
+      case WallpaperMode.solid:
+        return l10n.wallpaperPageBackgroundModeColoredBackground;
+      case WallpaperMode.custom:
+        return l10n.wallpaperPageBackgroundModeWallpaper;
+      case WallpaperMode.imageOfTheDay:
+        return l10n.wallpaperPageBackgroundModeImageOfTheDay;
+    }
+  }
+}
 
 enum ImageOfTheDayProvider {
   bing,
-  nasa,
+  nasa;
+
+  String localize(AppLocalizations l10n) {
+    switch (this) {
+      case bing:
+        return 'Bing';
+      case nasa:
+        return 'Nasa';
+    }
+  }
 }

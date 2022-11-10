@@ -15,25 +15,29 @@ class InputSourceSection extends StatelessWidget {
       children: [
         YaruSection(
           width: kDefaultWidth,
-          headline: 'Change input sources',
+          headline: const Text('Change input sources'),
           children: [
-            RadioListTile(
+            ListTile(
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(4),
               ),
               title: const Text('Use the same input for all windows'),
-              value: false,
-              groupValue: inputSourceModel.perWindow,
-              onChanged: (_) => inputSourceModel.perWindow = false,
+              leading: YaruRadio(
+                value: false,
+                groupValue: inputSourceModel.perWindow,
+                onChanged: (_) => inputSourceModel.perWindow = false,
+              ),
             ),
-            RadioListTile(
+            ListTile(
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(4),
               ),
               title: const Text('Give each window its own input source'),
-              value: true,
-              groupValue: inputSourceModel.perWindow,
-              onChanged: (_) => inputSourceModel.perWindow = true,
+              leading: YaruRadio(
+                value: true,
+                groupValue: inputSourceModel.perWindow,
+                onChanged: (_) => inputSourceModel.perWindow = true,
+              ),
             )
           ],
         )

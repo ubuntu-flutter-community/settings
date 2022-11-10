@@ -53,7 +53,7 @@ class WifiDevicesContent extends StatelessWidget {
               builder: (_, __) {
                 return YaruSection(
                   width: kDefaultWidth,
-                  headline: context.l10n.connectionsPageHeadline,
+                  headline: Text(context.l10n.connectionsPageHeadline),
                   children: [
                     for (final accessPoint in wifiDevice.accesPoints)
                       AccessPointTile(

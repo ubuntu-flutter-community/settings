@@ -6,7 +6,6 @@ import 'package:settings/view/pages/notifications/app_notifications_section.dart
 import 'package:settings/view/pages/notifications/global_notifications_section.dart';
 import 'package:settings/view/pages/notifications/notifications_model.dart';
 import 'package:settings/view/pages/settings_page.dart';
-import 'package:yaru_widgets/yaru_widgets.dart';
 
 class NotificationsPage extends StatelessWidget {
   const NotificationsPage({Key? key}) : super(key: key);
@@ -20,7 +19,7 @@ class NotificationsPage extends StatelessWidget {
   }
 
   static Widget createTitle(BuildContext context) =>
-      YaruPageItemTitle.text(context.l10n.notificationsPageTitle);
+      Text(context.l10n.notificationsPageTitle);
 
   static bool searchMatches(String value, BuildContext context) =>
       value.isNotEmpty

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:settings/l10n/l10n.dart';
 import 'package:settings/view/pages/settings_page.dart';
-import 'package:yaru_widgets/yaru_widgets.dart';
 
 class AppsPage extends StatelessWidget {
   const AppsPage({Key? key}) : super(key: key);
@@ -9,7 +8,7 @@ class AppsPage extends StatelessWidget {
   static Widget create(BuildContext context) => const AppsPage();
 
   static Widget createTitle(BuildContext context) =>
-      YaruPageItemTitle.text(context.l10n.appsPageTitle);
+      Text(context.l10n.appsPageTitle);
 
   static bool searchMatches(String value, BuildContext context) => value
           .isNotEmpty

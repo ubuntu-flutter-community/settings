@@ -18,7 +18,7 @@ class BluetoothPage extends StatefulWidget {
           : false;
 
   static Widget createTitle(BuildContext context) =>
-      YaruPageItemTitle.text(context.l10n.bluetoothPageTitle);
+      Text(context.l10n.bluetoothPageTitle);
 
   const BluetoothPage({Key? key}) : super(key: key);
 
@@ -60,7 +60,7 @@ class _BluetoothPageState extends State<BluetoothPage> {
         ),
         YaruSection(
           width: kDefaultWidth,
-          headline: context.l10n.devices,
+          headline: Text(context.l10n.devices),
           headerWidget: Flexible(
             child: TextButton(
               onPressed: model.powered

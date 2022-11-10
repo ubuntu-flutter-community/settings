@@ -34,9 +34,9 @@ class _PowerProfileSectionState extends State<PowerProfileSection> {
     final model = context.watch<PowerProfileModel>();
     return YaruSection(
       width: kDefaultWidth,
-      headline: 'Power Mode',
+      headline: const Text('Power Mode'),
       children: <Widget>[
-        RadioListTile<PowerProfile>(
+        ListTile(
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
           title: const ProfileModeTitle(
             icon: Icon(
@@ -46,22 +46,26 @@ class _PowerProfileSectionState extends State<PowerProfileSection> {
             title: Text('Performance'),
           ),
           subtitle: const Text('High performance and power usage.'),
-          value: PowerProfile.performance,
-          groupValue: model.profile,
-          onChanged: model.setProfile,
+          leading: YaruRadio<PowerProfile>(
+            value: PowerProfile.performance,
+            groupValue: model.profile,
+            onChanged: model.setProfile,
+          ),
         ),
-        RadioListTile<PowerProfile>(
+        ListTile(
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
           title: const ProfileModeTitle(
             icon: Icon(YaruIcons.meter_3),
             title: Text('Balanced Power'),
           ),
           subtitle: const Text('Standard performance and power usage.'),
-          value: PowerProfile.balanced,
-          groupValue: model.profile,
-          onChanged: model.setProfile,
+          leading: YaruRadio<PowerProfile>(
+            value: PowerProfile.balanced,
+            groupValue: model.profile,
+            onChanged: model.setProfile,
+          ),
         ),
-        RadioListTile<PowerProfile>(
+        ListTile(
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
           title: const ProfileModeTitle(
             icon: Icon(
@@ -71,9 +75,11 @@ class _PowerProfileSectionState extends State<PowerProfileSection> {
             title: Text('Power save'),
           ),
           subtitle: const Text('Reduced performance and power usage.'),
-          value: PowerProfile.powerSaver,
-          groupValue: model.profile,
-          onChanged: model.setProfile,
+          leading: YaruRadio<PowerProfile>(
+            value: PowerProfile.powerSaver,
+            groupValue: model.profile,
+            onChanged: model.setProfile,
+          ),
         ),
       ],
     );

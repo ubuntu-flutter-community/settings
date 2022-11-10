@@ -15,7 +15,7 @@ class HearingSection extends StatelessWidget {
   Widget build(BuildContext context) {
     return YaruSection(
       width: kDefaultWidth,
-      headline: context.l10n.hearing,
+      headline: Text(context.l10n.hearing),
       children: const <Widget>[
         _VisualAlerts(),
       ],
@@ -57,17 +57,21 @@ class _VisualAlertsSettings extends StatelessWidget {
       title: context.l10n.visualAlerts,
       closeIconData: YaruIcons.window_close,
       children: [
-        RadioListTile(
+        ListTile(
           title: Text(context.l10n.flashEntireWindow),
-          value: 'frame-flash',
-          groupValue: model.visualAlertsType,
-          onChanged: (String? value) => model.setVisualAlertsType(value!),
+          leading: YaruRadio(
+            value: 'frame-flash',
+            groupValue: model.visualAlertsType,
+            onChanged: (String? value) => model.setVisualAlertsType(value!),
+          ),
         ),
-        RadioListTile(
+        ListTile(
           title: Text(context.l10n.flashEntireScreen),
-          value: 'fullscreen-flash',
-          groupValue: model.visualAlertsType,
-          onChanged: (String? value) => model.setVisualAlertsType(value!),
+          leading: YaruRadio(
+            value: 'fullscreen-flash',
+            groupValue: model.visualAlertsType,
+            onChanged: (String? value) => model.setVisualAlertsType(value!),
+          ),
         ),
       ],
     );

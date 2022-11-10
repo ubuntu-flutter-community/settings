@@ -86,18 +86,21 @@ class _BluetoothDeviceDialog extends StatelessWidget {
     return SimpleDialog(
       titlePadding: EdgeInsets.zero,
       contentPadding: const EdgeInsets.only(left: 20, right: 20, bottom: 20),
-      title: YaruDialogTitle(
-        closeIconData: YaruIcons.window_close,
-        title: model.name,
-        titleWidget:
+      title: YaruTitleBar(
+        title: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Expanded(child: Text(model.name)),
             Icon(iconName.isEmpty ? YaruIcons.question : yaruIcons[model.icon]),
+          ],
+        ),
       ),
       children: [
         YaruTile(
           title: model.connected
               ? Text(context.l10n.connected)
               : Text(context.l10n.disonnected),
-          trailing: Switch(
+          trailing: YaruSwitch(
             value: model.connected,
             onChanged: (connectRequested) async {
               connectRequested

@@ -20,7 +20,7 @@ class SoundPage extends StatelessWidget {
   }
 
   static Widget createTitle(BuildContext context) =>
-      YaruPageItemTitle.text(context.l10n.soundPageTitle);
+      Text(context.l10n.soundPageTitle);
 
   static bool searchMatches(String value, BuildContext context) => value
           .isNotEmpty
@@ -35,7 +35,7 @@ class SoundPage extends StatelessWidget {
       children: [
         YaruSection(
           width: kDefaultWidth,
-          headline: 'System',
+          headline: const Text('System'),
           children: [
             YaruSwitchRow(
               trailingWidget: const Text('Allow Volume Above 100%'),

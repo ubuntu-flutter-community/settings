@@ -16,7 +16,7 @@ class TypingSection extends StatelessWidget {
     final model = context.watch<AccessibilityModel>();
     return YaruSection(
       width: kDefaultWidth,
-      headline: context.l10n.typing,
+      headline: Text(context.l10n.typing),
       children: [
         YaruSwitchRow(
           trailingWidget: Text(context.l10n.screenKeyboard),

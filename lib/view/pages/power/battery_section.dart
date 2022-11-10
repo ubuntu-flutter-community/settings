@@ -35,7 +35,7 @@ class _BatterySectionState extends State<BatterySection> {
     final model = context.watch<BatteryModel>();
     return YaruSection(
       width: kDefaultWidth,
-      headline: 'Battery',
+      headline: const Text('Battery'),
       children: <Widget>[
         Padding(
           padding: const EdgeInsets.all(8.0),

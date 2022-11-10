@@ -14,7 +14,7 @@ class GlobalNotificationsSection extends StatelessWidget {
 
     return YaruSection(
       width: kDefaultWidth,
-      headline: 'Global',
+      headline: const Text('Global'),
       children: [
         YaruSwitchRow(
           trailingWidget: const Text('Do Not Disturb'),

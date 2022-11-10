@@ -15,7 +15,7 @@ class DisplaysPage extends StatefulWidget {
   const DisplaysPage._({Key? key}) : super(key: key);
 
   static Widget createTitle(BuildContext context) =>
-      YaruPageItemTitle.text(context.l10n.displaysPageTitle);
+      Text(context.l10n.displaysPageTitle);
 
   static Widget create(BuildContext context) {
     final service = Provider.of<DisplayService>(context, listen: false);
@@ -47,8 +47,9 @@ class _DisplaysPageState extends State<DisplaysPage> {
           (BuildContext context, DisplaysConfiguration? configurations, _) {
         return YaruTabbedPage(
           width: kDefaultWidth,
-          tabIcons:
-              DisplaysPageSection.values.map((e) => e.icon(context)).toList(),
+          tabIcons: DisplaysPageSection.values
+              .map((e) => Icon(e.icon(context)))
+              .toList(),
           tabTitles:
               DisplaysPageSection.values.map((e) => e.name(context)).toList(),
           views: DisplaysPageSection.values

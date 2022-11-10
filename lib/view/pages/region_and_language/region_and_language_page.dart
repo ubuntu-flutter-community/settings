@@ -20,7 +20,7 @@ class RegionAndLanguagePage extends StatefulWidget {
       );
 
   static Widget createTitle(BuildContext context) =>
-      YaruPageItemTitle.text(context.l10n.regionAndLanguagePageTitle);
+      Text(context.l10n.regionAndLanguagePageTitle);
 
   static bool searchMatches(String value, BuildContext context) =>
       value.isNotEmpty
@@ -116,12 +116,12 @@ class _LocaleSelectDialogState extends State<_LocaleSelectDialog> {
       child: AlertDialog(
         titlePadding: EdgeInsets.zero,
         contentPadding: EdgeInsets.zero,
-        title: YaruDialogTitle(
-          mainAxisAlignment: MainAxisAlignment.center,
-          title:
-              model.locale.contains(localeToBeSet.replaceAll('utf8', 'UTF-8'))
-                  ? context.l10n.regionAndLanguagePageSelectLanguageAction
-                  : context.l10n.regionAndLanguageDialogTitleAfterChange,
+        title: YaruTitleBar(
+          title: Text(
+            model.locale.contains(localeToBeSet.replaceAll('utf8', 'UTF-8'))
+                ? context.l10n.regionAndLanguagePageSelectLanguageAction
+                : context.l10n.regionAndLanguageDialogTitleAfterChange,
+          ),
         ),
         content: SizedBox(
           height: 500,

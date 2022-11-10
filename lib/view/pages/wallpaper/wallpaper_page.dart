@@ -15,7 +15,7 @@ import 'package:yaru_widgets/yaru_widgets.dart';
 
 class WallpaperPage extends StatelessWidget {
   static Widget createTitle(BuildContext context) =>
-      YaruPageItemTitle.text(context.l10n.wallpaperPageTitle);
+      Text(context.l10n.wallpaperPageTitle);
 
   static bool searchMatches(String value, BuildContext context) =>
       value.isNotEmpty
@@ -52,30 +52,19 @@ class WallpaperPage extends StatelessWidget {
             title: Text(context.l10n.wallpaperPageBackgroundModeLabel),
             trailing: Row(
               children: [
-                DropdownButton<WallpaperMode>(
-                  value: model.wallpaperMode,
-                  onChanged: (value) => model.setWallpaperMode(value!),
-                  items: [
-                    DropdownMenuItem(
-                      child: Text(
-                        context
-                            .l10n.wallpaperPageBackgroundModeColoredBackground,
-                      ),
-                      value: WallpaperMode.solid,
-                    ),
-                    DropdownMenuItem(
-                      child: Text(
-                        context.l10n.wallpaperPageBackgroundModeWallpaper,
-                      ),
-                      value: WallpaperMode.custom,
-                    ),
-                    DropdownMenuItem(
-                      child: Text(
-                        context.l10n.wallpaperPageBackgroundModeImageOfTheDay,
-                      ),
-                      value: WallpaperMode.imageOfTheDay,
-                    ),
-                  ],
+                YaruPopupMenuButton(
+                  child: Text(model.wallpaperMode.localize(context.l10n)),
+                  initialValue: model.wallpaperMode,
+                  itemBuilder: (context) {
+                    return [
+                      for (final mode in WallpaperMode.values)
+                        PopupMenuItem<WallpaperMode>(
+                          child: Text(mode.localize(context.l10n)),
+                          value: mode,
+                          onTap: () => model.setWallpaperMode(mode),
+                        )
+                    ];
+                  },
                 ),
               ],
             ),
@@ -109,19 +98,21 @@ class WallpaperPage extends StatelessWidget {
           YaruTile(
             leading:
                 Text(context.l10n.wallpaperPageBackgroundModeImageOfTheDay),
-            title: DropdownButton<ImageOfTheDayProvider>(
-              value: model.imageOfTheDayProvider,
-              onChanged: (value) => model.setUrlWallpaperProvider(value!),
-              items: const [
-                DropdownMenuItem(
-                  child: Text('Bing'),
-                  value: ImageOfTheDayProvider.bing,
-                ),
-                DropdownMenuItem(
-                  child: Text('Nasa'),
-                  value: ImageOfTheDayProvider.nasa,
-                ),
-              ],
+            title: YaruPopupMenuButton<ImageOfTheDayProvider>(
+              child: Text(model.imageOfTheDayProvider.localize(context.l10n)),
+              initialValue: model.imageOfTheDayProvider,
+              itemBuilder: (context) {
+                return [
+                  for (final provider in ImageOfTheDayProvider.values)
+                    PopupMenuItem(
+                      value: provider,
+                      onTap: () => model.setUrlWallpaperProvider(provider),
+                      child: Text(
+                        provider.localize(context.l10n),
+                      ),
+                    )
+                ];
+              },
             ),
             trailing: YaruOptionButton(
               onPressed: () async {

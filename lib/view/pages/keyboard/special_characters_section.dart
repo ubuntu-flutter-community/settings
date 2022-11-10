@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:settings/constants.dart';
+import 'package:settings/l10n/l10n.dart';
 import 'package:settings/view/pages/keyboard/special_characters_model.dart';
 import 'package:settings/view/pages/settings_simple_dialog.dart';
 import 'package:yaru_icons/yaru_icons.dart';
@@ -18,7 +19,7 @@ class SpecialCharactersSection extends StatelessWidget {
 
     return YaruSection(
       width: kDefaultWidth,
-      headline: 'Special characters',
+      headline: const Text('Special characters'),
       children: [
         FutureBuilder<ComposeOptions>(
           future: model.getComposeOptions(),
@@ -86,23 +87,27 @@ class _Lv3OptionsDialog extends StatelessWidget {
             onChanged: (value) => model.removeLV3Options(value),
           ),
           const Divider(),
-          RadioListTile<Lv3Options>(
+          ListTile(
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(4),
             ),
             title: const Text('None'),
-            value: Lv3Options.none,
-            groupValue: snapshot.data,
-            onChanged: (value) => model.setLv3Options(value!),
+            leading: YaruRadio<Lv3Options>(
+              value: Lv3Options.none,
+              groupValue: snapshot.data,
+              onChanged: (value) => model.setLv3Options(value!),
+            ),
           ),
-          RadioListTile<Lv3Options>(
+          ListTile(
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(4),
             ),
             title: const Text('Right Alt-Key'),
-            value: Lv3Options.rightAlt,
-            groupValue: snapshot.data,
-            onChanged: (value) => model.setLv3Options(value!),
+            leading: YaruRadio<Lv3Options>(
+              value: Lv3Options.rightAlt,
+              groupValue: snapshot.data,
+              onChanged: (value) => model.setLv3Options(value!),
+            ),
           ),
         ],
       ),
@@ -125,86 +130,17 @@ class _ComposeOptionsDialog extends StatelessWidget {
         closeIconData: YaruIcons.window_close,
         title: 'Compose-Key',
         children: [
-          RadioListTile<ComposeOptions>(
-            shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
-            title: const Text('Default Layout'),
-            value: ComposeOptions.defaultLayout,
-            groupValue: snapshot.data,
-            onChanged: (value) => model.setComposeOptions(value!),
-          ),
-          RadioListTile<ComposeOptions>(
-            shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
-            title: const Text('Left Alt-Key'),
-            value: ComposeOptions.leftAlt,
-            groupValue: snapshot.data,
-            onChanged: (value) => model.setComposeOptions(value!),
-          ),
-          RadioListTile<ComposeOptions>(
-            shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
-            title: const Text('Right Alt-Key'),
-            value: ComposeOptions.rightAlt,
-            groupValue: snapshot.data,
-            onChanged: (value) => model.setComposeOptions(value!),
-          ),
-          RadioListTile<ComposeOptions>(
-            shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
-            title: const Text('Left Super-Key'),
-            value: ComposeOptions.leftWin,
-            groupValue: snapshot.data,
-            onChanged: (value) => model.setComposeOptions(value!),
-          ),
-          RadioListTile<ComposeOptions>(
-            shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
-            title: const Text('Right Super-Key'),
-            value: ComposeOptions.rightWin,
-            groupValue: snapshot.data,
-            onChanged: (value) => model.setComposeOptions(value!),
-          ),
-          RadioListTile<ComposeOptions>(
-            shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
-            title: const Text('Menu-Key'),
-            value: ComposeOptions.menu,
-            groupValue: snapshot.data,
-            onChanged: (value) => model.setComposeOptions(value!),
-          ),
-          RadioListTile<ComposeOptions>(
-            shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
-            title: const Text('Right Ctrl-Key'),
-            value: ComposeOptions.rightCtrl,
-            groupValue: snapshot.data,
-            onChanged: (value) => model.setComposeOptions(value!),
-          ),
-          RadioListTile<ComposeOptions>(
-            shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
-            title: const Text('Caps-Lock-Key'),
-            value: ComposeOptions.caps,
-            groupValue: snapshot.data,
-            onChanged: (value) => model.setComposeOptions(value!),
-          ),
-          RadioListTile<ComposeOptions>(
-            shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
-            title: const Text('Scroll-Lock-Key'),
-            value: ComposeOptions.scrollLock,
-            groupValue: snapshot.data,
-            onChanged: (value) => model.setComposeOptions(value!),
-          ),
-          RadioListTile<ComposeOptions>(
-            shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
-            title: const Text('Print Key'),
-            value: ComposeOptions.print,
-            groupValue: snapshot.data,
-            onChanged: (value) => model.setComposeOptions(value!),
-          )
+          for (final option in ComposeOptions.values)
+            ListTile(
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(4)),
+              title: Text(option.localize(context.l10n)),
+              leading: YaruRadio<ComposeOptions>(
+                value: option,
+                groupValue: snapshot.data,
+                onChanged: (value) => model.setComposeOptions(value!),
+              ),
+            ),
         ],
       ),
     );

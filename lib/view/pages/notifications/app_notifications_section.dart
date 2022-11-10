@@ -15,7 +15,7 @@ class AppNotificationsSection extends StatelessWidget {
 
     return YaruSection(
       width: kDefaultWidth,
-      headline: 'App notifications',
+      headline: const Text('App notifications'),
       children: model.applications
               ?.map(
                 (appId) =>

@@ -55,11 +55,8 @@ class SettingsSimpleDialog extends StatelessWidget {
       width: width,
       child: SimpleDialog(
         titlePadding: EdgeInsets.zero,
-        title: YaruDialogTitle(
-          title: title,
-          closeIconData: closeIconData,
-          textAlign: titleTextAlign,
-          mainAxisAlignment: MainAxisAlignment.center,
+        title: YaruTitleBar(
+          title: Text(title),
         ),
         contentPadding: const EdgeInsets.fromLTRB(
           kYaruPagePadding,

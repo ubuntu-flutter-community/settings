@@ -14,7 +14,7 @@ class MouseSection extends StatelessWidget {
 
     return YaruSection(
       width: kDefaultWidth,
-      headline: 'Mouse',
+      headline: const Text('Mouse'),
       children: [
         YaruSliderRow(
           actionLabel: 'Speed',

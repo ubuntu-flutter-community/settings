@@ -20,10 +20,12 @@ class SettingsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       controller: controller,
-      child: Padding(
-        padding: padding ?? const EdgeInsets.all(kYaruPagePadding),
-        child: Column(
-          children: children,
+      child: Center(
+        child: Padding(
+          padding: padding ?? const EdgeInsets.all(kYaruPagePadding),
+          child: Column(
+            children: children,
+          ),
         ),
       ),
     );

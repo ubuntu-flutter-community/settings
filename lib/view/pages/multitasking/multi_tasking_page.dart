@@ -23,7 +23,7 @@ class MultiTaskingPage extends StatelessWidget {
   }
 
   static Widget createTitle(BuildContext context) =>
-      YaruPageItemTitle.text(context.l10n.multiTaskingPageTitle);
+      Text(context.l10n.multiTaskingPageTitle);
 
   static bool searchMatches(String value, BuildContext context) =>
       value.isNotEmpty
@@ -44,7 +44,7 @@ class MultiTaskingPage extends StatelessWidget {
       children: [
         YaruSection(
           width: kDefaultWidth,
-          headline: 'General',
+          headline: const Text('General'),
           children: [
             Column(
               children: [
@@ -101,25 +101,29 @@ class MultiTaskingPage extends StatelessWidget {
         ),
         YaruSection(
           width: kDefaultWidth,
-          headline: 'Workspaces',
+          headline: const Text('Workspaces'),
           children: [
-            RadioListTile<bool>(
+            ListTile(
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(4),
               ),
               title: const Text('Dynamic Workspaces'),
-              value: true,
-              groupValue: model.dynamicWorkspaces,
-              onChanged: (value) => model.dynamicWorkspaces = value,
+              leading: YaruRadio<bool>(
+                value: true,
+                groupValue: model.dynamicWorkspaces,
+                onChanged: (value) => model.dynamicWorkspaces = value,
+              ),
             ),
-            RadioListTile<bool>(
+            ListTile(
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(4),
               ),
               title: const Text('Fixed number of workspaces'),
-              value: false,
-              groupValue: model.dynamicWorkspaces,
-              onChanged: (value) => model.dynamicWorkspaces = value!,
+              leading: YaruRadio<bool>(
+                value: false,
+                groupValue: model.dynamicWorkspaces,
+                onChanged: (value) => model.dynamicWorkspaces = value!,
+              ),
             ),
             YaruTile(
               enabled: model.dynamicWorkspaces != null &&
@@ -145,14 +149,14 @@ class MultiTaskingPage extends StatelessWidget {
         ),
         YaruSection(
           width: kDefaultWidth,
-          headline: 'Multi-Monitor',
+          headline: const Text('Multi-Monitor'),
           children: [
             YaruTile(
               title: const Text('Workspaces span all displays'),
               subtitle: const Text(
                 'All displays are included in one workspace and follow when you switch workspaces.',
               ),
-              trailing: Radio(
+              trailing: YaruRadio(
                 value: false,
                 groupValue: model.workSpaceOnlyOnPrimary,
                 onChanged: (bool? value) =>
@@ -180,7 +184,7 @@ class MultiTaskingPage extends StatelessWidget {
               subtitle: const Text(
                 'Only your primary display is included in workspace switching.',
               ),
-              trailing: Radio(
+              trailing: YaruRadio(
                 value: true,
                 groupValue: model.workSpaceOnlyOnPrimary,
                 onChanged: (bool? value) =>
@@ -207,7 +211,7 @@ class MultiTaskingPage extends StatelessWidget {
         ),
         YaruSection(
           width: kDefaultWidth,
-          headline: 'Application Switching',
+          headline: const Text('Application Switching'),
           children: [
             YaruSwitchRow(
               trailingWidget:

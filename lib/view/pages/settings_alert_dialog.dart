@@ -65,11 +65,8 @@ class SettingsAlertDialog extends StatelessWidget {
         contentPadding: contentPadding,
         scrollable: scrollable ?? false,
         titlePadding: EdgeInsets.zero,
-        title: YaruDialogTitle(
-          mainAxisAlignment: MainAxisAlignment.start,
-          textAlign: titleTextAlign,
-          title: title,
-          closeIconData: closeIconData ?? Icons.close,
+        title: YaruTitleBar(
+          title: Text(title),
         ),
         content: SizedBox(height: height, width: width, child: child),
         actions: actions,

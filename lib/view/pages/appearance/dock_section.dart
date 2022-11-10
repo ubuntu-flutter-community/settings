@@ -26,14 +26,14 @@ class DockSection extends StatelessWidget {
       child: Column(
         children: [
           YaruSection(
-            headline: 'Dock appearance',
+            headline: const Text('Dock appearance'),
             children: [
               YaruTile(
                 title: const Text('Panel mode'),
                 subtitle: const Text(
                   'Extends the height of the dock to become a panel.',
                 ),
-                trailing: Radio<bool>(
+                trailing: YaruRadio<bool>(
                   value: true,
                   groupValue: model.extendDock,
                   onChanged: (value) => model.extendDock = value,
@@ -59,7 +59,7 @@ class DockSection extends StatelessWidget {
                 subtitle: const Text(
                   'Displays the dock in a centered, free-floating mode.',
                 ),
-                trailing: Radio<bool>(
+                trailing: YaruRadio<bool>(
                   value: false,
                   groupValue: model.extendDock,
                   onChanged: (value) => model.extendDock = value!,
@@ -82,7 +82,7 @@ class DockSection extends StatelessWidget {
             ],
           ),
           YaruSection(
-            headline: 'Dock Position',
+            headline: const Text('Dock Position'),
             children: [
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -151,7 +151,7 @@ class DockSection extends StatelessWidget {
             ],
           ),
           YaruSection(
-            headline: 'Dock options',
+            headline: const Text('Dock options'),
             children: [
               Column(
                 children: [

@@ -31,7 +31,7 @@ class InfoPage extends StatefulWidget {
   }
 
   static Widget createTitle(BuildContext context) =>
-      YaruPageItemTitle.text(context.l10n.infoPageTitle);
+      Text(context.l10n.infoPageTitle);
 
   static bool searchMatches(String value, BuildContext context) => value
           .isNotEmpty
@@ -107,7 +107,7 @@ class _InfoPageState extends State<InfoPage> {
         const _Computer(),
         YaruSection(
           width: kDefaultWidth,
-          headline: 'Hardware',
+          headline: const Text('Hardware'),
           children: [
             YaruSingleInfoRow(
               infoLabel: 'Processor',
@@ -131,7 +131,7 @@ class _InfoPageState extends State<InfoPage> {
         ),
         YaruSection(
           width: kDefaultWidth,
-          headline: 'System',
+          headline: const Text('System'),
           children: [
             YaruSingleInfoRow(
               infoLabel: 'OS',
@@ -197,7 +197,7 @@ class _Computer extends StatelessWidget {
 
     return YaruSection(
       width: kDefaultWidth,
-      headline: 'Computer',
+      headline: const Text('Computer'),
       children: [
         YaruTile(
           title: const Text('Hostname'),
