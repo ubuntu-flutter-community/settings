@@ -90,7 +90,7 @@ class _BluetoothDeviceDialog extends StatelessWidget {
         title: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Text(model.name),
+            Expanded(child: Text(model.name)),
             Icon(iconName.isEmpty ? YaruIcons.question : yaruIcons[model.icon]),
           ],
         ),
