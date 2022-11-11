@@ -1,6 +1,27 @@
 import 'package:safe_change_notifier/safe_change_notifier.dart';
+import 'package:settings/l10n/l10n.dart';
 import 'package:settings/schemas/schemas.dart';
 import 'package:settings/services/settings_service.dart';
+
+enum MimeTypeBehavior {
+  ignore,
+  openFolder,
+  startApp,
+  ask;
+
+  String localize(AppLocalizations l10n) {
+    switch (this) {
+      case ignore:
+        return l10n.removableMediaIgnore;
+      case openFolder:
+        return l10n.removableMediaOpenFolder;
+      case startApp:
+        return l10n.removableMediaRunApp;
+      case ask:
+        return l10n.removableMediaAsk;
+    }
+  }
+}
 
 class RemovableMediaModel extends SafeChangeNotifier {
   static const mimeTypes = <String, String>{
@@ -24,13 +45,6 @@ class RemovableMediaModel extends SafeChangeNotifier {
     'x-content/video-vcd': 'Video V CD',
     'x-content/win32-software': 'Windows Software'
   };
-
-  static const mimeTypeBehaviors = [
-    'Ignore',
-    'Open Folder',
-    'Start App',
-    'Ask'
-  ];
 
   final Settings? _removableMediaSettings;
 
@@ -94,34 +108,47 @@ class RemovableMediaModel extends SafeChangeNotifier {
     notifyListeners();
   }
 
-  String getMimeTypeBehavior(String mimeType) {
-    if (_getAutoRunXContentIgnore().contains(mimeType)) {
-      return mimeTypeBehaviors[0];
-    } else if (_getAutoRunXContentOpenFolder().contains(mimeType)) {
-      return mimeTypeBehaviors[1];
-    } else if (_getAutoRunXContentStartApp().contains(mimeType)) {
-      return mimeTypeBehaviors[2];
-    }
-    return mimeTypeBehaviors[3];
+  MimeTypeBehavior? _mimeTypeBehavior = MimeTypeBehavior.ask;
+  MimeTypeBehavior? get mimeTypeBehavior => _mimeTypeBehavior;
+  set mimeTypeBehavior(MimeTypeBehavior? value) {
+    if (value == _mimeTypeBehavior) return;
+    _mimeTypeBehavior = value;
+    notifyListeners();
   }
 
-  void setMimeTypeBehavior(String string, String mimeType) {
-    if (string == mimeTypeBehaviors[0]) {
-      _addToIgnoreList(mimeType);
-      _removeFromFolderList(mimeType);
-      _removeFromAppStartList(mimeType);
-    } else if (string == mimeTypeBehaviors[1]) {
-      _addToFolderList(mimeType);
-      _removeFromIgnoreList(mimeType);
-      _removeFromAppStartList(mimeType);
-    } else if (string == mimeTypeBehaviors[2]) {
-      _addToAppStartList(mimeType);
-      _removeFromIgnoreList(mimeType);
-      _removeFromFolderList(mimeType);
-    } else if (string == mimeTypeBehaviors[3]) {
-      _removeFromIgnoreList(mimeType);
-      _removeFromFolderList(mimeType);
-      _removeFromAppStartList(mimeType);
+  MimeTypeBehavior? getMimeTypeBehavior(String mimeType) {
+    if (_getAutoRunXContentIgnore().contains(mimeType)) {
+      return MimeTypeBehavior.ignore;
+    } else if (_getAutoRunXContentOpenFolder().contains(mimeType)) {
+      return MimeTypeBehavior.openFolder;
+    } else if (_getAutoRunXContentStartApp().contains(mimeType)) {
+      return MimeTypeBehavior.startApp;
+    }
+    return MimeTypeBehavior.ask;
+  }
+
+  void setMimeTypeBehavior(MimeTypeBehavior mimeTypeBehavior, String mimeType) {
+    switch (mimeTypeBehavior) {
+      case MimeTypeBehavior.ignore:
+        _addToIgnoreList(mimeType);
+        _removeFromFolderList(mimeType);
+        _removeFromAppStartList(mimeType);
+        break;
+      case MimeTypeBehavior.openFolder:
+        _addToFolderList(mimeType);
+        _removeFromIgnoreList(mimeType);
+        _removeFromAppStartList(mimeType);
+        break;
+      case MimeTypeBehavior.startApp:
+        _addToAppStartList(mimeType);
+        _removeFromIgnoreList(mimeType);
+        _removeFromFolderList(mimeType);
+        break;
+      case MimeTypeBehavior.ask:
+        _removeFromIgnoreList(mimeType);
+        _removeFromFolderList(mimeType);
+        _removeFromAppStartList(mimeType);
+        break;
     }
   }
 
@@ -161,5 +188,3 @@ class RemovableMediaModel extends SafeChangeNotifier {
     _setAutoRunXContentIgnore(oldIgnoreList.toList());
   }
 }
-
-enum ContentHandling { ignore, openFolder, startApp, ask }

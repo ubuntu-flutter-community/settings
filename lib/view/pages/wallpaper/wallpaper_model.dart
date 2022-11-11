@@ -221,7 +221,22 @@ class WallpaperModel extends SafeChangeNotifier {
   }
 }
 
-enum ColorShadingType { solid, vertical, horizontal }
+enum ColorShadingType {
+  solid,
+  vertical,
+  horizontal;
+
+  String localize(AppLocalizations l10n) {
+    switch (this) {
+      case ColorShadingType.solid:
+        return l10n.wallpaperPageSolid;
+      case ColorShadingType.vertical:
+        return l10n.wallpaperPageHorizontalGradient;
+      case ColorShadingType.horizontal:
+        return l10n.wallpaperPageVerticalGradient;
+    }
+  }
+}
 
 enum WallpaperMode {
   solid,

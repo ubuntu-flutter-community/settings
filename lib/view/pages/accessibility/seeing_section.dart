@@ -273,18 +273,28 @@ class _MagnifierPositionOptions extends StatelessWidget {
             value: false,
             groupValue: model.lensMode,
             onChanged: (bool? value) => model.setLensMode(value!),
-            secondary: DropdownButton<String>(
-              onChanged: !model.screenPartEnabled
-                  ? null
-                  : (value) => model.setScreenPosition(value!),
-              value: model.screenPosition,
-              items: [
-                for (var item in AccessibilityModel.screenPositions)
-                  DropdownMenuItem(
-                    child: Text(item.toLowerCase().replaceAll('-', ' ')),
-                    value: item,
-                  )
-              ],
+            // TODO: create enum and localize
+            secondary: YaruPopupMenuButton<String>(
+              enabled: model.screenPosition != null,
+              initialValue: model.screenPosition,
+              itemBuilder: (p0) {
+                return [
+                  for (var item in AccessibilityModel.screenPositions)
+                    PopupMenuItem(
+                      child: Text(item.toLowerCase().replaceAll('-', ' ')),
+                      value: item,
+                      onTap: !model.screenPartEnabled
+                          ? null
+                          : () => model.setScreenPosition(item),
+                    )
+                ];
+              },
+              child: Text(
+                model.screenPosition
+                    .toString()
+                    .toLowerCase()
+                    .replaceAll('-', ' '),
+              ),
             ),
           ),
           Padding(

@@ -1,4 +1,3 @@
-import 'package:flutter/widgets.dart';
 import 'package:settings/l10n/l10n.dart';
 
 enum LidCloseAction {
@@ -8,21 +7,9 @@ enum LidCloseAction {
   hibernate,
   interactive,
   nothing,
-  logout
-}
+  logout;
 
-extension LidCloseActionString on String {
-  LidCloseAction? toLidCloseAction() {
-    try {
-      return LidCloseAction.values.byName(this);
-    } on ArgumentError {
-      return null;
-    }
-  }
-}
-
-extension LidCloseActionL10n on LidCloseAction {
-  String localize(BuildContext context) {
+  String localize(AppLocalizations l10n) {
     switch (this) {
       case LidCloseAction.blank:
         return 'Blank';
@@ -39,7 +26,17 @@ extension LidCloseActionL10n on LidCloseAction {
       case LidCloseAction.logout:
         return 'Logout';
       default:
-        return context.l10n.unknown;
+        return l10n.unknown;
+    }
+  }
+}
+
+extension LidCloseActionString on String {
+  LidCloseAction? toLidCloseAction() {
+    try {
+      return LidCloseAction.values.byName(this);
+    } on ArgumentError {
+      return null;
     }
   }
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:settings/constants.dart';
+import 'package:settings/l10n/l10n.dart';
 import 'package:settings/services/settings_service.dart';
 import 'package:settings/view/pages/power/lid_close_action.dart';
 import 'package:settings/view/pages/power/lid_close_model.dart';
@@ -26,29 +27,41 @@ class LidCloseSection extends StatelessWidget {
         YaruTile(
           enabled: model.acLidCloseAction != null,
           title: const Text('Lid Close Action on Ac'),
-          trailing: DropdownButton<LidCloseAction?>(
-            value: model.acLidCloseAction,
-            items: LidCloseAction.values.map((action) {
-              return DropdownMenuItem<LidCloseAction>(
+          trailing: YaruPopupMenuButton<LidCloseAction?>(
+            enabled: model.acLidCloseAction != null,
+            initialValue: model.acLidCloseAction,
+            itemBuilder: (c) => LidCloseAction.values.map((action) {
+              return PopupMenuItem<LidCloseAction>(
                 value: action,
-                child: Text(action.localize(context)),
+                child: Text(action.localize(context.l10n)),
+                onTap: () => model.acLidCloseAction = action,
               );
             }).toList(),
-            onChanged: (value) => model.acLidCloseAction = value,
+            child: Text(
+              model.acLidCloseAction != null
+                  ? model.acLidCloseAction!.localize(context.l10n)
+                  : '',
+            ),
           ),
         ),
         YaruTile(
           enabled: model.batteryLidCloseAction != null,
           title: const Text('Lid Close Action on Battery'),
-          trailing: DropdownButton<LidCloseAction?>(
-            value: model.batteryLidCloseAction,
-            items: LidCloseAction.values.map((action) {
-              return DropdownMenuItem<LidCloseAction>(
+          trailing: YaruPopupMenuButton<LidCloseAction?>(
+            enabled: model.batteryLidCloseAction != null,
+            initialValue: model.batteryLidCloseAction,
+            itemBuilder: (c) => LidCloseAction.values.map((action) {
+              return PopupMenuItem<LidCloseAction>(
                 value: action,
-                child: Text(action.localize(context)),
+                child: Text(action.localize(context.l10n)),
+                onTap: () => model.batteryLidCloseAction = action,
               );
             }).toList(),
-            onChanged: (value) => model.batteryLidCloseAction = value,
+            child: Text(
+              model.batteryLidCloseAction != null
+                  ? model.batteryLidCloseAction!.localize(context.l10n)
+                  : '',
+            ),
           ),
         )
       ],

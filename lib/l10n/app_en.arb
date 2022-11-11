@@ -39,6 +39,10 @@
   "removableMediaVideoSvCd": "Video SV CD",
   "removableMediaVideoVCd": "Video V CD",
   "removableMediaWindowsSoftware": "Windows Software",
+  "removableMediaIgnore": "Do nothing",
+  "removableMediaRunApp": "Start default application",
+  "removableMediaOpenFolder": "Open folder",
+  "removableMediaAsk": "Ask what do do",
   "checkConnectivityLabel": "Check connectivity",
   "checkConnectivityDescription": "The connectivity check is used to detect connection problems and help you stay online. If your network communications are monitored, they could be used to collect technical information about this computer.",
   "screenSaverDescription": "The automatic screen lock protects your computer from being accessed by others while you are away.",
@@ -224,10 +228,17 @@
   "bounceKeysDescription": "Ignores fast duplicate keypresses",
   "stickyKeysTwoKeysOption": "Disable if two keys are pressed at the same time",
   "stickyKeysBeepModifierOption": "Beep when a modifier key is pressed",
-
   "acceptanceDelay": "Acceptance delay",
   "stickyKeysBeepKeyOption": "Beep when a key is pressed",
   "stickyKeysBeepKeyAcceptedOption": "Beep when a key is accepted",
-  "stickyKeysBeepKeyRejectedOption": "Beep when a key is rejected"
+  "stickyKeysBeepKeyRejectedOption": "Beep when a key is rejected",
+  "dockPosition": "Dock Position",
+  "dockPositionLeft": "Left",
+  "dockPositionBottom": "Bottom",
+  "dockPositionRight": "Right",
+  "dockClickAction": "On-Click behavior",
+  "dockClickActionMinimize": "Minimize",
+  "dockClickActionCycleWindows": "Cycle through the windows",
+  "dockClickActionFocusOrPreviews": "Focus the window or show a preview"  
 }
 

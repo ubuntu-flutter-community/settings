@@ -158,11 +158,9 @@ enum LogicalMonitorOrientation {
   flipped,
   $90flipped,
   $180flipped,
-  $270flipped,
-}
+  $270flipped;
 
-extension LogicalMonitorOrientationTranslate on LogicalMonitorOrientation {
-  String translate(BuildContext context) {
+  String localize(BuildContext context) {
     switch (this) {
       case LogicalMonitorOrientation.normal:
         return context.l10n.landscape;

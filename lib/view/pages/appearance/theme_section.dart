@@ -58,8 +58,9 @@ class _ThemeSectionState extends State<ThemeSection> {
           },
         ),
         if (int.parse(_osVersion.substring(0, 2)) >= 22)
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          Wrap(
+            spacing: 5,
+            runSpacing: 5,
             children: [
               for (var globalTheme in globalThemeList)
                 YaruColorDisk(

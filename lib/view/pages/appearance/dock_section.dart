@@ -2,12 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 import 'package:settings/constants.dart';
+import 'package:settings/l10n/l10n.dart';
 import 'package:settings/utils.dart';
 import 'package:settings/view/pages/appearance/dock_model.dart';
 import 'package:settings/view/selectable_svg_image.dart';
 import 'package:yaru_settings/yaru_settings.dart';
 import 'package:yaru_widgets/yaru_widgets.dart';
 
+// TODO: localize
 class DockSection extends StatelessWidget {
   const DockSection({Key? key}) : super(key: key);
   static const assetHeight = 80.0;
@@ -82,7 +84,7 @@ class DockSection extends StatelessWidget {
             ],
           ),
           YaruSection(
-            headline: const Text('Dock Position'),
+            headline: Text(context.l10n.dockPosition),
             children: [
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -91,9 +93,9 @@ class DockSection extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const Padding(
-                          padding: EdgeInsets.all(8.0),
-                          child: Text('Left'),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text(DockPosition.left.localize(context.l10n)),
                         ),
                         SizedBox(
                           child: SelectableSvgImage(
@@ -112,9 +114,10 @@ class DockSection extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const Padding(
-                          padding: EdgeInsets.all(8.0),
-                          child: Text('Right'),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child:
+                              Text(DockPosition.right.localize(context.l10n)),
                         ),
                         SelectableSvgImage(
                           selectedColor: selectedColor,
@@ -131,9 +134,10 @@ class DockSection extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const Padding(
-                          padding: EdgeInsets.all(8.0),
-                          child: Text('Bottom'),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child:
+                              Text(DockPosition.bottom.localize(context.l10n)),
                         ),
                         SelectableSvgImage(
                           selectedColor: selectedColor,
@@ -204,24 +208,28 @@ class DockSection extends StatelessWidget {
               ),
               YaruTile(
                 enabled: model.clickAction != null,
-                title: const Text('App icon click behavior'),
-                trailing: DropdownButton<DockClickAction>(
-                  onChanged: (value) => model.clickAction = value,
-                  value: model.clickAction,
-                  items: const [
-                    DropdownMenuItem(
-                      child: Text('Minimize the app'),
-                      value: DockClickAction.minimize,
-                    ),
-                    DropdownMenuItem(
-                      child: Text('Cycle through windows'),
-                      value: DockClickAction.cycleWindows,
-                    ),
-                    DropdownMenuItem(
-                      child: Text('Focus or preview the window'),
-                      value: DockClickAction.focusOrPreviews,
-                    ),
-                  ],
+                title: Text(
+                  context.l10n.dockClickAction,
+                  overflow: TextOverflow.ellipsis,
+                ),
+                trailing: YaruPopupMenuButton<DockClickAction?>(
+                  enabled: model.clickAction != null,
+                  initialValue: model.clickAction,
+                  itemBuilder: (context) => DockClickAction.values
+                      .map(
+                        (e) => PopupMenuItem<DockClickAction?>(
+                          onTap: () => model.clickAction = e,
+                          child: Text(
+                            e.localize(context.l10n),
+                          ),
+                        ),
+                      )
+                      .toList(),
+                  child: Text(
+                    model.clickAction != null
+                        ? model.clickAction!.localize(context.l10n)
+                        : '',
+                  ),
                 ),
               ),
             ],
