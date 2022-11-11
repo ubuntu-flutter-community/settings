@@ -1,4 +1,3 @@
-import 'package:flutter/widgets.dart';
 import 'package:settings/l10n/l10n.dart';
 
 enum LidCloseAction {

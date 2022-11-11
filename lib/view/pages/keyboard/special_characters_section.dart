@@ -133,7 +133,8 @@ class _ComposeOptionsDialog extends StatelessWidget {
           for (final option in ComposeOptions.values)
             ListTile(
               shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(4)),
+                borderRadius: BorderRadius.circular(4),
+              ),
               title: Text(option.localize(context.l10n)),
               leading: YaruRadio<ComposeOptions>(
                 value: option,

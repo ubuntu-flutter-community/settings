@@ -36,74 +36,89 @@ class MonitorSection extends StatelessWidget {
               /// Orientation row
               YaruTile(
                 title: Text(context.l10n.orientation),
-                trailing: DropdownButton<LogicalMonitorOrientation>(
-                  value: config.transform!,
-                  items: [
-                    for (final LogicalMonitorOrientation value
-                        in model.displayableOrientations)
-                      DropdownMenuItem(
+                trailing: YaruPopupMenuButton<LogicalMonitorOrientation>(
+                  initialValue: config.transform!,
+                  itemBuilder: (c) => [
+                    for (final value in model.displayableOrientations)
+                      PopupMenuItem(
                         value: value,
-                        child: Text(value.translate(context)),
+                        child: Text(value.localize(context)),
+                        onTap: () {
+                          model.setOrientation(index, value);
+                        },
                       ),
                   ],
-                  onChanged: (value) {
-                    model.setOrientation(index, value!);
-                  },
+                  child: Text(
+                    config.transform != null
+                        ? config.transform!.localize(context)
+                        : '',
+                  ),
                 ),
               ),
 
               /// Resolution row
               YaruTile(
                 title: Text(context.l10n.resolution),
-                trailing: DropdownButton<String>(
-                  value: config.resolution,
-                  items: [
+                trailing: YaruPopupMenuButton<String>(
+                  initialValue: config.resolution,
+                  itemBuilder: (c) => [
                     for (final String value in config.availableResolutions)
-                      DropdownMenuItem(
+                      PopupMenuItem(
                         value: value,
+                        onTap: () => model.setResolution(index, value),
                         child: Text(value),
                       ),
                   ],
-                  onChanged: (value) => model.setResolution(index, value!),
+                  child: Text(config.resolution),
                 ),
               ),
 
               /// Refresh rate row
               YaruTile(
                 title: Text(context.l10n.refreshRate),
-                trailing: DropdownButton<String>(
-                  value: config.refreshRate,
-                  items: [
+                trailing: YaruPopupMenuButton<String>(
+                  initialValue: config.refreshRate,
+                  itemBuilder: (c) => [
                     for (final value in config.availableRefreshRates)
-                      DropdownMenuItem(
+                      PopupMenuItem(
                         value: value,
+                        onTap: () => model.setRefreshRate(index, value),
                         child: Text(
                           double.parse(value).toStringAsFixed(2).toString(),
                         ),
                       ),
                   ],
-                  onChanged: (String? value) =>
-                      model.setRefreshRate(index, value!),
+                  child: Text(
+                    double.parse(config.refreshRate)
+                        .toStringAsFixed(2)
+                        .toString(),
+                  ),
                 ),
               ),
 
               /// Scale row
               YaruTile(
                 title: Text(context.l10n.scale),
-                trailing: DropdownButton<int>(
-                  value: config.scale!.toInt(),
-                  items: [
-                    for (final scale in config.availableScales)
-                      DropdownMenuItem(
-                        value: scale.toInt(),
-                        child:
-                            Text('x${scale.toString().replaceAll('.0', '')}'),
+                trailing: YaruPopupMenuButton<int>(
+                  initialValue: config.scale!.toInt(),
+                  itemBuilder: (c) => [
+                    for (var i = 0; i < config.availableScales.length; i++)
+                      PopupMenuItem(
+                        value: config.availableScales[i].toInt(),
+                        onTap: () {
+                          model.setScale(
+                            index,
+                            config.availableScales[i],
+                          );
+                          print(config.availableScales[i]);
+                        },
+                        child: Text(
+                          'x${config.availableScales[i].toString().replaceAll('.0', '')}',
+                        ),
                       )
                   ],
-                  onChanged: (v) => model.setScale(
-                    index,
-                    config.availableScales[v! - 1],
-                  ),
+                  child:
+                      Text('x${config.scale.toString().replaceAll('.0', '')}'),
                 ),
               ),
 
