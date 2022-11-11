@@ -56,11 +56,11 @@ enum PowerProfile {
   Color getColor(bool light) {
     switch (this) {
       case PowerProfile.performance:
-        return lighten(YaruColors.red, light ? 0 : 30);
+        return light ? YaruColors.red : lighten(YaruColors.red, 30);
       case PowerProfile.balanced:
         return light ? YaruColors.inkstone : YaruColors.porcelain;
       case PowerProfile.powerSaver:
-        return lighten(YaruColors.success, light ? 0 : 30);
+        return light ? YaruColors.success : lighten(YaruColors.success, 30);
     }
   }
 
