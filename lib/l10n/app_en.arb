@@ -228,10 +228,17 @@
   "bounceKeysDescription": "Ignores fast duplicate keypresses",
   "stickyKeysTwoKeysOption": "Disable if two keys are pressed at the same time",
   "stickyKeysBeepModifierOption": "Beep when a modifier key is pressed",
-
   "acceptanceDelay": "Acceptance delay",
   "stickyKeysBeepKeyOption": "Beep when a key is pressed",
   "stickyKeysBeepKeyAcceptedOption": "Beep when a key is accepted",
-  "stickyKeysBeepKeyRejectedOption": "Beep when a key is rejected"
+  "stickyKeysBeepKeyRejectedOption": "Beep when a key is rejected",
+  "dockPosition": "Dock Position",
+  "dockPositionLeft": "Left",
+  "dockPositionBottom": "Bottom",
+  "dockPositionRight": "Right",
+  "dockClickAction": "On-Click behavior",
+  "dockClickActionMinimize": "Minimize",
+  "dockClickActionCycleWindows": "Cycle through the windows",
+  "dockClickActionFocusOrPreviews": "Focus the window or show a preview"  
 }
 

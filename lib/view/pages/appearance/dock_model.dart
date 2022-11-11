@@ -1,4 +1,5 @@
 import 'package:flutter/foundation.dart';
+import 'package:settings/l10n/l10n.dart';
 import 'package:settings/schemas/schemas.dart';
 import 'package:settings/services/settings_service.dart';
 
@@ -198,9 +199,39 @@ class DockModel extends ChangeNotifier {
   }
 }
 
-enum DockPosition { left, bottom, right }
+enum DockPosition {
+  left,
+  bottom,
+  right;
 
-enum DockClickAction { minimize, cycleWindows, focusOrPreviews }
+  String localize(AppLocalizations l10n) {
+    switch (this) {
+      case DockPosition.left:
+        return l10n.dockPositionLeft;
+      case DockPosition.bottom:
+        return l10n.dockPositionBottom;
+      case DockPosition.right:
+        return l10n.dockPositionRight;
+    }
+  }
+}
+
+enum DockClickAction {
+  minimize,
+  cycleWindows,
+  focusOrPreviews;
+
+  String localize(AppLocalizations l10n) {
+    switch (this) {
+      case DockClickAction.minimize:
+        return l10n.dockClickActionMinimize;
+      case DockClickAction.cycleWindows:
+        return l10n.dockClickActionCycleWindows;
+      case DockClickAction.focusOrPreviews:
+        return l10n.dockClickActionFocusOrPreviews;
+    }
+  }
+}
 
 String camelCaseToSplitByDash(String value) {
   final beforeCapitalLetterRegex = RegExp(r'(?=[A-Z])');
