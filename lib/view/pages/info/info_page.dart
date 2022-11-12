@@ -9,6 +9,7 @@ import 'package:settings/services/hostname_service.dart';
 import 'package:settings/services/pdf_service.dart';
 import 'package:settings/view/pages/settings_page.dart';
 import 'package:settings/view/pages/settings_simple_dialog.dart';
+import 'package:settings/view/settings_section.dart';
 import 'package:udisks/udisks.dart';
 import 'package:yaru_colors/yaru_colors.dart';
 import 'package:yaru_icons/yaru_icons.dart';
@@ -105,7 +106,7 @@ class _InfoPageState extends State<InfoPage> {
         ),
         const SizedBox(height: 50),
         const _Computer(),
-        YaruSection(
+        SettingsSection(
           width: kDefaultWidth,
           headline: const Text('Hardware'),
           children: [
@@ -129,7 +130,7 @@ class _InfoPageState extends State<InfoPage> {
             ),
           ],
         ),
-        YaruSection(
+        SettingsSection(
           width: kDefaultWidth,
           headline: const Text('System'),
           children: [
@@ -195,7 +196,7 @@ class _Computer extends StatelessWidget {
   Widget build(BuildContext context) {
     final model = context.watch<InfoModel>();
 
-    return YaruSection(
+    return SettingsSection(
       width: kDefaultWidth,
       headline: const Text('Computer'),
       children: [

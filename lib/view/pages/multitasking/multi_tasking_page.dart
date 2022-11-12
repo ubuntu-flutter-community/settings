@@ -8,6 +8,7 @@ import 'package:settings/services/settings_service.dart';
 import 'package:settings/utils.dart';
 import 'package:settings/view/pages/multitasking/multi_tasking_model.dart';
 import 'package:settings/view/pages/settings_page.dart';
+import 'package:settings/view/settings_section.dart';
 import 'package:yaru_settings/yaru_settings.dart';
 import 'package:yaru_widgets/yaru_widgets.dart';
 
@@ -42,7 +43,7 @@ class MultiTaskingPage extends StatelessWidget {
 
     return SettingsPage(
       children: [
-        YaruSection(
+        SettingsSection(
           width: kDefaultWidth,
           headline: const Text('General'),
           children: [
@@ -99,7 +100,7 @@ class MultiTaskingPage extends StatelessWidget {
             )
           ],
         ),
-        YaruSection(
+        SettingsSection(
           width: kDefaultWidth,
           headline: const Text('Workspaces'),
           children: [
@@ -147,7 +148,7 @@ class MultiTaskingPage extends StatelessWidget {
             )
           ],
         ),
-        YaruSection(
+        SettingsSection(
           width: kDefaultWidth,
           headline: const Text('Multi-Monitor'),
           children: [
@@ -209,7 +210,7 @@ class MultiTaskingPage extends StatelessWidget {
             )
           ],
         ),
-        YaruSection(
+        SettingsSection(
           width: kDefaultWidth,
           headline: const Text('Application Switching'),
           children: [

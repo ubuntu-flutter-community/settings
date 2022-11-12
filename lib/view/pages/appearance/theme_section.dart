@@ -3,6 +3,7 @@ import 'package:linux_system_info/linux_system_info.dart';
 import 'package:provider/provider.dart';
 import 'package:settings/constants.dart';
 import 'package:settings/view/app_theme.dart';
+import 'package:settings/view/settings_section.dart';
 import 'package:yaru/yaru.dart';
 import 'package:yaru_icons/yaru_icons.dart';
 import 'package:yaru_settings/yaru_settings.dart';
@@ -27,7 +28,7 @@ class _ThemeSectionState extends State<ThemeSection> {
   Widget build(BuildContext context) {
     final theme = context.watch<AppTheme>();
 
-    return YaruSection(
+    return SettingsSection(
       width: kDefaultWidth,
       headline: const Text('Theme'),
       children: [

@@ -6,6 +6,7 @@ import 'package:settings/l10n/l10n.dart';
 import 'package:settings/services/locale_service.dart';
 import 'package:settings/view/pages/region_and_language/region_and_language_model.dart';
 import 'package:settings/view/pages/settings_page.dart';
+import 'package:settings/view/settings_section.dart';
 import 'package:yaru_icons/yaru_icons.dart';
 import 'package:yaru_widgets/yaru_widgets.dart';
 
@@ -45,7 +46,7 @@ class _RegionAndLanguagePageState extends State<RegionAndLanguagePage> {
     final model = context.watch<RegionAndLanguageModel>();
     return SettingsPage(
       children: [
-        YaruSection(
+        SettingsSection(
           width: kDefaultWidth,
           children: [
             Padding(
