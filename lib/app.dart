@@ -61,7 +61,7 @@ class _UbuntuSettingsAppState extends State<UbuntuSettingsApp> {
                   title: pages[index].titleBuilder(context),
                   leading: pages[index].iconBuilder(context, selected),
                 ),
-                pageBuilder: (context, index) => Scaffold(
+                pageBuilder: (context, index) => YaruDetailPage(
                   body: pages[index].builder(context),
                   appBar: AppBar(
                     title: pages[index].titleBuilder(context),
