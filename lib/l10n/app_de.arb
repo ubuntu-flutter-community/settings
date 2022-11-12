@@ -67,7 +67,7 @@
   "houseKeepingRecentFilesRememberForeverAction": "Dateichronik für immer behalten",
   "houseKeepingRecentFilesDaysAction": "Zeitraum der Dateichronik",
   "houseKeepingRecentFilesClearAction": "Dateichronik bereinigen",
-  "houseKeepingTempTrashHeadline": "Papierkorb und temporäre Datelen",
+  "houseKeepingTempTrashHeadline": "Papierkorb und temporäre Dateien",
   "houseKeepingTempTrashDescription": "Der Papierkorb sowie temporare Dateien können persönliche und sensible Informationen enthalten. Eine automatische Löschung kann dem Erhalt Ihrer Privatsphäre dienen.",
   "houseKeepingTrashAutoRemoveAction": "Automatisch den Papierkorb leeren",
   "houseKeepingTempAutoRemoveAction": "Automatisch temporäre Dateien löschen",
