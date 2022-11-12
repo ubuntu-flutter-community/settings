@@ -52,7 +52,6 @@ class PrivacyPage extends StatelessWidget {
         ConnectivityPage.create(context),
         LocationPage.create(context),
         const SettingsPage(
-          // TODO: implement Thunderbolt!
           children: [
             Padding(
               padding: EdgeInsets.all(8.0),

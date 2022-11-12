@@ -190,7 +190,6 @@ enum ComposeOptions {
   defaultLayout;
 
   String localize(AppLocalizations l10n) {
-    // TODO: localize
     switch (this) {
       case ComposeOptions.leftAlt:
         return 'leftAlt';
