@@ -226,10 +226,14 @@ class DockSection extends StatelessWidget {
                         ),
                       )
                       .toList(),
-                  child: Text(
-                    model.clickAction != null
-                        ? model.clickAction!.localize(context.l10n)
-                        : '',
+                  child: ConstrainedBox(
+                    constraints: const BoxConstraints(minWidth: 200),
+                    child: Text(
+                      model.clickAction != null
+                          ? model.clickAction!.localize(context.l10n)
+                          : '',
+                      overflow: TextOverflow.ellipsis,
+                    ),
                   ),
                 ),
               ),

@@ -95,7 +95,12 @@ class HouseKeepingPage extends StatelessWidget {
         ),
         SettingsSection(
           width: kDefaultWidth,
-          headline: Text(context.l10n.houseKeepingTempTrashHeadline),
+          headline: Expanded(
+            child: Text(
+              context.l10n.houseKeepingTempTrashHeadline,
+              overflow: TextOverflow.ellipsis,
+            ),
+          ),
           children: [
             Padding(
               padding: const EdgeInsets.all(8),
