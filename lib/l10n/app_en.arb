@@ -113,6 +113,76 @@
   "onlineAccountsPageTitle": "Online Accounts",
   "soundPageTitle": "Sound",
   "powerPageTitle": "Power",
+  "batterySectionHeadline": "Battery",
+  "batteryPercentage": "{value}%",
+  "@batteryPercentage": {
+    "placeholders": {
+      "value": {}
+    }
+  },
+  "batteryCharging": "{time} until fully charged",
+  "@batteryCharging": {
+    "placeholders": {
+      "time": {}
+    }
+  },
+  "batteryDischarging": "{time} remaining",
+  "@batteryDischarging": {
+    "placeholders": {
+      "time": {}
+    }
+  },
+  "batteryLow": "Caution: {time} remaining",
+  "@batteryLow": {
+    "placeholders": {
+      "time": {}
+    }
+  },
+  "batteryFullyCharged": "Fully charged",
+  "batteryNotCharging": "Not charging",
+  "batteryEmpty": "Empty",
+  "batteryShowPercentage": "Show Battery Percentage",
+  "lidCloseHeadline": "Lid Close",
+  "lidCloseActionOnAc": "Lid Close Action on AC",
+  "lidCloseActionOnBattery": "Lid Close Action on Battery",
+  "lidCloseActionBlank": "Blank",
+  "lidCloseActionSuspend": "Suspend",
+  "lidCloseActionShutdown": "Shutdown",
+  "lidCloseActionHibernate": "Hibernate",
+  "lidCloseActionInteractive": "Interactive",
+  "lidCloseActionNothing": "Nothing",
+  "lidCloseActionLogout": "Logout",
+  "powerMode": "Power Mode",
+  "powerProfilePerformance": "Performance",
+  "powerProfilePerformanceDescription": "High performance and power usage.",
+  "powerProfileBalanced": "Balanced",
+  "powerProfileBalancedDescription": "Standard performance and power usage.",
+  "powerProfilePowerSaver": "Power Saver",
+  "powerProfilePowerSaverDescription": "Reduced performance and power usage.",
+  "powerAutomaticSuspend": "Automatic Suspend",
+  "powerAutomaticSuspendOff": "Off",
+  "powerAutomaticSuspendBattery": "When on battery power",
+  "powerAutomaticSuspendPluggedIn": "When plugged in",
+  "powerAutomaticSuspendBoth": "On",
+  "powerOnBattery": "On Battery Power",
+  "powerWhenPluggedIn": "When Plugged In",
+  "powerSuspendDelay": "Delay",
+  "powerSaving": "PowerSaving",
+  "powerScreenBrightness": "Screen Brightness",
+  "powerAutomaticBrightness": "Automatic Brightness",
+  "powerKeyboardBrightness": "Keyboard Brightness",
+  "powerDimScreenWhenInactive": "Dim Screen When Inactive",
+  "powerBlankScreen": "Blank Screen",
+  "powerWifiTitle": "Wi-Fi",
+  "powerWifiDescription": "Wi-Fi can be turned off to save power.",
+  "powerBluetoothTitle": "Bluetooth",
+  "powerBluetoothDescription": "Bluetooth can be turned off to save power.",
+  "powerSuspendHeadline": "Suspend & Power Button",
+  "powerButtonBehavior": "Power Button Behavior",
+  "powerButtonActionNothing": "Nothing",
+  "powerButtonActionSuspend": "Suspend",
+  "powerButtonActionHibernate": "Hibernate",
+  "powerButtonActionPowerOff": "Power Off",
   "displaysPageTitle": "Displays",
   "mouseAndTouchPadPageTitle": "Mouse and touch pad",
   "keyboardPageTitle": "Keyboard",

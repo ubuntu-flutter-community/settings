@@ -23,11 +23,11 @@ class LidCloseSection extends StatelessWidget {
     final model = context.watch<LidCloseModel>();
     return SettingsSection(
       width: kDefaultWidth,
-      headline: const Text('Lid Close'),
+      headline: Text(context.l10n.lidCloseHeadline),
       children: [
         YaruTile(
           enabled: model.acLidCloseAction != null,
-          title: const Text('Lid Close Action on Ac'),
+          title: Text(context.l10n.lidCloseActionOnAc),
           trailing: YaruPopupMenuButton<LidCloseAction?>(
             enabled: model.acLidCloseAction != null,
             initialValue: model.acLidCloseAction,
@@ -47,7 +47,7 @@ class LidCloseSection extends StatelessWidget {
         ),
         YaruTile(
           enabled: model.batteryLidCloseAction != null,
-          title: const Text('Lid Close Action on Battery'),
+          title: Text(context.l10n.lidCloseActionOnBattery),
           trailing: YaruPopupMenuButton<LidCloseAction?>(
             enabled: model.batteryLidCloseAction != null,
             initialValue: model.batteryLidCloseAction,

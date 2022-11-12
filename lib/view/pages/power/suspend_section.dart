@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:settings/constants.dart';
+import 'package:settings/l10n/l10n.dart';
 import 'package:settings/services/settings_service.dart';
 import 'package:settings/view/pages/power/suspend.dart';
 import 'package:settings/view/pages/power/suspend_model.dart';
@@ -30,11 +31,11 @@ class _SuspendSectionState extends State<SuspendSection> {
     final model = context.watch<SuspendModel>();
     return SettingsSection(
       width: kDefaultWidth,
-      headline: const Text('Suspend & Power Button'),
+      headline: Text(context.l10n.powerSuspendHeadline),
       children: <Widget>[
         YaruTile(
           enabled: model.powerButtonAction != null,
-          title: const Text('Power Button Behavior'),
+          title: Text(context.l10n.powerButtonBehavior),
           trailing: YaruPopupMenuButton<PowerButtonAction?>(
             initialValue: model.powerButtonAction,
             itemBuilder: (c) => PowerButtonAction.values.map((action) {
@@ -52,7 +53,7 @@ class _SuspendSectionState extends State<SuspendSection> {
           ),
         ),
         YaruSwitchRow(
-          trailingWidget: const Text('Show Battery Percentage'),
+          trailingWidget: Text(context.l10n.batteryShowPercentage),
           value: model.showBatteryPercentage,
           onChanged: model.setShowBatteryPercentage,
         ),

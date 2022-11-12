@@ -12,19 +12,19 @@ enum LidCloseAction {
   String localize(AppLocalizations l10n) {
     switch (this) {
       case LidCloseAction.blank:
-        return 'Blank';
+        return l10n.lidCloseActionBlank;
       case LidCloseAction.suspend:
-        return 'Suspend';
+        return l10n.lidCloseActionSuspend;
       case LidCloseAction.shutdown:
-        return 'Shutdown';
+        return l10n.lidCloseActionShutdown;
       case LidCloseAction.hibernate:
-        return 'Hibernate';
+        return l10n.lidCloseActionHibernate;
       case LidCloseAction.interactive:
-        return 'Interactive';
+        return l10n.lidCloseActionInteractive;
       case LidCloseAction.nothing:
-        return 'Nothing';
+        return l10n.lidCloseActionNothing;
       case LidCloseAction.logout:
-        return 'Logout';
+        return l10n.lidCloseActionLogout;
       default:
         return l10n.unknown;
     }
