@@ -274,7 +274,6 @@ class _MagnifierPositionOptions extends StatelessWidget {
             value: false,
             groupValue: model.lensMode,
             onChanged: (bool? value) => model.setLensMode(value!),
-            // TODO: create enum and localize
             secondary: YaruPopupMenuButton<String>(
               enabled: model.screenPosition != null,
               initialValue: model.screenPosition,

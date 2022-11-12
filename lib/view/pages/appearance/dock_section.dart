@@ -10,7 +10,6 @@ import 'package:settings/view/settings_section.dart';
 import 'package:yaru_settings/yaru_settings.dart';
 import 'package:yaru_widgets/yaru_widgets.dart';
 
-// TODO: localize
 class DockSection extends StatelessWidget {
   const DockSection({Key? key}) : super(key: key);
   static const assetHeight = 80.0;

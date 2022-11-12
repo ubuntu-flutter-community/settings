@@ -94,7 +94,6 @@ class WallpaperPage extends StatelessWidget {
                 ),
         ),
         if (model.wallpaperMode == WallpaperMode.imageOfTheDay)
-          //TODO: Add the title and copyright info
           YaruTile(
             leading:
                 Text(context.l10n.wallpaperPageBackgroundModeImageOfTheDay),

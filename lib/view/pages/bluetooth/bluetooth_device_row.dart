@@ -135,9 +135,7 @@ class _BluetoothDeviceDialog extends StatelessWidget {
           child: SizedBox(
             width: 300,
             child: OutlinedButton(
-              onPressed: () {
-                // TODO: get route name from model
-              },
+              onPressed: () {},
               child: Text(context.l10n.bluetoothOpenDeviceSettings),
             ),
           ),

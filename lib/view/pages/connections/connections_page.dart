@@ -47,13 +47,11 @@ class ConnectionsPage extends StatelessWidget {
             : const WifiAdaptorNotFound(),
         const SettingsPage(
           children: [
-            // TODO: Implement Ethernet page
             Text('Ethernet - Please implement 🥲️'),
           ],
         ),
         const SettingsPage(
           children: [
-            // TODO: Implement Cellular page
             Text('Cellular - Please implement 🥲️'),
           ],
         ),
