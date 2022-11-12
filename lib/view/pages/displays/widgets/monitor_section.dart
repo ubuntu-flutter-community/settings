@@ -111,7 +111,6 @@ class MonitorSection extends StatelessWidget {
                             index,
                             config.availableScales[i],
                           );
-                          print(config.availableScales[i]);
                         },
                         child: Text(
                           'x${config.availableScales[i].toString().replaceAll('.0', '')}',

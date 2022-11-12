@@ -1,0 +1,15 @@
+name: test
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+
+jobs:
+  coverage:
+    name: test
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Run tests
+        run: flutter test
