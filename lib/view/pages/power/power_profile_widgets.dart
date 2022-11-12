@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:settings/services/power_profile_service.dart';
+import 'package:settings/view/pages/power/power_profile_x.dart';
 
 class ProfileModeTitle extends StatelessWidget {
   const ProfileModeTitle({
