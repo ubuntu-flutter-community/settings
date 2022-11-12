@@ -8,7 +8,6 @@ import 'package:settings/view/pages/keyboard/keyboard_shortcut_row.dart';
 import 'package:settings/view/pages/keyboard/keyboard_shortcuts_model.dart';
 import 'package:settings/view/pages/settings_page.dart';
 import 'package:settings/view/settings_section.dart';
-import 'package:yaru_widgets/yaru_widgets.dart';
 
 class KeyboardShortcutsPage extends StatelessWidget {
   const KeyboardShortcutsPage({Key? key}) : super(key: key);
@@ -23,10 +22,10 @@ class KeyboardShortcutsPage extends StatelessWidget {
             settings: context.read<SettingsService>(),
             schemaId: schemaWmKeybindings,
           ),
-          child: SettingsSection(
+          child: const SettingsSection(
             width: kDefaultWidth,
-            headline: const Text('Navigation Shortcuts'),
-            children: const [
+            headline: Text('Navigation Shortcuts'),
+            children: [
               KeyboardShortcutRow(
                 label: 'Switch windows',
                 shortcutId: 'switch-windows',
@@ -44,10 +43,10 @@ class KeyboardShortcutsPage extends StatelessWidget {
             settings: context.read<SettingsService>(),
             schemaId: schemaGnomeShellKeybinding,
           ),
-          child: SettingsSection(
+          child: const SettingsSection(
             width: kDefaultWidth,
-            headline: const Text('System'),
-            children: const [
+            headline: Text('System'),
+            children: [
               KeyboardShortcutRow(
                 label: 'Toggle Apps Grid',
                 shortcutId: 'toggle-application-view',

@@ -1,26 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:yaru_widgets/yaru_widgets.dart';
 
-// class SettingsSection extends YaruSection {
-//   SettingsSection({
-//     super.key,
-//     super.width,
-//     super.padding = const EdgeInsets.only(bottom: 20),
-//     Widget? headline,
-//     Widget? headerWidget,
-//     required List<Widget> children,
-//   }) : super(
-//           headline: Row(
-//             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//             children: [
-//               if (headline != null) headline,
-//               if (headerWidget != null) headerWidget,
-//             ],
-//           ),
-//           child: Column(children: children),
-//         );
-// }
-
 class SettingsSection extends StatelessWidget {
   const SettingsSection({
     super.key,

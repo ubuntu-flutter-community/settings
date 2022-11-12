@@ -9,7 +9,6 @@ import 'package:settings/view/pages/settings_page.dart';
 import 'package:settings/view/section_description.dart';
 import 'package:settings/view/settings_section.dart';
 import 'package:yaru_settings/yaru_settings.dart';
-import 'package:yaru_widgets/yaru_widgets.dart';
 
 const kUbuntuReportingLink = 'https://ubuntu.com/legal/data-privacy';
 
