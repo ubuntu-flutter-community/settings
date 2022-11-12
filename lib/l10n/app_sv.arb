@@ -50,7 +50,7 @@
   "screenSaverLockScreenOnSuspendLabel": "Lås skärmen i viloläge",
   "screenSaverNotificationsOnLockScreen": "Visa aviseringar på låsskärmen",
   "reportingHeader": "Felrapportering",
-  "reportingDescription": "Att skicka rapporter om tekniska problem hjälper utvecklarna att förbättra Ubuntu. Rapporter är fria från personuppgifter och skickas anonymt. Läs mer,
+  "reportingDescription": "Att skicka rapporter om tekniska problem hjälper utvecklarna att förbättra Ubuntu. Rapporter är fria från personuppgifter och skickas anonymt. Läs mer",
   "reportingLink": "Läs mer ",
   "reportingActionLabel": "Skicka problemrapporter till Canonical",
   "reportingUsageActionLabel": "Skicka programanvändning till Ubuntu",
@@ -61,7 +61,7 @@
   "houseKeepingRecentFilesHeadline": "Fil historik",
   "houseKeepingRecentFilesDescription": "Filhistorik kommer ihåg vilka filer du har använt. Denna information delas mellan program och gör det lättare att hitta filer som du vill använda.",
   "houseKeepingRecentFilesRememberAction": "Filhistorik",
-  "houseKeepingRecentFilesRememberForeverAction": Behåll Filhistorik förevigt",
+  "houseKeepingRecentFilesRememberForeverAction": "Behåll Filhistorik förevigt",
   "houseKeepingRecentFilesDaysAction": "Period av Filhistorik",
   "houseKeepingRecentFilesDaysDescription": "Ta bort filer efter så många dagar",
   "houseKeepingRecentFilesClearAction": "Ta bort senaste filhistorik",
@@ -88,7 +88,7 @@
   "bluetoothStartDiscovery": "Börja upptäck",
   "bluetoothStopDiscovery": "Stoppa upptäckt",
   "wallpaperPageTitle": "Bakgrundsbild",
-  "wallpaperPageBackgroundModeLabel": "Bakgrundsläge,
+  "wallpaperPageBackgroundModeLabel": "Bakgrundsläge",
   "wallpaperPageBackgroundModeWallpaper": "Bakgrundsbild",
   "wallpaperPageBackgroundModeColoredBackground": "Färgad bakgrund",
   "wallpaperPageBackgroundModeImageOfTheDay": "Dagens bild",
@@ -124,7 +124,7 @@
   "accessibilityPageTitle": "Tillgänglighet",
   "usersPageTitle": "Användare",
   "defaultAppsPageTitle": "Standard program",
-  "dateAndTimePageTitle": "Datum och tid,
+  "dateAndTimePageTitle": "Datum och tid",
   "dateAndTimePageAutoDateTime": "Automatiskt datum och tid",
   "dateAndTimePageAutoTimezone": "Automatisk tidszon",
   "dateAndTimePageTwentyFour": "24 timmars tid format",
@@ -190,7 +190,7 @@
   "magnifierExtendsOutsideScreen": "Förstoringsglaset sträcker sig utanför skärmen",
   "keepMagnifierCursorCentered": "Håll förstoringsmarkören centrerad",
   "magnifierCursorPushesContentsAround": "Förstoringsmarkören skjuter runt innehållet",
-  "magnifierCursorMovesWithContents": "Förstoringsmarkören flyttas med innehållet,
+  "magnifierCursorMovesWithContents": "Förstoringsmarkören flyttas med innehållet",
   "overlapsMouseCursor": "Överlappar muspekaren",
   "thickness": "Tjockhet",
   "length": "Längd",
@@ -224,11 +224,8 @@
   "bounceKeysDescription": "Ignorerar snabba dubbletter av tangenttryckningar",
   "stickyKeysTwoKeysOption": "Inaktivera om två tangenter trycks ned samtidigt",
   "stickyKeysBeepModifierOption": "Piper när en modifieringsknapp trycks ned",
-
   "acceptanceDelay": "Acceptansförsening",
-  "stickyKeysBeepKeyOption": "Piper när en knapp trycks ned,
+  "stickyKeysBeepKeyOption": "Piper när en knapp trycks ned",
   "stickyKeysBeepKeyAcceptedOption": "Pip när en tangent accepteras",
   "stickyKeysBeepKeyRejectedOption": "Pip när en tangent avvisas"
 }
-
-
