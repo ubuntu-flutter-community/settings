@@ -8,6 +8,7 @@ import 'package:settings/view/pages/power/power_settings.dart';
 import 'package:settings/view/pages/privacy/screen_saver_model.dart';
 import 'package:settings/view/pages/settings_page.dart';
 import 'package:settings/view/section_description.dart';
+import 'package:settings/view/settings_section.dart';
 import 'package:yaru_settings/yaru_settings.dart';
 import 'package:yaru_widgets/yaru_widgets.dart';
 
@@ -29,7 +30,7 @@ class ScreenSaverPage extends StatelessWidget {
           width: kDefaultWidth,
           text: context.l10n.screenSaverDescription,
         ),
-        YaruSection(
+        SettingsSection(
           width: kDefaultWidth,
           children: [
             YaruTile(

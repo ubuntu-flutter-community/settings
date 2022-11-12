@@ -9,6 +9,7 @@ import 'package:settings/view/duration_dropdown_button.dart';
 import 'package:settings/view/pages/power/power_settings.dart';
 import 'package:settings/view/pages/power/power_settings_dialogs.dart';
 import 'package:settings/view/pages/power/power_settings_model.dart';
+import 'package:settings/view/settings_section.dart';
 import 'package:yaru_icons/yaru_icons.dart';
 import 'package:yaru_settings/yaru_settings.dart';
 import 'package:yaru_widgets/yaru_widgets.dart';
@@ -42,7 +43,7 @@ class _PowerSettingsSectionState extends State<PowerSettingsSection> {
   @override
   Widget build(BuildContext context) {
     final model = context.watch<SuspendModel>();
-    return YaruSection(
+    return SettingsSection(
       width: kDefaultWidth,
       headline: const Text('Power Saving'),
       children: <Widget>[

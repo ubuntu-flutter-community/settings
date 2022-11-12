@@ -7,6 +7,7 @@ import 'package:settings/services/settings_service.dart';
 import 'package:settings/view/pages/privacy/privacy_model.dart';
 import 'package:settings/view/pages/settings_page.dart';
 import 'package:settings/view/section_description.dart';
+import 'package:settings/view/settings_section.dart';
 import 'package:yaru_icons/yaru_icons.dart';
 import 'package:yaru_settings/yaru_settings.dart';
 import 'package:yaru_widgets/yaru_widgets.dart';
@@ -27,7 +28,7 @@ class HouseKeepingPage extends StatelessWidget {
     final model = context.watch<PrivacyModel>();
     return SettingsPage(
       children: [
-        YaruSection(
+        SettingsSection(
           width: kDefaultWidth,
           headline: Text(context.l10n.houseKeepingRecentFilesHeadline),
           children: [
@@ -92,7 +93,7 @@ class HouseKeepingPage extends StatelessWidget {
             )
           ],
         ),
-        YaruSection(
+        SettingsSection(
           width: kDefaultWidth,
           headline: Text(context.l10n.houseKeepingTempTrashHeadline),
           children: [

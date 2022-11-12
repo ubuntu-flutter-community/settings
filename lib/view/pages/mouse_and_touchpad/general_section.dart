@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:settings/constants.dart';
+import 'package:settings/view/settings_section.dart';
 import 'package:yaru_settings/yaru_settings.dart';
-import 'package:yaru_widgets/yaru_widgets.dart';
 
 import 'mouse_and_touchpad_model.dart';
 
@@ -13,7 +13,7 @@ class GeneralSection extends StatelessWidget {
   Widget build(BuildContext context) {
     final model = context.watch<MouseAndTouchpadModel>();
 
-    return YaruSection(
+    return SettingsSection(
       width: kDefaultWidth,
       headline: const Text('General'),
       children: [

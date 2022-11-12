@@ -4,6 +4,7 @@ import 'package:settings/constants.dart';
 import 'package:settings/l10n/l10n.dart';
 import 'package:settings/view/pages/keyboard/special_characters_model.dart';
 import 'package:settings/view/pages/settings_simple_dialog.dart';
+import 'package:settings/view/settings_section.dart';
 import 'package:yaru_icons/yaru_icons.dart';
 import 'package:yaru_settings/yaru_settings.dart';
 import 'package:yaru_widgets/yaru_widgets.dart';
@@ -17,7 +18,7 @@ class SpecialCharactersSection extends StatelessWidget {
   Widget build(BuildContext context) {
     final model = context.watch<SpecialCharactersModel>();
 
-    return YaruSection(
+    return SettingsSection(
       width: kDefaultWidth,
       headline: const Text('Special characters'),
       children: [

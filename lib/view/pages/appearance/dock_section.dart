@@ -6,6 +6,7 @@ import 'package:settings/l10n/l10n.dart';
 import 'package:settings/utils.dart';
 import 'package:settings/view/pages/appearance/dock_model.dart';
 import 'package:settings/view/selectable_svg_image.dart';
+import 'package:settings/view/settings_section.dart';
 import 'package:yaru_settings/yaru_settings.dart';
 import 'package:yaru_widgets/yaru_widgets.dart';
 
@@ -27,7 +28,7 @@ class DockSection extends StatelessWidget {
       width: kDefaultWidth,
       child: Column(
         children: [
-          YaruSection(
+          SettingsSection(
             headline: const Text('Dock appearance'),
             children: [
               YaruTile(
@@ -83,7 +84,7 @@ class DockSection extends StatelessWidget {
               ),
             ],
           ),
-          YaruSection(
+          SettingsSection(
             headline: Text(context.l10n.dockPosition),
             children: [
               Row(
@@ -154,7 +155,7 @@ class DockSection extends StatelessWidget {
               )
             ],
           ),
-          YaruSection(
+          SettingsSection(
             headline: const Text('Dock options'),
             children: [
               Column(

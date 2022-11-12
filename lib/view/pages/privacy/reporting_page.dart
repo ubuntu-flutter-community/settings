@@ -7,6 +7,7 @@ import 'package:settings/view/link.dart';
 import 'package:settings/view/pages/privacy/reporting_model.dart';
 import 'package:settings/view/pages/settings_page.dart';
 import 'package:settings/view/section_description.dart';
+import 'package:settings/view/settings_section.dart';
 import 'package:yaru_settings/yaru_settings.dart';
 import 'package:yaru_widgets/yaru_widgets.dart';
 
@@ -45,7 +46,7 @@ class ReportingPage extends StatelessWidget {
             ),
           ),
         ),
-        YaruSection(
+        SettingsSection(
           width: kDefaultWidth,
           children: [
             YaruSwitchRow(

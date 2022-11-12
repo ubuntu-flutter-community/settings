@@ -5,6 +5,7 @@ import 'package:settings/l10n/l10n.dart';
 import 'package:settings/services/settings_service.dart';
 import 'package:settings/view/pages/power/lid_close_action.dart';
 import 'package:settings/view/pages/power/lid_close_model.dart';
+import 'package:settings/view/settings_section.dart';
 import 'package:yaru_widgets/yaru_widgets.dart';
 
 class LidCloseSection extends StatelessWidget {
@@ -20,7 +21,7 @@ class LidCloseSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final model = context.watch<LidCloseModel>();
-    return YaruSection(
+    return SettingsSection(
       width: kDefaultWidth,
       headline: const Text('Lid Close'),
       children: [

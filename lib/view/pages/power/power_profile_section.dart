@@ -5,6 +5,7 @@ import 'package:settings/l10n/l10n.dart';
 import 'package:settings/services/power_profile_service.dart';
 import 'package:settings/view/pages/power/power_profile_model.dart';
 import 'package:settings/view/pages/power/power_profile_widgets.dart';
+import 'package:settings/view/settings_section.dart';
 import 'package:yaru_widgets/yaru_widgets.dart';
 
 class PowerProfileSection extends StatefulWidget {
@@ -31,7 +32,7 @@ class _PowerProfileSectionState extends State<PowerProfileSection> {
   @override
   Widget build(BuildContext context) {
     final model = context.watch<PowerProfileModel>();
-    return YaruSection(
+    return SettingsSection(
       width: kDefaultWidth,
       headline: const Text('Power Mode'),
       children: [

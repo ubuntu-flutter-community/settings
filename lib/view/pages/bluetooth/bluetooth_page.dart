@@ -6,6 +6,7 @@ import 'package:settings/l10n/l10n.dart';
 import 'package:settings/view/pages/bluetooth/bluetooth_device_row.dart';
 import 'package:settings/view/pages/bluetooth/bluetooth_model.dart';
 import 'package:settings/view/pages/settings_page.dart';
+import 'package:settings/view/settings_section.dart';
 import 'package:yaru_settings/yaru_settings.dart';
 import 'package:yaru_widgets/yaru_widgets.dart';
 
@@ -58,7 +59,7 @@ class _BluetoothPageState extends State<BluetoothPage> {
             onChanged: (v) => model.setPowered(v),
           ),
         ),
-        YaruSection(
+        SettingsSection(
           width: kDefaultWidth,
           headline: Text(context.l10n.devices),
           headerWidget: Flexible(
