@@ -6,27 +6,25 @@ import 'package:yaru_colors/yaru_colors.dart';
 import 'package:yaru_icons/yaru_icons.dart';
 
 extension PowerProfileX on PowerProfile {
-  // TODO: localize
   String localize(AppLocalizations l10n) {
     switch (this) {
       case PowerProfile.performance:
-        return 'Performance';
+        return l10n.powerProfilePerformance;
       case PowerProfile.balanced:
-        return 'Balanced';
+        return l10n.powerProfileBalanced;
       case PowerProfile.powerSaver:
-        return 'Power save';
+        return l10n.powerProfilePowerSaver;
     }
   }
 
-  // TODO: localize
   String localizeDescription(AppLocalizations l10n) {
     switch (this) {
       case PowerProfile.performance:
-        return 'High performance and power usage.';
+        return l10n.powerProfilePerformanceDescription;
       case PowerProfile.balanced:
-        return 'Standard performance and power usage.';
+        return l10n.powerProfileBalancedDescription;
       case PowerProfile.powerSaver:
-        return 'Reduced performance and power usage.';
+        return l10n.powerProfilePowerSaverDescription;
     }
   }
 

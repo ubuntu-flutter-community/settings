@@ -35,7 +35,7 @@ class _PowerProfileSectionState extends State<PowerProfileSection> {
     final model = context.watch<PowerProfileModel>();
     return SettingsSection(
       width: kDefaultWidth,
-      headline: const Text('Power Mode'),
+      headline: Text(context.l10n.powerMode),
       children: [
         for (final profile in PowerProfile.values)
           ListTile(

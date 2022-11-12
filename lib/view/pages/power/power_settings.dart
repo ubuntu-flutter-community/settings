@@ -12,13 +12,13 @@ extension AutomaticSuspendL10n on AutomaticSuspend {
   String localize(BuildContext context) {
     switch (this) {
       case AutomaticSuspend.off:
-        return 'Off';
+        return context.l10n.powerAutomaticSuspendOff;
       case AutomaticSuspend.battery:
-        return 'When on battery power';
+        return context.l10n.powerAutomaticSuspendBattery;
       case AutomaticSuspend.pluggedIn:
-        return 'When plugged in';
+        return context.l10n.powerAutomaticSuspendPluggedIn;
       case AutomaticSuspend.both:
-        return 'On';
+        return context.l10n.powerAutomaticSuspendBoth;
       default:
         return context.l10n.unknown;
     }
