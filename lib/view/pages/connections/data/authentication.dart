@@ -1,4 +1,5 @@
 enum StorePassword { thisUser, allUsers, askAlways }
+
 enum WifiSecurity { wpa2Personal, wpa3Personal }
 
 class Authentication {
