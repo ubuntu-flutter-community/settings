@@ -1,11 +1,7 @@
 import 'dart:async';
 
 import 'package:dbus/dbus.dart';
-import 'package:flutter/material.dart';
-import 'package:settings/l10n/l10n.dart';
-import 'package:settings/utils.dart';
-import 'package:yaru_colors/yaru_colors.dart';
-import 'package:yaru_icons/yaru_icons.dart';
+import 'package:meta/meta.dart';
 
 @visibleForTesting
 const kPowerProfilesInterface = 'net.hadess.PowerProfiles';
@@ -16,66 +12,7 @@ const kPowerProfilesPath = '/net/hadess/PowerProfiles';
 enum PowerProfile {
   performance,
   balanced,
-  powerSaver;
-
-  // TODO: localize
-  String localize(AppLocalizations l10n) {
-    switch (this) {
-      case PowerProfile.performance:
-        return 'Performance';
-      case PowerProfile.balanced:
-        return 'Balanced';
-      case PowerProfile.powerSaver:
-        return 'Power save';
-    }
-  }
-
-  // TODO: localize
-  String localizeDescription(AppLocalizations l10n) {
-    switch (this) {
-      case PowerProfile.performance:
-        return 'High performance and power usage.';
-      case PowerProfile.balanced:
-        return 'Standard performance and power usage.';
-      case PowerProfile.powerSaver:
-        return 'Reduced performance and power usage.';
-    }
-  }
-
-  IconData getIcon() {
-    switch (this) {
-      case PowerProfile.performance:
-        return YaruIcons.meter_5;
-      case PowerProfile.balanced:
-        return YaruIcons.meter_3;
-      case PowerProfile.powerSaver:
-        return YaruIcons.meter_1;
-    }
-  }
-
-  Color getColor(bool light) {
-    switch (this) {
-      case PowerProfile.performance:
-        return light ? YaruColors.red : lighten(YaruColors.red, 30);
-      case PowerProfile.balanced:
-        return light ? YaruColors.inkstone : YaruColors.porcelain;
-      case PowerProfile.powerSaver:
-        return light ? YaruColors.success : lighten(YaruColors.success, 30);
-    }
-  }
-
-  String? toProfileString() {
-    switch (this) {
-      case PowerProfile.performance:
-        return 'performance';
-      case PowerProfile.balanced:
-        return 'balanced';
-      case PowerProfile.powerSaver:
-        return 'power-saver';
-      default:
-        return null;
-    }
-  }
+  powerSaver,
 }
 
 class PowerProfileService {
@@ -159,6 +96,21 @@ extension _ProfileValue on String {
         return PowerProfile.balanced;
       case 'power-saver':
         return PowerProfile.powerSaver;
+      default:
+        return null;
+    }
+  }
+}
+
+extension _ProfileString on PowerProfile {
+  String? toProfileString() {
+    switch (this) {
+      case PowerProfile.performance:
+        return 'performance';
+      case PowerProfile.balanced:
+        return 'balanced';
+      case PowerProfile.powerSaver:
+        return 'power-saver';
       default:
         return null;
     }
