@@ -1,6 +1,8 @@
 import 'package:flutter/foundation.dart';
+import 'package:settings/l10n/l10n.dart';
 import 'package:settings/schemas/schemas.dart';
 import 'package:settings/services/settings_service.dart';
+import 'package:settings/utils.dart';
 
 class AccessibilityModel extends ChangeNotifier {
   static const _gtkThemeKey = 'gtk-theme';
@@ -144,34 +146,45 @@ class AccessibilityModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  int? get cursorSize => _interfaceSettings?.intValue(_cursorSizeKey);
+  CursorSize? get cursorSize {
+    final cursorSizeValue = _interfaceSettings?.intValue(_cursorSizeKey);
 
-  String cursorSizeString() {
-    String value = '';
-    switch (cursorSize) {
+    switch (cursorSizeValue) {
       case 24:
-        value = 'Default';
-        break;
+        return CursorSize.normal;
       case 32:
-        value = 'Medium';
-        break;
+        return CursorSize.medium;
       case 48:
-        value = 'Large';
-        break;
+        return CursorSize.large;
       case 64:
-        value = 'Larger';
-        break;
+        return CursorSize.larger;
       case 96:
-        value = 'Largest';
-        break;
+        return CursorSize.largest;
       default:
-        value = '$cursorSize pixels';
+        return null;
     }
-    return value;
   }
 
-  void setCursorSize(int value) {
-    _interfaceSettings?.setValue(_cursorSizeKey, value);
+  set cursorSize(CursorSize? cursorSize) {
+    switch (cursorSize) {
+      case CursorSize.normal:
+        _interfaceSettings?.setValue(_cursorSizeKey, 24);
+        break;
+      case CursorSize.medium:
+        _interfaceSettings?.setValue(_cursorSizeKey, 32);
+        break;
+      case CursorSize.large:
+        _interfaceSettings?.setValue(_cursorSizeKey, 48);
+        break;
+      case CursorSize.larger:
+        _interfaceSettings?.setValue(_cursorSizeKey, 64);
+        break;
+      case CursorSize.largest:
+        _interfaceSettings?.setValue(_cursorSizeKey, 96);
+        break;
+      default:
+        break;
+    }
     notifyListeners();
   }
 
@@ -198,24 +211,31 @@ class AccessibilityModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  static const screenPositions = [
-    'full-screen',
-    'top-half',
-    'bottom-half',
-    'left-half',
-    'right-half'
-  ];
+  ScreenPosition? get screenPosition {
+    final positionString =
+        _a11yMagnifierSettings?.stringValue(_screenPositionKey);
+    switch (positionString) {
+      case 'full-screen':
+        return ScreenPosition.fullScreen;
+      case 'top-half':
+        return ScreenPosition.topHalf;
+      case 'bottom-half':
+        return ScreenPosition.bottomHalf;
+      case 'left-half':
+        return ScreenPosition.leftHalf;
+      case 'right-half':
+        return ScreenPosition.rightHalf;
+      default:
+        return null;
+    }
+  }
 
-  String? get _realScreenPosition =>
-      _a11yMagnifierSettings?.stringValue(_screenPositionKey);
-
-  String? get screenPosition => screenPositions.contains(_realScreenPosition)
-      ? _realScreenPosition
-      : null;
-
-  void setScreenPosition(String value) {
-    _a11yMagnifierSettings?.setValue(_screenPositionKey, value);
-    notifyListeners();
+  set screenPosition(ScreenPosition? screenPosition) {
+    if (screenPosition != null) {
+      final value = camelCaseToSplitByDash(screenPosition.name);
+      _a11yMagnifierSettings?.setValue(_screenPositionKey, value);
+      notifyListeners();
+    }
   }
 
   bool? get scrollAtEdges =>
@@ -562,5 +582,51 @@ class AccessibilityModel extends ChangeNotifier {
   void setDwellThreshold(double value) {
     _a11yMouseSettings?.setValue(_dwellThresholdKey, value.toInt());
     notifyListeners();
+  }
+}
+
+enum CursorSize {
+  normal,
+  medium,
+  large,
+  larger,
+  largest;
+
+  String localize(AppLocalizations l10n) {
+    switch (this) {
+      case CursorSize.normal:
+        return l10n.cursorSizeDefault;
+      case CursorSize.medium:
+        return l10n.cursorSizeMedium;
+      case CursorSize.large:
+        return l10n.cursorSizeLarge;
+      case CursorSize.larger:
+        return l10n.cursorSizeLarger;
+      case CursorSize.largest:
+        return l10n.cursorSizeLargest;
+    }
+  }
+}
+
+enum ScreenPosition {
+  fullScreen,
+  topHalf,
+  bottomHalf,
+  leftHalf,
+  rightHalf;
+
+  String localize(AppLocalizations l10n) {
+    switch (this) {
+      case ScreenPosition.fullScreen:
+        return l10n.screenPositionFullScreen;
+      case ScreenPosition.topHalf:
+        return l10n.screenPositionTopHalf;
+      case ScreenPosition.bottomHalf:
+        return l10n.screenPositionBottomHalf;
+      case ScreenPosition.leftHalf:
+        return l10n.screenPositionLeftHalf;
+      case ScreenPosition.rightHalf:
+        return l10n.screenPositionRightHalf;
+    }
   }
 }

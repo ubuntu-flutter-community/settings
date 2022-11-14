@@ -76,7 +76,7 @@ class _CursorSize extends StatelessWidget {
       trailing: Row(
         children: [
           const SizedBox(width: 24.0),
-          Text(model.cursorSizeString()),
+          Text(model.cursorSize?.localize(context.l10n) ?? ''),
           const SizedBox(width: 24.0),
           SizedBox(
             width: 40,
@@ -112,28 +112,28 @@ class _CursorSizeSettings extends StatelessWidget {
       children: [
         _CursorButton(
           imageName: 'assets/images/cursor/left_ptr_24px.png',
-          onPressed: () => model.setCursorSize(24),
-          selected: model.cursorSize == 24,
+          onPressed: () => model.cursorSize = CursorSize.normal,
+          selected: model.cursorSize == CursorSize.normal,
         ),
         _CursorButton(
           imageName: 'assets/images/cursor/left_ptr_32px.png',
-          onPressed: () => model.setCursorSize(32),
-          selected: model.cursorSize == 32,
+          onPressed: () => model.cursorSize = CursorSize.medium,
+          selected: model.cursorSize == CursorSize.medium,
         ),
         _CursorButton(
           imageName: 'assets/images/cursor/left_ptr_48px.png',
-          onPressed: () => model.setCursorSize(48),
-          selected: model.cursorSize == 48,
+          onPressed: () => model.cursorSize = CursorSize.large,
+          selected: model.cursorSize == CursorSize.large,
         ),
         _CursorButton(
           imageName: 'assets/images/cursor/left_ptr_64px.png',
-          onPressed: () => model.setCursorSize(64),
-          selected: model.cursorSize == 64,
+          onPressed: () => model.cursorSize = CursorSize.larger,
+          selected: model.cursorSize == CursorSize.larger,
         ),
         _CursorButton(
           imageName: 'assets/images/cursor/left_ptr_96px.png',
-          onPressed: () => model.setCursorSize(96),
-          selected: model.cursorSize == 96,
+          onPressed: () => model.cursorSize = CursorSize.largest,
+          selected: model.cursorSize == CursorSize.largest,
         ),
       ],
     );
@@ -274,26 +274,23 @@ class _MagnifierPositionOptions extends StatelessWidget {
             value: false,
             groupValue: model.lensMode,
             onChanged: (bool? value) => model.setLensMode(value!),
-            secondary: YaruPopupMenuButton<String>(
+            secondary: YaruPopupMenuButton<ScreenPosition>(
               enabled: model.screenPosition != null,
               initialValue: model.screenPosition,
-              itemBuilder: (p0) {
+              itemBuilder: (_) {
                 return [
-                  for (var item in AccessibilityModel.screenPositions)
+                  for (var item in ScreenPosition.values)
                     PopupMenuItem(
-                      child: Text(item.toLowerCase().replaceAll('-', ' ')),
+                      child: Text(item.localize(context.l10n)),
                       value: item,
                       onTap: !model.screenPartEnabled
                           ? null
-                          : () => model.setScreenPosition(item),
+                          : () => model.screenPosition = item,
                     )
                 ];
               },
               child: Text(
-                model.screenPosition
-                    .toString()
-                    .toLowerCase()
-                    .replaceAll('-', ' '),
+                model.screenPosition?.localize(context.l10n) ?? '',
               ),
             ),
           ),

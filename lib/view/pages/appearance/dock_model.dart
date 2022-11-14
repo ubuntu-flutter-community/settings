@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:settings/l10n/l10n.dart';
 import 'package:settings/schemas/schemas.dart';
 import 'package:settings/services/settings_service.dart';
+import 'package:settings/utils.dart';
 
 class DockModel extends ChangeNotifier {
   static const _showTrashKey = 'show-trash';
@@ -231,18 +232,4 @@ enum DockClickAction {
         return l10n.dockClickActionFocusOrPreviews;
     }
   }
-}
-
-String camelCaseToSplitByDash(String value) {
-  final beforeCapitalLetterRegex = RegExp(r'(?=[A-Z])');
-  final parts = value.split(beforeCapitalLetterRegex);
-  var newString = '';
-  for (var part in parts) {
-    if (newString.isEmpty) {
-      newString = part.toLowerCase();
-    } else {
-      newString = newString.toLowerCase() + '-' + part.toLowerCase();
-    }
-  }
-  return newString;
 }

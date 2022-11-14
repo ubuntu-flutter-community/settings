@@ -309,6 +309,16 @@
   "dockClickAction": "On-Click behavior",
   "dockClickActionMinimize": "Minimize",
   "dockClickActionCycleWindows": "Cycle through the windows",
-  "dockClickActionFocusOrPreviews": "Focus the window or show a preview"  
+  "dockClickActionFocusOrPreviews": "Focus the window or show a preview",
+  "screenPositionFullScreen": "Full screen",
+  "screenPositionTopHalf": "Top half",
+  "screenPositionBottomHalf": "Bottom half",
+  "screenPositionLeftHalf": "Left half",
+  "screenPositionRightHalf": "Right half",
+  "cursorSizeDefault": "Default",
+  "cursorSizeMedium": "Medium",
+  "cursorSizeLarge": "Large",
+  "cursorSizeLarger": "Larger",
+  "cursorSizeLargest": "Largest"
 }
 
