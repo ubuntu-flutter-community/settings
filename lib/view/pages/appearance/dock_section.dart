@@ -28,12 +28,12 @@ class DockSection extends StatelessWidget {
       child: Column(
         children: [
           SettingsSection(
-            headline: const Text('Dock appearance'),
+            headline: Text(context.l10n.dockAppearanceHeadline),
             children: [
               YaruTile(
-                title: const Text('Panel mode'),
-                subtitle: const Text(
-                  'Extends the height of the dock to become a panel.',
+                title: Text(context.l10n.dockPanelMode),
+                subtitle: Text(
+                  context.l10n.dockPanelModeDescription,
                 ),
                 trailing: YaruRadio<bool>(
                   value: true,
@@ -57,9 +57,9 @@ class DockSection extends StatelessWidget {
                 ),
               ),
               YaruTile(
-                title: const Text('Dock mode'),
-                subtitle: const Text(
-                  'Displays the dock in a centered, free-floating mode.',
+                title: Text(context.l10n.dockDockMode),
+                subtitle: Text(
+                  context.l10n.dockDockModeDescription,
                 ),
                 trailing: YaruRadio<bool>(
                   value: false,
@@ -155,14 +155,14 @@ class DockSection extends StatelessWidget {
             ],
           ),
           SettingsSection(
-            headline: const Text('Dock options'),
+            headline: Text(context.l10n.dockOptionsHeadline),
             children: [
               Column(
                 children: [
                   YaruSwitchRow(
                     enabled: model.alwaysShowDock != null,
-                    trailingWidget: const Text('Auto-hide the Dock'),
-                    actionDescription: 'The dock hides when windows touch it.',
+                    trailingWidget: Text(context.l10n.dockAutoHide),
+                    actionDescription: context.l10n.dockAutoHideDescription,
                     value: model.alwaysShowDock != null &&
                         model.alwaysShowDock == false,
                     onChanged: (value) => model.alwaysShowDock = !value,
@@ -185,21 +185,20 @@ class DockSection extends StatelessWidget {
                 ],
               ),
               YaruSwitchRow(
-                trailingWidget: const Text('Show Trash'),
-                actionDescription: 'Show the trash on the dock',
+                trailingWidget: Text(context.l10n.dockShowTrash),
+                actionDescription: context.l10n.dockShowTrashDescription,
                 value: model.showTrash,
                 onChanged: (value) => model.showTrash = value,
               ),
               YaruSwitchRow(
-                trailingWidget: const Text('Active App Glow'),
-                actionDescription:
-                    'Colors active app icons in their primary accent color.',
+                trailingWidget: Text(context.l10n.dockIconGlow),
+                actionDescription: context.l10n.dockIconGlowDescription,
                 value: model.appGlow,
                 onChanged: (value) => model.appGlow = value,
               ),
               YaruSliderRow(
                 enabled: model.maxIconSize != null,
-                actionLabel: 'Icon Size',
+                actionLabel: context.l10n.dockIconSize,
                 value: model.maxIconSize ?? 48.0,
                 min: 16,
                 max: 64,
