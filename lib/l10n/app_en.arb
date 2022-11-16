@@ -205,6 +205,7 @@
   "dateAndTimePageSecondsInPanel": "Show seconds in panel",
   "dateAndTimePageWeekdayInPanel": "Show weekday in panel",
   "dateAndTimePageWeekNumberInCalendar": "Show week number in calendar",
+  "dateAmdTimePageSelectTimezone": "Select a timezone",
   "infoPageTitle": "Info",
   "apply": "Apply",
   "displays": "Displays",
