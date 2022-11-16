@@ -133,5 +133,6 @@
   "dateAndTimePageSecondsInPanel": "Zeige Sekunden in Leiste",
   "dateAndTimePageWeekdayInPanel": "Zeige Wochentag in Leiste",
   "dateAndTimePageWeekNumberInCalendar": "Zeige Kalenderwoche in Leiste",
+  "dateAmdTimePageSelectTimezone": "Zeitzone auswählen",
   "infoPageTitle": "Info"
 }

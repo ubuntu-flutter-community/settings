@@ -54,8 +54,8 @@ class _DateTimePageState extends State<DateTimePage> {
           width: kDefaultWidth,
           child: Padding(
             padding: const EdgeInsets.only(bottom: 4),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            child: Wrap(
+              alignment: WrapAlignment.spaceBetween,
               children: [
                 TextButton(
                   onPressed: model.automaticDateTime != null &&
@@ -161,7 +161,7 @@ class _TimezoneSelectDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     final model = context.read<DateTimeModel>();
     return SettingsAlertDialog(
-      title: 'Select a timezone',
+      title: context.l10n.dateAmdTimePageSelectTimezone,
       child: SettingsPage(
         children: [
           for (var timezone in timezones)
