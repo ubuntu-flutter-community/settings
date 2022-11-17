@@ -1000,7 +1000,7 @@ packages:
       name: yaru_icons
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.2.6"
+    version: "0.2.7"
   yaru_settings:
     dependency: "direct main"
     description:
