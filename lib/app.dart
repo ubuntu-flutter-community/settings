@@ -55,7 +55,11 @@ class _UbuntuSettingsAppState extends State<UbuntuSettingsApp> {
               final pages =
                   _filteredItems.isNotEmpty ? _filteredItems : pageItems;
               return YaruMasterDetailPage(
-                leftPaneWidth: 280,
+                layoutDelegate: const YaruMasterResizablePaneDelegate(
+                  initialPaneWidth: 280,
+                  minPaneWidth: 170,
+                  minPageWidth: kYaruMasterDetailBreakpoint / 2,
+                ),
                 length: pages.length,
                 tileBuilder: (context, index, selected) => YaruMasterTile(
                   title: pages[index].titleBuilder(context),
@@ -65,7 +69,9 @@ class _UbuntuSettingsAppState extends State<UbuntuSettingsApp> {
                   body: pages[index].builder(context),
                   appBar: AppBar(
                     title: pages[index].titleBuilder(context),
-                    leading: const YaruBackButton(),
+                    leading: Navigator.of(context).canPop()
+                        ? const YaruBackButton()
+                        : null,
                   ),
                 ),
                 appBar: SearchAppBar(
