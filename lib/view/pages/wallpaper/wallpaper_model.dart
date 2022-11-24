@@ -194,7 +194,7 @@ class WallpaperModel extends SafeChangeNotifier {
         case ImageOfTheDayProvider.nasa: {
             return ImageProvider(
               apiUrl: _nasaUrl,
-              getImageUrl: (json) => json['url'],
+              getImageUrl: (json) => json['hdurl']??json['url'],
               getImageMetadata: (json) => '${json['title']}  (© ${json['copyright']})');
           }
       }
