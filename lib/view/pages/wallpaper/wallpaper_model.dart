@@ -189,13 +189,18 @@ class WallpaperModel extends SafeChangeNotifier {
               getImageUrl: (json) {
                 return _bingUrl + json['images'][0]['url'];
               },
-              getImageMetadata: (json) => json['images'][0]['copyright'].replaceAll('/', ' - '),);
+              getImageMetadata: (json) =>
+                  json['images'][0]['copyright'].replaceAll('/', ' - '),
+            );
           }
-        case ImageOfTheDayProvider.nasa: {
+        case ImageOfTheDayProvider.nasa:
+          {
             return ImageProvider(
               apiUrl: _nasaUrl,
-              getImageUrl: (json) => json['hdurl']??json['url'],
-              getImageMetadata: (json) => '${json['title']}  (© ${json['copyright']})',);
+              getImageUrl: (json) => json['hdurl'] ?? json['url'],
+              getImageMetadata: (json) =>
+                  '${json['title']}  (© ${json['copyright']})',
+            );
           }
       }
     }
@@ -208,16 +213,17 @@ class WallpaperModel extends SafeChangeNotifier {
       var decodedJson = json.decode(imageMetadataResponse.body);
       return ImageModel(
         imageUrl: currentProvider.getImageUrl(decodedJson),
-        imageMetadata: currentProvider
-            .getImageMetadata(decodedJson),
+        imageMetadata: currentProvider.getImageMetadata(decodedJson),
       );
     }
+
     ImageModel image = await getImageUrl();
 
     //TODO: Save the images to a more suitable location
-    String path = '${directory.path}/ImageOfTheDay/${imageOfTheDayProvider.name}/';
+    String path =
+        '${directory.path}/ImageOfTheDay/${imageOfTheDayProvider.name}/';
     bool exists = await Directory(path).exists();
-    if(!exists) {
+    if (!exists) {
       await Directory(path).create(recursive: true);
     }
     //TODO: Embed the copyright info in the metadata instead of the filename
@@ -234,6 +240,7 @@ class WallpaperModel extends SafeChangeNotifier {
     pictureUri = file.path;
   }
 }
+
 class ImageProvider {
   final String apiUrl;
   final Function getImageUrl;
@@ -244,6 +251,7 @@ class ImageProvider {
     required this.getImageUrl,
   });
 }
+
 class ImageModel {
   final String imageUrl;
   final String imageMetadata;
