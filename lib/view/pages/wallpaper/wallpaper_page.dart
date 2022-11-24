@@ -93,6 +93,16 @@ class WallpaperPage extends StatelessWidget {
                   selected: false,
                 ),
         ),
+        if (model.wallpaperMode == WallpaperMode.imageOfTheDay) 
+          SizedBox(
+              width: kDefaultWidth,
+              child: Align(
+                  alignment: AlignmentDirectional.centerStart,
+                  child: Text(model.pictureUri
+                      .split('/')
+                      .last
+                      .replaceFirst('.jpeg', '')))),
+                                    
         if (model.wallpaperMode == WallpaperMode.imageOfTheDay)
           YaruTile(
             leading:
