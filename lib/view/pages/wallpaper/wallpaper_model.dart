@@ -189,13 +189,13 @@ class WallpaperModel extends SafeChangeNotifier {
               getImageUrl: (json) {
                 return _bingUrl + json['images'][0]['url'];
               },
-              getImageMetadata: (json) => json['images'][0]['copyright'].replaceAll('/', ' - '));
+              getImageMetadata: (json) => json['images'][0]['copyright'].replaceAll('/', ' - '),);
           }
         case ImageOfTheDayProvider.nasa: {
             return ImageProvider(
               apiUrl: _nasaUrl,
               getImageUrl: (json) => json['hdurl']??json['url'],
-              getImageMetadata: (json) => '${json['title']}  (© ${json['copyright']})');
+              getImageMetadata: (json) => '${json['title']}  (© ${json['copyright']})',);
           }
       }
     }

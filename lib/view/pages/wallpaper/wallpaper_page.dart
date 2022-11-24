@@ -101,7 +101,7 @@ class WallpaperPage extends StatelessWidget {
                   child: Text(model.pictureUri
                       .split('/')
                       .last
-                      .replaceFirst('.jpeg', '')))),
+                      .replaceFirst('.jpeg', ''),),),),
                                     
         if (model.wallpaperMode == WallpaperMode.imageOfTheDay)
           YaruTile(
