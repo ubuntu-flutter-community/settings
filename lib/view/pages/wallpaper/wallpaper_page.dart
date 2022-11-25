@@ -94,41 +94,68 @@ class WallpaperPage extends StatelessWidget {
                 ),
         ),
         if (model.wallpaperMode == WallpaperMode.imageOfTheDay)
-          YaruTile(
-            leading:
-                Text(context.l10n.wallpaperPageBackgroundModeImageOfTheDay),
-            title: YaruPopupMenuButton<ImageOfTheDayProvider>(
-              child: Text(model.imageOfTheDayProvider.localize(context.l10n)),
-              initialValue: model.imageOfTheDayProvider,
-              itemBuilder: (context) {
-                return [
-                  for (final provider in ImageOfTheDayProvider.values)
-                    PopupMenuItem(
-                      value: provider,
-                      onTap: () => model.setUrlWallpaperProvider(provider),
-                      child: Text(
-                        provider.localize(context.l10n),
-                      ),
-                    )
-                ];
-              },
-            ),
-            trailing: YaruOptionButton(
-              onPressed: () async {
-                await model.refreshUrlWallpaper();
-                if (model.errorMessage.isNotEmpty) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                      content: Text(
-                        model.errorMessage,
-                        style: TextStyle(color: Theme.of(context).primaryColor),
-                      ),
+          Column(
+            children: [
+              SizedBox(
+                width: kDefaultWidth,
+                child: Align(
+                  alignment: AlignmentDirectional.centerStart,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 5),
+                    child: Text(
+                      model.caption,
+                      style: Theme.of(context).textTheme.caption!.copyWith(
+                            fontStyle: FontStyle.italic,
+                          ),
                     ),
-                  );
-                }
-              },
-              child: const Icon(YaruIcons.refresh),
-            ),
+                  ),
+                ),
+              ),
+              const SizedBox(
+                height: 15,
+              ),
+              YaruTile(
+                leading: Text(
+                  context.l10n.wallpaperPageBackgroundModeImageOfTheDay,
+                ),
+                title: YaruPopupMenuButton<ImageOfTheDayProvider>(
+                  child: Text(
+                    model.imageOfTheDayProvider.localize(context.l10n),
+                  ),
+                  initialValue: model.imageOfTheDayProvider,
+                  itemBuilder: (context) {
+                    return [
+                      for (final provider in ImageOfTheDayProvider.values)
+                        PopupMenuItem(
+                          value: provider,
+                          onTap: () => model.setUrlWallpaperProvider(provider),
+                          child: Text(
+                            provider.localize(context.l10n),
+                          ),
+                        )
+                    ];
+                  },
+                ),
+                trailing: YaruOptionButton(
+                  onPressed: () async {
+                    await model.refreshUrlWallpaper();
+                    if (model.errorMessage.isNotEmpty) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text(
+                            model.errorMessage,
+                            style: TextStyle(
+                              color: Theme.of(context).primaryColor,
+                            ),
+                          ),
+                        ),
+                      );
+                    }
+                  },
+                  child: const Icon(YaruIcons.refresh),
+                ),
+              ),
+            ],
           ),
         if (model.wallpaperMode == WallpaperMode.custom)
           Column(

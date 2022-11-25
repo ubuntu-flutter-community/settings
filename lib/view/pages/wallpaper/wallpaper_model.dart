@@ -67,6 +67,8 @@ class WallpaperModel extends SafeChangeNotifier {
     notifyListeners();
   }
 
+  String get caption => pictureUri.split('/').last.replaceFirst('.jpeg', '');
+
   Future<void> copyToCollection(String picPathString) async {
     File image = File(picPathString);
     if (_userWallpapersDir == null) return;
@@ -179,46 +181,87 @@ class WallpaperModel extends SafeChangeNotifier {
 
     // Load the user's Documents Directory to store the downloaded wallpapers
     final directory = await getApplicationDocumentsDirectory();
-    final file = File('${directory.path}/${imageOfTheDayProvider.name}.jpeg');
 
-    final Map providers = {
-      'bing': {
-        'apiUrl': _bingApiUrl,
-        'getImageUrl': (jsonData) {
-          return _bingUrl + json.decode(jsonData.body)['images'][0]['url'];
-        }
-      },
-      'nasa': {
-        'apiUrl': _nasaUrl, //The api uses my own api_key
-        'getImageUrl': (jsonData) {
-          return json.decode(jsonData.body)['url'];
-        }
-      },
-    };
-
-    //Get the url of the day using the apiUrl in the providers Map
-    Future<String> getImageUrl() async {
-      Map currentProvider = providers[imageOfTheDayProvider.name];
-      http.Response imageMetadataResponse =
-          await http.get(Uri.parse(currentProvider['apiUrl']));
-      return currentProvider['getImageUrl'](imageMetadataResponse);
+    ImageProvider getProvider(ImageOfTheDayProvider providerName) {
+      switch (providerName) {
+        case ImageOfTheDayProvider.bing:
+          {
+            return ImageProvider(
+              apiUrl: _bingApiUrl,
+              getImageUrl: (json) {
+                return _bingUrl + json['images'][0]['url'];
+              },
+              getImageMetadata: (json) =>
+                  json['images'][0]['copyright'].replaceAll('/', ' - ') ??
+                  '(© Bing)',
+            );
+          }
+        case ImageOfTheDayProvider.nasa:
+          {
+            return ImageProvider(
+              apiUrl: _nasaUrl,
+              getImageUrl: (json) => json['hdurl'] ?? json['url'],
+              getImageMetadata: (json) =>
+                  '${json['title'] == null ? '' : json['title'] + ' '}(© ${json['copyright'] ?? 'NASA'})',
+            );
+          }
+      }
     }
 
-    String imageUrl = '';
-    imageUrl = await getImageUrl().onError((error, stackTrace) {
-      return errorMessage = error.toString();
-    });
+    //Get the url of the day using the apiUrl in the providers Map
+    Future<ImageModel> getImageUrl() async {
+      ImageProvider currentProvider = getProvider(imageOfTheDayProvider);
+      http.Response imageMetadataResponse =
+          await http.get(Uri.parse(currentProvider.apiUrl));
+      var decodedJson = json.decode(imageMetadataResponse.body);
+      return ImageModel(
+        imageUrl: currentProvider.getImageUrl(decodedJson),
+        imageMetadata: currentProvider.getImageMetadata(decodedJson),
+      );
+    }
+
+    ImageModel image = await getImageUrl();
+
+    //TODO: Save the images to a more suitable location
+    String path =
+        '${directory.path}/ImageOfTheDay/${imageOfTheDayProvider.name}/';
+    bool exists = await Directory(path).exists();
+    if (!exists) {
+      await Directory(path).create(recursive: true);
+    }
+    //TODO: Embed the copyright info in the metadata instead of the filename
+    final file = File(path + image.imageMetadata + '.jpeg');
 
     // Refetch if the image doesn't exist or the current image is older than a day
     if (!file.existsSync() ||
         file.lastModifiedSync().day != DateTime.now().day) {
-      var imageResponse = await http.get(Uri.parse(imageUrl));
+      var imageResponse = await http.get(Uri.parse(image.imageUrl));
       await file.writeAsBytes(imageResponse.bodyBytes);
     }
 
     // Set the wallpaper to the downloaded image path
     pictureUri = file.path;
   }
+}
+
+class ImageProvider {
+  final String apiUrl;
+  final Function getImageUrl;
+  final Function getImageMetadata;
+  ImageProvider({
+    required this.apiUrl,
+    required this.getImageMetadata,
+    required this.getImageUrl,
+  });
+}
+
+class ImageModel {
+  final String imageUrl;
+  final String imageMetadata;
+  ImageModel({
+    required this.imageUrl,
+    required this.imageMetadata,
+  });
 }
 
 enum ColorShadingType {
