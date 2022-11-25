@@ -98,8 +98,14 @@ class WallpaperPage extends StatelessWidget {
             width: kDefaultWidth,
             child: Align(
               alignment: AlignmentDirectional.centerStart,
-              child: Text(
-                model.pictureUri.split('/').last.replaceFirst('.jpeg', ''),
+              child: Padding(
+                padding: const EdgeInsets.only(left: 5),
+                child: Text(
+                  model.pictureUri.split('/').last.replaceFirst('.jpeg', ''),
+                  style: Theme.of(context).textTheme.caption!.copyWith(
+                        fontStyle: FontStyle.italic,
+                      ),
+                ),
               ),
             ),
           ),
