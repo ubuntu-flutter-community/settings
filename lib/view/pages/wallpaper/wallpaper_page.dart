@@ -101,7 +101,7 @@ class WallpaperPage extends StatelessWidget {
               child: Padding(
                 padding: const EdgeInsets.only(left: 5, bottom: 15),
                 child: Text(
-                  model.pictureUri.split('/').last.replaceFirst('.jpeg', ''),
+                  model.caption,
                   style: Theme.of(context).textTheme.caption!.copyWith(
                         fontStyle: FontStyle.italic,
                       ),

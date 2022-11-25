@@ -67,6 +67,10 @@ class WallpaperModel extends SafeChangeNotifier {
     notifyListeners();
   }
 
+  String get caption =>
+      pictureUri.split('/').last.replaceFirst('.jpeg', '');
+
+
   Future<void> copyToCollection(String picPathString) async {
     File image = File(picPathString);
     if (_userWallpapersDir == null) return;
