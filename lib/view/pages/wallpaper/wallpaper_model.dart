@@ -190,7 +190,8 @@ class WallpaperModel extends SafeChangeNotifier {
                 return _bingUrl + json['images'][0]['url'];
               },
               getImageMetadata: (json) =>
-                  json['images'][0]['copyright'].replaceAll('/', ' - '),
+                  json['images'][0]['copyright'].replaceAll('/', ' - ') ??
+                  '(© Bing)',
             );
           }
         case ImageOfTheDayProvider.nasa:
@@ -199,7 +200,7 @@ class WallpaperModel extends SafeChangeNotifier {
               apiUrl: _nasaUrl,
               getImageUrl: (json) => json['hdurl'] ?? json['url'],
               getImageMetadata: (json) =>
-                  '${json['title']}  (© ${json['copyright']})',
+                  '${json['title'] == null ? '' : json['title'] + ' '}(© ${json['copyright'] ?? 'NASA'})',
             );
           }
       }
