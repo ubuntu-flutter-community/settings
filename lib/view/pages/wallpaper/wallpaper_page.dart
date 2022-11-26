@@ -219,11 +219,15 @@ class _WallpaperImage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Image.file(
-      File(path),
-      filterQuality: FilterQuality.none,
-      fit: BoxFit.fill,
-      cacheHeight: height,
+    return AspectRatio(
+      // TODO: Set it to the aspect ratio of the device screen
+      aspectRatio: 16 / 9,
+      child: Image.file(
+        File(path),
+        filterQuality: FilterQuality.none,
+        fit: BoxFit.cover,
+        cacheHeight: height,
+      ),
     );
   }
 }
