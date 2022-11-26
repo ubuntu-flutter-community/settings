@@ -29,7 +29,7 @@ class ColorShadingOptionRow extends StatelessWidget {
       width: width,
       child: YaruTile(
         title: Text(actionLabel),
-        subtitle: Text(actionDescription ?? ''),
+        subtitle: actionDescription != null ? Text(actionDescription!) : null,
         trailing: Row(
           children: [
             YaruPopupMenuButton<ColorShadingType>(
