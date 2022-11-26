@@ -240,7 +240,7 @@ class WallpaperModel extends SafeChangeNotifier {
     }
 
     // Set the wallpaper to the downloaded image path
-    pictureUri = file.path;
+    pictureUri = pictureUriDark = file.path;
   }
 }
 
