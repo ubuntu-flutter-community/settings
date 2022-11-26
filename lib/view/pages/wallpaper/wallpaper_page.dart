@@ -70,15 +70,6 @@ class WallpaperPage extends StatelessWidget {
             ),
           ),
         ),
-        if (model.wallpaperMode == WallpaperMode.solid)
-          ColorShadingOptionRow(
-            width: kDefaultWidth,
-            actionLabel: context.l10n.wallpaperPageColorModeLabel,
-            onDropDownChanged: (value) {
-              model.colorShadingType = value;
-            },
-            value: model.colorShadingType,
-          ),
         SizedBox(
           width: kDefaultWidth,
           child: pictureUri.isEmpty
@@ -93,6 +84,15 @@ class WallpaperPage extends StatelessWidget {
                   selected: false,
                 ),
         ),
+        if (model.wallpaperMode == WallpaperMode.solid)
+          ColorShadingOptionRow(
+            width: kDefaultWidth,
+            actionLabel: context.l10n.wallpaperPageColorModeLabel,
+            onDropDownChanged: (value) {
+              model.colorShadingType = value;
+            },
+            value: model.colorShadingType,
+          ),
         if (model.wallpaperMode == WallpaperMode.imageOfTheDay)
           Column(
             children: [
@@ -112,47 +112,51 @@ class WallpaperPage extends StatelessWidget {
                 ),
               ),
               const SizedBox(
-                height: 15,
+                height: 10,
               ),
-              YaruTile(
-                leading: Text(
-                  context.l10n.wallpaperPageBackgroundModeImageOfTheDay,
-                ),
-                title: YaruPopupMenuButton<ImageOfTheDayProvider>(
-                  child: Text(
-                    model.imageOfTheDayProvider.localize(context.l10n),
+              SizedBox(
+                width: kDefaultWidth,
+                child: YaruTile(
+                  leading: Text(
+                    context.l10n.wallpaperPageBackgroundModeImageOfTheDay,
                   ),
-                  initialValue: model.imageOfTheDayProvider,
-                  itemBuilder: (context) {
-                    return [
-                      for (final provider in ImageOfTheDayProvider.values)
-                        PopupMenuItem(
-                          value: provider,
-                          onTap: () => model.setUrlWallpaperProvider(provider),
-                          child: Text(
-                            provider.localize(context.l10n),
-                          ),
-                        )
-                    ];
-                  },
-                ),
-                trailing: YaruOptionButton(
-                  onPressed: () async {
-                    await model.refreshUrlWallpaper();
-                    if (model.errorMessage.isNotEmpty) {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          content: Text(
-                            model.errorMessage,
-                            style: TextStyle(
-                              color: Theme.of(context).primaryColor,
+                  title: YaruPopupMenuButton<ImageOfTheDayProvider>(
+                    child: Text(
+                      model.imageOfTheDayProvider.localize(context.l10n),
+                    ),
+                    initialValue: model.imageOfTheDayProvider,
+                    itemBuilder: (context) {
+                      return [
+                        for (final provider in ImageOfTheDayProvider.values)
+                          PopupMenuItem(
+                            value: provider,
+                            onTap: () =>
+                                model.setUrlWallpaperProvider(provider),
+                            child: Text(
+                              provider.localize(context.l10n),
+                            ),
+                          )
+                      ];
+                    },
+                  ),
+                  trailing: YaruOptionButton(
+                    onPressed: () async {
+                      await model.refreshUrlWallpaper();
+                      if (model.errorMessage.isNotEmpty) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text(
+                              model.errorMessage,
+                              style: TextStyle(
+                                color: Theme.of(context).primaryColor,
+                              ),
                             ),
                           ),
-                        ),
-                      );
-                    }
-                  },
-                  child: const Icon(YaruIcons.refresh),
+                        );
+                      }
+                    },
+                    child: const Icon(YaruIcons.refresh),
+                  ),
                 ),
               ),
             ],
