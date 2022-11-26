@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 import 'package:settings/constants.dart';
 import 'package:settings/l10n/l10n.dart';
 import 'package:settings/services/settings_service.dart';
+import 'package:settings/services/display/display_service.dart';
 import 'package:settings/utils.dart';
 import 'package:settings/view/pages/settings_page.dart';
 import 'package:settings/view/pages/wallpaper/color_shading_option_row.dart';
@@ -219,9 +220,18 @@ class _WallpaperImage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final service = Provider.of<DisplayService>(context, listen: false)
+        .currentNotifier
+        .value;
+    double aspectRatio = 16 / 9;
+
+    if (service != null) {
+      final resolution = service.configurations.first.resolution.split('x');
+      aspectRatio = (int.parse(resolution.first) / int.parse(resolution.last));
+    }
+
     return AspectRatio(
-      // TODO: Set it to the aspect ratio of the device screen
-      aspectRatio: 16 / 9,
+      aspectRatio: aspectRatio,
       child: Image.file(
         File(path),
         filterQuality: FilterQuality.none,
