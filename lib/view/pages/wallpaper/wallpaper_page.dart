@@ -8,7 +8,6 @@ import 'package:settings/l10n/l10n.dart';
 import 'package:settings/services/settings_service.dart';
 import 'package:settings/services/display/display_service.dart';
 import 'package:settings/utils.dart';
-import 'package:settings/view/pages/displays/displays_configuration.dart';
 import 'package:settings/view/pages/settings_page.dart';
 import 'package:settings/view/pages/wallpaper/color_shading_option_row.dart';
 import 'package:settings/view/pages/wallpaper/wallpaper_model.dart';
@@ -39,21 +38,11 @@ class WallpaperPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final model = context.watch<WallpaperModel>();
-    final displayService = context.watch<DisplayService>();
 
-    double getAspectRatio() {
-      DisplaysConfiguration? displaysConfiguration =
-          displayService.currentNotifier.value;
-      if (displaysConfiguration != null) {
-        final resolution =
-            displaysConfiguration.configurations.first.resolution.split('x');
-        double aspectRatio =
-            (int.parse(resolution.first) / int.parse(resolution.last));
-        return aspectRatio;
-      }
-      //Default aspect ratio
-      return 16 / 9;
-    }
+    final displayService = context.watch<DisplayService>();
+    final aspectRatio = displayService
+            .currentNotifier.value?.configurations.first.aspectRatio ??
+        16 / 9;
 
     const headlineInsets =
         EdgeInsets.only(top: 30, left: 10, right: 10, bottom: 10);
@@ -91,7 +80,7 @@ class WallpaperPage extends StatelessWidget {
         SizedBox(
           width: kDefaultWidth,
           child: AspectRatio(
-            aspectRatio: getAspectRatio(),
+            aspectRatio: aspectRatio,
             child: pictureUri.isEmpty
                 ? ChangeNotifierProvider.value(
                     value: model,
