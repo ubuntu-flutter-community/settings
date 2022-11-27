@@ -240,11 +240,18 @@ class WallpaperModel extends SafeChangeNotifier {
     //Get the url of the day using the apiUrl in the providers Map
     Future<ImageModel> getImageUrl() async {
       ImageProvider currentProvider = getProvider(imageOfTheDayProvider);
+
+      if (currentProvider.isDirect) {
+        return ImageModel(
+          imageUrl: currentProvider.apiUrl,
+          imageMetadata: currentProvider.getImageMetadata(),
+        );
+      }
       http.Response imageMetadataResponse =
           await http.get(Uri.parse(currentProvider.apiUrl));
       var decodedJson = json.decode(imageMetadataResponse.body);
       return ImageModel(
-        imageUrl: currentProvider.getImageUrl(decodedJson),
+        imageUrl: currentProvider.getImageUrl!(decodedJson),
         imageMetadata: currentProvider.getImageMetadata(decodedJson),
       );
     }
@@ -275,12 +282,14 @@ class WallpaperModel extends SafeChangeNotifier {
 
 class ImageProvider {
   final String apiUrl;
-  final Function getImageUrl;
+  final Function? getImageUrl;
   final Function getImageMetadata;
+  final bool isDirect;
   ImageProvider({
     required this.apiUrl,
     required this.getImageMetadata,
-    required this.getImageUrl,
+    this.getImageUrl,
+    this.isDirect = false,
   });
 }
 
