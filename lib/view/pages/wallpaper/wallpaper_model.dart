@@ -22,6 +22,8 @@ const _bingUrl = 'http://www.bing.com';
 const _nasaUrl =
     'https://api.nasa.gov/planetary/apod?api_key=PdQXYMNV2kT9atjMjNI9gbzLqe7qF6TcEHXhexXg';
 
+const _unsplashUrl = 'https://source.unsplash.com/1920x1080/daily';
+
 class WallpaperModel extends SafeChangeNotifier {
   final Settings? _wallpaperSettings;
   static const _pictureUriKey = 'picture-uri';
@@ -234,6 +236,14 @@ class WallpaperModel extends SafeChangeNotifier {
                   '${json['title'] == null ? '' : json['title'] + ' '}(© ${json['copyright'] ?? 'NASA'})',
             );
           }
+        case ImageOfTheDayProvider.unsplash:
+          {
+            return ImageProvider(
+              apiUrl: _unsplashUrl,
+              getImageMetadata: () => '(© Unsplash)',
+              isDirect: true,
+            );
+          }
       }
     }
 
@@ -338,7 +348,8 @@ enum WallpaperMode {
 
 enum ImageOfTheDayProvider {
   bing,
-  nasa;
+  nasa,
+  unsplash;
 
   String localize(AppLocalizations l10n) {
     switch (this) {
@@ -346,6 +357,8 @@ enum ImageOfTheDayProvider {
         return 'Bing';
       case nasa:
         return 'Nasa';
+      case unsplash:
+        return 'Unsplash';
     }
   }
 }
