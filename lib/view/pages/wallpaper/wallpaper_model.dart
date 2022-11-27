@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:io';
 
 import 'package:mime/mime.dart';
@@ -38,20 +39,21 @@ class WallpaperModel extends SafeChangeNotifier {
       Platform.environment['HOME']! + _gnomeUserWallpaperLocation;
 
   DisplaysConfiguration? _displaysConfiguration;
+  StreamSubscription<DisplaysConfiguration>? _displaysConfigurationSubscription;
 
   WallpaperModel(
     SettingsService wallpaperService,
     DisplayService displayService,
   ) : _wallpaperSettings = wallpaperService.lookup(schemaBackground) {
     _wallpaperSettings?.addListener(notifyListeners);
-    displayService.monitorStateStream.listen((configuration) {
-      _displaysConfiguration = configuration;
-    });
+    _displaysConfigurationSubscription = displayService.monitorStateStream
+        .listen((configuration) => _displaysConfiguration = configuration);
   }
 
   @override
   void dispose() {
     _wallpaperSettings?.removeListener(notifyListeners);
+    _displaysConfigurationSubscription?.cancel();
     super.dispose();
   }
 
