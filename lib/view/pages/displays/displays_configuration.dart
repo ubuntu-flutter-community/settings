@@ -94,14 +94,6 @@ class DisplayMonitorConfiguration extends Equatable {
 
   String get resolution => _resolution;
 
-  double get aspectRatio {
-    final resolution = _resolution.split('x');
-    double aspectRatio =
-        (int.parse(resolution.first) / int.parse(resolution.last));
-
-    return aspectRatio;
-  }
-
   String get refreshRate => _refreshRate;
 
   final List<String> availableRefreshRates;

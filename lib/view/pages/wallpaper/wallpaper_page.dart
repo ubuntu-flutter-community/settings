@@ -28,9 +28,12 @@ class WallpaperPage extends StatelessWidget {
   const WallpaperPage({Key? key}) : super(key: key);
 
   static Widget create(BuildContext context) {
-    final service = Provider.of<SettingsService>(context, listen: false);
+    final settingsService =
+        Provider.of<SettingsService>(context, listen: false);
+    final displayService = Provider.of<DisplayService>(context, listen: false);
+
     return ChangeNotifierProvider<WallpaperModel>(
-      create: (_) => WallpaperModel(service),
+      create: (_) => WallpaperModel(settingsService, displayService),
       child: const WallpaperPage(),
     );
   }
@@ -38,11 +41,6 @@ class WallpaperPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final model = context.watch<WallpaperModel>();
-
-    final displayService = context.watch<DisplayService>();
-    final aspectRatio = displayService
-            .currentNotifier.value?.configurations.first.aspectRatio ??
-        16 / 9;
 
     const headlineInsets =
         EdgeInsets.only(top: 30, left: 10, right: 10, bottom: 10);
@@ -80,7 +78,7 @@ class WallpaperPage extends StatelessWidget {
         SizedBox(
           width: kDefaultWidth,
           child: AspectRatio(
-            aspectRatio: aspectRatio,
+            aspectRatio: model.aspectRatio,
             child: pictureUri.isEmpty
                 ? ChangeNotifierProvider.value(
                     value: model,
