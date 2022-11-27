@@ -1,14 +1,18 @@
+import 'dart:async';
 import 'dart:io';
 
 import 'package:mime/mime.dart';
 import 'package:safe_change_notifier/safe_change_notifier.dart';
 import 'package:settings/l10n/l10n.dart';
 import 'package:settings/schemas/schemas.dart';
+import 'package:settings/services/display/display_service.dart';
 import 'package:settings/services/settings_service.dart';
 
 import 'package:path_provider/path_provider.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+
+import 'package:settings/view/pages/displays/displays_configuration.dart';
 
 const gnomeWallpaperSuffix = 'file://';
 const _gnomeUserWallpaperLocation = '/.local/share/backgrounds/';
@@ -34,14 +38,22 @@ class WallpaperModel extends SafeChangeNotifier {
   final String? _userWallpapersDir =
       Platform.environment['HOME']! + _gnomeUserWallpaperLocation;
 
-  WallpaperModel(SettingsService service)
-      : _wallpaperSettings = service.lookup(schemaBackground) {
+  DisplaysConfiguration? _displaysConfiguration;
+  StreamSubscription<DisplaysConfiguration>? _displaysConfigurationSubscription;
+
+  WallpaperModel(
+    SettingsService wallpaperService,
+    DisplayService displayService,
+  ) : _wallpaperSettings = wallpaperService.lookup(schemaBackground) {
     _wallpaperSettings?.addListener(notifyListeners);
+    _displaysConfigurationSubscription = displayService.monitorStateStream
+        .listen((configuration) => _displaysConfiguration = configuration);
   }
 
   @override
   void dispose() {
     _wallpaperSettings?.removeListener(notifyListeners);
+    _displaysConfigurationSubscription?.cancel();
     super.dispose();
   }
 
@@ -68,6 +80,23 @@ class WallpaperModel extends SafeChangeNotifier {
   }
 
   String get caption => pictureUri.split('/').last.replaceFirst('.jpeg', '');
+
+  /// Get aspect ratio of the primary screen.
+  /// Will fallback to 16/9 if [_displaysConfiguration] is not loaded.
+  double get aspectRatio {
+    if (_displaysConfiguration != null) {
+      for (var configuration in _displaysConfiguration!.configurations) {
+        if (configuration.primary == true) {
+          final resolution = configuration.resolution.split('x');
+          double aspectRatio =
+              (int.parse(resolution.first) / int.parse(resolution.last));
+          return aspectRatio;
+        }
+      }
+    }
+
+    return 16 / 9;
+  }
 
   Future<void> copyToCollection(String picPathString) async {
     File image = File(picPathString);
