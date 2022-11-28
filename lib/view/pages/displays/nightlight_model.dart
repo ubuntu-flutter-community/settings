@@ -4,8 +4,8 @@ import 'package:settings/services/settings_service.dart';
 
 const _setNightLight = 'night-light-enabled';
 const _setNightlightTemp = 'night-light-temperature';
-const _setNightlightScheduleFrom = 'night-light-schedule-from';
-const _setNightlightScheduleTo = 'night-light-schedule-to';
+//const _setNightlightScheduleFrom = 'night-light-schedule-from';
+//const _setNightlightScheduleTo = 'night-light-schedule-to';
 
 class NightlightModel extends SafeChangeNotifier {
   NightlightModel(SettingsService service)
