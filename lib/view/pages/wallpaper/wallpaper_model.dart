@@ -41,7 +41,7 @@ class WallpaperModel extends SafeChangeNotifier {
       Platform.environment['HOME']! + _gnomeUserWallpaperLocation;
 
   DisplaysConfiguration? _displaysConfiguration;
-  StreamSubscription<DisplaysConfiguration>? _displaysConfigurationSubscription;
+  StreamSubscription? _displaysConfigurationSubscription;
 
   WallpaperModel(
     SettingsService wallpaperService,
