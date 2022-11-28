@@ -16,6 +16,12 @@ class MonitorSection extends StatelessWidget {
 
   final int index;
 
+  String _formatRefreshRate(String refreshRate) {
+    return double.parse(refreshRate.replaceAll(',', '.'))
+        .toStringAsFixed(2)
+        .toString();
+  }
+
   @override
   Widget build(BuildContext context) {
     final model = context.watch<DisplaysModel>();
@@ -85,14 +91,12 @@ class MonitorSection extends StatelessWidget {
                         value: value,
                         onTap: () => model.setRefreshRate(index, value),
                         child: Text(
-                          double.parse(value).toStringAsFixed(2).toString(),
+                          _formatRefreshRate(value),
                         ),
                       ),
                   ],
                   child: Text(
-                    double.parse(config.refreshRate)
-                        .toStringAsFixed(2)
-                        .toString(),
+                    _formatRefreshRate(config.refreshRate),
                   ),
                 ),
               ),
