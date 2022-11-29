@@ -29,7 +29,7 @@ class NightlightModel extends SafeChangeNotifier {
   }
 
   double? get nightLightTemp =>
-      (_nightlightSettings?.intValue(_setNightlightTemp)??4000).toDouble();
+      (_nightlightSettings?.intValue(_setNightlightTemp) ?? 4000).toDouble();
 
   void setNightLightTemp(double? value) {
     _nightlightSettings?.setUint32Value(_setNightlightTemp, value!.toInt());
