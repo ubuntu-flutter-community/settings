@@ -4,6 +4,8 @@ import 'package:settings/services/settings_service.dart';
 import 'package:settings/view/pages/displays/nightlight_model.dart';
 import 'package:settings/view/settings_section.dart';
 import 'package:yaru_settings/yaru_settings.dart';
+import 'package:yaru_widgets/yaru_widgets.dart';
+import 'package:flutter_spinbox/material.dart';
 
 class NightlightPage extends StatelessWidget {
   const NightlightPage({super.key});
@@ -36,6 +38,88 @@ class NightlightPage extends StatelessWidget {
           showValue: false,
           value: model.nightLightTemp ?? 4000,
           onChanged: model.setNightLightTemp,
+        ),
+        YaruTile(
+          title: const Text('Schedule'),
+          subtitle: const Text('Set a schedule for Nightlight'),
+          enabled: model.nightLightEnabled ?? false,
+          trailing: Row(
+            children: const [
+              Text('From'),
+              SizedBox(
+                width: 10,
+              ),
+              TimeSelector(isFrom: true),
+              SizedBox(
+                width: 10,
+              ),
+              Text('To'),
+              SizedBox(
+                width: 10,
+              ),
+              TimeSelector(
+                isFrom: false,
+              )
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class TimeSelector extends StatelessWidget {
+  final bool isFrom;
+  const TimeSelector({super.key, required this.isFrom});
+
+  @override
+  Widget build(BuildContext context) {
+    final model = context.watch<NightlightModel>();
+    return Row(
+      children: [
+        SizedBox(
+          width: 40,
+          child: SpinBox(
+            textStyle: const TextStyle(fontSize: 14),
+            showCursor: false,
+            enableInteractiveSelection: false,
+            enabled: model.nightLightEnabled ?? false,
+            min: 0,
+            max: 23,
+            value: model.getNightLightSchedule(isFrom: isFrom).hour.toDouble(),
+            direction: Axis.vertical,
+            onChanged: (value) => model.setNightLightSchedule(
+              value,
+              isFrom: isFrom,
+              isHours: true,
+            ),
+          ),
+        ),
+        const Padding(
+          padding: EdgeInsets.symmetric(horizontal: 3),
+          child: Text(
+            ':',
+            style: TextStyle(fontSize: 24),
+          ),
+        ),
+        SizedBox(
+          width: 40,
+          child: SpinBox(
+            showCursor: false,
+            enableInteractiveSelection: false,
+            textStyle: const TextStyle(fontSize: 14),
+            enabled: model.nightLightEnabled ?? false,
+            min: 0,
+            max: 59,
+            value:
+                model.getNightLightSchedule(isFrom: isFrom).minute.toDouble(),
+            direction: Axis.vertical,
+            onChanged: (value) => model.setNightLightSchedule(
+              value,
+              isFrom: isFrom,
+              isHours: false,
+            ),
+          ),
         ),
       ],
     );

@@ -4,8 +4,8 @@ import 'package:settings/services/settings_service.dart';
 
 const _setNightLight = 'night-light-enabled';
 const _setNightlightTemp = 'night-light-temperature';
-//const _setNightlightScheduleFrom = 'night-light-schedule-from';
-//const _setNightlightScheduleTo = 'night-light-schedule-to';
+const _setNightlightScheduleFrom = 'night-light-schedule-from';
+const _setNightlightScheduleTo = 'night-light-schedule-to';
 
 class NightlightModel extends SafeChangeNotifier {
   NightlightModel(SettingsService service)
@@ -33,6 +33,30 @@ class NightlightModel extends SafeChangeNotifier {
 
   void setNightLightTemp(double? value) {
     _nightlightSettings?.setUint32Value(_setNightlightTemp, value!.toInt());
+    notifyListeners();
+  }
+
+  DateTime getNightLightSchedule({required bool isFrom}) {
+    String key = isFrom ? _setNightlightScheduleFrom : _setNightlightScheduleTo;
+    double time = _nightlightSettings?.doubleValue(key) ?? 0;
+    int hours = time.truncate();
+    int minutes = ((time - hours) * 60).round();
+    return DateTime(0, 0, 0, hours, minutes);
+  }
+
+  void setNightLightSchedule(
+    double value, {
+    required bool isFrom,
+    required bool isHours,
+  }) {
+    String key = isFrom ? _setNightlightScheduleFrom : _setNightlightScheduleTo;
+    double time = isHours
+        ? (value + getNightLightSchedule(isFrom: isFrom).minute / 60)
+        : getNightLightSchedule(isFrom: isFrom).hour + (value / 60);
+    _nightlightSettings?.setValue(
+      key,
+      time,
+    );
     notifyListeners();
   }
 }
