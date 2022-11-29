@@ -9,30 +9,30 @@ const _setNightlightTemp = 'night-light-temperature';
 
 class NightlightModel extends SafeChangeNotifier {
   NightlightModel(SettingsService service)
-      : _soundSettings = service.lookup(schemaSettingsDaemonColorPlugin) {
-    _soundSettings?.addListener(notifyListeners);
+      : _nightlightSettings = service.lookup(schemaSettingsDaemonColorPlugin) {
+    _nightlightSettings?.addListener(notifyListeners);
   }
 
   @override
   void dispose() {
-    _soundSettings?.removeListener(notifyListeners);
+    _nightlightSettings?.removeListener(notifyListeners);
     super.dispose();
   }
 
-  final Settings? _soundSettings;
+  final Settings? _nightlightSettings;
 
-  bool? get nightLightEnabled => _soundSettings?.boolValue(_setNightLight);
+  bool? get nightLightEnabled => _nightlightSettings?.boolValue(_setNightLight);
 
   void setNightLightEnabled(bool? value) {
-    _soundSettings?.setValue(_setNightLight, value!);
+    _nightlightSettings?.setValue(_setNightLight, value!);
     notifyListeners();
   }
 
   double? get nightLightTemp =>
-      (_soundSettings?.intValue(_setNightlightTemp)??4000).toDouble();
+      (_nightlightSettings?.intValue(_setNightlightTemp)??4000).toDouble();
 
   void setNightLightTemp(double? value) {
-    _soundSettings?.setUint32Value(_setNightlightTemp, value!.toInt());
+    _nightlightSettings?.setUint32Value(_setNightlightTemp, value!.toInt());
     notifyListeners();
   }
 }
