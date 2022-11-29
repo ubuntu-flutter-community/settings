@@ -333,6 +333,13 @@
   "cursorSizeMedium": "Medium",
   "cursorSizeLarge": "Large",
   "cursorSizeLarger": "Larger",
-  "cursorSizeLargest": "Largest"
+  "cursorSizeLargest": "Largest",
+  "nightLightPageTitle":"Nightlight",
+  "nightLightPageEnableNightlight":"Enable Nightlight",
+  "nightLightPageColorTemprature":"Color Temperature",
+  "nightLightPageScheduleTitle":"Schedule",
+  "nightLightPageScheduleSubtitle":"Set a schedule for Nightlight",
+  "nightLightPageScheduleFrom":"From",
+  "nightLightPageScheduleTo":"To"
 }
 
