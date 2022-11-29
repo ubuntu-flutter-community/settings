@@ -1,5 +1,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
+import 'package:settings/l10n/l10n.dart';
 import 'package:settings/services/settings_service.dart';
 import 'package:settings/view/pages/displays/nightlight_model.dart';
 import 'package:settings/view/settings_section.dart';
@@ -22,15 +23,15 @@ class NightlightPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final model = context.watch<NightlightModel>();
     return SettingsSection(
-      headline: const Text('Nightlight'),
+      headline: Text(context.l10n.nightLightPageTitle),
       children: [
         YaruSwitchRow(
           value: model.nightLightEnabled,
           onChanged: model.setNightLightEnabled,
-          trailingWidget: const Text('Enable Nightlight'),
+          trailingWidget: Text(context.l10n.nightLightPageEnableNightlight),
         ),
         YaruSliderRow(
-          actionLabel: 'Color Temperature',
+          actionLabel: context.l10n.nightLightPageColorTemprature,
           min: 1000,
           max: 6500,
           defaultValue: 4000,
@@ -40,24 +41,24 @@ class NightlightPage extends StatelessWidget {
           onChanged: model.setNightLightTemp,
         ),
         YaruTile(
-          title: const Text('Schedule'),
-          subtitle: const Text('Set a schedule for Nightlight'),
+          title: Text(context.l10n.nightLightPageScheduleTitle),
+          subtitle: Text(context.l10n.nightLightPageScheduleSubtitle),
           enabled: model.nightLightEnabled ?? false,
           trailing: Row(
-            children: const [
-              Text('From'),
-              SizedBox(
+            children: [
+              Text(context.l10n.nightLightPageScheduleFrom),
+              const SizedBox(
                 width: 10,
               ),
-              TimeSelector(isFrom: true),
-              SizedBox(
+              const TimeSelector(isFrom: true),
+              const SizedBox(
                 width: 10,
               ),
-              Text('To'),
-              SizedBox(
+              Text(context.l10n.nightLightPageScheduleTo),
+              const SizedBox(
                 width: 10,
               ),
-              TimeSelector(
+              const TimeSelector(
                 isFrom: false,
               )
             ],
