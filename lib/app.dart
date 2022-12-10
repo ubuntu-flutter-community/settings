@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localized_locales/flutter_localized_locales.dart';
+import 'package:gtk_window/gtk_window.dart';
 import 'package:settings/l10n/l10n.dart';
 import 'package:settings/view/pages/page_items.dart';
 import 'package:settings/view/pages/settings_page_item.dart';
@@ -41,6 +42,7 @@ class _UbuntuSettingsAppState extends State<UbuntuSettingsApp> {
     });
   }
 
+  bool isExpanded = true;
   @override
   Widget build(BuildContext context) {
     return YaruTheme(
@@ -67,21 +69,42 @@ class _UbuntuSettingsAppState extends State<UbuntuSettingsApp> {
                 ),
                 pageBuilder: (context, index) => YaruDetailPage(
                   body: pages[index].builder(context),
-                  appBar: AppBar(
-                    title: pages[index].titleBuilder(context),
-                    leading: Navigator.of(context).canPop()
-                        ? const YaruBackButton()
-                        : null,
+                  appBar: GTKHeaderBar(
+                    middle: pages[index].titleBuilder(context),
                   ),
                 ),
-                appBar: SearchAppBar(
-                  searchHint: context.l10n.searchHint,
-                  clearSearchIconData: YaruIcons.window_close,
-                  searchController: _searchController,
-                  onChanged: (v) => _onSearchChanged(v, context),
-                  onEscape: _onEscape,
-                  appBarHeight: 48,
-                  searchIconData: YaruIcons.search,
+                appBar: GTKHeaderBar(
+                  middleSpacing: 0,
+                  padding: isExpanded
+                      ? EdgeInsets.zero
+                      : const EdgeInsets.symmetric(horizontal: 10),
+                  middle: const Text('Settings'),
+                  showWindowControlsButtons: !isExpanded,
+                  onWindowResize: (size) {
+                    if (size.width > kYaruMasterDetailBreakpoint) {
+                      if (isExpanded == false) {
+                        setState(() {
+                          isExpanded = true;
+                        });
+                      }
+                    } else if (isExpanded == true) {
+                      setState(() {
+                        isExpanded = false;
+                      });
+                    }
+                  },
+                  bottom: PreferredSize(
+                    preferredSize: const Size.fromHeight(48),
+                    child: SearchAppBar(
+                      searchHint: context.l10n.searchHint,
+                      clearSearchIconData: YaruIcons.window_close,
+                      searchController: _searchController,
+                      onChanged: (v) => _onSearchChanged(v, context),
+                      onEscape: _onEscape,
+                      appBarHeight: 48,
+                      searchIconData: YaruIcons.search,
+                    ),
+                  ),
                 ),
               );
             },
