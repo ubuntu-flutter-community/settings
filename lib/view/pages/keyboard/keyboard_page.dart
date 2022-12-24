@@ -12,7 +12,7 @@ class KeyboardPage extends StatefulWidget {
   static Widget create(BuildContext context) => const KeyboardPage();
 
   static Widget createTitle(BuildContext context) =>
-      YaruPageItemTitle.text(context.l10n.keyboardPageTitle);
+      Text(context.l10n.keyboardPageTitle);
 
   static bool searchMatches(String value, BuildContext context) =>
       value.isNotEmpty
@@ -38,7 +38,10 @@ class _KeyboardPageState extends State<KeyboardPage>
   @override
   Widget build(BuildContext context) {
     return const YaruTabbedPage(
-      tabIcons: [YaruIcons.input_keyboard, YaruIcons.keyboard_shortcuts],
+      tabIcons: [
+        Icon(YaruIcons.input_keyboard),
+        Icon(YaruIcons.keyboard_shortcuts),
+      ],
       tabTitles: ['Keyboard Settings', 'Keyboard Shortcuts'],
       views: [KeyboardSettingsPage(), KeyboardShortcutsPage()],
       width: kDefaultWidth,

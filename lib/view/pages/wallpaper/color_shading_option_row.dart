@@ -29,26 +29,22 @@ class ColorShadingOptionRow extends StatelessWidget {
       width: width,
       child: YaruTile(
         title: Text(actionLabel),
-        subtitle: Text(actionDescription ?? ''),
+        subtitle: actionDescription != null ? Text(actionDescription!) : null,
         trailing: Row(
           children: [
-            DropdownButton<ColorShadingType>(
-              onChanged: (value) => model.colorShadingType = value,
-              value: value,
-              items: [
-                DropdownMenuItem(
-                  child: Text(context.l10n.wallpaperPageSolid),
-                  value: ColorShadingType.solid,
-                ),
-                DropdownMenuItem(
-                  child: Text(context.l10n.wallpaperPageHorizontalGradient),
-                  value: ColorShadingType.horizontal,
-                ),
-                DropdownMenuItem(
-                  child: Text(context.l10n.wallpaperPageVerticalGradient),
-                  value: ColorShadingType.vertical,
-                ),
-              ],
+            YaruPopupMenuButton<ColorShadingType>(
+              initialValue: model.colorShadingType,
+              child: Text(model.colorShadingType.localize(context.l10n)),
+              itemBuilder: (context) {
+                return [
+                  for (final type in ColorShadingType.values)
+                    PopupMenuItem(
+                      value: type,
+                      onTap: () => model.colorShadingType = type,
+                      child: Text(type.localize(context.l10n)),
+                    )
+                ];
+              },
             ),
             const SizedBox(width: 8.0),
             YaruOptionButton.color(

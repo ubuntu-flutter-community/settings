@@ -5,9 +5,10 @@ import 'package:settings/l10n/l10n.dart';
 import 'package:settings/services/settings_service.dart';
 import 'package:settings/view/link.dart';
 import 'package:settings/view/pages/privacy/location_model.dart';
+import 'package:settings/view/pages/settings_page.dart';
 import 'package:settings/view/section_description.dart';
+import 'package:settings/view/settings_section.dart';
 import 'package:yaru_settings/yaru_settings.dart';
-import 'package:yaru_widgets/yaru_widgets.dart';
 
 const kPrivacyUrl = 'https://location.services.mozilla.com/privacy';
 
@@ -23,7 +24,7 @@ class LocationPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final model = context.watch<LocationModel>();
-    return YaruPage(
+    return SettingsPage(
       children: [
         SectionDescription(
           width: kDefaultWidth,
@@ -47,7 +48,7 @@ class LocationPage extends StatelessWidget {
             ),
           ),
         ),
-        YaruSection(
+        SettingsSection(
           width: kDefaultWidth,
           children: [
             YaruSwitchRow(

@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:safe_change_notifier/safe_change_notifier.dart';
@@ -10,7 +12,8 @@ class DisplaysModel extends SafeChangeNotifier {
   DisplaysModel(this._service) {
     /// listen display stream
     /// on each, re-set new configuration
-    _service.monitorStateStream.listen((DisplaysConfiguration configuration) {
+    _subscription = _service.monitorStateStream
+        .listen((DisplaysConfiguration configuration) {
       _initialNotifier.value = configuration;
       _currentNotifier.value = configuration;
     });
@@ -20,6 +23,8 @@ class DisplaysModel extends SafeChangeNotifier {
       _service.initialNotifier;
   ValueNotifier<DisplaysConfiguration?> get _currentNotifier =>
       _service.currentNotifier;
+
+  StreamSubscription? _subscription;
 
   /// SERVICES
   final DisplayService _service;
@@ -38,6 +43,12 @@ class DisplaysModel extends SafeChangeNotifier {
 
   /// Apply current configuration
   void apply() => _service.applyConfig();
+
+  @override
+  void dispose() {
+    _subscription?.cancel();
+    super.dispose();
+  }
 }
 
 /// All setters to update current configurations
@@ -158,11 +169,9 @@ enum LogicalMonitorOrientation {
   flipped,
   $90flipped,
   $180flipped,
-  $270flipped,
-}
+  $270flipped;
 
-extension LogicalMonitorOrientationTranslate on LogicalMonitorOrientation {
-  String translate(BuildContext context) {
+  String localize(BuildContext context) {
     switch (this) {
       case LogicalMonitorOrientation.normal:
         return context.l10n.landscape;

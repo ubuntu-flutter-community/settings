@@ -36,8 +36,6 @@ class AuthenticationDialog extends StatelessWidget {
           const SizedBox(height: 16),
           _DialogRow(
             title: const Text('Wifi Security'),
-            //TODO: add security options
-
             field: DropdownButton<String>(
               value: 'a',
               onChanged: (_) {},

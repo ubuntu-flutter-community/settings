@@ -46,12 +46,6 @@ echo 'export PATH="$PATH:$HOME/development/flutter/bin"' >> ~/.bashrc
 source ~/.bashrc
 ```
 
-## Enable flutter linux desktop support
-
-```bash
-flutter config --enable-linux-desktop
-```
-
 # TODO
 
 - [X] use real yaru icons - thanks to @Jupi007

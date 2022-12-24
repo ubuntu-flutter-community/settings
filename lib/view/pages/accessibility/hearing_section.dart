@@ -3,6 +3,8 @@ import 'package:provider/provider.dart';
 import 'package:settings/constants.dart';
 import 'package:settings/l10n/l10n.dart';
 import 'package:settings/view/pages/accessibility/accessibility_model.dart';
+import 'package:settings/view/pages/settings_simple_dialog.dart';
+import 'package:settings/view/settings_section.dart';
 import 'package:yaru_icons/yaru_icons.dart';
 import 'package:yaru_settings/yaru_settings.dart';
 import 'package:yaru_widgets/yaru_widgets.dart';
@@ -12,9 +14,9 @@ class HearingSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return YaruSection(
+    return SettingsSection(
       width: kDefaultWidth,
-      headline: context.l10n.hearing,
+      headline: Text(context.l10n.hearing),
       children: const <Widget>[
         _VisualAlerts(),
       ],
@@ -51,22 +53,26 @@ class _VisualAlertsSettings extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final model = context.watch<AccessibilityModel>();
-    return YaruSimpleDialog(
+    return SettingsSimpleDialog(
       width: kDefaultWidth,
       title: context.l10n.visualAlerts,
       closeIconData: YaruIcons.window_close,
       children: [
-        RadioListTile(
+        ListTile(
           title: Text(context.l10n.flashEntireWindow),
-          value: 'frame-flash',
-          groupValue: model.visualAlertsType,
-          onChanged: (String? value) => model.setVisualAlertsType(value!),
+          leading: YaruRadio(
+            value: 'frame-flash',
+            groupValue: model.visualAlertsType,
+            onChanged: (String? value) => model.setVisualAlertsType(value!),
+          ),
         ),
-        RadioListTile(
+        ListTile(
           title: Text(context.l10n.flashEntireScreen),
-          value: 'fullscreen-flash',
-          groupValue: model.visualAlertsType,
-          onChanged: (String? value) => model.setVisualAlertsType(value!),
+          leading: YaruRadio(
+            value: 'fullscreen-flash',
+            groupValue: model.visualAlertsType,
+            onChanged: (String? value) => model.setVisualAlertsType(value!),
+          ),
         ),
       ],
     );

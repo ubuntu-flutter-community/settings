@@ -5,6 +5,8 @@ import 'package:settings/constants.dart';
 import 'package:settings/l10n/l10n.dart';
 import 'package:settings/view/pages/bluetooth/bluetooth_device_row.dart';
 import 'package:settings/view/pages/bluetooth/bluetooth_model.dart';
+import 'package:settings/view/pages/settings_page.dart';
+import 'package:settings/view/settings_section.dart';
 import 'package:yaru_settings/yaru_settings.dart';
 import 'package:yaru_widgets/yaru_widgets.dart';
 
@@ -17,7 +19,7 @@ class BluetoothPage extends StatefulWidget {
           : false;
 
   static Widget createTitle(BuildContext context) =>
-      YaruPageItemTitle.text(context.l10n.bluetoothPageTitle);
+      Text(context.l10n.bluetoothPageTitle);
 
   const BluetoothPage({Key? key}) : super(key: key);
 
@@ -43,7 +45,7 @@ class _BluetoothPageState extends State<BluetoothPage> {
   @override
   Widget build(BuildContext context) {
     final model = context.watch<BluetoothModel>();
-    return YaruPage(
+    return SettingsPage(
       children: [
         SizedBox(
           width: kDefaultWidth,
@@ -57,9 +59,9 @@ class _BluetoothPageState extends State<BluetoothPage> {
             onChanged: (v) => model.setPowered(v),
           ),
         ),
-        YaruSection(
+        SettingsSection(
           width: kDefaultWidth,
-          headline: context.l10n.devices,
+          headline: Text(context.l10n.devices),
           headerWidget: Flexible(
             child: TextButton(
               onPressed: model.powered

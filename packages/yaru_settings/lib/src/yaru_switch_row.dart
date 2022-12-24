@@ -53,7 +53,7 @@ class YaruSwitchRow extends StatelessWidget {
       enabled: enabled,
       title: trailingWidget,
       subtitle: actionDescription != null ? Text(actionDescription!) : null,
-      trailing: Switch(
+      trailing: YaruSwitch(
         value: value ?? false,
         onChanged: enabled ? onChanged : null,
       ),

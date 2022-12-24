@@ -2,8 +2,8 @@ import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 import 'package:settings/constants.dart';
 import 'package:settings/view/pages/notifications/notifications_model.dart';
+import 'package:settings/view/settings_section.dart';
 import 'package:yaru_settings/yaru_settings.dart';
-import 'package:yaru_widgets/yaru_widgets.dart';
 
 class GlobalNotificationsSection extends StatelessWidget {
   const GlobalNotificationsSection({Key? key}) : super(key: key);
@@ -12,9 +12,9 @@ class GlobalNotificationsSection extends StatelessWidget {
   Widget build(BuildContext context) {
     final model = context.watch<NotificationsModel>();
 
-    return YaruSection(
+    return SettingsSection(
       width: kDefaultWidth,
-      headline: 'Global',
+      headline: const Text('Global'),
       children: [
         YaruSwitchRow(
           trailingWidget: const Text('Do Not Disturb'),

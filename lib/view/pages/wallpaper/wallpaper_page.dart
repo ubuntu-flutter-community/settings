@@ -6,7 +6,9 @@ import 'package:provider/provider.dart';
 import 'package:settings/constants.dart';
 import 'package:settings/l10n/l10n.dart';
 import 'package:settings/services/settings_service.dart';
+import 'package:settings/services/display/display_service.dart';
 import 'package:settings/utils.dart';
+import 'package:settings/view/pages/settings_page.dart';
 import 'package:settings/view/pages/wallpaper/color_shading_option_row.dart';
 import 'package:settings/view/pages/wallpaper/wallpaper_model.dart';
 import 'package:yaru_icons/yaru_icons.dart';
@@ -14,7 +16,7 @@ import 'package:yaru_widgets/yaru_widgets.dart';
 
 class WallpaperPage extends StatelessWidget {
   static Widget createTitle(BuildContext context) =>
-      YaruPageItemTitle.text(context.l10n.wallpaperPageTitle);
+      Text(context.l10n.wallpaperPageTitle);
 
   static bool searchMatches(String value, BuildContext context) =>
       value.isNotEmpty
@@ -26,9 +28,12 @@ class WallpaperPage extends StatelessWidget {
   const WallpaperPage({Key? key}) : super(key: key);
 
   static Widget create(BuildContext context) {
-    final service = Provider.of<SettingsService>(context, listen: false);
+    final settingsService =
+        Provider.of<SettingsService>(context, listen: false);
+    final displayService = Provider.of<DisplayService>(context, listen: false);
+
     return ChangeNotifierProvider<WallpaperModel>(
-      create: (_) => WallpaperModel(service),
+      create: (_) => WallpaperModel(settingsService, displayService),
       child: const WallpaperPage(),
     );
   }
@@ -36,6 +41,7 @@ class WallpaperPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final model = context.watch<WallpaperModel>();
+
     const headlineInsets =
         EdgeInsets.only(top: 30, left: 10, right: 10, bottom: 10);
 
@@ -43,7 +49,7 @@ class WallpaperPage extends StatelessWidget {
         ? model.pictureUri
         : model.pictureUriDark;
 
-    return YaruPage(
+    return SettingsPage(
       children: [
         SizedBox(
           width: kDefaultWidth,
@@ -51,33 +57,39 @@ class WallpaperPage extends StatelessWidget {
             title: Text(context.l10n.wallpaperPageBackgroundModeLabel),
             trailing: Row(
               children: [
-                DropdownButton<WallpaperMode>(
-                  value: model.wallpaperMode,
-                  onChanged: (value) => model.setWallpaperMode(value!),
-                  items: [
-                    DropdownMenuItem(
-                      child: Text(
-                        context
-                            .l10n.wallpaperPageBackgroundModeColoredBackground,
-                      ),
-                      value: WallpaperMode.solid,
-                    ),
-                    DropdownMenuItem(
-                      child: Text(
-                        context.l10n.wallpaperPageBackgroundModeWallpaper,
-                      ),
-                      value: WallpaperMode.custom,
-                    ),
-                    DropdownMenuItem(
-                      child: Text(
-                        context.l10n.wallpaperPageBackgroundModeImageOfTheDay,
-                      ),
-                      value: WallpaperMode.imageOfTheDay,
-                    ),
-                  ],
+                YaruPopupMenuButton(
+                  child: Text(model.wallpaperMode.localize(context.l10n)),
+                  initialValue: model.wallpaperMode,
+                  itemBuilder: (context) {
+                    return [
+                      for (final mode in WallpaperMode.values)
+                        PopupMenuItem<WallpaperMode>(
+                          child: Text(mode.localize(context.l10n)),
+                          value: mode,
+                          onTap: () => model.setWallpaperMode(mode),
+                        )
+                    ];
+                  },
                 ),
               ],
             ),
+          ),
+        ),
+        SizedBox(
+          width: kDefaultWidth,
+          child: AspectRatio(
+            aspectRatio: model.aspectRatio,
+            child: pictureUri.isEmpty
+                ? ChangeNotifierProvider.value(
+                    value: model,
+                    child: const _ColoredBackground(),
+                  )
+                : YaruSelectableContainer(
+                    child: _WallpaperImage(
+                      path: pictureUri.replaceAll(gnomeWallpaperSuffix, ''),
+                    ),
+                    selected: false,
+                  ),
           ),
         ),
         if (model.wallpaperMode == WallpaperMode.solid)
@@ -89,55 +101,73 @@ class WallpaperPage extends StatelessWidget {
             },
             value: model.colorShadingType,
           ),
-        SizedBox(
-          width: kDefaultWidth,
-          child: pictureUri.isEmpty
-              ? ChangeNotifierProvider.value(
-                  value: model,
-                  child: const _ColoredBackground(),
-                )
-              : YaruSelectableContainer(
-                  child: _WallpaperImage(
-                    path: pictureUri.replaceAll(gnomeWallpaperSuffix, ''),
-                  ),
-                  selected: false,
-                ),
-        ),
         if (model.wallpaperMode == WallpaperMode.imageOfTheDay)
-          //TODO: Add the title and copyright info
-          YaruTile(
-            leading:
-                Text(context.l10n.wallpaperPageBackgroundModeImageOfTheDay),
-            title: DropdownButton<ImageOfTheDayProvider>(
-              value: model.imageOfTheDayProvider,
-              onChanged: (value) => model.setUrlWallpaperProvider(value!),
-              items: const [
-                DropdownMenuItem(
-                  child: Text('Bing'),
-                  value: ImageOfTheDayProvider.bing,
-                ),
-                DropdownMenuItem(
-                  child: Text('Nasa'),
-                  value: ImageOfTheDayProvider.nasa,
-                ),
-              ],
-            ),
-            trailing: YaruOptionButton(
-              onPressed: () async {
-                await model.refreshUrlWallpaper();
-                if (model.errorMessage.isNotEmpty) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                      content: Text(
-                        model.errorMessage,
-                        style: TextStyle(color: Theme.of(context).primaryColor),
-                      ),
+          Column(
+            children: [
+              SizedBox(
+                width: kDefaultWidth,
+                child: Align(
+                  alignment: AlignmentDirectional.centerStart,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 5),
+                    child: Text(
+                      model.caption,
+                      style: Theme.of(context).textTheme.caption!.copyWith(
+                            fontStyle: FontStyle.italic,
+                          ),
                     ),
-                  );
-                }
-              },
-              child: const Icon(YaruIcons.refresh),
-            ),
+                  ),
+                ),
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              SizedBox(
+                width: kDefaultWidth,
+                child: YaruTile(
+                  leading: Text(
+                    context.l10n.wallpaperPageBackgroundModeImageOfTheDay,
+                  ),
+                  title: YaruPopupMenuButton<ImageOfTheDayProvider>(
+                    child: Text(
+                      model.imageOfTheDayProvider.localize(context.l10n),
+                    ),
+                    initialValue: model.imageOfTheDayProvider,
+                    itemBuilder: (context) {
+                      return [
+                        for (final provider in ImageOfTheDayProvider.values)
+                          PopupMenuItem(
+                            value: provider,
+                            onTap: () =>
+                                model.setUrlWallpaperProvider(provider),
+                            child: Text(
+                              provider.localize(context.l10n),
+                            ),
+                          )
+                      ];
+                    },
+                  ),
+                  trailing: YaruOptionButton(
+                    onPressed: () async {
+                      await model.refreshUrlWallpaper();
+                      if (model.errorMessage.isNotEmpty) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text(
+                              model.errorMessage,
+                              style: TextStyle(
+                                color: Theme.of(context).primaryColor,
+                              ),
+                            ),
+                          ),
+                        );
+                      }
+                    },
+                    child: const Icon(YaruIcons.refresh),
+                  ),
+                ),
+              ),
+            ],
           ),
         if (model.wallpaperMode == WallpaperMode.custom)
           Column(
@@ -200,7 +230,7 @@ class _WallpaperImage extends StatelessWidget {
     return Image.file(
       File(path),
       filterQuality: FilterQuality.none,
-      fit: BoxFit.fill,
+      fit: BoxFit.cover,
       cacheHeight: height,
     );
   }

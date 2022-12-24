@@ -52,11 +52,28 @@ class _UbuntuSettingsAppState extends State<UbuntuSettingsApp> {
           onGenerateTitle: (context) => context.l10n.appTitle,
           routes: {
             Navigator.defaultRouteName: (context) {
+              final pages =
+                  _filteredItems.isNotEmpty ? _filteredItems : pageItems;
               return YaruMasterDetailPage(
-                leftPaneWidth: 280,
-                pageItems:
-                    _filteredItems.isNotEmpty ? _filteredItems : pageItems,
-                previousIconData: YaruIcons.go_previous,
+                layoutDelegate: const YaruMasterResizablePaneDelegate(
+                  initialPaneWidth: 280,
+                  minPaneWidth: 170,
+                  minPageWidth: kYaruMasterDetailBreakpoint / 2,
+                ),
+                length: pages.length,
+                tileBuilder: (context, index, selected) => YaruMasterTile(
+                  title: pages[index].titleBuilder(context),
+                  leading: pages[index].iconBuilder(context, selected),
+                ),
+                pageBuilder: (context, index) => YaruDetailPage(
+                  body: pages[index].builder(context),
+                  appBar: AppBar(
+                    title: pages[index].titleBuilder(context),
+                    leading: Navigator.of(context).canPop()
+                        ? const YaruBackButton()
+                        : null,
+                  ),
+                ),
                 appBar: SearchAppBar(
                   searchHint: context.l10n.searchHint,
                   clearSearchIconData: YaruIcons.window_close,

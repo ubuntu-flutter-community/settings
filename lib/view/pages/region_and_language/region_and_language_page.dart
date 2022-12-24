@@ -5,6 +5,8 @@ import 'package:settings/constants.dart';
 import 'package:settings/l10n/l10n.dart';
 import 'package:settings/services/locale_service.dart';
 import 'package:settings/view/pages/region_and_language/region_and_language_model.dart';
+import 'package:settings/view/pages/settings_page.dart';
+import 'package:settings/view/settings_section.dart';
 import 'package:yaru_icons/yaru_icons.dart';
 import 'package:yaru_widgets/yaru_widgets.dart';
 
@@ -19,7 +21,7 @@ class RegionAndLanguagePage extends StatefulWidget {
       );
 
   static Widget createTitle(BuildContext context) =>
-      YaruPageItemTitle.text(context.l10n.regionAndLanguagePageTitle);
+      Text(context.l10n.regionAndLanguagePageTitle);
 
   static bool searchMatches(String value, BuildContext context) =>
       value.isNotEmpty
@@ -42,9 +44,9 @@ class _RegionAndLanguagePageState extends State<RegionAndLanguagePage> {
   @override
   Widget build(BuildContext context) {
     final model = context.watch<RegionAndLanguageModel>();
-    return YaruPage(
+    return SettingsPage(
       children: [
-        YaruSection(
+        SettingsSection(
           width: kDefaultWidth,
           children: [
             Padding(
@@ -115,12 +117,12 @@ class _LocaleSelectDialogState extends State<_LocaleSelectDialog> {
       child: AlertDialog(
         titlePadding: EdgeInsets.zero,
         contentPadding: EdgeInsets.zero,
-        title: YaruDialogTitle(
-          mainAxisAlignment: MainAxisAlignment.center,
-          title:
-              model.locale.contains(localeToBeSet.replaceAll('utf8', 'UTF-8'))
-                  ? context.l10n.regionAndLanguagePageSelectLanguageAction
-                  : context.l10n.regionAndLanguageDialogTitleAfterChange,
+        title: YaruTitleBar(
+          title: Text(
+            model.locale.contains(localeToBeSet.replaceAll('utf8', 'UTF-8'))
+                ? context.l10n.regionAndLanguagePageSelectLanguageAction
+                : context.l10n.regionAndLanguageDialogTitleAfterChange,
+          ),
         ),
         content: SizedBox(
           height: 500,

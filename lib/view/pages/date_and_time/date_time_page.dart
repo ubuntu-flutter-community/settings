@@ -6,6 +6,9 @@ import 'package:settings/services/date_time_service.dart';
 import 'package:settings/services/settings_service.dart';
 import 'package:settings/view/pages/date_and_time/date_time_model.dart';
 import 'package:settings/view/pages/date_and_time/timezones.dart';
+import 'package:settings/view/pages/settings_page.dart';
+import 'package:settings/view/pages/settings_alert_dialog.dart';
+import 'package:settings/view/settings_section.dart';
 import 'package:yaru_settings/yaru_settings.dart';
 import 'package:yaru_widgets/yaru_widgets.dart';
 
@@ -21,7 +24,7 @@ class DateTimePage extends StatefulWidget {
       );
 
   static Widget createTitle(BuildContext context) =>
-      YaruPageItemTitle.text(context.l10n.dateAndTimePageTitle);
+      Text(context.l10n.dateAndTimePageTitle);
 
   static bool searchMatches(String value, BuildContext context) =>
       value.isNotEmpty
@@ -45,14 +48,14 @@ class _DateTimePageState extends State<DateTimePage> {
   @override
   Widget build(BuildContext context) {
     final model = context.watch<DateTimeModel>();
-    return YaruPage(
+    return SettingsPage(
       children: [
         SizedBox(
           width: kDefaultWidth,
           child: Padding(
             padding: const EdgeInsets.only(bottom: 4),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            child: Wrap(
+              alignment: WrapAlignment.spaceBetween,
               children: [
                 TextButton(
                   onPressed: model.automaticDateTime != null &&
@@ -83,7 +86,7 @@ class _DateTimePageState extends State<DateTimePage> {
             ),
           ),
         ),
-        YaruSection(
+        SettingsSection(
           width: kDefaultWidth,
           children: [
             Padding(
@@ -104,7 +107,7 @@ class _DateTimePageState extends State<DateTimePage> {
             )
           ],
         ),
-        YaruSection(
+        SettingsSection(
           width: kDefaultWidth,
           children: [
             YaruSwitchRow(
@@ -157,9 +160,9 @@ class _TimezoneSelectDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final model = context.read<DateTimeModel>();
-    return YaruAlertDialog(
-      title: 'Select a timezone',
-      child: YaruPage(
+    return SettingsAlertDialog(
+      title: context.l10n.dateAmdTimePageSelectTimezone,
+      child: SettingsPage(
         children: [
           for (var timezone in timezones)
             InkWell(

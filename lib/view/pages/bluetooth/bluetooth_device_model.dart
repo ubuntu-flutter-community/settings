@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:bluez/bluez.dart';
 import 'package:flutter/material.dart';
 import 'package:safe_change_notifier/safe_change_notifier.dart';
@@ -47,6 +49,7 @@ const yaruIcons = <String, IconData>{
 
 class BluetoothDeviceModel extends SafeChangeNotifier {
   final BlueZDevice _device;
+  StreamSubscription? _deviceSubscription;
   late bool connected;
   late String name;
   late int appearance;
@@ -71,10 +74,16 @@ class BluetoothDeviceModel extends SafeChangeNotifier {
   }
 
   void init() {
-    _device.propertiesChanged.listen((event) {
+    _deviceSubscription = _device.propertiesChanged.listen((event) {
       updateFromClient();
       notifyListeners();
     });
+  }
+
+  @override
+  void dispose() {
+    _deviceSubscription?.cancel();
+    super.dispose();
   }
 
   void updateFromClient() {

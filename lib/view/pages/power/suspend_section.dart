@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:settings/constants.dart';
+import 'package:settings/l10n/l10n.dart';
 import 'package:settings/services/settings_service.dart';
 import 'package:settings/view/pages/power/suspend.dart';
 import 'package:settings/view/pages/power/suspend_model.dart';
+import 'package:settings/view/settings_section.dart';
 import 'package:yaru_settings/yaru_settings.dart';
 import 'package:yaru_widgets/yaru_widgets.dart';
 
@@ -27,26 +29,31 @@ class _SuspendSectionState extends State<SuspendSection> {
   @override
   Widget build(BuildContext context) {
     final model = context.watch<SuspendModel>();
-    return YaruSection(
+    return SettingsSection(
       width: kDefaultWidth,
-      headline: 'Suspend & Power Button',
+      headline: Text(context.l10n.powerSuspendHeadline),
       children: <Widget>[
         YaruTile(
           enabled: model.powerButtonAction != null,
-          title: const Text('Power Button Behavior'),
-          trailing: DropdownButton<PowerButtonAction?>(
-            value: model.powerButtonAction,
-            items: PowerButtonAction.values.map((action) {
-              return DropdownMenuItem(
+          title: Text(context.l10n.powerButtonBehavior),
+          trailing: YaruPopupMenuButton<PowerButtonAction?>(
+            initialValue: model.powerButtonAction,
+            itemBuilder: (c) => PowerButtonAction.values.map((action) {
+              return PopupMenuItem(
                 value: action,
                 child: Text(action.localize(context)),
+                onTap: () => model.setPowerButtonAction(action),
               );
             }).toList(),
-            onChanged: model.setPowerButtonAction,
+            child: Text(
+              model.powerButtonAction != null
+                  ? model.powerButtonAction!.localize(context)
+                  : '',
+            ),
           ),
         ),
         YaruSwitchRow(
-          trailingWidget: const Text('Show Battery Percentage'),
+          trailingWidget: Text(context.l10n.batteryShowPercentage),
           value: model.showBatteryPercentage,
           onChanged: model.setShowBatteryPercentage,
         ),

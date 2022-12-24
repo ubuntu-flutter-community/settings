@@ -56,7 +56,7 @@
     "reportingUsageActionLabel": "Kirim penggunaan perangkat lunak ke Ubuntu",
     "locationDescription": "Layanan lokasi memungkinkan aplikasi mengetahui lokasi geografis Anda. Menggunakan WiFi atau broadband seluler akan meningkatkan akurasi.",
     "locationInfoPrefix": "Menggunakan layanan lokasi Mozilla:",
-    "locationInfoLink": "aturan perlindungan privasi",
+    "locationInfoLink": "Aturan perlindungan privasi",
     "locationActionLabel": "Layanan Lokasi",
     "houseKeepingRecentFilesHeadline": "Riwayat Berkas",
     "houseKeepingRecentFilesDescription": "Riwayat file mengingat file mana yang telah Anda gunakan. Informasi ini dibagikan antar aplikasi dan memudahkan untuk menemukan file yang ingin Anda gunakan.",

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:settings/constants.dart';
 import 'package:settings/view/pages/keyboard/input_source_model.dart';
+import 'package:settings/view/settings_section.dart';
 import 'package:yaru_widgets/yaru_widgets.dart';
 
 class InputSourceSection extends StatelessWidget {
@@ -13,27 +14,31 @@ class InputSourceSection extends StatelessWidget {
 
     return Column(
       children: [
-        YaruSection(
+        SettingsSection(
           width: kDefaultWidth,
-          headline: 'Change input sources',
+          headline: const Text('Change input sources'),
           children: [
-            RadioListTile(
+            ListTile(
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(4),
               ),
               title: const Text('Use the same input for all windows'),
-              value: false,
-              groupValue: inputSourceModel.perWindow,
-              onChanged: (_) => inputSourceModel.perWindow = false,
+              leading: YaruRadio(
+                value: false,
+                groupValue: inputSourceModel.perWindow,
+                onChanged: (_) => inputSourceModel.perWindow = false,
+              ),
             ),
-            RadioListTile(
+            ListTile(
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(4),
               ),
               title: const Text('Give each window its own input source'),
-              value: true,
-              groupValue: inputSourceModel.perWindow,
-              onChanged: (_) => inputSourceModel.perWindow = true,
+              leading: YaruRadio(
+                value: true,
+                groupValue: inputSourceModel.perWindow,
+                onChanged: (_) => inputSourceModel.perWindow = true,
+              ),
             )
           ],
         )

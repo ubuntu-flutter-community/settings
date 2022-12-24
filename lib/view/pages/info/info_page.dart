@@ -7,6 +7,9 @@ import 'package:settings/constants.dart';
 import 'package:settings/l10n/l10n.dart';
 import 'package:settings/services/hostname_service.dart';
 import 'package:settings/services/pdf_service.dart';
+import 'package:settings/view/pages/settings_page.dart';
+import 'package:settings/view/pages/settings_simple_dialog.dart';
+import 'package:settings/view/settings_section.dart';
 import 'package:udisks/udisks.dart';
 import 'package:yaru_colors/yaru_colors.dart';
 import 'package:yaru_icons/yaru_icons.dart';
@@ -29,7 +32,7 @@ class InfoPage extends StatefulWidget {
   }
 
   static Widget createTitle(BuildContext context) =>
-      YaruPageItemTitle.text(context.l10n.infoPageTitle);
+      Text(context.l10n.infoPageTitle);
 
   static bool searchMatches(String value, BuildContext context) => value
           .isNotEmpty
@@ -63,7 +66,7 @@ class _InfoPageState extends State<InfoPage> {
       ),
     );
 
-    return YaruPage(
+    return SettingsPage(
       children: [
         const SizedBox(height: 20),
         Row(
@@ -103,9 +106,9 @@ class _InfoPageState extends State<InfoPage> {
         ),
         const SizedBox(height: 50),
         const _Computer(),
-        YaruSection(
+        SettingsSection(
           width: kDefaultWidth,
-          headline: 'Hardware',
+          headline: const Text('Hardware'),
           children: [
             YaruSingleInfoRow(
               infoLabel: 'Processor',
@@ -127,9 +130,9 @@ class _InfoPageState extends State<InfoPage> {
             ),
           ],
         ),
-        YaruSection(
+        SettingsSection(
           width: kDefaultWidth,
-          headline: 'System',
+          headline: const Text('System'),
           children: [
             YaruSingleInfoRow(
               infoLabel: 'OS',
@@ -193,9 +196,9 @@ class _Computer extends StatelessWidget {
   Widget build(BuildContext context) {
     final model = context.watch<InfoModel>();
 
-    return YaruSection(
+    return SettingsSection(
       width: kDefaultWidth,
-      headline: 'Computer',
+      headline: const Text('Computer'),
       children: [
         YaruTile(
           title: const Text('Hostname'),
@@ -263,7 +266,7 @@ class _HostnameSettingsState extends State<_HostnameSettings> {
   @override
   Widget build(BuildContext context) {
     final model = context.watch<InfoModel>();
-    return YaruSimpleDialog(
+    return SettingsSimpleDialog(
       width: kDefaultWidth / 2,
       title: 'Edit Hostname',
       closeIconData: YaruIcons.window_close,

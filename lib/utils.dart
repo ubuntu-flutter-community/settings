@@ -39,3 +39,18 @@ String formatTime(int seconds) {
     tersity: DurationTersity.second,
   );
 }
+
+/// Convert string in camel case to string split by dash
+String camelCaseToSplitByDash(String value) {
+  final beforeCapitalLetterRegex = RegExp(r'(?=[A-Z])');
+  final parts = value.split(beforeCapitalLetterRegex);
+  var newString = '';
+  for (var part in parts) {
+    if (newString.isEmpty) {
+      newString = part.toLowerCase();
+    } else {
+      newString = newString.toLowerCase() + '-' + part.toLowerCase();
+    }
+  }
+  return newString;
+}

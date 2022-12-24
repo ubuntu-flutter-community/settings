@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 import 'package:settings/constants.dart';
+import 'package:settings/l10n/l10n.dart';
 import 'package:settings/utils.dart';
 import 'package:settings/view/pages/appearance/dock_model.dart';
 import 'package:settings/view/selectable_svg_image.dart';
+import 'package:settings/view/settings_section.dart';
 import 'package:yaru_settings/yaru_settings.dart';
 import 'package:yaru_widgets/yaru_widgets.dart';
 
@@ -25,15 +27,15 @@ class DockSection extends StatelessWidget {
       width: kDefaultWidth,
       child: Column(
         children: [
-          YaruSection(
-            headline: 'Dock appearance',
+          SettingsSection(
+            headline: Text(context.l10n.dockAppearanceHeadline),
             children: [
               YaruTile(
-                title: const Text('Panel mode'),
-                subtitle: const Text(
-                  'Extends the height of the dock to become a panel.',
+                title: Text(context.l10n.dockPanelMode),
+                subtitle: Text(
+                  context.l10n.dockPanelModeDescription,
                 ),
-                trailing: Radio<bool>(
+                trailing: YaruRadio<bool>(
                   value: true,
                   groupValue: model.extendDock,
                   onChanged: (value) => model.extendDock = value,
@@ -55,11 +57,11 @@ class DockSection extends StatelessWidget {
                 ),
               ),
               YaruTile(
-                title: const Text('Dock mode'),
-                subtitle: const Text(
-                  'Displays the dock in a centered, free-floating mode.',
+                title: Text(context.l10n.dockDockMode),
+                subtitle: Text(
+                  context.l10n.dockDockModeDescription,
                 ),
-                trailing: Radio<bool>(
+                trailing: YaruRadio<bool>(
                   value: false,
                   groupValue: model.extendDock,
                   onChanged: (value) => model.extendDock = value!,
@@ -81,8 +83,8 @@ class DockSection extends StatelessWidget {
               ),
             ],
           ),
-          YaruSection(
-            headline: 'Dock Position',
+          SettingsSection(
+            headline: Text(context.l10n.dockPosition),
             children: [
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -91,9 +93,9 @@ class DockSection extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const Padding(
-                          padding: EdgeInsets.all(8.0),
-                          child: Text('Left'),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text(DockPosition.left.localize(context.l10n)),
                         ),
                         SizedBox(
                           child: SelectableSvgImage(
@@ -112,9 +114,10 @@ class DockSection extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const Padding(
-                          padding: EdgeInsets.all(8.0),
-                          child: Text('Right'),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child:
+                              Text(DockPosition.right.localize(context.l10n)),
                         ),
                         SelectableSvgImage(
                           selectedColor: selectedColor,
@@ -131,9 +134,10 @@ class DockSection extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const Padding(
-                          padding: EdgeInsets.all(8.0),
-                          child: Text('Bottom'),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child:
+                              Text(DockPosition.bottom.localize(context.l10n)),
                         ),
                         SelectableSvgImage(
                           selectedColor: selectedColor,
@@ -150,15 +154,15 @@ class DockSection extends StatelessWidget {
               )
             ],
           ),
-          YaruSection(
-            headline: 'Dock options',
+          SettingsSection(
+            headline: Text(context.l10n.dockOptionsHeadline),
             children: [
               Column(
                 children: [
                   YaruSwitchRow(
                     enabled: model.alwaysShowDock != null,
-                    trailingWidget: const Text('Auto-hide the Dock'),
-                    actionDescription: 'The dock hides when windows touch it.',
+                    trailingWidget: Text(context.l10n.dockAutoHide),
+                    actionDescription: context.l10n.dockAutoHideDescription,
                     value: model.alwaysShowDock != null &&
                         model.alwaysShowDock == false,
                     onChanged: (value) => model.alwaysShowDock = !value,
@@ -181,21 +185,20 @@ class DockSection extends StatelessWidget {
                 ],
               ),
               YaruSwitchRow(
-                trailingWidget: const Text('Show Trash'),
-                actionDescription: 'Show the trash on the dock',
+                trailingWidget: Text(context.l10n.dockShowTrash),
+                actionDescription: context.l10n.dockShowTrashDescription,
                 value: model.showTrash,
                 onChanged: (value) => model.showTrash = value,
               ),
               YaruSwitchRow(
-                trailingWidget: const Text('Active App Glow'),
-                actionDescription:
-                    'Colors active app icons in their primary accent color.',
+                trailingWidget: Text(context.l10n.dockIconGlow),
+                actionDescription: context.l10n.dockIconGlowDescription,
                 value: model.appGlow,
                 onChanged: (value) => model.appGlow = value,
               ),
               YaruSliderRow(
                 enabled: model.maxIconSize != null,
-                actionLabel: 'Icon Size',
+                actionLabel: context.l10n.dockIconSize,
                 value: model.maxIconSize ?? 48.0,
                 min: 16,
                 max: 64,
@@ -204,24 +207,32 @@ class DockSection extends StatelessWidget {
               ),
               YaruTile(
                 enabled: model.clickAction != null,
-                title: const Text('App icon click behavior'),
-                trailing: DropdownButton<DockClickAction>(
-                  onChanged: (value) => model.clickAction = value,
-                  value: model.clickAction,
-                  items: const [
-                    DropdownMenuItem(
-                      child: Text('Minimize the app'),
-                      value: DockClickAction.minimize,
+                title: Text(
+                  context.l10n.dockClickAction,
+                  overflow: TextOverflow.ellipsis,
+                ),
+                trailing: YaruPopupMenuButton<DockClickAction?>(
+                  enabled: model.clickAction != null,
+                  initialValue: model.clickAction,
+                  itemBuilder: (context) => DockClickAction.values
+                      .map(
+                        (e) => PopupMenuItem<DockClickAction?>(
+                          onTap: () => model.clickAction = e,
+                          child: Text(
+                            e.localize(context.l10n),
+                          ),
+                        ),
+                      )
+                      .toList(),
+                  child: ConstrainedBox(
+                    constraints: const BoxConstraints(minWidth: 200),
+                    child: Text(
+                      model.clickAction != null
+                          ? model.clickAction!.localize(context.l10n)
+                          : '',
+                      overflow: TextOverflow.ellipsis,
                     ),
-                    DropdownMenuItem(
-                      child: Text('Cycle through windows'),
-                      value: DockClickAction.cycleWindows,
-                    ),
-                    DropdownMenuItem(
-                      child: Text('Focus or preview the window'),
-                      value: DockClickAction.focusOrPreviews,
-                    ),
-                  ],
+                  ),
                 ),
               ),
             ],

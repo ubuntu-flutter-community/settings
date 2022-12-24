@@ -36,9 +36,7 @@ class AccessPointTile extends StatelessWidget {
                 Icon(accessPointModel.isActiveIconData),
                 const SizedBox(width: 8.0),
                 YaruOptionButton(
-                  onPressed: () {
-                    // TODO: navigate to wifi access point details dialog
-                  },
+                  onPressed: () {},
                   child: const Icon(YaruIcons.settings),
                 ),
               ],

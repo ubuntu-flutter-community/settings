@@ -1,6 +1,7 @@
 import 'package:dbus/dbus.dart';
 import 'package:gsettings/gsettings.dart';
 import 'package:safe_change_notifier/safe_change_notifier.dart';
+import 'package:settings/l10n/l10n.dart';
 import 'package:settings/schemas/schemas.dart';
 import 'package:settings/services/settings_service.dart';
 
@@ -186,7 +187,34 @@ enum ComposeOptions {
   caps,
   print,
   scrollLock,
-  defaultLayout
+  defaultLayout;
+
+  String localize(AppLocalizations l10n) {
+    switch (this) {
+      case ComposeOptions.leftAlt:
+        return 'leftAlt';
+      case ComposeOptions.rightAlt:
+        return 'rightAlt';
+      case ComposeOptions.leftWin:
+        return 'leftWin';
+      case ComposeOptions.menu:
+        return 'menu';
+      case ComposeOptions.rightCtrl:
+        return 'rightCtrl';
+      case ComposeOptions.caps:
+        return 'caps';
+      case ComposeOptions.print:
+        return 'print';
+      case ComposeOptions.scrollLock:
+        return 'scrollLock';
+      case ComposeOptions.defaultLayout:
+        return 'defaultLayout';
+      case ComposeOptions.rightWin:
+        return 'rightWin';
+      default:
+        return '';
+    }
+  }
 }
 
 // 'lv3:ralt_alt', // Right Alt key never chooses 3rd level <--- allowed as 'none'

@@ -1,6 +1,8 @@
 import 'package:flutter/foundation.dart';
+import 'package:settings/l10n/l10n.dart';
 import 'package:settings/schemas/schemas.dart';
 import 'package:settings/services/settings_service.dart';
+import 'package:settings/utils.dart';
 
 class DockModel extends ChangeNotifier {
   static const _showTrashKey = 'show-trash';
@@ -198,20 +200,36 @@ class DockModel extends ChangeNotifier {
   }
 }
 
-enum DockPosition { left, bottom, right }
+enum DockPosition {
+  left,
+  bottom,
+  right;
 
-enum DockClickAction { minimize, cycleWindows, focusOrPreviews }
-
-String camelCaseToSplitByDash(String value) {
-  final beforeCapitalLetterRegex = RegExp(r'(?=[A-Z])');
-  final parts = value.split(beforeCapitalLetterRegex);
-  var newString = '';
-  for (var part in parts) {
-    if (newString.isEmpty) {
-      newString = part.toLowerCase();
-    } else {
-      newString = newString.toLowerCase() + '-' + part.toLowerCase();
+  String localize(AppLocalizations l10n) {
+    switch (this) {
+      case DockPosition.left:
+        return l10n.dockPositionLeft;
+      case DockPosition.bottom:
+        return l10n.dockPositionBottom;
+      case DockPosition.right:
+        return l10n.dockPositionRight;
     }
   }
-  return newString;
+}
+
+enum DockClickAction {
+  minimize,
+  cycleWindows,
+  focusOrPreviews;
+
+  String localize(AppLocalizations l10n) {
+    switch (this) {
+      case DockClickAction.minimize:
+        return l10n.dockClickActionMinimize;
+      case DockClickAction.cycleWindows:
+        return l10n.dockClickActionCycleWindows;
+      case DockClickAction.focusOrPreviews:
+        return l10n.dockClickActionFocusOrPreviews;
+    }
+  }
 }

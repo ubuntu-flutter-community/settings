@@ -87,10 +87,6 @@ class SearchAppBar extends StatelessWidget implements PreferredSizeWidget {
             minLines: null,
             cursorColor: textColor,
             textAlignVertical: TextAlignVertical.center,
-            style: textStyle ??
-                Theme.of(context).appBarTheme.titleTextStyle?.copyWith(
-                      fontWeight: FontWeight.w200,
-                    ),
             decoration: InputDecoration(
               contentPadding: const EdgeInsets.only(top: 4),
               prefixIcon: Icon(

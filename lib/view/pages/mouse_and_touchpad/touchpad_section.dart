@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:settings/constants.dart';
 import 'package:settings/view/pages/mouse_and_touchpad/mouse_and_touchpad_model.dart';
+import 'package:settings/view/settings_section.dart';
 import 'package:yaru_settings/yaru_settings.dart';
-import 'package:yaru_widgets/yaru_widgets.dart';
 
 class TouchpadSection extends StatelessWidget {
   const TouchpadSection({Key? key}) : super(key: key);
@@ -12,9 +12,9 @@ class TouchpadSection extends StatelessWidget {
   Widget build(BuildContext context) {
     final model = context.watch<MouseAndTouchpadModel>();
 
-    return YaruSection(
+    return SettingsSection(
       width: kDefaultWidth,
-      headline: 'Touchpad',
+      headline: const Text('Touchpad'),
       children: [
         YaruSliderRow(
           actionLabel: 'Speed',

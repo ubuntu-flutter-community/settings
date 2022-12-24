@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:settings/services/power_profile_service.dart';
+import 'package:settings/view/pages/power/power_profile_x.dart';
 
 class ProfileModeTitle extends StatelessWidget {
   const ProfileModeTitle({
     Key? key,
-    required this.icon,
     required this.title,
+    required this.powerProfile,
   }) : super(key: key);
 
-  final Widget icon;
   final Widget title;
+  final PowerProfile powerProfile;
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +20,11 @@ class ProfileModeTitle extends StatelessWidget {
         children: [
           Padding(
             padding: const EdgeInsets.only(right: 5),
-            child: icon,
+            child: Icon(
+              powerProfile.getIcon(),
+              color: powerProfile
+                  .getColor(Theme.of(context).brightness == Brightness.light),
+            ),
           ),
           title
         ],

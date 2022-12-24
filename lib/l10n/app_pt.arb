@@ -56,7 +56,7 @@
   "reportingUsageActionLabel": "Enviar a utilização do software ao Ubuntu",
   "locationDescription": "Os serviços de localização permitem às aplicações saber a sua localização geográfica. A utilização de WiFi ou banda larga móvel aumenta a precisão.",
   "locationInfoPrefix": "Utiliza o serviço de localização da Mozilla:",
-  "locationInfoLink": "política de privacidade",
+  "locationInfoLink": "Política de privacidade",
   "locationActionLabel": "Serviço de localização",
   "houseKeepingRecentFilesHeadline": "Histórico de ficheiros",
   "houseKeepingRecentFilesDescription": "O histórico de ficheiros memoriza os ficheiros que utilizou. Esta informação é partilhada entre aplicações e torna mais fácil encontrar os ficheiros que pretende utilizar.",
