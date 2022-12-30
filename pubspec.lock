@@ -142,12 +142,12 @@ packages:
     source: hosted
     version: "4.4.0"
   collection:
-    dependency: transitive
+    dependency: "direct overridden"
     description:
       name: collection
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.16.0"
+    version: "1.17.0"
   convert:
     dependency: transitive
     description:
@@ -196,7 +196,7 @@ packages:
       name: dbus
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.7.3"
+    version: "0.7.8"
   duration:
     dependency: "direct main"
     description:
@@ -219,12 +219,12 @@ packages:
     source: hosted
     version: "1.3.1"
   ffi:
-    dependency: transitive
+    dependency: "direct overridden"
     description:
       name: ffi
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.2.1"
+    version: "2.0.1"
   file:
     dependency: transitive
     description:
@@ -341,7 +341,7 @@ packages:
     source: hosted
     version: "1.0.3"
   flutter_test:
-    dependency: "direct dev"
+    dependency: transitive
     description: flutter
     source: sdk
     version: "0.0.0"
@@ -452,8 +452,8 @@ packages:
     dependency: "direct main"
     description:
       path: "."
-      ref: update_dbus
-      resolved-ref: "83ed5337ba1cd8320270f820b92206a95aaca389"
+      ref: update_dbus_ffi_and_xml
+      resolved-ref: d4a9c05b1e3390f17df61cd49f3f957b49887626
       url: "https://github.com/Feichtmeier/linux_system_info.git"
     source: git
     version: "0.0.7"
@@ -945,6 +945,15 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.6.1"
+  xdg_accounts:
+    dependency: "direct main"
+    description:
+      path: "."
+      ref: HEAD
+      resolved-ref: "64c83d8847f681d76e9ddcb3998d37603943c6a2"
+      url: "https://github.com/ubuntu-flutter-community/xdg_accounts"
+    source: git
+    version: "0.0.1"
   xdg_directories:
     dependency: transitive
     description:
@@ -958,7 +967,7 @@ packages:
       name: xml
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "5.4.1"
+    version: "6.2.2"
   yaml:
     dependency: transitive
     description:
@@ -1009,5 +1018,5 @@ packages:
     source: hosted
     version: "2.0.0-beta-2"
 sdks:
-  dart: ">=2.18.0 <3.0.0"
+  dart: ">=2.18.5 <3.0.0"
   flutter: ">=3.3.0"

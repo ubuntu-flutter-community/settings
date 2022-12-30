@@ -11,7 +11,7 @@ class AccountsPage extends StatelessWidget {
 
   static Widget create(BuildContext context) =>
       ChangeNotifierProvider<AccountsModel>(
-        create: (context) => AccountsModel(context.read<XdgAccounts>()),
+        create: (context) => AccountsModel(context.read<XdgAccounts>())..init(),
         child: const AccountsPage(),
       );
 
@@ -32,7 +32,7 @@ class AccountsPage extends StatelessWidget {
           child: Column(
             children: [
               for (final user in model.users ?? <XdgUser>[])
-                YaruTile(title: Text(user.name))
+                YaruTile(title: Text(user.userName ?? ''))
             ],
           ),
         )
