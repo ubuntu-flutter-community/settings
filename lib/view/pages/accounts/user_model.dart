@@ -18,7 +18,7 @@ class UserModel extends SafeChangeNotifier {
   String? get iconFile => _user.iconFile;
   String? get accountType => _user.accountType?.name;
 
-  void init() {
+  Future<void> init() async {
     _userNameSub = _user.userNameChanged.listen((event) {
       userName = event;
       notifyListeners();
