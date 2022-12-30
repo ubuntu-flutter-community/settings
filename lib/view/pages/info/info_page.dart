@@ -1,6 +1,5 @@
 import 'package:filesize/filesize.dart';
 import 'package:flutter/material.dart';
-import 'package:open_file/open_file.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:settings/constants.dart';
@@ -11,6 +10,7 @@ import 'package:settings/view/pages/settings_page.dart';
 import 'package:settings/view/pages/settings_simple_dialog.dart';
 import 'package:settings/view/settings_section.dart';
 import 'package:udisks/udisks.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:yaru_colors/yaru_colors.dart';
 import 'package:yaru_icons/yaru_icons.dart';
 import 'package:yaru_settings/yaru_settings.dart';
@@ -61,7 +61,7 @@ class _InfoPageState extends State<InfoPage> {
         label: 'Open File',
         onPressed: () async {
           final dir = await getApplicationDocumentsDirectory();
-          OpenFile.open('${dir.path}/System Data.pdf');
+          launchUrl(Uri.file('${dir.path}/System Data.pdf'));
         },
       ),
     );
