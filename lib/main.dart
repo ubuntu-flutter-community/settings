@@ -18,6 +18,7 @@ import 'package:settings/services/settings_service.dart';
 import 'package:settings/view/app_theme.dart';
 import 'package:udisks/udisks.dart';
 import 'package:upower/upower.dart';
+import 'package:xdg_accounts/xdg_accounts.dart';
 
 void main() async {
   final themeSettings = Settings(schemaInterface);
@@ -86,6 +87,10 @@ void main() async {
           create: (_) => DisplayService(),
           dispose: (_, DisplayService service) => service.dispose(),
         ),
+        Provider<XdgAccounts>(
+          create: (_) => XdgAccounts(),
+          dispose: (_, s) => s.dispose(),
+        )
       ],
       child: const UbuntuSettingsApp(),
     ),

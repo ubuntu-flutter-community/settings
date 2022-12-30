@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:linux_system_info/linux_system_info.dart';
+// import 'package:linux_system_info/linux_system_info.dart';
 import 'package:provider/provider.dart';
 import 'package:settings/constants.dart';
 import 'package:settings/view/app_theme.dart';
@@ -20,7 +20,7 @@ class _ThemeSectionState extends State<ThemeSection> {
   late String _osVersion;
   @override
   void initState() {
-    _osVersion = SystemInfo().os_version;
+    _osVersion = ' SystemInfo().os_version';
     super.initState();
   }
 
