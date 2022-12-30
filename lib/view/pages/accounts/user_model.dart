@@ -19,10 +19,7 @@ class UserModel extends SafeChangeNotifier {
   String? get accountType => _user.accountType?.name;
 
   Future<void> init() async {
-    _userNameSub = _user.userNameChanged.listen((event) {
-      userName = event;
-      notifyListeners();
-    });
+    _userNameSub = _user.userNameChanged.listen((event) => notifyListeners());
   }
 
   @override

@@ -10,5 +10,6 @@ class AccountsModel extends SafeChangeNotifier {
 
   Future<void> init() async {
     await xdgAccounts.init();
+    notifyListeners();
   }
 }
