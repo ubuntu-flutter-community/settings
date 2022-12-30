@@ -34,7 +34,6 @@ dependencies:
       ref: update_dbus
   mime: ^1.0.2
   nm: ^0.5.0
-  open_file: ^3.2.1
   path_provider: ^2.0.9
   pdf: ^3.7.4
   provider: ^6.0.2
