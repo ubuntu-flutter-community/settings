@@ -950,7 +950,7 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: "495a48ab818438bbcea08d3c046b5262b99f2f11"
+      resolved-ref: "4df6ff787e84697835137caccfb0a6ea72e36fd2"
       url: "https://github.com/ubuntu-flutter-community/xdg_accounts"
     source: git
     version: "0.0.1"

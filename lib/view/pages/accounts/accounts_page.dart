@@ -38,11 +38,103 @@ class AccountsPage extends StatelessWidget {
             width: kDefaultWidth,
             child: Column(
               children: [
+                YaruTile(
+                  title: const Text('Add user'),
+                  leading: YaruIconButton(
+                    icon: const Icon(
+                      YaruIcons.plus,
+                    ),
+                    onPressed: () => showDialog(
+                      context: context,
+                      builder: (context) =>
+                          ChangeNotifierProvider<AccountsModel>.value(
+                        value: model,
+                        child: const _AddUserDialog(),
+                      ),
+                    ),
+                  ),
+                ),
                 for (final user in model.users ?? <XdgUser>[])
                   _UserTile.create(context: context, user: user)
               ],
             ),
           ),
+        )
+      ],
+    );
+  }
+}
+
+class _AddUserDialog extends StatefulWidget {
+  const _AddUserDialog();
+
+  @override
+  State<_AddUserDialog> createState() => _AddUserDialogState();
+}
+
+class _AddUserDialogState extends State<_AddUserDialog> {
+  late TextEditingController _usernameController;
+  late TextEditingController _fullNameController;
+  late TextEditingController _passwordController;
+
+  @override
+  void initState() {
+    super.initState();
+    _usernameController = TextEditingController();
+    _passwordController = TextEditingController();
+    _fullNameController = TextEditingController();
+  }
+
+  @override
+  void dispose() {
+    _usernameController.dispose();
+    _passwordController.dispose();
+    _fullNameController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final model = context.watch<AccountsModel>();
+    return AlertDialog(
+      title: const YaruTitleBar(
+        title: Text('Add User'),
+      ),
+      titlePadding: EdgeInsets.zero,
+      contentPadding: const EdgeInsets.all(kYaruPagePadding),
+      content: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          TextField(
+            controller: _usernameController,
+            decoration: const InputDecoration(labelText: 'username'),
+          ),
+          const SizedBox(
+            height: kYaruPagePadding,
+          ),
+          TextField(
+            controller: _fullNameController,
+            decoration: const InputDecoration(labelText: 'full name'),
+          ),
+          const SizedBox(
+            height: kYaruPagePadding,
+          ),
+          TextField(
+            controller: _passwordController,
+            obscureText: true,
+            decoration: const InputDecoration(labelText: 'password'),
+          )
+        ],
+      ),
+      actions: [
+        ElevatedButton(
+          onPressed: () => model.addUser(
+            name: _usernameController.text,
+            fullname: _fullNameController.text,
+            accountType: 0,
+            password: _passwordController.text,
+          ),
+          child: Text(context.l10n.confirm),
         )
       ],
     );
