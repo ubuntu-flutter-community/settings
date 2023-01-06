@@ -76,6 +76,7 @@ class _AddUserDialogState extends State<_AddUserDialog> {
   late TextEditingController _usernameController;
   late TextEditingController _fullNameController;
   late TextEditingController _passwordController;
+  late TextEditingController _passwordHintController;
 
   @override
   void initState() {
@@ -83,6 +84,7 @@ class _AddUserDialogState extends State<_AddUserDialog> {
     _usernameController = TextEditingController();
     _passwordController = TextEditingController();
     _fullNameController = TextEditingController();
+    _passwordHintController = TextEditingController();
   }
 
   @override
@@ -90,6 +92,7 @@ class _AddUserDialogState extends State<_AddUserDialog> {
     _usernameController.dispose();
     _passwordController.dispose();
     _fullNameController.dispose();
+    _passwordHintController.dispose();
     super.dispose();
   }
 
@@ -123,17 +126,28 @@ class _AddUserDialogState extends State<_AddUserDialog> {
             controller: _passwordController,
             obscureText: true,
             decoration: const InputDecoration(labelText: 'password'),
+          ),
+          const SizedBox(
+            height: kYaruPagePadding,
+          ),
+          TextField(
+            controller: _passwordHintController,
+            obscureText: true,
+            decoration: const InputDecoration(labelText: 'Password hint'),
           )
         ],
       ),
       actions: [
         ElevatedButton(
-          onPressed: () => model.addUser(
-            name: _usernameController.text,
-            fullname: _fullNameController.text,
-            accountType: 0,
-            password: _passwordController.text,
-          ),
+          onPressed: () => model
+              .addUser(
+                name: _usernameController.text,
+                fullname: _fullNameController.text,
+                accountType: 0,
+                password: _passwordController.text,
+                passwordHint: _passwordHintController.text,
+              )
+              .then((_) => Navigator.pop(context)),
           child: Text(context.l10n.confirm),
         )
       ],
