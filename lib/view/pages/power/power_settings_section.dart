@@ -94,7 +94,7 @@ class _PowerSettingsSectionState extends State<PowerSettingsSection> {
             child: OutlinedButton(
               style: OutlinedButton.styleFrom(padding: const EdgeInsets.all(0)),
               onPressed: () => showAutomaticSuspendDialog(context),
-              child: const Icon(YaruIcons.settings),
+              child: const Icon(YaruIcons.gear),
             ),
           ),
         ),

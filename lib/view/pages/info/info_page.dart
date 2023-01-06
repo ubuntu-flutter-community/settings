@@ -225,7 +225,7 @@ class _Computer extends StatelessWidget {
                       child: const _HostnameSettings(),
                     ),
                   ),
-                  child: const Icon(YaruIcons.settings),
+                  child: const Icon(YaruIcons.gear),
                 ),
               ),
             ],

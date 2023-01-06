@@ -68,7 +68,7 @@ class _ClickAssist extends StatelessWidget {
                   child: const _ClickAssistSettings(),
                 ),
               ),
-              child: const Icon(YaruIcons.settings),
+              child: const Icon(YaruIcons.gear),
             ),
           ),
         ],

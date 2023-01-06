@@ -41,15 +41,13 @@ List<SettingsPageItem> getPageItems(BuildContext context) => [
       ),
       SettingsPageItem(
         titleBuilder: WallpaperPage.createTitle,
-        iconBuilder: (context, selected) =>
-            const Icon(YaruIcons.desktop_wallpaper),
+        iconBuilder: (context, selected) => const Icon(YaruIcons.wallpaper),
         builder: WallpaperPage.create,
         searchMatches: WallpaperPage.searchMatches,
       ),
       SettingsPageItem(
         titleBuilder: AppearancePage.createTitle,
-        iconBuilder: (context, selected) =>
-            const Icon(YaruIcons.desktop_panel_look),
+        iconBuilder: (context, selected) => const Icon(YaruIcons.panel_look),
         builder: AppearancePage.create,
         searchMatches: AppearancePage.searchMatches,
       ),
@@ -67,7 +65,7 @@ List<SettingsPageItem> getPageItems(BuildContext context) => [
       ),
       SettingsPageItem(
         titleBuilder: NotificationsPage.createTitle,
-        iconBuilder: (context, selected) => const Icon(YaruIcons.notification),
+        iconBuilder: (context, selected) => const Icon(YaruIcons.bell),
         builder: NotificationsPage.create,
         searchMatches: NotificationsPage.searchMatches,
       ),
@@ -85,14 +83,13 @@ List<SettingsPageItem> getPageItems(BuildContext context) => [
       ),
       SettingsPageItem(
         titleBuilder: OnlineAccountsPage.createTitle,
-        iconBuilder: (context, selected) =>
-            const Icon(YaruIcons.desktop_online_accounts),
+        iconBuilder: (context, selected) => const Icon(YaruIcons.cloud),
         builder: OnlineAccountsPage.create,
         searchMatches: OnlineAccountsPage.searchMatches,
       ),
       SettingsPageItem(
         titleBuilder: SoundPage.createTitle,
-        iconBuilder: (context, selected) => const Icon(YaruIcons.audio),
+        iconBuilder: (context, selected) => const Icon(YaruIcons.music_note),
         builder: SoundPage.create,
         searchMatches: SoundPage.searchMatches,
       ),
@@ -105,20 +102,19 @@ List<SettingsPageItem> getPageItems(BuildContext context) => [
       SettingsPageItem(
         titleBuilder: DisplaysPage.createTitle,
         iconBuilder: (context, selected) =>
-            const Icon(YaruIcons.desktop_display),
+            const Icon(YaruIcons.display_layout),
         builder: DisplaysPage.create,
         searchMatches: DisplaysPage.searchMatches,
       ),
       SettingsPageItem(
         titleBuilder: MouseAndTouchpadPage.createTitle,
-        iconBuilder: (context, selected) => const Icon(YaruIcons.input_mouse),
+        iconBuilder: (context, selected) => const Icon(YaruIcons.mouse),
         builder: MouseAndTouchpadPage.create,
         searchMatches: MouseAndTouchpadPage.searchMatches,
       ),
       SettingsPageItem(
         titleBuilder: KeyboardPage.createTitle,
-        iconBuilder: (context, selected) =>
-            const Icon(YaruIcons.input_keyboard),
+        iconBuilder: (context, selected) => const Icon(YaruIcons.keyboard),
         builder: KeyboardPage.create,
         searchMatches: KeyboardPage.searchMatches,
       ),
@@ -130,7 +126,7 @@ List<SettingsPageItem> getPageItems(BuildContext context) => [
       SettingsPageItem(
         titleBuilder: RemovableMediaPage.createTitle,
         iconBuilder: (context, selected) =>
-            const Icon(YaruIcons.media_removable),
+            const Icon(YaruIcons.drive_removable_media),
         builder: RemovableMediaPage.create,
         searchMatches: RemovableMediaPage.searchMatches,
       ),
@@ -148,7 +144,7 @@ List<SettingsPageItem> getPageItems(BuildContext context) => [
       ),
       SettingsPageItem(
         titleBuilder: AccessibilityPage.createTitle,
-        iconBuilder: (context, selected) => const Icon(YaruIcons.accessibility),
+        iconBuilder: (context, selected) => const Icon(YaruIcons.human),
         builder: AccessibilityPage.create,
         searchMatches: AccessibilityPage.searchMatches,
       ),

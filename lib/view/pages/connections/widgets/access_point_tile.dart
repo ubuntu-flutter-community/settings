@@ -37,7 +37,7 @@ class AccessPointTile extends StatelessWidget {
                 const SizedBox(width: 8.0),
                 YaruOptionButton(
                   onPressed: () {},
-                  child: const Icon(YaruIcons.settings),
+                  child: const Icon(YaruIcons.gear),
                 ),
               ],
             ),

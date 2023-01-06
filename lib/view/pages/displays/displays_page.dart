@@ -114,9 +114,9 @@ extension DisplaysPageSectionExtension on DisplaysPageSection {
   IconData icon(BuildContext context) {
     switch (this) {
       case DisplaysPageSection.displays:
-        return YaruIcons.desktop_display;
+        return YaruIcons.display_layout;
       case DisplaysPageSection.night:
-        return YaruIcons.weather_clear_night;
+        return YaruIcons.clear_night;
       default:
         return Icons.check_box_outline_blank;
     }
