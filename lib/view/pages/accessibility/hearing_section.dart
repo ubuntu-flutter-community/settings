@@ -31,7 +31,7 @@ class _VisualAlerts extends StatelessWidget {
   Widget build(BuildContext context) {
     final model = context.watch<AccessibilityModel>();
     return YaruExtraOptionRow(
-      iconData: YaruIcons.settings,
+      iconData: YaruIcons.gear,
       actionLabel: context.l10n.visualAlerts,
       actionDescription: context.l10n.visualAlertsDescription,
       value: model.visualAlerts,

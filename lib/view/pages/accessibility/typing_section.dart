@@ -39,7 +39,7 @@ class _RepeatKeys extends StatelessWidget {
   Widget build(BuildContext context) {
     final model = context.watch<AccessibilityModel>();
     return YaruExtraOptionRow(
-      iconData: YaruIcons.settings,
+      iconData: YaruIcons.gear,
       actionLabel: context.l10n.repeatKeys,
       actionDescription: context.l10n.repeatKeysDescription,
       value: model.keyboardRepeat,
@@ -96,7 +96,7 @@ class _CursorBlinking extends StatelessWidget {
   Widget build(BuildContext context) {
     final model = context.watch<AccessibilityModel>();
     return YaruExtraOptionRow(
-      iconData: YaruIcons.settings,
+      iconData: YaruIcons.gear,
       actionLabel: context.l10n.cursorBlinking,
       actionDescription: context.l10n.cursorBlinkingDescription,
       value: model.cursorBlink,
@@ -163,7 +163,7 @@ class _TypingAssist extends StatelessWidget {
                   child: const _TypingAssistSettings(),
                 ),
               ),
-              child: const Icon(YaruIcons.settings),
+              child: const Icon(YaruIcons.gear),
             ),
           ),
         ],

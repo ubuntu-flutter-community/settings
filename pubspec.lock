@@ -384,7 +384,7 @@ packages:
       name: handy_window
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.1.9"
+    version: "0.2.0"
   http:
     dependency: "direct main"
     description:
@@ -981,7 +981,7 @@ packages:
       name: yaru
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.4.5"
+    version: "0.4.6"
   yaru_color_generator:
     dependency: transitive
     description:
@@ -1002,7 +1002,7 @@ packages:
       name: yaru_icons
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.2.7"
+    version: "1.0.1"
   yaru_settings:
     dependency: "direct main"
     description:
@@ -1016,7 +1016,7 @@ packages:
       name: yaru_widgets
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.0.0-beta-2"
+    version: "2.0.0-beta-3"
 sdks:
   dart: ">=2.18.5 <3.0.0"
   flutter: ">=3.3.0"
