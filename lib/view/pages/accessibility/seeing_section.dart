@@ -34,7 +34,7 @@ class SeeingSection extends StatelessWidget {
         ),
         const _CursorSize(),
         YaruExtraOptionRow(
-          iconData: YaruIcons.settings,
+          iconData: YaruIcons.gear,
           actionLabel: context.l10n.zoom,
           value: model.zoom,
           onChanged: (value) => model.setZoom(value),
@@ -90,7 +90,7 @@ class _CursorSize extends StatelessWidget {
                   child: const _CursorSizeSettings(),
                 ),
               ),
-              child: const Icon(YaruIcons.settings),
+              child: const Icon(YaruIcons.gear),
             ),
           ),
         ],
