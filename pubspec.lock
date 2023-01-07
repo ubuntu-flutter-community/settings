@@ -972,7 +972,7 @@ packages:
       name: yaru
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.4.6"
+    version: "0.4.7"
   yaru_color_generator:
     dependency: transitive
     description:
