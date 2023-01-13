@@ -8,8 +8,11 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  yaru: ^0.4.1
-  yaru_widgets: ^2.0.0-beta-2
+  yaru: ^0.4.7
+  yaru_widgets:
+    git:
+      url: https://github.com/ubuntu/yaru_widgets.dart
+      ref: b16e8525747e0cc13a28d8553d9f3355ccacdec8
 
 dev_dependencies:
   flutter_lints: ^1.0.0

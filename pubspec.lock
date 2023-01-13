@@ -695,6 +695,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.1.0+1"
+  screen_retriever:
+    dependency: transitive
+    description:
+      name: screen_retriever
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.1.5"
   shelf:
     dependency: transitive
     description:
@@ -945,6 +952,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.6.1"
+  window_manager:
+    dependency: transitive
+    description:
+      name: window_manager
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.3.0"
   xdg_directories:
     dependency: transitive
     description:
@@ -986,7 +1000,7 @@ packages:
       name: yaru_colors
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.1.1"
+    version: "0.1.2"
   yaru_icons:
     dependency: "direct main"
     description:
@@ -1004,10 +1018,12 @@ packages:
   yaru_widgets:
     dependency: "direct main"
     description:
-      name: yaru_widgets
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "2.0.0-beta-3"
+      path: "."
+      ref: b16e8525747e0cc13a28d8553d9f3355ccacdec8
+      resolved-ref: b16e8525747e0cc13a28d8553d9f3355ccacdec8
+      url: "https://github.com/ubuntu/yaru_widgets.dart"
+    source: git
+    version: "2.0.0-beta-4"
 sdks:
   dart: ">=2.18.0 <3.0.0"
   flutter: ">=3.3.0"

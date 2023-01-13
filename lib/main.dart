@@ -18,12 +18,15 @@ import 'package:settings/services/settings_service.dart';
 import 'package:settings/view/app_theme.dart';
 import 'package:udisks/udisks.dart';
 import 'package:upower/upower.dart';
+import 'package:yaru_widgets/yaru_widgets.dart';
 
 void main() async {
   final themeSettings = Settings(schemaInterface);
 
   final networkManagerClient = NetworkManagerClient();
   await networkManagerClient.connect();
+
+  await YaruWindowTitleBar.ensureInitialized();
 
   runApp(
     MultiProvider(

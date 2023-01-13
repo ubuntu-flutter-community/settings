@@ -20,7 +20,7 @@ import 'package:yaru_widgets/yaru_widgets.dart';
 ///   appBarHeight: AppBarTheme.of(context).toolbarHeight,
 /// )
 /// ```
-class SearchAppBar extends StatelessWidget implements PreferredSizeWidget {
+class SearchAppBar extends StatelessWidget {
   const SearchAppBar({
     Key? key,
     this.searchController,
@@ -66,61 +66,54 @@ class SearchAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
-    final textColor = Theme.of(context).appBarTheme.foregroundColor;
-    return AppBar(
-      toolbarHeight: appBarHeight,
-      foregroundColor: textColor,
-      automaticallyImplyLeading: automaticallyImplyLeading,
-      flexibleSpace: RawKeyboardListener(
-        onKey: (event) {
-          if (event.logicalKey == LogicalKeyboardKey.escape) {
-            onEscape();
-            return;
-          }
-        },
-        focusNode: FocusNode(),
-        child: SizedBox(
-          height: appBarHeight,
-          child: TextField(
-            expands: true,
-            maxLines: null,
-            minLines: null,
-            cursorColor: textColor,
-            textAlignVertical: TextAlignVertical.center,
-            decoration: InputDecoration(
-              contentPadding: const EdgeInsets.only(top: 4),
-              prefixIcon: Icon(
-                searchIconData ?? Icons.search,
-                color: textColor,
-                size: 20,
-              ),
-              prefixIconConstraints:
-                  BoxConstraints.expand(width: 40, height: appBarHeight),
-              suffixIcon: Padding(
-                padding: const EdgeInsets.only(right: 8.0),
-                child: YaruIconButton(
-                  onPressed: onEscape,
-                  icon: Icon(
-                    clearSearchIconData ?? Icons.close,
-                    color: textColor,
-                  ),
-                ),
-              ),
-              hintText: searchHint,
-              enabledBorder: const UnderlineInputBorder(
-                borderSide: BorderSide(color: Colors.transparent),
-              ),
-              border: const UnderlineInputBorder(),
-            ),
-            controller: searchController,
-            autofocus: false,
-            onChanged: onChanged,
+    final theme = Theme.of(context);
+    final light = theme.brightness == Brightness.light;
+    final textColor = theme.appBarTheme.foregroundColor;
+    return RawKeyboardListener(
+      onKey: (event) {
+        if (event.logicalKey == LogicalKeyboardKey.escape) {
+          onEscape();
+          return;
+        }
+      },
+      focusNode: FocusNode(),
+      child: TextField(
+        maxLines: null,
+        minLines: null,
+        cursorColor: textColor,
+        textAlignVertical: TextAlignVertical.center,
+        decoration: InputDecoration(
+          filled: true,
+          focusColor: Colors.transparent,
+          fillColor: Colors.transparent,
+          contentPadding: const EdgeInsets.only(top: 4),
+          prefixIcon: Icon(
+            searchIconData ?? Icons.search,
+            color: textColor,
+            size: 20,
           ),
+          prefixIconConstraints:
+              BoxConstraints.expand(width: 40, height: appBarHeight),
+          suffixIcon: Padding(
+            padding: const EdgeInsets.only(right: 8.0),
+            child: YaruIconButton(
+              onPressed: onEscape,
+              icon: Icon(
+                clearSearchIconData ?? Icons.close,
+                color: textColor,
+              ),
+            ),
+          ),
+          hintText: searchHint,
+          enabledBorder: const UnderlineInputBorder(
+            borderSide: BorderSide(color: Colors.transparent),
+          ),
+          border: const UnderlineInputBorder(),
         ),
+        controller: searchController,
+        autofocus: false,
+        onChanged: onChanged,
       ),
     );
   }
-
-  @override
-  Size get preferredSize => Size(0, appBarHeight);
 }

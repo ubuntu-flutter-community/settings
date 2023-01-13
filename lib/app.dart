@@ -67,21 +67,23 @@ class _UbuntuSettingsAppState extends State<UbuntuSettingsApp> {
                 ),
                 pageBuilder: (context, index) => YaruDetailPage(
                   body: pages[index].builder(context),
-                  appBar: AppBar(
+                  appBar: YaruWindowTitleBar(
                     title: pages[index].titleBuilder(context),
                     leading: Navigator.of(context).canPop()
                         ? const YaruBackButton()
                         : null,
                   ),
                 ),
-                appBar: SearchAppBar(
-                  searchHint: context.l10n.searchHint,
-                  clearSearchIconData: YaruIcons.window_close,
-                  searchController: _searchController,
-                  onChanged: (v) => _onSearchChanged(v, context),
-                  onEscape: _onEscape,
-                  appBarHeight: 48,
-                  searchIconData: YaruIcons.search,
+                appBar: YaruWindowTitleBar(
+                  title: SearchAppBar(
+                    searchHint: context.l10n.searchHint,
+                    clearSearchIconData: YaruIcons.window_close,
+                    searchController: _searchController,
+                    onChanged: (v) => _onSearchChanged(v, context),
+                    onEscape: _onEscape,
+                    appBarHeight: 48,
+                    searchIconData: YaruIcons.search,
+                  ),
                 ),
               );
             },
