@@ -127,7 +127,7 @@
   "dateAndTimePageTitle": "Datum och tid",
   "dateAndTimePageAutoDateTime": "Automatiskt datum och tid",
   "dateAndTimePageAutoTimezone": "Automatisk tidszon",
-  "dateAmdTimePageSelectTimezone": "Välj en tidszon"
+  "dateAmdTimePageSelectTimezone": "Välj en tidszon",
   "dateAndTimePageTwentyFour": "24 timmars tid format",
   "dateAndTimePageSecondsInPanel": "Visa sekunder i panel",
   "dateAndTimePageWeekdayInPanel": "Visa veckodag i panel",
