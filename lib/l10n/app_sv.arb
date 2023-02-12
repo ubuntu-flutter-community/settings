@@ -228,11 +228,11 @@
   "stickyKeysBeepKeyOption": "Piper när en knapp trycks ned",
   "stickyKeysBeepKeyAcceptedOption": "Pip när en tangent accepteras",
   "stickyKeysBeepKeyRejectedOption": "Pip när en tangent avvisas"
-  "nightLightPageTitle":"Nattljus"
-  "nightLightPageEnableNightlight":"Aktivera nattljus"
-  "nightLightPageColorTemprature":"Färgtemperatur"
-  "nightLightPageScheduleTitle":"Schemalägg"
-  "nightLightPageScheduleSubtitle":"Ställ in ett schema för nattljus"
-  "nightLightPageScheduleFrom":"Från"
-  "nightLightPageScheduleTo":"Till"
+  "nightLightPageTitle":"Nattljus",
+  "nightLightPageEnableNightlight":"Aktivera nattljus",
+  "nightLightPageColorTemprature":"Färgtemperatur",
+  "nightLightPageScheduleTitle":"Schemalägg",
+  "nightLightPageScheduleSubtitle":"Ställ in ett schema för nattljus",
+  "nightLightPageScheduleFrom":"Från",
+  "nightLightPageScheduleTo":"Till" 
 }
