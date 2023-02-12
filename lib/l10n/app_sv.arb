@@ -298,7 +298,7 @@
   "acceptanceDelay": "Acceptansförsening",
   "stickyKeysBeepKeyOption": "Piper när en knapp trycks ned",
   "stickyKeysBeepKeyAcceptedOption": "Pip när en tangent accepteras",
-  "stickyKeysBeepKeyRejectedOption": "Pip när en tangent avvisas"
+  "stickyKeysBeepKeyRejectedOption": "Pip när en tangent avvisas",
   "dockPosition": "Dock Position",
   "dockAppearanceHeadline": "Dock utseende",
   "dockPanelMode": "Panel läge",
