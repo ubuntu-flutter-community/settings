@@ -12,7 +12,7 @@
   "no": "Nej",
   "cancel": "Avbryt",
   "confirm": "Bekräfta",
-  "paired": "Paired",
+  "paired": "Parad",
   "address": "Address",
   "type": "Typ",
   "unknown": "Okänd",
@@ -206,7 +206,7 @@
       "time": {}
     }
   },
-  "batteryLow": "Varning: {time} remaining",
+  "batteryLow": "Varning: {time} kvar",
   "@batteryLow": {
     "placeholders": {
       "time": {}
@@ -277,7 +277,7 @@
   "repeatKeys": "Upprepa tangenter",
   "repeatKeysDescription": "Knapptryckningar upprepas när knappen hålls nedtryckt",
   "repeatKeyDelayDescription": "Initial upprepningsfördröjning",
-  "interval": "Interval",
+  "interval": "Intervall",
   "intervalDelayDescription": "Fördröjning mellan repetitioner",
   "cursorBlinking": "Markören blinkar",
   "cursorBlinkingDescription": "Markören blinkar i textfält",
