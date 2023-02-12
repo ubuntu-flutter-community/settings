@@ -228,7 +228,7 @@
   "stickyKeysBeepKeyOption": "Piper när en knapp trycks ned",
   "stickyKeysBeepKeyAcceptedOption": "Pip när en tangent accepteras",
   "stickyKeysBeepKeyRejectedOption": "Pip när en tangent avvisas"
-  nightlight_ubuntusettings "nightLightPageTitle":"Nattljus"
+  "nightlight_ubuntusettings "nightLightPageTitle":"Nattljus"
   "nightLightPageEnableNightlight":"Aktivera nattljus"
   "nightLightPageColorTemprature":"Färgtemperatur"
   "nightLightPageScheduleTitle":"Schemalägg"
