@@ -36,8 +36,8 @@
   "removableMediaSoftware": "Programvara",
   "removableMediaVideoBlueray": "Video Blueray",
   "removableMediaVideoHdDvd": "Video HD DVD",
-  "removableMediaVideoSvCd": "Video SV CD",
-  "removableMediaVideoVCd": "Video V CD",
+  "removableMediaVideoSvCd": "Video SVCD",
+  "removableMediaVideoVCd": "Video VCD",
   "removableMediaWindowsSoftware": "Windows Programvara",
   "checkConnectivityLabel": "Kontrollera anslutningen",
   "checkConnectivityDescription": "Anslutningskontrollen används för att upptäcka anslutningsproblem och hjälpa dig att hålla dig online. Om din nätverkskommunikation övervakas kan den användas för att samla in teknisk information om den här datorn.",
@@ -338,4 +338,4 @@
   "nightLightPageScheduleSubtitle": "Ställ in ett schema för nattljus",
   "nightLightPageScheduleFrom": "Från",
   "nightLightPageScheduleTo": "Till",
-}
+ }
