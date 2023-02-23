@@ -2,7 +2,7 @@
     "appTitle": "Pengaturan Ubuntu",
     "searchHint": "Cari ...",
     "connected": "Terhubung",
-    "disonnected": "Tidak Terhubung",
+    "disconnected": "Tidak Terhubung",
     "enabled": "diaktifkan",
     "disabled": "dimatikan",
     "switchedOn": "menghidupkan",

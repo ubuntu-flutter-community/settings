@@ -2,7 +2,7 @@
   "appTitle": "Definições Ubuntu",
   "searchHint": "Procurar...",
   "connected": "Conectado",
-  "disonnected": "Desconectado",
+  "disconnected": "Desconectado",
   "enabled": "ativado",
   "disabled": "desativado",
   "switchedOn": "ligado",

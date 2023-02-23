@@ -32,7 +32,7 @@ class WifiDevicesContent extends StatelessWidget {
                 Text(
                   wifiModel.isWifiEnabled
                       ? context.l10n.connected
-                      : context.l10n.disonnected,
+                      : context.l10n.disconnected,
                   style: TextStyle(
                     color: Theme.of(context)
                         .colorScheme

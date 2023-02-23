@@ -2,7 +2,7 @@
   "appTitle": "Ubuntu Indstillinger",
   "searchHint": "Søg...",
   "connected": "Forbundet",
-  "disonnected": "Ikke forbundet",
+  "disconnected": "Ikke forbundet",
   "yes": "Ja",
   "no": "Nej",
   "cancel": "Afbryd",

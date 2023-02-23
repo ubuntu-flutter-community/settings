@@ -2,7 +2,7 @@
   "appTitle": "Ubuntu Inställningar",
   "searchHint": "Sök...",
   "connected": "Ansluten",
-  "disonnected": "Inte ansluten",
+  "disconnected": "Inte ansluten",
   "enabled": "aktiverad",
   "disabled": "inaktiverad",
   "switchedOn": "påslagen",

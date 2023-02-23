@@ -62,7 +62,7 @@ class _BluetoothDeviceRowState extends State<BluetoothDeviceRow> {
           trailing: Text(
             model.connected
                 ? context.l10n.connected.toLowerCase()
-                : context.l10n.disonnected.toLowerCase(),
+                : context.l10n.disconnected.toLowerCase(),
             style: TextStyle(
               color: Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
             ),
@@ -99,7 +99,7 @@ class _BluetoothDeviceDialog extends StatelessWidget {
         YaruTile(
           title: model.connected
               ? Text(context.l10n.connected)
-              : Text(context.l10n.disonnected),
+              : Text(context.l10n.disconnected),
           trailing: YaruSwitch(
             value: model.connected,
             onChanged: (connectRequested) async {

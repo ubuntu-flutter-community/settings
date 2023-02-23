@@ -2,7 +2,7 @@
   "appTitle": "Ubuntu Einstellungen",
   "searchHint": "Suche...",
   "connected": "verbunden",
-  "disonnected": "Nicht verbunden",
+  "disconnected": "Nicht verbunden",
   "enabled": "aktiviert",
   "disabled": "deaktiviert",
   "switchedOn": "eingeschaltet",

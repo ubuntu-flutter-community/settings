@@ -2,7 +2,7 @@
   "appTitle": "Ubuntu Settings",
   "searchHint": "Search...",
   "connected": "Connected",
-  "disonnected": "Disconnected",
+  "disconnected": "Disconnected",
   "enabled": "enabled",
   "disabled": "disabled",
   "switchedOn": "switched on",
