@@ -34,8 +34,9 @@ class SelectableSvgImage extends StatelessWidget {
             borderRadius: BorderRadius.circular(4),
             child: SvgPicture.asset(
               path,
-              color:
-                  selected ? selectedColor : Theme.of(context).colorScheme.background,
+              color: selected
+                  ? selectedColor
+                  : Theme.of(context).colorScheme.background,
               colorBlendMode: selected ? BlendMode.srcIn : BlendMode.color,
               height: height,
             ),
