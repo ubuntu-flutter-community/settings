@@ -5,8 +5,8 @@ import 'package:settings/constants.dart';
 import 'package:settings/l10n/l10n.dart';
 import 'package:settings/view/pages/connections/wifi_content.dart';
 import 'package:settings/view/pages/settings_page.dart';
+import 'package:settings/view/tabbed_page.dart';
 import 'package:yaru_icons/yaru_icons.dart';
-import 'package:yaru_widgets/yaru_widgets.dart';
 
 import 'models/wifi_model.dart';
 
@@ -34,7 +34,7 @@ class ConnectionsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final wifiModel = context.watch<WifiModel>();
-    return YaruTabbedPage(
+    return TabbedPage(
       tabIcons: const [
         Icon(YaruIcons.network_wireless),
         Icon(YaruIcons.network_wired),

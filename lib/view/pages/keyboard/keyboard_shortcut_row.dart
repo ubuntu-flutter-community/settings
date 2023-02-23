@@ -101,7 +101,7 @@ class KeyboardShortcutDialog extends StatelessWidget {
     return AlertDialog(
       title: Text(
         'Start typing... ',
-        style: Theme.of(context).textTheme.subtitle1,
+        style: Theme.of(context).textTheme.titleMedium,
       ),
       content: SizedBox(
         height: 100,
@@ -124,7 +124,7 @@ class KeyboardShortcutDialog extends StatelessWidget {
             ),
             Text(
               keys.isEmpty ? '' : 'Press cancel to cancel',
-              style: Theme.of(context).textTheme.subtitle2,
+              style: Theme.of(context).textTheme.titleSmall,
             ),
           ],
         ),

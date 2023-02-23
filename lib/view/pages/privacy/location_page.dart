@@ -38,7 +38,7 @@ class LocationPage extends StatelessWidget {
               children: [
                 Text(
                   context.l10n.locationInfoPrefix,
-                  style: Theme.of(context).textTheme.caption,
+                  style: Theme.of(context).textTheme.bodySmall,
                 ),
                 const SizedBox(
                   width: 5,

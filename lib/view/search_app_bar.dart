@@ -67,7 +67,6 @@ class SearchAppBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final light = theme.brightness == Brightness.light;
     final textColor = theme.appBarTheme.foregroundColor;
     return RawKeyboardListener(
       onKey: (event) {

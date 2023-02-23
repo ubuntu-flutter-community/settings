@@ -18,7 +18,7 @@ class SectionDescription extends StatelessWidget {
             Flexible(
               child: Text(
                 text,
-                style: Theme.of(context).textTheme.caption,
+                style: Theme.of(context).textTheme.bodySmall,
               ),
             )
           ],

@@ -281,7 +281,7 @@ class _TrashButton extends StatelessWidget {
       child: OutlinedButton(
         style: OutlinedButton.styleFrom(padding: const EdgeInsets.all(0)),
         onPressed: onPressed,
-        child: Icon(YaruIcons.trash, color: Theme.of(context).errorColor),
+        child: Icon(YaruIcons.trash, color: Theme.of(context).colorScheme.error),
       ),
     );
   }

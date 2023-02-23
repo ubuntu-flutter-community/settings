@@ -5,11 +5,11 @@ import 'package:settings/l10n/l10n.dart';
 import 'package:settings/services/display/display_service.dart';
 import 'package:settings/view/pages/displays/displays_configuration.dart';
 import 'package:settings/view/pages/displays/displays_model.dart';
-import 'package:settings/view/pages/displays/widgets/monitor_section.dart';
 import 'package:settings/view/pages/displays/nightlight_page.dart';
+import 'package:settings/view/pages/displays/widgets/monitor_section.dart';
 import 'package:settings/view/pages/settings_page.dart';
+import 'package:settings/view/tabbed_page.dart';
 import 'package:yaru_icons/yaru_icons.dart';
-import 'package:yaru_widgets/yaru_widgets.dart';
 
 class DisplaysPage extends StatefulWidget {
   /// private as we have to pass from create method below
@@ -46,7 +46,7 @@ class _DisplaysPageState extends State<DisplaysPage> {
       valueListenable: model.configuration,
       builder:
           (BuildContext context, DisplaysConfiguration? configurations, _) {
-        return YaruTabbedPage(
+        return TabbedPage(
           width: kDefaultWidth,
           tabIcons: DisplaysPageSection.values
               .map((e) => Icon(e.icon(context)))

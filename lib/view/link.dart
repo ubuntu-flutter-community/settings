@@ -16,7 +16,7 @@ class Link extends StatelessWidget {
         linkText,
         style: Theme.of(context)
             .textTheme
-            .caption
+            .bodySmall
             ?.copyWith(color: Theme.of(context).colorScheme.primary),
       ),
     );

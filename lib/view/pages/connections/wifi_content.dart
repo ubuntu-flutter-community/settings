@@ -114,11 +114,11 @@ class WifiAdaptorNotFound extends StatelessWidget {
         ),
         Text(
           'No Wi-fi Adaptor Found',
-          style: Theme.of(context).textTheme.headline5,
+          style: Theme.of(context).textTheme.headlineSmall,
         ),
         Text(
           'Make sure you have a Wi-Fi adaptor plugged and turned on',
-          style: Theme.of(context).textTheme.bodyText2,
+          style: Theme.of(context).textTheme.bodyMedium,
         )
       ],
     );

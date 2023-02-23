@@ -3,8 +3,8 @@ import 'package:settings/constants.dart';
 import 'package:settings/l10n/l10n.dart';
 import 'package:settings/view/pages/keyboard/keyboard_settings_page.dart';
 import 'package:settings/view/pages/keyboard/keyboard_shortcuts_page.dart';
+import 'package:settings/view/tabbed_page.dart';
 import 'package:yaru_icons/yaru_icons.dart';
-import 'package:yaru_widgets/yaru_widgets.dart';
 
 class KeyboardPage extends StatefulWidget {
   const KeyboardPage({Key? key}) : super(key: key);
@@ -37,7 +37,7 @@ class _KeyboardPageState extends State<KeyboardPage>
 
   @override
   Widget build(BuildContext context) {
-    return const YaruTabbedPage(
+    return const TabbedPage(
       tabIcons: [
         Icon(YaruIcons.keyboard),
         Icon(YaruIcons.keyboard_shortcuts),

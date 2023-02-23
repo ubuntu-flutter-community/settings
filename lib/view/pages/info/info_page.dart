@@ -99,7 +99,7 @@ class _InfoPageState extends State<InfoPage> {
               model.osName,
               style: Theme.of(context)
                   .textTheme
-                  .headline2!
+                  .displayMedium!
                   .copyWith(color: Theme.of(context).colorScheme.onSurface),
             )
           ],

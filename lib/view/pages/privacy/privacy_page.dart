@@ -7,8 +7,8 @@ import 'package:settings/view/pages/privacy/location_page.dart';
 import 'package:settings/view/pages/privacy/reporting_page.dart';
 import 'package:settings/view/pages/privacy/screen_saver_page.dart';
 import 'package:settings/view/pages/settings_page.dart';
+import 'package:settings/view/tabbed_page.dart';
 import 'package:yaru_icons/yaru_icons.dart';
-import 'package:yaru_widgets/yaru_widgets.dart';
 
 class PrivacyPage extends StatelessWidget {
   const PrivacyPage({Key? key}) : super(key: key);
@@ -30,7 +30,7 @@ class PrivacyPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return YaruTabbedPage(
+    return TabbedPage(
       width: kDefaultWidth * 2,
       tabIcons: const [
         Icon(YaruIcons.network),

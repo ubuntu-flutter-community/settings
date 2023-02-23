@@ -35,7 +35,7 @@ class SelectableSvgImage extends StatelessWidget {
             child: SvgPicture.asset(
               path,
               color:
-                  selected ? selectedColor : Theme.of(context).backgroundColor,
+                  selected ? selectedColor : Theme.of(context).colorScheme.background,
               colorBlendMode: selected ? BlendMode.srcIn : BlendMode.color,
               height: height,
             ),

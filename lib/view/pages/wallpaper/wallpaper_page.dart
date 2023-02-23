@@ -112,7 +112,7 @@ class WallpaperPage extends StatelessWidget {
                     padding: const EdgeInsets.symmetric(horizontal: 5),
                     child: Text(
                       model.caption,
-                      style: Theme.of(context).textTheme.caption!.copyWith(
+                      style: Theme.of(context).textTheme.bodySmall!.copyWith(
                             fontStyle: FontStyle.italic,
                           ),
                     ),
@@ -383,7 +383,7 @@ class _RemoveWallpaperButton extends StatelessWidget {
       child: Container(
         decoration: ShapeDecoration(
           shape: const CircleBorder(),
-          color: Theme.of(context).backgroundColor.withOpacity(0.9),
+          color: Theme.of(context).colorScheme.background.withOpacity(0.9),
         ),
         child: InkWell(
           borderRadius: BorderRadius.circular(100),

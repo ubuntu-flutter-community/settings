@@ -98,7 +98,7 @@ class ColorShadingOptionRow extends StatelessWidget {
       ),
       wheelSubheading: Text(
         context.l10n.wallpaperPagePickerWheelHeading,
-        style: Theme.of(context).textTheme.subtitle1,
+        style: Theme.of(context).textTheme.titleMedium,
       ),
       showMaterialName: true,
       showColorName: true,
@@ -106,10 +106,10 @@ class ColorShadingOptionRow extends StatelessWidget {
       copyPasteBehavior: const ColorPickerCopyPasteBehavior(
         longPressMenu: true,
       ),
-      materialNameTextStyle: Theme.of(context).textTheme.caption,
-      colorNameTextStyle: Theme.of(context).textTheme.caption,
-      colorCodeTextStyle: Theme.of(context).textTheme.bodyText2,
-      colorCodePrefixStyle: Theme.of(context).textTheme.caption,
+      materialNameTextStyle: Theme.of(context).textTheme.bodySmall,
+      colorNameTextStyle: Theme.of(context).textTheme.bodySmall,
+      colorCodeTextStyle: Theme.of(context).textTheme.bodyMedium,
+      colorCodePrefixStyle: Theme.of(context).textTheme.bodySmall,
       selectedPickerTypeColor: Theme.of(context).colorScheme.primary,
       pickersEnabled: const <ColorPickerType, bool>{
         ColorPickerType.both: false,

@@ -163,7 +163,7 @@ class _BluetoothDeviceDialog extends StatelessWidget {
         if (model.errorMessage.isNotEmpty)
           Text(
             model.errorMessage,
-            style: TextStyle(color: Theme.of(context).errorColor),
+            style: TextStyle(color: Theme.of(context).colorScheme.error),
           )
       ],
     );

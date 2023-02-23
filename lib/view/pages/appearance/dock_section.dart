@@ -18,7 +18,7 @@ class DockSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final model = context.watch<DockModel>();
-    final unselectedColor = Theme.of(context).backgroundColor;
+    final unselectedColor = Theme.of(context).colorScheme.background;
     final selectedColor = Theme.of(context).brightness == Brightness.light
         ? Theme.of(context).primaryColor
         : lighten(Theme.of(context).primaryColor, 20);

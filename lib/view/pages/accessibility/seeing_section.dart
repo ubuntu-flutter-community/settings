@@ -188,14 +188,14 @@ class _ZoomSettings extends StatelessWidget {
       children: [
         Text(
           context.l10n.zoomOption_Magnifier,
-          style: Theme.of(context).textTheme.headline6,
+          style: Theme.of(context).textTheme.titleLarge,
         ),
         const _MagnifierOptions(),
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 12.0),
           child: Text(
             context.l10n.zoomOption_Crosshairs,
-            style: Theme.of(context).textTheme.headline6,
+            style: Theme.of(context).textTheme.titleLarge,
           ),
         ),
         const _CrosshairsOptions(),
@@ -203,7 +203,7 @@ class _ZoomSettings extends StatelessWidget {
           padding: const EdgeInsets.symmetric(vertical: 12.0),
           child: Text(
             context.l10n.zoomOption_ColorEffects,
-            style: Theme.of(context).textTheme.headline6,
+            style: Theme.of(context).textTheme.titleLarge,
           ),
         ),
         const _ColorEffectsOptions(),
@@ -462,15 +462,15 @@ class _CrosshairsOptions extends StatelessWidget {
       wheelDiameter: 155,
       heading: Text(
         context.l10n.selectCrossHairsColor,
-        style: Theme.of(context).textTheme.subtitle1,
+        style: Theme.of(context).textTheme.titleMedium,
       ),
       subheading: Text(
         context.l10n.selectColorShade,
-        style: Theme.of(context).textTheme.subtitle1,
+        style: Theme.of(context).textTheme.titleMedium,
       ),
       wheelSubheading: Text(
         context.l10n.selectedColorsShade,
-        style: Theme.of(context).textTheme.subtitle1,
+        style: Theme.of(context).textTheme.titleMedium,
       ),
       showMaterialName: true,
       showColorName: true,
@@ -478,10 +478,10 @@ class _CrosshairsOptions extends StatelessWidget {
       copyPasteBehavior: const ColorPickerCopyPasteBehavior(
         longPressMenu: true,
       ),
-      materialNameTextStyle: Theme.of(context).textTheme.caption,
-      colorNameTextStyle: Theme.of(context).textTheme.caption,
-      colorCodeTextStyle: Theme.of(context).textTheme.bodyText2,
-      colorCodePrefixStyle: Theme.of(context).textTheme.caption,
+      materialNameTextStyle: Theme.of(context).textTheme.bodySmall,
+      colorNameTextStyle: Theme.of(context).textTheme.bodySmall,
+      colorCodeTextStyle: Theme.of(context).textTheme.bodyMedium,
+      colorCodePrefixStyle: Theme.of(context).textTheme.bodySmall,
       selectedPickerTypeColor: Theme.of(context).colorScheme.primary,
       pickersEnabled: const <ColorPickerType, bool>{
         ColorPickerType.both: false,
