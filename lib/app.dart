@@ -74,17 +74,17 @@ class _UbuntuSettingsAppState extends State<UbuntuSettingsApp> {
                         : null,
                   ),
                 ),
-                appBar: YaruWindowTitleBar(
-                  title: SearchAppBar(
-                    searchHint: context.l10n.searchHint,
-                    clearSearchIconData: YaruIcons.window_close,
-                    searchController: _searchController,
-                    onChanged: (v) => _onSearchChanged(v, context),
-                    onEscape: _onEscape,
-                    appBarHeight: 48,
-                    searchIconData: YaruIcons.search,
-                  ),
-                ),
+                appBar: const YaruWindowTitleBar(
+                    // title: SearchAppBar(
+                    //   searchHint: context.l10n.searchHint,
+                    //   clearSearchIconData: YaruIcons.window_close,
+                    //   searchController: _searchController,
+                    //   onChanged: (v) => _onSearchChanged(v, context),
+                    //   onEscape: _onEscape,
+                    //   appBarHeight: 48,
+                    //   searchIconData: YaruIcons.search,
+                    // ),
+                    ),
               );
             },
           },
