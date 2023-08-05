@@ -1,13 +1,16 @@
+import 'dart:async';
+import 'dart:convert';
 import 'dart:io';
 
-import 'package:mime/mime.dart';
-import 'package:safe_change_notifier/safe_change_notifier.dart';
-import 'package:settings/schemas/schemas.dart';
-import 'package:settings/services/settings_service.dart';
-
-import 'package:path_provider/path_provider.dart';
 import 'package:http/http.dart' as http;
-import 'dart:convert';
+import 'package:mime/mime.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:safe_change_notifier/safe_change_notifier.dart';
+import 'package:settings/l10n/l10n.dart';
+import 'package:settings/schemas/schemas.dart';
+import 'package:settings/services/display/display_service.dart';
+import 'package:settings/services/settings_service.dart';
+import 'package:settings/view/pages/displays/displays_configuration.dart';
 
 const gnomeWallpaperSuffix = 'file://';
 const _gnomeUserWallpaperLocation = '/.local/share/backgrounds/';
@@ -17,9 +20,21 @@ const _bingUrl = 'http://www.bing.com';
 const _nasaUrl =
     'https://api.nasa.gov/planetary/apod?api_key=PdQXYMNV2kT9atjMjNI9gbzLqe7qF6TcEHXhexXg';
 
+const _unsplashUrl = 'https://source.unsplash.com/1920x1080/daily';
+
 class WallpaperModel extends SafeChangeNotifier {
+  WallpaperModel(
+    SettingsService wallpaperService,
+    DisplayService displayService,
+  ) : _wallpaperSettings = wallpaperService.lookup(schemaBackground) {
+    _wallpaperSettings?.addListener(notifyListeners);
+    _displaysConfigurationSubscription = displayService.monitorStateStream
+        .listen((configuration) => _displaysConfiguration = configuration);
+  }
   final Settings? _wallpaperSettings;
   static const _pictureUriKey = 'picture-uri';
+  static const _pictureUriDarkKey = 'picture-uri-dark';
+
   static const _preinstalledWallpapersDir = '/usr/share/backgrounds';
   static const _colorShadingTypeKey = 'color-shading-type';
   static const _primaryColorKey = 'primary-color';
@@ -28,17 +43,17 @@ class WallpaperModel extends SafeChangeNotifier {
   WallpaperMode wallpaperMode = WallpaperMode.custom;
   ImageOfTheDayProvider imageOfTheDayProvider = ImageOfTheDayProvider.bing;
 
-  final String? _userWallpapersDir =
-      Platform.environment['HOME']! + _gnomeUserWallpaperLocation;
+  final String? _userWallpapersDir = Platform.environment['HOME'] == null
+      ? null
+      : Platform.environment['HOME']! + _gnomeUserWallpaperLocation;
 
-  WallpaperModel(SettingsService service)
-      : _wallpaperSettings = service.lookup(schemaBackground) {
-    _wallpaperSettings?.addListener(notifyListeners);
-  }
+  DisplaysConfiguration? _displaysConfiguration;
+  StreamSubscription? _displaysConfigurationSubscription;
 
   @override
   void dispose() {
     _wallpaperSettings?.removeListener(notifyListeners);
+    _displaysConfigurationSubscription?.cancel();
     super.dispose();
   }
 
@@ -46,13 +61,45 @@ class WallpaperModel extends SafeChangeNotifier {
       _wallpaperSettings?.stringValue(_pictureUriKey) ?? '';
 
   set pictureUri(String picPathString) {
-    _wallpaperSettings?.setValue(_pictureUriKey,
-        picPathString.isEmpty ? '' : gnomeWallpaperSuffix + picPathString);
+    _wallpaperSettings?.setValue(
+      _pictureUriKey,
+      picPathString.isEmpty ? '' : gnomeWallpaperSuffix + picPathString,
+    );
     notifyListeners();
   }
 
+  String get pictureUriDark =>
+      _wallpaperSettings?.stringValue(_pictureUriDarkKey) ?? '';
+
+  set pictureUriDark(String picPathString) {
+    _wallpaperSettings?.setValue<String>(
+      _pictureUriDarkKey,
+      picPathString.isEmpty ? '' : gnomeWallpaperSuffix + picPathString,
+    );
+    notifyListeners();
+  }
+
+  String get caption => pictureUri.split('/').last.replaceFirst('.jpeg', '');
+
+  /// Get aspect ratio of the primary screen.
+  /// Will fallback to 16/9 if [_displaysConfiguration] is not loaded.
+  double get aspectRatio {
+    if (_displaysConfiguration != null) {
+      for (final configuration in _displaysConfiguration!.configurations) {
+        if (configuration.primary == true) {
+          final resolution = configuration.resolution.split('x');
+          final aspectRatio =
+              int.parse(resolution.first) / int.parse(resolution.last);
+          return aspectRatio;
+        }
+      }
+    }
+
+    return 16 / 9;
+  }
+
   Future<void> copyToCollection(String picPathString) async {
-    File image = File(picPathString);
+    final image = File(picPathString);
     if (_userWallpapersDir == null) return;
     await image
         .copy(_userWallpapersDir! + File(picPathString).uri.pathSegments.last);
@@ -61,7 +108,7 @@ class WallpaperModel extends SafeChangeNotifier {
 
   Future<void> removeFromCollection(String picPathString) async {
     final purePath = picPathString.replaceAll(gnomeWallpaperSuffix, '');
-    File image = File(purePath);
+    final image = File(purePath);
     await image.delete();
     notifyListeners();
   }
@@ -130,6 +177,7 @@ class WallpaperModel extends SafeChangeNotifier {
     switch (wallpaperMode) {
       case WallpaperMode.solid:
         pictureUri = '';
+        pictureUriDark = '';
         break;
       case WallpaperMode.custom:
         if (pictureUri.isEmpty) {
@@ -137,7 +185,7 @@ class WallpaperModel extends SafeChangeNotifier {
         }
         break;
       case WallpaperMode.imageOfTheDay:
-        setUrlWallpaperProvider(imageOfTheDayProvider);
+        await setUrlWallpaperProvider(imageOfTheDayProvider);
         break;
     }
 
@@ -154,60 +202,161 @@ class WallpaperModel extends SafeChangeNotifier {
   }
 
   Future<void> setUrlWallpaperProvider(
-      ImageOfTheDayProvider newImageOfTheDayProvider) async {
+    ImageOfTheDayProvider newImageOfTheDayProvider,
+  ) async {
     errorMessage = '';
     //Set the new provider
     imageOfTheDayProvider = newImageOfTheDayProvider;
 
     // Load the user's Documents Directory to store the downloaded wallpapers
     final directory = await getApplicationDocumentsDirectory();
-    final file = File('${directory.path}/${imageOfTheDayProvider.name}.jpeg');
 
-    final Map providers = {
-      'bing': {
-        'apiUrl': _bingApiUrl,
-        'getImageUrl': (jsonData) {
-          return _bingUrl + json.decode(jsonData.body)['images'][0]['url'];
-        }
-      },
-      'nasa': {
-        'apiUrl': _nasaUrl, //The api uses my own api_key
-        'getImageUrl': (jsonData) {
-          return json.decode(jsonData.body)['url'];
-        }
-      },
-    };
-
-    //Get the url of the day using the apiUrl in the providers Map
-    Future<String> getImageUrl() async {
-      Map currentProvider = providers[imageOfTheDayProvider.name];
-      http.Response imageMetadataResponse =
-          await http.get(Uri.parse(currentProvider['apiUrl']));
-      return currentProvider['getImageUrl'](imageMetadataResponse);
+    ImageProvider getProvider(ImageOfTheDayProvider providerName) {
+      switch (providerName) {
+        case ImageOfTheDayProvider.bing:
+          {
+            return ImageProvider(
+              apiUrl: _bingApiUrl,
+              getImageUrl: (json) {
+                return _bingUrl + json['images'][0]['url'];
+              },
+              getImageMetadata: (json) =>
+                  json['images'][0]['copyright'].replaceAll('/', ' - ') ??
+                  '(© Bing)',
+            );
+          }
+        case ImageOfTheDayProvider.nasa:
+          {
+            return ImageProvider(
+              apiUrl: _nasaUrl,
+              getImageUrl: (json) => json['hdurl'] ?? json['url'],
+              getImageMetadata: (json) =>
+                  '${json['title'] == null ? '' : json['title'] + ' '}(© ${json['copyright'] ?? 'NASA'})',
+            );
+          }
+        case ImageOfTheDayProvider.unsplash:
+          {
+            return ImageProvider(
+              apiUrl: _unsplashUrl,
+              getImageMetadata: () => '(© Unsplash)',
+              isDirect: true,
+            );
+          }
+      }
     }
 
-    String imageUrl = '';
-    imageUrl = await getImageUrl().onError((error, stackTrace) {
-      return errorMessage = error.toString();
-    });
+    //Get the url of the day using the apiUrl in the providers Map
+    Future<ImageModel> getImageUrl() async {
+      final currentProvider = getProvider(imageOfTheDayProvider);
+
+      if (currentProvider.isDirect) {
+        return ImageModel(
+          imageUrl: currentProvider.apiUrl,
+          imageMetadata: currentProvider.getImageMetadata(),
+        );
+      }
+      final imageMetadataResponse =
+          await http.get(Uri.parse(currentProvider.apiUrl));
+      final decodedJson = json.decode(imageMetadataResponse.body);
+      return ImageModel(
+        imageUrl: currentProvider.getImageUrl!(decodedJson),
+        imageMetadata: currentProvider.getImageMetadata(decodedJson),
+      );
+    }
+
+    final image = await getImageUrl();
+
+    //TODO: Save the images to a more suitable location
+    final path =
+        '${directory.path}/ImageOfTheDay/${imageOfTheDayProvider.name}/';
+    final exists = await Directory(path).exists();
+    if (!exists) {
+      await Directory(path).create(recursive: true);
+    }
+    //TODO: Embed the copyright info in the metadata instead of the filename
+    final file = File('$path${image.imageMetadata}.jpeg');
 
     // Refetch if the image doesn't exist or the current image is older than a day
     if (!file.existsSync() ||
         file.lastModifiedSync().day != DateTime.now().day) {
-      var imageResponse = await http.get(Uri.parse(imageUrl));
+      final imageResponse = await http.get(Uri.parse(image.imageUrl));
       await file.writeAsBytes(imageResponse.bodyBytes);
     }
 
     // Set the wallpaper to the downloaded image path
-    pictureUri = file.path;
+    pictureUri = pictureUriDark = file.path;
   }
 }
 
-enum ColorShadingType { solid, vertical, horizontal }
+class ImageProvider {
+  ImageProvider({
+    required this.apiUrl,
+    required this.getImageMetadata,
+    this.getImageUrl,
+    this.isDirect = false,
+  });
+  final String apiUrl;
+  final Function? getImageUrl;
+  final Function getImageMetadata;
+  final bool isDirect;
+}
 
-enum WallpaperMode { solid, custom, imageOfTheDay }
+class ImageModel {
+  ImageModel({
+    required this.imageUrl,
+    required this.imageMetadata,
+  });
+  final String imageUrl;
+  final String imageMetadata;
+}
+
+enum ColorShadingType {
+  solid,
+  vertical,
+  horizontal;
+
+  String localize(AppLocalizations l10n) {
+    switch (this) {
+      case ColorShadingType.solid:
+        return l10n.wallpaperPageSolid;
+      case ColorShadingType.vertical:
+        return l10n.wallpaperPageHorizontalGradient;
+      case ColorShadingType.horizontal:
+        return l10n.wallpaperPageVerticalGradient;
+    }
+  }
+}
+
+enum WallpaperMode {
+  solid,
+  custom,
+  imageOfTheDay;
+
+  String localize(AppLocalizations l10n) {
+    switch (this) {
+      case WallpaperMode.solid:
+        return l10n.wallpaperPageBackgroundModeColoredBackground;
+      case WallpaperMode.custom:
+        return l10n.wallpaperPageBackgroundModeWallpaper;
+      case WallpaperMode.imageOfTheDay:
+        return l10n.wallpaperPageBackgroundModeImageOfTheDay;
+    }
+  }
+}
 
 enum ImageOfTheDayProvider {
   bing,
   nasa,
+  unsplash;
+
+  String localize(AppLocalizations l10n) {
+    switch (this) {
+      case bing:
+        return 'Bing';
+      case nasa:
+        return 'Nasa';
+      case unsplash:
+        return 'Unsplash';
+    }
+  }
 }

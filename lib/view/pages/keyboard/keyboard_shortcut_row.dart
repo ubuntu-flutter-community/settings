@@ -6,16 +6,16 @@ import 'package:yaru_widgets/yaru_widgets.dart';
 
 class KeyboardShortcutRow extends StatefulWidget {
   const KeyboardShortcutRow({
-    Key? key,
+    super.key,
     required this.label,
     required this.shortcutId,
-  }) : super(key: key);
+  });
 
   final String label;
   final String shortcutId;
 
   @override
-  _KeyboardShortcutRowState createState() => _KeyboardShortcutRowState();
+  State<KeyboardShortcutRow> createState() => _KeyboardShortcutRowState();
 }
 
 class _KeyboardShortcutRowState extends State<KeyboardShortcutRow> {
@@ -25,13 +25,46 @@ class _KeyboardShortcutRowState extends State<KeyboardShortcutRow> {
   Widget build(BuildContext context) {
     final model = context.watch<KeyboardShortcutsModel>();
     final shortcut = context.select<KeyboardShortcutsModel, List<String>>(
-        (model) => model.getShortcutStrings(widget.shortcutId));
+      (model) => model.getShortcutStrings(widget.shortcutId),
+    );
 
     return InkWell(
-      child: YaruRow(
-        enabled: true,
-        trailingWidget: Text(widget.label),
-        actionWidget: Row(
+      borderRadius: BorderRadius.circular(4.0),
+      onTap: () async {
+        final oldShortcut = model.getShortcutStrings(widget.shortcutId);
+        await model.grabKeyboard().then((value) {
+          if (!value) return;
+          showDialog<List<String>>(
+            context: context,
+            builder: (_) => StatefulBuilder(
+              builder: (context, setState) {
+                return RawKeyboardListener(
+                  focusNode: FocusNode(),
+                  autofocus: true,
+                  onKey: (event) {
+                    if (event.logicalKey != LogicalKeyboardKey.escape &&
+                        !keys.contains(event.logicalKey) &&
+                        keys.length < 4) {
+                      setState(() => keys.add(event.logicalKey));
+                    }
+                  },
+                  child: KeyboardShortcutDialog(
+                    keys: keys,
+                    oldShortcut: oldShortcut,
+                  ),
+                );
+              },
+            ),
+          ).then((shortcut) {
+            keys.clear();
+            model.setShortcut(widget.shortcutId, shortcut ?? oldShortcut);
+            model.ungrabKeyboard();
+          });
+        });
+      },
+      child: YaruTile(
+        title: Text(widget.label),
+        trailing: Row(
           children: [
             for (var string in shortcut)
               Card(
@@ -40,54 +73,27 @@ class _KeyboardShortcutRowState extends State<KeyboardShortcutRow> {
                   child: Text(
                     string,
                     style: TextStyle(
-                        color: Theme.of(context)
-                            .colorScheme
-                            .onSurface
-                            .withOpacity(0.7)),
+                      color: Theme.of(context)
+                          .colorScheme
+                          .onSurface
+                          .withOpacity(0.7),
+                    ),
                   ),
                 ),
               )
           ],
         ),
       ),
-      borderRadius: BorderRadius.circular(4.0),
-      onTap: () {
-        final oldShortcut = model.getShortcutStrings(widget.shortcutId);
-        // TODO: grab the keyboard from gnome-shell
-        showDialog<List<String>>(
-          context: context,
-          builder: (_) => StatefulBuilder(builder: (context, setState) {
-            return RawKeyboardListener(
-              focusNode: FocusNode(),
-              autofocus: true,
-              onKey: (event) {
-                if (event.logicalKey != LogicalKeyboardKey.escape &&
-                    !keys.contains(event.logicalKey) &&
-                    keys.length < 4) {
-                  setState(() => keys.add(event.logicalKey));
-                }
-              },
-              child: KeyboardShortcutDialog(
-                keys: keys,
-                oldShortcut: oldShortcut,
-              ),
-            );
-          }),
-        ).then((shortcut) {
-          keys.clear();
-          model.setShortcut(widget.shortcutId, shortcut ?? oldShortcut);
-        });
-      },
     );
   }
 }
 
 class KeyboardShortcutDialog extends StatelessWidget {
   const KeyboardShortcutDialog({
-    Key? key,
+    super.key,
     required this.keys,
     required this.oldShortcut,
-  }) : super(key: key);
+  });
 
   final List<LogicalKeyboardKey> keys;
   final List<String> oldShortcut;
@@ -97,7 +103,7 @@ class KeyboardShortcutDialog extends StatelessWidget {
     return AlertDialog(
       title: Text(
         'Start typing... ',
-        style: Theme.of(context).textTheme.subtitle1,
+        style: Theme.of(context).textTheme.titleMedium,
       ),
       content: SizedBox(
         height: 100,
@@ -120,40 +126,47 @@ class KeyboardShortcutDialog extends StatelessWidget {
             ),
             Text(
               keys.isEmpty ? '' : 'Press cancel to cancel',
-              style: Theme.of(context).textTheme.subtitle2,
+              style: Theme.of(context).textTheme.titleSmall,
             ),
           ],
         ),
       ),
       actions: [
         OutlinedButton(
-            onPressed: () {
-              Navigator.of(context).pop(oldShortcut);
-            },
-            child: const Text('Cancel')),
+          onPressed: () {
+            Navigator.of(context).pop(oldShortcut);
+          },
+          child: const Text('Cancel'),
+        ),
         ElevatedButton(
           child: const Text('Confirm'),
-          onPressed: () {
-            final keyBuffer = StringBuffer();
-            for (var key in keys) {
-              var keyLabel = key.keyLabel;
-              if (keyLabel == 'Alt Left' ||
-                  keyLabel == 'Control Left' ||
-                  keyLabel == 'Meta Left' ||
-                  keyLabel == 'Shift Left') {
-                keyLabel = '<' + keyLabel.replaceAll(' Left', '') + '>';
-              } else if (keyLabel == 'Alt Right' ||
-                  keyLabel == 'Control Right' ||
-                  keyLabel == 'Meta Right' ||
-                  keyLabel == 'Shift Right') {
-                keyLabel = '<' + keyLabel.replaceAll(' Right', '') + '>';
-              }
-              keyBuffer.write(keyLabel);
-            }
-            Navigator.of(context).pop([keyBuffer.toString()]);
-          },
+          onPressed: () => Navigator.of(context).pop([processKeys(keys)]),
         )
       ],
     );
+  }
+
+  String processKeys(List<LogicalKeyboardKey> keys) {
+    final keyBuffer = StringBuffer();
+    for (final key in keys) {
+      var keyLabel = key.keyLabel;
+      if (keyLabel == 'Alt Left' ||
+          keyLabel == 'Control Left' ||
+          keyLabel == 'Meta Left' ||
+          keyLabel == 'Super Left' ||
+          keyLabel == 'Shift Left') {
+        keyLabel = '<${keyLabel.replaceAll(' Left', '')}>';
+      } else if (keyLabel == 'Alt Right' ||
+          keyLabel == 'Control Right' ||
+          keyLabel == 'Meta Right' ||
+          keyLabel == 'Super Right' ||
+          keyLabel == 'Shift Right') {
+        keyLabel = '<${keyLabel.replaceAll(' Right', '')}>';
+      } else if (keyLabel == 'Meta' || keyLabel == 'Super') {
+        keyLabel = '<$keyLabel>';
+      }
+      keyBuffer.write(keyLabel);
+    }
+    return keyBuffer.toString();
   }
 }

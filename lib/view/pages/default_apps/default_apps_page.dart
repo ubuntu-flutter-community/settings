@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:settings/l10n/l10n.dart';
-import 'package:yaru_widgets/yaru_widgets.dart';
+import 'package:settings/view/pages/settings_page.dart';
 
 class DefaultAppsPage extends StatelessWidget {
-  const DefaultAppsPage({Key? key}) : super(key: key);
+  const DefaultAppsPage({super.key});
 
   static Widget create(BuildContext context) => const DefaultAppsPage();
 
@@ -19,10 +19,12 @@ class DefaultAppsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return YaruPage(children: [
-      Center(
-        child: Text(context.l10n.defaultAppsPageTitle),
-      )
-    ]);
+    return SettingsPage(
+      children: [
+        Center(
+          child: Text(context.l10n.defaultAppsPageTitle),
+        )
+      ],
+    );
   }
 }

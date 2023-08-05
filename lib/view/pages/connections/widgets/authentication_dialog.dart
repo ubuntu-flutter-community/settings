@@ -6,7 +6,7 @@ import '../data/authentication.dart';
 import '../models/wifi_model.dart';
 
 class AuthenticationDialog extends StatelessWidget {
-  AuthenticationDialog({Key? key}) : super(key: key);
+  AuthenticationDialog({super.key});
 
   final canShowPassword = ValueNotifier(false);
   final passwordController = TextEditingController();
@@ -30,20 +30,19 @@ class AuthenticationDialog extends StatelessWidget {
         children: [
           _DialogRow(
             field: Text(
-                'Passwords or encryption keys are required to access the Wi-Fi network "$accessPointSsid"'),
+              'Passwords or encryption keys are required to access the Wi-Fi network "$accessPointSsid"',
+            ),
           ),
           const SizedBox(height: 16),
           _DialogRow(
             title: const Text('Wifi Security'),
-            //TODO: add security options
-
             field: DropdownButton<String>(
               value: 'a',
               onChanged: (_) {},
               items: const [
                 DropdownMenuItem(
-                  child: Text('Not Implemented yet'),
                   value: 'a',
+                  child: Text('Not Implemented yet'),
                 )
               ],
             ),
@@ -52,16 +51,17 @@ class AuthenticationDialog extends StatelessWidget {
           _DialogRow(
             title: const Text('Password'),
             field: ValueListenableBuilder<bool>(
-                valueListenable: canShowPassword,
-                builder: (_, showPassword, ___) {
-                  return TextField(
-                    controller: passwordController,
-                    obscureText: !showPassword,
-                    decoration: const InputDecoration(
-                      hintText: 'Password',
-                    ),
-                  );
-                }),
+              valueListenable: canShowPassword,
+              builder: (_, showPassword, ___) {
+                return TextField(
+                  controller: passwordController,
+                  obscureText: !showPassword,
+                  decoration: const InputDecoration(
+                    hintText: 'Password',
+                  ),
+                );
+              },
+            ),
           ),
           const SizedBox(height: 16),
           _DialogRow(
@@ -73,18 +73,19 @@ class AuthenticationDialog extends StatelessWidget {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     ValueListenableBuilder<bool>(
-                        valueListenable: canShowPassword,
-                        builder: (_, showPassword, __) {
-                          return IgnorePointer(
-                            child: Checkbox(
-                              hoverColor: Colors.transparent,
-                              materialTapTargetSize:
-                                  MaterialTapTargetSize.shrinkWrap,
-                              value: showPassword,
-                              onChanged: (_) {},
-                            ),
-                          );
-                        }),
+                      valueListenable: canShowPassword,
+                      builder: (_, showPassword, __) {
+                        return IgnorePointer(
+                          child: Checkbox(
+                            hoverColor: Colors.transparent,
+                            materialTapTargetSize:
+                                MaterialTapTargetSize.shrinkWrap,
+                            value: showPassword,
+                            onChanged: (_) {},
+                          ),
+                        );
+                      },
+                    ),
                     const Text('Show Password'),
                   ],
                 ),
@@ -114,13 +115,12 @@ class AuthenticationDialog extends StatelessWidget {
 }
 
 class _DialogRow extends StatelessWidget {
-  final Widget? title;
-  final Widget field;
   const _DialogRow({
     this.title,
     required this.field,
-    Key? key,
-  }) : super(key: key);
+  });
+  final Widget? title;
+  final Widget field;
 
   @override
   Widget build(BuildContext context) {

@@ -11,7 +11,7 @@ class DisplayService {
       : _displayDBusService = DisplayDBusService(),
         _currentNotifier = ValueNotifier(null),
         _initialNotifier = ValueNotifier(null) {
-    _loadState(notifyStream: true).then((DisplaysConfiguration value) {
+    _loadState(notifyStream: true).then((value) {
       _initialNotifier.value = value;
       _currentNotifier.value = value;
     });
@@ -54,47 +54,57 @@ class DisplayService {
     /// never pass here)
     if (_currentNotifier.value == null) {}
 
-    final DBusDisplaysConfig displayConfig =
-        await _displayDBusService.getCurrent();
+    final displayConfig = await _displayDBusService.getCurrent();
 
-    List<DBusStruct> logicalParameterValues = [];
+    final logicalParameterValues = <DBusStruct>[];
 
-    for (int i = 0; i < displayConfig.monitorsLength; i++) {
-      final DisplayMonitorConfiguration confMonitor =
-          _currentNotifier.value!.configurations[i];
+    for (var i = 0; i < displayConfig.monitorsLength; i++) {
+      final confMonitor = _currentNotifier.value!.configurations[i];
 
       // x ; y ; scale ; transform(rotation) ; primary ; monitors
-      logicalParameterValues.add(DBusStruct([
-        DBusInt32(
-            displayConfig.currentLogicalConfiguration(i).offsetX), //offset x
-        DBusInt32(
-            displayConfig.currentLogicalConfiguration(i).offsetY), // offset y
-        DBusDouble(confMonitor.scale ??
-            displayConfig.currentLogicalConfiguration(i).scale), // scale
-        DBusUint32(confMonitor.transform?.index ??
-            displayConfig
-                .currentLogicalConfiguration(i)
-                .orientation), //transform
-        DBusBoolean(confMonitor.primary ??
-            displayConfig.currentLogicalConfiguration(i).primary), // primary
-        // monitors
-        DBusArray(DBusSignature('(ssa{sv})'), [
-          DBusStruct([
-            DBusString(
-                displayConfig.identity(i).connector), // maybe monitorId ?
-            DBusString(confMonitor.monitorModeId), // option selected
-            DBusDict.stringVariant({})
-          ])
+      logicalParameterValues.add(
+        DBusStruct([
+          DBusInt32(
+            displayConfig.currentLogicalConfiguration(i).offsetX,
+          ), //offset x
+          DBusInt32(
+            displayConfig.currentLogicalConfiguration(i).offsetY,
+          ), // offset y
+          DBusDouble(
+            confMonitor.scale ??
+                displayConfig.currentLogicalConfiguration(i).scale,
+          ), // scale
+          DBusUint32(
+            confMonitor.transform?.index ??
+                displayConfig.currentLogicalConfiguration(i).orientation,
+          ), //transform
+          DBusBoolean(
+            confMonitor.primary ??
+                displayConfig.currentLogicalConfiguration(i).primary,
+          ), // primary
+          // monitors
+          DBusArray(DBusSignature('(ssa{sv})'), [
+            DBusStruct([
+              DBusString(
+                displayConfig.identity(i).connector,
+              ), // maybe monitorId ?
+              DBusString(confMonitor.monitorModeId), // option selected
+              DBusDict.stringVariant({})
+            ])
+          ]),
         ]),
-      ]));
+      );
     }
 
-    await _displayDBusService.apply(displayConfig.serial,
-        ConfigurationMethod.persistent, logicalParameterValues);
+    await _displayDBusService.apply(
+      displayConfig.serial,
+      ConfigurationMethod.persistent,
+      logicalParameterValues,
+    );
   }
 
   Future<DisplaysConfiguration> _loadState({required bool notifyStream}) {
-    final Future<DisplaysConfiguration> future = _displayDBusService
+    final future = _displayDBusService
         .getCurrent()
         .then(_mapToModel)
         .then((value) => latest = value);
@@ -106,17 +116,18 @@ class DisplayService {
   }
 
   DisplaysConfiguration _mapToModel(DBusDisplaysConfig dbusConfiguration) {
-    final int monitorsCount = dbusConfiguration.monitorsLength;
-    final List<DisplayMonitorConfiguration> confs = [];
+    final monitorsCount = dbusConfiguration.monitorsLength;
+    final confs = <DisplayMonitorConfiguration>[];
 
-    for (int i = 0; i < monitorsCount; i++) {
+    for (var i = 0; i < monitorsCount; i++) {
       /// map data only if there's a current option
       /// if no current option
       ///   => monitor not used
       ///   => monitor ignored and not displayed
       if (dbusConfiguration.currentOption(i) != null) {
         confs.add(
-            DisplayMonitorConfiguration.newConstructor(dbusConfiguration, i));
+          DisplayMonitorConfiguration.newConstructor(dbusConfiguration, i),
+        );
       }
     }
 

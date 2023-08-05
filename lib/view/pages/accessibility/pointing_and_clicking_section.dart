@@ -2,30 +2,33 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:settings/constants.dart';
 import 'package:settings/l10n/l10n.dart';
+import 'package:settings/view/common/yaru_slider_row.dart';
+import 'package:settings/view/common/yaru_switch_row.dart';
 import 'package:settings/view/pages/accessibility/accessibility_model.dart';
+import 'package:settings/view/pages/settings_simple_dialog.dart';
+import 'package:settings/view/settings_section.dart';
+import 'package:yaru_icons/yaru_icons.dart';
 import 'package:yaru_widgets/yaru_widgets.dart';
 
-import 'package:yaru_icons/yaru_icons.dart';
-
 class PointingAndClickingSection extends StatelessWidget {
-  const PointingAndClickingSection({Key? key}) : super(key: key);
+  const PointingAndClickingSection({super.key});
 
   @override
   Widget build(BuildContext context) {
     final model = context.watch<AccessibilityModel>();
-    return YaruSection(
+    return SettingsSection(
       width: kDefaultWidth,
-      headline: context.l10n.pointingAndClicking,
+      headline: Text(context.l10n.pointingAndClicking),
       children: [
         YaruSwitchRow(
           trailingWidget: Text(context.l10n.mouseKeys),
           value: model.mouseKeys,
-          onChanged: (value) => model.setMouseKeys(value),
+          onChanged: model.setMouseKeys,
         ),
         YaruSwitchRow(
           trailingWidget: Text(context.l10n.locatePointer),
           value: model.locatePointer,
-          onChanged: (value) => model.setLocatePointer(value),
+          onChanged: model.setLocatePointer,
         ),
         const _ClickAssist(),
         YaruSliderRow(
@@ -34,7 +37,7 @@ class PointingAndClickingSection extends StatelessWidget {
           min: 100,
           max: 1000,
           defaultValue: 400,
-          onChanged: (value) => model.setDoubleClickDelay(value),
+          onChanged: model.setDoubleClickDelay,
         ),
       ],
     );
@@ -42,15 +45,15 @@ class PointingAndClickingSection extends StatelessWidget {
 }
 
 class _ClickAssist extends StatelessWidget {
-  const _ClickAssist({Key? key}) : super(key: key);
+  const _ClickAssist();
 
   @override
   Widget build(BuildContext context) {
     final model = context.watch<AccessibilityModel>();
-    return YaruRow(
+    return YaruTile(
       enabled: model.clickAssistAvailable,
-      trailingWidget: Text(context.l10n.clickAssist),
-      actionWidget: Row(
+      title: Text(context.l10n.clickAssist),
+      trailing: Row(
         children: [
           Text(model.clickAssistString),
           const SizedBox(width: 24.0),
@@ -58,7 +61,7 @@ class _ClickAssist extends StatelessWidget {
             width: 40,
             height: 40,
             child: OutlinedButton(
-              style: OutlinedButton.styleFrom(padding: const EdgeInsets.all(0)),
+              style: OutlinedButton.styleFrom(padding: EdgeInsets.zero),
               onPressed: () => showDialog(
                 context: context,
                 builder: (_) => ChangeNotifierProvider.value(
@@ -66,7 +69,7 @@ class _ClickAssist extends StatelessWidget {
                   child: const _ClickAssistSettings(),
                 ),
               ),
-              child: const Icon(YaruIcons.settings),
+              child: const Icon(YaruIcons.gear),
             ),
           ),
         ],
@@ -76,22 +79,21 @@ class _ClickAssist extends StatelessWidget {
 }
 
 class _ClickAssistSettings extends StatelessWidget {
-  const _ClickAssistSettings({Key? key}) : super(key: key);
+  const _ClickAssistSettings();
 
   @override
   Widget build(BuildContext context) {
     final model = context.watch<AccessibilityModel>();
-    return YaruSimpleDialog(
+    return SettingsSimpleDialog(
       width: kDefaultWidth,
       title: context.l10n.clickAssist,
       closeIconData: YaruIcons.window_close,
       children: [
         YaruSwitchRow(
           trailingWidget: Text(context.l10n.simulatedSecondaryClick),
-          actionDescription:
-              context.l10n.simulatedSecondaryClickDescription,
+          actionDescription: context.l10n.simulatedSecondaryClickDescription,
           value: model.simulatedSecondaryClick,
-          onChanged: (value) => model.setSimulatedSecondaryClick(value),
+          onChanged: model.setSimulatedSecondaryClick,
         ),
         Padding(
           padding: const EdgeInsets.only(left: 16.0),
@@ -110,7 +112,7 @@ class _ClickAssistSettings extends StatelessWidget {
           trailingWidget: Text(context.l10n.hoverClick),
           actionDescription: context.l10n.hoverClickDescription,
           value: model.dwellClick,
-          onChanged: (value) => model.setDwellClick(value),
+          onChanged: model.setDwellClick,
         ),
         Padding(
           padding: const EdgeInsets.only(left: 16.0),

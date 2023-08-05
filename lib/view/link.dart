@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class Link extends StatelessWidget {
-  const Link({Key? key, required this.url, required this.linkText})
-      : super(key: key);
+  const Link({super.key, required this.url, required this.linkText});
 
   final String url;
   final String linkText;
@@ -11,12 +10,12 @@ class Link extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () async => await launch(url),
+      onTap: () async => await launchUrl(Uri.parse(url)),
       child: Text(
         linkText,
         style: Theme.of(context)
             .textTheme
-            .caption
+            .bodySmall
             ?.copyWith(color: Theme.of(context).colorScheme.primary),
       ),
     );

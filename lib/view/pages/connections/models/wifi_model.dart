@@ -16,19 +16,6 @@ typedef OnAuthenticate = Future<Authentication?> Function(
 );
 
 class WifiModel extends PropertyStreamNotifier {
-  final NetworkManagerClient _networkManagerClient;
-
-  List<WifiDeviceModel> get wifiDevices => _networkManagerClient.devices
-      .where((device) => device.wireless != null)
-      .map((device) => WifiDeviceModel(device))
-      .toList();
-
-  bool get isWifiEnabled => _networkManagerClient.wirelessEnabled;
-
-  bool get isWifiDeviceAvailable =>
-      _networkManagerClient.wirelessHardwareEnabled &&
-      _networkManagerClient.networkingEnabled;
-
   WifiModel(this._networkManagerClient) {
     addProperties(_networkManagerClient.propertiesChanged);
     addPropertyListener('Devices', notifyListeners);
@@ -36,6 +23,18 @@ class WifiModel extends PropertyStreamNotifier {
     addPropertyListener('WirelessHardwareEnabled', notifyListeners);
     addPropertyListener('NetworkingEnabled', notifyListeners);
   }
+  final NetworkManagerClient _networkManagerClient;
+
+  List<WifiDeviceModel> get wifiDevices => _networkManagerClient.devices
+      .where((device) => device.wireless != null)
+      .map(WifiDeviceModel.new)
+      .toList();
+
+  bool get isWifiEnabled => _networkManagerClient.wirelessEnabled;
+
+  bool get isWifiDeviceAvailable =>
+      _networkManagerClient.wirelessHardwareEnabled &&
+      _networkManagerClient.networkingEnabled;
 
   String _errorMessage = '';
   set errorMessage(String value) {

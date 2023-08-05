@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:settings/constants.dart';
+import 'package:settings/l10n/l10n.dart';
 import 'package:settings/view/pages/power/battery_model.dart';
 import 'package:settings/view/pages/power/battery_widgets.dart';
+import 'package:settings/view/settings_section.dart';
 import 'package:upower/upower.dart';
-import 'package:yaru/yaru.dart';
+import 'package:yaru_colors/yaru_colors.dart';
 import 'package:yaru_widgets/yaru_widgets.dart';
 
 class BatterySection extends StatefulWidget {
-  const BatterySection({Key? key}) : super(key: key);
+  const BatterySection({super.key});
 
   static Widget create(BuildContext context) {
     return ChangeNotifierProvider<BatteryModel>(
@@ -33,19 +35,20 @@ class _BatterySectionState extends State<BatterySection> {
   @override
   Widget build(BuildContext context) {
     final model = context.watch<BatteryModel>();
-    return YaruSection(
+    return SettingsSection(
       width: kDefaultWidth,
-      headline: 'Battery',
+      headline: Text(context.l10n.batterySectionHeadline),
       children: <Widget>[
         Padding(
           padding: const EdgeInsets.all(8.0),
           child: YaruLinearProgressIndicator(
-              value: model.percentage / 100.0,
-              color: model.percentage > 80.0
-                  ? YaruColors.green
-                  : model.percentage < 30.0
-                      ? YaruColors.red
-                      : YaruColors.yellow),
+            value: model.percentage / 100.0,
+            color: model.percentage > 80.0
+                ? YaruColors.success
+                : model.percentage < 30.0
+                    ? YaruColors.error
+                    : YaruColors.warning,
+          ),
         ),
         Padding(
           padding: const EdgeInsets.all(8.0),
@@ -58,7 +61,7 @@ class _BatterySectionState extends State<BatterySection> {
                 timeToFull: model.timeToFull,
                 timeToEmpty: model.timeToEmpty,
               ),
-              Text('${model.percentage.round()}%'),
+              Text(context.l10n.batteryPercentage(model.percentage.round())),
             ],
           ),
         ),

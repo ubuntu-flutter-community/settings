@@ -1,6 +1,6 @@
 import 'package:dbus/dbus.dart';
-import 'package:settings/services/display/objects/dbus_displays_config.dart';
 import 'package:settings/generated/dbus/display-config-remote-object.dart';
+import 'package:settings/services/display/objects/dbus_displays_config.dart';
 
 const _displaysInterface = 'org.gnome.Mutter.DisplayConfig';
 
@@ -24,8 +24,7 @@ const _displayPath = '/org/gnome/Mutter/DisplayConfig';
 class DisplayDBusService {
   DisplayDBusService() : _object = _createObject() {
     /// Listen to signal stream, when a change occur, we update our data
-    _object.monitorsChanged
-        .listen((OrgGnomeMutterDisplayConfigMonitorsChanged signal) {
+    _object.monitorsChanged.listen((signal) {
       if (signal.name == 'MonitorsChanged') {
         getCurrent();
       }
@@ -35,8 +34,7 @@ class DisplayDBusService {
   final OrgGnomeMutterDisplayConfig _object;
 
   Stream<DBusDisplaysConfig> get streamChanges =>
-      _object.monitorsChanged
-          .asyncMap((event) async => getCurrent());
+      _object.monitorsChanged.asyncMap((event) async => getCurrent());
 
   static OrgGnomeMutterDisplayConfig _createObject() =>
       OrgGnomeMutterDisplayConfig(
@@ -50,13 +48,16 @@ class DisplayDBusService {
   }
 
   Future<DBusDisplaysConfig> getCurrent() async {
-    List<DBusValue>? state = await _object.callGetCurrentState();
-    List<dynamic> list = state.map((e) => _toNative(e)).toList();
+    final state = await _object.callGetCurrentState();
+    final list = state.map(_toNative).toList();
     return DBusDisplaysConfig(list);
   }
 
-  Future<void> apply(int serial, ConfigurationMethod configurationMethod,
-      List<DBusStruct> logicalParameterValues) =>
+  Future<void> apply(
+    int serial,
+    ConfigurationMethod configurationMethod,
+    List<DBusStruct> logicalParameterValues,
+  ) =>
       _object.callApplyMonitorsConfig(
         serial,
         configurationMethod.index,
@@ -71,9 +72,9 @@ class DisplayDBusService {
       output =
           value.map((key, value) => MapEntry(_toNative(key), _toNative(value)));
     } else if (value is Iterable) {
-      output = value.map((e) => _toNative(e)).toList();
+      output = value.map(_toNative).toList();
     } else if (value is DBusArray) {
-      output = value.toNative().map((e) => _toNative(e)).toList();
+      output = value.toNative().map(_toNative).toList();
     } else if (value is DBusValue) {
       output = value.toNative();
     } else {
@@ -82,7 +83,6 @@ class DisplayDBusService {
 
     return output;
   }
-
 }
 
 enum ConfigurationMethod { verify, temporary, persistent }

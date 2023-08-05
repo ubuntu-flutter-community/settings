@@ -7,12 +7,12 @@ import 'package:settings/view/pages/keyboard/input_source_section.dart';
 import 'package:settings/view/pages/keyboard/input_source_selection_section.dart';
 import 'package:settings/view/pages/keyboard/special_characters_model.dart';
 import 'package:settings/view/pages/keyboard/special_characters_section.dart';
-import 'package:yaru_widgets/yaru_widgets.dart';
+import 'package:settings/view/pages/settings_page.dart';
 
 class KeyboardSettingsPage extends StatelessWidget {
   const KeyboardSettingsPage({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +21,7 @@ class KeyboardSettingsPage extends StatelessWidget {
     final inputSourceService =
         Provider.of<InputSourceService>(context, listen: false);
 
-    return YaruPage(
+    return SettingsPage(
       children: [
         ChangeNotifierProvider(
           create: (_) => InputSourceModel(settingsService, inputSourceService),

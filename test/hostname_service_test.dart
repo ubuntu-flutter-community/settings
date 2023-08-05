@@ -1,3 +1,5 @@
+// ignore_for_file: close_sinks
+
 import 'dart:async';
 
 import 'package:dbus/dbus.dart';
@@ -58,48 +60,56 @@ void main() {
     required String prettyHostname,
     required String staticHostname,
   }) {
-    when(mock.callMethod(
-      kHostnameInterface,
-      'SetPrettyHostname',
-      [DBusString(prettyHostname), const DBusBoolean(false)],
-      replySignature: null,
-      noReplyExpected: false,
-      noAutoStart: false,
-      allowInteractiveAuthorization: false,
-    )).thenAnswer((realInvocation) async => DBusMethodSuccessResponse([]));
-    when(mock.callMethod(
-      kHostnameInterface,
-      'SetStaticHostname',
-      [DBusString(staticHostname), const DBusBoolean(false)],
-      replySignature: null,
-      noReplyExpected: false,
-      noAutoStart: false,
-      allowInteractiveAuthorization: false,
-    )).thenAnswer((realInvocation) async => DBusMethodSuccessResponse([]));
+    when(
+      mock.callMethod(
+        kHostnameInterface,
+        'SetPrettyHostname',
+        [DBusString(prettyHostname), const DBusBoolean(false)],
+        replySignature: null,
+        noReplyExpected: false,
+        noAutoStart: false,
+        allowInteractiveAuthorization: false,
+      ),
+    ).thenAnswer((realInvocation) async => DBusMethodSuccessResponse([]));
+    when(
+      mock.callMethod(
+        kHostnameInterface,
+        'SetStaticHostname',
+        [DBusString(staticHostname), const DBusBoolean(false)],
+        replySignature: null,
+        noReplyExpected: false,
+        noAutoStart: false,
+        allowInteractiveAuthorization: false,
+      ),
+    ).thenAnswer((realInvocation) async => DBusMethodSuccessResponse([]));
   }
 
   void verifySetHostname({
     required String prettyHostname,
     required String staticHostname,
   }) {
-    verify(mock.callMethod(
-      kHostnameInterface,
-      'SetPrettyHostname',
-      [DBusString(prettyHostname), const DBusBoolean(false)],
-      replySignature: null,
-      noReplyExpected: false,
-      noAutoStart: false,
-      allowInteractiveAuthorization: false,
-    )).called(1);
-    verify(mock.callMethod(
-      kHostnameInterface,
-      'SetStaticHostname',
-      [DBusString(staticHostname), const DBusBoolean(false)],
-      replySignature: null,
-      noReplyExpected: false,
-      noAutoStart: false,
-      allowInteractiveAuthorization: false,
-    )).called(1);
+    verify(
+      mock.callMethod(
+        kHostnameInterface,
+        'SetPrettyHostname',
+        [DBusString(prettyHostname), const DBusBoolean(false)],
+        replySignature: null,
+        noReplyExpected: false,
+        noAutoStart: false,
+        allowInteractiveAuthorization: false,
+      ),
+    ).called(1);
+    verify(
+      mock.callMethod(
+        kHostnameInterface,
+        'SetStaticHostname',
+        [DBusString(staticHostname), const DBusBoolean(false)],
+        replySignature: null,
+        noReplyExpected: false,
+        noAutoStart: false,
+        allowInteractiveAuthorization: false,
+      ),
+    ).called(1);
   }
 
   test('initializes properties', () async {

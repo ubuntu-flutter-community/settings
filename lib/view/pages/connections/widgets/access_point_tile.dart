@@ -5,48 +5,46 @@ import 'package:yaru_widgets/yaru_widgets.dart';
 import '../models/wifi_model.dart';
 
 class AccessPointTile extends StatelessWidget {
-  final AccessPointModel accessPointModel;
-  final VoidCallback onTap;
   const AccessPointTile({
     required this.accessPointModel,
     required this.onTap,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
+  final AccessPointModel accessPointModel;
+  final VoidCallback onTap;
 
   @override
   Widget build(BuildContext context) {
     return AnimatedBuilder(
-        animation: accessPointModel,
-        builder: (_, __) {
-          return InkWell(
-            borderRadius: BorderRadius.circular(4),
-            onTap: onTap,
-            child: YaruRow(
-              enabled: true,
-              trailingWidget: Row(
-                children: [
-                  Icon(accessPointModel.wifiIconData),
-                  const SizedBox(
-                    width: 10,
-                  ),
-                  Text(accessPointModel.name),
-                ],
-              ),
-              actionWidget: Row(
-                children: [
-                  Icon(accessPointModel.isActiveIconData),
-                  const SizedBox(width: 8.0),
-                  YaruOptionButton(
-                    onPressed: () {
-                      // TODO: navigate to wifi access point details dialog
-                    },
-                    iconData: YaruIcons.settings,
-                  ),
-                ],
-              ),
+      animation: accessPointModel,
+      builder: (_, __) {
+        return InkWell(
+          borderRadius: BorderRadius.circular(4),
+          onTap: onTap,
+          child: YaruTile(
+            title: Row(
+              children: [
+                Icon(accessPointModel.wifiIconData),
+                const SizedBox(
+                  width: 10,
+                ),
+                Text(accessPointModel.name),
+              ],
             ),
-          );
-        });
+            trailing: Row(
+              children: [
+                Icon(accessPointModel.isActiveIconData),
+                const SizedBox(width: 8.0),
+                YaruOptionButton(
+                  onPressed: () {},
+                  child: const Icon(YaruIcons.gear),
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
   }
 }
 

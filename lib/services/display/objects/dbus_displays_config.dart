@@ -1,3 +1,5 @@
+// ignore_for_file: type_annotate_public_apis
+
 class DBusDisplaysConfig {
   DBusDisplaysConfig(List<dynamic> list)
       : serial = list[0],
@@ -22,15 +24,19 @@ class DBusDisplaysConfig {
   /// * s vendor: vendor name
   /// * s product: product name
   /// * s serial: product serial
-  _Identity identity(index) => _Identity(_monitors[index][0]);
+  Identity identity(index) => Identity(_monitors[index][0]);
 
   /// * a(siiddada{sv}) modes: available modes
-  List<_Option> availableOptions(index) =>
-      (_monitors[index][1] as List<dynamic>).map((e) => _Option(e)).toList();
+  List<Option> availableOptions(index) =>
+      (_monitors[index][1] as List<dynamic>).map(
+        (e) {
+          return Option(e);
+        },
+      ).toList();
 
-  _Option? currentOption(index) {
-    final List<_Option> options = availableOptions(index);
-    bool predicate(_Option option) => option.isCurrent;
+  Option? currentOption(index) {
+    final options = availableOptions(index);
+    bool predicate(Option option) => option.isCurrent;
     if (options.any(predicate)) {
       return options.where(predicate).first;
     }
@@ -79,8 +85,8 @@ class DBusDisplaysConfig {
   ///     this means logical monitor scales can
   ///     differ.
   ///
-  _LogicalConfiguration currentLogicalConfiguration(index) =>
-      _LogicalConfiguration(_logicalMonitors[index]);
+  LogicalConfiguration currentLogicalConfiguration(index) =>
+      LogicalConfiguration(_logicalMonitors[index]);
 
   /// * a{sv} properties: optional properties, including:
   ///     - "width-mm" (i): physical width of monitor in millimeters
@@ -105,8 +111,8 @@ class DBusDisplaysConfig {
   int get monitorsLength => _monitors.length;
 }
 
-class _Identity {
-  _Identity(List<dynamic> monitors)
+class Identity {
+  Identity(List<dynamic> monitors)
       : connector = monitors[0],
         vendor = monitors[1],
         product = monitors[2],
@@ -132,8 +138,8 @@ class _Identity {
 ///     - "width-mm" (i): physical width of monitor in millimeters
 ///     - "height-mm" (i): physical height of monitor in millimeters
 ///     - "is-underscanning" (b): whether underscanning is enabled
-class _Option {
-  _Option(List<dynamic> monitor)
+class Option {
+  Option(List<dynamic> monitor)
       : modeId = monitor[0],
         x = monitor[1],
         y = monitor[2],
@@ -155,8 +161,8 @@ class _Option {
   final bool isPreferred;
 }
 
-class _LogicalConfiguration {
-  _LogicalConfiguration(List<dynamic> logicalMonitor)
+class LogicalConfiguration {
+  LogicalConfiguration(List<dynamic> logicalMonitor)
       : offsetX = logicalMonitor[0],
         offsetY = logicalMonitor[1],
         scale = logicalMonitor[2],

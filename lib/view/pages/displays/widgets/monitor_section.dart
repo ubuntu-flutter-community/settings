@@ -2,17 +2,25 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:settings/constants.dart';
 import 'package:settings/l10n/l10n.dart';
+import 'package:settings/view/common/yaru_switch_row.dart';
 import 'package:settings/view/pages/displays/displays_configuration.dart';
 import 'package:settings/view/pages/displays/displays_model.dart';
+import 'package:settings/view/settings_section.dart';
 import 'package:yaru_widgets/yaru_widgets.dart';
 
 class MonitorSection extends StatelessWidget {
   const MonitorSection({
-    Key? key,
+    super.key,
     required this.index,
-  }) : super(key: key);
+  });
 
   final int index;
+
+  String _formatRefreshRate(String refreshRate) {
+    return double.parse(refreshRate.replaceAll(',', '.'))
+        .toStringAsFixed(2)
+        .toString();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -21,92 +29,100 @@ class MonitorSection extends StatelessWidget {
     return ValueListenableBuilder<DisplaysConfiguration?>(
       valueListenable: model.configuration,
       builder: (context, value, child) {
-        final DisplayMonitorConfiguration config = value!.configurations[index];
+        final config = value!.configurations[index];
         return ConstrainedBox(
           constraints: const BoxConstraints(maxWidth: kDefaultWidth),
-          child: YaruSection(
-            headline: config.name,
+          child: SettingsSection(
+            headline: Text(config.name),
+            headerWidget: ElevatedButton(
+              onPressed: model.modifyMode ? model.apply : null,
+              child: Text(context.l10n.apply),
+            ),
             //width: kDefaultWidth,
             children: <Widget>[
               /// Orientation row
-              YaruRow(
-                enabled: true,
-                trailingWidget: Container(),
-                leadingWidget: Text(context.l10n.orientation),
-                actionWidget: DropdownButton<LogicalMonitorOrientation>(
-                  value: config.transform!,
-                  items: [
-                    for (final LogicalMonitorOrientation value
-                        in model.displayableOrientations)
-                      DropdownMenuItem(
+              YaruTile(
+                title: Text(context.l10n.orientation),
+                trailing: YaruPopupMenuButton<LogicalMonitorOrientation>(
+                  initialValue: config.transform!,
+                  itemBuilder: (c) => [
+                    for (final value in model.displayableOrientations)
+                      PopupMenuItem(
                         value: value,
-                        child: Text(value.translate(context)),
+                        child: Text(value.localize(context)),
+                        onTap: () {
+                          model.setOrientation(index, value);
+                        },
                       ),
                   ],
-                  onChanged: (value) {
-                    model.setOrientation(index, value!);
-                  },
+                  child: Text(
+                    config.transform != null
+                        ? config.transform!.localize(context)
+                        : '',
+                  ),
                 ),
               ),
 
               /// Resolution row
-              YaruRow(
-                enabled: true,
-                trailingWidget: Container(),
-                leadingWidget: Text(context.l10n.resolution),
-                actionWidget: DropdownButton<String>(
-                  value: config.resolution,
-                  items: [
+              YaruTile(
+                title: Text(context.l10n.resolution),
+                trailing: YaruPopupMenuButton<String>(
+                  initialValue: config.resolution,
+                  itemBuilder: (c) => [
                     for (final String value in config.availableResolutions)
-                      DropdownMenuItem(
+                      PopupMenuItem(
                         value: value,
+                        onTap: () => model.setResolution(index, value),
                         child: Text(value),
                       ),
                   ],
-                  onChanged: (value) => model.setResolution(index, value!),
+                  child: Text(config.resolution),
                 ),
               ),
 
               /// Refresh rate row
-              YaruRow(
-                enabled: true,
-                trailingWidget: Container(),
-                leadingWidget: Text(context.l10n.refreshRate),
-                actionWidget: DropdownButton<String>(
-                  value: config.refreshRate,
-                  items: [
+              YaruTile(
+                title: Text(context.l10n.refreshRate),
+                trailing: YaruPopupMenuButton<String>(
+                  initialValue: config.refreshRate,
+                  itemBuilder: (c) => [
                     for (final value in config.availableRefreshRates)
-                      DropdownMenuItem(
+                      PopupMenuItem(
                         value: value,
+                        onTap: () => model.setRefreshRate(index, value),
                         child: Text(
-                            double.parse(value).toStringAsFixed(2).toString()),
+                          _formatRefreshRate(value),
+                        ),
                       ),
                   ],
-                  onChanged: (String? value) =>
-                      model.setRefreshRate(index, value!),
+                  child: Text(
+                    _formatRefreshRate(config.refreshRate),
+                  ),
                 ),
               ),
 
               /// Scale row
-              YaruRow(
-                enabled: true,
-                leadingWidget: Text(context.l10n.scale),
-                actionWidget: const SizedBox(),
-                trailingWidget: YaruToggleButtonsRow(
-                  actionLabel: '',
-                  labels: config.availableScales
-                      .map((scale) => scale.toInt())
-                      .map(context.l10n.scaleFormat)
-                      .toList(),
-                  selectedValues: config.availableScales
-                      .map((double scale) => scale == config.scale)
-                      .toList(),
-                  onPressed: (int scaleIndex) {
-                    model.setScale(
-                      index,
-                      config.availableScales[scaleIndex],
-                    );
-                  },
+              YaruTile(
+                title: Text(context.l10n.scale),
+                trailing: YaruPopupMenuButton<int>(
+                  initialValue: config.scale!.toInt(),
+                  itemBuilder: (c) => [
+                    for (var i = 0; i < config.availableScales.length; i++)
+                      PopupMenuItem(
+                        value: config.availableScales[i].toInt(),
+                        onTap: () {
+                          model.setScale(
+                            index,
+                            config.availableScales[i],
+                          );
+                        },
+                        child: Text(
+                          'x${config.availableScales[i].toString().replaceAll('.0', '')}',
+                        ),
+                      )
+                  ],
+                  child:
+                      Text('x${config.scale.toString().replaceAll('.0', '')}'),
                 ),
               ),
 
@@ -115,7 +131,7 @@ class MonitorSection extends StatelessWidget {
                 enabled: false,
                 trailingWidget: Text(context.l10n.fractionalScaling),
                 actionDescription: context.l10n.fractionalScaling_description,
-                onChanged: (bool value) {},
+                onChanged: (value) {},
                 value: null,
               ),
             ],

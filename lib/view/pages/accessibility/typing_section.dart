@@ -2,24 +2,30 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:settings/constants.dart';
 import 'package:settings/l10n/l10n.dart';
+import 'package:settings/view/common/yaru_checkbox_row.dart';
+import 'package:settings/view/common/yaru_extra_option_row.dart';
+import 'package:settings/view/common/yaru_slider_row.dart';
+import 'package:settings/view/common/yaru_switch_row.dart';
 import 'package:settings/view/pages/accessibility/accessibility_model.dart';
+import 'package:settings/view/pages/settings_simple_dialog.dart';
+import 'package:settings/view/settings_section.dart';
 import 'package:yaru_icons/yaru_icons.dart';
 import 'package:yaru_widgets/yaru_widgets.dart';
 
 class TypingSection extends StatelessWidget {
-  const TypingSection({Key? key}) : super(key: key);
+  const TypingSection({super.key});
 
   @override
   Widget build(BuildContext context) {
     final model = context.watch<AccessibilityModel>();
-    return YaruSection(
+    return SettingsSection(
       width: kDefaultWidth,
-      headline: context.l10n.typing,
+      headline: Text(context.l10n.typing),
       children: [
         YaruSwitchRow(
           trailingWidget: Text(context.l10n.screenKeyboard),
           value: model.screenKeyboard,
-          onChanged: (value) => model.setScreenKeyboard(value),
+          onChanged: model.setScreenKeyboard,
         ),
         const _RepeatKeys(),
         const _CursorBlinking(),
@@ -30,17 +36,17 @@ class TypingSection extends StatelessWidget {
 }
 
 class _RepeatKeys extends StatelessWidget {
-  const _RepeatKeys({Key? key}) : super(key: key);
+  const _RepeatKeys();
 
   @override
   Widget build(BuildContext context) {
     final model = context.watch<AccessibilityModel>();
     return YaruExtraOptionRow(
-      iconData: YaruIcons.settings,
+      iconData: YaruIcons.gear,
       actionLabel: context.l10n.repeatKeys,
       actionDescription: context.l10n.repeatKeysDescription,
       value: model.keyboardRepeat,
-      onChanged: (value) => model.setKeyboardRepeat(value),
+      onChanged: model.setKeyboardRepeat,
       onPressed: () => showDialog(
         context: context,
         builder: (_) => ChangeNotifierProvider.value(
@@ -53,12 +59,12 @@ class _RepeatKeys extends StatelessWidget {
 }
 
 class _RepeatKeysSettings extends StatelessWidget {
-  const _RepeatKeysSettings({Key? key}) : super(key: key);
+  const _RepeatKeysSettings();
 
   @override
   Widget build(BuildContext context) {
     final model = context.watch<AccessibilityModel>();
-    return YaruSimpleDialog(
+    return SettingsSimpleDialog(
       width: kDefaultWidth,
       title: context.l10n.repeatKeys,
       closeIconData: YaruIcons.window_close,
@@ -70,7 +76,7 @@ class _RepeatKeysSettings extends StatelessWidget {
           min: 100,
           max: 2000,
           defaultValue: 500,
-          onChanged: (value) => model.setDelay(value),
+          onChanged: model.setDelay,
         ),
         YaruSliderRow(
           actionLabel: context.l10n.interval,
@@ -79,7 +85,7 @@ class _RepeatKeysSettings extends StatelessWidget {
           min: 0,
           max: 110,
           defaultValue: 30,
-          onChanged: (value) => model.setInterval(value),
+          onChanged: model.setInterval,
         ),
       ],
     );
@@ -87,17 +93,17 @@ class _RepeatKeysSettings extends StatelessWidget {
 }
 
 class _CursorBlinking extends StatelessWidget {
-  const _CursorBlinking({Key? key}) : super(key: key);
+  const _CursorBlinking();
 
   @override
   Widget build(BuildContext context) {
     final model = context.watch<AccessibilityModel>();
     return YaruExtraOptionRow(
-      iconData: YaruIcons.settings,
+      iconData: YaruIcons.gear,
       actionLabel: context.l10n.cursorBlinking,
       actionDescription: context.l10n.cursorBlinkingDescription,
       value: model.cursorBlink,
-      onChanged: (value) => model.setCursorBlink(value),
+      onChanged: model.setCursorBlink,
       onPressed: () => showDialog(
         context: context,
         builder: (_) => ChangeNotifierProvider.value(
@@ -110,12 +116,12 @@ class _CursorBlinking extends StatelessWidget {
 }
 
 class _CursorBlinkingSettings extends StatelessWidget {
-  const _CursorBlinkingSettings({Key? key}) : super(key: key);
+  const _CursorBlinkingSettings();
 
   @override
   Widget build(BuildContext context) {
     final model = context.watch<AccessibilityModel>();
-    return YaruSimpleDialog(
+    return SettingsSimpleDialog(
       width: kDefaultWidth,
       title: context.l10n.cursorBlinking,
       closeIconData: YaruIcons.window_close,
@@ -127,7 +133,7 @@ class _CursorBlinkingSettings extends StatelessWidget {
           max: 2500,
           defaultValue: 1200,
           value: model.cursorBlinkTime,
-          onChanged: (value) => model.setCursorBlinkTime(value),
+          onChanged: model.setCursorBlinkTime,
         ),
       ],
     );
@@ -135,16 +141,16 @@ class _CursorBlinkingSettings extends StatelessWidget {
 }
 
 class _TypingAssist extends StatelessWidget {
-  const _TypingAssist({Key? key}) : super(key: key);
+  const _TypingAssist();
 
   @override
   Widget build(BuildContext context) {
     final model = context.watch<AccessibilityModel>();
 
-    return YaruRow(
+    return YaruTile(
       enabled: model.typingAssistAvailable,
-      trailingWidget: Text(context.l10n.typingAssistAccessX),
-      actionWidget: Row(
+      title: Text(context.l10n.typingAssistAccessX),
+      trailing: Row(
         children: [
           Text(model.typingAssistString),
           const SizedBox(width: 24.0),
@@ -152,7 +158,7 @@ class _TypingAssist extends StatelessWidget {
             width: 40,
             height: 40,
             child: OutlinedButton(
-              style: OutlinedButton.styleFrom(padding: const EdgeInsets.all(0)),
+              style: OutlinedButton.styleFrom(padding: EdgeInsets.zero),
               onPressed: () => showDialog(
                 context: context,
                 builder: (_) => ChangeNotifierProvider.value(
@@ -160,7 +166,7 @@ class _TypingAssist extends StatelessWidget {
                   child: const _TypingAssistSettings(),
                 ),
               ),
-              child: const Icon(YaruIcons.settings),
+              child: const Icon(YaruIcons.gear),
             ),
           ),
         ],
@@ -170,12 +176,12 @@ class _TypingAssist extends StatelessWidget {
 }
 
 class _TypingAssistSettings extends StatelessWidget {
-  const _TypingAssistSettings({Key? key}) : super(key: key);
+  const _TypingAssistSettings();
 
   @override
   Widget build(BuildContext context) {
     final model = context.watch<AccessibilityModel>();
-    return YaruSimpleDialog(
+    return SettingsSimpleDialog(
       width: kDefaultWidth,
       title: context.l10n.typingAssist,
       closeIconData: YaruIcons.window_close,
@@ -184,27 +190,27 @@ class _TypingAssistSettings extends StatelessWidget {
           trailingWidget: Text(context.l10n.enableByKeyboard),
           actionDescription: context.l10n.enableByKeyboardDescription,
           value: model.keyboardEnable,
-          onChanged: (value) => model.setKeyboardEnable(value),
+          onChanged: model.setKeyboardEnable,
         ),
         YaruSwitchRow(
           trailingWidget: Text(context.l10n.stickyKeys),
           actionDescription: context.l10n.stickyKeysDescription,
           value: model.stickyKeys,
-          onChanged: (value) => model.setStickyKeys(value),
+          onChanged: model.setStickyKeys,
         ),
         const _StickyKeysSettings(),
         YaruSwitchRow(
           trailingWidget: Text(context.l10n.slowKeys),
           actionDescription: context.l10n.slowKeysDescription,
           value: model.slowKeys,
-          onChanged: (value) => model.setSlowKeys(value),
+          onChanged: model.setSlowKeys,
         ),
         const _SlowKeysSettings(),
         YaruSwitchRow(
           trailingWidget: Text(context.l10n.bounceKeys),
           actionDescription: context.l10n.bounceKeysDescription,
           value: model.bounceKeys,
-          onChanged: (value) => model.setBounceKeys(value),
+          onChanged: model.setBounceKeys,
         ),
         const _BounceKeysSettings(),
       ],
@@ -213,7 +219,7 @@ class _TypingAssistSettings extends StatelessWidget {
 }
 
 class _StickyKeysSettings extends StatelessWidget {
-  const _StickyKeysSettings({Key? key}) : super(key: key);
+  const _StickyKeysSettings();
 
   @override
   Widget build(BuildContext context) {
@@ -241,7 +247,7 @@ class _StickyKeysSettings extends StatelessWidget {
 }
 
 class _SlowKeysSettings extends StatelessWidget {
-  const _SlowKeysSettings({Key? key}) : super(key: key);
+  const _SlowKeysSettings();
 
   @override
   Widget build(BuildContext context) {
@@ -288,7 +294,7 @@ class _SlowKeysSettings extends StatelessWidget {
 }
 
 class _BounceKeysSettings extends StatelessWidget {
-  const _BounceKeysSettings({Key? key}) : super(key: key);
+  const _BounceKeysSettings();
 
   @override
   Widget build(BuildContext context) {

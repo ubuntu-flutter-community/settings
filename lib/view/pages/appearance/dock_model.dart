@@ -1,8 +1,14 @@
 import 'package:flutter/foundation.dart';
+import 'package:settings/l10n/l10n.dart';
 import 'package:settings/schemas/schemas.dart';
 import 'package:settings/services/settings_service.dart';
+import 'package:settings/utils.dart';
 
 class DockModel extends ChangeNotifier {
+  DockModel(SettingsService service)
+      : _dashToDockSettings = service.lookup(schemaDashToDock) {
+    _dashToDockSettings?.addListener(notifyListeners);
+  }
   static const _showTrashKey = 'show-trash';
   static const _dockFixedKey = 'dock-fixed';
   static const _extendHeightKey = 'extend-height';
@@ -10,11 +16,6 @@ class DockModel extends ChangeNotifier {
   static const _dashMaxIconSizeKey = 'dash-max-icon-size';
   static const _dockPositionKey = 'dock-position';
   static const _clickActionKey = 'click-action';
-
-  DockModel(SettingsService service)
-      : _dashToDockSettings = service.lookup(schemaDashToDock) {
-    _dashToDockSettings?.addListener(notifyListeners);
-  }
 
   @override
   void dispose() {
@@ -77,7 +78,7 @@ class DockModel extends ChangeNotifier {
   }
 
   DockPosition? get dockPosition {
-    var positionString = _dashToDockSettings?.stringValue(_dockPositionKey);
+    final positionString = _dashToDockSettings?.stringValue(_dockPositionKey);
     switch (positionString) {
       case 'LEFT':
         return DockPosition.left;
@@ -93,7 +94,9 @@ class DockModel extends ChangeNotifier {
   set dockPosition(DockPosition? dockPosition) {
     if (dockPosition != null) {
       _dashToDockSettings?.setValue(
-          _dockPositionKey, dockPosition.name.toUpperCase());
+        _dockPositionKey,
+        dockPosition.name.toUpperCase(),
+      );
       notifyListeners();
     }
   }
@@ -114,15 +117,14 @@ class DockModel extends ChangeNotifier {
 
   set clickAction(DockClickAction? value) {
     if (value != null) {
-      String newString = camelCaseToSplitByDash(value.name);
+      final newString = camelCaseToSplitByDash(value.name);
       _dashToDockSettings?.setValue(_clickActionKey, newString);
       notifyListeners();
     }
   }
 
   String getAutoHideAsset() {
-    final _extendDock = extendDock ?? true;
-    if (_extendDock == false) {
+    if (extendDock == false) {
       if (dockPosition == DockPosition.right) {
         return 'assets/images/appearance/auto-hide-dock-mode/auto-hide-dock-right.svg';
       }
@@ -164,52 +166,64 @@ class DockModel extends ChangeNotifier {
   }
 
   String getDockPositionAsset() {
-    final _extendDock = extendDock ?? true;
-    if (!_extendDock) {
+    if (extendDock == false) {
       return getDockModeAsset();
     }
     return getPanelModeAsset();
   }
 
   String getRightSideAsset() {
-    final _extendDock = extendDock ?? true;
-    if (_extendDock) {
+    if (extendDock == true) {
       return 'assets/images/appearance/panel-mode/panel-mode-right.svg';
     }
     return 'assets/images/appearance/dock-mode/dock-mode-right.svg';
   }
 
   String getLeftSideAsset() {
-    final _extendDock = extendDock ?? true;
-    if (_extendDock) {
+    if (extendDock == true) {
       return 'assets/images/appearance/panel-mode/panel-mode-left.svg';
     }
     return 'assets/images/appearance/dock-mode/dock-mode-left.svg';
   }
 
   String getBottomAsset() {
-    final _extendDock = extendDock ?? true;
-    if (_extendDock) {
+    if (extendDock == true) {
       return 'assets/images/appearance/panel-mode/panel-mode-bottom.svg';
     }
     return 'assets/images/appearance/dock-mode/dock-mode-bottom.svg';
   }
 }
 
-enum DockPosition { left, bottom, right }
+enum DockPosition {
+  left,
+  bottom,
+  right;
 
-enum DockClickAction { minimize, cycleWindows, focusOrPreviews }
-
-String camelCaseToSplitByDash(String value) {
-  final beforeCapitalLetterRegex = RegExp(r"(?=[A-Z])");
-  final parts = value.split(beforeCapitalLetterRegex);
-  var newString = '';
-  for (var part in parts) {
-    if (newString.isEmpty) {
-      newString = part.toLowerCase();
-    } else {
-      newString = newString.toLowerCase() + '-' + part.toLowerCase();
+  String localize(AppLocalizations l10n) {
+    switch (this) {
+      case DockPosition.left:
+        return l10n.dockPositionLeft;
+      case DockPosition.bottom:
+        return l10n.dockPositionBottom;
+      case DockPosition.right:
+        return l10n.dockPositionRight;
     }
   }
-  return newString;
+}
+
+enum DockClickAction {
+  minimize,
+  cycleWindows,
+  focusOrPreviews;
+
+  String localize(AppLocalizations l10n) {
+    switch (this) {
+      case DockClickAction.minimize:
+        return l10n.dockClickActionMinimize;
+      case DockClickAction.cycleWindows:
+        return l10n.dockClickActionCycleWindows;
+      case DockClickAction.focusOrPreviews:
+        return l10n.dockClickActionFocusOrPreviews;
+    }
+  }
 }

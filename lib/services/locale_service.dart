@@ -23,10 +23,11 @@ class LocaleService {
   List<String?>? _locales;
   List<String?>? get locales => _locales;
 
-  static DBusRemoteObject _createObject() =>
-      DBusRemoteObject(DBusClient.system(),
-          name: _kLocaleInterfaceName,
-          path: DBusObjectPath(_kLocaleInterfacePath));
+  static DBusRemoteObject _createObject() => DBusRemoteObject(
+        DBusClient.system(),
+        name: _kLocaleInterfaceName,
+        path: DBusObjectPath(_kLocaleInterfacePath),
+      );
 
   Future<void> init() async {
     _locales = await _getLocales();
@@ -79,14 +80,14 @@ extension _LocaleRemoteObject on DBusRemoteObject {
   Future<void> setLocale(List<String?>? value) async {
     if (value == null) return;
     final children = <DBusString>[];
-    for (var string in value) {
+    for (final string in value) {
       if (string != null) {
         children.add(DBusString(string));
       }
     }
     final array = DBusArray(DBusSignature('s'), children);
     final args = [array, const DBusBoolean(false)];
-    callMethod(_kLocaleInterfaceName, _kSetLocaleMethodName, args);
+    await callMethod(_kLocaleInterfaceName, _kSetLocaleMethodName, args);
   }
 }
 

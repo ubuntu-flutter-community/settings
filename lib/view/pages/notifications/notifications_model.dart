@@ -3,13 +3,12 @@ import 'package:settings/schemas/schemas.dart';
 import 'package:settings/services/settings_service.dart';
 
 class NotificationsModel extends ChangeNotifier {
-  static const _showBannersKey = 'show-banners';
-  static const _showInLockScreenKey = 'show-in-lock-screen';
-
   NotificationsModel(SettingsService service)
       : _notificationSettings = service.lookup(schemaNotifications) {
     _notificationSettings?.addListener(notifyListeners);
   }
+  static const _showBannersKey = 'show-banners';
+  static const _showInLockScreenKey = 'show-in-lock-screen';
 
   @override
   void dispose() {
@@ -47,14 +46,13 @@ class NotificationsModel extends ChangeNotifier {
 }
 
 class AppNotificationsModel extends ChangeNotifier {
-  static const _enableKey = 'enable';
-  static const _appSchemaId = schemaNotifications + '.application';
-
   AppNotificationsModel(this.appId, SettingsService service)
       : _appNotificationSettings =
             service.lookup(_appSchemaId, path: _getPath(appId)) {
     _appNotificationSettings?.addListener(notifyListeners);
   }
+  static const _enableKey = 'enable';
+  static const _appSchemaId = '$schemaNotifications.application';
 
   @override
   void dispose() {
@@ -66,11 +64,7 @@ class AppNotificationsModel extends ChangeNotifier {
   final Settings? _appNotificationSettings;
 
   static String _getPath(String appId) {
-    return '/' +
-        _appSchemaId.replaceAll('.', '/') +
-        '/' +
-        appId.toString() +
-        '/';
+    return '/${_appSchemaId.replaceAll('.', '/')}/$appId/';
   }
 
   bool? get enable => _appNotificationSettings?.boolValue(_enableKey);

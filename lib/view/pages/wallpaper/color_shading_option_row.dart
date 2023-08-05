@@ -8,13 +8,13 @@ import 'package:yaru_widgets/yaru_widgets.dart';
 
 class ColorShadingOptionRow extends StatelessWidget {
   const ColorShadingOptionRow({
-    Key? key,
+    super.key,
     required this.actionLabel,
     this.actionDescription,
     required this.value,
     required this.onDropDownChanged,
     this.width,
-  }) : super(key: key);
+  });
 
   final String actionLabel;
   final String? actionDescription;
@@ -25,53 +25,51 @@ class ColorShadingOptionRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final model = context.read<WallpaperModel>();
-    return YaruRow(
+    return SizedBox(
       width: width,
-      enabled: true,
-      trailingWidget: Text(actionLabel),
-      description: actionDescription,
-      actionWidget: Row(
-        children: [
-          DropdownButton<ColorShadingType>(
-            onChanged: (value) => model.colorShadingType = value,
-            value: value,
-            items: [
-              DropdownMenuItem(
-                child: Text(context.l10n.wallpaperPageSolid),
-                value: ColorShadingType.solid,
-              ),
-              DropdownMenuItem(
-                child: Text(context.l10n.wallpaperPageHorizontalGradient),
-                value: ColorShadingType.horizontal,
-              ),
-              DropdownMenuItem(
-                child: Text(context.l10n.wallpaperPageVerticalGradient),
-                value: ColorShadingType.vertical,
-              ),
-            ],
-          ),
-          const SizedBox(width: 8.0),
-          YaruColorPickerButton(
-            color: colorFromHex(model.primaryColor),
-            onPressed: () async {
-              final colorBeforeDialog = model.primaryColor;
-              if (!(await colorPickerDialog(context, true))) {
-                model.primaryColor = colorBeforeDialog;
-              }
-            },
-          ),
-          if (model.colorShadingType != ColorShadingType.solid)
+      child: YaruTile(
+        title: Text(actionLabel),
+        subtitle: actionDescription != null ? Text(actionDescription!) : null,
+        trailing: Row(
+          children: [
+            YaruPopupMenuButton<ColorShadingType>(
+              initialValue: model.colorShadingType,
+              child: Text(model.colorShadingType.localize(context.l10n)),
+              itemBuilder: (context) {
+                return [
+                  for (final type in ColorShadingType.values)
+                    PopupMenuItem(
+                      value: type,
+                      onTap: () => model.colorShadingType = type,
+                      child: Text(type.localize(context.l10n)),
+                    )
+                ];
+              },
+            ),
             const SizedBox(width: 8.0),
-          if (model.colorShadingType != ColorShadingType.solid)
-            YaruColorPickerButton(
+            YaruOptionButton.color(
+              color: colorFromHex(model.primaryColor),
+              onPressed: () async {
+                final colorBeforeDialog = model.primaryColor;
+                if (!(await colorPickerDialog(context, true))) {
+                  model.primaryColor = colorBeforeDialog;
+                }
+              },
+            ),
+            if (model.colorShadingType != ColorShadingType.solid)
+              const SizedBox(width: 8.0),
+            if (model.colorShadingType != ColorShadingType.solid)
+              YaruOptionButton.color(
                 color: colorFromHex(model.secondaryColor),
                 onPressed: () async {
                   final colorBeforeDialog = model.secondaryColor;
                   if (!(await colorPickerDialog(context, false))) {
                     model.secondaryColor = colorBeforeDialog;
                   }
-                }),
-        ],
+                },
+              ),
+          ],
+        ),
       ),
     );
   }
@@ -80,11 +78,11 @@ class ColorShadingOptionRow extends StatelessWidget {
     final model = context.read<WallpaperModel>();
     return ColorPicker(
       color: colorFromHex(primary ? model.primaryColor : model.secondaryColor),
-      onColorChanged: (Color color) => {
+      onColorChanged: (color) => {
         if (primary)
-          {model.primaryColor = '#' + color.hex}
+          {model.primaryColor = '#${color.hex}'}
         else
-          {model.secondaryColor = '#' + color.hex}
+          {model.secondaryColor = '#${color.hex}'}
       },
       width: 40,
       height: 40,
@@ -100,7 +98,7 @@ class ColorShadingOptionRow extends StatelessWidget {
       ),
       wheelSubheading: Text(
         context.l10n.wallpaperPagePickerWheelHeading,
-        style: Theme.of(context).textTheme.subtitle1,
+        style: Theme.of(context).textTheme.titleMedium,
       ),
       showMaterialName: true,
       showColorName: true,
@@ -108,10 +106,10 @@ class ColorShadingOptionRow extends StatelessWidget {
       copyPasteBehavior: const ColorPickerCopyPasteBehavior(
         longPressMenu: true,
       ),
-      materialNameTextStyle: Theme.of(context).textTheme.caption,
-      colorNameTextStyle: Theme.of(context).textTheme.caption,
-      colorCodeTextStyle: Theme.of(context).textTheme.bodyText2,
-      colorCodePrefixStyle: Theme.of(context).textTheme.caption,
+      materialNameTextStyle: Theme.of(context).textTheme.bodySmall,
+      colorNameTextStyle: Theme.of(context).textTheme.bodySmall,
+      colorCodeTextStyle: Theme.of(context).textTheme.bodyMedium,
+      colorCodePrefixStyle: Theme.of(context).textTheme.bodySmall,
       selectedPickerTypeColor: Theme.of(context).colorScheme.primary,
       pickersEnabled: const <ColorPickerType, bool>{
         ColorPickerType.both: false,

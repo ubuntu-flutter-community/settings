@@ -10,15 +10,15 @@ const _recentFilesMaxAgeKey = 'recent-files-max-age';
 const _oldFilesAgeKey = 'old-files-age';
 
 class PrivacyModel extends SafeChangeNotifier {
-  final Settings? _privacySettings;
-  final HouseKeepingService _houseKeepingService;
-
   PrivacyModel(
-      SettingsService settingsService, HouseKeepingService houseKeepingService)
-      : _privacySettings = settingsService.lookup(schemaPrivacy),
+    SettingsService settingsService,
+    HouseKeepingService houseKeepingService,
+  )   : _privacySettings = settingsService.lookup(schemaPrivacy),
         _houseKeepingService = houseKeepingService {
     _privacySettings?.addListener(notifyListeners);
   }
+  final Settings? _privacySettings;
+  final HouseKeepingService _houseKeepingService;
 
   @override
   void dispose() {
@@ -64,7 +64,7 @@ class PrivacyModel extends SafeChangeNotifier {
   int? get oldFilesAge => _privacySettings?.getValue(_oldFilesAgeKey);
   set oldFilesAge(int? value) {
     if (value == null) return;
-    _privacySettings?.setValue(_oldFilesAgeKey, value);
+    _privacySettings?.setUint32Value(_oldFilesAgeKey, value);
     notifyListeners();
   }
 

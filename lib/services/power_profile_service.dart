@@ -9,7 +9,11 @@ const kPowerProfilesInterface = 'net.hadess.PowerProfiles';
 @visibleForTesting
 const kPowerProfilesPath = '/net/hadess/PowerProfiles';
 
-enum PowerProfile { performance, balanced, powerSaver }
+enum PowerProfile {
+  performance,
+  balanced,
+  powerSaver,
+}
 
 class PowerProfileService {
   PowerProfileService([@visibleForTesting DBusRemoteObject? object])

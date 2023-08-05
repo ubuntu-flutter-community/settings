@@ -2,18 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:settings/constants.dart';
 import 'package:settings/l10n/l10n.dart';
+import 'package:settings/view/common/yaru_extra_option_row.dart';
 import 'package:settings/view/pages/accessibility/accessibility_model.dart';
+import 'package:settings/view/pages/settings_simple_dialog.dart';
+import 'package:settings/view/settings_section.dart';
 import 'package:yaru_icons/yaru_icons.dart';
 import 'package:yaru_widgets/yaru_widgets.dart';
 
 class HearingSection extends StatelessWidget {
-  const HearingSection({Key? key}) : super(key: key);
+  const HearingSection({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return YaruSection(
+    return SettingsSection(
       width: kDefaultWidth,
-      headline: context.l10n.hearing,
+      headline: Text(context.l10n.hearing),
       children: const <Widget>[
         _VisualAlerts(),
       ],
@@ -22,17 +25,17 @@ class HearingSection extends StatelessWidget {
 }
 
 class _VisualAlerts extends StatelessWidget {
-  const _VisualAlerts({Key? key}) : super(key: key);
+  const _VisualAlerts();
 
   @override
   Widget build(BuildContext context) {
     final model = context.watch<AccessibilityModel>();
     return YaruExtraOptionRow(
-      iconData: YaruIcons.settings,
+      iconData: YaruIcons.gear,
       actionLabel: context.l10n.visualAlerts,
       actionDescription: context.l10n.visualAlertsDescription,
       value: model.visualAlerts,
-      onChanged: (value) => model.setVisualAlerts(value),
+      onChanged: model.setVisualAlerts,
       onPressed: () => showDialog(
         context: context,
         builder: (_) => ChangeNotifierProvider.value(
@@ -45,27 +48,31 @@ class _VisualAlerts extends StatelessWidget {
 }
 
 class _VisualAlertsSettings extends StatelessWidget {
-  const _VisualAlertsSettings({Key? key}) : super(key: key);
+  const _VisualAlertsSettings();
 
   @override
   Widget build(BuildContext context) {
     final model = context.watch<AccessibilityModel>();
-    return YaruSimpleDialog(
+    return SettingsSimpleDialog(
       width: kDefaultWidth,
       title: context.l10n.visualAlerts,
       closeIconData: YaruIcons.window_close,
       children: [
-        RadioListTile(
+        ListTile(
           title: Text(context.l10n.flashEntireWindow),
-          value: 'frame-flash',
-          groupValue: model.visualAlertsType,
-          onChanged: (String? value) => model.setVisualAlertsType(value!),
+          leading: YaruRadio(
+            value: 'frame-flash',
+            groupValue: model.visualAlertsType,
+            onChanged: (value) => model.setVisualAlertsType(value!),
+          ),
         ),
-        RadioListTile(
+        ListTile(
           title: Text(context.l10n.flashEntireScreen),
-          value: 'fullscreen-flash',
-          groupValue: model.visualAlertsType,
-          onChanged: (String? value) => model.setVisualAlertsType(value!),
+          leading: YaruRadio(
+            value: 'fullscreen-flash',
+            groupValue: model.visualAlertsType,
+            onChanged: (value) => model.setVisualAlertsType(value!),
+          ),
         ),
       ],
     );

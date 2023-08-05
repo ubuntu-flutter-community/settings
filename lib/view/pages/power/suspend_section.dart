@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:settings/constants.dart';
+import 'package:settings/l10n/l10n.dart';
 import 'package:settings/services/settings_service.dart';
+import 'package:settings/view/common/yaru_switch_row.dart';
 import 'package:settings/view/pages/power/suspend.dart';
 import 'package:settings/view/pages/power/suspend_model.dart';
+import 'package:settings/view/settings_section.dart';
 import 'package:yaru_widgets/yaru_widgets.dart';
 
 class SuspendSection extends StatefulWidget {
-  const SuspendSection({Key? key}) : super(key: key);
+  const SuspendSection({super.key});
 
   static Widget create(BuildContext context) {
     return ChangeNotifierProvider<SuspendModel>(
@@ -26,26 +29,31 @@ class _SuspendSectionState extends State<SuspendSection> {
   @override
   Widget build(BuildContext context) {
     final model = context.watch<SuspendModel>();
-    return YaruSection(
+    return SettingsSection(
       width: kDefaultWidth,
-      headline: 'Suspend & Power Button',
+      headline: Text(context.l10n.powerSuspendHeadline),
       children: <Widget>[
-        YaruRow(
+        YaruTile(
           enabled: model.powerButtonAction != null,
-          trailingWidget: const Text('Power Button Behavior'),
-          actionWidget: DropdownButton<PowerButtonAction?>(
-            value: model.powerButtonAction,
-            items: PowerButtonAction.values.map((action) {
-              return DropdownMenuItem(
+          title: Text(context.l10n.powerButtonBehavior),
+          trailing: YaruPopupMenuButton<PowerButtonAction?>(
+            initialValue: model.powerButtonAction,
+            itemBuilder: (c) => PowerButtonAction.values.map((action) {
+              return PopupMenuItem(
                 value: action,
                 child: Text(action.localize(context)),
+                onTap: () => model.setPowerButtonAction(action),
               );
             }).toList(),
-            onChanged: model.setPowerButtonAction,
+            child: Text(
+              model.powerButtonAction != null
+                  ? model.powerButtonAction!.localize(context)
+                  : '',
+            ),
           ),
         ),
         YaruSwitchRow(
-          trailingWidget: const Text('Show Battery Percentage'),
+          trailingWidget: Text(context.l10n.batteryShowPercentage),
           value: model.showBatteryPercentage,
           onChanged: model.setShowBatteryPercentage,
         ),

@@ -1,20 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:settings/constants.dart';
-import 'package:yaru_widgets/yaru_widgets.dart';
+import 'package:settings/view/common/yaru_toggle_buttons_row.dart';
+import 'package:settings/view/settings_section.dart';
 
 import 'mouse_and_touchpad_model.dart';
 
 class GeneralSection extends StatelessWidget {
-  const GeneralSection({Key? key}) : super(key: key);
+  const GeneralSection({super.key});
 
   @override
   Widget build(BuildContext context) {
     final model = context.watch<MouseAndTouchpadModel>();
 
-    return YaruSection(
+    return SettingsSection(
       width: kDefaultWidth,
-      headline: 'General',
+      headline: const Text('General'),
       children: [
         YaruToggleButtonsRow(
           actionLabel: 'Primary Button',

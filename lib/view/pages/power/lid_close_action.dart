@@ -1,4 +1,3 @@
-import 'package:flutter/widgets.dart';
 import 'package:settings/l10n/l10n.dart';
 
 enum LidCloseAction {
@@ -8,7 +7,28 @@ enum LidCloseAction {
   hibernate,
   interactive,
   nothing,
-  logout
+  logout;
+
+  String localize(AppLocalizations l10n) {
+    switch (this) {
+      case LidCloseAction.blank:
+        return l10n.lidCloseActionBlank;
+      case LidCloseAction.suspend:
+        return l10n.lidCloseActionSuspend;
+      case LidCloseAction.shutdown:
+        return l10n.lidCloseActionShutdown;
+      case LidCloseAction.hibernate:
+        return l10n.lidCloseActionHibernate;
+      case LidCloseAction.interactive:
+        return l10n.lidCloseActionInteractive;
+      case LidCloseAction.nothing:
+        return l10n.lidCloseActionNothing;
+      case LidCloseAction.logout:
+        return l10n.lidCloseActionLogout;
+      default:
+        return l10n.unknown;
+    }
+  }
 }
 
 extension LidCloseActionString on String {
@@ -17,29 +37,6 @@ extension LidCloseActionString on String {
       return LidCloseAction.values.byName(this);
     } on ArgumentError {
       return null;
-    }
-  }
-}
-
-extension LidCloseActionL10n on LidCloseAction {
-  String localize(BuildContext context) {
-    switch (this) {
-      case LidCloseAction.blank:
-        return 'Blank';
-      case LidCloseAction.suspend:
-        return 'Suspend';
-      case LidCloseAction.shutdown:
-        return 'Shutdown';
-      case LidCloseAction.hibernate:
-        return 'Hibernate';
-      case LidCloseAction.interactive:
-        return 'Interactive';
-      case LidCloseAction.nothing:
-        return 'Nothing';
-      case LidCloseAction.logout:
-        return 'Logout';
-      default:
-        return context.l10n.unknown;
     }
   }
 }

@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:settings/view/pages/power/power_utils.dart';
-import 'package:upower/upower.dart';
 import 'package:settings/l10n/l10n.dart';
+import 'package:settings/utils.dart';
+import 'package:upower/upower.dart';
 
 class BatteryStateLabel extends StatelessWidget {
   const BatteryStateLabel({
-    Key? key,
+    super.key,
     required this.state,
     required this.percentage,
     required this.timeToFull,
     required this.timeToEmpty,
-  }) : super(key: key);
+  });
 
   final UPowerDeviceState? state;
   final double percentage;
@@ -21,19 +21,19 @@ class BatteryStateLabel extends StatelessWidget {
   Widget build(BuildContext context) {
     switch (state) {
       case UPowerDeviceState.charging:
-        return Text('${formatTime(timeToFull)} until fully charged');
+        return Text(context.l10n.batteryCharging(formatTime(timeToFull)));
       case UPowerDeviceState.discharging:
       case UPowerDeviceState.pendingDischarge:
         if (percentage < 20) {
-          return Text('Caution: ${formatTime(timeToEmpty)} remaining');
+          return Text(context.l10n.batteryLow(formatTime(timeToEmpty)));
         }
-        return Text('${formatTime(timeToEmpty)} remaining');
+        return Text(context.l10n.batteryDischarging(formatTime(timeToEmpty)));
       case UPowerDeviceState.fullyCharged:
-        return const Text('Fully charged');
+        return Text(context.l10n.batteryFullyCharged);
       case UPowerDeviceState.pendingCharge:
-        return const Text('Not charging');
+        return Text(context.l10n.batteryNotCharging);
       case UPowerDeviceState.empty:
-        return const Text('Empty');
+        return Text(context.l10n.batteryEmpty);
       case UPowerDeviceState.unknown:
       default:
         return Text(context.l10n.unknown);

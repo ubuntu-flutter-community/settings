@@ -82,7 +82,7 @@ class SuspendModel extends SafeChangeNotifier {
       IdleDelay.values.contains(_realIdleDelay) ? _realIdleDelay : null;
   void setIdleDelay(int? value) {
     if (value == null) return;
-    _sessionSettings?.setValue('idle-delay', value);
+    _sessionSettings?.setUint32Value('idle-delay', value);
     notifyListeners();
   }
 
@@ -99,15 +99,19 @@ class SuspendModel extends SafeChangeNotifier {
       _sleepInactiveType('sleep-inactive-battery-type') ==
       SleepInactiveType.suspend;
   void setSuspendOnBattery(bool value) {
-    _setSleepInactiveType('sleep-inactive-battery-type',
-        value ? SleepInactiveType.suspend : SleepInactiveType.nothing);
+    _setSleepInactiveType(
+      'sleep-inactive-battery-type',
+      value ? SleepInactiveType.suspend : SleepInactiveType.nothing,
+    );
   }
 
   bool get suspendWhenPluggedIn =>
       _sleepInactiveType('sleep-inactive-ac-type') == SleepInactiveType.suspend;
   void setSuspendWhenPluggedIn(bool value) {
-    _setSleepInactiveType('sleep-inactive-ac-type',
-        value ? SleepInactiveType.suspend : SleepInactiveType.nothing);
+    _setSleepInactiveType(
+      'sleep-inactive-ac-type',
+      value ? SleepInactiveType.suspend : SleepInactiveType.nothing,
+    );
   }
 
   SleepInactiveType? _sleepInactiveType(String key) =>
@@ -118,7 +122,8 @@ class SuspendModel extends SafeChangeNotifier {
   }
 
   int? get suspendOnBatteryDelay => SuspendDelay.validate(
-      _daemonSettings?.intValue('sleep-inactive-battery-timeout'));
+        _daemonSettings?.intValue('sleep-inactive-battery-timeout'),
+      );
   void setSuspendOnBatteryDelay(int? value) {
     if (value == null) return;
     _daemonSettings?.setValue('sleep-inactive-battery-timeout', value);
@@ -126,7 +131,8 @@ class SuspendModel extends SafeChangeNotifier {
   }
 
   int? get suspendWhenPluggedInDelay => SuspendDelay.validate(
-      _daemonSettings?.intValue('sleep-inactive-ac-timeout'));
+        _daemonSettings?.intValue('sleep-inactive-ac-timeout'),
+      );
   void setSuspendWhenPluggedInDelay(int? value) {
     if (value == null) return;
     _daemonSettings?.setValue('sleep-inactive-ac-timeout', value);

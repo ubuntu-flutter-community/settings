@@ -8,18 +8,18 @@ import 'package:settings/services/input_source_service.dart';
 import 'package:settings/services/settings_service.dart';
 
 class InputSourceModel extends SafeChangeNotifier {
+  InputSourceModel(
+    SettingsService settingsService,
+    InputSourceService inputSourceService,
+  )   : _inputSourceSettings = settingsService.lookup(schemaInputSources),
+        inputSources = inputSourceService.inputSources {
+    _inputSourceSettings?.addListener(notifyListeners);
+  }
   final Settings? _inputSourceSettings;
   static const _perWindowKey = 'per-window';
   static const _sourcesKey = 'sources';
   static const _mruSourcesKey = 'mru-sources';
   final List<InputSource> inputSources;
-
-  InputSourceModel(
-      SettingsService settingsService, InputSourceService inputSourceService)
-      : _inputSourceSettings = settingsService.lookup(schemaInputSources),
-        inputSources = inputSourceService.inputSources {
-    _inputSourceSettings?.addListener(notifyListeners);
-  }
 
   @override
   void dispose() {
@@ -36,24 +36,24 @@ class InputSourceModel extends SafeChangeNotifier {
 
   Future<List<String>?> getInputSources() async {
     final settings = GSettings(schemaInputSources);
-    final List<String>? inputTypes = [];
+    final inputTypes = <String>[];
 
-    final DBusArray dbusArray = await settings.get(_sourcesKey) as DBusArray;
+    final dbusArray = await settings.get(_sourcesKey) as DBusArray;
 
-    for (final DBusValue dbusArrayChild in dbusArray.children) {
-      final DBusStruct dbusStruct = dbusArrayChild as DBusStruct;
-      inputTypes?.add((dbusStruct.children[1] as DBusString).value);
+    for (final dbusArrayChild in dbusArray.children) {
+      final dbusStruct = dbusArrayChild as DBusStruct;
+      inputTypes.add((dbusStruct.children[1] as DBusString).value);
     }
 
     await settings.close();
 
-    return inputTypes ?? [];
+    return inputTypes;
   }
 
   Future<void> setInputSources(List<String>? inputTypes) async {
     final settings = GSettings(schemaInputSources);
 
-    final DBusArray array = DBusArray(DBusSignature('(ss)'), [
+    final array = DBusArray(DBusSignature('(ss)'), [
       for (var inputType in inputTypes ?? [])
         DBusStruct([const DBusString('xkb'), DBusString(inputType)])
     ]);
@@ -81,7 +81,9 @@ class InputSourceModel extends SafeChangeNotifier {
   }
 
   Future<void> showKeyboardLayout(String inputType) async {
-    await Process.run('gkbd-keyboard-display',
-        ['-l', inputType.split('+').first, inputType.split('+').last, '&']);
+    await Process.run(
+      'gkbd-keyboard-display',
+      ['-l', inputType.split('+').first, inputType.split('+').last, '&'],
+    );
   }
 }

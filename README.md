@@ -15,7 +15,6 @@ Mentionable packages that we use and want to thank are:
 - [dbus.dart](https://github.com/canonical/dbus.dart)
 - [upower.dart](https://github.com/canonical/upower.dart)
 - [udisks.dart](https://github.com/canonical/udisks.dart)
-- [filesystem_picker](https://github.com/andyduke/filesystem_picker)
 - [flex_color_picker](https://github.com/rydmike/flex_color_picker)
 
 
@@ -47,18 +46,6 @@ echo 'export PATH="$PATH:$HOME/development/flutter/bin"' >> ~/.bashrc
 source ~/.bashrc
 ```
 
-## Enable flutter linux desktop support
-
-```bash
-flutter config --enable-linux-desktop
-```
-
-## Install libhandy
-
-```bash
-sudo apt install libhandy-1-dev
-```
-
 # TODO
 
 - [X] use real yaru icons - thanks to @Jupi007
@@ -79,7 +66,7 @@ sudo apt install libhandy-1-dev
 - [ ] Online Accounts page
 - [ ] Sound page - WIP    
 - [X] Power page
-- [ ] Displays page
+- [X] Displays page - WIP
 - [X] Mouse and touchpad page
 - [X] Keyboard shortcuts page - WIP
 - [ ] Printers page - WIP

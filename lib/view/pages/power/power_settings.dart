@@ -12,13 +12,13 @@ extension AutomaticSuspendL10n on AutomaticSuspend {
   String localize(BuildContext context) {
     switch (this) {
       case AutomaticSuspend.off:
-        return 'Off';
+        return context.l10n.powerAutomaticSuspendOff;
       case AutomaticSuspend.battery:
-        return 'When on battery power';
+        return context.l10n.powerAutomaticSuspendBattery;
       case AutomaticSuspend.pluggedIn:
-        return 'When plugged in';
+        return context.l10n.powerAutomaticSuspendPluggedIn;
       case AutomaticSuspend.both:
-        return 'On';
+        return context.l10n.powerAutomaticSuspendBoth;
       default:
         return context.l10n.unknown;
     }
@@ -74,6 +74,21 @@ class SuspendDelay {
     90 * 60,
     100 * 60,
     120 * 60,
+  ];
+
+  static int? validate(int? delay) => values.contains(delay) ? delay : null;
+}
+
+class ScreenLockDelay {
+  static const values = <int>[
+    30,
+    1 * 60,
+    2 * 60,
+    3 * 60,
+    5 * 60,
+    30 * 60,
+    60 * 60,
+    0,
   ];
 
   static int? validate(int? delay) => values.contains(delay) ? delay : null;

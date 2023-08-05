@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:settings/l10n/l10n.dart';
-import 'package:yaru_widgets/yaru_widgets.dart';
+import 'package:settings/view/pages/settings_page.dart';
 
 class OnlineAccountsPage extends StatelessWidget {
-  const OnlineAccountsPage({Key? key}) : super(key: key);
+  const OnlineAccountsPage({super.key});
 
   static Widget create(BuildContext context) => const OnlineAccountsPage();
 
@@ -19,7 +19,8 @@ class OnlineAccountsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return YaruPage(
-        children: [Center(child: Text(context.l10n.onlineAccountsPageTitle))]);
+    return SettingsPage(
+      children: [Center(child: Text(context.l10n.onlineAccountsPageTitle))],
+    );
   }
 }

@@ -1,74 +1,141 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:settings/l10n/l10n.dart';
-import 'package:settings/view/app_theme.dart';
-import 'package:settings/view/pages/page_items.dart';
-import 'package:yaru_icons/yaru_icons.dart';
-import 'package:yaru_widgets/yaru_widgets.dart';
 import 'package:flutter_localized_locales/flutter_localized_locales.dart';
+import 'package:provider/provider.dart';
+import 'package:settings/app_model.dart';
+import 'package:settings/l10n/l10n.dart';
+import 'package:settings/view/pages/page_items.dart';
+import 'package:yaru/yaru.dart';
+import 'package:yaru_widgets/yaru_widgets.dart';
 
-class UbuntuSettingsApp extends StatefulWidget {
+class UbuntuSettingsApp extends StatelessWidget {
   const UbuntuSettingsApp({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  State<UbuntuSettingsApp> createState() => _UbuntuSettingsAppState();
-}
-
-class _UbuntuSettingsAppState extends State<UbuntuSettingsApp> {
-  final _filteredItems = <YaruPageItem>[];
-  final _searchController = TextEditingController();
-  late List<YaruPageItem> pageItems = getPageItems(context);
-
-  void _onEscape() => setState(() {
-        _filteredItems.clear();
-        _searchController.clear();
-      });
-
-  void _onSearchChanged(String value, BuildContext context) {
-    setState(() {
-      _filteredItems.clear();
-      _filteredItems.addAll(pageItems.where((pageItem) {
-        if (pageItem.searchMatches != null) {
-          return pageItem.searchMatches!(value, context);
-        }
-        return false;
-      }));
-    });
-  }
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      onGenerateTitle: (context) => context.l10n.appTitle,
-      routes: {
-        Navigator.defaultRouteName: (context) {
-          return YaruMasterDetailPage(
-            leftPaneWidth: 280,
-            pageItems: _filteredItems.isNotEmpty ? _filteredItems : pageItems,
-            previousIconData: YaruIcons.go_previous,
-            searchHint: context.l10n.searchHint,
-            searchIconData: YaruIcons.search,
-            appBar: YaruSearchAppBar(
-              searchHint: context.l10n.searchHint,
-              clearSearchIconData: YaruIcons.window_close,
-              searchController: _searchController,
-              onChanged: (v) => _onSearchChanged(v, context),
-              onEscape: _onEscape,
-              appBarHeight: 48,
-              searchIconData: YaruIcons.search,
-            ),
-          );
-        },
+    return YaruTheme(
+      builder: (context, yaru, child) {
+        return MaterialApp(
+          theme: yaru.theme,
+          darkTheme: yaru.darkTheme,
+          debugShowCheckedModeBanner: false,
+          onGenerateTitle: (context) => context.l10n.appTitle,
+          home: App.create(context),
+          supportedLocales: AppLocalizations.supportedLocales,
+          localizationsDelegates: AppLocalizations.localizationsDelegates +
+              [const LocaleNamesLocalizationsDelegate()],
+        );
       },
-      theme: context.watch<LightTheme>().value,
-      darkTheme: context.watch<DarkTheme>().value,
-      themeMode: context.watch<AppTheme>().value,
-      supportedLocales: AppLocalizations.supportedLocales,
-      localizationsDelegates: AppLocalizations.localizationsDelegates +
-          [const LocaleNamesLocalizationsDelegate()],
+    );
+  }
+}
+
+class App extends StatelessWidget {
+  const App({super.key});
+
+  static Widget create(BuildContext context) => ChangeNotifierProvider(
+        create: (_) {
+          return AppModel();
+        },
+        child: const App(),
+      );
+
+  @override
+  Widget build(BuildContext context) {
+    final model = context.read<AppModel>();
+
+    final searchQuery = context.select<AppModel, String?>((m) => m.searchQuery);
+    final searchActive =
+        context.select<AppModel, bool?>((value) => value.searchActive);
+
+    final items = searchQuery?.isNotEmpty == true
+        ? getPageItems(context)
+            .where(
+              (e) => e.title == null
+                  ? false
+                  : e.title!.toLowerCase().contains(searchQuery!.toLowerCase()),
+            )
+            .toList()
+        : getPageItems(context);
+
+    return YaruMasterDetailPage(
+      layoutDelegate: const YaruMasterFixedPaneDelegate(
+        paneWidth: 270,
+      ),
+      length: items.length,
+      tileBuilder: (context, index, selected, availableWidth) => YaruMasterTile(
+        title: items[index].titleBuilder(context),
+        leading: items[index].iconBuilder(context, selected),
+      ),
+      pageBuilder: (context, index) => YaruDetailPage(
+        body: items[index].builder(context),
+        appBar: YaruWindowTitleBar(
+          title: items[index].titleBuilder(context),
+          leading:
+              Navigator.of(context).canPop() ? const YaruBackButton() : null,
+        ),
+      ),
+      appBar: YaruWindowTitleBar(
+        titleSpacing: 0,
+        leading: YaruSearchButton(
+          onPressed: () => model.setSearchActive(!(searchActive ?? false)),
+        ),
+        title: searchActive == true
+            ? _SearchField(
+                searchQuery: searchQuery,
+                setSearchQuery: model.setSearchQuery,
+              )
+            : Text(
+                context.l10n.appTitle,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+              ),
+      ),
+    );
+  }
+}
+
+class _SearchField extends StatelessWidget {
+  const _SearchField({
+    required this.searchQuery,
+    required this.setSearchQuery,
+  });
+
+  final String? searchQuery;
+  final Function(String? value) setSearchQuery;
+
+  @override
+  Widget build(BuildContext context) {
+    return YaruAutocomplete(
+      fieldViewBuilder: (
+        context,
+        textEditingController,
+        f,
+        onFieldSubmitted,
+      ) =>
+          SizedBox(
+        width: 200,
+        child: YaruSearchField(
+          text: searchQuery,
+          radius: const Radius.circular(6),
+          autofocus: true,
+          controller: textEditingController,
+          focusNode: f,
+          onSubmitted: (_) => onFieldSubmitted(),
+          onClear: () => setSearchQuery(''),
+        ),
+      ),
+      optionsBuilder: (textEditingValue) {
+        return getPageItems(context).where(
+          (element) => element.searchMatches == null
+              ? false
+              : element.searchMatches!(textEditingValue.text, context),
+        );
+      },
+      displayStringForOption: (option) => option.title ?? '',
+      onSelected: (option) => setSearchQuery(option.title),
+      initialValue: TextEditingValue(text: searchQuery ?? ''),
     );
   }
 }

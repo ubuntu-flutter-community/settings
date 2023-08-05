@@ -30,6 +30,7 @@ class BluetoothService {
     await _propertyListener?.cancel();
     await _object.client.close();
     _propertyListener = null;
+    await _airplaneModeController.close();
   }
 
   final DBusRemoteObject _object;

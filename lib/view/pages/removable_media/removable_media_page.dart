@@ -3,11 +3,13 @@ import 'package:provider/provider.dart';
 import 'package:settings/constants.dart';
 import 'package:settings/l10n/l10n.dart';
 import 'package:settings/services/settings_service.dart';
+import 'package:settings/view/common/yaru_switch_row.dart';
 import 'package:settings/view/pages/removable_media/removable_media_model.dart';
+import 'package:settings/view/pages/settings_page.dart';
 import 'package:yaru_widgets/yaru_widgets.dart';
 
 class RemovableMediaPage extends StatelessWidget {
-  const RemovableMediaPage({Key? key}) : super(key: key);
+  const RemovableMediaPage({super.key});
 
   static Widget create(BuildContext context) {
     final service = Provider.of<SettingsService>(context, listen: false);
@@ -31,31 +33,55 @@ class RemovableMediaPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final model = context.watch<RemovableMediaModel>();
 
-    return YaruPage(
+    return SettingsPage(
       children: [
-        YaruSwitchRow(
+        SizedBox(
           width: kDefaultWidth,
-          trailingWidget: Text(context.l10n.removableMediaNeverAsk),
-          value: model.autoRunNever,
-          onChanged: (value) => model.autoRunNever = value,
+          child: YaruSwitchRow(
+            trailingWidget: Text(context.l10n.removableMediaNeverAsk),
+            value: model.autoRunNever,
+            onChanged: (value) => model.autoRunNever = value,
+          ),
         ),
         const SizedBox(
           height: 20,
         ),
         if (!model.autoRunNever)
           for (var mimeType in RemovableMediaModel.mimeTypes.entries)
-            YaruRow(
-                width: kDefaultWidth,
-                enabled: !model.autoRunNever,
-                trailingWidget: Text(mimeType.value),
-                actionWidget: DropdownButton<String>(
-                    value: model.getMimeTypeBehavior(mimeType.key),
-                    onChanged: (string) =>
-                        model.setMimeTypeBehavior(string!, mimeType.key),
-                    items: [
-                      for (var string in RemovableMediaModel.mimeTypeBehaviors)
-                        DropdownMenuItem(child: Text(string), value: string),
-                    ])),
+            SizedBox(
+              width: kDefaultWidth,
+              child: YaruTile(
+                enabled: model.mimeTypeBehavior != null,
+                title: Text(mimeType.value),
+                trailing: YaruPopupMenuButton<MimeTypeBehavior?>(
+                  enabled: model.mimeTypeBehavior != null,
+                  initialValue: model.getMimeTypeBehavior(mimeType.key),
+                  itemBuilder: (p0) {
+                    return [
+                      for (var behavior in MimeTypeBehavior.values)
+                        PopupMenuItem(
+                          value: behavior,
+                          onTap: () => model.setMimeTypeBehavior(
+                            behavior,
+                            mimeType.key,
+                          ),
+                          child: Text(
+                            behavior.localize(context.l10n),
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ),
+                    ];
+                  },
+                  child: Text(
+                    model.getMimeTypeBehavior(mimeType.key) != null
+                        ? model
+                            .getMimeTypeBehavior(mimeType.key)!
+                            .localize(context.l10n)
+                        : '',
+                  ),
+                ),
+              ),
+            ),
       ],
     );
   }

@@ -1,8 +1,31 @@
 import 'package:flutter/foundation.dart';
+import 'package:settings/l10n/l10n.dart';
 import 'package:settings/schemas/schemas.dart';
 import 'package:settings/services/settings_service.dart';
+import 'package:settings/utils.dart';
 
 class AccessibilityModel extends ChangeNotifier {
+  AccessibilityModel(SettingsService service)
+      : _desktopA11Settings = service.lookup(schemaDesktopA11y),
+        _a11yAppsSettings = service.lookup(schemaA11yApps),
+        _a11yKeyboardSettings = service.lookup(schemaA11yKeyboard),
+        _a11yMagnifierSettings = service.lookup(schemaA11yMagnifier),
+        _a11yMouseSettings = service.lookup(schemaA11yMouse),
+        _wmPreferencesSettings = service.lookup(schemaWmPreferences),
+        _interfaceSettings = service.lookup(schemaInterface),
+        _peripheralsMouseSettings = service.lookup(schemaPeripheralsMouse),
+        _peripheralsKeyboardSettings =
+            service.lookup(schemaPeripheralsKeyboard) {
+    _desktopA11Settings?.addListener(notifyListeners);
+    _a11yAppsSettings?.addListener(notifyListeners);
+    _a11yKeyboardSettings?.addListener(notifyListeners);
+    _a11yMagnifierSettings?.addListener(notifyListeners);
+    _a11yMouseSettings?.addListener(notifyListeners);
+    _wmPreferencesSettings?.addListener(notifyListeners);
+    _interfaceSettings?.addListener(notifyListeners);
+    _peripheralsMouseSettings?.addListener(notifyListeners);
+    _peripheralsKeyboardSettings?.addListener(notifyListeners);
+  }
   static const _gtkThemeKey = 'gtk-theme';
   static const _iconThemeKey = 'icon-theme';
   static const _textScalingFactorKey = 'text-scaling-factor';
@@ -58,28 +81,6 @@ class AccessibilityModel extends ChangeNotifier {
   static const _dwellClickEnabledKey = 'dwell-click-enabled';
   static const _dwellTimeKey = 'dwell-time';
   static const _dwellThresholdKey = 'dwell-threshold';
-
-  AccessibilityModel(SettingsService service)
-      : _desktopA11Settings = service.lookup(schemaDesktopA11y),
-        _a11yAppsSettings = service.lookup(schemaA11yApps),
-        _a11yKeyboardSettings = service.lookup(schemaA11yKeyboard),
-        _a11yMagnifierSettings = service.lookup(schemaA11yMagnifier),
-        _a11yMouseSettings = service.lookup(schemaA11yMouse),
-        _wmPreferencesSettings = service.lookup(schemaWmPreferences),
-        _interfaceSettings = service.lookup(schemaInterface),
-        _peripheralsMouseSettings = service.lookup(schemaPeripheralsMouse),
-        _peripheralsKeyboardSettings =
-            service.lookup(schemaPeripheralsKeyboard) {
-    _desktopA11Settings?.addListener(notifyListeners);
-    _a11yAppsSettings?.addListener(notifyListeners);
-    _a11yKeyboardSettings?.addListener(notifyListeners);
-    _a11yMagnifierSettings?.addListener(notifyListeners);
-    _a11yMouseSettings?.addListener(notifyListeners);
-    _wmPreferencesSettings?.addListener(notifyListeners);
-    _interfaceSettings?.addListener(notifyListeners);
-    _peripheralsMouseSettings?.addListener(notifyListeners);
-    _peripheralsKeyboardSettings?.addListener(notifyListeners);
-  }
 
   @override
   void dispose() {
@@ -139,39 +140,50 @@ class AccessibilityModel extends ChangeNotifier {
   bool get largeText => _textScalingFactor != null && _textScalingFactor! > 1.0;
 
   void setLargeText(bool value) {
-    double factor = value ? 1.25 : 1.0;
+    final factor = value ? 1.25 : 1.0;
     _interfaceSettings?.setValue(_textScalingFactorKey, factor);
     notifyListeners();
   }
 
-  int? get cursorSize => _interfaceSettings?.intValue(_cursorSizeKey);
+  CursorSize? get cursorSize {
+    final cursorSizeValue = _interfaceSettings?.intValue(_cursorSizeKey);
 
-  String cursorSizeString() {
-    String value = '';
-    switch (cursorSize) {
+    switch (cursorSizeValue) {
       case 24:
-        value = 'Default';
-        break;
+        return CursorSize.normal;
       case 32:
-        value = 'Medium';
-        break;
+        return CursorSize.medium;
       case 48:
-        value = 'Large';
-        break;
+        return CursorSize.large;
       case 64:
-        value = 'Larger';
-        break;
+        return CursorSize.larger;
       case 96:
-        value = 'Largest';
-        break;
+        return CursorSize.largest;
       default:
-        value = '$cursorSize pixels';
+        return null;
     }
-    return value;
   }
 
-  void setCursorSize(int value) {
-    _interfaceSettings?.setValue(_cursorSizeKey, value);
+  set cursorSize(CursorSize? cursorSize) {
+    switch (cursorSize) {
+      case CursorSize.normal:
+        _interfaceSettings?.setValue(_cursorSizeKey, 24);
+        break;
+      case CursorSize.medium:
+        _interfaceSettings?.setValue(_cursorSizeKey, 32);
+        break;
+      case CursorSize.large:
+        _interfaceSettings?.setValue(_cursorSizeKey, 48);
+        break;
+      case CursorSize.larger:
+        _interfaceSettings?.setValue(_cursorSizeKey, 64);
+        break;
+      case CursorSize.largest:
+        _interfaceSettings?.setValue(_cursorSizeKey, 96);
+        break;
+      default:
+        break;
+    }
     notifyListeners();
   }
 
@@ -198,24 +210,31 @@ class AccessibilityModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  static const screenPositions = [
-    'full-screen',
-    'top-half',
-    'bottom-half',
-    'left-half',
-    'right-half'
-  ];
+  ScreenPosition? get screenPosition {
+    final positionString =
+        _a11yMagnifierSettings?.stringValue(_screenPositionKey);
+    switch (positionString) {
+      case 'full-screen':
+        return ScreenPosition.fullScreen;
+      case 'top-half':
+        return ScreenPosition.topHalf;
+      case 'bottom-half':
+        return ScreenPosition.bottomHalf;
+      case 'left-half':
+        return ScreenPosition.leftHalf;
+      case 'right-half':
+        return ScreenPosition.rightHalf;
+      default:
+        return null;
+    }
+  }
 
-  String? get _realScreenPosition =>
-      _a11yMagnifierSettings?.stringValue(_screenPositionKey);
-
-  String? get screenPosition => screenPositions.contains(_realScreenPosition)
-      ? _realScreenPosition
-      : null;
-
-  void setScreenPosition(String value) {
-    _a11yMagnifierSettings?.setValue(_screenPositionKey, value);
-    notifyListeners();
+  set screenPosition(ScreenPosition? screenPosition) {
+    if (screenPosition != null) {
+      final value = camelCaseToSplitByDash(screenPosition.name);
+      _a11yMagnifierSettings?.setValue(_screenPositionKey, value);
+      notifyListeners();
+    }
   }
 
   bool? get scrollAtEdges =>
@@ -360,7 +379,10 @@ class AccessibilityModel extends ChangeNotifier {
       _peripheralsKeyboardSettings?.intValue(_delayKeyboardKey)?.toDouble();
 
   void setDelay(double value) {
-    _peripheralsKeyboardSettings?.setValue(_delayKeyboardKey, value.toInt());
+    _peripheralsKeyboardSettings?.setUint32Value(
+      _delayKeyboardKey,
+      value.toInt(),
+    );
     notifyListeners();
   }
 
@@ -369,8 +391,10 @@ class AccessibilityModel extends ChangeNotifier {
       ?.toDouble();
 
   void setInterval(double value) {
-    _peripheralsKeyboardSettings?.setValue(
-        _repeatIntervalKeyboardKey, value.toInt());
+    _peripheralsKeyboardSettings?.setUint32Value(
+      _repeatIntervalKeyboardKey,
+      value.toInt(),
+    );
     notifyListeners();
   }
 
@@ -557,5 +581,51 @@ class AccessibilityModel extends ChangeNotifier {
   void setDwellThreshold(double value) {
     _a11yMouseSettings?.setValue(_dwellThresholdKey, value.toInt());
     notifyListeners();
+  }
+}
+
+enum CursorSize {
+  normal,
+  medium,
+  large,
+  larger,
+  largest;
+
+  String localize(AppLocalizations l10n) {
+    switch (this) {
+      case CursorSize.normal:
+        return l10n.cursorSizeDefault;
+      case CursorSize.medium:
+        return l10n.cursorSizeMedium;
+      case CursorSize.large:
+        return l10n.cursorSizeLarge;
+      case CursorSize.larger:
+        return l10n.cursorSizeLarger;
+      case CursorSize.largest:
+        return l10n.cursorSizeLargest;
+    }
+  }
+}
+
+enum ScreenPosition {
+  fullScreen,
+  topHalf,
+  bottomHalf,
+  leftHalf,
+  rightHalf;
+
+  String localize(AppLocalizations l10n) {
+    switch (this) {
+      case ScreenPosition.fullScreen:
+        return l10n.screenPositionFullScreen;
+      case ScreenPosition.topHalf:
+        return l10n.screenPositionTopHalf;
+      case ScreenPosition.bottomHalf:
+        return l10n.screenPositionBottomHalf;
+      case ScreenPosition.leftHalf:
+        return l10n.screenPositionLeftHalf;
+      case ScreenPosition.rightHalf:
+        return l10n.screenPositionRightHalf;
+    }
   }
 }

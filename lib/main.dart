@@ -10,6 +10,7 @@ import 'package:settings/services/display/display_service.dart';
 import 'package:settings/services/hostname_service.dart';
 import 'package:settings/services/house_keeping_service.dart';
 import 'package:settings/services/input_source_service.dart';
+import 'package:settings/services/keyboard_service.dart';
 import 'package:settings/services/locale_service.dart';
 import 'package:settings/services/power_profile_service.dart';
 import 'package:settings/services/power_settings_service.dart';
@@ -17,7 +18,7 @@ import 'package:settings/services/settings_service.dart';
 import 'package:settings/view/app_theme.dart';
 import 'package:udisks/udisks.dart';
 import 'package:upower/upower.dart';
-import 'package:yaru/yaru.dart';
+import 'package:yaru_widgets/yaru_widgets.dart';
 
 void main() async {
   final themeSettings = Settings(schemaInterface);
@@ -25,11 +26,11 @@ void main() async {
   final networkManagerClient = NetworkManagerClient();
   await networkManagerClient.connect();
 
+  await YaruWindowTitleBar.ensureInitialized();
+
   runApp(
     MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (_) => LightTheme(yaruLight)),
-        ChangeNotifierProvider(create: (_) => DarkTheme(yaruDark)),
         ChangeNotifierProvider(
           create: (_) => AppTheme(themeSettings),
         ),
@@ -40,6 +41,9 @@ void main() async {
         Provider<HostnameService>(
           create: (_) => HostnameService(),
           dispose: (_, service) => service.dispose(),
+        ),
+        Provider<KeyboardService>(
+          create: (_) => KeyboardMethodChannel(),
         ),
         Provider<NetworkManagerClient>.value(value: networkManagerClient),
         Provider<PowerProfileService>(
@@ -83,7 +87,7 @@ void main() async {
         ),
         Provider<DisplayService>(
           create: (_) => DisplayService(),
-          dispose: (_, DisplayService service) => service.dispose(),
+          dispose: (_, service) => service.dispose(),
         ),
       ],
       child: const UbuntuSettingsApp(),

@@ -1,20 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:settings/services/settings_service.dart';
+import 'package:yaru/yaru.dart';
 
 class AppTheme extends ValueNotifier<ThemeMode> {
   AppTheme(this._settings) : super(ThemeMode.system);
 
   final Settings _settings;
 
-  void apply(Brightness brightness) {
+  void apply(Brightness brightness, YaruVariant variant) {
     switch (brightness) {
       case Brightness.dark:
         value = ThemeMode.dark;
-        _settings.setValue('gtk-theme', 'Yaru-dark');
+        _settings.setValue('gtk-theme', variant.gtkThemeNameDark);
+        _settings.setValue('color-scheme', 'prefer-dark');
+        _settings.setValue('icon-theme', variant.gtkThemeNameDark);
         break;
       case Brightness.light:
         value = ThemeMode.light;
-        _settings.setValue('gtk-theme', 'Yaru');
+        _settings.setValue('gtk-theme', variant.gtkThemeName);
+        _settings.setValue('color-scheme', 'default');
+        _settings.setValue('icon-theme', variant.gtkThemeName);
         break;
     }
   }
@@ -26,10 +31,25 @@ class AppTheme extends ValueNotifier<ThemeMode> {
   }
 }
 
-class LightTheme extends ValueNotifier<ThemeData> {
-  LightTheme(ThemeData value) : super(value);
-}
+const List<YaruVariant> globalThemeList = [
+  YaruVariant.orange,
+  YaruVariant.bark,
+  YaruVariant.sage,
+  YaruVariant.olive,
+  YaruVariant.viridian,
+  YaruVariant.prussianGreen,
+  YaruVariant.blue,
+  YaruVariant.purple,
+  YaruVariant.magenta,
+  YaruVariant.red,
+];
 
-class DarkTheme extends ValueNotifier<ThemeData> {
-  DarkTheme(ThemeData value) : super(value);
+extension YaruVariantName on YaruVariant {
+  String get gtkThemeName {
+    return this == YaruVariant.orange ? 'Yaru' : 'Yaru-${name.toLowerCase()}';
+  }
+
+  String get gtkThemeNameDark {
+    return '$gtkThemeName-dark';
+  }
 }

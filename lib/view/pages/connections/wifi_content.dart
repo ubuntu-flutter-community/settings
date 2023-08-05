@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:settings/constants.dart';
 import 'package:settings/l10n/l10n.dart';
+import 'package:settings/view/common/yaru_switch_row.dart';
+import 'package:settings/view/pages/settings_page.dart';
+import 'package:settings/view/settings_section.dart';
 import 'package:yaru_icons/yaru_icons.dart';
-import 'package:yaru_widgets/yaru_widgets.dart';
 
 import 'data/authentication.dart';
 import 'models/wifi_model.dart';
@@ -11,16 +13,17 @@ import 'widgets/access_point_tile.dart';
 import 'widgets/authentication_dialog.dart';
 
 class WifiDevicesContent extends StatelessWidget {
-  const WifiDevicesContent({Key? key}) : super(key: key);
+  const WifiDevicesContent({super.key});
 
   @override
   Widget build(BuildContext context) {
     final wifiModel = context.watch<WifiModel>();
 
-    return YaruPage(
+    return SettingsPage(
       children: [
-        YaruSwitchRow(
-            width: kDefaultWidth,
+        SizedBox(
+          width: kDefaultWidth,
+          child: YaruSwitchRow(
             enabled: wifiModel.isWifiDeviceAvailable,
             trailingWidget: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -29,46 +32,52 @@ class WifiDevicesContent extends StatelessWidget {
                 Text(
                   wifiModel.isWifiEnabled
                       ? context.l10n.connected
-                      : context.l10n.disonnected,
+                      : context.l10n.disconnected,
                   style: TextStyle(
-                      color: Theme.of(context)
-                          .colorScheme
-                          .onSurface
-                          .withOpacity(0.5)),
+                    color: Theme.of(context)
+                        .colorScheme
+                        .onSurface
+                        .withOpacity(0.5),
+                  ),
                 )
               ],
             ),
-            onChanged: (newValue) => wifiModel.toggleWifi(newValue),
-            value: wifiModel.isWifiEnabled),
+            onChanged: wifiModel.toggleWifi,
+            value: wifiModel.isWifiEnabled,
+          ),
+        ),
         if (wifiModel.isWifiEnabled)
           for (final wifiDevice in wifiModel.wifiDevices)
             AnimatedBuilder(
-                animation: wifiDevice,
-                builder: (_, __) {
-                  return YaruSection(
-                    width: kDefaultWidth,
-                    headline: context.l10n.connectionsPageHeadline,
-                    children: [
-                      for (final accessPoint in wifiDevice.accesPoints)
-                        AccessPointTile(
-                          accessPointModel: accessPoint,
-                          onTap: () {
-                            wifiModel.connectToAccesPoint(
-                              accessPoint,
-                              wifiDevice,
-                              (wifiDevice, accessPoint) =>
-                                  authenticate(context, accessPoint),
+              animation: wifiDevice,
+              builder: (_, __) {
+                return SettingsSection(
+                  width: kDefaultWidth,
+                  headline: Text(context.l10n.connectionsPageHeadline),
+                  children: [
+                    for (final accessPoint in wifiDevice.accesPoints)
+                      AccessPointTile(
+                        accessPointModel: accessPoint,
+                        onTap: () {
+                          wifiModel.connectToAccesPoint(
+                            accessPoint,
+                            wifiDevice,
+                            (wifiDevice, accessPoint) =>
+                                authenticate(context, accessPoint),
+                          );
+                          if (wifiModel.errorMessage.isNotEmpty) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content: Text(wifiModel.errorMessage),
+                              ),
                             );
-                            if (wifiModel.errorMessage.isNotEmpty) {
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                  SnackBar(
-                                      content: Text(wifiModel.errorMessage)));
-                            }
-                          },
-                        )
-                    ],
-                  );
-                })
+                          }
+                        },
+                      )
+                  ],
+                );
+              },
+            )
       ],
     );
   }
@@ -88,7 +97,7 @@ class WifiDevicesContent extends StatelessWidget {
 }
 
 class WifiAdaptorNotFound extends StatelessWidget {
-  const WifiAdaptorNotFound({Key? key}) : super(key: key);
+  const WifiAdaptorNotFound({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -105,11 +114,11 @@ class WifiAdaptorNotFound extends StatelessWidget {
         ),
         Text(
           'No Wi-fi Adaptor Found',
-          style: Theme.of(context).textTheme.headline5,
+          style: Theme.of(context).textTheme.headlineSmall,
         ),
         Text(
           'Make sure you have a Wi-Fi adaptor plugged and turned on',
-          style: Theme.of(context).textTheme.bodyText2,
+          style: Theme.of(context).textTheme.bodyMedium,
         )
       ],
     );
