@@ -1,11 +1,11 @@
 import 'package:bluez/bluez.dart';
 import 'package:flutter/material.dart';
+import 'package:linux_datetime_service/linux_datetime.dart';
 import 'package:nm/nm.dart';
 import 'package:provider/provider.dart';
 import 'package:settings/app.dart';
 import 'package:settings/schemas/schemas.dart';
 import 'package:settings/services/bluetooth_service.dart';
-import 'package:settings/services/date_time_service.dart';
 import 'package:settings/services/display/display_service.dart';
 import 'package:settings/services/hostname_service.dart';
 import 'package:settings/services/house_keeping_service.dart';
