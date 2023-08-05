@@ -46,16 +46,6 @@ jobs:
       - run: flutter pub get
       - run: flutter build linux -v
 
-  pub:
-    runs-on: ubuntu-22.04
-    steps:
-      - uses: actions/checkout@v3
-      - uses: subosito/flutter-action@v2
-        with:
-          flutter-version: ${{env.FLUTTER_VERSION}}
-      - run: flutter pub get
-      - run: flutter pub publish --dry-run
-
   test:
     runs-on: ubuntu-22.04
     steps:
