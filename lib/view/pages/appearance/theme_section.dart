@@ -3,14 +3,14 @@ import 'package:linux_system_info/linux_system_info.dart';
 import 'package:provider/provider.dart';
 import 'package:settings/constants.dart';
 import 'package:settings/view/app_theme.dart';
+import 'package:settings/view/common/yaru_switch_row.dart';
 import 'package:settings/view/settings_section.dart';
 import 'package:yaru/yaru.dart';
 import 'package:yaru_icons/yaru_icons.dart';
-import 'package:yaru_settings/yaru_settings.dart';
 import 'package:yaru_widgets/yaru_widgets.dart';
 
 class ThemeSection extends StatefulWidget {
-  const ThemeSection({Key? key}) : super(key: key);
+  const ThemeSection({super.key});
 
   @override
   State<ThemeSection> createState() => _ThemeSectionState();
@@ -34,15 +34,15 @@ class _ThemeSectionState extends State<ThemeSection> {
       children: [
         YaruSwitchRow(
           trailingWidget: Theme.of(context).brightness == Brightness.light
-              ? Row(
-                  children: const [
+              ? const Row(
+                  children: [
                     Icon(YaruIcons.sun),
                     SizedBox(width: 8),
                     Text('Dark mode is turned off'),
                   ],
                 )
-              : Row(
-                  children: const [
+              : const Row(
+                  children: [
                     Icon(YaruIcons.clear_night),
                     SizedBox(width: 8),
                     Text('Dark mode is turned on'),

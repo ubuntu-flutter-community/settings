@@ -128,18 +128,18 @@ extension _DateTimeRemoteObject on DBusRemoteObject {
 
   Future<void> setTimeZone(String timezone) async {
     final args = [DBusString(timezone), const DBusBoolean(false)];
-    callMethod(_kDateTimeInterface, _kSetTimezoneMethodName, args);
+    await callMethod(_kDateTimeInterface, _kSetTimezoneMethodName, args);
   }
 
   Future<void> setTime(int time) async {
-    bool? ntp = await getNtp();
+    final ntp = await getNtp();
     if (ntp == null || ntp == true) return;
     final args = [
       DBusInt64(time),
       const DBusBoolean(false),
       const DBusBoolean(false)
     ];
-    callMethod(_kDateTimeInterface, _kSetTimeMethodName, args);
+    await callMethod(_kDateTimeInterface, _kSetTimeMethodName, args);
   }
 
   Future<DateTime?> getDateTime() async {
@@ -156,7 +156,7 @@ extension _DateTimeRemoteObject on DBusRemoteObject {
   Future<void> setNtp(bool? value) async {
     if (value == null) return;
     final args = [DBusBoolean(value), const DBusBoolean(false)];
-    callMethod(_kDateTimeInterface, _kSetNtpMethodName, args);
+    await callMethod(_kDateTimeInterface, _kSetNtpMethodName, args);
   }
 }
 

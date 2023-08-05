@@ -10,10 +10,6 @@ const _showInLockScreenKey = 'show-in-lock-screen';
 const _idleDelayKey = 'idle-delay';
 
 class ScreenSaverModel extends SafeChangeNotifier {
-  final Settings? _screenSaverSettings;
-  final Settings? _notificationSettings;
-  final Settings? _sessionSettings;
-
   ScreenSaverModel(SettingsService service)
       : _screenSaverSettings = service.lookup(schemaScreenSaver),
         _notificationSettings = service.lookup(schemaNotifications),
@@ -22,6 +18,9 @@ class ScreenSaverModel extends SafeChangeNotifier {
     _notificationSettings?.addListener(notifyListeners);
     _sessionSettings?.addListener(notifyListeners);
   }
+  final Settings? _screenSaverSettings;
+  final Settings? _notificationSettings;
+  final Settings? _sessionSettings;
 
   @override
   void dispose() {

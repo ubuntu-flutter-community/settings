@@ -4,10 +4,10 @@ import 'package:settings/view/pages/power/power_profile_x.dart';
 
 class ProfileModeTitle extends StatelessWidget {
   const ProfileModeTitle({
-    Key? key,
+    super.key,
     required this.title,
     required this.powerProfile,
-  }) : super(key: key);
+  });
 
   final Widget title;
   final PowerProfile powerProfile;

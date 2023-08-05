@@ -9,8 +9,8 @@ import 'package:yaru_widgets/yaru_widgets.dart';
 
 class InputSourceSelectionSection extends StatelessWidget {
   const InputSourceSelectionSection({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -56,14 +56,14 @@ class InputSourceSelectionSection extends StatelessWidget {
                     ),
                   ),
               ],
-              onReorder: (int oldIndex, int newIndex) async {
+              onReorder: (oldIndex, newIndex) async {
                 final sources = snapshot.data!;
                 if (oldIndex < newIndex) {
                   newIndex -= 1;
                 }
                 final item = snapshot.data!.removeAt(oldIndex);
                 sources.insert(newIndex, item);
-                model.setInputSources(sources);
+                await model.setInputSources(sources);
               },
             ),
           ],
@@ -75,9 +75,8 @@ class InputSourceSelectionSection extends StatelessWidget {
 
 class _InputTypeRow extends StatelessWidget {
   const _InputTypeRow({
-    Key? key,
     required this.inputType,
-  }) : super(key: key);
+  });
 
   final String inputType;
 
@@ -113,7 +112,7 @@ class _InputTypeRow extends StatelessWidget {
 }
 
 class _AddKeymapDialog extends StatefulWidget {
-  const _AddKeymapDialog({Key? key}) : super(key: key);
+  const _AddKeymapDialog();
 
   @override
   State<_AddKeymapDialog> createState() => _AddKeymapDialogState();
@@ -152,9 +151,8 @@ class _AddKeymapDialogState extends State<_AddKeymapDialog> {
           )
         : SettingsSimpleDialog(
             width: kDefaultWidth / 2,
-            title: (model.inputSources[tabbedIndex].name ?? '') +
-                ': ' +
-                (model.inputSources[tabbedIndex].description ?? ''),
+            title:
+                '${model.inputSources[tabbedIndex].name ?? ''}: ${model.inputSources[tabbedIndex].description ?? ''}',
             closeIconData: YaruIcons.window_close,
             children: [
               for (var variant in model.inputSources[tabbedIndex].variants)
@@ -163,9 +161,7 @@ class _AddKeymapDialogState extends State<_AddKeymapDialog> {
                     if (model.inputSources[tabbedIndex].name != null &&
                         variant.name != null) {
                       model.addInputSource(
-                        model.inputSources[tabbedIndex].name! +
-                            '+' +
-                            variant.name!,
+                        '${model.inputSources[tabbedIndex].name!}+${variant.name!}',
                       );
                     }
 

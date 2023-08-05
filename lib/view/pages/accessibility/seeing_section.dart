@@ -5,15 +5,18 @@ import 'package:provider/provider.dart';
 import 'package:settings/constants.dart';
 import 'package:settings/l10n/l10n.dart';
 import 'package:settings/utils.dart';
+import 'package:settings/view/common/yaru_checkbox_row.dart';
+import 'package:settings/view/common/yaru_extra_option_row.dart';
+import 'package:settings/view/common/yaru_slider_row.dart';
+import 'package:settings/view/common/yaru_switch_row.dart';
 import 'package:settings/view/pages/accessibility/accessibility_model.dart';
 import 'package:settings/view/pages/settings_simple_dialog.dart';
 import 'package:settings/view/settings_section.dart';
 import 'package:yaru_icons/yaru_icons.dart';
-import 'package:yaru_settings/yaru_settings.dart';
 import 'package:yaru_widgets/yaru_widgets.dart';
 
 class SeeingSection extends StatelessWidget {
-  const SeeingSection({Key? key}) : super(key: key);
+  const SeeingSection({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -25,19 +28,19 @@ class SeeingSection extends StatelessWidget {
         YaruSwitchRow(
           trailingWidget: Text(context.l10n.highContrast),
           value: model.highContrast,
-          onChanged: (value) => model.setHighContrast(value),
+          onChanged: model.setHighContrast,
         ),
         YaruSwitchRow(
           trailingWidget: Text(context.l10n.largeText),
           value: model.largeText,
-          onChanged: (value) => model.setLargeText(value),
+          onChanged: model.setLargeText,
         ),
         const _CursorSize(),
         YaruExtraOptionRow(
           iconData: YaruIcons.gear,
           actionLabel: context.l10n.zoom,
           value: model.zoom,
-          onChanged: (value) => model.setZoom(value),
+          onChanged: model.setZoom,
           onPressed: () => showDialog(
             context: context,
             builder: (_) => ChangeNotifierProvider.value(
@@ -50,13 +53,13 @@ class SeeingSection extends StatelessWidget {
           trailingWidget: Text(context.l10n.screenReader),
           actionDescription: context.l10n.screenReaderDescription,
           value: model.screenReader,
-          onChanged: (value) => model.setScreenReader(value),
+          onChanged: model.setScreenReader,
         ),
         YaruSwitchRow(
           trailingWidget: Text(context.l10n.soundKeys),
           actionDescription: context.l10n.soundKeysDescription,
           value: model.toggleKeys,
-          onChanged: (value) => model.setToggleKeys(value),
+          onChanged: model.setToggleKeys,
         ),
       ],
     );
@@ -64,7 +67,7 @@ class SeeingSection extends StatelessWidget {
 }
 
 class _CursorSize extends StatelessWidget {
-  const _CursorSize({Key? key}) : super(key: key);
+  const _CursorSize();
 
   @override
   Widget build(BuildContext context) {
@@ -82,7 +85,7 @@ class _CursorSize extends StatelessWidget {
             width: 40,
             height: 40,
             child: OutlinedButton(
-              style: OutlinedButton.styleFrom(padding: const EdgeInsets.all(0)),
+              style: OutlinedButton.styleFrom(padding: EdgeInsets.zero),
               onPressed: () => showDialog(
                 context: context,
                 builder: (_) => ChangeNotifierProvider.value(
@@ -100,7 +103,7 @@ class _CursorSize extends StatelessWidget {
 }
 
 class _CursorSizeSettings extends StatelessWidget {
-  const _CursorSizeSettings({Key? key}) : super(key: key);
+  const _CursorSizeSettings();
 
   @override
   Widget build(BuildContext context) {
@@ -142,11 +145,10 @@ class _CursorSizeSettings extends StatelessWidget {
 
 class _CursorButton extends StatelessWidget {
   const _CursorButton({
-    Key? key,
     required this.imageName,
     required this.onPressed,
     required this.selected,
-  }) : super(key: key);
+  });
 
   final String imageName;
   final VoidCallback onPressed;
@@ -177,7 +179,7 @@ class _CursorButton extends StatelessWidget {
 }
 
 class _ZoomSettings extends StatelessWidget {
-  const _ZoomSettings({Key? key}) : super(key: key);
+  const _ZoomSettings();
 
   @override
   Widget build(BuildContext context) {
@@ -213,7 +215,7 @@ class _ZoomSettings extends StatelessWidget {
 }
 
 class _MagnifierOptions extends StatelessWidget {
-  const _MagnifierOptions({Key? key}) : super(key: key);
+  const _MagnifierOptions();
 
   @override
   Widget build(BuildContext context) {
@@ -237,7 +239,7 @@ class _MagnifierOptions extends StatelessWidget {
               step: 0.25,
               decimals: 2,
               value: model.magFactor ?? 2,
-              onChanged: (value) => model.setMagFactor(value),
+              onChanged: model.setMagFactor,
             ),
           ),
         ),
@@ -252,7 +254,7 @@ class _MagnifierOptions extends StatelessWidget {
 }
 
 class _MagnifierPositionOptions extends StatelessWidget {
-  const _MagnifierPositionOptions({Key? key}) : super(key: key);
+  const _MagnifierPositionOptions();
 
   @override
   Widget build(BuildContext context) {
@@ -266,14 +268,14 @@ class _MagnifierPositionOptions extends StatelessWidget {
             value: true,
             enabled: true,
             groupValue: model.lensMode,
-            onChanged: (bool? value) => model.setLensMode(value!),
+            onChanged: (value) => model.setLensMode(value!),
           ),
           _RadioRow(
             title: context.l10n.screenPart,
             enabled: true,
             value: false,
             groupValue: model.lensMode,
-            onChanged: (bool? value) => model.setLensMode(value!),
+            onChanged: (value) => model.setLensMode(value!),
             secondary: YaruPopupMenuButton<ScreenPosition>(
               enabled: model.screenPosition != null,
               initialValue: model.screenPosition,
@@ -281,11 +283,11 @@ class _MagnifierPositionOptions extends StatelessWidget {
                 return [
                   for (var item in ScreenPosition.values)
                     PopupMenuItem(
-                      child: Text(item.localize(context.l10n)),
                       value: item,
                       onTap: !model.screenPartEnabled
                           ? null
                           : () => model.screenPosition = item,
+                      child: Text(item.localize(context.l10n)),
                     )
                 ];
               },
@@ -308,21 +310,21 @@ class _MagnifierPositionOptions extends StatelessWidget {
                   title: context.l10n.keepMagnifierCursorCentered,
                   value: 'centered',
                   groupValue: model.mouseTracking,
-                  onChanged: (String? value) => model.setMouseTracking(value!),
+                  onChanged: (value) => model.setMouseTracking(value!),
                   enabled: model.screenPartEnabled,
                 ),
                 _RadioRow(
                   title: context.l10n.magnifierCursorPushesContentsAround,
                   value: 'push',
                   groupValue: model.mouseTracking,
-                  onChanged: (String? value) => model.setMouseTracking(value!),
+                  onChanged: (value) => model.setMouseTracking(value!),
                   enabled: model.screenPartEnabled,
                 ),
                 _RadioRow(
                   title: context.l10n.magnifierCursorMovesWithContents,
                   value: 'proportional',
                   groupValue: model.mouseTracking,
-                  onChanged: (String? value) => model.setMouseTracking(value!),
+                  onChanged: (value) => model.setMouseTracking(value!),
                   enabled: model.screenPartEnabled,
                 ),
               ],
@@ -336,14 +338,14 @@ class _MagnifierPositionOptions extends StatelessWidget {
 
 class _RadioRow<T> extends StatelessWidget {
   const _RadioRow({
-    Key? key,
+    super.key,
     required this.title,
     required this.value,
     required this.groupValue,
     required this.onChanged,
     required this.enabled,
     this.secondary,
-  }) : super(key: key);
+  });
 
   final String title;
   final T value;
@@ -354,25 +356,22 @@ class _RadioRow<T> extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _value = value;
-    final _enabled = enabled;
-
-    if (_value == null || _enabled == null) {
+    if (value == null || enabled == null) {
       return const SizedBox();
     }
 
     return Row(
       children: [
         YaruRadio(
-          value: _value,
+          value: value,
           groupValue: groupValue,
-          onChanged: _enabled ? onChanged : null,
+          onChanged: enabled == true ? onChanged : null,
         ),
         const SizedBox(width: 4),
         Expanded(
           child: Text(
             title,
-            style: _enabled
+            style: enabled == true
                 ? null
                 : TextStyle(color: Theme.of(context).disabledColor),
           ),
@@ -384,7 +383,7 @@ class _RadioRow<T> extends StatelessWidget {
 }
 
 class _CrosshairsOptions extends StatelessWidget {
-  const _CrosshairsOptions({Key? key}) : super(key: key);
+  const _CrosshairsOptions();
 
   @override
   Widget build(BuildContext context) {
@@ -500,7 +499,7 @@ class _CrosshairsOptions extends StatelessWidget {
 }
 
 class _ColorEffectsOptions extends StatelessWidget {
-  const _ColorEffectsOptions({Key? key}) : super(key: key);
+  const _ColorEffectsOptions();
 
   @override
   Widget build(BuildContext context) {

@@ -6,11 +6,11 @@ import 'package:yaru_widgets/yaru_widgets.dart';
 /// but can be set if wanted.
 class SettingsPage extends StatelessWidget {
   const SettingsPage({
-    Key? key,
+    super.key,
     required this.children,
     this.padding,
     this.controller,
-  }) : super(key: key);
+  });
 
   final List<Widget> children;
   final EdgeInsets? padding;

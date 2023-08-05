@@ -5,12 +5,12 @@ import 'package:yaru_widgets/yaru_widgets.dart';
 
 class DurationDropdownButton extends StatelessWidget {
   const DurationDropdownButton({
-    Key? key,
+    super.key,
     required this.value,
     required this.values,
     required this.onChanged,
     this.zeroValueText,
-  }) : super(key: key);
+  });
 
   /// The current value of the [DropdownButton]
   final int? value;

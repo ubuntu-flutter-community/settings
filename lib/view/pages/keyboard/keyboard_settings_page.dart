@@ -11,8 +11,8 @@ import 'package:settings/view/pages/settings_page.dart';
 
 class KeyboardSettingsPage extends StatelessWidget {
   const KeyboardSettingsPage({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {

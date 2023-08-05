@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:settings/constants.dart';
 import 'package:settings/l10n/l10n.dart';
+import 'package:settings/view/common/yaru_switch_row.dart';
 import 'package:settings/view/pages/settings_page.dart';
 import 'package:settings/view/settings_section.dart';
 import 'package:yaru_icons/yaru_icons.dart';
-import 'package:yaru_settings/yaru_settings.dart';
 
 import 'data/authentication.dart';
 import 'models/wifi_model.dart';
@@ -13,7 +13,7 @@ import 'widgets/access_point_tile.dart';
 import 'widgets/authentication_dialog.dart';
 
 class WifiDevicesContent extends StatelessWidget {
-  const WifiDevicesContent({Key? key}) : super(key: key);
+  const WifiDevicesContent({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +42,7 @@ class WifiDevicesContent extends StatelessWidget {
                 )
               ],
             ),
-            onChanged: (newValue) => wifiModel.toggleWifi(newValue),
+            onChanged: wifiModel.toggleWifi,
             value: wifiModel.isWifiEnabled,
           ),
         ),
@@ -97,7 +97,7 @@ class WifiDevicesContent extends StatelessWidget {
 }
 
 class WifiAdaptorNotFound extends StatelessWidget {
-  const WifiAdaptorNotFound({Key? key}) : super(key: key);
+  const WifiAdaptorNotFound({super.key});
 
   @override
   Widget build(BuildContext context) {

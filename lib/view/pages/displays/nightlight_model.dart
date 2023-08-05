@@ -37,10 +37,10 @@ class NightlightModel extends SafeChangeNotifier {
   }
 
   DateTime getNightLightSchedule({required bool isFrom}) {
-    String key = isFrom ? _setNightlightScheduleFrom : _setNightlightScheduleTo;
-    double time = _nightlightSettings?.doubleValue(key) ?? 0;
-    int hours = time.truncate();
-    int minutes = ((time - hours) * 60).round();
+    final key = isFrom ? _setNightlightScheduleFrom : _setNightlightScheduleTo;
+    final time = _nightlightSettings?.doubleValue(key) ?? 0;
+    final hours = time.truncate();
+    final minutes = ((time - hours) * 60).round();
     return DateTime(0, 0, 0, hours, minutes);
   }
 
@@ -49,8 +49,8 @@ class NightlightModel extends SafeChangeNotifier {
     required bool isFrom,
     required bool isHours,
   }) {
-    String key = isFrom ? _setNightlightScheduleFrom : _setNightlightScheduleTo;
-    double time = isHours
+    final key = isFrom ? _setNightlightScheduleFrom : _setNightlightScheduleTo;
+    final time = isHours
         ? (value + getNightLightSchedule(isFrom: isFrom).minute / 60)
         : getNightLightSchedule(isFrom: isFrom).hour + (value / 60);
     _nightlightSettings?.setValue(

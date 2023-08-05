@@ -3,14 +3,14 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 class SelectableSvgImage extends StatelessWidget {
   const SelectableSvgImage({
-    Key? key,
+    super.key,
     required this.path,
     this.onTap,
     required this.selected,
     required this.height,
     required this.selectedColor,
     this.padding,
-  }) : super(key: key);
+  });
 
   final String path;
   final VoidCallback? onTap;
@@ -34,10 +34,12 @@ class SelectableSvgImage extends StatelessWidget {
             borderRadius: BorderRadius.circular(4),
             child: SvgPicture.asset(
               path,
-              color: selected
-                  ? selectedColor
-                  : Theme.of(context).colorScheme.background,
-              colorBlendMode: selected ? BlendMode.srcIn : BlendMode.color,
+              colorFilter: ColorFilter.mode(
+                selected
+                    ? selectedColor
+                    : Theme.of(context).colorScheme.background,
+                selected ? BlendMode.srcIn : BlendMode.color,
+              ),
               height: height,
             ),
           ),

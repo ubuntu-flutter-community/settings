@@ -3,13 +3,13 @@ import 'package:provider/provider.dart';
 import 'package:settings/constants.dart';
 import 'package:settings/l10n/l10n.dart';
 import 'package:settings/services/settings_service.dart';
+import 'package:settings/view/common/yaru_switch_row.dart';
 import 'package:settings/view/pages/removable_media/removable_media_model.dart';
 import 'package:settings/view/pages/settings_page.dart';
-import 'package:yaru_settings/yaru_settings.dart';
 import 'package:yaru_widgets/yaru_widgets.dart';
 
 class RemovableMediaPage extends StatelessWidget {
-  const RemovableMediaPage({Key? key}) : super(key: key);
+  const RemovableMediaPage({super.key});
 
   static Widget create(BuildContext context) {
     final service = Provider.of<SettingsService>(context, listen: false);
@@ -60,14 +60,14 @@ class RemovableMediaPage extends StatelessWidget {
                     return [
                       for (var behavior in MimeTypeBehavior.values)
                         PopupMenuItem(
-                          child: Text(
-                            behavior.localize(context.l10n),
-                            overflow: TextOverflow.ellipsis,
-                          ),
                           value: behavior,
                           onTap: () => model.setMimeTypeBehavior(
                             behavior,
                             mimeType.key,
+                          ),
+                          child: Text(
+                            behavior.localize(context.l10n),
+                            overflow: TextOverflow.ellipsis,
                           ),
                         ),
                     ];

@@ -6,53 +6,53 @@ publish_to: "none" # Remove this line if you wish to publish to pub.dev
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.17.0 <3.0.0"
+  sdk: ">=3.0.0 <4.0.0"
 
 dependencies:
   bluez: ^0.8.0
-  dbus: ^0.7.0
+  collection: ^1.17.1
+  dbus: ^0.7.8
   duration: ^3.0.11
   equatable: ^2.0.3
-  file_selector: ^0.8.4+1
-  file_selector_linux: ^0.0.2+1
+  file_selector: ^1.0.0
+  file_selector_linux: ^0.9.2
   filesize: ^2.0.1
-  flex_color_picker: ^2.5.0
+  flex_color_picker: ^3.3.0
   flutter:
     sdk: flutter
   flutter_localizations:
     sdk: flutter
   flutter_localized_locales: ^2.0.3
-  flutter_spinbox: ^0.9.0
-  flutter_svg: ^1.0.3
-  gsettings: ^0.2.5
-  handy_window: ^0.2.0
-  http: ^0.13.4
-  intl: ^0.17.0
+  flutter_spinbox: ^0.13.1
+  flutter_svg: ^2.0.7
+  gsettings: ^0.2.8
+  handy_window: ^0.3.1
+  http: ^1.1.0
+  intl: ^0.18.0
   linux_system_info:
     git:
       url: https://github.com/Feichtmeier/linux_system_info.git
       ref: update_dbus_ffi_and_xml
+  meta: ^1.9.1
   mime: ^1.0.2
   nm: ^0.5.0
   path_provider: ^2.0.9
   pdf: ^3.7.4
   provider: ^6.0.2
-  safe_change_notifier: ^0.1.0
+  safe_change_notifier: ^0.3.1
   udisks: ^0.4.0
   upower: ^0.7.0
   url_launcher: ^6.0.20
   xml: ^6.2.2
-  yaru: ^0.5.5
+  yaru: ^0.9.0
   yaru_colors: ^0.1.6
-  yaru_icons: ^1.0.3
-  yaru_settings:
-    path: packages/yaru_settings
-  yaru_widgets: ^2.1.1
+  yaru_icons: ^2.1.0
+  yaru_widgets: ^2.6.0
 
 dev_dependencies:
   build_runner: ^2.1.2
 
-  flutter_lints: ^1.0.0
+  flutter_lints: ^2.0.2
   flutter_test:
     sdk: flutter
   mockingjay: ^0.3.0
@@ -76,3 +76,7 @@ flutter:
     - assets/images/appearance/auto-hide-dock-mode/
     - assets/rive/
     - assets/pdf_assets/
+
+
+dependency_overrides:
+  yaru_icons: ^2.1.0

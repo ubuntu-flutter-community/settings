@@ -7,7 +7,7 @@ import 'package:settings/view/tabbed_page.dart';
 import 'package:yaru_icons/yaru_icons.dart';
 
 class KeyboardPage extends StatefulWidget {
-  const KeyboardPage({Key? key}) : super(key: key);
+  const KeyboardPage({super.key});
 
   static Widget create(BuildContext context) => const KeyboardPage();
 

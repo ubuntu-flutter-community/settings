@@ -10,7 +10,7 @@ import 'package:yaru_colors/yaru_colors.dart';
 import 'package:yaru_widgets/yaru_widgets.dart';
 
 class BatterySection extends StatefulWidget {
-  const BatterySection({Key? key}) : super(key: key);
+  const BatterySection({super.key});
 
   static Widget create(BuildContext context) {
     return ChangeNotifierProvider<BatteryModel>(

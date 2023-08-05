@@ -8,7 +8,7 @@ import 'package:settings/view/pages/notifications/notifications_model.dart';
 import 'package:settings/view/pages/settings_page.dart';
 
 class NotificationsPage extends StatelessWidget {
-  const NotificationsPage({Key? key}) : super(key: key);
+  const NotificationsPage({super.key});
 
   static Widget create(BuildContext context) {
     final service = Provider.of<SettingsService>(context, listen: false);

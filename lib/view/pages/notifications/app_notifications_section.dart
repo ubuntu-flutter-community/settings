@@ -2,12 +2,12 @@ import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 import 'package:settings/constants.dart';
 import 'package:settings/services/settings_service.dart';
+import 'package:settings/view/common/yaru_switch_row.dart';
 import 'package:settings/view/pages/notifications/notifications_model.dart';
 import 'package:settings/view/settings_section.dart';
-import 'package:yaru_settings/yaru_settings.dart';
 
 class AppNotificationsSection extends StatelessWidget {
-  const AppNotificationsSection({Key? key}) : super(key: key);
+  const AppNotificationsSection({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +28,7 @@ class AppNotificationsSection extends StatelessWidget {
 }
 
 class AppNotificationsSettingRow extends StatelessWidget {
-  const AppNotificationsSettingRow({Key? key}) : super(key: key);
+  const AppNotificationsSettingRow({super.key});
 
   static Widget create(BuildContext context, {required String appId}) {
     final service = Provider.of<SettingsService>(context, listen: false);

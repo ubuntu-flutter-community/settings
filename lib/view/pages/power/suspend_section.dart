@@ -3,14 +3,14 @@ import 'package:provider/provider.dart';
 import 'package:settings/constants.dart';
 import 'package:settings/l10n/l10n.dart';
 import 'package:settings/services/settings_service.dart';
+import 'package:settings/view/common/yaru_switch_row.dart';
 import 'package:settings/view/pages/power/suspend.dart';
 import 'package:settings/view/pages/power/suspend_model.dart';
 import 'package:settings/view/settings_section.dart';
-import 'package:yaru_settings/yaru_settings.dart';
 import 'package:yaru_widgets/yaru_widgets.dart';
 
 class SuspendSection extends StatefulWidget {
-  const SuspendSection({Key? key}) : super(key: key);
+  const SuspendSection({super.key});
 
   static Widget create(BuildContext context) {
     return ChangeNotifierProvider<SuspendModel>(

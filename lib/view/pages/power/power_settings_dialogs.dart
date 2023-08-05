@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:settings/constants.dart';
 import 'package:settings/l10n/l10n.dart';
+import 'package:settings/view/common/yaru_switch_row.dart';
 import 'package:settings/view/duration_dropdown_button.dart';
 import 'package:settings/view/pages/power/power_settings.dart';
 import 'package:settings/view/pages/power/power_settings_model.dart';
 import 'package:settings/view/pages/settings_simple_dialog.dart';
 import 'package:yaru_icons/yaru_icons.dart';
-import 'package:yaru_settings/yaru_settings.dart';
 
 Future<void> showAutomaticSuspendDialog(BuildContext context) async {
   return showDialog(
@@ -20,7 +20,7 @@ Future<void> showAutomaticSuspendDialog(BuildContext context) async {
 }
 
 class AutomaticSuspendDialog extends StatelessWidget {
-  const AutomaticSuspendDialog({Key? key}) : super(key: key);
+  const AutomaticSuspendDialog({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -59,13 +59,12 @@ class AutomaticSuspendDialog extends StatelessWidget {
 
 class _SuspendDelaySettingsRow extends StatelessWidget {
   const _SuspendDelaySettingsRow({
-    Key? key,
     required this.actionLabel,
     required this.suspend,
     required this.onSuspendChanged,
     required this.delay,
     required this.onDelayChanged,
-  }) : super(key: key);
+  });
 
   final String actionLabel;
   final bool? suspend;

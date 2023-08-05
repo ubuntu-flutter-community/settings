@@ -20,7 +20,7 @@ extension TesterExtension on WidgetTester {
     dynamic args,
     MockNavigator? navigator,
   }) async {
-    Widget toTest = widgetBuilder.call();
+    var toTest = widgetBuilder.call();
     if (args != null) {
       toTest = Navigator(
         onGenerateRoute: (_) {
@@ -34,8 +34,8 @@ extension TesterExtension on WidgetTester {
 
     Widget parent = MaterialApp(
       home: MockNavigatorProvider(
-        child: toTest,
         navigator: navigator ?? MockNavigator(),
+        child: toTest,
       ),
     );
 

@@ -6,6 +6,7 @@ import 'package:settings/constants.dart';
 import 'package:settings/l10n/l10n.dart';
 import 'package:settings/services/hostname_service.dart';
 import 'package:settings/services/pdf_service.dart';
+import 'package:settings/view/common/yaru_single_info_row.dart';
 import 'package:settings/view/pages/settings_page.dart';
 import 'package:settings/view/pages/settings_simple_dialog.dart';
 import 'package:settings/view/settings_section.dart';
@@ -13,13 +14,12 @@ import 'package:udisks/udisks.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:yaru_colors/yaru_colors.dart';
 import 'package:yaru_icons/yaru_icons.dart';
-import 'package:yaru_settings/yaru_settings.dart';
 import 'package:yaru_widgets/yaru_widgets.dart';
 
 import 'info_model.dart';
 
 class InfoPage extends StatefulWidget {
-  const InfoPage({Key? key}) : super(key: key);
+  const InfoPage({super.key});
 
   static Widget create(BuildContext context) {
     return ChangeNotifierProvider<InfoModel>(
@@ -40,7 +40,7 @@ class InfoPage extends StatefulWidget {
       : false;
 
   @override
-  _InfoPageState createState() => _InfoPageState();
+  State<InfoPage> createState() => _InfoPageState();
 }
 
 class _InfoPageState extends State<InfoPage> {
@@ -61,7 +61,7 @@ class _InfoPageState extends State<InfoPage> {
         label: 'Open File',
         onPressed: () async {
           final dir = await getApplicationDocumentsDirectory();
-          launchUrl(Uri.file('${dir.path}/System Data.pdf'));
+          await launchUrl(Uri.file('${dir.path}/System Data.pdf'));
         },
       ),
     );
@@ -162,8 +162,7 @@ class _InfoPageState extends State<InfoPage> {
                 icon: const Icon(YaruIcons.save_as),
                 label: const Text('Export to PDF'),
                 onPressed: () async {
-                  // ignore: unused_local_variable
-                  final pdfFile = await PdfService.generateSystemData(
+                  await PdfService.generateSystemData(
                     model.osName,
                     model.osVersion,
                     model.kernelVersion,
@@ -177,8 +176,10 @@ class _InfoPageState extends State<InfoPage> {
                     model.osType.toString(),
                     model.gnomeVersion,
                     model.windowServer,
+                  ).then(
+                    (value) => ScaffoldMessenger.of(context)
+                        .showSnackBar(sysInfoSnackBar),
                   );
-                  ScaffoldMessenger.of(context).showSnackBar(sysInfoSnackBar);
                 },
               )
             ],
@@ -190,7 +191,7 @@ class _InfoPageState extends State<InfoPage> {
 }
 
 class _Computer extends StatelessWidget {
-  const _Computer({Key? key}) : super(key: key);
+  const _Computer();
 
   @override
   Widget build(BuildContext context) {
@@ -216,7 +217,7 @@ class _Computer extends StatelessWidget {
                 height: 40,
                 child: OutlinedButton(
                   style: OutlinedButton.styleFrom(
-                    padding: const EdgeInsets.all(0),
+                    padding: EdgeInsets.zero,
                   ),
                   onPressed: () => showDialog(
                     context: context,
@@ -237,7 +238,7 @@ class _Computer extends StatelessWidget {
 }
 
 class _HostnameSettings extends StatefulWidget {
-  const _HostnameSettings({Key? key}) : super(key: key);
+  const _HostnameSettings();
 
   @override
   State<_HostnameSettings> createState() => _HostnameSettingsState();

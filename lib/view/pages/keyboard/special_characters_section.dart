@@ -2,17 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:settings/constants.dart';
 import 'package:settings/l10n/l10n.dart';
+import 'package:settings/view/common/yaru_switch_row.dart';
 import 'package:settings/view/pages/keyboard/special_characters_model.dart';
 import 'package:settings/view/pages/settings_simple_dialog.dart';
 import 'package:settings/view/settings_section.dart';
 import 'package:yaru_icons/yaru_icons.dart';
-import 'package:yaru_settings/yaru_settings.dart';
 import 'package:yaru_widgets/yaru_widgets.dart';
 
 class SpecialCharactersSection extends StatelessWidget {
   const SpecialCharactersSection({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -70,7 +70,7 @@ class SpecialCharactersSection extends StatelessWidget {
 }
 
 class _Lv3OptionsDialog extends StatelessWidget {
-  const _Lv3OptionsDialog({Key? key}) : super(key: key);
+  const _Lv3OptionsDialog();
 
   @override
   Widget build(BuildContext context) {
@@ -85,7 +85,7 @@ class _Lv3OptionsDialog extends StatelessWidget {
           YaruSwitchRow(
             trailingWidget: const Text('Use default value'),
             value: snapshot.data == null,
-            onChanged: (value) => model.removeLV3Options(value),
+            onChanged: model.removeLV3Options,
           ),
           const Divider(),
           ListTile(
@@ -117,9 +117,7 @@ class _Lv3OptionsDialog extends StatelessWidget {
 }
 
 class _ComposeOptionsDialog extends StatelessWidget {
-  const _ComposeOptionsDialog({
-    Key? key,
-  }) : super(key: key);
+  const _ComposeOptionsDialog();
 
   @override
   Widget build(BuildContext context) {

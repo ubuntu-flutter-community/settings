@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:settings/constants.dart';
+import 'package:settings/view/common/yaru_toggle_buttons_row.dart';
 import 'package:settings/view/settings_section.dart';
-import 'package:yaru_settings/yaru_settings.dart';
 
 import 'mouse_and_touchpad_model.dart';
 
 class GeneralSection extends StatelessWidget {
-  const GeneralSection({Key? key}) : super(key: key);
+  const GeneralSection({super.key});
 
   @override
   Widget build(BuildContext context) {

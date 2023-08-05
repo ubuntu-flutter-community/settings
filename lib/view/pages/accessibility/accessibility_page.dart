@@ -11,7 +11,7 @@ import 'package:settings/view/pages/accessibility/typing_section.dart';
 import 'package:settings/view/pages/settings_page.dart';
 
 class AccessibilityPage extends StatelessWidget {
-  const AccessibilityPage({Key? key}) : super(key: key);
+  const AccessibilityPage({super.key});
 
   static Widget create(BuildContext context) {
     final service = Provider.of<SettingsService>(context, listen: false);

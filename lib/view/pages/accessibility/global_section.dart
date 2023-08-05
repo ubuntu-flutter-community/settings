@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:settings/constants.dart';
 import 'package:settings/l10n/l10n.dart';
+import 'package:settings/view/common/yaru_switch_row.dart';
 import 'package:settings/view/pages/accessibility/accessibility_model.dart';
 import 'package:settings/view/settings_section.dart';
-import 'package:yaru_settings/yaru_settings.dart';
 
 class GlobalSection extends StatelessWidget {
-  const GlobalSection({Key? key}) : super(key: key);
+  const GlobalSection({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +19,7 @@ class GlobalSection extends StatelessWidget {
         YaruSwitchRow(
           trailingWidget: Text(context.l10n.alwaysShowUniversalAccessMenu),
           value: model.universalAccessStatus,
-          onChanged: (value) => model.setUniversalAccessStatus(value),
+          onChanged: model.setUniversalAccessStatus,
         ),
       ],
     );

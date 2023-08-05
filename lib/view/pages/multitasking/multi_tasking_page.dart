@@ -6,14 +6,14 @@ import 'package:settings/constants.dart';
 import 'package:settings/l10n/l10n.dart';
 import 'package:settings/services/settings_service.dart';
 import 'package:settings/utils.dart';
+import 'package:settings/view/common/yaru_switch_row.dart';
 import 'package:settings/view/pages/multitasking/multi_tasking_model.dart';
 import 'package:settings/view/pages/settings_page.dart';
 import 'package:settings/view/settings_section.dart';
-import 'package:yaru_settings/yaru_settings.dart';
 import 'package:yaru_widgets/yaru_widgets.dart';
 
 class MultiTaskingPage extends StatelessWidget {
-  const MultiTaskingPage({Key? key}) : super(key: key);
+  const MultiTaskingPage({super.key});
 
   static Widget create(BuildContext context) {
     final service = Provider.of<SettingsService>(context, listen: false);
@@ -60,14 +60,16 @@ class MultiTaskingPage extends StatelessWidget {
                   padding: const EdgeInsets.all(20.0),
                   child: SvgPicture.asset(
                     model.getHotCornerAsset(),
-                    color: (model.enableHotCorners != null &&
-                            model.enableHotCorners == true)
-                        ? selectedColor
-                        : unselectedColor,
-                    colorBlendMode: (model.enableHotCorners != null &&
-                            model.enableHotCorners == true)
-                        ? BlendMode.srcIn
-                        : BlendMode.color,
+                    colorFilter: ColorFilter.mode(
+                      (model.enableHotCorners != null &&
+                              model.enableHotCorners == true)
+                          ? selectedColor
+                          : unselectedColor,
+                      (model.enableHotCorners != null &&
+                              model.enableHotCorners == true)
+                          ? BlendMode.srcIn
+                          : BlendMode.color,
+                    ),
                     height: 80,
                   ),
                 ),
@@ -86,13 +88,14 @@ class MultiTaskingPage extends StatelessWidget {
                   padding: const EdgeInsets.all(20.0),
                   child: SvgPicture.asset(
                     model.getActiveEdgesAsset(),
-                    color: model.edgeTiling != null && model.edgeTiling == true
-                        ? selectedColor
-                        : unselectedColor,
-                    colorBlendMode:
-                        model.edgeTiling != null && model.edgeTiling == true
-                            ? BlendMode.srcIn
-                            : BlendMode.color,
+                    colorFilter: ColorFilter.mode(
+                      model.edgeTiling != null && model.edgeTiling == true
+                          ? selectedColor
+                          : unselectedColor,
+                      model.edgeTiling != null && model.edgeTiling == true
+                          ? BlendMode.srcIn
+                          : BlendMode.color,
+                    ),
                     height: 80,
                   ),
                 ),
@@ -160,8 +163,7 @@ class MultiTaskingPage extends StatelessWidget {
               trailing: YaruRadio(
                 value: false,
                 groupValue: model.workSpaceOnlyOnPrimary,
-                onChanged: (bool? value) =>
-                    model.workSpaceOnlyOnPrimary = value,
+                onChanged: (value) => model.workSpaceOnlyOnPrimary = value,
               ),
               enabled: model.workSpaceOnlyOnPrimary != null,
             ),
@@ -169,14 +171,16 @@ class MultiTaskingPage extends StatelessWidget {
               padding: const EdgeInsets.all(10.0),
               child: SvgPicture.asset(
                 model.getWorkspacesSpanDisplayAsset(),
-                color: !(model.workSpaceOnlyOnPrimary != null &&
-                        model.workSpaceOnlyOnPrimary == true)
-                    ? selectedColor
-                    : unselectedColor,
-                colorBlendMode: !(model.workSpaceOnlyOnPrimary != null &&
-                        model.workSpaceOnlyOnPrimary == true)
-                    ? BlendMode.srcIn
-                    : BlendMode.color,
+                colorFilter: ColorFilter.mode(
+                  !(model.workSpaceOnlyOnPrimary != null &&
+                          model.workSpaceOnlyOnPrimary == true)
+                      ? selectedColor
+                      : unselectedColor,
+                  !(model.workSpaceOnlyOnPrimary != null &&
+                          model.workSpaceOnlyOnPrimary == true)
+                      ? BlendMode.srcIn
+                      : BlendMode.color,
+                ),
                 height: 60,
               ),
             ),
@@ -188,8 +192,7 @@ class MultiTaskingPage extends StatelessWidget {
               trailing: YaruRadio(
                 value: true,
                 groupValue: model.workSpaceOnlyOnPrimary,
-                onChanged: (bool? value) =>
-                    model.workSpaceOnlyOnPrimary = value,
+                onChanged: (value) => model.workSpaceOnlyOnPrimary = value,
               ),
               enabled: model.workSpaceOnlyOnPrimary != null,
             ),
@@ -197,14 +200,16 @@ class MultiTaskingPage extends StatelessWidget {
               padding: const EdgeInsets.all(10.0),
               child: SvgPicture.asset(
                 model.getWorkspacesPrimaryDisplayAsset(),
-                color: !(model.workSpaceOnlyOnPrimary != null &&
-                        model.workSpaceOnlyOnPrimary == false)
-                    ? selectedColor
-                    : unselectedColor,
-                colorBlendMode: !(model.workSpaceOnlyOnPrimary != null &&
-                        model.workSpaceOnlyOnPrimary == false)
-                    ? BlendMode.srcIn
-                    : BlendMode.color,
+                colorFilter: ColorFilter.mode(
+                  !(model.workSpaceOnlyOnPrimary != null &&
+                          model.workSpaceOnlyOnPrimary == false)
+                      ? selectedColor
+                      : unselectedColor,
+                  !(model.workSpaceOnlyOnPrimary != null &&
+                          model.workSpaceOnlyOnPrimary == false)
+                      ? BlendMode.srcIn
+                      : BlendMode.color,
+                ),
                 height: 60,
               ),
             )

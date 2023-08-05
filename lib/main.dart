@@ -87,7 +87,7 @@ void main() async {
         ),
         Provider<DisplayService>(
           create: (_) => DisplayService(),
-          dispose: (_, DisplayService service) => service.dispose(),
+          dispose: (_, service) => service.dispose(),
         ),
       ],
       child: const UbuntuSettingsApp(),

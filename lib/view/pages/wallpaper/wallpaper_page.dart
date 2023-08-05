@@ -5,8 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:settings/constants.dart';
 import 'package:settings/l10n/l10n.dart';
-import 'package:settings/services/settings_service.dart';
 import 'package:settings/services/display/display_service.dart';
+import 'package:settings/services/settings_service.dart';
 import 'package:settings/utils.dart';
 import 'package:settings/view/pages/settings_page.dart';
 import 'package:settings/view/pages/wallpaper/color_shading_option_row.dart';
@@ -15,6 +15,7 @@ import 'package:yaru_icons/yaru_icons.dart';
 import 'package:yaru_widgets/yaru_widgets.dart';
 
 class WallpaperPage extends StatelessWidget {
+  const WallpaperPage({super.key});
   static Widget createTitle(BuildContext context) =>
       Text(context.l10n.wallpaperPageTitle);
 
@@ -24,8 +25,6 @@ class WallpaperPage extends StatelessWidget {
               .toLowerCase()
               .contains(value.toLowerCase())
           : false;
-
-  const WallpaperPage({Key? key}) : super(key: key);
 
   static Widget create(BuildContext context) {
     final settingsService =
@@ -58,18 +57,18 @@ class WallpaperPage extends StatelessWidget {
             trailing: Row(
               children: [
                 YaruPopupMenuButton(
-                  child: Text(model.wallpaperMode.localize(context.l10n)),
                   initialValue: model.wallpaperMode,
                   itemBuilder: (context) {
                     return [
                       for (final mode in WallpaperMode.values)
                         PopupMenuItem<WallpaperMode>(
-                          child: Text(mode.localize(context.l10n)),
                           value: mode,
                           onTap: () => model.setWallpaperMode(mode),
+                          child: Text(mode.localize(context.l10n)),
                         )
                     ];
                   },
+                  child: Text(model.wallpaperMode.localize(context.l10n)),
                 ),
               ],
             ),
@@ -85,10 +84,10 @@ class WallpaperPage extends StatelessWidget {
                     child: const _ColoredBackground(),
                   )
                 : YaruSelectableContainer(
+                    selected: false,
                     child: _WallpaperImage(
                       path: pictureUri.replaceAll(gnomeWallpaperSuffix, ''),
                     ),
-                    selected: false,
                   ),
           ),
         ),
@@ -129,9 +128,6 @@ class WallpaperPage extends StatelessWidget {
                     context.l10n.wallpaperPageBackgroundModeImageOfTheDay,
                   ),
                   title: YaruPopupMenuButton<ImageOfTheDayProvider>(
-                    child: Text(
-                      model.imageOfTheDayProvider.localize(context.l10n),
-                    ),
                     initialValue: model.imageOfTheDayProvider,
                     itemBuilder: (context) {
                       return [
@@ -146,22 +142,26 @@ class WallpaperPage extends StatelessWidget {
                           )
                       ];
                     },
+                    child: Text(
+                      model.imageOfTheDayProvider.localize(context.l10n),
+                    ),
                   ),
                   trailing: YaruOptionButton(
                     onPressed: () async {
-                      await model.refreshUrlWallpaper();
-                      if (model.errorMessage.isNotEmpty) {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                            content: Text(
-                              model.errorMessage,
-                              style: TextStyle(
-                                color: Theme.of(context).primaryColor,
+                      await model.refreshUrlWallpaper().then((_) {
+                        if (model.errorMessage.isNotEmpty) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text(
+                                model.errorMessage,
+                                style: TextStyle(
+                                  color: Theme.of(context).primaryColor,
+                                ),
                               ),
                             ),
-                          ),
-                        );
-                      }
+                          );
+                        }
+                      });
                     },
                     child: const Icon(YaruIcons.refresh),
                   ),
@@ -219,8 +219,7 @@ class WallpaperPage extends StatelessWidget {
 }
 
 class _WallpaperImage extends StatelessWidget {
-  const _WallpaperImage({Key? key, required this.path, this.height})
-      : super(key: key);
+  const _WallpaperImage({required this.path, this.height});
 
   final String path;
   final int? height;
@@ -237,10 +236,11 @@ class _WallpaperImage extends StatelessWidget {
 }
 
 class _AddWallpaperTile extends StatelessWidget {
-  const _AddWallpaperTile({Key? key}) : super(key: key);
+  const _AddWallpaperTile();
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     final model = context.read<WallpaperModel>();
     return Padding(
       padding: const EdgeInsets.all(6.0),
@@ -256,12 +256,12 @@ class _AddWallpaperTile extends StatelessWidget {
             ],
           );
           if (null != picPath) {
-            if (Theme.of(context).brightness == Brightness.light) {
+            if (theme.brightness == Brightness.light) {
               model.pictureUri = picPath.path;
             } else {
               model.pictureUriDark = picPath.path;
             }
-            model.copyToCollection(picPath.path);
+            await model.copyToCollection(picPath.path);
           }
         },
         child: Container(
@@ -286,10 +286,9 @@ class _AddWallpaperTile extends StatelessWidget {
 
 class _WallpaperGrid extends StatefulWidget {
   const _WallpaperGrid({
-    Key? key,
     required this.data,
     required this.customizableGrid,
-  }) : super(key: key);
+  });
 
   final List<String> data;
   final bool customizableGrid;
@@ -343,7 +342,6 @@ class _WallpaperGridState extends State<_WallpaperGrid> {
                   fit: StackFit.expand,
                   children: [
                     YaruSelectableContainer(
-                      child: _WallpaperImage(path: picPathString, height: 90),
                       onTap: () {
                         if (Theme.of(context).brightness == Brightness.light) {
                           model.pictureUri = picPathString;
@@ -352,6 +350,7 @@ class _WallpaperGridState extends State<_WallpaperGrid> {
                         }
                       },
                       selected: pictureUri.contains(picPathString),
+                      child: _WallpaperImage(path: picPathString, height: 90),
                     ),
                     if (widget.customizableGrid)
                       ChangeNotifierProvider.value(
@@ -368,9 +367,8 @@ class _WallpaperGridState extends State<_WallpaperGrid> {
 
 class _RemoveWallpaperButton extends StatelessWidget {
   const _RemoveWallpaperButton({
-    Key? key,
     required this.path,
-  }) : super(key: key);
+  });
 
   final String path;
 
@@ -399,7 +397,7 @@ class _RemoveWallpaperButton extends StatelessWidget {
 }
 
 class _ColoredBackground extends StatelessWidget {
-  const _ColoredBackground({Key? key}) : super(key: key);
+  const _ColoredBackground();
 
   @override
   Widget build(BuildContext context) {

@@ -8,7 +8,7 @@ import 'package:settings/view/pages/appearance/theme_section.dart';
 import 'package:settings/view/pages/settings_page.dart';
 
 class AppearancePage extends StatelessWidget {
-  const AppearancePage({Key? key}) : super(key: key);
+  const AppearancePage({super.key});
 
   static Widget create(BuildContext context) {
     final service = Provider.of<SettingsService>(context, listen: false);

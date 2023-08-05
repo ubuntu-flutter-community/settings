@@ -24,6 +24,10 @@ enum MimeTypeBehavior {
 }
 
 class RemovableMediaModel extends SafeChangeNotifier {
+  RemovableMediaModel(SettingsService service)
+      : _removableMediaSettings = service.lookup(schemaMediaHandling) {
+    _removableMediaSettings?.addListener(notifyListeners);
+  }
   static const mimeTypes = <String, String>{
     'x-content/audio-cdda': 'Audio CD',
     'x-content/video-dvd': 'DVD-Video',
@@ -47,11 +51,6 @@ class RemovableMediaModel extends SafeChangeNotifier {
   };
 
   final Settings? _removableMediaSettings;
-
-  RemovableMediaModel(SettingsService service)
-      : _removableMediaSettings = service.lookup(schemaMediaHandling) {
-    _removableMediaSettings?.addListener(notifyListeners);
-  }
 
   @override
   void dispose() {

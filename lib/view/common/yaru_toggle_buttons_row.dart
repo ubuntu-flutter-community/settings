@@ -89,6 +89,7 @@ class YaruToggleButtonsRow extends StatelessWidget {
         constraints: const BoxConstraints(minHeight: 40.0),
         isSelected:
             selectedValues ?? List.generate(labels.length, (_) => false),
+        onPressed: enabled ? onPressed : null,
         children: labels
             .map(
               (label) => Padding(
@@ -102,7 +103,6 @@ class YaruToggleButtonsRow extends StatelessWidget {
               ),
             )
             .toList(),
-        onPressed: enabled ? onPressed : null,
       ),
     );
   }

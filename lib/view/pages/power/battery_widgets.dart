@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:settings/l10n/l10n.dart';
 import 'package:settings/utils.dart';
 import 'package:upower/upower.dart';
-import 'package:settings/l10n/l10n.dart';
 
 class BatteryStateLabel extends StatelessWidget {
   const BatteryStateLabel({
-    Key? key,
+    super.key,
     required this.state,
     required this.percentage,
     required this.timeToFull,
     required this.timeToEmpty,
-  }) : super(key: key);
+  });
 
   final UPowerDeviceState? state;
   final double percentage;

@@ -9,7 +9,7 @@ import 'package:settings/view/pages/mouse_and_touchpad/touchpad_section.dart';
 import 'package:settings/view/pages/settings_page.dart';
 
 class MouseAndTouchpadPage extends StatelessWidget {
-  const MouseAndTouchpadPage({Key? key}) : super(key: key);
+  const MouseAndTouchpadPage({super.key});
 
   static Widget create(BuildContext context) {
     final service = Provider.of<SettingsService>(context, listen: false);

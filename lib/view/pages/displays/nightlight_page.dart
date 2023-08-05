@@ -1,12 +1,13 @@
 import 'package:flutter/widgets.dart';
+import 'package:flutter_spinbox/material.dart';
 import 'package:provider/provider.dart';
 import 'package:settings/l10n/l10n.dart';
 import 'package:settings/services/settings_service.dart';
+import 'package:settings/view/common/yaru_slider_row.dart';
+import 'package:settings/view/common/yaru_switch_row.dart';
 import 'package:settings/view/pages/displays/nightlight_model.dart';
 import 'package:settings/view/settings_section.dart';
-import 'package:yaru_settings/yaru_settings.dart';
 import 'package:yaru_widgets/yaru_widgets.dart';
-import 'package:flutter_spinbox/material.dart';
 
 class NightlightPage extends StatelessWidget {
   const NightlightPage({super.key});
@@ -70,8 +71,8 @@ class NightlightPage extends StatelessWidget {
 }
 
 class TimeSelector extends StatelessWidget {
-  final bool isFrom;
   const TimeSelector({super.key, required this.isFrom});
+  final bool isFrom;
 
   @override
   Widget build(BuildContext context) {

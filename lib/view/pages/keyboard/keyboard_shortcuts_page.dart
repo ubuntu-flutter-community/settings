@@ -10,7 +10,7 @@ import 'package:settings/view/pages/settings_page.dart';
 import 'package:settings/view/settings_section.dart';
 
 class KeyboardShortcutsPage extends StatelessWidget {
-  const KeyboardShortcutsPage({Key? key}) : super(key: key);
+  const KeyboardShortcutsPage({super.key});
 
   @override
   Widget build(BuildContext context) {

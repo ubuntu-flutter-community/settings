@@ -5,6 +5,10 @@ import 'package:settings/services/settings_service.dart';
 import 'package:settings/utils.dart';
 
 class DockModel extends ChangeNotifier {
+  DockModel(SettingsService service)
+      : _dashToDockSettings = service.lookup(schemaDashToDock) {
+    _dashToDockSettings?.addListener(notifyListeners);
+  }
   static const _showTrashKey = 'show-trash';
   static const _dockFixedKey = 'dock-fixed';
   static const _extendHeightKey = 'extend-height';
@@ -12,11 +16,6 @@ class DockModel extends ChangeNotifier {
   static const _dashMaxIconSizeKey = 'dash-max-icon-size';
   static const _dockPositionKey = 'dock-position';
   static const _clickActionKey = 'click-action';
-
-  DockModel(SettingsService service)
-      : _dashToDockSettings = service.lookup(schemaDashToDock) {
-    _dashToDockSettings?.addListener(notifyListeners);
-  }
 
   @override
   void dispose() {
@@ -79,7 +78,7 @@ class DockModel extends ChangeNotifier {
   }
 
   DockPosition? get dockPosition {
-    var positionString = _dashToDockSettings?.stringValue(_dockPositionKey);
+    final positionString = _dashToDockSettings?.stringValue(_dockPositionKey);
     switch (positionString) {
       case 'LEFT':
         return DockPosition.left;
@@ -118,15 +117,14 @@ class DockModel extends ChangeNotifier {
 
   set clickAction(DockClickAction? value) {
     if (value != null) {
-      String newString = camelCaseToSplitByDash(value.name);
+      final newString = camelCaseToSplitByDash(value.name);
       _dashToDockSettings?.setValue(_clickActionKey, newString);
       notifyListeners();
     }
   }
 
   String getAutoHideAsset() {
-    final _extendDock = extendDock ?? true;
-    if (_extendDock == false) {
+    if (extendDock == false) {
       if (dockPosition == DockPosition.right) {
         return 'assets/images/appearance/auto-hide-dock-mode/auto-hide-dock-right.svg';
       }
@@ -168,32 +166,28 @@ class DockModel extends ChangeNotifier {
   }
 
   String getDockPositionAsset() {
-    final _extendDock = extendDock ?? true;
-    if (!_extendDock) {
+    if (extendDock == false) {
       return getDockModeAsset();
     }
     return getPanelModeAsset();
   }
 
   String getRightSideAsset() {
-    final _extendDock = extendDock ?? true;
-    if (_extendDock) {
+    if (extendDock == true) {
       return 'assets/images/appearance/panel-mode/panel-mode-right.svg';
     }
     return 'assets/images/appearance/dock-mode/dock-mode-right.svg';
   }
 
   String getLeftSideAsset() {
-    final _extendDock = extendDock ?? true;
-    if (_extendDock) {
+    if (extendDock == true) {
       return 'assets/images/appearance/panel-mode/panel-mode-left.svg';
     }
     return 'assets/images/appearance/dock-mode/dock-mode-left.svg';
   }
 
   String getBottomAsset() {
-    final _extendDock = extendDock ?? true;
-    if (_extendDock) {
+    if (extendDock == true) {
       return 'assets/images/appearance/panel-mode/panel-mode-bottom.svg';
     }
     return 'assets/images/appearance/dock-mode/dock-mode-bottom.svg';

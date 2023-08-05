@@ -6,13 +6,12 @@ import 'package:settings/schemas/schemas.dart';
 import 'package:settings/services/settings_service.dart';
 
 class SpecialCharactersModel extends SafeChangeNotifier {
-  final Settings? _inputSourceSettings;
-  static const _xkbOptionsKey = 'xkb-options';
-
   SpecialCharactersModel(SettingsService service)
       : _inputSourceSettings = service.lookup(schemaInputSources) {
     _inputSourceSettings?.addListener(notifyListeners);
   }
+  final Settings? _inputSourceSettings;
+  static const _xkbOptionsKey = 'xkb-options';
 
   @override
   void dispose() {
@@ -22,20 +21,20 @@ class SpecialCharactersModel extends SafeChangeNotifier {
 
   Future<List<String>> _getXkbOptions() async {
     final settings = GSettings(schemaInputSources);
-    final List<String>? xkbOptions = [];
+    final xkbOptions = <String>[];
 
-    final DBusArray dbusArray = await settings.get(_xkbOptionsKey) as DBusArray;
+    final dbusArray = await settings.get(_xkbOptionsKey) as DBusArray;
 
-    for (final DBusValue dbusArrayChild in dbusArray.children) {
-      final DBusString dBusString = dbusArrayChild as DBusString;
-      xkbOptions!.add(dBusString.value);
+    for (final dbusArrayChild in dbusArray.children) {
+      final dBusString = dbusArrayChild as DBusString;
+      xkbOptions.add(dBusString.value);
     }
 
-    return xkbOptions ?? <String>[];
+    return xkbOptions;
   }
 
-  _setXkbOptions(List<String> xkbOptions) async {
-    _inputSourceSettings?.setValue(_xkbOptionsKey, xkbOptions);
+  Future<void> _setXkbOptions(List<String> xkbOptions) async {
+    await _inputSourceSettings?.setValue(_xkbOptionsKey, xkbOptions);
 
     notifyListeners();
   }
@@ -132,12 +131,12 @@ class SpecialCharactersModel extends SafeChangeNotifier {
     final options =
         (await _getXkbOptions()).where((element) => element.contains('lv3'));
 
-    for (var option in options) {
+    for (final option in options) {
       if (option.contains('lv3:ralt_alt') && options.length < 2) {
         return Lv3Options.none;
       }
     }
-    for (var option in options) {
+    for (final option in options) {
       if (option.contains('lv3:ralt_switch')) {
         return Lv3Options.rightAlt;
       }

@@ -4,6 +4,7 @@ import 'package:bluez/bluez.dart';
 import 'package:safe_change_notifier/safe_change_notifier.dart';
 
 class BluetoothModel extends SafeChangeNotifier {
+  BluetoothModel(this._client);
   final BlueZClient _client;
 
   StreamSubscription<BlueZDevice>? _devicesAdded;
@@ -11,10 +12,8 @@ class BluetoothModel extends SafeChangeNotifier {
   StreamSubscription<BlueZAdapter>? _adaptersRemoved;
   StreamSubscription<BlueZAdapter>? _adaptersAdded;
 
-  BluetoothModel(this._client);
-
   bool get discovering {
-    for (var adapter in _client.adapters) {
+    for (final adapter in _client.adapters) {
       if (adapter.discovering) {
         return true;
       }
@@ -23,7 +22,7 @@ class BluetoothModel extends SafeChangeNotifier {
   }
 
   Future<void> startDiscovery() async {
-    for (var adapter in _client.adapters) {
+    for (final adapter in _client.adapters) {
       if (!adapter.discovering && adapter.powered) {
         await adapter.startDiscovery();
       }
@@ -32,7 +31,7 @@ class BluetoothModel extends SafeChangeNotifier {
   }
 
   Future<void> stopDiscovery() async {
-    for (var adapter in _client.adapters) {
+    for (final adapter in _client.adapters) {
       if (adapter.discovering && adapter.powered) {
         await adapter.stopDiscovery();
       }
@@ -41,14 +40,14 @@ class BluetoothModel extends SafeChangeNotifier {
   }
 
   bool get powered {
-    for (var adapter in _client.adapters) {
+    for (final adapter in _client.adapters) {
       return adapter.powered;
     }
     return false;
   }
 
   void setPowered(bool value) async {
-    for (var adapter in _client.adapters) {
+    for (final adapter in _client.adapters) {
       await adapter.setPowered(value);
     }
     notifyListeners();
@@ -86,7 +85,7 @@ class BluetoothModel extends SafeChangeNotifier {
   }
 
   Future<void> removeDevice(BlueZDevice device) async {
-    for (var adapter in _client.adapters) {
+    for (final adapter in _client.adapters) {
       await stopDiscovery();
       await adapter.removeDevice(device);
     }
@@ -96,7 +95,7 @@ class BluetoothModel extends SafeChangeNotifier {
 
   @override
   void dispose() {
-    for (var adapter in _client.adapters) {
+    for (final adapter in _client.adapters) {
       if (adapter.discovering && adapter.powered) {
         adapter.stopDiscovery();
       }

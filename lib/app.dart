@@ -8,8 +8,8 @@ import 'package:yaru_widgets/yaru_widgets.dart';
 
 class UbuntuSettingsApp extends StatefulWidget {
   const UbuntuSettingsApp({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   State<UbuntuSettingsApp> createState() => _UbuntuSettingsAppState();
@@ -59,7 +59,8 @@ class _UbuntuSettingsAppState extends State<UbuntuSettingsApp> {
                   minPageWidth: kYaruMasterDetailBreakpoint / 2,
                 ),
                 length: pages.length,
-                tileBuilder: (context, index, selected) => YaruMasterTile(
+                tileBuilder: (context, index, selected, availableWidth) =>
+                    YaruMasterTile(
                   title: pages[index].titleBuilder(context),
                   leading: pages[index].iconBuilder(context, selected),
                 ),

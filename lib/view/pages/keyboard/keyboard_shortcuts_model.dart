@@ -3,8 +3,6 @@ import 'package:settings/services/keyboard_service.dart';
 import 'package:settings/services/settings_service.dart';
 
 class KeyboardShortcutsModel extends ChangeNotifier {
-  final String schemaId;
-
   KeyboardShortcutsModel({
     required KeyboardService keyboard,
     required SettingsService settings,
@@ -13,6 +11,7 @@ class KeyboardShortcutsModel extends ChangeNotifier {
         _shortcutSettings = settings.lookup(schemaId) {
     _shortcutSettings?.addListener(notifyListeners);
   }
+  final String schemaId;
 
   @override
   void dispose() {

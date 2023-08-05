@@ -7,12 +7,11 @@ const _lidCloseBatteryActionKey = 'lid-close-battery-action';
 const _lidCloseAcActionKey = 'lid-close-ac-action';
 
 class LidCloseModel extends SafeChangeNotifier {
-  final Settings? _daemonSettings;
-
   LidCloseModel(SettingsService settings)
       : _daemonSettings = settings.lookup(schemaSettingsDaemonPowerPlugin) {
     _daemonSettings?.addListener(notifyListeners);
   }
+  final Settings? _daemonSettings;
 
   @override
   void dispose() {

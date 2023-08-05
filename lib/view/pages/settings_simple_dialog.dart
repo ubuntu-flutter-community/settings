@@ -4,7 +4,7 @@ import 'package:yaru_widgets/yaru_widgets.dart';
 class SettingsSimpleDialog extends StatelessWidget {
   /// Create a [SimpleDialog] with a close button
   const SettingsSimpleDialog({
-    Key? key,
+    super.key,
     required this.title,
     required this.closeIconData,
     required this.children,
@@ -12,7 +12,7 @@ class SettingsSimpleDialog extends StatelessWidget {
     this.alignment,
     required this.width,
     this.titleTextAlign = TextAlign.center,
-  }) : super(key: key);
+  });
 
   /// The title of the dialog, displayed in a large font at the top of the [YaruDialogTitle].
   final String title;
@@ -64,11 +64,11 @@ class SettingsSimpleDialog extends StatelessWidget {
           kYaruPagePadding,
           kYaruPagePadding,
         ),
-        children: [
-          for (var child in children) SizedBox(child: child, width: width)
-        ],
         semanticLabel: semanticLabel,
         alignment: alignment,
+        children: [
+          for (var child in children) SizedBox(width: width, child: child)
+        ],
       ),
     );
   }

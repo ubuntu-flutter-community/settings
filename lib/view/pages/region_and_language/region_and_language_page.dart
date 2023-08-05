@@ -11,7 +11,7 @@ import 'package:yaru_icons/yaru_icons.dart';
 import 'package:yaru_widgets/yaru_widgets.dart';
 
 class RegionAndLanguagePage extends StatefulWidget {
-  const RegionAndLanguagePage({Key? key}) : super(key: key);
+  const RegionAndLanguagePage({super.key});
 
   static Widget create(BuildContext context) => ChangeNotifierProvider(
         create: (context) => RegionAndLanguageModel(
@@ -74,7 +74,7 @@ class _RegionAndLanguagePageState extends State<RegionAndLanguagePage> {
               title:
                   Text(context.l10n.regionAndLanguagePageManageLanguageAction),
               trailing: YaruOptionButton(
-                onPressed: () => model.openGnomeLanguageSelector(),
+                onPressed: model.openGnomeLanguageSelector,
                 child: const Icon(YaruIcons.download),
               ),
             ),
@@ -86,9 +86,7 @@ class _RegionAndLanguagePageState extends State<RegionAndLanguagePage> {
 }
 
 class _LocaleSelectDialog extends StatefulWidget {
-  const _LocaleSelectDialog({
-    Key? key,
-  }) : super(key: key);
+  const _LocaleSelectDialog();
 
   @override
   State<_LocaleSelectDialog> createState() => _LocaleSelectDialogState();
@@ -132,12 +130,12 @@ class _LocaleSelectDialogState extends State<_LocaleSelectDialog> {
                 model.installedLocales.length,
                 (index) => ListTile(
                   selected: _selectedIndex == index,
-                  onTap: (() {
+                  onTap: () {
                     setState(() {
                       _selectedIndex = index;
                     });
                     localeToBeSet = model.installedLocales[index];
-                  }),
+                  },
                   title: Text(
                     LocaleNames.of(context)!
                             .nameOf(model.installedLocales[index]) ??

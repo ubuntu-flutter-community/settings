@@ -5,12 +5,11 @@ import 'package:settings/services/settings_service.dart';
 const _enabledKey = 'enabled';
 
 class LocationModel extends SafeChangeNotifier {
-  final Settings? _locationSettings;
-
   LocationModel(SettingsService service)
       : _locationSettings = service.lookup(schemaLocation) {
     _locationSettings?.addListener(notifyListeners);
   }
+  final Settings? _locationSettings;
 
   bool? get enabled => _locationSettings?.getValue(_enabledKey);
   set enabled(bool? value) {
