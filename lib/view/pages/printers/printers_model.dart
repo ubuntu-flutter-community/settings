@@ -9,12 +9,14 @@ class PrintersModel extends SafeChangeNotifier {
   }
 
   Future<List<String>> loadPrinters() async {
-    final List<String> printerNames = [];
+    final printerNames = <String>[];
     await Process.run('lpinfo', ['-v']).then((value) {
       printerNames.addAll(const LineSplitter().convert(value.stdout));
-      printerNames.retainWhere((element) =>
-          element.contains('network dnssd://') ||
-          element.contains('network ipps://'));
+      printerNames.retainWhere(
+        (element) =>
+            element.contains('network dnssd://') ||
+            element.contains('network ipps://'),
+      );
     });
     return printerNames;
   }

@@ -3,11 +3,12 @@ import 'package:provider/provider.dart';
 import 'package:settings/constants.dart';
 import 'package:settings/l10n/l10n.dart';
 import 'package:settings/view/pages/printers/printers_model.dart';
+import 'package:settings/view/pages/settings_page.dart';
 import 'package:yaru_icons/yaru_icons.dart';
 import 'package:yaru_widgets/yaru_widgets.dart';
 
 class PrintersPage extends StatefulWidget {
-  const PrintersPage({Key? key}) : super(key: key);
+  const PrintersPage({super.key});
 
   static Widget create(BuildContext context) {
     // final service = Provider.of<SettingsService>(context, listen: false);
@@ -40,7 +41,7 @@ class _PrintersPageState extends State<PrintersPage> {
   @override
   Widget build(BuildContext context) {
     final model = context.watch<PrintersModel>();
-    return YaruPage(
+    return SettingsPage(
       children: [
         ChangeNotifierProvider.value(
           value: model,
@@ -50,15 +51,16 @@ class _PrintersPageState extends State<PrintersPage> {
           height: 20,
         ),
         FutureBuilder<List<String>>(
-            future: model.loadPrinters(),
-            builder: (context, snapshot) => snapshot.hasData
-                ? ListView(
-                    shrinkWrap: true,
-                    children: snapshot.data!
-                        .map((e) => _PrinterSection(name: e))
-                        .toList(),
-                  )
-                : const LinearProgressIndicator())
+          future: model.loadPrinters(),
+          builder: (context, snapshot) => snapshot.hasData
+              ? ListView(
+                  shrinkWrap: true,
+                  children: snapshot.data!
+                      .map((e) => _PrinterSection(name: e))
+                      .toList(),
+                )
+              : const LinearProgressIndicator(),
+        )
       ],
     );
   }
@@ -66,82 +68,89 @@ class _PrintersPageState extends State<PrintersPage> {
 
 class _PrinterSection extends StatelessWidget {
   const _PrinterSection({
-    Key? key,
     required this.name,
-  }) : super(key: key);
+  });
 
   final String name;
 
   @override
   Widget build(BuildContext context) {
-    return YaruSection(width: kDefaultWidth, headline: name, children: [
-      YaruRow(
-        trailingWidget: Row(
-          children: [
-            SizedBox(
-              width: 70,
-              child: Image.asset('assets/images/icons/printer.png',
-                  fit: BoxFit.fill),
-            ),
-            const SizedBox(
-              width: 20,
-            ),
-            Expanded(
-              child: SizedBox(
-                height: 60,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: const [
-                    Flexible(
-                        child: Text(
-                      'Model XYZ',
-                      overflow: TextOverflow.ellipsis,
-                    )), // printer.type
-                    SizedBox(
-                      height: 3,
-                    ),
-                    Flexible(
-                      child: Text('bla', overflow: TextOverflow.ellipsis),
-                    ), // printer.location
-                    // printer.status
-                  ],
+    return YaruSection(
+      width: kDefaultWidth,
+      headline: Text(name),
+      child: Column(
+        children: [
+          YaruTile(
+            trailing: Row(
+              children: [
+                SizedBox(
+                  width: 70,
+                  child: Image.asset(
+                    'assets/images/icons/printer.png',
+                    fit: BoxFit.fill,
+                  ),
                 ),
-              ),
-            )
-          ],
-        ),
-        actionWidget: Row(
-          children: [
-            const SizedBox(
-              height: 40,
-              child: OutlinedButton(
-                  onPressed: null, // printer.activejobs ?
-                  child: Text(
-                    'No active jobs',
-                    // style: TextStyle(
-                    //     color: Theme.of(context).disabledColor),
-                  )),
+                const SizedBox(
+                  width: 20,
+                ),
+                const Expanded(
+                  child: SizedBox(
+                    height: 60,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Flexible(
+                          child: Text(
+                            'Model XYZ',
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ), // printer.type
+                        SizedBox(
+                          height: 3,
+                        ),
+                        Flexible(
+                          child: Text('bla', overflow: TextOverflow.ellipsis),
+                        ), // printer.location
+                        // printer.status
+                      ],
+                    ),
+                  ),
+                )
+              ],
             ),
-            const SizedBox(
-              width: 10,
+            leading: Row(
+              children: [
+                const SizedBox(
+                  height: 40,
+                  child: OutlinedButton(
+                    onPressed: null, // printer.activejobs ?
+                    child: Text(
+                      'No active jobs',
+                      // style: TextStyle(
+                      //     color: Theme.of(context).disabledColor),
+                    ),
+                  ),
+                ),
+                const SizedBox(
+                  width: 10,
+                ),
+                YaruOptionButton(
+                  child: const Icon(YaruIcons.settings),
+                  onPressed: () => {},
+                ),
+              ],
             ),
-            YaruOptionButton(
-              iconData: YaruIcons.settings,
-              onPressed: () => {},
-            ),
-          ],
-        ),
-        enabled: true,
-      )
-    ]);
+            enabled: true,
+          )
+        ],
+      ),
+    );
   }
 }
 
 class _Header extends StatelessWidget {
-  const _Header({
-    Key? key,
-  }) : super(key: key);
+  const _Header();
 
   @override
   Widget build(BuildContext context) {
@@ -152,12 +161,25 @@ class _Header extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           ElevatedButton(
-              onPressed: () {
-                showDialog(
-                  barrierDismissible: false,
-                  context: context,
-                  builder: (_) => StatefulBuilder(builder: (context, setState) {
+            onPressed: () {
+              showDialog(
+                barrierDismissible: false,
+                context: context,
+                builder: (_) => StatefulBuilder(
+                  builder: (context, setState) {
                     return AddPrinterDialog(
+                      onConfirm: () {
+                        Navigator.of(context).pop();
+                        return ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Icon(
+                              YaruIcons.printer,
+                              color: Theme.of(context).colorScheme.primary,
+                            ),
+                          ),
+                        );
+                      },
+                      title: 'Add Printer',
                       children: [
                         Icon(
                           YaruIcons.printer,
@@ -165,36 +187,29 @@ class _Header extends StatelessWidget {
                           size: 50,
                         )
                       ],
-                      onConfirm: () {
-                        Navigator.of(context).pop();
-                        return ScaffoldMessenger.of(context)
-                            .showSnackBar(SnackBar(
-                                content: Icon(
-                          YaruIcons.printer,
-                          color: Theme.of(context).colorScheme.primary,
-                        )));
-                      },
-                      title: 'Add Printer',
                     );
-                  }),
-                );
-              },
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: const [
-                  Icon(YaruIcons.plus),
-                  Padding(
-                    padding: EdgeInsets.only(left: 12.0, right: 2),
-                    child: Text('Add a printer'),
-                  )
-                ],
-              )),
+                  },
+                ),
+              );
+            },
+            child: const Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Icon(YaruIcons.plus),
+                Padding(
+                  padding: EdgeInsets.only(left: 12.0, right: 2),
+                  child: Text('Add a printer'),
+                )
+              ],
+            ),
+          ),
           const SizedBox(
             width: 12,
           ),
           YaruOptionButton(
-              onPressed: () => model.openPrinterSettings(),
-              iconData: YaruIcons.settings)
+            onPressed: model.openPrinterSettings,
+            child: const Icon(YaruIcons.settings),
+          )
         ],
       ),
     );
@@ -202,8 +217,8 @@ class _Header extends StatelessWidget {
 }
 
 class AddPrinterDialog extends StatelessWidget {
-  const AddPrinterDialog({Key? key, this.onConfirm, this.title, this.children})
-      : super(key: key);
+  const AddPrinterDialog(
+      {super.key, this.onConfirm, this.title, this.children});
 
   final Function()? onConfirm;
   final String? title;
@@ -215,10 +230,8 @@ class AddPrinterDialog extends StatelessWidget {
       height: 500,
       child: SimpleDialog(
         titlePadding: EdgeInsets.zero,
-        title: YaruDialogTitle(
-          mainAxisAlignment: MainAxisAlignment.center,
-          closeIconData: YaruIcons.window_close,
-          title: title,
+        title: YaruDialogTitleBar(
+          title: Text(title ?? ''),
         ),
         contentPadding: EdgeInsets.zero,
         children: [
@@ -231,23 +244,27 @@ class AddPrinterDialog extends StatelessWidget {
             padding: const EdgeInsets.all(8.0),
             child: SizedBox(
               width: kDefaultWidth / 3,
-              child: Row(children: [
-                Expanded(
-                  child: OutlinedButton(
+              child: Row(
+                children: [
+                  Expanded(
+                    child: OutlinedButton(
                       onPressed: () => Navigator.of(context).pop(),
-                      child: Text(context.l10n.cancel)),
-                ),
-                const SizedBox(
-                  width: 8,
-                ),
-                Expanded(
-                  child: ElevatedButton(
+                      child: Text(context.l10n.cancel),
+                    ),
+                  ),
+                  const SizedBox(
+                    width: 8,
+                  ),
+                  Expanded(
+                    child: ElevatedButton(
                       onPressed: onConfirm,
                       child: Text(
                         context.l10n.confirm,
-                      )),
-                )
-              ]),
+                      ),
+                    ),
+                  )
+                ],
+              ),
             ),
           )
         ],
