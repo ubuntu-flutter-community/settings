@@ -1,6 +1,10 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:settings/l10n/l10n.dart';
 import 'package:settings/view/pages/settings_page.dart';
+import 'package:yaru_icons/yaru_icons.dart';
+import 'package:yaru_widgets/yaru_widgets.dart';
 
 class AppsPage extends StatelessWidget {
   const AppsPage({super.key});
@@ -19,8 +23,15 @@ class AppsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return SettingsPage(
       children: [
-        Center(
-          child: Text(context.l10n.appsPageTitle),
+        YaruSection(
+          child: YaruTile(
+            leading: const Text('Apps can be managed in the App Store'),
+            trailing: ElevatedButton.icon(
+              onPressed: () => Process.start('snap-store', []),
+              label: const Text('Open'),
+              icon: const Icon(YaruIcons.application_bag),
+            ),
+          ),
         )
       ],
     );
