@@ -4,12 +4,13 @@ import 'package:settings/constants.dart';
 import 'package:settings/l10n/l10n.dart';
 import 'package:settings/services/house_keeping_service.dart';
 import 'package:settings/services/settings_service.dart';
+import 'package:settings/view/common/yaru_slider_row.dart';
+import 'package:settings/view/common/yaru_switch_row.dart';
 import 'package:settings/view/pages/privacy/privacy_model.dart';
 import 'package:settings/view/pages/settings_page.dart';
 import 'package:settings/view/section_description.dart';
 import 'package:settings/view/settings_section.dart';
 import 'package:yaru_icons/yaru_icons.dart';
-import 'package:yaru_settings/yaru_settings.dart';
 import 'package:yaru_widgets/yaru_widgets.dart';
 
 class HouseKeepingPage extends StatelessWidget {

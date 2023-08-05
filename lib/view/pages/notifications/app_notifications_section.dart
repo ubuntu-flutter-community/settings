@@ -2,9 +2,9 @@ import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 import 'package:settings/constants.dart';
 import 'package:settings/services/settings_service.dart';
+import 'package:settings/view/common/yaru_switch_row.dart';
 import 'package:settings/view/pages/notifications/notifications_model.dart';
 import 'package:settings/view/settings_section.dart';
-import 'package:yaru_settings/yaru_settings.dart';
 
 class AppNotificationsSection extends StatelessWidget {
   const AppNotificationsSection({Key? key}) : super(key: key);

@@ -3,10 +3,10 @@ import 'package:linux_system_info/linux_system_info.dart';
 import 'package:provider/provider.dart';
 import 'package:settings/constants.dart';
 import 'package:settings/view/app_theme.dart';
+import 'package:settings/view/common/yaru_switch_row.dart';
 import 'package:settings/view/settings_section.dart';
 import 'package:yaru/yaru.dart';
 import 'package:yaru_icons/yaru_icons.dart';
-import 'package:yaru_settings/yaru_settings.dart';
 import 'package:yaru_widgets/yaru_widgets.dart';
 
 class ThemeSection extends StatefulWidget {

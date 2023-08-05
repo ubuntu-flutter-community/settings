@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:yaru_settings/src/yaru_single_info_row.dart';
+import 'package:settings/view/common/yaru_single_info_row.dart';
 
 void main() {
   testWidgets('- YaruSingleInfoRow Test', (WidgetTester tester) async {

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:yaru_settings/src/yaru_extra_option_row.dart';
+import 'package:settings/view/common/yaru_extra_option_row.dart';
 import 'package:yaru_widgets/yaru_widgets.dart';
 
 void main() {

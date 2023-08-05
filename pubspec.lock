@@ -1187,13 +1187,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.1.0"
-  yaru_settings:
-    dependency: "direct main"
-    description:
-      path: "packages/yaru_settings"
-      relative: true
-    source: path
-    version: "0.0.0"
   yaru_widgets:
     dependency: "direct main"
     description:

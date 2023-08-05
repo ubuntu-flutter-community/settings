@@ -5,11 +5,14 @@ import 'package:provider/provider.dart';
 import 'package:settings/constants.dart';
 import 'package:settings/l10n/l10n.dart';
 import 'package:settings/utils.dart';
+import 'package:settings/view/common/yaru_checkbox_row.dart';
+import 'package:settings/view/common/yaru_extra_option_row.dart';
+import 'package:settings/view/common/yaru_slider_row.dart';
+import 'package:settings/view/common/yaru_switch_row.dart';
 import 'package:settings/view/pages/accessibility/accessibility_model.dart';
 import 'package:settings/view/pages/settings_simple_dialog.dart';
 import 'package:settings/view/settings_section.dart';
 import 'package:yaru_icons/yaru_icons.dart';
-import 'package:yaru_settings/yaru_settings.dart';
 import 'package:yaru_widgets/yaru_widgets.dart';
 
 class SeeingSection extends StatelessWidget {

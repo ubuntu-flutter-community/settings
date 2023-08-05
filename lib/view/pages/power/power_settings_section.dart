@@ -6,13 +6,14 @@ import 'package:settings/l10n/l10n.dart';
 import 'package:settings/services/bluetooth_service.dart';
 import 'package:settings/services/power_settings_service.dart';
 import 'package:settings/services/settings_service.dart';
+import 'package:settings/view/common/yaru_slider_row.dart';
+import 'package:settings/view/common/yaru_switch_row.dart';
 import 'package:settings/view/duration_dropdown_button.dart';
 import 'package:settings/view/pages/power/power_settings.dart';
 import 'package:settings/view/pages/power/power_settings_dialogs.dart';
 import 'package:settings/view/pages/power/power_settings_model.dart';
 import 'package:settings/view/settings_section.dart';
 import 'package:yaru_icons/yaru_icons.dart';
-import 'package:yaru_settings/yaru_settings.dart';
 import 'package:yaru_widgets/yaru_widgets.dart';
 
 class PowerSettingsSection extends StatefulWidget {

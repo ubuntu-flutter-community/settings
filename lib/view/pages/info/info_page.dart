@@ -6,6 +6,7 @@ import 'package:settings/constants.dart';
 import 'package:settings/l10n/l10n.dart';
 import 'package:settings/services/hostname_service.dart';
 import 'package:settings/services/pdf_service.dart';
+import 'package:settings/view/common/yaru_single_info_row.dart';
 import 'package:settings/view/pages/settings_page.dart';
 import 'package:settings/view/pages/settings_simple_dialog.dart';
 import 'package:settings/view/settings_section.dart';
@@ -13,7 +14,6 @@ import 'package:udisks/udisks.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:yaru_colors/yaru_colors.dart';
 import 'package:yaru_icons/yaru_icons.dart';
-import 'package:yaru_settings/yaru_settings.dart';
 import 'package:yaru_widgets/yaru_widgets.dart';
 
 import 'info_model.dart';
