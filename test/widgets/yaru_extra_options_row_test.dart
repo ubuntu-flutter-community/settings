@@ -28,7 +28,7 @@ void main() {
       /// The [byWidgetPredicate] method of the [CommonFinders] class is to specify the
       /// type of any widget and so examine the state of that type.
       final finder = find.byWidgetPredicate(
-        (widget) => widget is Switch && widget.value == true,
+        (widget) => widget is YaruSwitch && widget.value == true,
         description: 'Switch is enabled',
       );
       expect(finder, findsOneWidget);

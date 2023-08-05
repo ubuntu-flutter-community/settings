@@ -20,7 +20,8 @@ void main() {
 
     // Use [widget] if you only expect to match one widget.
     // Throws a [StateError] if finder is empty or matches more than one widget.
-    final findValue = (tester.widget(find.byType(Switch)) as Switch).value;
+    final findValue =
+        (tester.widget(find.byType(YaruSwitch)) as YaruSwitch).value;
 
     expect(find.text('Description'), findsOneWidget);
     expect(find.text('Trailing Widget'), findsOneWidget);
