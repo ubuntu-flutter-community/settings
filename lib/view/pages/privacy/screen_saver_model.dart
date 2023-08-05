@@ -10,7 +10,6 @@ const _showInLockScreenKey = 'show-in-lock-screen';
 const _idleDelayKey = 'idle-delay';
 
 class ScreenSaverModel extends SafeChangeNotifier {
-
   ScreenSaverModel(SettingsService service)
       : _screenSaverSettings = service.lookup(schemaScreenSaver),
         _notificationSettings = service.lookup(schemaNotifications),

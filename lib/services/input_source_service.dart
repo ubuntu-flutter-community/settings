@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:xml/xml.dart';
 
 class InputSourceService {
-
   InputSourceService() {
     inputSources = _loadInputSources();
   }
@@ -48,7 +47,6 @@ class InputSourceService {
 }
 
 class InputSource {
-
   InputSource({this.name, this.description, required this.variants});
   final String? name;
   final String? description;
@@ -56,7 +54,6 @@ class InputSource {
 }
 
 class InputSourceVariant {
-
   InputSourceVariant({this.name, this.description});
   final String? name;
   final String? description;

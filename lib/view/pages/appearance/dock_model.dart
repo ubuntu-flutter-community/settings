@@ -5,7 +5,6 @@ import 'package:settings/services/settings_service.dart';
 import 'package:settings/utils.dart';
 
 class DockModel extends ChangeNotifier {
-
   DockModel(SettingsService service)
       : _dashToDockSettings = service.lookup(schemaDashToDock) {
     _dashToDockSettings?.addListener(notifyListeners);

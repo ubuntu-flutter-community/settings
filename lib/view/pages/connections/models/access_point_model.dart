@@ -9,7 +9,6 @@ enum ActiveConnectionState {
 }
 
 class AccessPointModel extends PropertyStreamNotifier {
-
   AccessPointModel(
     this._networkManagerAccessPoint,
     this._networkManagerDeviceWireless,

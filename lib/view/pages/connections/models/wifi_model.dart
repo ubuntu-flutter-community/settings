@@ -16,7 +16,6 @@ typedef OnAuthenticate = Future<Authentication?> Function(
 );
 
 class WifiModel extends PropertyStreamNotifier {
-
   WifiModel(this._networkManagerClient) {
     addProperties(_networkManagerClient.propertiesChanged);
     addPropertyListener('Devices', notifyListeners);

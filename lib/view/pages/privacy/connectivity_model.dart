@@ -2,7 +2,6 @@ import 'package:nm/nm.dart';
 import 'package:safe_change_notifier/safe_change_notifier.dart';
 
 class ConnectivityModel extends SafeChangeNotifier {
-
   ConnectivityModel(NetworkManagerClient client) : _client = client;
   final NetworkManagerClient _client;
 

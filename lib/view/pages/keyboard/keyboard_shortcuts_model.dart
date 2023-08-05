@@ -3,7 +3,6 @@ import 'package:settings/services/keyboard_service.dart';
 import 'package:settings/services/settings_service.dart';
 
 class KeyboardShortcutsModel extends ChangeNotifier {
-
   KeyboardShortcutsModel({
     required KeyboardService keyboard,
     required SettingsService settings,

@@ -12,8 +12,7 @@ class DisplaysModel extends SafeChangeNotifier {
   DisplaysModel(this._service) {
     /// listen display stream
     /// on each, re-set new configuration
-    _subscription = _service.monitorStateStream
-        .listen((configuration) {
+    _subscription = _service.monitorStateStream.listen((configuration) {
       _initialNotifier.value = configuration;
       _currentNotifier.value = configuration;
     });
@@ -54,16 +53,13 @@ class DisplaysModel extends SafeChangeNotifier {
 /// All setters to update current configurations
 extension DisplayModelSetters on DisplaysModel {
   void setResolution(int index, String resolution) {
-    final configurations =
-        <DisplayMonitorConfiguration>[
+    final configurations = <DisplayMonitorConfiguration>[
       ..._currentNotifier.value!.configurations
     ];
 
-    final configurationMonitorUpdate =
-        configurations.removeAt(index);
+    final configurationMonitorUpdate = configurations.removeAt(index);
 
-    var updated =
-        configurationMonitorUpdate.copyWith(resolution: resolution);
+    var updated = configurationMonitorUpdate.copyWith(resolution: resolution);
 
     final currentRefreshRate = double.parse(updated.refreshRate);
 
@@ -96,12 +92,10 @@ extension DisplayModelSetters on DisplaysModel {
       return;
     }
 
-    final configurations =
-        <DisplayMonitorConfiguration>[
+    final configurations = <DisplayMonitorConfiguration>[
       ..._currentNotifier.value!.configurations
     ];
-    final configurationMonitorUpdate =
-        configurations.removeAt(index);
+    final configurationMonitorUpdate = configurations.removeAt(index);
 
     configurations.insert(
       index,
@@ -115,12 +109,10 @@ extension DisplayModelSetters on DisplaysModel {
   }
 
   void setOrientation(int index, LogicalMonitorOrientation orientation) {
-    final configurations =
-        <DisplayMonitorConfiguration>[
+    final configurations = <DisplayMonitorConfiguration>[
       ..._currentNotifier.value!.configurations
     ];
-    final configurationMonitorUpdate =
-        configurations.removeAt(index);
+    final configurationMonitorUpdate = configurations.removeAt(index);
 
     configurations.insert(
       index,
@@ -133,12 +125,10 @@ extension DisplayModelSetters on DisplaysModel {
   }
 
   void setScale(int index, double scale) {
-    final configurations =
-        <DisplayMonitorConfiguration>[
+    final configurations = <DisplayMonitorConfiguration>[
       ..._currentNotifier.value!.configurations
     ];
-    final configurationMonitorUpdate =
-        configurations.removeAt(index);
+    final configurationMonitorUpdate = configurations.removeAt(index);
 
     configurations.insert(
       index,

@@ -3,7 +3,6 @@ import 'package:settings/schemas/schemas.dart';
 import 'package:settings/services/settings_service.dart';
 
 class MultiTaskingModel extends SafeChangeNotifier {
-
   MultiTaskingModel(SettingsService service)
       : _multiTaskingSettings = service.lookup(schemaInterface),
         _mutterSettings = service.lookup(schemaMutter),

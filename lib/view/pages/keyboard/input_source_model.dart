@@ -8,7 +8,6 @@ import 'package:settings/services/input_source_service.dart';
 import 'package:settings/services/settings_service.dart';
 
 class InputSourceModel extends SafeChangeNotifier {
-
   InputSourceModel(
     SettingsService settingsService,
     InputSourceService inputSourceService,

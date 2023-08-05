@@ -3,7 +3,6 @@ import 'package:settings/schemas/schemas.dart';
 import 'package:settings/services/settings_service.dart';
 
 class MouseAndTouchpadModel extends ChangeNotifier {
-
   MouseAndTouchpadModel(SettingsService service)
       : _peripheralsMouseSettings = service.lookup(schemaPeripheralsMouse),
         _peripheralsTouchpadSettings =

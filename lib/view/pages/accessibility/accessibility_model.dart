@@ -5,7 +5,6 @@ import 'package:settings/services/settings_service.dart';
 import 'package:settings/utils.dart';
 
 class AccessibilityModel extends ChangeNotifier {
-
   AccessibilityModel(SettingsService service)
       : _desktopA11Settings = service.lookup(schemaDesktopA11y),
         _a11yAppsSettings = service.lookup(schemaA11yApps),

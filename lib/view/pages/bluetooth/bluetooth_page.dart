@@ -11,7 +11,6 @@ import 'package:settings/view/settings_section.dart';
 import 'package:yaru_widgets/yaru_widgets.dart';
 
 class BluetoothPage extends StatefulWidget {
-
   const BluetoothPage({super.key});
   static bool searchMatches(String value, BuildContext context) =>
       value.isNotEmpty

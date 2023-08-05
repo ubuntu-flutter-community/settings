@@ -11,7 +11,6 @@ import 'package:yaru_icons/yaru_icons.dart';
 import 'models/wifi_model.dart';
 
 class ConnectionsPage extends StatelessWidget {
-
   const ConnectionsPage({super.key});
   static Widget create(BuildContext context) {
     final service = Provider.of<NetworkManagerClient>(context, listen: false);

@@ -48,7 +48,6 @@ const yaruIcons = <String, IconData>{
 };
 
 class BluetoothDeviceModel extends SafeChangeNotifier {
-
   BluetoothDeviceModel(this._device) {
     updateFromClient();
     errorMessage = '';

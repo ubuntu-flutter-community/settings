@@ -4,7 +4,6 @@ import 'package:bluez/bluez.dart';
 import 'package:safe_change_notifier/safe_change_notifier.dart';
 
 class BluetoothModel extends SafeChangeNotifier {
-
   BluetoothModel(this._client);
   final BlueZClient _client;
 

@@ -163,8 +163,7 @@ class MultiTaskingPage extends StatelessWidget {
               trailing: YaruRadio(
                 value: false,
                 groupValue: model.workSpaceOnlyOnPrimary,
-                onChanged: (value) =>
-                    model.workSpaceOnlyOnPrimary = value,
+                onChanged: (value) => model.workSpaceOnlyOnPrimary = value,
               ),
               enabled: model.workSpaceOnlyOnPrimary != null,
             ),
@@ -193,8 +192,7 @@ class MultiTaskingPage extends StatelessWidget {
               trailing: YaruRadio(
                 value: true,
                 groupValue: model.workSpaceOnlyOnPrimary,
-                onChanged: (value) =>
-                    model.workSpaceOnlyOnPrimary = value,
+                onChanged: (value) => model.workSpaceOnlyOnPrimary = value,
               ),
               enabled: model.workSpaceOnlyOnPrimary != null,
             ),

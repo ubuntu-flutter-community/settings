@@ -10,7 +10,6 @@ const _kRemoveTempFiles = 'RemoveTempFiles';
 const _kRecentlyUsedFilePathSuffix = '/.local/share/recently-used.xbel';
 
 class HouseKeepingService {
-
   HouseKeepingService() : _object = _createObject();
   final DBusRemoteObject _object;
 
@@ -31,8 +30,7 @@ class HouseKeepingService {
   void removeTempFiles() => _object.removeTempFiles();
 
   void clearRecentlyUsed() {
-    final path =
-        Platform.environment['HOME']! + _kRecentlyUsedFilePathSuffix;
+    final path = Platform.environment['HOME']! + _kRecentlyUsedFilePathSuffix;
     if (Platform.environment['HOME'] == null) return;
     final file = File(path);
     final sink = file.openWrite();

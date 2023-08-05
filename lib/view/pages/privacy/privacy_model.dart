@@ -10,7 +10,6 @@ const _recentFilesMaxAgeKey = 'recent-files-max-age';
 const _oldFilesAgeKey = 'old-files-age';
 
 class PrivacyModel extends SafeChangeNotifier {
-
   PrivacyModel(
     SettingsService settingsService,
     HouseKeepingService houseKeepingService,

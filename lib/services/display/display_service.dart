@@ -54,14 +54,12 @@ class DisplayService {
     /// never pass here)
     if (_currentNotifier.value == null) {}
 
-    final displayConfig =
-        await _displayDBusService.getCurrent();
+    final displayConfig = await _displayDBusService.getCurrent();
 
     final logicalParameterValues = <DBusStruct>[];
 
     for (var i = 0; i < displayConfig.monitorsLength; i++) {
-      final confMonitor =
-          _currentNotifier.value!.configurations[i];
+      final confMonitor = _currentNotifier.value!.configurations[i];
 
       // x ; y ; scale ; transform(rotation) ; primary ; monitors
       logicalParameterValues.add(

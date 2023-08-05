@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
 class SectionDescription extends StatelessWidget {
-  const SectionDescription({super.key, required this.width, required this.text});
+  const SectionDescription(
+      {super.key, required this.width, required this.text});
 
   final double width;
   final String text;

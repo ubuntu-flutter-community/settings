@@ -1,7 +1,6 @@
 part of 'wifi_model.dart';
 
 class WifiDeviceModel extends PropertyStreamNotifier {
-
   WifiDeviceModel(this._networkManagerDevice) {
     _networkManagerDeviceWireless = _networkManagerDevice.wireless!;
 

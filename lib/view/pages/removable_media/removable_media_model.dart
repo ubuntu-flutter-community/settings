@@ -24,7 +24,6 @@ enum MimeTypeBehavior {
 }
 
 class RemovableMediaModel extends SafeChangeNotifier {
-
   RemovableMediaModel(SettingsService service)
       : _removableMediaSettings = service.lookup(schemaMediaHandling) {
     _removableMediaSettings?.addListener(notifyListeners);

@@ -44,8 +44,7 @@ class _DisplaysPageState extends State<DisplaysPage> {
 
     return ValueListenableBuilder<DisplaysConfiguration?>(
       valueListenable: model.configuration,
-      builder:
-          (context, configurations, _) {
+      builder: (context, configurations, _) {
         return TabbedPage(
           width: kDefaultWidth,
           tabIcons: DisplaysPageSection.values

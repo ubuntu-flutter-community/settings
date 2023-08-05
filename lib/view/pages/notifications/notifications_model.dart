@@ -3,7 +3,6 @@ import 'package:settings/schemas/schemas.dart';
 import 'package:settings/services/settings_service.dart';
 
 class NotificationsModel extends ChangeNotifier {
-
   NotificationsModel(SettingsService service)
       : _notificationSettings = service.lookup(schemaNotifications) {
     _notificationSettings?.addListener(notifyListeners);
@@ -47,7 +46,6 @@ class NotificationsModel extends ChangeNotifier {
 }
 
 class AppNotificationsModel extends ChangeNotifier {
-
   AppNotificationsModel(this.appId, SettingsService service)
       : _appNotificationSettings =
             service.lookup(_appSchemaId, path: _getPath(appId)) {

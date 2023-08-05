@@ -3,7 +3,6 @@ import 'package:settings/schemas/schemas.dart';
 import 'package:settings/services/settings_service.dart';
 
 class SoundModel extends ChangeNotifier {
-
   SoundModel(SettingsService service)
       : _soundSettings = service.lookup(schemaSound) {
     _soundSettings?.addListener(notifyListeners);

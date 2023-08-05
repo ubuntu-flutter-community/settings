@@ -15,7 +15,6 @@ const _kClockShowWeekDay = 'clock-show-weekday';
 const _kCalendarShowWeekNumber = 'show-weekdate';
 
 class DateTimeModel extends SafeChangeNotifier {
-
   DateTimeModel({
     required DateTimeService dateTimeService,
     required SettingsService settingsService,

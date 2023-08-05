@@ -15,7 +15,6 @@ import 'package:yaru_icons/yaru_icons.dart';
 import 'package:yaru_widgets/yaru_widgets.dart';
 
 class WallpaperPage extends StatelessWidget {
-
   const WallpaperPage({super.key});
   static Widget createTitle(BuildContext context) =>
       Text(context.l10n.wallpaperPageTitle);
