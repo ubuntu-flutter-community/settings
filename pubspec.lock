@@ -541,6 +541,15 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.1.1"
+  linux_datetime_service:
+    dependency: "direct main"
+    description:
+      path: "."
+      ref: HEAD
+      resolved-ref: a78261de84040901fae06f31cf94217460030765
+      url: "https://github.com/ubuntu-flutter-community/linux_datetime"
+    source: git
+    version: "1.0.0"
   linux_system_info:
     dependency: "direct main"
     description:

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:linux_datetime_service/linux_datetime.dart';
 import 'package:provider/provider.dart';
 import 'package:settings/constants.dart';
 import 'package:settings/l10n/l10n.dart';
-import 'package:settings/services/date_time_service.dart';
 import 'package:settings/services/settings_service.dart';
 import 'package:settings/view/common/yaru_switch_row.dart';
 import 'package:settings/view/pages/date_and_time/date_time_model.dart';
