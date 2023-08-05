@@ -64,11 +64,11 @@ class SettingsSimpleDialog extends StatelessWidget {
           kYaruPagePadding,
           kYaruPagePadding,
         ),
-        children: [
-          for (var child in children) SizedBox(child: child, width: width)
-        ],
         semanticLabel: semanticLabel,
         alignment: alignment,
+        children: [
+          for (var child in children) SizedBox(width: width, child: child)
+        ],
       ),
     );
   }

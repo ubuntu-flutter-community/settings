@@ -49,7 +49,7 @@ String camelCaseToSplitByDash(String value) {
     if (newString.isEmpty) {
       newString = part.toLowerCase();
     } else {
-      newString = newString.toLowerCase() + '-' + part.toLowerCase();
+      newString = '${newString.toLowerCase()}-${part.toLowerCase()}';
     }
   }
   return newString;

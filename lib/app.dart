@@ -59,7 +59,8 @@ class _UbuntuSettingsAppState extends State<UbuntuSettingsApp> {
                   minPageWidth: kYaruMasterDetailBreakpoint / 2,
                 ),
                 length: pages.length,
-                tileBuilder: (context, index, selected) => YaruMasterTile(
+                tileBuilder: (context, index, selected, availableWidth) =>
+                    YaruMasterTile(
                   title: pages[index].titleBuilder(context),
                   leading: pages[index].iconBuilder(context, selected),
                 ),

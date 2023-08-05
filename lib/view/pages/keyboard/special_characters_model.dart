@@ -22,16 +22,16 @@ class SpecialCharactersModel extends SafeChangeNotifier {
 
   Future<List<String>> _getXkbOptions() async {
     final settings = GSettings(schemaInputSources);
-    final List<String>? xkbOptions = [];
+    final List<String> xkbOptions = [];
 
     final DBusArray dbusArray = await settings.get(_xkbOptionsKey) as DBusArray;
 
     for (final DBusValue dbusArrayChild in dbusArray.children) {
       final DBusString dBusString = dbusArrayChild as DBusString;
-      xkbOptions!.add(dBusString.value);
+      xkbOptions.add(dBusString.value);
     }
 
-    return xkbOptions ?? <String>[];
+    return xkbOptions;
   }
 
   _setXkbOptions(List<String> xkbOptions) async {

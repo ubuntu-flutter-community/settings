@@ -34,15 +34,15 @@ class _ThemeSectionState extends State<ThemeSection> {
       children: [
         YaruSwitchRow(
           trailingWidget: Theme.of(context).brightness == Brightness.light
-              ? Row(
-                  children: const [
+              ? const Row(
+                  children: [
                     Icon(YaruIcons.sun),
                     SizedBox(width: 8),
                     Text('Dark mode is turned off'),
                   ],
                 )
-              : Row(
-                  children: const [
+              : const Row(
+                  children: [
                     Icon(YaruIcons.clear_night),
                     SizedBox(width: 8),
                     Text('Dark mode is turned on'),

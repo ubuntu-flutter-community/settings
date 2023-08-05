@@ -46,13 +46,14 @@ class DockSection extends StatelessWidget {
                 padding: const EdgeInsets.all(assetPadding),
                 child: SvgPicture.asset(
                   model.getPanelModeAsset(),
-                  color: (model.extendDock != null && model.extendDock == true)
-                      ? selectedColor
-                      : unselectedColor,
-                  colorBlendMode:
-                      (model.extendDock != null && model.extendDock == true)
-                          ? BlendMode.srcIn
-                          : BlendMode.color,
+                  colorFilter: ColorFilter.mode(
+                    (model.extendDock != null && model.extendDock == true)
+                        ? selectedColor
+                        : unselectedColor,
+                    (model.extendDock != null && model.extendDock == true)
+                        ? BlendMode.srcIn
+                        : BlendMode.color,
+                  ),
                   height: assetHeight,
                 ),
               ),
@@ -71,13 +72,14 @@ class DockSection extends StatelessWidget {
                 padding: const EdgeInsets.all(assetPadding),
                 child: SvgPicture.asset(
                   model.getDockModeAsset(),
-                  color: (model.extendDock != null && !model.extendDock!)
-                      ? selectedColor
-                      : unselectedColor,
-                  colorBlendMode:
-                      (model.extendDock != null && !model.extendDock!)
-                          ? BlendMode.srcIn
-                          : BlendMode.color,
+                  colorFilter: ColorFilter.mode(
+                    (model.extendDock != null && !model.extendDock!)
+                        ? selectedColor
+                        : unselectedColor,
+                    (model.extendDock != null && !model.extendDock!)
+                        ? BlendMode.srcIn
+                        : BlendMode.color,
+                  ),
                   height: assetHeight,
                 ),
               ),
@@ -171,14 +173,14 @@ class DockSection extends StatelessWidget {
                     padding: const EdgeInsets.all(assetPadding),
                     child: SvgPicture.asset(
                       model.getAutoHideAsset(),
-                      color: (model.alwaysShowDock != null &&
-                              !model.alwaysShowDock!)
-                          ? selectedColor
-                          : unselectedColor,
-                      colorBlendMode: (model.alwaysShowDock != null &&
-                              !model.alwaysShowDock!)
-                          ? BlendMode.srcIn
-                          : BlendMode.color,
+                      colorFilter: ColorFilter.mode(
+                        (model.alwaysShowDock != null && !model.alwaysShowDock!)
+                            ? selectedColor
+                            : unselectedColor,
+                        (model.alwaysShowDock != null && !model.alwaysShowDock!)
+                            ? BlendMode.srcIn
+                            : BlendMode.color,
+                      ),
                       height: assetHeight,
                     ),
                   )

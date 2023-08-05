@@ -60,14 +60,16 @@ class MultiTaskingPage extends StatelessWidget {
                   padding: const EdgeInsets.all(20.0),
                   child: SvgPicture.asset(
                     model.getHotCornerAsset(),
-                    color: (model.enableHotCorners != null &&
-                            model.enableHotCorners == true)
-                        ? selectedColor
-                        : unselectedColor,
-                    colorBlendMode: (model.enableHotCorners != null &&
-                            model.enableHotCorners == true)
-                        ? BlendMode.srcIn
-                        : BlendMode.color,
+                    colorFilter: ColorFilter.mode(
+                      (model.enableHotCorners != null &&
+                              model.enableHotCorners == true)
+                          ? selectedColor
+                          : unselectedColor,
+                      (model.enableHotCorners != null &&
+                              model.enableHotCorners == true)
+                          ? BlendMode.srcIn
+                          : BlendMode.color,
+                    ),
                     height: 80,
                   ),
                 ),
@@ -86,13 +88,14 @@ class MultiTaskingPage extends StatelessWidget {
                   padding: const EdgeInsets.all(20.0),
                   child: SvgPicture.asset(
                     model.getActiveEdgesAsset(),
-                    color: model.edgeTiling != null && model.edgeTiling == true
-                        ? selectedColor
-                        : unselectedColor,
-                    colorBlendMode:
-                        model.edgeTiling != null && model.edgeTiling == true
-                            ? BlendMode.srcIn
-                            : BlendMode.color,
+                    colorFilter: ColorFilter.mode(
+                      model.edgeTiling != null && model.edgeTiling == true
+                          ? selectedColor
+                          : unselectedColor,
+                      model.edgeTiling != null && model.edgeTiling == true
+                          ? BlendMode.srcIn
+                          : BlendMode.color,
+                    ),
                     height: 80,
                   ),
                 ),
@@ -169,14 +172,16 @@ class MultiTaskingPage extends StatelessWidget {
               padding: const EdgeInsets.all(10.0),
               child: SvgPicture.asset(
                 model.getWorkspacesSpanDisplayAsset(),
-                color: !(model.workSpaceOnlyOnPrimary != null &&
-                        model.workSpaceOnlyOnPrimary == true)
-                    ? selectedColor
-                    : unselectedColor,
-                colorBlendMode: !(model.workSpaceOnlyOnPrimary != null &&
-                        model.workSpaceOnlyOnPrimary == true)
-                    ? BlendMode.srcIn
-                    : BlendMode.color,
+                colorFilter: ColorFilter.mode(
+                  !(model.workSpaceOnlyOnPrimary != null &&
+                          model.workSpaceOnlyOnPrimary == true)
+                      ? selectedColor
+                      : unselectedColor,
+                  !(model.workSpaceOnlyOnPrimary != null &&
+                          model.workSpaceOnlyOnPrimary == true)
+                      ? BlendMode.srcIn
+                      : BlendMode.color,
+                ),
                 height: 60,
               ),
             ),
@@ -197,14 +202,16 @@ class MultiTaskingPage extends StatelessWidget {
               padding: const EdgeInsets.all(10.0),
               child: SvgPicture.asset(
                 model.getWorkspacesPrimaryDisplayAsset(),
-                color: !(model.workSpaceOnlyOnPrimary != null &&
-                        model.workSpaceOnlyOnPrimary == false)
-                    ? selectedColor
-                    : unselectedColor,
-                colorBlendMode: !(model.workSpaceOnlyOnPrimary != null &&
-                        model.workSpaceOnlyOnPrimary == false)
-                    ? BlendMode.srcIn
-                    : BlendMode.color,
+                colorFilter: ColorFilter.mode(
+                  !(model.workSpaceOnlyOnPrimary != null &&
+                          model.workSpaceOnlyOnPrimary == false)
+                      ? selectedColor
+                      : unselectedColor,
+                  !(model.workSpaceOnlyOnPrimary != null &&
+                          model.workSpaceOnlyOnPrimary == false)
+                      ? BlendMode.srcIn
+                      : BlendMode.color,
+                ),
                 height: 60,
               ),
             )

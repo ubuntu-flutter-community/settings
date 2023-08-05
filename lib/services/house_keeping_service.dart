@@ -31,9 +31,9 @@ class HouseKeepingService {
   void removeTempFiles() => _object.removeTempFiles();
 
   void clearRecentlyUsed() {
-    final String? path =
+    final String path =
         Platform.environment['HOME']! + _kRecentlyUsedFilePathSuffix;
-    if (Platform.environment['HOME'] == null || path == null) return;
+    if (Platform.environment['HOME'] == null) return;
     var file = File(path);
     var sink = file.openWrite();
     const cleanContent = '''<?xml version="1.0" encoding="UTF-8"?>

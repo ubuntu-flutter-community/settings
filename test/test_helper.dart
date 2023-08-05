@@ -34,8 +34,8 @@ extension TesterExtension on WidgetTester {
 
     Widget parent = MaterialApp(
       home: MockNavigatorProvider(
-        child: toTest,
         navigator: navigator ?? MockNavigator(),
+        child: toTest,
       ),
     );
 

@@ -37,12 +37,12 @@ class WallpaperModel extends SafeChangeNotifier {
   WallpaperMode wallpaperMode = WallpaperMode.custom;
   ImageOfTheDayProvider imageOfTheDayProvider = ImageOfTheDayProvider.bing;
 
-  final String? _userWallpapersDir =
-      Platform.environment['HOME']! + _gnomeUserWallpaperLocation;
+  final String? _userWallpapersDir = Platform.environment['HOME'] == null
+      ? null
+      : Platform.environment['HOME']! + _gnomeUserWallpaperLocation;
 
   DisplaysConfiguration? _displaysConfiguration;
   StreamSubscription? _displaysConfigurationSubscription;
-
   WallpaperModel(
     SettingsService wallpaperService,
     DisplayService displayService,
@@ -74,7 +74,7 @@ class WallpaperModel extends SafeChangeNotifier {
       _wallpaperSettings?.stringValue(_pictureUriDarkKey) ?? '';
 
   set pictureUriDark(String picPathString) {
-    _wallpaperSettings?.setValue(
+    _wallpaperSettings?.setValue<String>(
       _pictureUriDarkKey,
       picPathString.isEmpty ? '' : gnomeWallpaperSuffix + picPathString,
     );
@@ -276,7 +276,7 @@ class WallpaperModel extends SafeChangeNotifier {
       await Directory(path).create(recursive: true);
     }
     //TODO: Embed the copyright info in the metadata instead of the filename
-    final file = File(path + image.imageMetadata + '.jpeg');
+    final file = File('$path${image.imageMetadata}.jpeg');
 
     // Refetch if the image doesn't exist or the current image is older than a day
     if (!file.existsSync() ||

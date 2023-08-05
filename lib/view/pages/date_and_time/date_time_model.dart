@@ -70,9 +70,7 @@ class DateTimeModel extends SafeChangeNotifier {
 
   String get timezone {
     if (dateTime == null || _dateTimeService.timezone == null) return '';
-    return dateTime!.timeZoneName +
-        ': ' +
-        _dateTimeService.timezone!.toString();
+    return '${dateTime!.timeZoneName}: ${_dateTimeService.timezone!}';
   }
 
   set timezone(String value) {
@@ -168,11 +166,7 @@ class DateTimeModel extends SafeChangeNotifier {
   }
 
   String get clock => dateTime != null
-      ? dateTime!.hour.toString().padLeft(2, '0') +
-          ':' +
-          dateTime!.minute.toString().padLeft(2, '0') +
-          ':' +
-          dateTime!.second.toString().padLeft(2, '0')
+      ? '${dateTime!.hour.toString().padLeft(2, '0')}:${dateTime!.minute.toString().padLeft(2, '0')}:${dateTime!.second.toString().padLeft(2, '0')}'
       : '';
 
   bool? get clockShowSeconds =>

@@ -41,8 +41,8 @@ class AuthenticationDialog extends StatelessWidget {
               onChanged: (_) {},
               items: const [
                 DropdownMenuItem(
-                  child: Text('Not Implemented yet'),
                   value: 'a',
+                  child: Text('Not Implemented yet'),
                 )
               ],
             ),

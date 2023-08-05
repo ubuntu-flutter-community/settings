@@ -48,7 +48,7 @@ class NotificationsModel extends ChangeNotifier {
 
 class AppNotificationsModel extends ChangeNotifier {
   static const _enableKey = 'enable';
-  static const _appSchemaId = schemaNotifications + '.application';
+  static const _appSchemaId = '$schemaNotifications.application';
 
   AppNotificationsModel(this.appId, SettingsService service)
       : _appNotificationSettings =
@@ -66,11 +66,7 @@ class AppNotificationsModel extends ChangeNotifier {
   final Settings? _appNotificationSettings;
 
   static String _getPath(String appId) {
-    return '/' +
-        _appSchemaId.replaceAll('.', '/') +
-        '/' +
-        appId.toString() +
-        '/';
+    return '/${_appSchemaId.replaceAll('.', '/')}/$appId/';
   }
 
   bool? get enable => _appNotificationSettings?.boolValue(_enableKey);

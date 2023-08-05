@@ -37,18 +37,18 @@ class InputSourceModel extends SafeChangeNotifier {
 
   Future<List<String>?> getInputSources() async {
     final settings = GSettings(schemaInputSources);
-    final List<String>? inputTypes = [];
+    final List<String> inputTypes = [];
 
     final DBusArray dbusArray = await settings.get(_sourcesKey) as DBusArray;
 
     for (final DBusValue dbusArrayChild in dbusArray.children) {
       final DBusStruct dbusStruct = dbusArrayChild as DBusStruct;
-      inputTypes?.add((dbusStruct.children[1] as DBusString).value);
+      inputTypes.add((dbusStruct.children[1] as DBusString).value);
     }
 
     await settings.close();
 
-    return inputTypes ?? [];
+    return inputTypes;
   }
 
   Future<void> setInputSources(List<String>? inputTypes) async {

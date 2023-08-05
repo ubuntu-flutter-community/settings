@@ -15,7 +15,7 @@ class KeyboardShortcutRow extends StatefulWidget {
   final String shortcutId;
 
   @override
-  _KeyboardShortcutRowState createState() => _KeyboardShortcutRowState();
+  State<KeyboardShortcutRow> createState() => _KeyboardShortcutRowState();
 }
 
 class _KeyboardShortcutRowState extends State<KeyboardShortcutRow> {
@@ -29,6 +29,39 @@ class _KeyboardShortcutRowState extends State<KeyboardShortcutRow> {
     );
 
     return InkWell(
+      borderRadius: BorderRadius.circular(4.0),
+      onTap: () async {
+        final oldShortcut = model.getShortcutStrings(widget.shortcutId);
+        await model.grabKeyboard().then((value) {
+          if (!value) return;
+          showDialog<List<String>>(
+            context: context,
+            builder: (_) => StatefulBuilder(
+              builder: (context, setState) {
+                return RawKeyboardListener(
+                  focusNode: FocusNode(),
+                  autofocus: true,
+                  onKey: (event) {
+                    if (event.logicalKey != LogicalKeyboardKey.escape &&
+                        !keys.contains(event.logicalKey) &&
+                        keys.length < 4) {
+                      setState(() => keys.add(event.logicalKey));
+                    }
+                  },
+                  child: KeyboardShortcutDialog(
+                    keys: keys,
+                    oldShortcut: oldShortcut,
+                  ),
+                );
+              },
+            ),
+          ).then((shortcut) {
+            keys.clear();
+            model.setShortcut(widget.shortcutId, shortcut ?? oldShortcut);
+            model.ungrabKeyboard();
+          });
+        });
+      },
       child: YaruTile(
         title: Text(widget.label),
         trailing: Row(
@@ -51,37 +84,6 @@ class _KeyboardShortcutRowState extends State<KeyboardShortcutRow> {
           ],
         ),
       ),
-      borderRadius: BorderRadius.circular(4.0),
-      onTap: () async {
-        final oldShortcut = model.getShortcutStrings(widget.shortcutId);
-        await model.grabKeyboard();
-        showDialog<List<String>>(
-          context: context,
-          builder: (_) => StatefulBuilder(
-            builder: (context, setState) {
-              return RawKeyboardListener(
-                focusNode: FocusNode(),
-                autofocus: true,
-                onKey: (event) {
-                  if (event.logicalKey != LogicalKeyboardKey.escape &&
-                      !keys.contains(event.logicalKey) &&
-                      keys.length < 4) {
-                    setState(() => keys.add(event.logicalKey));
-                  }
-                },
-                child: KeyboardShortcutDialog(
-                  keys: keys,
-                  oldShortcut: oldShortcut,
-                ),
-              );
-            },
-          ),
-        ).then((shortcut) {
-          keys.clear();
-          model.setShortcut(widget.shortcutId, shortcut ?? oldShortcut);
-          model.ungrabKeyboard();
-        });
-      },
     );
   }
 }
@@ -153,13 +155,13 @@ class KeyboardShortcutDialog extends StatelessWidget {
           keyLabel == 'Meta Left' ||
           keyLabel == 'Super Left' ||
           keyLabel == 'Shift Left') {
-        keyLabel = '<' + keyLabel.replaceAll(' Left', '') + '>';
+        keyLabel = '<${keyLabel.replaceAll(' Left', '')}>';
       } else if (keyLabel == 'Alt Right' ||
           keyLabel == 'Control Right' ||
           keyLabel == 'Meta Right' ||
           keyLabel == 'Super Right' ||
           keyLabel == 'Shift Right') {
-        keyLabel = '<' + keyLabel.replaceAll(' Right', '') + '>';
+        keyLabel = '<${keyLabel.replaceAll(' Right', '')}>';
       } else if (keyLabel == 'Meta' || keyLabel == 'Super') {
         keyLabel = '<$keyLabel>';
       }

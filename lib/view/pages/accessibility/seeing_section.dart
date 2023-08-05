@@ -281,11 +281,11 @@ class _MagnifierPositionOptions extends StatelessWidget {
                 return [
                   for (var item in ScreenPosition.values)
                     PopupMenuItem(
-                      child: Text(item.localize(context.l10n)),
                       value: item,
                       onTap: !model.screenPartEnabled
                           ? null
                           : () => model.screenPosition = item,
+                      child: Text(item.localize(context.l10n)),
                     )
                 ];
               },
@@ -354,25 +354,22 @@ class _RadioRow<T> extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _value = value;
-    final _enabled = enabled;
-
-    if (_value == null || _enabled == null) {
+    if (value == null || enabled == null) {
       return const SizedBox();
     }
 
     return Row(
       children: [
         YaruRadio(
-          value: _value,
+          value: value,
           groupValue: groupValue,
-          onChanged: _enabled ? onChanged : null,
+          onChanged: enabled == true ? onChanged : null,
         ),
         const SizedBox(width: 4),
         Expanded(
           child: Text(
             title,
-            style: _enabled
+            style: enabled == true
                 ? null
                 : TextStyle(color: Theme.of(context).disabledColor),
           ),

@@ -152,9 +152,8 @@ class _AddKeymapDialogState extends State<_AddKeymapDialog> {
           )
         : SettingsSimpleDialog(
             width: kDefaultWidth / 2,
-            title: (model.inputSources[tabbedIndex].name ?? '') +
-                ': ' +
-                (model.inputSources[tabbedIndex].description ?? ''),
+            title:
+                '${model.inputSources[tabbedIndex].name ?? ''}: ${model.inputSources[tabbedIndex].description ?? ''}',
             closeIconData: YaruIcons.window_close,
             children: [
               for (var variant in model.inputSources[tabbedIndex].variants)
@@ -163,9 +162,7 @@ class _AddKeymapDialogState extends State<_AddKeymapDialog> {
                     if (model.inputSources[tabbedIndex].name != null &&
                         variant.name != null) {
                       model.addInputSource(
-                        model.inputSources[tabbedIndex].name! +
-                            '+' +
-                            variant.name!,
+                        '${model.inputSources[tabbedIndex].name!}+${variant.name!}',
                       );
                     }
 

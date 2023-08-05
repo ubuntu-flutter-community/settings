@@ -125,8 +125,7 @@ class DockModel extends ChangeNotifier {
   }
 
   String getAutoHideAsset() {
-    final _extendDock = extendDock ?? true;
-    if (_extendDock == false) {
+    if (extendDock == false) {
       if (dockPosition == DockPosition.right) {
         return 'assets/images/appearance/auto-hide-dock-mode/auto-hide-dock-right.svg';
       }
@@ -168,32 +167,28 @@ class DockModel extends ChangeNotifier {
   }
 
   String getDockPositionAsset() {
-    final _extendDock = extendDock ?? true;
-    if (!_extendDock) {
+    if (extendDock == false) {
       return getDockModeAsset();
     }
     return getPanelModeAsset();
   }
 
   String getRightSideAsset() {
-    final _extendDock = extendDock ?? true;
-    if (_extendDock) {
+    if (extendDock == true) {
       return 'assets/images/appearance/panel-mode/panel-mode-right.svg';
     }
     return 'assets/images/appearance/dock-mode/dock-mode-right.svg';
   }
 
   String getLeftSideAsset() {
-    final _extendDock = extendDock ?? true;
-    if (_extendDock) {
+    if (extendDock == true) {
       return 'assets/images/appearance/panel-mode/panel-mode-left.svg';
     }
     return 'assets/images/appearance/dock-mode/dock-mode-left.svg';
   }
 
   String getBottomAsset() {
-    final _extendDock = extendDock ?? true;
-    if (_extendDock) {
+    if (extendDock == true) {
       return 'assets/images/appearance/panel-mode/panel-mode-bottom.svg';
     }
     return 'assets/images/appearance/dock-mode/dock-mode-bottom.svg';

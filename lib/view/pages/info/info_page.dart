@@ -40,7 +40,7 @@ class InfoPage extends StatefulWidget {
       : false;
 
   @override
-  _InfoPageState createState() => _InfoPageState();
+  State<InfoPage> createState() => _InfoPageState();
 }
 
 class _InfoPageState extends State<InfoPage> {
@@ -162,8 +162,7 @@ class _InfoPageState extends State<InfoPage> {
                 icon: const Icon(YaruIcons.save_as),
                 label: const Text('Export to PDF'),
                 onPressed: () async {
-                  // ignore: unused_local_variable
-                  final pdfFile = await PdfService.generateSystemData(
+                  await PdfService.generateSystemData(
                     model.osName,
                     model.osVersion,
                     model.kernelVersion,
@@ -177,8 +176,10 @@ class _InfoPageState extends State<InfoPage> {
                     model.osType.toString(),
                     model.gnomeVersion,
                     model.windowServer,
+                  ).then(
+                    (value) => ScaffoldMessenger.of(context)
+                        .showSnackBar(sysInfoSnackBar),
                   );
-                  ScaffoldMessenger.of(context).showSnackBar(sysInfoSnackBar);
                 },
               )
             ],

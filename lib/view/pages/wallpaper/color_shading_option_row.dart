@@ -80,9 +80,9 @@ class ColorShadingOptionRow extends StatelessWidget {
       color: colorFromHex(primary ? model.primaryColor : model.secondaryColor),
       onColorChanged: (Color color) => {
         if (primary)
-          {model.primaryColor = '#' + color.hex}
+          {model.primaryColor = '#${color.hex}'}
         else
-          {model.secondaryColor = '#' + color.hex}
+          {model.secondaryColor = '#${color.hex}'}
       },
       width: 40,
       height: 40,

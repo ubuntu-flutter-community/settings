@@ -60,14 +60,14 @@ class RemovableMediaPage extends StatelessWidget {
                     return [
                       for (var behavior in MimeTypeBehavior.values)
                         PopupMenuItem(
-                          child: Text(
-                            behavior.localize(context.l10n),
-                            overflow: TextOverflow.ellipsis,
-                          ),
                           value: behavior,
                           onTap: () => model.setMimeTypeBehavior(
                             behavior,
                             mimeType.key,
+                          ),
+                          child: Text(
+                            behavior.localize(context.l10n),
+                            overflow: TextOverflow.ellipsis,
                           ),
                         ),
                     ];
