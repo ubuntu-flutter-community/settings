@@ -1,8 +1,8 @@
-import 'package:flutter/foundation.dart';
+import 'package:safe_change_notifier/safe_change_notifier.dart';
 import 'package:settings/schemas/schemas.dart';
 import 'package:settings/services/settings_service.dart';
 
-class SoundModel extends ChangeNotifier {
+class SoundModel extends SafeChangeNotifier {
   SoundModel(SettingsService service)
       : _soundSettings = service.lookup(schemaSound) {
     _soundSettings?.addListener(notifyListeners);

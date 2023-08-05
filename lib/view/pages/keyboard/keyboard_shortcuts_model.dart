@@ -1,8 +1,8 @@
-import 'package:flutter/foundation.dart';
+import 'package:safe_change_notifier/safe_change_notifier.dart';
 import 'package:settings/services/keyboard_service.dart';
 import 'package:settings/services/settings_service.dart';
 
-class KeyboardShortcutsModel extends ChangeNotifier {
+class KeyboardShortcutsModel extends SafeChangeNotifier {
   KeyboardShortcutsModel({
     required KeyboardService keyboard,
     required SettingsService settings,
