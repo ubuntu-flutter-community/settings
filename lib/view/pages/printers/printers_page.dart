@@ -50,16 +50,27 @@ class _PrintersPageState extends State<PrintersPage> {
         const SizedBox(
           height: 20,
         ),
-        FutureBuilder<List<String>>(
-          future: model.loadPrinters(),
-          builder: (context, snapshot) => snapshot.hasData
-              ? ListView(
-                  shrinkWrap: true,
-                  children: snapshot.data!
-                      .map((e) => _PrinterSection(name: e))
-                      .toList(),
-                )
-              : const LinearProgressIndicator(),
+        SizedBox(
+          width: kDefaultWidth,
+          child: FutureBuilder<List<String>>(
+            future: model.loadPrinters(),
+            builder: (context, snapshot) {
+              return snapshot.hasData
+                  ? ListView.separated(
+                      itemCount: snapshot.data!.length,
+                      itemBuilder: (context, index) {
+                        return _PrinterSection(name: snapshot.data![index]);
+                      },
+                      shrinkWrap: true,
+                      separatorBuilder: (context, index) {
+                        return const SizedBox(
+                          height: kYaruPagePadding,
+                        );
+                      },
+                    )
+                  : const YaruLinearProgressIndicator();
+            },
+          ),
         )
       ],
     );
@@ -76,74 +87,67 @@ class _PrinterSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return YaruSection(
-      width: kDefaultWidth,
       headline: Text(name),
-      child: Column(
-        children: [
-          YaruTile(
-            trailing: Row(
-              children: [
-                SizedBox(
-                  width: 70,
-                  child: Image.asset(
-                    'assets/images/icons/printer.png',
-                    fit: BoxFit.fill,
-                  ),
-                ),
-                const SizedBox(
-                  width: 20,
-                ),
-                const Expanded(
-                  child: SizedBox(
-                    height: 60,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Flexible(
-                          child: Text(
-                            'Model XYZ',
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                        ), // printer.type
-                        SizedBox(
-                          height: 3,
-                        ),
-                        Flexible(
-                          child: Text('bla', overflow: TextOverflow.ellipsis),
-                        ), // printer.location
-                        // printer.status
-                      ],
-                    ),
-                  ),
-                )
-              ],
+      child: YaruTile(
+        trailing: Row(
+          children: [
+            SizedBox(
+              width: 70,
+              child: Image.asset(
+                'assets/images/icons/printer.png',
+                fit: BoxFit.fill,
+              ),
             ),
-            leading: Row(
-              children: [
-                const SizedBox(
-                  height: 40,
-                  child: OutlinedButton(
-                    onPressed: null, // printer.activejobs ?
+            const SizedBox(
+              width: 20,
+            ),
+            const SizedBox(
+              height: 100,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Flexible(
                     child: Text(
-                      'No active jobs',
-                      // style: TextStyle(
-                      //     color: Theme.of(context).disabledColor),
+                      'Model XYZ',
+                      overflow: TextOverflow.ellipsis,
                     ),
+                  ), // printer.type
+                  SizedBox(
+                    height: 3,
                   ),
+                  Flexible(
+                    child: Text('bla', overflow: TextOverflow.ellipsis),
+                  ), // printer.location
+                  // printer.status
+                ],
+              ),
+            )
+          ],
+        ),
+        leading: Row(
+          children: [
+            const SizedBox(
+              height: 40,
+              child: OutlinedButton(
+                onPressed: null, // printer.activejobs ?
+                child: Text(
+                  'No active jobs',
+                  // style: TextStyle(
+                  //     color: Theme.of(context).disabledColor),
                 ),
-                const SizedBox(
-                  width: 10,
-                ),
-                YaruOptionButton(
-                  child: const Icon(YaruIcons.settings),
-                  onPressed: () => {},
-                ),
-              ],
+              ),
             ),
-            enabled: true,
-          )
-        ],
+            const SizedBox(
+              width: 10,
+            ),
+            YaruOptionButton(
+              child: const Icon(YaruIcons.settings),
+              onPressed: () => {},
+            ),
+          ],
+        ),
+        enabled: true,
       ),
     );
   }
@@ -217,8 +221,12 @@ class _Header extends StatelessWidget {
 }
 
 class AddPrinterDialog extends StatelessWidget {
-  const AddPrinterDialog(
-      {super.key, this.onConfirm, this.title, this.children});
+  const AddPrinterDialog({
+    super.key,
+    this.onConfirm,
+    this.title,
+    this.children,
+  });
 
   final Function()? onConfirm;
   final String? title;
