@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockingjay/mockingjay.dart';
 import 'package:provider/provider.dart';
+import 'package:safe_change_notifier/safe_change_notifier.dart';
 
 typedef WidgetBuilderNoContext = Widget Function();
 
@@ -13,7 +14,7 @@ extension TesterExtension on WidgetTester {
   /// Navigator.of(context).pushNamed('/path', arguments: args);
   /// ```
 
-  Future<void> pumpScreen<R, P extends ChangeNotifier>({
+  Future<void> pumpScreen<R, P extends SafeChangeNotifier>({
     required WidgetBuilderNoContext widgetBuilder,
     required R repository,
     P? provider,
