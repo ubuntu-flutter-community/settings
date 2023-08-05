@@ -45,7 +45,6 @@ jobs:
           DEBIAN_FRONTEND: noninteractive
       - run: flutter pub get
       - run: flutter build linux -v
-        working-directory: example
 
   pub:
     runs-on: ubuntu-22.04
