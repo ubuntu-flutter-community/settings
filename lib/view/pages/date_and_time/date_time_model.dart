@@ -1,12 +1,12 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:safe_change_notifier/safe_change_notifier.dart';
 import 'package:settings/l10n/l10n.dart';
 import 'package:settings/schemas/schemas.dart';
 import 'package:settings/services/date_time_service.dart';
 import 'package:settings/services/settings_service.dart';
-import 'package:intl/intl.dart';
 
 const _kAutomaticTimezone = 'automatic-timezone';
 const _kClockFormat = 'clock-format';
@@ -15,14 +15,6 @@ const _kClockShowWeekDay = 'clock-show-weekday';
 const _kCalendarShowWeekNumber = 'show-weekdate';
 
 class DateTimeModel extends SafeChangeNotifier {
-  final Settings? _dateTimeSettings;
-  final Settings? _interfaceSettings;
-  final Settings? _calendarSettings;
-  final DateTimeService _dateTimeService;
-  StreamSubscription<String?>? _timezoneSub;
-  StreamSubscription<bool?>? _ntpSyncSub;
-  Timer? _fetchDateTimeTimer;
-  DateTime? _dateTime;
 
   DateTimeModel({
     required DateTimeService dateTimeService,
@@ -35,6 +27,14 @@ class DateTimeModel extends SafeChangeNotifier {
     _interfaceSettings?.addListener(notifyListeners);
     _calendarSettings?.addListener(notifyListeners);
   }
+  final Settings? _dateTimeSettings;
+  final Settings? _interfaceSettings;
+  final Settings? _calendarSettings;
+  final DateTimeService _dateTimeService;
+  StreamSubscription<String?>? _timezoneSub;
+  StreamSubscription<bool?>? _ntpSyncSub;
+  Timer? _fetchDateTimeTimer;
+  DateTime? _dateTime;
 
   Future<void> init() {
     return _dateTimeService.init().then((_) async {

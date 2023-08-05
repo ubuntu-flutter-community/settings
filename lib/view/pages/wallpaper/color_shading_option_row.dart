@@ -8,13 +8,13 @@ import 'package:yaru_widgets/yaru_widgets.dart';
 
 class ColorShadingOptionRow extends StatelessWidget {
   const ColorShadingOptionRow({
-    Key? key,
+    super.key,
     required this.actionLabel,
     this.actionDescription,
     required this.value,
     required this.onDropDownChanged,
     this.width,
-  }) : super(key: key);
+  });
 
   final String actionLabel;
   final String? actionDescription;
@@ -78,7 +78,7 @@ class ColorShadingOptionRow extends StatelessWidget {
     final model = context.read<WallpaperModel>();
     return ColorPicker(
       color: colorFromHex(primary ? model.primaryColor : model.secondaryColor),
-      onColorChanged: (Color color) => {
+      onColorChanged: (color) => {
         if (primary)
           {model.primaryColor = '#${color.hex}'}
         else

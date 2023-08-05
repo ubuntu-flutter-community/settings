@@ -13,7 +13,7 @@ import 'package:settings/view/settings_section.dart';
 import 'package:yaru_widgets/yaru_widgets.dart';
 
 class MultiTaskingPage extends StatelessWidget {
-  const MultiTaskingPage({Key? key}) : super(key: key);
+  const MultiTaskingPage({super.key});
 
   static Widget create(BuildContext context) {
     final service = Provider.of<SettingsService>(context, listen: false);
@@ -163,7 +163,7 @@ class MultiTaskingPage extends StatelessWidget {
               trailing: YaruRadio(
                 value: false,
                 groupValue: model.workSpaceOnlyOnPrimary,
-                onChanged: (bool? value) =>
+                onChanged: (value) =>
                     model.workSpaceOnlyOnPrimary = value,
               ),
               enabled: model.workSpaceOnlyOnPrimary != null,
@@ -193,7 +193,7 @@ class MultiTaskingPage extends StatelessWidget {
               trailing: YaruRadio(
                 value: true,
                 groupValue: model.workSpaceOnlyOnPrimary,
-                onChanged: (bool? value) =>
+                onChanged: (value) =>
                     model.workSpaceOnlyOnPrimary = value,
               ),
               enabled: model.workSpaceOnlyOnPrimary != null,

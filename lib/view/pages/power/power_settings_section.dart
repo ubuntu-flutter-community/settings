@@ -17,7 +17,7 @@ import 'package:yaru_icons/yaru_icons.dart';
 import 'package:yaru_widgets/yaru_widgets.dart';
 
 class PowerSettingsSection extends StatefulWidget {
-  const PowerSettingsSection({Key? key}) : super(key: key);
+  const PowerSettingsSection({super.key});
 
   static Widget create(BuildContext context) {
     return ChangeNotifierProvider<SuspendModel>(
@@ -93,7 +93,7 @@ class _PowerSettingsSectionState extends State<PowerSettingsSection> {
             width: 40,
             height: 40,
             child: OutlinedButton(
-              style: OutlinedButton.styleFrom(padding: const EdgeInsets.all(0)),
+              style: OutlinedButton.styleFrom(padding: EdgeInsets.zero),
               onPressed: () => showAutomaticSuspendDialog(context),
               child: const Icon(YaruIcons.gear),
             ),

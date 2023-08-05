@@ -3,6 +3,19 @@ import 'package:settings/schemas/schemas.dart';
 import 'package:settings/services/settings_service.dart';
 
 class MultiTaskingModel extends SafeChangeNotifier {
+
+  MultiTaskingModel(SettingsService service)
+      : _multiTaskingSettings = service.lookup(schemaInterface),
+        _mutterSettings = service.lookup(schemaMutter),
+        _appSwitchSettings = service.lookup(schemaGnomeShellAppSwitcher),
+        _wmSettings = service.lookup(schemaWmPreferences),
+        _dashToDockSettings = service.lookup(schemaDashToDock) {
+    _multiTaskingSettings?.addListener(notifyListeners);
+    _mutterSettings?.addListener(notifyListeners);
+    _appSwitchSettings?.addListener(notifyListeners);
+    _wmSettings?.addListener(notifyListeners);
+    _dashToDockSettings?.addListener(notifyListeners);
+  }
   final Settings? _multiTaskingSettings;
   final Settings? _mutterSettings;
   final Settings? _appSwitchSettings;
@@ -17,19 +30,6 @@ class MultiTaskingModel extends SafeChangeNotifier {
   static const _currentWorkspaceOnlyKey = 'current-workspace-only';
   static const _dockPositionKey = 'dock-position';
   static const _extendHeightKey = 'extend-height';
-
-  MultiTaskingModel(SettingsService service)
-      : _multiTaskingSettings = service.lookup(schemaInterface),
-        _mutterSettings = service.lookup(schemaMutter),
-        _appSwitchSettings = service.lookup(schemaGnomeShellAppSwitcher),
-        _wmSettings = service.lookup(schemaWmPreferences),
-        _dashToDockSettings = service.lookup(schemaDashToDock) {
-    _multiTaskingSettings?.addListener(notifyListeners);
-    _mutterSettings?.addListener(notifyListeners);
-    _appSwitchSettings?.addListener(notifyListeners);
-    _wmSettings?.addListener(notifyListeners);
-    _dashToDockSettings?.addListener(notifyListeners);
-  }
 
   @override
   void dispose() {

@@ -2,14 +2,13 @@ import 'package:bluez/bluez.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:settings/l10n/l10n.dart';
 import 'package:settings/view/pages/bluetooth/bluetooth_device_model.dart';
 import 'package:yaru_icons/yaru_icons.dart';
 import 'package:yaru_widgets/yaru_widgets.dart';
-import 'package:settings/l10n/l10n.dart';
 
 class BluetoothDeviceRow extends StatefulWidget {
-  const BluetoothDeviceRow({Key? key, required this.removeDevice})
-      : super(key: key);
+  const BluetoothDeviceRow({super.key, required this.removeDevice});
 
   final AsyncCallback removeDevice;
 
@@ -74,8 +73,7 @@ class _BluetoothDeviceRowState extends State<BluetoothDeviceRow> {
 }
 
 class _BluetoothDeviceDialog extends StatelessWidget {
-  const _BluetoothDeviceDialog({Key? key, required this.removeDevice})
-      : super(key: key);
+  const _BluetoothDeviceDialog({required this.removeDevice});
 
   final AsyncCallback removeDevice;
 

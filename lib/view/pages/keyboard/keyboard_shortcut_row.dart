@@ -6,10 +6,10 @@ import 'package:yaru_widgets/yaru_widgets.dart';
 
 class KeyboardShortcutRow extends StatefulWidget {
   const KeyboardShortcutRow({
-    Key? key,
+    super.key,
     required this.label,
     required this.shortcutId,
-  }) : super(key: key);
+  });
 
   final String label;
   final String shortcutId;
@@ -90,10 +90,10 @@ class _KeyboardShortcutRowState extends State<KeyboardShortcutRow> {
 
 class KeyboardShortcutDialog extends StatelessWidget {
   const KeyboardShortcutDialog({
-    Key? key,
+    super.key,
     required this.keys,
     required this.oldShortcut,
-  }) : super(key: key);
+  });
 
   final List<LogicalKeyboardKey> keys;
   final List<String> oldShortcut;

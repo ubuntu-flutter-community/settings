@@ -4,7 +4,7 @@ import 'package:settings/view/common/yaru_switch_row.dart';
 import 'package:yaru_widgets/yaru_widgets.dart';
 
 void main() {
-  testWidgets('- YaruSwitchRow Test', (WidgetTester tester) async {
+  testWidgets('- YaruSwitchRow Test', (tester) async {
     await tester.pumpWidget(
       MaterialApp(
         home: Scaffold(

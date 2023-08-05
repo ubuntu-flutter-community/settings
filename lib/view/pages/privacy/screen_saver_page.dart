@@ -13,7 +13,7 @@ import 'package:settings/view/settings_section.dart';
 import 'package:yaru_widgets/yaru_widgets.dart';
 
 class ScreenSaverPage extends StatelessWidget {
-  const ScreenSaverPage({Key? key}) : super(key: key);
+  const ScreenSaverPage({super.key});
 
   static Widget create(BuildContext context) =>
       ChangeNotifierProvider<ScreenSaverModel>(

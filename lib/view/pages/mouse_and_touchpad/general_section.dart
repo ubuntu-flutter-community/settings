@@ -7,7 +7,7 @@ import 'package:settings/view/settings_section.dart';
 import 'mouse_and_touchpad_model.dart';
 
 class GeneralSection extends StatelessWidget {
-  const GeneralSection({Key? key}) : super(key: key);
+  const GeneralSection({super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -9,7 +9,7 @@ import 'package:settings/view/pages/settings_page.dart';
 import 'package:yaru_widgets/yaru_widgets.dart';
 
 class RemovableMediaPage extends StatelessWidget {
-  const RemovableMediaPage({Key? key}) : super(key: key);
+  const RemovableMediaPage({super.key});
 
   static Widget create(BuildContext context) {
     final service = Provider.of<SettingsService>(context, listen: false);

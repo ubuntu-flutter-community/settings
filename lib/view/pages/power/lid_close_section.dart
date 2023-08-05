@@ -9,7 +9,7 @@ import 'package:settings/view/settings_section.dart';
 import 'package:yaru_widgets/yaru_widgets.dart';
 
 class LidCloseSection extends StatelessWidget {
-  const LidCloseSection({Key? key}) : super(key: key);
+  const LidCloseSection({super.key});
 
   static Widget create(BuildContext context) {
     return ChangeNotifierProvider(

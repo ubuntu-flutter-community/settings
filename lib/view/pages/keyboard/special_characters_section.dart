@@ -11,8 +11,8 @@ import 'package:yaru_widgets/yaru_widgets.dart';
 
 class SpecialCharactersSection extends StatelessWidget {
   const SpecialCharactersSection({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -70,7 +70,7 @@ class SpecialCharactersSection extends StatelessWidget {
 }
 
 class _Lv3OptionsDialog extends StatelessWidget {
-  const _Lv3OptionsDialog({Key? key}) : super(key: key);
+  const _Lv3OptionsDialog();
 
   @override
   Widget build(BuildContext context) {
@@ -85,7 +85,7 @@ class _Lv3OptionsDialog extends StatelessWidget {
           YaruSwitchRow(
             trailingWidget: const Text('Use default value'),
             value: snapshot.data == null,
-            onChanged: (value) => model.removeLV3Options(value),
+            onChanged: model.removeLV3Options,
           ),
           const Divider(),
           ListTile(
@@ -117,9 +117,7 @@ class _Lv3OptionsDialog extends StatelessWidget {
 }
 
 class _ComposeOptionsDialog extends StatelessWidget {
-  const _ComposeOptionsDialog({
-    Key? key,
-  }) : super(key: key);
+  const _ComposeOptionsDialog();
 
   @override
   Widget build(BuildContext context) {

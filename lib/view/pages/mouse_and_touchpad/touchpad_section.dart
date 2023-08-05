@@ -7,7 +7,7 @@ import 'package:settings/view/pages/mouse_and_touchpad/mouse_and_touchpad_model.
 import 'package:settings/view/settings_section.dart';
 
 class TouchpadSection extends StatelessWidget {
-  const TouchpadSection({Key? key}) : super(key: key);
+  const TouchpadSection({super.key});
 
   @override
   Widget build(BuildContext context) {

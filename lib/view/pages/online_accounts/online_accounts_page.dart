@@ -3,7 +3,7 @@ import 'package:settings/l10n/l10n.dart';
 import 'package:settings/view/pages/settings_page.dart';
 
 class OnlineAccountsPage extends StatelessWidget {
-  const OnlineAccountsPage({Key? key}) : super(key: key);
+  const OnlineAccountsPage({super.key});
 
   static Widget create(BuildContext context) => const OnlineAccountsPage();
 

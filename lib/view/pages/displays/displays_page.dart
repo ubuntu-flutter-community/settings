@@ -13,7 +13,7 @@ import 'package:yaru_icons/yaru_icons.dart';
 
 class DisplaysPage extends StatefulWidget {
   /// private as we have to pass from create method below
-  const DisplaysPage._({Key? key}) : super(key: key);
+  const DisplaysPage._();
 
   static Widget createTitle(BuildContext context) =>
       Text(context.l10n.displaysPageTitle);
@@ -45,7 +45,7 @@ class _DisplaysPageState extends State<DisplaysPage> {
     return ValueListenableBuilder<DisplaysConfiguration?>(
       valueListenable: model.configuration,
       builder:
-          (BuildContext context, DisplaysConfiguration? configurations, _) {
+          (context, configurations, _) {
         return TabbedPage(
           width: kDefaultWidth,
           tabIcons: DisplaysPageSection.values

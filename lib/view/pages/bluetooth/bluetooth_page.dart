@@ -11,6 +11,8 @@ import 'package:settings/view/settings_section.dart';
 import 'package:yaru_widgets/yaru_widgets.dart';
 
 class BluetoothPage extends StatefulWidget {
+
+  const BluetoothPage({super.key});
   static bool searchMatches(String value, BuildContext context) =>
       value.isNotEmpty
           ? context.l10n.bluetoothPageTitle
@@ -20,8 +22,6 @@ class BluetoothPage extends StatefulWidget {
 
   static Widget createTitle(BuildContext context) =>
       Text(context.l10n.bluetoothPageTitle);
-
-  const BluetoothPage({Key? key}) : super(key: key);
 
   static Widget create(BuildContext context) {
     return ChangeNotifierProvider(
@@ -56,7 +56,7 @@ class _BluetoothPageState extends State<BluetoothPage> {
                   : context.l10n.switchedOff,
             ),
             value: model.powered,
-            onChanged: (v) => model.setPowered(v),
+            onChanged: model.setPowered,
           ),
         ),
         SettingsSection(

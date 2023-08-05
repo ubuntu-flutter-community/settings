@@ -10,7 +10,7 @@ import 'package:settings/view/section_description.dart';
 import 'package:settings/view/settings_section.dart';
 
 class ConnectivityPage extends StatefulWidget {
-  const ConnectivityPage({Key? key}) : super(key: key);
+  const ConnectivityPage({super.key});
 
   static Widget create(BuildContext context) => ChangeNotifierProvider(
         create: (_) => ConnectivityModel(context.read<NetworkManagerClient>()),

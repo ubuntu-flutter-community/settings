@@ -3,7 +3,7 @@ import 'package:settings/l10n/l10n.dart';
 import 'package:settings/view/pages/settings_page.dart';
 
 class AppsPage extends StatelessWidget {
-  const AppsPage({Key? key}) : super(key: key);
+  const AppsPage({super.key});
 
   static Widget create(BuildContext context) => const AppsPage();
 

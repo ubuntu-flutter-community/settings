@@ -13,7 +13,7 @@ import 'package:settings/view/settings_section.dart';
 const kPrivacyUrl = 'https://location.services.mozilla.com/privacy';
 
 class LocationPage extends StatelessWidget {
-  const LocationPage({Key? key}) : super(key: key);
+  const LocationPage({super.key});
 
   static Widget create(BuildContext context) =>
       ChangeNotifierProvider<LocationModel>(

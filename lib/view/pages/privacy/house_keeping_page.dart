@@ -14,7 +14,7 @@ import 'package:yaru_icons/yaru_icons.dart';
 import 'package:yaru_widgets/yaru_widgets.dart';
 
 class HouseKeepingPage extends StatelessWidget {
-  const HouseKeepingPage({Key? key}) : super(key: key);
+  const HouseKeepingPage({super.key});
 
   static Widget create(BuildContext context) => ChangeNotifierProvider(
         create: (_) => PrivacyModel(
@@ -179,11 +179,10 @@ class HouseKeepingPage extends StatelessWidget {
 
 class _ConfirmationDialog extends StatefulWidget {
   const _ConfirmationDialog({
-    Key? key,
     this.onConfirm,
     required this.iconData,
     this.title,
-  }) : super(key: key);
+  });
 
   final Function()? onConfirm;
   final IconData iconData;
@@ -270,7 +269,7 @@ class _ConfirmationDialogState extends State<_ConfirmationDialog>
 }
 
 class _TrashButton extends StatelessWidget {
-  const _TrashButton({Key? key, required this.onPressed}) : super(key: key);
+  const _TrashButton({required this.onPressed});
 
   final void Function()? onPressed;
 
@@ -280,7 +279,7 @@ class _TrashButton extends StatelessWidget {
       height: 40,
       width: 40,
       child: OutlinedButton(
-        style: OutlinedButton.styleFrom(padding: const EdgeInsets.all(0)),
+        style: OutlinedButton.styleFrom(padding: EdgeInsets.zero),
         onPressed: onPressed,
         child:
             Icon(YaruIcons.trash, color: Theme.of(context).colorScheme.error),

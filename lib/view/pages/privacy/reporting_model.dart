@@ -6,12 +6,12 @@ const _reportTechnicalProblemsKey = 'report-technical-problems';
 const _sendSoftwareUsageStatsKey = 'send-software-usage-stats';
 
 class ReportingModel extends SafeChangeNotifier {
-  final Settings? _privacySettings;
 
   ReportingModel(SettingsService settingsService)
       : _privacySettings = settingsService.lookup(schemaPrivacy) {
     _privacySettings?.addListener(notifyListeners);
   }
+  final Settings? _privacySettings;
 
   @override
   void dispose() {

@@ -6,7 +6,7 @@ import '../data/authentication.dart';
 import '../models/wifi_model.dart';
 
 class AuthenticationDialog extends StatelessWidget {
-  AuthenticationDialog({Key? key}) : super(key: key);
+  AuthenticationDialog({super.key});
 
   final canShowPassword = ValueNotifier(false);
   final passwordController = TextEditingController();
@@ -115,13 +115,12 @@ class AuthenticationDialog extends StatelessWidget {
 }
 
 class _DialogRow extends StatelessWidget {
-  final Widget? title;
-  final Widget field;
   const _DialogRow({
     this.title,
     required this.field,
-    Key? key,
-  }) : super(key: key);
+  });
+  final Widget? title;
+  final Widget field;
 
   @override
   Widget build(BuildContext context) {

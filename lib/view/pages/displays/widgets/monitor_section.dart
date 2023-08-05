@@ -10,9 +10,9 @@ import 'package:yaru_widgets/yaru_widgets.dart';
 
 class MonitorSection extends StatelessWidget {
   const MonitorSection({
-    Key? key,
+    super.key,
     required this.index,
-  }) : super(key: key);
+  });
 
   final int index;
 
@@ -29,7 +29,7 @@ class MonitorSection extends StatelessWidget {
     return ValueListenableBuilder<DisplaysConfiguration?>(
       valueListenable: model.configuration,
       builder: (context, value, child) {
-        final DisplayMonitorConfiguration config = value!.configurations[index];
+        final config = value!.configurations[index];
         return ConstrainedBox(
           constraints: const BoxConstraints(maxWidth: kDefaultWidth),
           child: SettingsSection(
@@ -131,7 +131,7 @@ class MonitorSection extends StatelessWidget {
                 enabled: false,
                 trailingWidget: Text(context.l10n.fractionalScaling),
                 actionDescription: context.l10n.fractionalScaling_description,
-                onChanged: (bool value) {},
+                onChanged: (value) {},
                 value: null,
               ),
             ],

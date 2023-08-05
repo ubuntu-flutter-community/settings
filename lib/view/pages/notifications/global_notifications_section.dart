@@ -6,7 +6,7 @@ import 'package:settings/view/pages/notifications/notifications_model.dart';
 import 'package:settings/view/settings_section.dart';
 
 class GlobalNotificationsSection extends StatelessWidget {
-  const GlobalNotificationsSection({Key? key}) : super(key: key);
+  const GlobalNotificationsSection({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -19,12 +19,12 @@ class GlobalNotificationsSection extends StatelessWidget {
         YaruSwitchRow(
           trailingWidget: const Text('Do Not Disturb'),
           value: model.doNotDisturb,
-          onChanged: (value) => model.setDoNotDisturb(value),
+          onChanged: model.setDoNotDisturb,
         ),
         YaruSwitchRow(
           trailingWidget: const Text('Show Notifications On Lock Screen'),
           value: model.showOnLockScreen,
-          onChanged: (value) => model.setShowOnLockScreen(value),
+          onChanged: model.setShowOnLockScreen,
         ),
       ],
     );

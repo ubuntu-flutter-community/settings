@@ -3,7 +3,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:settings/view/common/yaru_single_info_row.dart';
 
 void main() {
-  testWidgets('- YaruSingleInfoRow Test', (WidgetTester tester) async {
+  testWidgets('- YaruSingleInfoRow Test', (tester) async {
     await tester.pumpWidget(
       const MaterialApp(
         home: Scaffold(

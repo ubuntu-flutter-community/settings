@@ -13,7 +13,7 @@ import 'widgets/access_point_tile.dart';
 import 'widgets/authentication_dialog.dart';
 
 class WifiDevicesContent extends StatelessWidget {
-  const WifiDevicesContent({Key? key}) : super(key: key);
+  const WifiDevicesContent({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +42,7 @@ class WifiDevicesContent extends StatelessWidget {
                 )
               ],
             ),
-            onChanged: (newValue) => wifiModel.toggleWifi(newValue),
+            onChanged: wifiModel.toggleWifi,
             value: wifiModel.isWifiEnabled,
           ),
         ),
@@ -97,7 +97,7 @@ class WifiDevicesContent extends StatelessWidget {
 }
 
 class WifiAdaptorNotFound extends StatelessWidget {
-  const WifiAdaptorNotFound({Key? key}) : super(key: key);
+  const WifiAdaptorNotFound({super.key});
 
   @override
   Widget build(BuildContext context) {

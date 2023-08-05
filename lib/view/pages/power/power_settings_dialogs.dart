@@ -20,7 +20,7 @@ Future<void> showAutomaticSuspendDialog(BuildContext context) async {
 }
 
 class AutomaticSuspendDialog extends StatelessWidget {
-  const AutomaticSuspendDialog({Key? key}) : super(key: key);
+  const AutomaticSuspendDialog({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -59,13 +59,12 @@ class AutomaticSuspendDialog extends StatelessWidget {
 
 class _SuspendDelaySettingsRow extends StatelessWidget {
   const _SuspendDelaySettingsRow({
-    Key? key,
     required this.actionLabel,
     required this.suspend,
     required this.onSuspendChanged,
     required this.delay,
     required this.onDelayChanged,
-  }) : super(key: key);
+  });
 
   final String actionLabel;
   final bool? suspend;

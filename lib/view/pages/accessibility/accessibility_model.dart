@@ -5,6 +5,28 @@ import 'package:settings/services/settings_service.dart';
 import 'package:settings/utils.dart';
 
 class AccessibilityModel extends ChangeNotifier {
+
+  AccessibilityModel(SettingsService service)
+      : _desktopA11Settings = service.lookup(schemaDesktopA11y),
+        _a11yAppsSettings = service.lookup(schemaA11yApps),
+        _a11yKeyboardSettings = service.lookup(schemaA11yKeyboard),
+        _a11yMagnifierSettings = service.lookup(schemaA11yMagnifier),
+        _a11yMouseSettings = service.lookup(schemaA11yMouse),
+        _wmPreferencesSettings = service.lookup(schemaWmPreferences),
+        _interfaceSettings = service.lookup(schemaInterface),
+        _peripheralsMouseSettings = service.lookup(schemaPeripheralsMouse),
+        _peripheralsKeyboardSettings =
+            service.lookup(schemaPeripheralsKeyboard) {
+    _desktopA11Settings?.addListener(notifyListeners);
+    _a11yAppsSettings?.addListener(notifyListeners);
+    _a11yKeyboardSettings?.addListener(notifyListeners);
+    _a11yMagnifierSettings?.addListener(notifyListeners);
+    _a11yMouseSettings?.addListener(notifyListeners);
+    _wmPreferencesSettings?.addListener(notifyListeners);
+    _interfaceSettings?.addListener(notifyListeners);
+    _peripheralsMouseSettings?.addListener(notifyListeners);
+    _peripheralsKeyboardSettings?.addListener(notifyListeners);
+  }
   static const _gtkThemeKey = 'gtk-theme';
   static const _iconThemeKey = 'icon-theme';
   static const _textScalingFactorKey = 'text-scaling-factor';
@@ -60,28 +82,6 @@ class AccessibilityModel extends ChangeNotifier {
   static const _dwellClickEnabledKey = 'dwell-click-enabled';
   static const _dwellTimeKey = 'dwell-time';
   static const _dwellThresholdKey = 'dwell-threshold';
-
-  AccessibilityModel(SettingsService service)
-      : _desktopA11Settings = service.lookup(schemaDesktopA11y),
-        _a11yAppsSettings = service.lookup(schemaA11yApps),
-        _a11yKeyboardSettings = service.lookup(schemaA11yKeyboard),
-        _a11yMagnifierSettings = service.lookup(schemaA11yMagnifier),
-        _a11yMouseSettings = service.lookup(schemaA11yMouse),
-        _wmPreferencesSettings = service.lookup(schemaWmPreferences),
-        _interfaceSettings = service.lookup(schemaInterface),
-        _peripheralsMouseSettings = service.lookup(schemaPeripheralsMouse),
-        _peripheralsKeyboardSettings =
-            service.lookup(schemaPeripheralsKeyboard) {
-    _desktopA11Settings?.addListener(notifyListeners);
-    _a11yAppsSettings?.addListener(notifyListeners);
-    _a11yKeyboardSettings?.addListener(notifyListeners);
-    _a11yMagnifierSettings?.addListener(notifyListeners);
-    _a11yMouseSettings?.addListener(notifyListeners);
-    _wmPreferencesSettings?.addListener(notifyListeners);
-    _interfaceSettings?.addListener(notifyListeners);
-    _peripheralsMouseSettings?.addListener(notifyListeners);
-    _peripheralsKeyboardSettings?.addListener(notifyListeners);
-  }
 
   @override
   void dispose() {
@@ -141,7 +141,7 @@ class AccessibilityModel extends ChangeNotifier {
   bool get largeText => _textScalingFactor != null && _textScalingFactor! > 1.0;
 
   void setLargeText(bool value) {
-    double factor = value ? 1.25 : 1.0;
+    final factor = value ? 1.25 : 1.0;
     _interfaceSettings?.setValue(_textScalingFactorKey, factor);
     notifyListeners();
   }

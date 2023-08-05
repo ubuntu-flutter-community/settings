@@ -6,7 +6,7 @@ import 'package:yaru_widgets/yaru_widgets.dart';
 void main() {
   testWidgets(
     'YaruExtraOptionRow widget build test',
-    (WidgetTester tester) async {
+    (tester) async {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(

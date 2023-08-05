@@ -8,8 +8,8 @@ import 'package:yaru_widgets/yaru_widgets.dart';
 
 class UbuntuSettingsApp extends StatefulWidget {
   const UbuntuSettingsApp({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   State<UbuntuSettingsApp> createState() => _UbuntuSettingsAppState();

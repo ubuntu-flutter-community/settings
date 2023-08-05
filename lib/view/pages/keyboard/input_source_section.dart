@@ -6,7 +6,7 @@ import 'package:settings/view/settings_section.dart';
 import 'package:yaru_widgets/yaru_widgets.dart';
 
 class InputSourceSection extends StatelessWidget {
-  const InputSourceSection({Key? key}) : super(key: key);
+  const InputSourceSection({super.key});
 
   @override
   Widget build(BuildContext context) {

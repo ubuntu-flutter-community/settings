@@ -12,7 +12,7 @@ import 'package:settings/view/settings_section.dart';
 import 'package:yaru_widgets/yaru_widgets.dart';
 
 class DockSection extends StatelessWidget {
-  const DockSection({Key? key}) : super(key: key);
+  const DockSection({super.key});
   static const assetHeight = 80.0;
   static const assetPadding = 20.0;
 

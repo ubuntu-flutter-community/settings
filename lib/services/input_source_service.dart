@@ -3,12 +3,12 @@ import 'dart:io';
 import 'package:xml/xml.dart';
 
 class InputSourceService {
-  static const pathToXml = '/usr/share/X11/xkb/rules/base.xml';
-  late final List<InputSource> inputSources;
 
   InputSourceService() {
     inputSources = _loadInputSources();
   }
+  static const pathToXml = '/usr/share/X11/xkb/rules/base.xml';
+  late final List<InputSource> inputSources;
 
   List<InputSource> _loadInputSources() {
     final document = XmlDocument.parse(File(pathToXml).readAsStringSync());
@@ -48,16 +48,16 @@ class InputSourceService {
 }
 
 class InputSource {
+
+  InputSource({this.name, this.description, required this.variants});
   final String? name;
   final String? description;
   final List<InputSourceVariant> variants;
-
-  InputSource({this.name, this.description, required this.variants});
 }
 
 class InputSourceVariant {
-  final String? name;
-  final String? description;
 
   InputSourceVariant({this.name, this.description});
+  final String? name;
+  final String? description;
 }

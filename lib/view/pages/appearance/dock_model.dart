@@ -5,6 +5,11 @@ import 'package:settings/services/settings_service.dart';
 import 'package:settings/utils.dart';
 
 class DockModel extends ChangeNotifier {
+
+  DockModel(SettingsService service)
+      : _dashToDockSettings = service.lookup(schemaDashToDock) {
+    _dashToDockSettings?.addListener(notifyListeners);
+  }
   static const _showTrashKey = 'show-trash';
   static const _dockFixedKey = 'dock-fixed';
   static const _extendHeightKey = 'extend-height';
@@ -12,11 +17,6 @@ class DockModel extends ChangeNotifier {
   static const _dashMaxIconSizeKey = 'dash-max-icon-size';
   static const _dockPositionKey = 'dock-position';
   static const _clickActionKey = 'click-action';
-
-  DockModel(SettingsService service)
-      : _dashToDockSettings = service.lookup(schemaDashToDock) {
-    _dashToDockSettings?.addListener(notifyListeners);
-  }
 
   @override
   void dispose() {
@@ -79,7 +79,7 @@ class DockModel extends ChangeNotifier {
   }
 
   DockPosition? get dockPosition {
-    var positionString = _dashToDockSettings?.stringValue(_dockPositionKey);
+    final positionString = _dashToDockSettings?.stringValue(_dockPositionKey);
     switch (positionString) {
       case 'LEFT':
         return DockPosition.left;
@@ -118,7 +118,7 @@ class DockModel extends ChangeNotifier {
 
   set clickAction(DockClickAction? value) {
     if (value != null) {
-      String newString = camelCaseToSplitByDash(value.name);
+      final newString = camelCaseToSplitByDash(value.name);
       _dashToDockSettings?.setValue(_clickActionKey, newString);
       notifyListeners();
     }

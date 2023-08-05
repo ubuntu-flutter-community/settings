@@ -13,7 +13,7 @@ import 'package:settings/view/settings_section.dart';
 const kUbuntuReportingLink = 'https://ubuntu.com/legal/data-privacy';
 
 class ReportingPage extends StatelessWidget {
-  const ReportingPage({Key? key}) : super(key: key);
+  const ReportingPage({super.key});
 
   static Widget create(BuildContext context) => ChangeNotifierProvider(
         create: (_) => ReportingModel(

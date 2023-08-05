@@ -19,7 +19,7 @@ import 'package:yaru_widgets/yaru_widgets.dart';
 import 'info_model.dart';
 
 class InfoPage extends StatefulWidget {
-  const InfoPage({Key? key}) : super(key: key);
+  const InfoPage({super.key});
 
   static Widget create(BuildContext context) {
     return ChangeNotifierProvider<InfoModel>(
@@ -61,7 +61,7 @@ class _InfoPageState extends State<InfoPage> {
         label: 'Open File',
         onPressed: () async {
           final dir = await getApplicationDocumentsDirectory();
-          launchUrl(Uri.file('${dir.path}/System Data.pdf'));
+          await launchUrl(Uri.file('${dir.path}/System Data.pdf'));
         },
       ),
     );
@@ -191,7 +191,7 @@ class _InfoPageState extends State<InfoPage> {
 }
 
 class _Computer extends StatelessWidget {
-  const _Computer({Key? key}) : super(key: key);
+  const _Computer();
 
   @override
   Widget build(BuildContext context) {
@@ -217,7 +217,7 @@ class _Computer extends StatelessWidget {
                 height: 40,
                 child: OutlinedButton(
                   style: OutlinedButton.styleFrom(
-                    padding: const EdgeInsets.all(0),
+                    padding: EdgeInsets.zero,
                   ),
                   onPressed: () => showDialog(
                     context: context,
@@ -238,7 +238,7 @@ class _Computer extends StatelessWidget {
 }
 
 class _HostnameSettings extends StatefulWidget {
-  const _HostnameSettings({Key? key}) : super(key: key);
+  const _HostnameSettings();
 
   @override
   State<_HostnameSettings> createState() => _HostnameSettingsState();

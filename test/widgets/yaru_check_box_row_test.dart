@@ -3,7 +3,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:settings/view/common/yaru_checkbox_row.dart';
 
 void main() {
-  testWidgets('YaruCheckboxRow Test', (WidgetTester tester) async {
+  testWidgets('YaruCheckboxRow Test', (tester) async {
     await tester.pumpWidget(
       MaterialApp(
         home: Scaffold(

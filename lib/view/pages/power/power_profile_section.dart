@@ -10,7 +10,7 @@ import 'package:settings/view/settings_section.dart';
 import 'package:yaru_widgets/yaru_widgets.dart';
 
 class PowerProfileSection extends StatefulWidget {
-  const PowerProfileSection({Key? key}) : super(key: key);
+  const PowerProfileSection({super.key});
 
   static Widget create(BuildContext context) {
     return ChangeNotifierProvider<PowerProfileModel>(
@@ -49,7 +49,7 @@ class _PowerProfileSectionState extends State<PowerProfileSection> {
             leading: YaruRadio<PowerProfile?>(
               value: profile,
               groupValue: model.profile,
-              onChanged: (v) => model.setProfile(v),
+              onChanged: model.setProfile,
             ),
           ),
       ],

@@ -20,7 +20,7 @@ extension TesterExtension on WidgetTester {
     dynamic args,
     MockNavigator? navigator,
   }) async {
-    Widget toTest = widgetBuilder.call();
+    var toTest = widgetBuilder.call();
     if (args != null) {
       toTest = Navigator(
         onGenerateRoute: (_) {

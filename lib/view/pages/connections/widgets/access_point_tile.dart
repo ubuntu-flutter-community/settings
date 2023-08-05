@@ -5,13 +5,13 @@ import 'package:yaru_widgets/yaru_widgets.dart';
 import '../models/wifi_model.dart';
 
 class AccessPointTile extends StatelessWidget {
-  final AccessPointModel accessPointModel;
-  final VoidCallback onTap;
   const AccessPointTile({
     required this.accessPointModel,
     required this.onTap,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
+  final AccessPointModel accessPointModel;
+  final VoidCallback onTap;
 
   @override
   Widget build(BuildContext context) {

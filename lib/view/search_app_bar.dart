@@ -22,7 +22,7 @@ import 'package:yaru_widgets/yaru_widgets.dart';
 /// ```
 class SearchAppBar extends StatelessWidget {
   const SearchAppBar({
-    Key? key,
+    super.key,
     this.searchController,
     required this.onChanged,
     required this.onEscape,
@@ -32,7 +32,7 @@ class SearchAppBar extends StatelessWidget {
     this.textStyle,
     this.automaticallyImplyLeading = false,
     this.clearSearchIconData,
-  }) : super(key: key);
+  });
 
   /// An optional [TextEditingController].
   final TextEditingController? searchController;

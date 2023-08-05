@@ -1,6 +1,15 @@
 part of 'wifi_model.dart';
 
 class WifiDeviceModel extends PropertyStreamNotifier {
+
+  WifiDeviceModel(this._networkManagerDevice) {
+    _networkManagerDeviceWireless = _networkManagerDevice.wireless!;
+
+    addProperties(_networkManagerDeviceWireless.propertiesChanged);
+    addPropertyListener('AccessPoints', notifyListeners);
+    addPropertyListener('ActiveAccessPoint', notifyListeners);
+    addPropertyListener('LastScan', notifyListeners);
+  }
   final NetworkManagerDevice _networkManagerDevice;
   late final NetworkManagerDeviceWireless _networkManagerDeviceWireless;
 
@@ -9,7 +18,7 @@ class WifiDeviceModel extends PropertyStreamNotifier {
 
     /// filter duplicate access points
     // ignore: prefer_function_declarations_over_variables
-    final isAccessPointAlreadyAdded = (NetworkManagerAccessPoint newAP) {
+    final isAccessPointAlreadyAdded = (newAP) {
       return acceptedAccessPoints.any(
         (ap) =>
             // ap.hwAddress == newAP.hwAddress  &&
@@ -19,12 +28,12 @@ class WifiDeviceModel extends PropertyStreamNotifier {
 
     // filter hidden or empyty SSIDs
     // ignore: prefer_function_declarations_over_variables
-    final hasSsid = (List<int> ssid) {
+    final hasSsid = (ssid) {
       return ssid.isNotEmpty || String.fromCharCodes(ssid).trim().isNotEmpty;
     };
 
     // ignore: prefer_function_declarations_over_variables
-    final isAccessPointAccepted = (NetworkManagerAccessPoint accessPoint) {
+    final isAccessPointAccepted = (accessPoint) {
       if (hasSsid(accessPoint.ssid) &&
           !isAccessPointAlreadyAdded(accessPoint)) {
         acceptedAccessPoints.add(accessPoint);
@@ -46,13 +55,4 @@ class WifiDeviceModel extends PropertyStreamNotifier {
 
   String get driverName => _networkManagerDevice.driver;
   String get interface => _networkManagerDevice.interface;
-
-  WifiDeviceModel(this._networkManagerDevice) {
-    _networkManagerDeviceWireless = _networkManagerDevice.wireless!;
-
-    addProperties(_networkManagerDeviceWireless.propertiesChanged);
-    addPropertyListener('AccessPoints', notifyListeners);
-    addPropertyListener('ActiveAccessPoint', notifyListeners);
-    addPropertyListener('LastScan', notifyListeners);
-  }
 }

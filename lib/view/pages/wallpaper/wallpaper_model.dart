@@ -1,17 +1,15 @@
 import 'dart:async';
+import 'dart:convert';
 import 'dart:io';
 
+import 'package:http/http.dart' as http;
 import 'package:mime/mime.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:safe_change_notifier/safe_change_notifier.dart';
 import 'package:settings/l10n/l10n.dart';
 import 'package:settings/schemas/schemas.dart';
 import 'package:settings/services/display/display_service.dart';
 import 'package:settings/services/settings_service.dart';
-
-import 'package:path_provider/path_provider.dart';
-import 'package:http/http.dart' as http;
-import 'dart:convert';
-
 import 'package:settings/view/pages/displays/displays_configuration.dart';
 
 const gnomeWallpaperSuffix = 'file://';
@@ -25,6 +23,14 @@ const _nasaUrl =
 const _unsplashUrl = 'https://source.unsplash.com/1920x1080/daily';
 
 class WallpaperModel extends SafeChangeNotifier {
+  WallpaperModel(
+    SettingsService wallpaperService,
+    DisplayService displayService,
+  ) : _wallpaperSettings = wallpaperService.lookup(schemaBackground) {
+    _wallpaperSettings?.addListener(notifyListeners);
+    _displaysConfigurationSubscription = displayService.monitorStateStream
+        .listen((configuration) => _displaysConfiguration = configuration);
+  }
   final Settings? _wallpaperSettings;
   static const _pictureUriKey = 'picture-uri';
   static const _pictureUriDarkKey = 'picture-uri-dark';
@@ -43,14 +49,6 @@ class WallpaperModel extends SafeChangeNotifier {
 
   DisplaysConfiguration? _displaysConfiguration;
   StreamSubscription? _displaysConfigurationSubscription;
-  WallpaperModel(
-    SettingsService wallpaperService,
-    DisplayService displayService,
-  ) : _wallpaperSettings = wallpaperService.lookup(schemaBackground) {
-    _wallpaperSettings?.addListener(notifyListeners);
-    _displaysConfigurationSubscription = displayService.monitorStateStream
-        .listen((configuration) => _displaysConfiguration = configuration);
-  }
 
   @override
   void dispose() {
@@ -87,11 +85,11 @@ class WallpaperModel extends SafeChangeNotifier {
   /// Will fallback to 16/9 if [_displaysConfiguration] is not loaded.
   double get aspectRatio {
     if (_displaysConfiguration != null) {
-      for (var configuration in _displaysConfiguration!.configurations) {
+      for (final configuration in _displaysConfiguration!.configurations) {
         if (configuration.primary == true) {
           final resolution = configuration.resolution.split('x');
-          double aspectRatio =
-              (int.parse(resolution.first) / int.parse(resolution.last));
+          final aspectRatio =
+              int.parse(resolution.first) / int.parse(resolution.last);
           return aspectRatio;
         }
       }
@@ -101,7 +99,7 @@ class WallpaperModel extends SafeChangeNotifier {
   }
 
   Future<void> copyToCollection(String picPathString) async {
-    File image = File(picPathString);
+    final image = File(picPathString);
     if (_userWallpapersDir == null) return;
     await image
         .copy(_userWallpapersDir! + File(picPathString).uri.pathSegments.last);
@@ -110,7 +108,7 @@ class WallpaperModel extends SafeChangeNotifier {
 
   Future<void> removeFromCollection(String picPathString) async {
     final purePath = picPathString.replaceAll(gnomeWallpaperSuffix, '');
-    File image = File(purePath);
+    final image = File(purePath);
     await image.delete();
     notifyListeners();
   }
@@ -187,7 +185,7 @@ class WallpaperModel extends SafeChangeNotifier {
         }
         break;
       case WallpaperMode.imageOfTheDay:
-        setUrlWallpaperProvider(imageOfTheDayProvider);
+        await setUrlWallpaperProvider(imageOfTheDayProvider);
         break;
     }
 
@@ -249,7 +247,7 @@ class WallpaperModel extends SafeChangeNotifier {
 
     //Get the url of the day using the apiUrl in the providers Map
     Future<ImageModel> getImageUrl() async {
-      ImageProvider currentProvider = getProvider(imageOfTheDayProvider);
+      final currentProvider = getProvider(imageOfTheDayProvider);
 
       if (currentProvider.isDirect) {
         return ImageModel(
@@ -257,21 +255,21 @@ class WallpaperModel extends SafeChangeNotifier {
           imageMetadata: currentProvider.getImageMetadata(),
         );
       }
-      http.Response imageMetadataResponse =
+      final imageMetadataResponse =
           await http.get(Uri.parse(currentProvider.apiUrl));
-      var decodedJson = json.decode(imageMetadataResponse.body);
+      final decodedJson = json.decode(imageMetadataResponse.body);
       return ImageModel(
         imageUrl: currentProvider.getImageUrl!(decodedJson),
         imageMetadata: currentProvider.getImageMetadata(decodedJson),
       );
     }
 
-    ImageModel image = await getImageUrl();
+    final image = await getImageUrl();
 
     //TODO: Save the images to a more suitable location
-    String path =
+    final path =
         '${directory.path}/ImageOfTheDay/${imageOfTheDayProvider.name}/';
-    bool exists = await Directory(path).exists();
+    final exists = await Directory(path).exists();
     if (!exists) {
       await Directory(path).create(recursive: true);
     }
@@ -281,7 +279,7 @@ class WallpaperModel extends SafeChangeNotifier {
     // Refetch if the image doesn't exist or the current image is older than a day
     if (!file.existsSync() ||
         file.lastModifiedSync().day != DateTime.now().day) {
-      var imageResponse = await http.get(Uri.parse(image.imageUrl));
+      final imageResponse = await http.get(Uri.parse(image.imageUrl));
       await file.writeAsBytes(imageResponse.bodyBytes);
     }
 
@@ -291,25 +289,25 @@ class WallpaperModel extends SafeChangeNotifier {
 }
 
 class ImageProvider {
-  final String apiUrl;
-  final Function? getImageUrl;
-  final Function getImageMetadata;
-  final bool isDirect;
   ImageProvider({
     required this.apiUrl,
     required this.getImageMetadata,
     this.getImageUrl,
     this.isDirect = false,
   });
+  final String apiUrl;
+  final Function? getImageUrl;
+  final Function getImageMetadata;
+  final bool isDirect;
 }
 
 class ImageModel {
-  final String imageUrl;
-  final String imageMetadata;
   ImageModel({
     required this.imageUrl,
     required this.imageMetadata,
   });
+  final String imageUrl;
+  final String imageMetadata;
 }
 
 enum ColorShadingType {

@@ -1,3 +1,5 @@
+// ignore_for_file: type_annotate_public_apis
+
 class DBusDisplaysConfig {
   DBusDisplaysConfig(List<dynamic> list)
       : serial = list[0],
@@ -26,10 +28,14 @@ class DBusDisplaysConfig {
 
   /// * a(siiddada{sv}) modes: available modes
   List<Option> availableOptions(index) =>
-      (_monitors[index][1] as List<dynamic>).map((e) => Option(e)).toList();
+      (_monitors[index][1] as List<dynamic>).map(
+        (e) {
+          return Option(e);
+        },
+      ).toList();
 
   Option? currentOption(index) {
-    final List<Option> options = availableOptions(index);
+    final options = availableOptions(index);
     bool predicate(Option option) => option.isCurrent;
     if (options.any(predicate)) {
       return options.where(predicate).first;

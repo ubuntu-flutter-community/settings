@@ -10,7 +10,7 @@ import 'package:settings/view/settings_section.dart';
 import 'package:yaru_widgets/yaru_widgets.dart';
 
 class SuspendSection extends StatefulWidget {
-  const SuspendSection({Key? key}) : super(key: key);
+  const SuspendSection({super.key});
 
   static Widget create(BuildContext context) {
     return ChangeNotifierProvider<SuspendModel>(

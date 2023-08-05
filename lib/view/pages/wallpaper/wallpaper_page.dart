@@ -15,6 +15,8 @@ import 'package:yaru_icons/yaru_icons.dart';
 import 'package:yaru_widgets/yaru_widgets.dart';
 
 class WallpaperPage extends StatelessWidget {
+
+  const WallpaperPage({super.key});
   static Widget createTitle(BuildContext context) =>
       Text(context.l10n.wallpaperPageTitle);
 
@@ -24,8 +26,6 @@ class WallpaperPage extends StatelessWidget {
               .toLowerCase()
               .contains(value.toLowerCase())
           : false;
-
-  const WallpaperPage({Key? key}) : super(key: key);
 
   static Widget create(BuildContext context) {
     final settingsService =
@@ -220,8 +220,7 @@ class WallpaperPage extends StatelessWidget {
 }
 
 class _WallpaperImage extends StatelessWidget {
-  const _WallpaperImage({Key? key, required this.path, this.height})
-      : super(key: key);
+  const _WallpaperImage({required this.path, this.height});
 
   final String path;
   final int? height;
@@ -238,7 +237,7 @@ class _WallpaperImage extends StatelessWidget {
 }
 
 class _AddWallpaperTile extends StatelessWidget {
-  const _AddWallpaperTile({Key? key}) : super(key: key);
+  const _AddWallpaperTile();
 
   @override
   Widget build(BuildContext context) {
@@ -263,7 +262,7 @@ class _AddWallpaperTile extends StatelessWidget {
             } else {
               model.pictureUriDark = picPath.path;
             }
-            model.copyToCollection(picPath.path);
+            await model.copyToCollection(picPath.path);
           }
         },
         child: Container(
@@ -288,10 +287,9 @@ class _AddWallpaperTile extends StatelessWidget {
 
 class _WallpaperGrid extends StatefulWidget {
   const _WallpaperGrid({
-    Key? key,
     required this.data,
     required this.customizableGrid,
-  }) : super(key: key);
+  });
 
   final List<String> data;
   final bool customizableGrid;
@@ -370,9 +368,8 @@ class _WallpaperGridState extends State<_WallpaperGrid> {
 
 class _RemoveWallpaperButton extends StatelessWidget {
   const _RemoveWallpaperButton({
-    Key? key,
     required this.path,
-  }) : super(key: key);
+  });
 
   final String path;
 
@@ -401,7 +398,7 @@ class _RemoveWallpaperButton extends StatelessWidget {
 }
 
 class _ColoredBackground extends StatelessWidget {
-  const _ColoredBackground({Key? key}) : super(key: key);
+  const _ColoredBackground();
 
   @override
   Widget build(BuildContext context) {

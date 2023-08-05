@@ -48,6 +48,11 @@ const yaruIcons = <String, IconData>{
 };
 
 class BluetoothDeviceModel extends SafeChangeNotifier {
+
+  BluetoothDeviceModel(this._device) {
+    updateFromClient();
+    errorMessage = '';
+  }
   final BlueZDevice _device;
   StreamSubscription? _deviceSubscription;
   late bool connected;
@@ -67,11 +72,6 @@ class BluetoothDeviceModel extends SafeChangeNotifier {
   late bool wakeAllowed;
   late int txPower;
   late List<BlueZGattService> gattServices;
-
-  BluetoothDeviceModel(this._device) {
-    updateFromClient();
-    errorMessage = '';
-  }
 
   void init() {
     _deviceSubscription = _device.propertiesChanged.listen((event) {

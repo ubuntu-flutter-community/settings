@@ -6,12 +6,12 @@ import 'package:safe_change_notifier/safe_change_notifier.dart';
 import 'package:settings/services/locale_service.dart';
 
 class RegionAndLanguageModel extends SafeChangeNotifier {
-  final LocaleService _localeService;
-  List<String?>? get locales => _localeService.locales;
-  List<String> installedLocales = [];
 
   RegionAndLanguageModel({required LocaleService localeService})
       : _localeService = localeService;
+  final LocaleService _localeService;
+  List<String?>? get locales => _localeService.locales;
+  List<String> installedLocales = [];
 
   StreamSubscription? _localeSub;
 

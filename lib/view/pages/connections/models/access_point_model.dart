@@ -9,6 +9,14 @@ enum ActiveConnectionState {
 }
 
 class AccessPointModel extends PropertyStreamNotifier {
+
+  AccessPointModel(
+    this._networkManagerAccessPoint,
+    this._networkManagerDeviceWireless,
+  ) {
+    addProperties(_networkManagerAccessPoint.propertiesChanged);
+    addPropertyListener('Strength', notifyListeners);
+  }
   final NetworkManagerAccessPoint _networkManagerAccessPoint;
   late final NetworkManagerDeviceWireless _networkManagerDeviceWireless;
 
@@ -26,14 +34,6 @@ class AccessPointModel extends PropertyStreamNotifier {
       WifiStrengthLevelX.fromStrength(strength);
 
   int get strength => _networkManagerAccessPoint.strength;
-
-  AccessPointModel(
-    this._networkManagerAccessPoint,
-    this._networkManagerDeviceWireless,
-  ) {
-    addProperties(_networkManagerAccessPoint.propertiesChanged);
-    addPropertyListener('Strength', notifyListeners);
-  }
 }
 
 enum WifiStrengthLevel {
