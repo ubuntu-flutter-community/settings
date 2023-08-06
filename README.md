@@ -1,8 +1,10 @@
-# Unofficial Ubuntu Desktop Settings App made with Flutter - WIP
+# Settings App for the Ubuntu Desktop
 
-The goal of this project is to build a feature complete settings app for the Ubuntu desktop with the Flutter UI toolkit.
+The goal of this project is to build a feature complete settings app for the Ubuntu desktop (GNOME, gtk and gnome-shell) with the Flutter UI toolkit.
 
-![](.github/images/settings.png)
+| Light | Dark
+| - | - |
+| ![](.github/images/light.png) | ![](.github/images/dark.png) |
 
 Mentionable packages that we use and want to thank are:
 
@@ -61,7 +63,7 @@ source ~/.bashrc
 - [X] Multi-Tasking page
 - [X] Notifications page
 - [ ] Search page
-- [ ] Apps page
+- [X] Apps page (forward to snap-store)
 - [X] Privacy/Security page - WIP
 - [ ] Online Accounts page
 - [ ] Sound page - WIP    
@@ -79,3 +81,18 @@ source ~/.bashrc
 - [X] Date and time page
 - [ ] Wacom page
 - [X] Info page
+
+## Contributing
+
+This project really needs help to finish the last pages and also in the future when the GNOME desktop changes. Any help is welcome!
+
+
+However for new contributors please follow those rules:
+
+- do not over complicate things
+- stick to the service, viewmodel, view approach
+- as long as we stick to the provider package try to avoid context.watch as much as possible and always prefer context.select
+- as long as we stick to the provider package try to avoid provider calls as much as possible and prefer to forward callbacks and values where you can
+- do not split files with [the part keyword](https://dart.dev/guides/libraries/create-packages#organizing-a-package)
+- do not shadow function definitions with [typedef](https://dart.dev/language/typedefs)
+- use absolute imports
