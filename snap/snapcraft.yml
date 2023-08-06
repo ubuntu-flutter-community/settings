@@ -1,0 +1,37 @@
+# org.ufc.settings should be a working ID
+name: settings
+version: git
+summary: System Settings for the Ubuntu Desktop
+description: Control your system with settings-app
+website: https://github.com/ubuntu-flutter-community/settings
+contact: frederik.feichtmeier@gmail.com
+source-code: https://github.com/ubuntu-flutter-community/settings
+icon: snap/gui/settings.png
+
+confinement: strict
+base: core22
+grade: stable
+license: GPL-3.0+
+
+architectures:
+  - build-on: amd64
+  - build-on: arm64
+
+apps:
+  settings:
+    command: settings
+    extensions: [gnome]
+    plugs:
+      - network
+      - bluez
+      - audio-playback
+      - network-manager-observe
+      - home
+      - removable-media
+
+parts:
+  settings:
+    source: .
+    source-type: git
+    plugin: flutter
+    flutter-target: lib/main.dart
