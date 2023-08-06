@@ -6,24 +6,9 @@ The goal of this project is to build a feature complete settings app for the Ubu
 | - | - |
 | ![](.github/images/light.png) | ![](.github/images/dark.png) |
 
-Mentionable packages that we use and want to thank are:
+# Releases
 
-- [gsettings.dart](https://github.com/canonical/gsettings.dart)
-- [bluez.dart](https://github.com/canonical/bluez.dart)
-- [nm.dart](https://github.com/canonical/nm.dart)
-- [yaru.dart](https://github.com/ubuntu/yaru.dart)
-- [yaru_icons.dart](https://github.com/ubuntu/yaru_icons.dart)
-- [yaru_widgets.dart](https://github.com/ubuntu/yaru_widgets.dart)
-- [dbus.dart](https://github.com/canonical/dbus.dart)
-- [upower.dart](https://github.com/canonical/upower.dart)
-- [udisks.dart](https://github.com/canonical/udisks.dart)
-- [flex_color_picker](https://github.com/rydmike/flex_color_picker)
-
-
-# Alpha Releases / Download
-
-Currently the app is in a very raw alpha state and pages are still missing.
-However if you want you can download, extract and then run alpha releases [from the releases page](https://github.com/Feichtmeier/settings/releases).
+The app will be soon available as a snap.
 
 # Building
 
@@ -33,6 +18,13 @@ The following steps are needed to run the app from the source code.
 
 ```bash
 sudo apt -y install git curl cmake meson make clang libgtk-3-dev pkg-config && mkdir -p ~/development && cd ~/development && git clone https://github.com/flutter/flutter.git -b stable && echo 'export PATH="$PATH:$HOME/development/flutter/bin"' >> ~/.bashrc && source ~/.bashrc
+```
+
+##  Run
+
+Run the app with vscode or with
+```dart
+flutter run
 ```
 
 # TODO
