@@ -11,6 +11,7 @@
 # org.freedesktop.hostname1 (Info Page)
 # org.gnome.SettingsDaemon.Rfkill (Power Page)
 # upower (power page)
+# dbus: org.freedesktop.Accounts and org.freedesktop.Accounts.User (Accounts Page, WIP, not yet in master)
 
 name: settings
 version: git
