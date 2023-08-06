@@ -13,6 +13,8 @@
 # upower (power page)
 # dbus: org.freedesktop.timedate1 (Time Page)
 # dbus: org.freedesktop.Accounts and org.freedesktop.Accounts.User (Accounts Page, WIP, not yet in master)
+# some day: printers, no idea which interface this is (cups?)
+# some day: org.gnome.Settings.SearchProvider and org.gnome.Shell.SearchProvider2 (search page)
 
 name: settings
 version: git
