@@ -1,19 +1,10 @@
-import 'package:collection/collection.dart';
 import 'package:dbus/dbus.dart';
-import 'package:flutter/foundation.dart';
 import 'package:nm/nm.dart';
-
-import '../data/authentication.dart';
-import '../extensions/network_service_x.dart';
-import 'property_stream_notifier.dart';
-
-part 'access_point_model.dart';
-part 'wifi_device_model.dart';
-
-typedef OnAuthenticate = Future<Authentication?> Function(
-  WifiDeviceModel wifiAdaptor,
-  AccessPointModel accessPoint,
-);
+import 'package:settings/view/pages/connections/data/authentication.dart';
+import 'package:settings/view/pages/connections/extensions/network_service_x.dart';
+import 'package:settings/view/pages/connections/models/access_point_model.dart';
+import 'package:settings/view/pages/connections/models/property_stream_notifier.dart';
+import 'package:settings/view/pages/connections/models/wifi_device_model.dart';
 
 class WifiModel extends PropertyStreamNotifier {
   WifiModel(this._networkManagerClient) {
@@ -47,14 +38,17 @@ class WifiModel extends PropertyStreamNotifier {
   void connectToAccesPoint(
     AccessPointModel accessPointModel,
     WifiDeviceModel wifiAdaptorModel,
-    OnAuthenticate onAuth,
+    Future<Authentication?> Function(
+      WifiDeviceModel wifiAdaptor,
+      AccessPointModel accessPoint,
+    ) onAuth,
   ) async {
     if (accessPointModel.isActive) return;
 
     try {
       var connection = await _networkManagerClient.findConnectionFor(
-        accessPointModel._networkManagerAccessPoint,
-        wifiAdaptorModel._networkManagerDevice,
+        accessPointModel.networkManagerAccessPoint,
+        wifiAdaptorModel.networkManagerDevice,
       );
       if (connection == null) {
         Authentication? authentication;
@@ -73,9 +67,9 @@ class WifiModel extends PropertyStreamNotifier {
       }
 
       await _networkManagerClient.activateConnection(
-        device: wifiAdaptorModel._networkManagerDevice,
+        device: wifiAdaptorModel.networkManagerDevice,
         connection: connection,
-        accessPoint: accessPointModel._networkManagerAccessPoint,
+        accessPoint: accessPointModel.networkManagerAccessPoint,
       );
     } on DBusMethodResponseException catch (e) {
       errorMessage = e.toString();
