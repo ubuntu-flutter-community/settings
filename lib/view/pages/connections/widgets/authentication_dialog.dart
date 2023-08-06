@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:settings/view/pages/connections/data/authentication.dart';
+import 'package:settings/view/pages/connections/models/access_point_model.dart';
 import 'package:yaru_icons/yaru_icons.dart';
-
-import '../data/authentication.dart';
-import '../models/wifi_model.dart';
 
 class AuthenticationDialog extends StatelessWidget {
   AuthenticationDialog({super.key});

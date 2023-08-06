@@ -10,6 +10,7 @@ import 'package:settings/view/common/yaru_single_info_row.dart';
 import 'package:settings/view/pages/settings_page.dart';
 import 'package:settings/view/pages/settings_simple_dialog.dart';
 import 'package:settings/view/settings_section.dart';
+import 'package:ubuntu_service/ubuntu_service.dart';
 import 'package:udisks/udisks.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:yaru_colors/yaru_colors.dart';
@@ -24,8 +25,8 @@ class InfoPage extends StatefulWidget {
   static Widget create(BuildContext context) {
     return ChangeNotifierProvider<InfoModel>(
       create: (_) => InfoModel(
-        hostnameService: context.read<HostnameService>(),
-        uDisksClient: context.read<UDisksClient>(),
+        hostnameService: getService<HostnameService>(),
+        uDisksClient: getService<UDisksClient>(),
       ),
       child: const InfoPage(),
     );

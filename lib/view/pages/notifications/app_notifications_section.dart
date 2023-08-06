@@ -5,6 +5,7 @@ import 'package:settings/services/settings_service.dart';
 import 'package:settings/view/common/yaru_switch_row.dart';
 import 'package:settings/view/pages/notifications/notifications_model.dart';
 import 'package:settings/view/settings_section.dart';
+import 'package:ubuntu_service/ubuntu_service.dart';
 
 class AppNotificationsSection extends StatelessWidget {
   const AppNotificationsSection({super.key});
@@ -31,9 +32,9 @@ class AppNotificationsSettingRow extends StatelessWidget {
   const AppNotificationsSettingRow({super.key});
 
   static Widget create(BuildContext context, {required String appId}) {
-    final service = Provider.of<SettingsService>(context, listen: false);
     return ChangeNotifierProvider(
-      create: (_) => AppNotificationsModel(appId, service),
+      create: (_) =>
+          AppNotificationsModel(appId, getService<SettingsService>()),
       child: const AppNotificationsSettingRow(),
     );
   }

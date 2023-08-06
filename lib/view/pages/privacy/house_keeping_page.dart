@@ -10,6 +10,7 @@ import 'package:settings/view/pages/privacy/privacy_model.dart';
 import 'package:settings/view/pages/settings_page.dart';
 import 'package:settings/view/section_description.dart';
 import 'package:settings/view/settings_section.dart';
+import 'package:ubuntu_service/ubuntu_service.dart';
 import 'package:yaru_icons/yaru_icons.dart';
 import 'package:yaru_widgets/yaru_widgets.dart';
 
@@ -18,8 +19,8 @@ class HouseKeepingPage extends StatelessWidget {
 
   static Widget create(BuildContext context) => ChangeNotifierProvider(
         create: (_) => PrivacyModel(
-          context.read<SettingsService>(),
-          context.read<HouseKeepingService>(),
+          getService<SettingsService>(),
+          getService<HouseKeepingService>(),
         ),
         child: const HouseKeepingPage(),
       );

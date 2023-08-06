@@ -7,6 +7,7 @@ import 'package:settings/view/common/yaru_switch_row.dart';
 import 'package:settings/view/pages/power/suspend.dart';
 import 'package:settings/view/pages/power/suspend_model.dart';
 import 'package:settings/view/settings_section.dart';
+import 'package:ubuntu_service/ubuntu_service.dart';
 import 'package:yaru_widgets/yaru_widgets.dart';
 
 class SuspendSection extends StatefulWidget {
@@ -15,7 +16,7 @@ class SuspendSection extends StatefulWidget {
   static Widget create(BuildContext context) {
     return ChangeNotifierProvider<SuspendModel>(
       create: (_) => SuspendModel(
-        context.read<SettingsService>(),
+        getService<SettingsService>(),
       ),
       child: const SuspendSection(),
     );

@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:settings/view/pages/connections/models/access_point_model.dart';
 import 'package:yaru_icons/yaru_icons.dart';
 import 'package:yaru_widgets/yaru_widgets.dart';
-
-import '../models/wifi_model.dart';
 
 class AccessPointTile extends StatelessWidget {
   const AccessPointTile({

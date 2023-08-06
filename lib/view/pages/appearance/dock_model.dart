@@ -1,10 +1,10 @@
-import 'package:flutter/foundation.dart';
+import 'package:safe_change_notifier/safe_change_notifier.dart';
 import 'package:settings/l10n/l10n.dart';
 import 'package:settings/schemas/schemas.dart';
 import 'package:settings/services/settings_service.dart';
 import 'package:settings/utils.dart';
 
-class DockModel extends ChangeNotifier {
+class DockModel extends SafeChangeNotifier {
   DockModel(SettingsService service)
       : _dashToDockSettings = service.lookup(schemaDashToDock) {
     _dashToDockSettings?.addListener(notifyListeners);

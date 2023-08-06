@@ -1,8 +1,8 @@
-import 'package:flutter/foundation.dart';
+import 'package:safe_change_notifier/safe_change_notifier.dart';
 import 'package:settings/schemas/schemas.dart';
 import 'package:settings/services/settings_service.dart';
 
-class NotificationsModel extends ChangeNotifier {
+class NotificationsModel extends SafeChangeNotifier {
   NotificationsModel(SettingsService service)
       : _notificationSettings = service.lookup(schemaNotifications) {
     _notificationSettings?.addListener(notifyListeners);
@@ -45,7 +45,7 @@ class NotificationsModel extends ChangeNotifier {
       .toList();
 }
 
-class AppNotificationsModel extends ChangeNotifier {
+class AppNotificationsModel extends SafeChangeNotifier {
   AppNotificationsModel(this.appId, SettingsService service)
       : _appNotificationSettings =
             service.lookup(_appSchemaId, path: _getPath(appId)) {

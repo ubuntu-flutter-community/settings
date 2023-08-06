@@ -1,11 +1,9 @@
 import 'package:bluez/bluez.dart';
 import 'package:flutter/material.dart';
+import 'package:linux_datetime_service/linux_datetime.dart';
 import 'package:nm/nm.dart';
-import 'package:provider/provider.dart';
 import 'package:settings/app.dart';
-import 'package:settings/schemas/schemas.dart';
 import 'package:settings/services/bluetooth_service.dart';
-import 'package:settings/services/date_time_service.dart';
 import 'package:settings/services/display/display_service.dart';
 import 'package:settings/services/hostname_service.dart';
 import 'package:settings/services/house_keeping_service.dart';
@@ -15,87 +13,75 @@ import 'package:settings/services/locale_service.dart';
 import 'package:settings/services/power_profile_service.dart';
 import 'package:settings/services/power_settings_service.dart';
 import 'package:settings/services/settings_service.dart';
-import 'package:settings/view/app_theme.dart';
+import 'package:ubuntu_service/ubuntu_service.dart';
 import 'package:udisks/udisks.dart';
 import 'package:upower/upower.dart';
 import 'package:xdg_accounts/xdg_accounts.dart';
 import 'package:yaru_widgets/yaru_widgets.dart';
 
 void main() async {
-  final themeSettings = Settings(schemaInterface);
+  await YaruWindowTitleBar.ensureInitialized();
 
   final networkManagerClient = NetworkManagerClient();
   await networkManagerClient.connect();
 
-  await YaruWindowTitleBar.ensureInitialized();
-
-  runApp(
-    MultiProvider(
-      providers: [
-        ChangeNotifierProvider(
-          create: (_) => AppTheme(themeSettings),
-        ),
-        Provider<BluetoothService>(
-          create: (_) => BluetoothService(),
-          dispose: (_, service) => service.dispose(),
-        ),
-        Provider<HostnameService>(
-          create: (_) => HostnameService(),
-          dispose: (_, service) => service.dispose(),
-        ),
-        Provider<KeyboardService>(
-          create: (_) => KeyboardMethodChannel(),
-        ),
-        Provider<NetworkManagerClient>.value(value: networkManagerClient),
-        Provider<PowerProfileService>(
-          create: (_) => PowerProfileService(),
-          dispose: (_, service) => service.dispose(),
-        ),
-        Provider<PowerSettingsService>(
-          create: (_) => PowerSettingsService(),
-          dispose: (_, service) => service.dispose(),
-        ),
-        Provider<SettingsService>(
-          create: (_) => SettingsService(),
-          dispose: (_, service) => service.dispose(),
-        ),
-        Provider<UDisksClient>(
-          create: (_) => UDisksClient(),
-          dispose: (_, client) => client.close(),
-        ),
-        Provider<UPowerClient>(
-          create: (_) => UPowerClient(),
-          dispose: (_, client) => client.close(),
-        ),
-        Provider<BlueZClient>(
-          create: (_) => BlueZClient(),
-          dispose: (_, client) => client.close(),
-        ),
-        Provider<InputSourceService>(
-          create: (_) => InputSourceService(),
-        ),
-        Provider<HouseKeepingService>(
-          create: (_) => HouseKeepingService(),
-          dispose: (_, service) => service.dispose(),
-        ),
-        Provider<DateTimeService>(
-          create: (_) => DateTimeService(),
-          dispose: (_, service) => service.dispose(),
-        ),
-        Provider<LocaleService>(
-          create: (_) => LocaleService(),
-          dispose: (_, service) => service.dispose(),
-        ),
-        Provider<DisplayService>(
-          create: (_) => DisplayService(),
-          dispose: (_, service) => service.dispose(),
-        ),
-        Provider<XdgAccounts>(
-          create: (_) => XdgAccounts(),
-          dispose: (_, s) => s.dispose(),
-        )
-      ],
-      child: const UbuntuSettingsApp(),
-    ),
+  registerService<BluetoothService>(
+    BluetoothService.new,
+    dispose: (s) => s.dispose(),
   );
+  registerService<HostnameService>(
+    HostnameService.new,
+    dispose: (s) => s.dispose(),
+  );
+  registerService<KeyboardService>(
+    KeyboardMethodChannel.new,
+  );
+  registerService<NetworkManagerClient>(() => networkManagerClient);
+  registerService<PowerProfileService>(
+    PowerProfileService.new,
+    dispose: (s) => s.dispose(),
+  );
+  registerService<PowerSettingsService>(
+    PowerSettingsService.new,
+    dispose: (s) => s.dispose(),
+  );
+  registerService<SettingsService>(
+    SettingsService.new,
+    dispose: (s) => s.dispose(),
+  );
+  registerService<UDisksClient>(
+    UDisksClient.new,
+    dispose: (client) => client.close(),
+  );
+  registerService<UPowerClient>(
+    UPowerClient.new,
+    dispose: (client) => client.close(),
+  );
+  registerService<BlueZClient>(
+    BlueZClient.new,
+    dispose: (client) => client.close(),
+  );
+  registerService<InputSourceService>(InputSourceService.new);
+  registerService<HouseKeepingService>(
+    HouseKeepingService.new,
+    dispose: (s) => s.dispose(),
+  );
+  registerService<DateTimeService>(
+    DateTimeService.new,
+    dispose: (s) => s.dispose(),
+  );
+  registerService<LocaleService>(
+    LocaleService.new,
+    dispose: (s) => s.dispose(),
+  );
+  registerService<DisplayService>(
+    DisplayService.new,
+    dispose: (s) => s.dispose(),
+  );
+  registerService<XdgAccounts>(
+    XdgAccounts.new,
+    dispose: (s) => s.dispose(),
+  );
+
+  runApp(const UbuntuSettingsApp());
 }

@@ -7,14 +7,14 @@ import 'package:settings/view/common/yaru_switch_row.dart';
 import 'package:settings/view/pages/settings_page.dart';
 import 'package:settings/view/pages/sound/sound_model.dart';
 import 'package:settings/view/settings_section.dart';
+import 'package:ubuntu_service/ubuntu_service.dart';
 
 class SoundPage extends StatelessWidget {
   const SoundPage({super.key});
 
   static Widget create(BuildContext context) {
-    final service = Provider.of<SettingsService>(context, listen: false);
     return ChangeNotifierProvider<SoundModel>(
-      create: (_) => SoundModel(service),
+      create: (_) => SoundModel(getService<SettingsService>()),
       child: const SoundPage(),
     );
   }

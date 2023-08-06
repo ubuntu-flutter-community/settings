@@ -6,6 +6,7 @@ import 'package:settings/l10n/l10n.dart';
 import 'package:settings/view/pages/connections/wifi_content.dart';
 import 'package:settings/view/pages/settings_page.dart';
 import 'package:settings/view/tabbed_page.dart';
+import 'package:ubuntu_service/ubuntu_service.dart';
 import 'package:yaru_icons/yaru_icons.dart';
 
 import 'models/wifi_model.dart';
@@ -13,9 +14,8 @@ import 'models/wifi_model.dart';
 class ConnectionsPage extends StatelessWidget {
   const ConnectionsPage({super.key});
   static Widget create(BuildContext context) {
-    final service = Provider.of<NetworkManagerClient>(context, listen: false);
     return ChangeNotifierProvider<WifiModel>(
-      create: (_) => WifiModel(service),
+      create: (_) => WifiModel(getService<NetworkManagerClient>()),
       child: const ConnectionsPage(),
     );
   }

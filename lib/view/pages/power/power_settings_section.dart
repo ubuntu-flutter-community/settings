@@ -13,6 +13,7 @@ import 'package:settings/view/pages/power/power_settings.dart';
 import 'package:settings/view/pages/power/power_settings_dialogs.dart';
 import 'package:settings/view/pages/power/power_settings_model.dart';
 import 'package:settings/view/settings_section.dart';
+import 'package:ubuntu_service/ubuntu_service.dart';
 import 'package:yaru_icons/yaru_icons.dart';
 import 'package:yaru_widgets/yaru_widgets.dart';
 
@@ -22,10 +23,10 @@ class PowerSettingsSection extends StatefulWidget {
   static Widget create(BuildContext context) {
     return ChangeNotifierProvider<SuspendModel>(
       create: (_) => SuspendModel(
-        settings: context.read<SettingsService>(),
-        power: context.read<PowerSettingsService>(),
-        bluetooth: context.read<BluetoothService>(),
-        network: context.read<NetworkManagerClient>(),
+        settings: getService<SettingsService>(),
+        power: getService<PowerSettingsService>(),
+        bluetooth: getService<BluetoothService>(),
+        network: getService<NetworkManagerClient>(),
       ),
       child: const PowerSettingsSection(),
     );

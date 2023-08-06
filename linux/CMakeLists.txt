@@ -7,11 +7,13 @@ project(runner LANGUAGES CXX)
 set(BINARY_NAME "settings")
 # The unique GTK application identifier for this application. See:
 # https://wiki.gnome.org/HowDoI/ChooseApplicationID
-set(APPLICATION_ID "org.ubuntu.settings")
+set(APPLICATION_ID "org.ufc.settings")
 
 # Explicitly opt in to modern CMake behaviors to avoid warnings with recent
 # versions of CMake.
 cmake_policy(SET CMP0063 NEW)
+
+set(USE_LIBHANDY ON)
 
 # Load bundled libraries from the lib/ directory relative to the binary.
 set(CMAKE_INSTALL_RPATH "$ORIGIN/lib")

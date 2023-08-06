@@ -1,0 +1,54 @@
+# Starting Notes:
+# org.ufc.settings should be a working ID
+
+# Interfaces on the desktop that are being read from or written to:
+# gsettings (in the whole app)
+# bluez (bluetooth page)
+# nm (network page)
+# dbus: org.gnome.Mutter.DisplayConfig (Display Page)
+# dbus: org.freedesktop.locale1 (Local Page)
+# org.gnome.SettingsDaemon.Housekeeping (Privacy Page)
+# org.freedesktop.hostname1 (Info Page)
+# org.gnome.SettingsDaemon.Rfkill (Power Page)
+# upower (power page)
+# dbus: org.freedesktop.timedate1 (Time Page)
+# dbus: org.freedesktop.Accounts and org.freedesktop.Accounts.User (Accounts Page, WIP, not yet in master)
+# some day: printers, no idea which interface this is (cups?)
+# some day: org.gnome.Settings.SearchProvider and org.gnome.Shell.SearchProvider2 (search page)
+
+name: settings
+version: git
+summary: System Settings for the Ubuntu Desktop
+description: Control your system with settings-app
+website: https://github.com/ubuntu-flutter-community/settings
+contact: frederik.feichtmeier@gmail.com
+source-code: https://github.com/ubuntu-flutter-community/settings
+icon: snap/gui/settings.png
+
+confinement: strict
+base: core22
+grade: stable
+license: GPL-3.0+
+
+architectures:
+  - build-on: amd64
+  - build-on: arm64
+
+apps:
+  settings:
+    command: settings
+    extensions: [gnome]
+    plugs:
+      - network
+      - bluez
+      - audio-playback
+      - network-manager-observe
+      - home
+      - removable-media
+
+parts:
+  settings:
+    source: .
+    source-type: git
+    plugin: flutter
+    flutter-target: lib/main.dart

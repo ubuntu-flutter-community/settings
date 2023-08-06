@@ -7,6 +7,7 @@ import 'package:settings/view/pages/power/power_profile_model.dart';
 import 'package:settings/view/pages/power/power_profile_widgets.dart';
 import 'package:settings/view/pages/power/power_profile_x.dart';
 import 'package:settings/view/settings_section.dart';
+import 'package:ubuntu_service/ubuntu_service.dart';
 import 'package:yaru_widgets/yaru_widgets.dart';
 
 class PowerProfileSection extends StatefulWidget {
@@ -14,7 +15,7 @@ class PowerProfileSection extends StatefulWidget {
 
   static Widget create(BuildContext context) {
     return ChangeNotifierProvider<PowerProfileModel>(
-      create: (_) => PowerProfileModel(context.read<PowerProfileService>()),
+      create: (_) => PowerProfileModel(getService<PowerProfileService>()),
       child: const PowerProfileSection(),
     );
   }
