@@ -1,12 +1,13 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:settings/constants.dart';
 import 'package:settings/l10n/l10n.dart';
+import 'package:settings/view/common/yaru_switch_row.dart';
 import 'package:settings/view/pages/accounts/accounts_model.dart';
 import 'package:settings/view/pages/accounts/user_model.dart';
+import 'package:settings/view/pages/privacy/house_keeping_page.dart';
 import 'package:settings/view/pages/settings_page.dart';
+import 'package:ubuntu_service/ubuntu_service.dart';
 import 'package:xdg_accounts/xdg_accounts.dart';
 import 'package:yaru_icons/yaru_icons.dart';
 import 'package:yaru_widgets/yaru_widgets.dart';
@@ -16,7 +17,7 @@ class AccountsPage extends StatelessWidget {
 
   static Widget create(BuildContext context) =>
       ChangeNotifierProvider<AccountsModel>(
-        create: (context) => AccountsModel(context.read<XdgAccounts>())..init(),
+        create: (context) => AccountsModel(getService<XdgAccounts>())..init(),
         child: const AccountsPage(),
       );
 
@@ -55,7 +56,14 @@ class AccountsPage extends StatelessWidget {
                   ),
                 ),
                 for (final user in model.users ?? <XdgUser>[])
-                  _UserTile.create(context: context, user: user)
+                  _UserTile.create(
+                    context: context,
+                    user: user,
+                    deleteUser: model.deleteUser,
+                    init: () async {
+                      await Future.delayed(const Duration(seconds: 1));
+                    },
+                  )
               ],
             ),
           ),
@@ -77,6 +85,7 @@ class _AddUserDialogState extends State<_AddUserDialog> {
   late TextEditingController _fullNameController;
   late TextEditingController _passwordController;
   late TextEditingController _passwordHintController;
+  XdgAccountType _accountType = XdgAccountType.user;
 
   @override
   void initState() {
@@ -99,8 +108,9 @@ class _AddUserDialogState extends State<_AddUserDialog> {
   @override
   Widget build(BuildContext context) {
     final model = context.watch<AccountsModel>();
+
     return AlertDialog(
-      title: const YaruTitleBar(
+      title: const YaruDialogTitleBar(
         title: Text('Add User'),
       ),
       titlePadding: EdgeInsets.zero,
@@ -108,6 +118,20 @@ class _AddUserDialogState extends State<_AddUserDialog> {
       content: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
+          SizedBox(
+            width: 350,
+            child: YaruSwitchRow(
+              value: _accountType == XdgAccountType.admin,
+              onChanged: (value) => setState(() {
+                _accountType =
+                    value ? XdgAccountType.admin : XdgAccountType.user;
+              }),
+              trailingWidget: const Text('Admin'), // TODO: localize
+            ),
+          ),
+          const SizedBox(
+            height: kYaruPagePadding,
+          ),
           TextField(
             controller: _usernameController,
             decoration: const InputDecoration(labelText: 'username'),
@@ -141,13 +165,15 @@ class _AddUserDialogState extends State<_AddUserDialog> {
         ElevatedButton(
           onPressed: () => model
               .addUser(
-                name: _usernameController.text,
-                fullname: _fullNameController.text,
-                accountType: 0,
-                password: _passwordController.text,
-                passwordHint: _passwordHintController.text,
-              )
-              .then((_) => Navigator.pop(context)),
+            name: _usernameController.text,
+            fullname: _fullNameController.text,
+            accountType: _accountType.index,
+            password: _passwordController.text,
+            passwordHint: _passwordHintController.text,
+          )
+              .then((_) {
+            model.init().then((value) => Navigator.pop(context));
+          }),
           child: Text(context.l10n.confirm),
         )
       ],
@@ -156,39 +182,92 @@ class _AddUserDialogState extends State<_AddUserDialog> {
 }
 
 class _UserTile extends StatelessWidget {
-  const _UserTile();
+  const _UserTile({required this.deleteUser, required this.init});
 
-  static Widget create({required BuildContext context, required XdgUser user}) {
+  final Future<void> Function({
+    required int id,
+    required String name,
+    required bool removeFiles,
+  }) deleteUser;
+  final Future<void> Function() init;
+
+  static Widget create({
+    required BuildContext context,
+    required XdgUser user,
+    required Future<void> Function({
+      required int id,
+      required String name,
+      required bool removeFiles,
+    }) deleteUser,
+    required final Future<void> Function() init,
+  }) {
     return ChangeNotifierProvider<UserModel>(
       create: (context) => UserModel(user)..init(),
-      child: const _UserTile(),
+      child: _UserTile(
+        deleteUser: deleteUser,
+        init: init,
+      ),
     );
   }
 
   @override
   Widget build(BuildContext context) {
     final model = context.watch<UserModel>();
+    final theme = Theme.of(context);
 
     return YaruTile(
       leading: model.iconFile != null
           ? CircleAvatar(
               radius: 20,
-              backgroundImage: FileImage(File(model.iconFile!)),
+              backgroundImage: FileImage(model.iconFile!),
             )
-          : null,
+          : CircleAvatar(
+              radius: 20,
+              backgroundColor: theme.colorScheme.inverseSurface,
+              child: Center(
+                child: Text(
+                  model.userName?.substring(0, 1) ?? '',
+                  style: TextStyle(
+                    fontSize: 20,
+                    color: theme.colorScheme.onInverseSurface,
+                  ),
+                ),
+              ),
+            ),
       title: Text(model.userName ?? ''),
       subtitle: Text(
-        model.accountType ?? '',
+        model.accountType?.name ?? '',
       ),
-      trailing: YaruIconButton(
-        icon: const Icon(YaruIcons.pen),
-        onPressed: () => showDialog(
-          context: context,
-          builder: (context) => ChangeNotifierProvider<UserModel>.value(
-            value: model,
-            child: const _EditUserDialog(),
+      trailing: Row(
+        children: [
+          YaruIconButton(
+            icon: const Icon(YaruIcons.pen),
+            onPressed: () => showDialog(
+              context: context,
+              builder: (context) => ChangeNotifierProvider<UserModel>.value(
+                value: model,
+                child: const _EditUserDialog(),
+              ),
+            ),
           ),
-        ),
+          if (model.id != null || model.userName == null)
+            YaruIconButton(
+              icon: const Icon(YaruIcons.trash),
+              onPressed: () => showDialog(
+                context: context,
+                builder: (context) => ConfirmationDialog(
+                  iconData: YaruIcons.trash,
+                  onConfirm: () => deleteUser(
+                    id: model.id!,
+                    name: model.userName!,
+                    removeFiles: true,
+                  ).then((_) {
+                    init().then((value) => Navigator.pop(context));
+                  }),
+                ),
+              ),
+            ),
+        ],
       ),
     );
   }

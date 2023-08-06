@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:safe_change_notifier/safe_change_notifier.dart';
 import 'package:xdg_accounts/xdg_accounts.dart';
@@ -15,8 +16,24 @@ class UserModel extends SafeChangeNotifier {
     _user.setUserName(value, allowInteractiveAuthorization: true);
   }
 
-  String? get iconFile => _user.iconFile;
-  String? get accountType => _user.accountType?.name;
+  int? get id => _user.uid;
+
+  File? get iconFile {
+    String? iconFile;
+    try {
+      iconFile = _user.iconFile;
+    } on Exception catch (_) {
+      return null;
+    }
+
+    if (iconFile == null || iconFile.endsWith('.face')) {
+      return null;
+    } else {
+      return File(_user.iconFile!.toString());
+    }
+  }
+
+  XdgAccountType? get accountType => _user.accountType;
 
   Future<void> init() async {
     _userNameSub = _user.userNameChanged.listen((event) => notifyListeners());

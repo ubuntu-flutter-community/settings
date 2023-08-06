@@ -31,6 +31,17 @@ class AccountsModel extends SafeChangeNotifier {
     }
   }
 
+  Future<void> deleteUser({
+    required int id,
+    required String name,
+    required bool removeFiles,
+  }) async =>
+      await _xdgAccounts.deleteUser(
+        id: id,
+        name: name,
+        removeFiles: removeFiles,
+      );
+
   Future<void> init() async {
     await _xdgAccounts.init();
     _usersChangedSub = _xdgAccounts.usersChanged.listen((event) {
