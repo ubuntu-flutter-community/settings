@@ -10,6 +10,7 @@ import 'package:settings/view/pages/privacy/screen_saver_model.dart';
 import 'package:settings/view/pages/settings_page.dart';
 import 'package:settings/view/section_description.dart';
 import 'package:settings/view/settings_section.dart';
+import 'package:ubuntu_service/ubuntu_service.dart';
 import 'package:yaru_widgets/yaru_widgets.dart';
 
 class ScreenSaverPage extends StatelessWidget {
@@ -17,7 +18,7 @@ class ScreenSaverPage extends StatelessWidget {
 
   static Widget create(BuildContext context) =>
       ChangeNotifierProvider<ScreenSaverModel>(
-        create: (_) => ScreenSaverModel(context.read<SettingsService>()),
+        create: (_) => ScreenSaverModel(getService<SettingsService>()),
         child: const ScreenSaverPage(),
       );
 

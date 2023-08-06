@@ -5,6 +5,7 @@ import 'package:settings/l10n/l10n.dart';
 import 'package:settings/view/pages/power/battery_model.dart';
 import 'package:settings/view/pages/power/battery_widgets.dart';
 import 'package:settings/view/settings_section.dart';
+import 'package:ubuntu_service/ubuntu_service.dart';
 import 'package:upower/upower.dart';
 import 'package:yaru_colors/yaru_colors.dart';
 import 'package:yaru_widgets/yaru_widgets.dart';
@@ -29,7 +30,7 @@ class _BatterySectionState extends State<BatterySection> {
     super.initState();
 
     final model = context.read<BatteryModel>();
-    model.init(context.read<UPowerClient>());
+    model.init(getService<UPowerClient>());
   }
 
   @override

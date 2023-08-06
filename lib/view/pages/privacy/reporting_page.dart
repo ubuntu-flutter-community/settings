@@ -9,6 +9,7 @@ import 'package:settings/view/pages/privacy/reporting_model.dart';
 import 'package:settings/view/pages/settings_page.dart';
 import 'package:settings/view/section_description.dart';
 import 'package:settings/view/settings_section.dart';
+import 'package:ubuntu_service/ubuntu_service.dart';
 
 const kUbuntuReportingLink = 'https://ubuntu.com/legal/data-privacy';
 
@@ -17,7 +18,7 @@ class ReportingPage extends StatelessWidget {
 
   static Widget create(BuildContext context) => ChangeNotifierProvider(
         create: (_) => ReportingModel(
-          context.read<SettingsService>(),
+          getService<SettingsService>(),
         ),
         child: const ReportingPage(),
       );

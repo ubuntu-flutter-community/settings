@@ -9,6 +9,7 @@ import 'package:settings/view/pages/privacy/location_model.dart';
 import 'package:settings/view/pages/settings_page.dart';
 import 'package:settings/view/section_description.dart';
 import 'package:settings/view/settings_section.dart';
+import 'package:ubuntu_service/ubuntu_service.dart';
 
 const kPrivacyUrl = 'https://location.services.mozilla.com/privacy';
 
@@ -17,7 +18,7 @@ class LocationPage extends StatelessWidget {
 
   static Widget create(BuildContext context) =>
       ChangeNotifierProvider<LocationModel>(
-        create: (_) => LocationModel(context.read<SettingsService>()),
+        create: (_) => LocationModel(getService<SettingsService>()),
         child: const LocationPage(),
       );
 

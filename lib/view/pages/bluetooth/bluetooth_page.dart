@@ -8,6 +8,7 @@ import 'package:settings/view/pages/bluetooth/bluetooth_device_row.dart';
 import 'package:settings/view/pages/bluetooth/bluetooth_model.dart';
 import 'package:settings/view/pages/settings_page.dart';
 import 'package:settings/view/settings_section.dart';
+import 'package:ubuntu_service/ubuntu_service.dart';
 import 'package:yaru_widgets/yaru_widgets.dart';
 
 class BluetoothPage extends StatefulWidget {
@@ -24,7 +25,7 @@ class BluetoothPage extends StatefulWidget {
 
   static Widget create(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (_) => BluetoothModel(context.read<BlueZClient>()),
+      create: (_) => BluetoothModel(getService<BlueZClient>()),
       child: const BluetoothPage(),
     );
   }
