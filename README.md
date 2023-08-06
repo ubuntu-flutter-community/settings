@@ -31,21 +31,8 @@ The following steps are needed to run the app from the source code.
 
 ## Install Flutter
 
-Either with
-
 ```bash
-sudo snap install flutter --classic
-```
-
-Or with
-
-```bash
-sudo apt install git curl cmake meson make clang libgtk-3-dev pkg-config
-mkdir ~/development
-cd ~/development
-git clone https://github.com/flutter/flutter.git -b master
-echo 'export PATH="$PATH:$HOME/development/flutter/bin"' >> ~/.bashrc
-source ~/.bashrc
+sudo apt -y install git curl cmake meson make clang libgtk-3-dev pkg-config && mkdir -p ~/development && cd ~/development && git clone https://github.com/flutter/flutter.git -b stable && echo 'export PATH="$PATH:$HOME/development/flutter/bin"' >> ~/.bashrc && source ~/.bashrc
 ```
 
 # TODO
