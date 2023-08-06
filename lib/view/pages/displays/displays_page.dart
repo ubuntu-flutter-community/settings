@@ -9,6 +9,7 @@ import 'package:settings/view/pages/displays/nightlight_page.dart';
 import 'package:settings/view/pages/displays/widgets/monitor_section.dart';
 import 'package:settings/view/pages/settings_page.dart';
 import 'package:settings/view/tabbed_page.dart';
+import 'package:ubuntu_service/ubuntu_service.dart';
 import 'package:yaru_icons/yaru_icons.dart';
 
 class DisplaysPage extends StatefulWidget {
@@ -19,9 +20,8 @@ class DisplaysPage extends StatefulWidget {
       Text(context.l10n.displaysPageTitle);
 
   static Widget create(BuildContext context) {
-    final service = Provider.of<DisplayService>(context, listen: false);
     return ChangeNotifierProvider(
-      create: (_) => DisplaysModel(service),
+      create: (_) => DisplaysModel(getService<DisplayService>()),
       child: const DisplaysPage._(),
     );
   }

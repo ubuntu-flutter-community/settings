@@ -7,15 +7,15 @@ import 'package:settings/view/common/yaru_slider_row.dart';
 import 'package:settings/view/common/yaru_switch_row.dart';
 import 'package:settings/view/pages/displays/nightlight_model.dart';
 import 'package:settings/view/settings_section.dart';
+import 'package:ubuntu_service/ubuntu_service.dart';
 import 'package:yaru_widgets/yaru_widgets.dart';
 
 class NightlightPage extends StatelessWidget {
   const NightlightPage({super.key});
 
   static Widget create(BuildContext context) {
-    final service = Provider.of<SettingsService>(context, listen: false);
     return ChangeNotifierProvider<NightlightModel>(
-      create: (_) => NightlightModel(service),
+      create: (_) => NightlightModel(getService<SettingsService>()),
       child: const NightlightPage(),
     );
   }
