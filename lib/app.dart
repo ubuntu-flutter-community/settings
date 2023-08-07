@@ -70,9 +70,12 @@ class App extends StatelessWidget {
         paneWidth: 270,
       ),
       length: items.length,
-      tileBuilder: (context, index, selected, availableWidth) => YaruMasterTile(
-        title: items[index].titleBuilder(context),
-        leading: items[index].iconBuilder(context, selected),
+      tileBuilder: (context, index, selected, availableWidth) => IconTheme(
+        data: Theme.of(context).iconTheme.copyWith(size: 21),
+        child: YaruMasterTile(
+          title: items[index].titleBuilder(context),
+          leading: items[index].iconBuilder(context, selected),
+        ),
       ),
       pageBuilder: (context, index) => YaruDetailPage(
         body: items[index].builder(context),
