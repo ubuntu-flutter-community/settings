@@ -4,10 +4,10 @@ import 'package:settings/constants.dart';
 import 'package:settings/schemas/schemas.dart';
 import 'package:settings/services/keyboard_service.dart';
 import 'package:settings/services/settings_service.dart';
+import 'package:settings/view/common/settings_section.dart';
 import 'package:settings/view/pages/keyboard/keyboard_shortcut_row.dart';
 import 'package:settings/view/pages/keyboard/keyboard_shortcuts_model.dart';
 import 'package:settings/view/pages/settings_page.dart';
-import 'package:settings/view/settings_section.dart';
 import 'package:ubuntu_service/ubuntu_service.dart';
 
 class KeyboardShortcutsPage extends StatelessWidget {
