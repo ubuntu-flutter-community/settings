@@ -34,6 +34,7 @@ List<SettingsPageItem> getPageItems(BuildContext context) => [
         builder: ConnectionsPage.create,
         searchMatches: ConnectionsPage.searchMatches,
         title: context.l10n.connectionsPageTitle,
+        hasAppBar: false,
       ),
       SettingsPageItem(
         titleBuilder: BluetoothPage.createTitle,
