@@ -1,17 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:nm/nm.dart';
 import 'package:provider/provider.dart';
-import 'package:settings/constants.dart';
 import 'package:settings/l10n/l10n.dart';
 import 'package:settings/view/pages/connections/wifi_content.dart';
 import 'package:settings/view/pages/settings_page.dart';
-import 'package:settings/view/tabbed_page.dart';
 import 'package:ubuntu_service/ubuntu_service.dart';
 import 'package:yaru_icons/yaru_icons.dart';
+import 'package:yaru_widgets/yaru_widgets.dart';
 
 import 'models/wifi_model.dart';
 
-class ConnectionsPage extends StatelessWidget {
+class ConnectionsPage extends StatefulWidget {
   const ConnectionsPage({super.key});
   static Widget create(BuildContext context) {
     return ChangeNotifierProvider<WifiModel>(
@@ -31,31 +30,88 @@ class ConnectionsPage extends StatelessWidget {
           : false;
 
   @override
+  State<ConnectionsPage> createState() => _ConnectionsPageState();
+}
+
+class _ConnectionsPageState extends State<ConnectionsPage>
+    with SingleTickerProviderStateMixin {
+  @override
   Widget build(BuildContext context) {
     final wifiModel = context.watch<WifiModel>();
-    return TabbedPage(
-      tabIcons: const [
-        Icon(YaruIcons.network_wireless),
-        Icon(YaruIcons.network_wired),
-        Icon(YaruIcons.network_cellular),
-      ],
-      tabTitles: const ['Wi-Fi', 'Ethernet', 'Cellular'],
-      views: [
-        wifiModel.isWifiDeviceAvailable
-            ? const WifiDevicesContent()
-            : const WifiAdaptorNotFound(),
-        const SettingsPage(
+
+    return DefaultTabController(
+      length: 3,
+      child: Scaffold(
+        appBar: YaruWindowTitleBar(
+          centerTitle: true,
+          border: BorderSide.none,
+          backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+          title: const SizedBox(
+            width: 400,
+            child: TabBar(
+              isScrollable: false,
+              tabs: [
+                _Tab(text: 'Wi-Fi', iconData: YaruIcons.network_wireless),
+                _Tab(text: 'Ethernet', iconData: YaruIcons.network_wired),
+                _Tab(
+                  iconData: YaruIcons.network_cellular,
+                  text: 'Cellular',
+                )
+              ],
+            ),
+          ),
+        ),
+        body: TabBarView(
           children: [
-            Text('Ethernet - Please implement 🥲️'),
+            wifiModel.isWifiDeviceAvailable
+                ? const WifiDevicesContent()
+                : const WifiAdaptorNotFound(),
+            const SettingsPage(
+              children: [
+                Text('Ethernet - Please implement 🥲️'),
+              ],
+            ),
+            const SettingsPage(
+              children: [
+                Text('Cellular - Please implement 🥲️'),
+              ],
+            ),
           ],
         ),
-        const SettingsPage(
-          children: [
-            Text('Cellular - Please implement 🥲️'),
-          ],
-        ),
-      ],
-      width: kDefaultWidth,
+      ),
+    );
+  }
+}
+
+class _Tab extends StatelessWidget {
+  const _Tab({
+    required this.text,
+    required this.iconData,
+  });
+
+  final String text;
+  final IconData iconData;
+
+  @override
+  Widget build(BuildContext context) {
+    return Tab(
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Icon(iconData),
+          const SizedBox(
+            width: 5,
+          ),
+          Flexible(
+            child: Text(
+              text,
+              textAlign: TextAlign.center,
+              overflow: TextOverflow.ellipsis,
+            ),
+          )
+        ],
+      ),
     );
   }
 }

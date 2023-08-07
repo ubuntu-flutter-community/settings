@@ -76,13 +76,20 @@ class App extends StatelessWidget {
       ),
       pageBuilder: (context, index) => YaruDetailPage(
         body: items[index].builder(context),
-        appBar: YaruWindowTitleBar(
-          title: items[index].titleBuilder(context),
-          leading:
-              Navigator.of(context).canPop() ? const YaruBackButton() : null,
-        ),
+        appBar: items[index].hasAppBar == false
+            ? null
+            : YaruWindowTitleBar(
+                border: BorderSide.none,
+                backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+                title: items[index].titleBuilder(context),
+                leading: Navigator.of(context).canPop()
+                    ? const YaruBackButton()
+                    : null,
+              ),
       ),
       appBar: YaruWindowTitleBar(
+        border: BorderSide.none,
+        backgroundColor: YaruMasterDetailTheme.of(context).sideBarColor,
         titleSpacing: 0,
         leading: YaruSearchButton(
           onPressed: () => model.setSearchActive(!(searchActive ?? false)),
