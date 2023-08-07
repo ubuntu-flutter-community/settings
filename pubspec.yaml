@@ -46,6 +46,8 @@ dependencies:
   udisks: ^0.4.0
   upower: ^0.7.0
   url_launcher: ^6.0.20
+  xdg_accounts:
+    git: https://github.com/ubuntu-flutter-community/xdg_accounts
   xml: ^6.2.2
   yaru: ^0.10.0
   yaru_colors: ^0.1.6

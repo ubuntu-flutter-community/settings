@@ -82,7 +82,7 @@ class HouseKeepingPage extends StatelessWidget {
               trailing: _TrashButton(
                 onPressed: () => showDialog(
                   context: context,
-                  builder: (context) => _ConfirmationDialog(
+                  builder: (context) => ConfirmationDialog(
                     title: context.l10n.houseKeepingRecentFilesClearAction,
                     iconData: YaruIcons.clock,
                     onConfirm: () {
@@ -144,7 +144,7 @@ class HouseKeepingPage extends StatelessWidget {
               trailing: _TrashButton(
                 onPressed: () => showDialog(
                   context: context,
-                  builder: (context) => _ConfirmationDialog(
+                  builder: (context) => ConfirmationDialog(
                     title: context.l10n.houseKeepingEmptyTrash,
                     iconData: YaruIcons.trash_full,
                     onConfirm: () {
@@ -160,7 +160,7 @@ class HouseKeepingPage extends StatelessWidget {
               trailing: _TrashButton(
                 onPressed: () => showDialog(
                   context: context,
-                  builder: (context) => _ConfirmationDialog(
+                  builder: (context) => ConfirmationDialog(
                     title: context.l10n.houseKeepingRemoveTempFiles,
                     iconData: YaruIcons.document,
                     onConfirm: () {
@@ -178,8 +178,9 @@ class HouseKeepingPage extends StatelessWidget {
   }
 }
 
-class _ConfirmationDialog extends StatefulWidget {
-  const _ConfirmationDialog({
+class ConfirmationDialog extends StatefulWidget {
+  const ConfirmationDialog({
+    super.key,
     this.onConfirm,
     required this.iconData,
     this.title,
@@ -190,10 +191,10 @@ class _ConfirmationDialog extends StatefulWidget {
   final String? title;
 
   @override
-  State<_ConfirmationDialog> createState() => _ConfirmationDialogState();
+  State<ConfirmationDialog> createState() => _ConfirmationDialogState();
 }
 
-class _ConfirmationDialogState extends State<_ConfirmationDialog>
+class _ConfirmationDialogState extends State<ConfirmationDialog>
     with SingleTickerProviderStateMixin {
   late AnimationController controller;
   late Animation sizeAnimation;

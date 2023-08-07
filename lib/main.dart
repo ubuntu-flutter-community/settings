@@ -16,6 +16,7 @@ import 'package:settings/services/settings_service.dart';
 import 'package:ubuntu_service/ubuntu_service.dart';
 import 'package:udisks/udisks.dart';
 import 'package:upower/upower.dart';
+import 'package:xdg_accounts/xdg_accounts.dart';
 import 'package:yaru_widgets/yaru_widgets.dart';
 
 void main() async {
@@ -75,6 +76,10 @@ void main() async {
   );
   registerService<DisplayService>(
     DisplayService.new,
+    dispose: (s) => s.dispose(),
+  );
+  registerService<XdgAccounts>(
+    XdgAccounts.new,
     dispose: (s) => s.dispose(),
   );
 

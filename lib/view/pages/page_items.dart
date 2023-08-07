@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:settings/l10n/l10n.dart';
 import 'package:settings/view/pages/accessibility/accessibility_page.dart';
+import 'package:settings/view/pages/accounts/accounts_page.dart';
 import 'package:settings/view/pages/appearance/appearance_page.dart';
 import 'package:settings/view/pages/apps/apps_page.dart';
 import 'package:settings/view/pages/bluetooth/bluetooth_page.dart';
@@ -23,7 +24,6 @@ import 'package:settings/view/pages/removable_media/removable_media_page.dart';
 import 'package:settings/view/pages/search/search_page.dart';
 import 'package:settings/view/pages/settings_page_item.dart';
 import 'package:settings/view/pages/sound/sound_page.dart';
-import 'package:settings/view/pages/users/users.dart';
 import 'package:settings/view/pages/wallpaper/wallpaper_page.dart';
 import 'package:yaru_icons/yaru_icons.dart';
 
@@ -174,10 +174,10 @@ List<SettingsPageItem> getPageItems(BuildContext context) => [
         title: context.l10n.accessibilityPageTitle,
       ),
       SettingsPageItem(
-        titleBuilder: UsersPage.createTitle,
+        titleBuilder: AccountsPage.createTitle,
         iconBuilder: (context, selected) => const Icon(YaruIcons.users),
-        builder: UsersPage.create,
-        searchMatches: UsersPage.searchMatches,
+        builder: AccountsPage.create,
+        searchMatches: AccountsPage.searchMatches,
         title: context.l10n.usersPageTitle,
       ),
       SettingsPageItem(
