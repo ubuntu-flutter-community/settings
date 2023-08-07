@@ -63,6 +63,7 @@ List<SettingsPageItem> getPageItems(BuildContext context) => [
         searchMatches: PrivacyPage.searchMatches,
         iconBuilder: (context, selected) => const Icon(YaruIcons.lock),
         title: context.l10n.privacyPageTitle,
+        hasAppBar: false,
       ),
       SettingsPageItem(
         titleBuilder: MultiTaskingPage.createTitle,
@@ -120,6 +121,7 @@ List<SettingsPageItem> getPageItems(BuildContext context) => [
         builder: DisplaysPage.create,
         searchMatches: DisplaysPage.searchMatches,
         title: context.l10n.displaysPageTitle,
+        hasAppBar: false,
       ),
       SettingsPageItem(
         titleBuilder: MouseAndTouchpadPage.createTitle,
@@ -134,6 +136,7 @@ List<SettingsPageItem> getPageItems(BuildContext context) => [
         builder: KeyboardPage.create,
         searchMatches: KeyboardPage.searchMatches,
         title: context.l10n.keyboardPageTitle,
+        hasAppBar: false,
       ),
       SettingsPageItem(
         titleBuilder: (context) => const Text('Printers'),

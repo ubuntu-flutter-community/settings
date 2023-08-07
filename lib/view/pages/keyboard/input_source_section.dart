@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:settings/constants.dart';
+import 'package:settings/view/common/settings_section.dart';
 import 'package:settings/view/pages/keyboard/input_source_model.dart';
-import 'package:settings/view/settings_section.dart';
 import 'package:yaru_widgets/yaru_widgets.dart';
 
 class InputSourceSection extends StatelessWidget {
