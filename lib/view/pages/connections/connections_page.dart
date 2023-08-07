@@ -54,11 +54,17 @@ class _ConnectionsPageState extends State<ConnectionsPage> {
               child: TabBar(
                 tabs: [
                   TitleBarTab(
-                      text: 'Wi-Fi', iconData: YaruIcons.network_wireless,),
+                    text: 'Wi-Fi',
+                    iconData: YaruIcons.network_wireless,
+                  ),
                   TitleBarTab(
-                      text: 'Ethernet', iconData: YaruIcons.network_wired,),
+                    text: 'Ethernet',
+                    iconData: YaruIcons.network_wired,
+                  ),
                   TitleBarTab(
-                      iconData: YaruIcons.network_cellular, text: 'Cellular',)
+                    iconData: YaruIcons.network_cellular,
+                    text: 'Cellular',
+                  )
                 ],
               ),
             ),

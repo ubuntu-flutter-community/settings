@@ -46,14 +46,18 @@ class _KeyboardPageState extends State<KeyboardPage>
           backgroundColor: Theme.of(context).scaffoldBackgroundColor,
           title: const SizedBox(
             width: 400,
-            child: TabBar(tabs: [
-              TitleBarTab(
-                  text: 'Keyboard Settings', iconData: YaruIcons.keyboard,),
-              TitleBarTab(
-                text: 'Keyboard Shortcuts',
-                iconData: YaruIcons.keyboard_shortcuts,
-              ),
-            ],),
+            child: TabBar(
+              tabs: [
+                TitleBarTab(
+                  text: 'Keyboard Settings',
+                  iconData: YaruIcons.keyboard,
+                ),
+                TitleBarTab(
+                  text: 'Keyboard Shortcuts',
+                  iconData: YaruIcons.keyboard_shortcuts,
+                ),
+              ],
+            ),
           ),
         ),
         body: TabBarView(

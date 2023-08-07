@@ -58,8 +58,12 @@ class _DisplaysPageState extends State<DisplaysPage> {
                   padding: const EdgeInsets.only(right: 50),
                   child: TabBar(
                     tabs: DisplaysPageSection.values
-                        .map((e) => TitleBarTab(
-                            text: e.name(context), iconData: e.icon(context),),)
+                        .map(
+                          (e) => TitleBarTab(
+                            text: e.name(context),
+                            iconData: e.icon(context),
+                          ),
+                        )
                         .toList(),
                   ),
                 ),
