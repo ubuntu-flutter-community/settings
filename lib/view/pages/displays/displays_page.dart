@@ -50,22 +50,20 @@ class _DisplaysPageState extends State<DisplaysPage> {
           length: DisplaysPageSection.values.length,
           child: Scaffold(
             appBar: YaruWindowTitleBar(
+              titleSpacing: 0,
               backgroundColor: Theme.of(context).scaffoldBackgroundColor,
               border: BorderSide.none,
               title: SizedBox(
-                width: 350,
-                child: Padding(
-                  padding: const EdgeInsets.only(right: 50),
-                  child: TabBar(
-                    tabs: DisplaysPageSection.values
-                        .map(
-                          (e) => TitleBarTab(
-                            text: e.name(context),
-                            iconData: e.icon(context),
-                          ),
-                        )
-                        .toList(),
-                  ),
+                width: 300,
+                child: TabBar(
+                  tabs: DisplaysPageSection.values
+                      .map(
+                        (e) => TitleBarTab(
+                          text: e.name(context),
+                          iconData: e.icon(context),
+                        ),
+                      )
+                      .toList(),
                 ),
               ),
             ),

@@ -65,7 +65,7 @@ class PrivacyPage extends StatelessWidget {
       length: content.length,
       child: Scaffold(
         appBar: YaruWindowTitleBar(
-          titleSpacing: kYaruPagePadding,
+          titleSpacing: 0,
           backgroundColor: Theme.of(context).scaffoldBackgroundColor,
           border: BorderSide.none,
           title: TabBar(

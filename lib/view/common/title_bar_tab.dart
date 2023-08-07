@@ -17,7 +17,10 @@ class TitleBarTab extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Icon(iconData),
+          Icon(
+            iconData,
+            size: 20,
+          ),
           const SizedBox(
             width: 5,
           ),

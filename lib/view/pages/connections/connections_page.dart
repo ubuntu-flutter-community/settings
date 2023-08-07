@@ -43,30 +43,27 @@ class _ConnectionsPageState extends State<ConnectionsPage> {
       length: 3,
       child: Scaffold(
         appBar: YaruWindowTitleBar(
-          titleSpacing: 0,
+          titleSpacing: 20,
           centerTitle: true,
           border: BorderSide.none,
           backgroundColor: Theme.of(context).scaffoldBackgroundColor,
           title: const SizedBox(
-            width: 450,
-            child: Padding(
-              padding: EdgeInsets.only(right: 50),
-              child: TabBar(
-                tabs: [
-                  TitleBarTab(
-                    text: 'Wi-Fi',
-                    iconData: YaruIcons.network_wireless,
-                  ),
-                  TitleBarTab(
-                    text: 'Ethernet',
-                    iconData: YaruIcons.network_wired,
-                  ),
-                  TitleBarTab(
-                    iconData: YaruIcons.network_cellular,
-                    text: 'Cellular',
-                  )
-                ],
-              ),
+            width: 400,
+            child: TabBar(
+              tabs: [
+                TitleBarTab(
+                  text: 'Wi-Fi',
+                  iconData: YaruIcons.network_wireless,
+                ),
+                TitleBarTab(
+                  text: 'Ethernet',
+                  iconData: YaruIcons.network_wired,
+                ),
+                TitleBarTab(
+                  iconData: YaruIcons.network_cellular,
+                  text: 'Cellular',
+                )
+              ],
             ),
           ),
         ),
