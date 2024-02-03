@@ -80,7 +80,7 @@ class _RegionAndLanguagePageState extends State<RegionAndLanguagePage> {
               ),
             ),
           ],
-        )
+        ),
       ],
     );
   }
@@ -170,7 +170,7 @@ class _LocaleSelectDialogState extends State<_LocaleSelectDialog> {
                 context.l10n.confirm,
               ),
             ),
-          )
+          ),
         ],
       ),
     );

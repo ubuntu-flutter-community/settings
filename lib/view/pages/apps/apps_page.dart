@@ -32,7 +32,7 @@ class AppsPage extends StatelessWidget {
               icon: const Icon(YaruIcons.application_bag),
             ),
           ),
-        )
+        ),
       ],
     );
   }

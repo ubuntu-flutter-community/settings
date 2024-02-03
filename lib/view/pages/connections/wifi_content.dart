@@ -40,7 +40,7 @@ class WifiDevicesContent extends StatelessWidget {
                         .onSurface
                         .withOpacity(0.5),
                   ),
-                )
+                ),
               ],
             ),
             onChanged: wifiModel.toggleWifi,
@@ -74,11 +74,11 @@ class WifiDevicesContent extends StatelessWidget {
                             );
                           }
                         },
-                      )
+                      ),
                   ],
                 );
               },
-            )
+            ),
       ],
     );
   }
@@ -120,7 +120,7 @@ class WifiAdaptorNotFound extends StatelessWidget {
         Text(
           'Make sure you have a Wi-Fi adaptor plugged and turned on',
           style: Theme.of(context).textTheme.bodyMedium,
-        )
+        ),
       ],
     );
   }

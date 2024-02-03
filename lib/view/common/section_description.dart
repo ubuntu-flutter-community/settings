@@ -23,7 +23,7 @@ class SectionDescription extends StatelessWidget {
                 text,
                 style: Theme.of(context).textTheme.bodySmall,
               ),
-            )
+            ),
           ],
         ),
       ),

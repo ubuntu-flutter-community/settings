@@ -1,8 +1,8 @@
-import 'package:flutter/widgets.dart';
+import 'package:flutter/material.dart';
 import 'package:settings/l10n/l10n.dart';
 import 'package:settings/services/power_profile_service.dart';
 import 'package:settings/utils.dart';
-import 'package:yaru_colors/yaru_colors.dart';
+import 'package:yaru/yaru.dart';
 import 'package:yaru_icons/yaru_icons.dart';
 
 extension PowerProfileX on PowerProfile {
@@ -39,14 +39,17 @@ extension PowerProfileX on PowerProfile {
     }
   }
 
-  Color getColor(bool light) {
+  Color getColor(ThemeData theme) {
+    final light = theme.brightness == Brightness.light;
     switch (this) {
       case PowerProfile.performance:
         return light ? YaruColors.red : lighten(YaruColors.red, 30);
       case PowerProfile.balanced:
         return light ? YaruColors.inkstone : YaruColors.porcelain;
       case PowerProfile.powerSaver:
-        return light ? YaruColors.success : lighten(YaruColors.success, 30);
+        return light
+            ? theme.colorScheme.success
+            : lighten(theme.colorScheme.success, 30);
     }
   }
 }

@@ -39,9 +39,9 @@ class InputSourceSection extends StatelessWidget {
                 groupValue: inputSourceModel.perWindow,
                 onChanged: (_) => inputSourceModel.perWindow = true,
               ),
-            )
+            ),
           ],
-        )
+        ),
       ],
     );
   }

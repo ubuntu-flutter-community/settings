@@ -54,7 +54,7 @@ class DisplaysModel extends SafeChangeNotifier {
 extension DisplayModelSetters on DisplaysModel {
   void setResolution(int index, String resolution) {
     final configurations = <DisplayMonitorConfiguration>[
-      ..._currentNotifier.value!.configurations
+      ..._currentNotifier.value!.configurations,
     ];
 
     final configurationMonitorUpdate = configurations.removeAt(index);
@@ -93,7 +93,7 @@ extension DisplayModelSetters on DisplaysModel {
     }
 
     final configurations = <DisplayMonitorConfiguration>[
-      ..._currentNotifier.value!.configurations
+      ..._currentNotifier.value!.configurations,
     ];
     final configurationMonitorUpdate = configurations.removeAt(index);
 
@@ -110,7 +110,7 @@ extension DisplayModelSetters on DisplaysModel {
 
   void setOrientation(int index, LogicalMonitorOrientation orientation) {
     final configurations = <DisplayMonitorConfiguration>[
-      ..._currentNotifier.value!.configurations
+      ..._currentNotifier.value!.configurations,
     ];
     final configurationMonitorUpdate = configurations.removeAt(index);
 
@@ -126,7 +126,7 @@ extension DisplayModelSetters on DisplaysModel {
 
   void setScale(int index, double scale) {
     final configurations = <DisplayMonitorConfiguration>[
-      ..._currentNotifier.value!.configurations
+      ..._currentNotifier.value!.configurations,
     ];
     final configurationMonitorUpdate = configurations.removeAt(index);
 

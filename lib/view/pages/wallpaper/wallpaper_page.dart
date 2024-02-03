@@ -64,7 +64,7 @@ class WallpaperPage extends StatelessWidget {
                           value: mode,
                           onTap: () => model.setWallpaperMode(mode),
                           child: Text(mode.localize(context.l10n)),
-                        )
+                        ),
                     ];
                   },
                   child: Text(model.wallpaperMode.localize(context.l10n)),
@@ -138,7 +138,7 @@ class WallpaperPage extends StatelessWidget {
                             child: Text(
                               provider.localize(context.l10n),
                             ),
-                          )
+                          ),
                       ];
                     },
                     child: Text(
@@ -251,7 +251,7 @@ class _AddWallpaperTile extends StatelessWidget {
               const XTypeGroup(
                 label: 'images',
                 extensions: <String>['jpg', 'png'],
-              )
+              ),
             ],
           );
           if (null != picPath) {
@@ -333,7 +333,7 @@ class _WallpaperGridState extends State<_WallpaperGrid> {
               ChangeNotifierProvider.value(
                 value: model,
                 child: const _AddWallpaperTile(),
-              )
+              ),
           ] +
           widget.data
               .map(

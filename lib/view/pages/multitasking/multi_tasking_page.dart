@@ -100,7 +100,7 @@ class MultiTaskingPage extends StatelessWidget {
                   ),
                 ),
               ],
-            )
+            ),
           ],
         ),
         SettingsSection(
@@ -148,7 +148,7 @@ class MultiTaskingPage extends StatelessWidget {
                   onChanged: (value) => model.numWorkspaces = value.toInt(),
                 ),
               ),
-            )
+            ),
           ],
         ),
         SettingsSection(
@@ -212,7 +212,7 @@ class MultiTaskingPage extends StatelessWidget {
                 ),
                 height: 60,
               ),
-            )
+            ),
           ],
         ),
         SettingsSection(

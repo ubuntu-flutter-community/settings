@@ -54,7 +54,7 @@ class KeyboardShortcutsPage extends StatelessWidget {
               ),
             ],
           ),
-        )
+        ),
       ],
     );
   }

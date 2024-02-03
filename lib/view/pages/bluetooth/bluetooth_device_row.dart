@@ -162,7 +162,7 @@ class _BluetoothDeviceDialog extends StatelessWidget {
           Text(
             model.errorMessage,
             style: TextStyle(color: Theme.of(context).colorScheme.error),
-          )
+          ),
       ],
     );
   }

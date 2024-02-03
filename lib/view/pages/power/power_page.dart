@@ -29,7 +29,7 @@ class PowerPage extends StatelessWidget {
         PowerProfileSection.create(context),
         PowerSettingsSection.create(context),
         SuspendSection.create(context),
-        LidCloseSection.create(context)
+        LidCloseSection.create(context),
       ],
     );
   }

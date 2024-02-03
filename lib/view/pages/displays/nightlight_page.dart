@@ -63,7 +63,7 @@ class NightlightPage extends StatelessWidget {
               ),
               const TimeSelector(
                 isFrom: false,
-              )
+              ),
             ],
           ),
         ),

@@ -14,6 +14,7 @@ class ProfileModeTitle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return Padding(
       padding: const EdgeInsets.only(bottom: 5),
       child: Row(
@@ -22,11 +23,10 @@ class ProfileModeTitle extends StatelessWidget {
             padding: const EdgeInsets.only(right: 5),
             child: Icon(
               powerProfile.getIcon(),
-              color: powerProfile
-                  .getColor(Theme.of(context).brightness == Brightness.light),
+              color: powerProfile.getColor(theme),
             ),
           ),
-          title
+          title,
         ],
       ),
     );

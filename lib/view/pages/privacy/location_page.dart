@@ -56,9 +56,9 @@ class LocationPage extends StatelessWidget {
               trailingWidget: Text(context.l10n.locationActionLabel),
               value: model.enabled,
               onChanged: (v) => model.enabled = v,
-            )
+            ),
           ],
-        )
+        ),
       ],
     );
   }

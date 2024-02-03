@@ -63,11 +63,11 @@ class AccountsPage extends StatelessWidget {
                     init: () async {
                       await Future.delayed(const Duration(seconds: 1));
                     },
-                  )
+                  ),
               ],
             ),
           ),
-        )
+        ),
       ],
     );
   }
@@ -158,7 +158,7 @@ class _AddUserDialogState extends State<_AddUserDialog> {
             controller: _passwordHintController,
             obscureText: true,
             decoration: const InputDecoration(labelText: 'Password hint'),
-          )
+          ),
         ],
       ),
       actions: [
@@ -175,7 +175,7 @@ class _AddUserDialogState extends State<_AddUserDialog> {
             model.init().then((value) => Navigator.pop(context));
           }),
           child: Text(context.l10n.confirm),
-        )
+        ),
       ],
     );
   }
@@ -309,7 +309,7 @@ class _EditUserDialogState extends State<_EditUserDialog> {
         TextField(
           controller: userNameController,
           onSubmitted: (value) => model.userName = value,
-        )
+        ),
       ],
     );
   }

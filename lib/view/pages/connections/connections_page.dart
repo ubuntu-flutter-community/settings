@@ -62,7 +62,7 @@ class _ConnectionsPageState extends State<ConnectionsPage> {
                 TitleBarTab(
                   iconData: YaruIcons.network_cellular,
                   text: 'Cellular',
-                )
+                ),
               ],
             ),
           ),
