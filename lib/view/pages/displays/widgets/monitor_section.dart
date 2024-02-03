@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:settings/constants.dart';
 import 'package:settings/l10n/l10n.dart';
+import 'package:settings/view/common/settings_section.dart';
 import 'package:settings/view/common/yaru_switch_row.dart';
 import 'package:settings/view/pages/displays/displays_configuration.dart';
 import 'package:settings/view/pages/displays/displays_model.dart';
-import 'package:settings/view/settings_section.dart';
 import 'package:yaru_widgets/yaru_widgets.dart';
 
 class MonitorSection extends StatelessWidget {
@@ -119,7 +119,7 @@ class MonitorSection extends StatelessWidget {
                         child: Text(
                           'x${config.availableScales[i].toString().replaceAll('.0', '')}',
                         ),
-                      )
+                      ),
                   ],
                   child:
                       Text('x${config.scale.toString().replaceAll('.0', '')}'),

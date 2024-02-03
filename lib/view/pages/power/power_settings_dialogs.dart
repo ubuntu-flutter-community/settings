@@ -2,18 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:settings/constants.dart';
 import 'package:settings/l10n/l10n.dart';
+import 'package:settings/view/common/duration_dropdown_button.dart';
 import 'package:settings/view/common/yaru_switch_row.dart';
-import 'package:settings/view/duration_dropdown_button.dart';
 import 'package:settings/view/pages/power/power_settings.dart';
 import 'package:settings/view/pages/power/power_settings_model.dart';
 import 'package:settings/view/pages/settings_simple_dialog.dart';
+import 'package:ubuntu_service/ubuntu_service.dart';
 import 'package:yaru_icons/yaru_icons.dart';
 
 Future<void> showAutomaticSuspendDialog(BuildContext context) async {
   return showDialog(
     context: context,
     builder: (_) => ChangeNotifierProvider.value(
-      value: context.read<SuspendModel>(),
+      value: getService<SuspendModel>(),
       child: const AutomaticSuspendDialog(),
     ),
   );

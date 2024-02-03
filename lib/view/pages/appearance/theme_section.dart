@@ -3,8 +3,8 @@ import 'package:linux_system_info/linux_system_info.dart';
 import 'package:provider/provider.dart';
 import 'package:settings/constants.dart';
 import 'package:settings/view/app_theme.dart';
+import 'package:settings/view/common/settings_section.dart';
 import 'package:settings/view/common/yaru_switch_row.dart';
-import 'package:settings/view/settings_section.dart';
 import 'package:yaru/yaru.dart';
 import 'package:yaru_icons/yaru_icons.dart';
 import 'package:yaru_widgets/yaru_widgets.dart';
@@ -63,7 +63,7 @@ class _ThemeSectionState extends State<ThemeSection> {
             spacing: 5,
             runSpacing: 5,
             children: [
-              for (var globalTheme in globalThemeList)
+              for (final globalTheme in globalThemeList)
                 YaruColorDisk(
                   onPressed: () {
                     theme.apply(Theme.of(context).brightness, globalTheme);
@@ -72,7 +72,7 @@ class _ThemeSectionState extends State<ThemeSection> {
                   selected: YaruTheme.of(context).variant == globalTheme,
                 ),
             ],
-          )
+          ),
       ],
     );
   }

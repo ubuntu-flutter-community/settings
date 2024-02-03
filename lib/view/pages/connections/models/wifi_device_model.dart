@@ -1,4 +1,8 @@
-part of 'wifi_model.dart';
+import 'package:collection/collection.dart';
+import 'package:flutter/foundation.dart';
+import 'package:nm/nm.dart';
+import 'package:settings/view/pages/connections/models/access_point_model.dart';
+import 'package:settings/view/pages/connections/models/property_stream_notifier.dart';
 
 class WifiDeviceModel extends PropertyStreamNotifier {
   WifiDeviceModel(this._networkManagerDevice) {
@@ -10,6 +14,7 @@ class WifiDeviceModel extends PropertyStreamNotifier {
     addPropertyListener('LastScan', notifyListeners);
   }
   final NetworkManagerDevice _networkManagerDevice;
+  NetworkManagerDevice get networkManagerDevice => _networkManagerDevice;
   late final NetworkManagerDeviceWireless _networkManagerDeviceWireless;
 
   List<AccessPointModel> get accesPoints {

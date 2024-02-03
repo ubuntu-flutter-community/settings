@@ -4,11 +4,11 @@ import 'package:provider/provider.dart';
 import 'package:settings/constants.dart';
 import 'package:settings/l10n/l10n.dart';
 import 'package:settings/utils.dart';
+import 'package:settings/view/common/selectable_svg_image.dart';
+import 'package:settings/view/common/settings_section.dart';
 import 'package:settings/view/common/yaru_slider_row.dart';
 import 'package:settings/view/common/yaru_switch_row.dart';
 import 'package:settings/view/pages/appearance/dock_model.dart';
-import 'package:settings/view/selectable_svg_image.dart';
-import 'package:settings/view/settings_section.dart';
 import 'package:yaru_widgets/yaru_widgets.dart';
 
 class DockSection extends StatelessWidget {
@@ -154,7 +154,7 @@ class DockSection extends StatelessWidget {
                     ),
                   ),
                 ],
-              )
+              ),
             ],
           ),
           SettingsSection(
@@ -184,7 +184,7 @@ class DockSection extends StatelessWidget {
                       ),
                       height: assetHeight,
                     ),
-                  )
+                  ),
                 ],
               ),
               YaruSwitchRow(

@@ -42,7 +42,7 @@ class ColorShadingOptionRow extends StatelessWidget {
                       value: type,
                       onTap: () => model.colorShadingType = type,
                       child: Text(type.localize(context.l10n)),
-                    )
+                    ),
                 ];
               },
             ),
@@ -82,7 +82,7 @@ class ColorShadingOptionRow extends StatelessWidget {
         if (primary)
           {model.primaryColor = '#${color.hex}'}
         else
-          {model.secondaryColor = '#${color.hex}'}
+          {model.secondaryColor = '#${color.hex}'},
       },
       width: 40,
       height: 40,

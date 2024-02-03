@@ -1,9 +1,10 @@
 import 'dart:async';
 
 import 'package:flutter/foundation.dart';
+import 'package:safe_change_notifier/safe_change_notifier.dart';
 
 /// Listens and notifies a stream of property changes.
-class PropertyStreamNotifier extends ChangeNotifier {
+class PropertyStreamNotifier extends SafeChangeNotifier {
   final _callbacks = <String, VoidCallback>{};
   final _subscriptions = <StreamSubscription<List<String>>>[];
 

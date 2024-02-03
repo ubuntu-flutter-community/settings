@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Name=Ubuntu Settings
+Comment=System Settings
+Keywords=Settings;
+Exec=/home/frederik/Projects/settings/build/linux/x64/release/bundle/settings
+Icon=system-settings
+Terminal=false
+Categories=Settings; 

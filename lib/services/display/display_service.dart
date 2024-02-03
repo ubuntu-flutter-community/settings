@@ -89,8 +89,8 @@ class DisplayService {
                 displayConfig.identity(i).connector,
               ), // maybe monitorId ?
               DBusString(confMonitor.monitorModeId), // option selected
-              DBusDict.stringVariant({})
-            ])
+              DBusDict.stringVariant({}),
+            ]),
           ]),
         ]),
       );

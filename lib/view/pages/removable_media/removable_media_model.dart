@@ -47,7 +47,7 @@ class RemovableMediaModel extends SafeChangeNotifier {
     'x-content/video-hddvd': 'Video HD DVD',
     'x-content/video-svcd': 'Video SV CD',
     'x-content/video-vcd': 'Video V CD',
-    'x-content/win32-software': 'Windows Software'
+    'x-content/win32-software': 'Windows Software',
   };
 
   final Settings? _removableMediaSettings;

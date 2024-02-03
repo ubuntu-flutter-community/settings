@@ -11,6 +11,7 @@ import 'package:settings/utils.dart';
 import 'package:settings/view/pages/settings_page.dart';
 import 'package:settings/view/pages/wallpaper/color_shading_option_row.dart';
 import 'package:settings/view/pages/wallpaper/wallpaper_model.dart';
+import 'package:ubuntu_service/ubuntu_service.dart';
 import 'package:yaru_icons/yaru_icons.dart';
 import 'package:yaru_widgets/yaru_widgets.dart';
 
@@ -26,16 +27,14 @@ class WallpaperPage extends StatelessWidget {
               .contains(value.toLowerCase())
           : false;
 
-  static Widget create(BuildContext context) {
-    final settingsService =
-        Provider.of<SettingsService>(context, listen: false);
-    final displayService = Provider.of<DisplayService>(context, listen: false);
-
-    return ChangeNotifierProvider<WallpaperModel>(
-      create: (_) => WallpaperModel(settingsService, displayService),
-      child: const WallpaperPage(),
-    );
-  }
+  static Widget create(BuildContext context) =>
+      ChangeNotifierProvider<WallpaperModel>(
+        create: (_) => WallpaperModel(
+          getService<SettingsService>(),
+          getService<DisplayService>(),
+        ),
+        child: const WallpaperPage(),
+      );
 
   @override
   Widget build(BuildContext context) {
@@ -65,7 +64,7 @@ class WallpaperPage extends StatelessWidget {
                           value: mode,
                           onTap: () => model.setWallpaperMode(mode),
                           child: Text(mode.localize(context.l10n)),
-                        )
+                        ),
                     ];
                   },
                   child: Text(model.wallpaperMode.localize(context.l10n)),
@@ -139,7 +138,7 @@ class WallpaperPage extends StatelessWidget {
                             child: Text(
                               provider.localize(context.l10n),
                             ),
-                          )
+                          ),
                       ];
                     },
                     child: Text(
@@ -252,7 +251,7 @@ class _AddWallpaperTile extends StatelessWidget {
               const XTypeGroup(
                 label: 'images',
                 extensions: <String>['jpg', 'png'],
-              )
+              ),
             ],
           );
           if (null != picPath) {
@@ -334,7 +333,7 @@ class _WallpaperGridState extends State<_WallpaperGrid> {
               ChangeNotifierProvider.value(
                 value: model,
                 child: const _AddWallpaperTile(),
-              )
+              ),
           ] +
           widget.data
               .map(

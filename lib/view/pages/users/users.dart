@@ -21,7 +21,7 @@ class UsersPage extends StatelessWidget {
       children: [
         Center(
           child: Text(context.l10n.usersPageTitle),
-        )
+        ),
       ],
     );
   }

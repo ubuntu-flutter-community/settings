@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:linux_datetime_service/linux_datetime.dart';
 import 'package:provider/provider.dart';
 import 'package:settings/constants.dart';
 import 'package:settings/l10n/l10n.dart';
-import 'package:settings/services/date_time_service.dart';
 import 'package:settings/services/settings_service.dart';
+import 'package:settings/view/common/settings_section.dart';
 import 'package:settings/view/common/yaru_switch_row.dart';
 import 'package:settings/view/pages/date_and_time/date_time_model.dart';
 import 'package:settings/view/pages/date_and_time/timezones.dart';
 import 'package:settings/view/pages/settings_alert_dialog.dart';
 import 'package:settings/view/pages/settings_page.dart';
-import 'package:settings/view/settings_section.dart';
+import 'package:ubuntu_service/ubuntu_service.dart';
 import 'package:yaru_widgets/yaru_widgets.dart';
 
 class DateTimePage extends StatefulWidget {
@@ -17,8 +18,8 @@ class DateTimePage extends StatefulWidget {
 
   static Widget create(BuildContext context) => ChangeNotifierProvider(
         create: (_) => DateTimeModel(
-          dateTimeService: context.read<DateTimeService>(),
-          settingsService: context.read<SettingsService>(),
+          dateTimeService: getService<DateTimeService>(),
+          settingsService: getService<SettingsService>(),
         ),
         child: const DateTimePage(),
       );
@@ -104,7 +105,7 @@ class _DateTimePageState extends State<DateTimePage> {
                   style: Theme.of(context).textTheme.displayLarge,
                 ),
               ),
-            )
+            ),
           ],
         ),
         SettingsSection(
@@ -164,7 +165,7 @@ class _TimezoneSelectDialog extends StatelessWidget {
       title: context.l10n.dateAmdTimePageSelectTimezone,
       child: SettingsPage(
         children: [
-          for (var timezone in timezones)
+          for (final timezone in timezones)
             InkWell(
               borderRadius: BorderRadius.circular(6.0),
               onTap: () {
@@ -178,7 +179,7 @@ class _TimezoneSelectDialog extends StatelessWidget {
                 ),
                 trailing: const Text(''),
               ),
-            )
+            ),
         ],
       ),
     );

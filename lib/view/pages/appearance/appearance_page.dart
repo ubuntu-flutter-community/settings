@@ -6,14 +6,14 @@ import 'package:settings/view/pages/appearance/dock_model.dart';
 import 'package:settings/view/pages/appearance/dock_section.dart';
 import 'package:settings/view/pages/appearance/theme_section.dart';
 import 'package:settings/view/pages/settings_page.dart';
+import 'package:ubuntu_service/ubuntu_service.dart';
 
 class AppearancePage extends StatelessWidget {
   const AppearancePage({super.key});
 
   static Widget create(BuildContext context) {
-    final service = Provider.of<SettingsService>(context, listen: false);
     return ChangeNotifierProvider<DockModel>(
-      create: (_) => DockModel(service),
+      create: (_) => DockModel(getService<SettingsService>()),
       child: const AppearancePage(),
     );
   }

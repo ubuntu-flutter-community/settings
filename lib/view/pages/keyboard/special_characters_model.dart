@@ -124,7 +124,7 @@ class SpecialCharactersModel extends SafeChangeNotifier {
     ComposeOptions.caps: 'Caps-Lock-Key',
     ComposeOptions.print: 'Print-Key',
     ComposeOptions.scrollLock: 'Scroll-Lock-Key',
-    ComposeOptions.defaultLayout: 'Default Layout'
+    ComposeOptions.defaultLayout: 'Default Layout',
   };
 
   Future<Lv3Options?> getLv3Options() async {
@@ -148,7 +148,7 @@ class SpecialCharactersModel extends SafeChangeNotifier {
   final lv3OptionsToStringMap = <Lv3Options?, String>{
     null: 'Default Layout',
     Lv3Options.none: 'None',
-    Lv3Options.rightAlt: 'Right Alt-Key'
+    Lv3Options.rightAlt: 'Right Alt-Key',
   };
 
   void setLv3Options(Lv3Options lv3options) async {

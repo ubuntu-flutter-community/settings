@@ -6,18 +6,17 @@ import 'package:settings/services/settings_service.dart';
 import 'package:settings/view/common/yaru_switch_row.dart';
 import 'package:settings/view/pages/removable_media/removable_media_model.dart';
 import 'package:settings/view/pages/settings_page.dart';
+import 'package:ubuntu_service/ubuntu_service.dart';
 import 'package:yaru_widgets/yaru_widgets.dart';
 
 class RemovableMediaPage extends StatelessWidget {
   const RemovableMediaPage({super.key});
 
-  static Widget create(BuildContext context) {
-    final service = Provider.of<SettingsService>(context, listen: false);
-    return ChangeNotifierProvider<RemovableMediaModel>(
-      create: (_) => RemovableMediaModel(service),
-      child: const RemovableMediaPage(),
-    );
-  }
+  static Widget create(BuildContext context) =>
+      ChangeNotifierProvider<RemovableMediaModel>(
+        create: (_) => RemovableMediaModel(getService<SettingsService>()),
+        child: const RemovableMediaPage(),
+      );
 
   static Widget createTitle(BuildContext context) =>
       Text(context.l10n.removableMediaPageTitle);
@@ -47,7 +46,7 @@ class RemovableMediaPage extends StatelessWidget {
           height: 20,
         ),
         if (!model.autoRunNever)
-          for (var mimeType in RemovableMediaModel.mimeTypes.entries)
+          for (final mimeType in RemovableMediaModel.mimeTypes.entries)
             SizedBox(
               width: kDefaultWidth,
               child: YaruTile(
@@ -58,7 +57,7 @@ class RemovableMediaPage extends StatelessWidget {
                   initialValue: model.getMimeTypeBehavior(mimeType.key),
                   itemBuilder: (p0) {
                     return [
-                      for (var behavior in MimeTypeBehavior.values)
+                      for (final behavior in MimeTypeBehavior.values)
                         PopupMenuItem(
                           value: behavior,
                           onTap: () => model.setMimeTypeBehavior(

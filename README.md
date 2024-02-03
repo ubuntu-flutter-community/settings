@@ -1,27 +1,14 @@
-# Unofficial Ubuntu Desktop Settings App made with Flutter - WIP
+# Settings App for the Ubuntu Desktop
 
-The goal of this project is to build a feature complete settings app for the Ubuntu desktop with the Flutter UI toolkit.
+The goal of this project is to build a feature complete settings app for the Ubuntu desktop (GNOME, gtk and gnome-shell) with the Flutter UI toolkit.
 
-![](.github/images/settings.png)
+| Light | Dark
+| - | - |
+| ![](.github/images/light.png) | ![](.github/images/dark.png) |
 
-Mentionable packages that we use and want to thank are:
+# Releases
 
-- [gsettings.dart](https://github.com/canonical/gsettings.dart)
-- [bluez.dart](https://github.com/canonical/bluez.dart)
-- [nm.dart](https://github.com/canonical/nm.dart)
-- [yaru.dart](https://github.com/ubuntu/yaru.dart)
-- [yaru_icons.dart](https://github.com/ubuntu/yaru_icons.dart)
-- [yaru_widgets.dart](https://github.com/ubuntu/yaru_widgets.dart)
-- [dbus.dart](https://github.com/canonical/dbus.dart)
-- [upower.dart](https://github.com/canonical/upower.dart)
-- [udisks.dart](https://github.com/canonical/udisks.dart)
-- [flex_color_picker](https://github.com/rydmike/flex_color_picker)
-
-
-# Alpha Releases / Download
-
-Currently the app is in a very raw alpha state and pages are still missing.
-However if you want you can download, extract and then run alpha releases [from the releases page](https://github.com/Feichtmeier/settings/releases).
+The app will be soon available as a snap.
 
 # Building
 
@@ -29,21 +16,15 @@ The following steps are needed to run the app from the source code.
 
 ## Install Flutter
 
-Either with
-
 ```bash
-sudo snap install flutter --classic
+sudo apt -y install git curl cmake meson make clang libgtk-3-dev pkg-config && mkdir -p ~/development && cd ~/development && git clone https://github.com/flutter/flutter.git -b stable && echo 'export PATH="$PATH:$HOME/development/flutter/bin"' >> ~/.bashrc && source ~/.bashrc
 ```
 
-Or with
+##  Run
 
-```bash
-sudo apt install git curl cmake meson make clang libgtk-3-dev pkg-config
-mkdir ~/development
-cd ~/development
-git clone https://github.com/flutter/flutter.git -b master
-echo 'export PATH="$PATH:$HOME/development/flutter/bin"' >> ~/.bashrc
-source ~/.bashrc
+Run the app with vscode or with
+```dart
+flutter run
 ```
 
 # TODO
@@ -61,7 +42,7 @@ source ~/.bashrc
 - [X] Multi-Tasking page
 - [X] Notifications page
 - [ ] Search page
-- [ ] Apps page
+- [X] Apps page (forward to snap-store)
 - [X] Privacy/Security page - WIP
 - [ ] Online Accounts page
 - [ ] Sound page - WIP    
@@ -79,3 +60,18 @@ source ~/.bashrc
 - [X] Date and time page
 - [ ] Wacom page
 - [X] Info page
+
+## Contributing
+
+This project really needs help to finish the last pages and also in the future when the GNOME desktop changes. Any help is welcome!
+
+
+However for new contributors please follow those rules:
+
+- do not over complicate things
+- stick to the service, viewmodel, view approach
+- as long as we stick to the provider package try to avoid context.watch as much as possible and always prefer context.select
+- as long as we stick to the provider package try to avoid provider calls as much as possible and prefer to forward callbacks and values where you can
+- do not split files with [the part keyword](https://dart.dev/guides/libraries/create-packages#organizing-a-package)
+- do not shadow function definitions with [typedef](https://dart.dev/language/typedefs)
+- use absolute imports

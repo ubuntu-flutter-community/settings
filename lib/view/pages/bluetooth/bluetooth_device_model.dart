@@ -44,7 +44,7 @@ const yaruIcons = <String, IconData>{
   'video-display': YaruIcons.computer,
   'preferences-desktop-keyboard': YaruIcons.keyboard,
   'touchpad-disabled': YaruIcons.touchpad,
-  'thunderbolt': YaruIcons.thunderbolt
+  'thunderbolt': YaruIcons.thunderbolt,
 };
 
 class BluetoothDeviceModel extends SafeChangeNotifier {

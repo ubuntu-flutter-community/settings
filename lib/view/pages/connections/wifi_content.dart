@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:settings/constants.dart';
 import 'package:settings/l10n/l10n.dart';
+import 'package:settings/view/common/settings_section.dart';
 import 'package:settings/view/common/yaru_switch_row.dart';
+import 'package:settings/view/pages/connections/models/access_point_model.dart';
 import 'package:settings/view/pages/settings_page.dart';
-import 'package:settings/view/settings_section.dart';
 import 'package:yaru_icons/yaru_icons.dart';
 
 import 'data/authentication.dart';
@@ -39,7 +40,7 @@ class WifiDevicesContent extends StatelessWidget {
                         .onSurface
                         .withOpacity(0.5),
                   ),
-                )
+                ),
               ],
             ),
             onChanged: wifiModel.toggleWifi,
@@ -73,11 +74,11 @@ class WifiDevicesContent extends StatelessWidget {
                             );
                           }
                         },
-                      )
+                      ),
                   ],
                 );
               },
-            )
+            ),
       ],
     );
   }
@@ -119,7 +120,7 @@ class WifiAdaptorNotFound extends StatelessWidget {
         Text(
           'Make sure you have a Wi-Fi adaptor plugged and turned on',
           style: Theme.of(context).textTheme.bodyMedium,
-        )
+        ),
       ],
     );
   }

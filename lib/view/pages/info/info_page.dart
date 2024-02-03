@@ -6,13 +6,14 @@ import 'package:settings/constants.dart';
 import 'package:settings/l10n/l10n.dart';
 import 'package:settings/services/hostname_service.dart';
 import 'package:settings/services/pdf_service.dart';
+import 'package:settings/view/common/settings_section.dart';
 import 'package:settings/view/common/yaru_single_info_row.dart';
 import 'package:settings/view/pages/settings_page.dart';
 import 'package:settings/view/pages/settings_simple_dialog.dart';
-import 'package:settings/view/settings_section.dart';
+import 'package:ubuntu_service/ubuntu_service.dart';
 import 'package:udisks/udisks.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:yaru_colors/yaru_colors.dart';
+import 'package:yaru/yaru.dart';
 import 'package:yaru_icons/yaru_icons.dart';
 import 'package:yaru_widgets/yaru_widgets.dart';
 
@@ -24,8 +25,8 @@ class InfoPage extends StatefulWidget {
   static Widget create(BuildContext context) {
     return ChangeNotifierProvider<InfoModel>(
       create: (_) => InfoModel(
-        hostnameService: context.read<HostnameService>(),
-        uDisksClient: context.read<UDisksClient>(),
+        hostnameService: getService<HostnameService>(),
+        uDisksClient: getService<UDisksClient>(),
       ),
       child: const InfoPage(),
     );
@@ -101,7 +102,7 @@ class _InfoPageState extends State<InfoPage> {
                   .textTheme
                   .displayMedium!
                   .copyWith(color: Theme.of(context).colorScheme.onSurface),
-            )
+            ),
           ],
         ),
         const SizedBox(height: 50),
@@ -181,7 +182,7 @@ class _InfoPageState extends State<InfoPage> {
                         .showSnackBar(sysInfoSnackBar),
                   );
                 },
-              )
+              ),
             ],
           ),
         ),
@@ -231,7 +232,7 @@ class _Computer extends StatelessWidget {
               ),
             ],
           ),
-        )
+        ),
       ],
     );
   }
@@ -284,9 +285,9 @@ class _HostnameSettingsState extends State<_HostnameSettings> {
             TextButton(
               onPressed: () => model.setHostname(_controller.value.text),
               child: const Text('Rename'),
-            )
+            ),
           ],
-        )
+        ),
       ],
     );
   }

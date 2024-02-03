@@ -4,12 +4,13 @@ import 'package:settings/constants.dart';
 import 'package:settings/l10n/l10n.dart';
 import 'package:settings/services/house_keeping_service.dart';
 import 'package:settings/services/settings_service.dart';
+import 'package:settings/view/common/section_description.dart';
+import 'package:settings/view/common/settings_section.dart';
 import 'package:settings/view/common/yaru_slider_row.dart';
 import 'package:settings/view/common/yaru_switch_row.dart';
 import 'package:settings/view/pages/privacy/privacy_model.dart';
 import 'package:settings/view/pages/settings_page.dart';
-import 'package:settings/view/section_description.dart';
-import 'package:settings/view/settings_section.dart';
+import 'package:ubuntu_service/ubuntu_service.dart';
 import 'package:yaru_icons/yaru_icons.dart';
 import 'package:yaru_widgets/yaru_widgets.dart';
 
@@ -18,8 +19,8 @@ class HouseKeepingPage extends StatelessWidget {
 
   static Widget create(BuildContext context) => ChangeNotifierProvider(
         create: (_) => PrivacyModel(
-          context.read<SettingsService>(),
-          context.read<HouseKeepingService>(),
+          getService<SettingsService>(),
+          getService<HouseKeepingService>(),
         ),
         child: const HouseKeepingPage(),
       );
@@ -81,7 +82,7 @@ class HouseKeepingPage extends StatelessWidget {
               trailing: _TrashButton(
                 onPressed: () => showDialog(
                   context: context,
-                  builder: (context) => _ConfirmationDialog(
+                  builder: (context) => ConfirmationDialog(
                     title: context.l10n.houseKeepingRecentFilesClearAction,
                     iconData: YaruIcons.clock,
                     onConfirm: () {
@@ -91,7 +92,7 @@ class HouseKeepingPage extends StatelessWidget {
                   ),
                 ),
               ),
-            )
+            ),
           ],
         ),
         SettingsSection(
@@ -143,7 +144,7 @@ class HouseKeepingPage extends StatelessWidget {
               trailing: _TrashButton(
                 onPressed: () => showDialog(
                   context: context,
-                  builder: (context) => _ConfirmationDialog(
+                  builder: (context) => ConfirmationDialog(
                     title: context.l10n.houseKeepingEmptyTrash,
                     iconData: YaruIcons.trash_full,
                     onConfirm: () {
@@ -159,7 +160,7 @@ class HouseKeepingPage extends StatelessWidget {
               trailing: _TrashButton(
                 onPressed: () => showDialog(
                   context: context,
-                  builder: (context) => _ConfirmationDialog(
+                  builder: (context) => ConfirmationDialog(
                     title: context.l10n.houseKeepingRemoveTempFiles,
                     iconData: YaruIcons.document,
                     onConfirm: () {
@@ -177,8 +178,9 @@ class HouseKeepingPage extends StatelessWidget {
   }
 }
 
-class _ConfirmationDialog extends StatefulWidget {
-  const _ConfirmationDialog({
+class ConfirmationDialog extends StatefulWidget {
+  const ConfirmationDialog({
+    super.key,
     this.onConfirm,
     required this.iconData,
     this.title,
@@ -189,10 +191,10 @@ class _ConfirmationDialog extends StatefulWidget {
   final String? title;
 
   @override
-  State<_ConfirmationDialog> createState() => _ConfirmationDialogState();
+  State<ConfirmationDialog> createState() => _ConfirmationDialogState();
 }
 
-class _ConfirmationDialogState extends State<_ConfirmationDialog>
+class _ConfirmationDialogState extends State<ConfirmationDialog>
     with SingleTickerProviderStateMixin {
   late AnimationController controller;
   late Animation sizeAnimation;
@@ -258,11 +260,11 @@ class _ConfirmationDialogState extends State<_ConfirmationDialog>
                       context.l10n.confirm,
                     ),
                   ),
-                )
+                ),
               ],
             ),
           ),
-        )
+        ),
       ],
     );
   }

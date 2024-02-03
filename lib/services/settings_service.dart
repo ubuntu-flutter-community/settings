@@ -74,13 +74,13 @@ class Settings {
     }
     _values[key] = value;
     switch (T) {
-      case bool:
+      case const (bool):
         return _settings.set(key, DBusBoolean(value as bool));
-      case int:
+      case const (int):
         return _settings.set(key, DBusInt32(value as int));
-      case double:
+      case const (double):
         return _settings.set(key, DBusDouble(value as double));
-      case String:
+      case const (String):
         return _settings.set(key, DBusString(value as String));
       default:
         break;

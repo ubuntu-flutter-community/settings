@@ -1,10 +1,10 @@
-import 'package:flutter/foundation.dart';
+import 'package:safe_change_notifier/safe_change_notifier.dart';
 import 'package:settings/l10n/l10n.dart';
 import 'package:settings/schemas/schemas.dart';
 import 'package:settings/services/settings_service.dart';
 import 'package:settings/utils.dart';
 
-class AccessibilityModel extends ChangeNotifier {
+class AccessibilityModel extends SafeChangeNotifier {
   AccessibilityModel(SettingsService service)
       : _desktopA11Settings = service.lookup(schemaDesktopA11y),
         _a11yAppsSettings = service.lookup(schemaA11yApps),

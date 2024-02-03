@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:settings/constants.dart';
+import 'package:settings/view/common/settings_section.dart';
 import 'package:settings/view/common/yaru_slider_row.dart';
 import 'package:settings/view/common/yaru_switch_row.dart';
 import 'package:settings/view/pages/mouse_and_touchpad/mouse_and_touchpad_model.dart';
-import 'package:settings/view/settings_section.dart';
 
 class TouchpadSection extends StatelessWidget {
   const TouchpadSection({super.key});

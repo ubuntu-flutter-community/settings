@@ -1,4 +1,6 @@
-part of 'wifi_model.dart';
+import 'package:flutter/foundation.dart';
+import 'package:nm/nm.dart';
+import 'package:settings/view/pages/connections/models/property_stream_notifier.dart';
 
 enum ActiveConnectionState {
   unknown,
@@ -17,6 +19,8 @@ class AccessPointModel extends PropertyStreamNotifier {
     addPropertyListener('Strength', notifyListeners);
   }
   final NetworkManagerAccessPoint _networkManagerAccessPoint;
+  NetworkManagerAccessPoint get networkManagerAccessPoint =>
+      _networkManagerAccessPoint;
   late final NetworkManagerDeviceWireless _networkManagerDeviceWireless;
 
   bool get isActive =>

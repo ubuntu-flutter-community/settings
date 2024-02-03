@@ -1,8 +1,8 @@
-import 'package:flutter/foundation.dart';
+import 'package:safe_change_notifier/safe_change_notifier.dart';
 import 'package:settings/schemas/schemas.dart';
 import 'package:settings/services/settings_service.dart';
 
-class MouseAndTouchpadModel extends ChangeNotifier {
+class MouseAndTouchpadModel extends SafeChangeNotifier {
   MouseAndTouchpadModel(SettingsService service)
       : _peripheralsMouseSettings = service.lookup(schemaPeripheralsMouse),
         _peripheralsTouchpadSettings =

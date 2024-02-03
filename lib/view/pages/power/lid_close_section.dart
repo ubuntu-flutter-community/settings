@@ -3,9 +3,10 @@ import 'package:provider/provider.dart';
 import 'package:settings/constants.dart';
 import 'package:settings/l10n/l10n.dart';
 import 'package:settings/services/settings_service.dart';
+import 'package:settings/view/common/settings_section.dart';
 import 'package:settings/view/pages/power/lid_close_action.dart';
 import 'package:settings/view/pages/power/lid_close_model.dart';
-import 'package:settings/view/settings_section.dart';
+import 'package:ubuntu_service/ubuntu_service.dart';
 import 'package:yaru_widgets/yaru_widgets.dart';
 
 class LidCloseSection extends StatelessWidget {
@@ -13,7 +14,7 @@ class LidCloseSection extends StatelessWidget {
 
   static Widget create(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (_) => LidCloseModel(context.read<SettingsService>()),
+      create: (_) => LidCloseModel(getService<SettingsService>()),
       child: const LidCloseSection(),
     );
   }
@@ -64,7 +65,7 @@ class LidCloseSection extends StatelessWidget {
                   : '',
             ),
           ),
-        )
+        ),
       ],
     );
   }

@@ -6,19 +6,19 @@ import 'package:settings/constants.dart';
 import 'package:settings/l10n/l10n.dart';
 import 'package:settings/services/settings_service.dart';
 import 'package:settings/utils.dart';
+import 'package:settings/view/common/settings_section.dart';
 import 'package:settings/view/common/yaru_switch_row.dart';
 import 'package:settings/view/pages/multitasking/multi_tasking_model.dart';
 import 'package:settings/view/pages/settings_page.dart';
-import 'package:settings/view/settings_section.dart';
+import 'package:ubuntu_service/ubuntu_service.dart';
 import 'package:yaru_widgets/yaru_widgets.dart';
 
 class MultiTaskingPage extends StatelessWidget {
   const MultiTaskingPage({super.key});
 
   static Widget create(BuildContext context) {
-    final service = Provider.of<SettingsService>(context, listen: false);
     return ChangeNotifierProvider<MultiTaskingModel>(
-      create: (_) => MultiTaskingModel(service),
+      create: (_) => MultiTaskingModel(getService<SettingsService>()),
       child: const MultiTaskingPage(),
     );
   }
@@ -100,7 +100,7 @@ class MultiTaskingPage extends StatelessWidget {
                   ),
                 ),
               ],
-            )
+            ),
           ],
         ),
         SettingsSection(
@@ -148,7 +148,7 @@ class MultiTaskingPage extends StatelessWidget {
                   onChanged: (value) => model.numWorkspaces = value.toInt(),
                 ),
               ),
-            )
+            ),
           ],
         ),
         SettingsSection(
@@ -212,7 +212,7 @@ class MultiTaskingPage extends StatelessWidget {
                 ),
                 height: 60,
               ),
-            )
+            ),
           ],
         ),
         SettingsSection(

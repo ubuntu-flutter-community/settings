@@ -67,7 +67,7 @@ class SettingsSimpleDialog extends StatelessWidget {
         semanticLabel: semanticLabel,
         alignment: alignment,
         children: [
-          for (var child in children) SizedBox(width: width, child: child)
+          for (final child in children) SizedBox(width: width, child: child),
         ],
       ),
     );
