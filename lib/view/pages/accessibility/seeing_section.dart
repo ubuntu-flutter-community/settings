@@ -281,14 +281,14 @@ class _MagnifierPositionOptions extends StatelessWidget {
               initialValue: model.screenPosition,
               itemBuilder: (_) {
                 return [
-                  for (var item in ScreenPosition.values)
+                  for (final item in ScreenPosition.values)
                     PopupMenuItem(
                       value: item,
                       onTap: !model.screenPartEnabled
                           ? null
                           : () => model.screenPosition = item,
                       child: Text(item.localize(context.l10n)),
-                    )
+                    ),
                 ];
               },
               child: Text(

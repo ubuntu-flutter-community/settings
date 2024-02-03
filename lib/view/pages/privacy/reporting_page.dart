@@ -60,7 +60,7 @@ class ReportingPage extends StatelessWidget {
               onChanged: (value) => model.sendSoftwareUsageStats = value,
             ),
           ],
-        )
+        ),
       ],
     );
   }

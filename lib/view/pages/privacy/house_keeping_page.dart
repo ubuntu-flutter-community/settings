@@ -92,7 +92,7 @@ class HouseKeepingPage extends StatelessWidget {
                   ),
                 ),
               ),
-            )
+            ),
           ],
         ),
         SettingsSection(
@@ -260,11 +260,11 @@ class _ConfirmationDialogState extends State<ConfirmationDialog>
                       context.l10n.confirm,
                     ),
                   ),
-                )
+                ),
               ],
             ),
           ),
-        )
+        ),
       ],
     );
   }

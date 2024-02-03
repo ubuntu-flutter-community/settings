@@ -154,7 +154,7 @@ class DockSection extends StatelessWidget {
                     ),
                   ),
                 ],
-              )
+              ),
             ],
           ),
           SettingsSection(
@@ -184,7 +184,7 @@ class DockSection extends StatelessWidget {
                       ),
                       height: assetHeight,
                     ),
-                  )
+                  ),
                 ],
               ),
               YaruSwitchRow(

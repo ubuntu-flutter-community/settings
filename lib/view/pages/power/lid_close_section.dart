@@ -65,7 +65,7 @@ class LidCloseSection extends StatelessWidget {
                   : '',
             ),
           ),
-        )
+        ),
       ],
     );
   }

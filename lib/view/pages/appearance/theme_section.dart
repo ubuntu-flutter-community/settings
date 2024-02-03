@@ -63,7 +63,7 @@ class _ThemeSectionState extends State<ThemeSection> {
             spacing: 5,
             runSpacing: 5,
             children: [
-              for (var globalTheme in globalThemeList)
+              for (final globalTheme in globalThemeList)
                 YaruColorDisk(
                   onPressed: () {
                     theme.apply(Theme.of(context).brightness, globalTheme);
@@ -72,7 +72,7 @@ class _ThemeSectionState extends State<ThemeSection> {
                   selected: YaruTheme.of(context).variant == globalTheme,
                 ),
             ],
-          )
+          ),
       ],
     );
   }

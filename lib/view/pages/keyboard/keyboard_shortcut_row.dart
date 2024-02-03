@@ -66,7 +66,7 @@ class _KeyboardShortcutRowState extends State<KeyboardShortcutRow> {
         title: Text(widget.label),
         trailing: Row(
           children: [
-            for (var string in shortcut)
+            for (final string in shortcut)
               Card(
                 child: Padding(
                   padding: const EdgeInsets.all(4.0),
@@ -80,7 +80,7 @@ class _KeyboardShortcutRowState extends State<KeyboardShortcutRow> {
                     ),
                   ),
                 ),
-              )
+              ),
           ],
         ),
       ),
@@ -141,7 +141,7 @@ class KeyboardShortcutDialog extends StatelessWidget {
         ElevatedButton(
           child: const Text('Confirm'),
           onPressed: () => Navigator.of(context).pop([processKeys(keys)]),
-        )
+        ),
       ],
     );
   }

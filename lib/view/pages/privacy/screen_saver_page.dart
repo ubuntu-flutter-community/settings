@@ -75,7 +75,7 @@ class ScreenSaverPage extends StatelessWidget {
               onChanged: (v) => model.showOnLockScreen = v,
             ),
           ],
-        )
+        ),
       ],
     );
   }

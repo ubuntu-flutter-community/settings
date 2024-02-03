@@ -44,7 +44,7 @@ class PrivacyPage extends StatelessWidget {
           Padding(
             padding: EdgeInsets.all(8.0),
             child: Text('Thunderbolt - Please implement 🥲️'),
-          )
+          ),
         ],
       ): (YaruIcons.thunderbolt, context.l10n.thunderBoltPageTitle),
       HouseKeepingPage.create(context): (

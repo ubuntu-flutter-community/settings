@@ -105,7 +105,7 @@ class _DateTimePageState extends State<DateTimePage> {
                   style: Theme.of(context).textTheme.displayLarge,
                 ),
               ),
-            )
+            ),
           ],
         ),
         SettingsSection(
@@ -165,7 +165,7 @@ class _TimezoneSelectDialog extends StatelessWidget {
       title: context.l10n.dateAmdTimePageSelectTimezone,
       child: SettingsPage(
         children: [
-          for (var timezone in timezones)
+          for (final timezone in timezones)
             InkWell(
               borderRadius: BorderRadius.circular(6.0),
               onTap: () {
@@ -179,7 +179,7 @@ class _TimezoneSelectDialog extends StatelessWidget {
                 ),
                 trailing: const Text(''),
               ),
-            )
+            ),
         ],
       ),
     );

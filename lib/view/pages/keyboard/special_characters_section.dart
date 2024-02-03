@@ -63,7 +63,7 @@ class SpecialCharactersSection extends StatelessWidget {
               ),
             ),
           ),
-        )
+        ),
       ],
     );
   }

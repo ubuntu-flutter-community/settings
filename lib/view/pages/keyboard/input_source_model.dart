@@ -54,8 +54,8 @@ class InputSourceModel extends SafeChangeNotifier {
     final settings = GSettings(schemaInputSources);
 
     final array = DBusArray(DBusSignature('(ss)'), [
-      for (var inputType in inputTypes ?? [])
-        DBusStruct([const DBusString('xkb'), DBusString(inputType)])
+      for (final inputType in inputTypes ?? [])
+        DBusStruct([const DBusString('xkb'), DBusString(inputType)]),
     ]);
 
     await settings.set(_sourcesKey, array);

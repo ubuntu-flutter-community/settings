@@ -46,7 +46,7 @@ class RemovableMediaPage extends StatelessWidget {
           height: 20,
         ),
         if (!model.autoRunNever)
-          for (var mimeType in RemovableMediaModel.mimeTypes.entries)
+          for (final mimeType in RemovableMediaModel.mimeTypes.entries)
             SizedBox(
               width: kDefaultWidth,
               child: YaruTile(
@@ -57,7 +57,7 @@ class RemovableMediaPage extends StatelessWidget {
                   initialValue: model.getMimeTypeBehavior(mimeType.key),
                   itemBuilder: (p0) {
                     return [
-                      for (var behavior in MimeTypeBehavior.values)
+                      for (final behavior in MimeTypeBehavior.values)
                         PopupMenuItem(
                           value: behavior,
                           onTap: () => model.setMimeTypeBehavior(

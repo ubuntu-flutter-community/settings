@@ -13,7 +13,7 @@ import 'package:settings/view/pages/settings_simple_dialog.dart';
 import 'package:ubuntu_service/ubuntu_service.dart';
 import 'package:udisks/udisks.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:yaru_colors/yaru_colors.dart';
+import 'package:yaru/yaru.dart';
 import 'package:yaru_icons/yaru_icons.dart';
 import 'package:yaru_widgets/yaru_widgets.dart';
 
@@ -102,7 +102,7 @@ class _InfoPageState extends State<InfoPage> {
                   .textTheme
                   .displayMedium!
                   .copyWith(color: Theme.of(context).colorScheme.onSurface),
-            )
+            ),
           ],
         ),
         const SizedBox(height: 50),
@@ -182,7 +182,7 @@ class _InfoPageState extends State<InfoPage> {
                         .showSnackBar(sysInfoSnackBar),
                   );
                 },
-              )
+              ),
             ],
           ),
         ),
@@ -232,7 +232,7 @@ class _Computer extends StatelessWidget {
               ),
             ],
           ),
-        )
+        ),
       ],
     );
   }
@@ -285,9 +285,9 @@ class _HostnameSettingsState extends State<_HostnameSettings> {
             TextButton(
               onPressed: () => model.setHostname(_controller.value.text),
               child: const Text('Rename'),
-            )
+            ),
           ],
-        )
+        ),
       ],
     );
   }

@@ -23,7 +23,7 @@ class DefaultAppsPage extends StatelessWidget {
       children: [
         Center(
           child: Text(context.l10n.defaultAppsPageTitle),
-        )
+        ),
       ],
     );
   }
