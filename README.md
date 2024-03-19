@@ -64,14 +64,3 @@ flutter run
 ## Contributing
 
 This project really needs help to finish the last pages and also in the future when the GNOME desktop changes. Any help is welcome!
-
-
-However for new contributors please follow those rules:
-
-- do not over complicate things
-- stick to the service, viewmodel, view approach
-- as long as we stick to the provider package try to avoid context.watch as much as possible and always prefer context.select
-- as long as we stick to the provider package try to avoid provider calls as much as possible and prefer to forward callbacks and values where you can
-- do not split files with [the part keyword](https://dart.dev/guides/libraries/create-packages#organizing-a-package)
-- do not shadow function definitions with [typedef](https://dart.dev/language/typedefs)
-- use absolute imports
