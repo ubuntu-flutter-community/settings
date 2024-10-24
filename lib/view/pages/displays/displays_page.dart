@@ -37,7 +37,23 @@ class DisplaysPage extends StatefulWidget {
   State<DisplaysPage> createState() => _DisplaysPageState();
 }
 
-class _DisplaysPageState extends State<DisplaysPage> {
+class _DisplaysPageState extends State<DisplaysPage>
+    with SingleTickerProviderStateMixin {
+  late TabController _controller;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller =
+        TabController(length: DisplaysPageSection.values.length, vsync: this);
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     final model = context.watch<DisplaysModel>();
@@ -45,16 +61,19 @@ class _DisplaysPageState extends State<DisplaysPage> {
     return ValueListenableBuilder<DisplaysConfiguration?>(
       valueListenable: model.configuration,
       builder: (context, configurations, _) {
-        return DefaultTabController(
-          length: DisplaysPageSection.values.length,
-          child: Scaffold(
-            appBar: YaruWindowTitleBar(
-              titleSpacing: 0,
-              backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-              border: BorderSide.none,
-              title: SizedBox(
+        return Scaffold(
+          appBar: YaruWindowTitleBar(
+            titleSpacing: 0,
+            backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+            border: BorderSide.none,
+            title: Text(context.l10n.displaysPageTitle),
+          ),
+          body: Column(
+            children: [
+              SizedBox(
                 width: 300,
-                child: TabBar(
+                child: YaruTabBar(
+                  tabController: _controller,
                   tabs: DisplaysPageSection.values
                       .map(
                         (e) => TitleBarTab(
@@ -65,17 +84,20 @@ class _DisplaysPageState extends State<DisplaysPage> {
                       .toList(),
                 ),
               ),
-            ),
-            body: TabBarView(
-              children: DisplaysPageSection.values
-                  .map(
-                    (e) => Padding(
-                      padding: const EdgeInsets.only(top: kYaruPagePadding),
-                      child: _buildPage(e, model, configurations),
-                    ),
-                  )
-                  .toList(),
-            ),
+              Expanded(
+                child: TabBarView(
+                  controller: _controller,
+                  children: DisplaysPageSection.values
+                      .map(
+                        (e) => Padding(
+                          padding: const EdgeInsets.only(top: kYaruPagePadding),
+                          child: _buildPage(e, model, configurations),
+                        ),
+                      )
+                      .toList(),
+                ),
+              ),
+            ],
           ),
         );
       },

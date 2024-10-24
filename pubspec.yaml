@@ -52,7 +52,7 @@ dependencies:
   yaru:
     git:
       url: https://github.com/ubuntu/yaru.dart
-      ref: reorganize
+      ref: ba067738fe0a3887bf788b94295fd70a0e1cf908
 
 dev_dependencies:
   build_runner: ^2.1.2
