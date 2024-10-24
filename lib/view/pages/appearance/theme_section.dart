@@ -6,8 +6,6 @@ import 'package:settings/view/app_theme.dart';
 import 'package:settings/view/common/settings_section.dart';
 import 'package:settings/view/common/yaru_switch_row.dart';
 import 'package:yaru/yaru.dart';
-import 'package:yaru_icons/yaru_icons.dart';
-import 'package:yaru_widgets/yaru_widgets.dart';
 
 class ThemeSection extends StatefulWidget {
   const ThemeSection({super.key});

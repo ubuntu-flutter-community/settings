@@ -1,16 +1,16 @@
 import 'package:safe_change_notifier/safe_change_notifier.dart';
 import 'package:settings/schemas/schemas.dart';
-import 'package:settings/services/settings_service.dart';
+import 'package:yaru/yaru.dart';
 
 const _reportTechnicalProblemsKey = 'report-technical-problems';
 const _sendSoftwareUsageStatsKey = 'send-software-usage-stats';
 
 class ReportingModel extends SafeChangeNotifier {
-  ReportingModel(SettingsService settingsService)
-      : _privacySettings = settingsService.lookup(schemaPrivacy) {
+  ReportingModel(GSettingsService service)
+      : _privacySettings = service.lookup(schemaPrivacy) {
     _privacySettings?.addListener(notifyListeners);
   }
-  final Settings? _privacySettings;
+  final GnomeSettings? _privacySettings;
 
   @override
   void dispose() {

@@ -4,16 +4,16 @@ import 'package:nm/nm.dart';
 import 'package:safe_change_notifier/safe_change_notifier.dart';
 import 'package:settings/services/bluetooth_service.dart';
 import 'package:settings/services/power_settings_service.dart';
-import 'package:settings/services/settings_service.dart';
 import 'package:settings/view/pages/power/power_settings.dart';
+import 'package:yaru/yaru.dart';
 
 const _kDaemonSchema = 'org.gnome.settings-daemon.plugins.power';
 const _kSessionSchema = 'org.gnome.desktop.session';
 
 class SuspendModel extends SafeChangeNotifier {
   SuspendModel({
-    required SettingsService settings,
-    required PowerSettingsService power,
+    required GSettingsService settings,
+    required PowerGSettingsService power,
     required BluetoothService bluetooth,
     required NetworkManagerClient network,
   })  : _daemonSettings = settings.lookup(_kDaemonSchema),
@@ -25,11 +25,11 @@ class SuspendModel extends SafeChangeNotifier {
     _sessionSettings?.addListener(notifyListeners);
   }
 
-  final Settings? _daemonSettings;
-  final Settings? _sessionSettings;
+  final GnomeSettings? _daemonSettings;
+  final GnomeSettings? _sessionSettings;
   final BluetoothService _bluetoothService;
   final NetworkManagerClient _networkManager;
-  final PowerSettingsService _powerService;
+  final PowerGSettingsService _powerService;
   StreamSubscription<bool?>? _airplaneMode;
   StreamSubscription<int?>? _screenBrightness;
   StreamSubscription<int?>? _keyboardBrightness;

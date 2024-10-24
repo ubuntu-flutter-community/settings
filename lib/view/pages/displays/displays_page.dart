@@ -9,9 +9,8 @@ import 'package:settings/view/pages/displays/displays_model.dart';
 import 'package:settings/view/pages/displays/nightlight_page.dart';
 import 'package:settings/view/pages/displays/widgets/monitor_section.dart';
 import 'package:settings/view/pages/settings_page.dart';
-import 'package:ubuntu_service/ubuntu_service.dart';
-import 'package:yaru_icons/yaru_icons.dart';
-import 'package:yaru_widgets/yaru_widgets.dart';
+import 'package:watch_it/watch_it.dart';
+import 'package:yaru/yaru.dart';
 
 class DisplaysPage extends StatefulWidget {
   /// private as we have to pass from create method below
@@ -22,7 +21,7 @@ class DisplaysPage extends StatefulWidget {
 
   static Widget create(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (_) => DisplaysModel(getService<DisplayService>()),
+      create: (_) => DisplaysModel(di<DisplayService>()),
       child: const DisplaysPage._(),
     );
   }

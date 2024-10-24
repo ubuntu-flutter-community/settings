@@ -1,11 +1,11 @@
 import 'package:safe_change_notifier/safe_change_notifier.dart';
 import 'package:settings/l10n/l10n.dart';
 import 'package:settings/schemas/schemas.dart';
-import 'package:settings/services/settings_service.dart';
 import 'package:settings/utils.dart';
+import 'package:yaru/yaru.dart';
 
 class DockModel extends SafeChangeNotifier {
-  DockModel(SettingsService service)
+  DockModel(GSettingsService service)
       : _dashToDockSettings = service.lookup(schemaDashToDock) {
     _dashToDockSettings?.addListener(notifyListeners);
   }
@@ -23,7 +23,7 @@ class DockModel extends SafeChangeNotifier {
     super.dispose();
   }
 
-  final Settings? _dashToDockSettings;
+  final GnomeSettings? _dashToDockSettings;
 
   // Dock section
 

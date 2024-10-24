@@ -3,20 +3,19 @@ import 'package:flutter_spinbox/material.dart';
 import 'package:provider/provider.dart';
 import 'package:settings/constants.dart';
 import 'package:settings/l10n/l10n.dart';
-import 'package:settings/services/settings_service.dart';
 import 'package:settings/view/common/settings_section.dart';
 import 'package:settings/view/common/yaru_slider_row.dart';
 import 'package:settings/view/common/yaru_switch_row.dart';
 import 'package:settings/view/pages/displays/nightlight_model.dart';
-import 'package:ubuntu_service/ubuntu_service.dart';
-import 'package:yaru_widgets/yaru_widgets.dart';
+import 'package:watch_it/watch_it.dart';
+import 'package:yaru/yaru.dart';
 
 class NightlightPage extends StatelessWidget {
   const NightlightPage({super.key});
 
   static Widget create(BuildContext context) {
     return ChangeNotifierProvider<NightlightModel>(
-      create: (_) => NightlightModel(getService<SettingsService>()),
+      create: (_) => NightlightModel(di<GSettingsService>()),
       child: const NightlightPage(),
     );
   }

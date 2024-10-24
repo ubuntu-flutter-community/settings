@@ -6,14 +6,12 @@ import 'package:provider/provider.dart';
 import 'package:settings/constants.dart';
 import 'package:settings/l10n/l10n.dart';
 import 'package:settings/services/display/display_service.dart';
-import 'package:settings/services/settings_service.dart';
 import 'package:settings/utils.dart';
 import 'package:settings/view/pages/settings_page.dart';
 import 'package:settings/view/pages/wallpaper/color_shading_option_row.dart';
 import 'package:settings/view/pages/wallpaper/wallpaper_model.dart';
-import 'package:ubuntu_service/ubuntu_service.dart';
-import 'package:yaru_icons/yaru_icons.dart';
-import 'package:yaru_widgets/yaru_widgets.dart';
+import 'package:watch_it/watch_it.dart';
+import 'package:yaru/yaru.dart';
 
 class WallpaperPage extends StatelessWidget {
   const WallpaperPage({super.key});
@@ -30,8 +28,8 @@ class WallpaperPage extends StatelessWidget {
   static Widget create(BuildContext context) =>
       ChangeNotifierProvider<WallpaperModel>(
         create: (_) => WallpaperModel(
-          getService<SettingsService>(),
-          getService<DisplayService>(),
+          di<GSettingsService>(),
+          di<DisplayService>(),
         ),
         child: const WallpaperPage(),
       );
@@ -39,11 +37,11 @@ class WallpaperPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final model = context.watch<WallpaperModel>();
-
+    final theme = Theme.of(context);
     const headlineInsets =
         EdgeInsets.only(top: 30, left: 10, right: 10, bottom: 10);
 
-    final pictureUri = Theme.of(context).brightness == Brightness.light
+    final pictureUri = theme.brightness == Brightness.light
         ? model.pictureUri
         : model.pictureUriDark;
 
@@ -110,9 +108,9 @@ class WallpaperPage extends StatelessWidget {
                     padding: const EdgeInsets.symmetric(horizontal: 5),
                     child: Text(
                       model.caption,
-                      style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                            fontStyle: FontStyle.italic,
-                          ),
+                      style: theme.textTheme.bodySmall!.copyWith(
+                        fontStyle: FontStyle.italic,
+                      ),
                     ),
                   ),
                 ),
@@ -148,13 +146,13 @@ class WallpaperPage extends StatelessWidget {
                   trailing: YaruOptionButton(
                     onPressed: () async {
                       await model.refreshUrlWallpaper().then((_) {
-                        if (model.errorMessage.isNotEmpty) {
+                        if (model.errorMessage.isNotEmpty && context.mounted) {
                           ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(
                               content: Text(
                                 model.errorMessage,
                                 style: TextStyle(
-                                  color: Theme.of(context).primaryColor,
+                                  color: theme.primaryColor,
                                 ),
                               ),
                             ),
@@ -266,7 +264,7 @@ class _AddWallpaperTile extends StatelessWidget {
         child: Container(
           decoration: BoxDecoration(
             border: Border.all(
-              color: Theme.of(context).colorScheme.onSurface.withOpacity(0.15),
+              color: theme.colorScheme.onSurface.withOpacity(0.15),
             ),
             borderRadius: BorderRadius.circular(8),
           ),
@@ -380,7 +378,7 @@ class _RemoveWallpaperButton extends StatelessWidget {
       child: Container(
         decoration: ShapeDecoration(
           shape: const CircleBorder(),
-          color: Theme.of(context).colorScheme.background.withOpacity(0.9),
+          color: Theme.of(context).colorScheme.surface.withOpacity(0.9),
         ),
         child: InkWell(
           borderRadius: BorderRadius.circular(100),

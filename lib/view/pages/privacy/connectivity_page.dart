@@ -8,13 +8,13 @@ import 'package:settings/view/common/settings_section.dart';
 import 'package:settings/view/common/yaru_switch_row.dart';
 import 'package:settings/view/pages/privacy/connectivity_model.dart';
 import 'package:settings/view/pages/settings_page.dart';
-import 'package:ubuntu_service/ubuntu_service.dart';
+import 'package:watch_it/watch_it.dart';
 
 class ConnectivityPage extends StatefulWidget {
   const ConnectivityPage({super.key});
 
   static Widget create(BuildContext context) => ChangeNotifierProvider(
-        create: (_) => ConnectivityModel(getService<NetworkManagerClient>()),
+        create: (_) => ConnectivityModel(di<NetworkManagerClient>()),
         child: const ConnectivityPage(),
       );
 

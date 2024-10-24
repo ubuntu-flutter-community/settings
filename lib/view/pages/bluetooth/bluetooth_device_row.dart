@@ -4,8 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:settings/l10n/l10n.dart';
 import 'package:settings/view/pages/bluetooth/bluetooth_device_model.dart';
-import 'package:yaru_icons/yaru_icons.dart';
-import 'package:yaru_widgets/yaru_widgets.dart';
+import 'package:yaru/yaru.dart';
 
 class BluetoothDeviceRow extends StatefulWidget {
   const BluetoothDeviceRow({super.key, required this.removeDevice});

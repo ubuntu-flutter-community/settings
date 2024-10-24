@@ -9,8 +9,8 @@ import 'package:safe_change_notifier/safe_change_notifier.dart';
 import 'package:settings/l10n/l10n.dart';
 import 'package:settings/schemas/schemas.dart';
 import 'package:settings/services/display/display_service.dart';
-import 'package:settings/services/settings_service.dart';
 import 'package:settings/view/pages/displays/displays_configuration.dart';
+import 'package:yaru/yaru.dart';
 
 const gnomeWallpaperSuffix = 'file://';
 const _gnomeUserWallpaperLocation = '/.local/share/backgrounds/';
@@ -24,14 +24,14 @@ const _unsplashUrl = 'https://source.unsplash.com/1920x1080/daily';
 
 class WallpaperModel extends SafeChangeNotifier {
   WallpaperModel(
-    SettingsService wallpaperService,
+    GSettingsService wallpaperService,
     DisplayService displayService,
   ) : _wallpaperSettings = wallpaperService.lookup(schemaBackground) {
     _wallpaperSettings?.addListener(notifyListeners);
     _displaysConfigurationSubscription = displayService.monitorStateStream
         .listen((configuration) => _displaysConfiguration = configuration);
   }
-  final Settings? _wallpaperSettings;
+  final GnomeSettings? _wallpaperSettings;
   static const _pictureUriKey = 'picture-uri';
   static const _pictureUriDarkKey = 'picture-uri-dark';
 

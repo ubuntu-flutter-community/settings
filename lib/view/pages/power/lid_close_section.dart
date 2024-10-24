@@ -2,19 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:settings/constants.dart';
 import 'package:settings/l10n/l10n.dart';
-import 'package:settings/services/settings_service.dart';
 import 'package:settings/view/common/settings_section.dart';
 import 'package:settings/view/pages/power/lid_close_action.dart';
 import 'package:settings/view/pages/power/lid_close_model.dart';
-import 'package:ubuntu_service/ubuntu_service.dart';
-import 'package:yaru_widgets/yaru_widgets.dart';
+import 'package:watch_it/watch_it.dart';
+import 'package:yaru/yaru.dart';
 
 class LidCloseSection extends StatelessWidget {
   const LidCloseSection({super.key});
 
   static Widget create(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (_) => LidCloseModel(getService<SettingsService>()),
+      create: (_) => LidCloseModel(di<GSettingsService>()),
       child: const LidCloseSection(),
     );
   }

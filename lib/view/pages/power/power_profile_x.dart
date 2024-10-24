@@ -3,7 +3,6 @@ import 'package:settings/l10n/l10n.dart';
 import 'package:settings/services/power_profile_service.dart';
 import 'package:settings/utils.dart';
 import 'package:yaru/yaru.dart';
-import 'package:yaru_icons/yaru_icons.dart';
 
 extension PowerProfileX on PowerProfile {
   String localize(AppLocalizations l10n) {

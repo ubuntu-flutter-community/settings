@@ -1,9 +1,9 @@
 import 'package:safe_change_notifier/safe_change_notifier.dart';
 import 'package:settings/schemas/schemas.dart';
-import 'package:settings/services/settings_service.dart';
+import 'package:yaru/yaru.dart';
 
 class NotificationsModel extends SafeChangeNotifier {
-  NotificationsModel(SettingsService service)
+  NotificationsModel(GSettingsService service)
       : _notificationSettings = service.lookup(schemaNotifications) {
     _notificationSettings?.addListener(notifyListeners);
   }
@@ -16,7 +16,7 @@ class NotificationsModel extends SafeChangeNotifier {
     super.dispose();
   }
 
-  final Settings? _notificationSettings;
+  final GnomeSettings? _notificationSettings;
 
   // Global section
 
@@ -46,7 +46,7 @@ class NotificationsModel extends SafeChangeNotifier {
 }
 
 class AppNotificationsModel extends SafeChangeNotifier {
-  AppNotificationsModel(this.appId, SettingsService service)
+  AppNotificationsModel(this.appId, GSettingsService service)
       : _appNotificationSettings =
             service.lookup(_appSchemaId, path: _getPath(appId)) {
     _appNotificationSettings?.addListener(notifyListeners);
@@ -61,7 +61,7 @@ class AppNotificationsModel extends SafeChangeNotifier {
   }
 
   final String appId;
-  final Settings? _appNotificationSettings;
+  final GnomeSettings? _appNotificationSettings;
 
   static String _getPath(String appId) {
     return '/${_appSchemaId.replaceAll('.', '/')}/$appId/';

@@ -1,17 +1,17 @@
 import 'package:safe_change_notifier/safe_change_notifier.dart';
 import 'package:settings/schemas/schemas.dart';
-import 'package:settings/services/settings_service.dart';
 import 'package:settings/view/pages/power/lid_close_action.dart';
+import 'package:yaru/yaru.dart';
 
 const _lidCloseBatteryActionKey = 'lid-close-battery-action';
 const _lidCloseAcActionKey = 'lid-close-ac-action';
 
 class LidCloseModel extends SafeChangeNotifier {
-  LidCloseModel(SettingsService settings)
+  LidCloseModel(GSettingsService settings)
       : _daemonSettings = settings.lookup(schemaSettingsDaemonPowerPlugin) {
     _daemonSettings?.addListener(notifyListeners);
   }
-  final Settings? _daemonSettings;
+  final GnomeSettings? _daemonSettings;
 
   @override
   void dispose() {

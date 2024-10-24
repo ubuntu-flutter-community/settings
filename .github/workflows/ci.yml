@@ -10,11 +10,11 @@ on:
   workflow_dispatch:
 
 env:
-  FLUTTER_VERSION: 3.16.x
+  FLUTTER_VERSION: 3.24.3
 
 jobs:
   analyze:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
       - uses: subosito/flutter-action@v2
@@ -24,7 +24,7 @@ jobs:
       - run: flutter analyze
 
   format:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
       - uses: subosito/flutter-action@v2
@@ -33,7 +33,7 @@ jobs:
       - run: dart format --set-exit-if-changed .
 
   linux:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
       - uses: subosito/flutter-action@v2
@@ -47,7 +47,7 @@ jobs:
       - run: flutter build linux -v
 
   test:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
       - uses: subosito/flutter-action@v2

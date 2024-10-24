@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:yaru_widgets/yaru_widgets.dart';
+import 'package:yaru/yaru.dart';
 
 /// Wraps a list of children widget in a [Column], [SingleChildScrollView] and [Padding].
 /// The padding defaults to [kYaruPagePadding]

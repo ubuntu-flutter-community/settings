@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:settings/services/settings_service.dart';
 import 'package:yaru/yaru.dart';
 
 class AppTheme extends ValueNotifier<ThemeMode> {
   AppTheme(this._settings) : super(ThemeMode.system);
 
-  final Settings _settings;
+  final GnomeSettings _settings;
 
   void apply(Brightness brightness, YaruVariant variant) {
     switch (brightness) {

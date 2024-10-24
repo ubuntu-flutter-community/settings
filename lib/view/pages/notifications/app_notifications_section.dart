@@ -1,11 +1,11 @@
 import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 import 'package:settings/constants.dart';
-import 'package:settings/services/settings_service.dart';
 import 'package:settings/view/common/settings_section.dart';
 import 'package:settings/view/common/yaru_switch_row.dart';
 import 'package:settings/view/pages/notifications/notifications_model.dart';
-import 'package:ubuntu_service/ubuntu_service.dart';
+import 'package:watch_it/watch_it.dart';
+import 'package:yaru/yaru.dart';
 
 class AppNotificationsSection extends StatelessWidget {
   const AppNotificationsSection({super.key});
@@ -33,8 +33,7 @@ class AppNotificationsSettingRow extends StatelessWidget {
 
   static Widget create(BuildContext context, {required String appId}) {
     return ChangeNotifierProvider(
-      create: (_) =>
-          AppNotificationsModel(appId, getService<SettingsService>()),
+      create: (_) => AppNotificationsModel(appId, di<GSettingsService>()),
       child: const AppNotificationsSettingRow(),
     );
   }

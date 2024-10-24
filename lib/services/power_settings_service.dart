@@ -9,7 +9,7 @@ const kPowerSettingsInterface = 'org.gnome.SettingsDaemon.Power';
 @visibleForTesting
 const kPowerSettingsPath = '/org/gnome/SettingsDaemon/Power';
 
-class PowerSettingsService {
+class PowerGSettingsService {
   final screen = Brightness('Screen');
   final keyboard = Brightness('Keyboard');
 

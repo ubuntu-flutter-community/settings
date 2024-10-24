@@ -1,9 +1,9 @@
 import 'package:safe_change_notifier/safe_change_notifier.dart';
 import 'package:settings/schemas/schemas.dart';
-import 'package:settings/services/settings_service.dart';
+import 'package:yaru/yaru.dart';
 
 class MultiTaskingModel extends SafeChangeNotifier {
-  MultiTaskingModel(SettingsService service)
+  MultiTaskingModel(GSettingsService service)
       : _multiTaskingSettings = service.lookup(schemaInterface),
         _mutterSettings = service.lookup(schemaMutter),
         _appSwitchSettings = service.lookup(schemaGnomeShellAppSwitcher),
@@ -15,11 +15,11 @@ class MultiTaskingModel extends SafeChangeNotifier {
     _wmSettings?.addListener(notifyListeners);
     _dashToDockSettings?.addListener(notifyListeners);
   }
-  final Settings? _multiTaskingSettings;
-  final Settings? _mutterSettings;
-  final Settings? _appSwitchSettings;
-  final Settings? _wmSettings;
-  final Settings? _dashToDockSettings;
+  final GnomeSettings? _multiTaskingSettings;
+  final GnomeSettings? _mutterSettings;
+  final GnomeSettings? _appSwitchSettings;
+  final GnomeSettings? _wmSettings;
+  final GnomeSettings? _dashToDockSettings;
 
   static const _hotCornersKey = 'enable-hot-corners';
   static const _edgeTilingKey = 'edge-tiling';

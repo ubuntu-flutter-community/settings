@@ -7,16 +7,15 @@ import 'package:settings/services/locale_service.dart';
 import 'package:settings/view/common/settings_section.dart';
 import 'package:settings/view/pages/region_and_language/region_and_language_model.dart';
 import 'package:settings/view/pages/settings_page.dart';
-import 'package:ubuntu_service/ubuntu_service.dart';
-import 'package:yaru_icons/yaru_icons.dart';
-import 'package:yaru_widgets/yaru_widgets.dart';
+import 'package:watch_it/watch_it.dart';
+import 'package:yaru/yaru.dart';
 
 class RegionAndLanguagePage extends StatefulWidget {
   const RegionAndLanguagePage({super.key});
 
   static Widget create(BuildContext context) => ChangeNotifierProvider(
         create: (context) => RegionAndLanguageModel(
-          localeService: getService<LocaleService>(),
+          localeService: di<LocaleService>(),
         ),
         child: const RegionAndLanguagePage(),
       );

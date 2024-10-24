@@ -1,11 +1,11 @@
 import 'package:safe_change_notifier/safe_change_notifier.dart';
 import 'package:settings/l10n/l10n.dart';
 import 'package:settings/schemas/schemas.dart';
-import 'package:settings/services/settings_service.dart';
 import 'package:settings/utils.dart';
+import 'package:yaru/yaru.dart';
 
 class AccessibilityModel extends SafeChangeNotifier {
-  AccessibilityModel(SettingsService service)
+  AccessibilityModel(GSettingsService service)
       : _desktopA11Settings = service.lookup(schemaDesktopA11y),
         _a11yAppsSettings = service.lookup(schemaA11yApps),
         _a11yKeyboardSettings = service.lookup(schemaA11yKeyboard),
@@ -96,15 +96,15 @@ class AccessibilityModel extends SafeChangeNotifier {
     super.dispose();
   }
 
-  final Settings? _desktopA11Settings;
-  final Settings? _a11yAppsSettings;
-  final Settings? _a11yKeyboardSettings;
-  final Settings? _a11yMagnifierSettings;
-  final Settings? _a11yMouseSettings;
-  final Settings? _wmPreferencesSettings;
-  final Settings? _interfaceSettings;
-  final Settings? _peripheralsMouseSettings;
-  final Settings? _peripheralsKeyboardSettings;
+  final GnomeSettings? _desktopA11Settings;
+  final GnomeSettings? _a11yAppsSettings;
+  final GnomeSettings? _a11yKeyboardSettings;
+  final GnomeSettings? _a11yMagnifierSettings;
+  final GnomeSettings? _a11yMouseSettings;
+  final GnomeSettings? _wmPreferencesSettings;
+  final GnomeSettings? _interfaceSettings;
+  final GnomeSettings? _peripheralsMouseSettings;
+  final GnomeSettings? _peripheralsKeyboardSettings;
 
   // Global section
 

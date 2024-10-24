@@ -1,7 +1,7 @@
 import 'package:safe_change_notifier/safe_change_notifier.dart';
 import 'package:settings/schemas/schemas.dart';
 import 'package:settings/services/house_keeping_service.dart';
-import 'package:settings/services/settings_service.dart';
+import 'package:yaru/yaru.dart';
 
 const _removeOldTrashFilesKey = 'remove-old-trash-files';
 const _removeOldTempFilesKey = 'remove-old-temp-files';
@@ -11,13 +11,13 @@ const _oldFilesAgeKey = 'old-files-age';
 
 class PrivacyModel extends SafeChangeNotifier {
   PrivacyModel(
-    SettingsService settingsService,
+    GSettingsService settingsService,
     HouseKeepingService houseKeepingService,
   )   : _privacySettings = settingsService.lookup(schemaPrivacy),
         _houseKeepingService = houseKeepingService {
     _privacySettings?.addListener(notifyListeners);
   }
-  final Settings? _privacySettings;
+  final GnomeSettings? _privacySettings;
   final HouseKeepingService _houseKeepingService;
 
   @override

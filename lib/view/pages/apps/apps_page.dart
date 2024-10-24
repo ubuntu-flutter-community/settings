@@ -3,8 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:settings/l10n/l10n.dart';
 import 'package:settings/view/pages/settings_page.dart';
-import 'package:yaru_icons/yaru_icons.dart';
-import 'package:yaru_widgets/yaru_widgets.dart';
+import 'package:yaru/yaru.dart';
 
 class AppsPage extends StatelessWidget {
   const AppsPage({super.key});

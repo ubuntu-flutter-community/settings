@@ -1,15 +1,15 @@
 import 'package:safe_change_notifier/safe_change_notifier.dart';
 import 'package:settings/schemas/schemas.dart';
-import 'package:settings/services/settings_service.dart';
+import 'package:yaru/yaru.dart';
 
 const _enabledKey = 'enabled';
 
 class LocationModel extends SafeChangeNotifier {
-  LocationModel(SettingsService service)
+  LocationModel(GSettingsService service)
       : _locationSettings = service.lookup(schemaLocation) {
     _locationSettings?.addListener(notifyListeners);
   }
-  final Settings? _locationSettings;
+  final GnomeSettings? _locationSettings;
 
   bool? get enabled => _locationSettings?.getValue(_enabledKey);
   set enabled(bool? value) {

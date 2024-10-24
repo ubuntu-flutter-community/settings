@@ -1,21 +1,20 @@
 import 'dart:io';
 
 import 'package:dbus/dbus.dart';
-import 'package:gsettings/gsettings.dart';
 import 'package:safe_change_notifier/safe_change_notifier.dart';
 import 'package:settings/schemas/schemas.dart';
 import 'package:settings/services/input_source_service.dart';
-import 'package:settings/services/settings_service.dart';
+import 'package:yaru/yaru.dart';
 
 class InputSourceModel extends SafeChangeNotifier {
   InputSourceModel(
-    SettingsService settingsService,
+    GSettingsService settingsService,
     InputSourceService inputSourceService,
   )   : _inputSourceSettings = settingsService.lookup(schemaInputSources),
         inputSources = inputSourceService.inputSources {
     _inputSourceSettings?.addListener(notifyListeners);
   }
-  final Settings? _inputSourceSettings;
+  final GnomeSettings? _inputSourceSettings;
   static const _perWindowKey = 'per-window';
   static const _sourcesKey = 'sources';
   static const _mruSourcesKey = 'mru-sources';
@@ -35,33 +34,33 @@ class InputSourceModel extends SafeChangeNotifier {
   }
 
   Future<List<String>?> getInputSources() async {
-    final settings = GSettings(schemaInputSources);
+    final settings = GnomeSettings(schemaInputSources);
     final inputTypes = <String>[];
 
-    final dbusArray = await settings.get(_sourcesKey) as DBusArray;
+    final dbusArray = await settings.getValue(_sourcesKey) as DBusArray;
 
     for (final dbusArrayChild in dbusArray.children) {
       final dbusStruct = dbusArrayChild as DBusStruct;
       inputTypes.add((dbusStruct.children[1] as DBusString).value);
     }
 
-    await settings.close();
+    await settings.dispose();
 
     return inputTypes;
   }
 
   Future<void> setInputSources(List<String>? inputTypes) async {
-    final settings = GSettings(schemaInputSources);
+    final settings = GnomeSettings(schemaInputSources);
 
     final array = DBusArray(DBusSignature('(ss)'), [
       for (final inputType in inputTypes ?? [])
         DBusStruct([const DBusString('xkb'), DBusString(inputType)]),
     ]);
 
-    await settings.set(_sourcesKey, array);
-    await settings.set(_mruSourcesKey, array);
+    await settings.setValue(_sourcesKey, array);
+    await settings.setValue(_mruSourcesKey, array);
 
-    await settings.close();
+    await settings.dispose();
 
     notifyListeners();
   }

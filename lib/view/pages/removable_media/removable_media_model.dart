@@ -1,7 +1,7 @@
 import 'package:safe_change_notifier/safe_change_notifier.dart';
 import 'package:settings/l10n/l10n.dart';
 import 'package:settings/schemas/schemas.dart';
-import 'package:settings/services/settings_service.dart';
+import 'package:yaru/settings.dart';
 
 enum MimeTypeBehavior {
   ignore,
@@ -24,7 +24,7 @@ enum MimeTypeBehavior {
 }
 
 class RemovableMediaModel extends SafeChangeNotifier {
-  RemovableMediaModel(SettingsService service)
+  RemovableMediaModel(GSettingsService service)
       : _removableMediaSettings = service.lookup(schemaMediaHandling) {
     _removableMediaSettings?.addListener(notifyListeners);
   }
@@ -50,7 +50,7 @@ class RemovableMediaModel extends SafeChangeNotifier {
     'x-content/win32-software': 'Windows Software',
   };
 
-  final Settings? _removableMediaSettings;
+  final GnomeSettings? _removableMediaSettings;
 
   @override
   void dispose() {

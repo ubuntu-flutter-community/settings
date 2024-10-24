@@ -1,9 +1,9 @@
 import 'package:safe_change_notifier/safe_change_notifier.dart';
 import 'package:settings/schemas/schemas.dart';
-import 'package:settings/services/settings_service.dart';
+import 'package:yaru/settings.dart';
 
 class SoundModel extends SafeChangeNotifier {
-  SoundModel(SettingsService service)
+  SoundModel(GSettingsService service)
       : _soundSettings = service.lookup(schemaSound) {
     _soundSettings?.addListener(notifyListeners);
   }
@@ -17,7 +17,7 @@ class SoundModel extends SafeChangeNotifier {
     super.dispose();
   }
 
-  final Settings? _soundSettings;
+  final GnomeSettings? _soundSettings;
 
   // System section
 
