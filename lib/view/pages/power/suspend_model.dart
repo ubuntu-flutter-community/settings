@@ -1,13 +1,13 @@
 import 'package:safe_change_notifier/safe_change_notifier.dart';
 import 'package:settings/schemas/schemas.dart';
-import 'package:settings/services/settings_service.dart';
 import 'package:settings/view/pages/power/suspend.dart';
+import 'package:yaru/yaru.dart';
 
 const _showBatteryPercentageKey = 'show-battery-percentage';
 const _powerButtonActionKey = 'power-button-action';
 
 class SuspendModel extends SafeChangeNotifier {
-  SuspendModel(SettingsService settings)
+  SuspendModel(GSettingsService settings)
       : _daemonSettings = settings.lookup(schemaSettingsDaemonPowerPlugin),
         _interfaceSettings = settings.lookup(schemaInterface) {
     _daemonSettings?.addListener(notifyListeners);
@@ -21,8 +21,8 @@ class SuspendModel extends SafeChangeNotifier {
     super.dispose();
   }
 
-  final Settings? _daemonSettings;
-  final Settings? _interfaceSettings;
+  final GnomeSettings? _daemonSettings;
+  final GnomeSettings? _interfaceSettings;
 
   bool? get showBatteryPercentage =>
       _interfaceSettings?.boolValue(_showBatteryPercentageKey);

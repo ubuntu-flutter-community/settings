@@ -5,7 +5,6 @@ import 'package:settings/constants.dart';
 import 'package:settings/l10n/l10n.dart';
 import 'package:settings/services/bluetooth_service.dart';
 import 'package:settings/services/power_settings_service.dart';
-import 'package:settings/services/settings_service.dart';
 import 'package:settings/view/common/duration_dropdown_button.dart';
 import 'package:settings/view/common/settings_section.dart';
 import 'package:settings/view/common/yaru_slider_row.dart';
@@ -13,9 +12,8 @@ import 'package:settings/view/common/yaru_switch_row.dart';
 import 'package:settings/view/pages/power/power_settings.dart';
 import 'package:settings/view/pages/power/power_settings_dialogs.dart';
 import 'package:settings/view/pages/power/power_settings_model.dart';
-import 'package:ubuntu_service/ubuntu_service.dart';
-import 'package:yaru_icons/yaru_icons.dart';
-import 'package:yaru_widgets/yaru_widgets.dart';
+import 'package:watch_it/watch_it.dart';
+import 'package:yaru/yaru.dart';
 
 class PowerSettingsSection extends StatefulWidget {
   const PowerSettingsSection({super.key});
@@ -23,10 +21,10 @@ class PowerSettingsSection extends StatefulWidget {
   static Widget create(BuildContext context) {
     return ChangeNotifierProvider<SuspendModel>(
       create: (_) => SuspendModel(
-        settings: getService<SettingsService>(),
-        power: getService<PowerSettingsService>(),
-        bluetooth: getService<BluetoothService>(),
-        network: getService<NetworkManagerClient>(),
+        settings: di<GSettingsService>(),
+        power: di<PowerGSettingsService>(),
+        bluetooth: di<BluetoothService>(),
+        network: di<NetworkManagerClient>(),
       ),
       child: const PowerSettingsSection(),
     );

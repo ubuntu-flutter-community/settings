@@ -6,7 +6,7 @@ import 'package:settings/view/common/settings_section.dart';
 import 'package:settings/view/common/yaru_switch_row.dart';
 import 'package:settings/view/pages/connections/models/access_point_model.dart';
 import 'package:settings/view/pages/settings_page.dart';
-import 'package:yaru_icons/yaru_icons.dart';
+import 'package:yaru/yaru.dart';
 
 import 'data/authentication.dart';
 import 'models/wifi_model.dart';

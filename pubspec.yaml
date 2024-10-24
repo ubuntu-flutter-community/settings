@@ -12,7 +12,7 @@ dependencies:
   bluez: ^0.8.0
   collection: ^1.17.1
   dbus: ^0.7.8
-  duration: ^3.0.11
+  duration: ^4.0.3
   equatable: ^2.0.3
   file_selector: ^1.0.0
   file_selector_linux: ^0.9.2
@@ -26,9 +26,9 @@ dependencies:
   flutter_spinbox: ^0.13.1
   flutter_svg: ^2.0.7
   gsettings: ^0.2.8
-  handy_window: ^0.3.1
+  handy_window: ^0.4.0
   http: ^1.1.0
-  intl: ^0.18.0
+  intl: ^0.19.0
   linux_datetime_service:
     git: https://github.com/ubuntu-flutter-community/linux_datetime
   linux_system_info:
@@ -36,30 +36,31 @@ dependencies:
       url: https://github.com/Feichtmeier/linux_system_info.git
       ref: update_dbus_ffi_and_xml
   meta: ^1.9.1
-  mime: ^1.0.2
+  mime: ^2.0.0
   nm: ^0.5.0
   path_provider: ^2.0.9
   pdf: ^3.7.4
-  provider: ^6.0.2
-  safe_change_notifier: ^0.3.1
-  ubuntu_service: ^0.3.1
+  provider: ^6.1.2
+  safe_change_notifier: ^0.4.0
   udisks: ^0.4.0
   upower: ^0.7.0
   url_launcher: ^6.0.20
+  watch_it: ^1.4.2
   xdg_accounts:
     git: https://github.com/ubuntu-flutter-community/xdg_accounts
   xml: ^6.2.2
-  yaru: ^1.2.1
-  yaru_icons: ^2.4.0
-  yaru_widgets: ^3.5.0
+  yaru:
+    git:
+      url: https://github.com/ubuntu/yaru.dart
+      ref: reorganize
 
 dev_dependencies:
   build_runner: ^2.1.2
 
-  flutter_lints: ^3.0.1
+  flutter_lints: ^5.0.0
   flutter_test:
     sdk: flutter
-  mockingjay: ^0.5.0
+  mockingjay: ^0.6.0
   mockito: ^5.0.16
 
 flutter:

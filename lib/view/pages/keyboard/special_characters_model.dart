@@ -1,16 +1,15 @@
 import 'package:dbus/dbus.dart';
-import 'package:gsettings/gsettings.dart';
 import 'package:safe_change_notifier/safe_change_notifier.dart';
 import 'package:settings/l10n/l10n.dart';
 import 'package:settings/schemas/schemas.dart';
-import 'package:settings/services/settings_service.dart';
+import 'package:yaru/yaru.dart';
 
 class SpecialCharactersModel extends SafeChangeNotifier {
-  SpecialCharactersModel(SettingsService service)
+  SpecialCharactersModel(GSettingsService service)
       : _inputSourceSettings = service.lookup(schemaInputSources) {
     _inputSourceSettings?.addListener(notifyListeners);
   }
-  final Settings? _inputSourceSettings;
+  final GnomeSettings? _inputSourceSettings;
   static const _xkbOptionsKey = 'xkb-options';
 
   @override
@@ -20,10 +19,10 @@ class SpecialCharactersModel extends SafeChangeNotifier {
   }
 
   Future<List<String>> _getXkbOptions() async {
-    final settings = GSettings(schemaInputSources);
+    final settings = GnomeSettings(schemaInputSources);
     final xkbOptions = <String>[];
 
-    final dbusArray = await settings.get(_xkbOptionsKey) as DBusArray;
+    final dbusArray = await settings.getValue(_xkbOptionsKey) as DBusArray;
 
     for (final dbusArrayChild in dbusArray.children) {
       final dBusString = dbusArrayChild as DBusString;

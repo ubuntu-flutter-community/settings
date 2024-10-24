@@ -7,8 +7,7 @@ import 'package:settings/view/pages/privacy/location_page.dart';
 import 'package:settings/view/pages/privacy/reporting_page.dart';
 import 'package:settings/view/pages/privacy/screen_saver_page.dart';
 import 'package:settings/view/pages/settings_page.dart';
-import 'package:yaru_icons/yaru_icons.dart';
-import 'package:yaru_widgets/yaru_widgets.dart';
+import 'package:yaru/yaru.dart';
 
 class PrivacyPage extends StatelessWidget {
   const PrivacyPage({super.key});

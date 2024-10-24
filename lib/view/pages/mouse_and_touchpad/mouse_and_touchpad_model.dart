@@ -1,9 +1,9 @@
 import 'package:safe_change_notifier/safe_change_notifier.dart';
 import 'package:settings/schemas/schemas.dart';
-import 'package:settings/services/settings_service.dart';
+import 'package:yaru/yaru.dart';
 
 class MouseAndTouchpadModel extends SafeChangeNotifier {
-  MouseAndTouchpadModel(SettingsService service)
+  MouseAndTouchpadModel(GSettingsService service)
       : _peripheralsMouseSettings = service.lookup(schemaPeripheralsMouse),
         _peripheralsTouchpadSettings =
             service.lookup(schemaPeripheralTouchpad) {
@@ -27,8 +27,8 @@ class MouseAndTouchpadModel extends SafeChangeNotifier {
     super.dispose();
   }
 
-  final Settings? _peripheralsMouseSettings;
-  final Settings? _peripheralsTouchpadSettings;
+  final GnomeSettings? _peripheralsMouseSettings;
+  final GnomeSettings? _peripheralsTouchpadSettings;
 
   // Global section
 

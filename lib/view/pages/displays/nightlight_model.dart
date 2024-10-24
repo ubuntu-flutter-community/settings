@@ -1,6 +1,6 @@
 import 'package:safe_change_notifier/safe_change_notifier.dart';
 import 'package:settings/schemas/schemas.dart';
-import 'package:settings/services/settings_service.dart';
+import 'package:yaru/yaru.dart';
 
 const _setNightLight = 'night-light-enabled';
 const _setNightlightTemp = 'night-light-temperature';
@@ -8,7 +8,7 @@ const _setNightlightScheduleFrom = 'night-light-schedule-from';
 const _setNightlightScheduleTo = 'night-light-schedule-to';
 
 class NightlightModel extends SafeChangeNotifier {
-  NightlightModel(SettingsService service)
+  NightlightModel(GSettingsService service)
       : _nightlightSettings = service.lookup(schemaSettingsDaemonColorPlugin) {
     _nightlightSettings?.addListener(notifyListeners);
   }
@@ -19,7 +19,7 @@ class NightlightModel extends SafeChangeNotifier {
     super.dispose();
   }
 
-  final Settings? _nightlightSettings;
+  final GnomeSettings? _nightlightSettings;
 
   bool? get nightLightEnabled => _nightlightSettings?.boolValue(_setNightLight);
 

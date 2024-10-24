@@ -4,8 +4,7 @@ import 'package:settings/constants.dart';
 import 'package:settings/view/common/settings_section.dart';
 import 'package:settings/view/pages/keyboard/input_source_model.dart';
 import 'package:settings/view/pages/settings_simple_dialog.dart';
-import 'package:yaru_icons/yaru_icons.dart';
-import 'package:yaru_widgets/yaru_widgets.dart';
+import 'package:yaru/yaru.dart';
 
 class InputSourceSelectionSection extends StatelessWidget {
   const InputSourceSelectionSection({

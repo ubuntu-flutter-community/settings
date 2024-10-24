@@ -3,12 +3,12 @@ import 'package:provider/provider.dart';
 import 'package:settings/constants.dart';
 import 'package:settings/schemas/schemas.dart';
 import 'package:settings/services/keyboard_service.dart';
-import 'package:settings/services/settings_service.dart';
 import 'package:settings/view/common/settings_section.dart';
 import 'package:settings/view/pages/keyboard/keyboard_shortcut_row.dart';
 import 'package:settings/view/pages/keyboard/keyboard_shortcuts_model.dart';
 import 'package:settings/view/pages/settings_page.dart';
-import 'package:ubuntu_service/ubuntu_service.dart';
+import 'package:watch_it/watch_it.dart';
+import 'package:yaru/yaru.dart';
 
 class KeyboardShortcutsPage extends StatelessWidget {
   const KeyboardShortcutsPage({super.key});
@@ -19,8 +19,8 @@ class KeyboardShortcutsPage extends StatelessWidget {
       children: [
         ChangeNotifierProvider(
           create: (_) => KeyboardShortcutsModel(
-            keyboard: getService<KeyboardService>(),
-            settings: getService<SettingsService>(),
+            keyboard: di<KeyboardService>(),
+            settings: di<GSettingsService>(),
             schemaId: schemaWmKeybindings,
           ),
           child: const SettingsSection(
@@ -40,8 +40,8 @@ class KeyboardShortcutsPage extends StatelessWidget {
         ),
         ChangeNotifierProvider(
           create: (_) => KeyboardShortcutsModel(
-            keyboard: getService<KeyboardService>(),
-            settings: getService<SettingsService>(),
+            keyboard: di<KeyboardService>(),
+            settings: di<GSettingsService>(),
             schemaId: schemaGnomeShellKeybinding,
           ),
           child: const SettingsSection(

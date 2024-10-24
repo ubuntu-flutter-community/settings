@@ -3,23 +3,22 @@ import 'package:linux_datetime_service/linux_datetime.dart';
 import 'package:provider/provider.dart';
 import 'package:settings/constants.dart';
 import 'package:settings/l10n/l10n.dart';
-import 'package:settings/services/settings_service.dart';
 import 'package:settings/view/common/settings_section.dart';
 import 'package:settings/view/common/yaru_switch_row.dart';
 import 'package:settings/view/pages/date_and_time/date_time_model.dart';
 import 'package:settings/view/pages/date_and_time/timezones.dart';
 import 'package:settings/view/pages/settings_alert_dialog.dart';
 import 'package:settings/view/pages/settings_page.dart';
-import 'package:ubuntu_service/ubuntu_service.dart';
-import 'package:yaru_widgets/yaru_widgets.dart';
+import 'package:watch_it/watch_it.dart';
+import 'package:yaru/yaru.dart';
 
 class DateTimePage extends StatefulWidget {
   const DateTimePage({super.key});
 
   static Widget create(BuildContext context) => ChangeNotifierProvider(
         create: (_) => DateTimeModel(
-          dateTimeService: getService<DateTimeService>(),
-          settingsService: getService<SettingsService>(),
+          dateTimeService: di<DateTimeService>(),
+          settingsService: di<GSettingsService>(),
         ),
         child: const DateTimePage(),
       );

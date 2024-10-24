@@ -6,8 +6,7 @@ import 'package:settings/view/common/settings_section.dart';
 import 'package:settings/view/common/yaru_extra_option_row.dart';
 import 'package:settings/view/pages/accessibility/accessibility_model.dart';
 import 'package:settings/view/pages/settings_simple_dialog.dart';
-import 'package:yaru_icons/yaru_icons.dart';
-import 'package:yaru_widgets/yaru_widgets.dart';
+import 'package:yaru/yaru.dart';
 
 class HearingSection extends StatelessWidget {
   const HearingSection({super.key});

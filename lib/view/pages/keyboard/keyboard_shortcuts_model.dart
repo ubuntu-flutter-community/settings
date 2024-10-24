@@ -1,11 +1,11 @@
 import 'package:safe_change_notifier/safe_change_notifier.dart';
 import 'package:settings/services/keyboard_service.dart';
-import 'package:settings/services/settings_service.dart';
+import 'package:yaru/yaru.dart';
 
 class KeyboardShortcutsModel extends SafeChangeNotifier {
   KeyboardShortcutsModel({
     required KeyboardService keyboard,
-    required SettingsService settings,
+    required GSettingsService settings,
     required this.schemaId,
   })  : _keyboard = keyboard,
         _shortcutSettings = settings.lookup(schemaId) {
@@ -20,7 +20,7 @@ class KeyboardShortcutsModel extends SafeChangeNotifier {
   }
 
   final KeyboardService _keyboard;
-  final Settings? _shortcutSettings;
+  final GnomeSettings? _shortcutSettings;
 
   Future<bool> grabKeyboard() => _keyboard.grab();
   Future<bool> ungrabKeyboard() => _keyboard.ungrab();

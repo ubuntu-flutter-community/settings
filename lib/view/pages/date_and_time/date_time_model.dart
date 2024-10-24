@@ -6,7 +6,7 @@ import 'package:linux_datetime_service/linux_datetime.dart';
 import 'package:safe_change_notifier/safe_change_notifier.dart';
 import 'package:settings/l10n/l10n.dart';
 import 'package:settings/schemas/schemas.dart';
-import 'package:settings/services/settings_service.dart';
+import 'package:yaru/yaru.dart';
 
 const _kAutomaticTimezone = 'automatic-timezone';
 const _kClockFormat = 'clock-format';
@@ -17,7 +17,7 @@ const _kCalendarShowWeekNumber = 'show-weekdate';
 class DateTimeModel extends SafeChangeNotifier {
   DateTimeModel({
     required DateTimeService dateTimeService,
-    required SettingsService settingsService,
+    required GSettingsService settingsService,
   })  : _dateTimeService = dateTimeService,
         _dateTimeSettings = settingsService.lookup(schemaDateTime),
         _interfaceSettings = settingsService.lookup(schemaInterface),
@@ -26,9 +26,9 @@ class DateTimeModel extends SafeChangeNotifier {
     _interfaceSettings?.addListener(notifyListeners);
     _calendarSettings?.addListener(notifyListeners);
   }
-  final Settings? _dateTimeSettings;
-  final Settings? _interfaceSettings;
-  final Settings? _calendarSettings;
+  final GnomeSettings? _dateTimeSettings;
+  final GnomeSettings? _interfaceSettings;
+  final GnomeSettings? _calendarSettings;
   final DateTimeService _dateTimeService;
   StreamSubscription<String?>? _timezoneSub;
   StreamSubscription<bool?>? _ntpSyncSub;

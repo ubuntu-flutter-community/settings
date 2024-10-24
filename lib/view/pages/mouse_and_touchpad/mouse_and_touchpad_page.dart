@@ -1,20 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:settings/l10n/l10n.dart';
-import 'package:settings/services/settings_service.dart';
 import 'package:settings/view/pages/mouse_and_touchpad/general_section.dart';
 import 'package:settings/view/pages/mouse_and_touchpad/mouse_and_touchpad_model.dart';
 import 'package:settings/view/pages/mouse_and_touchpad/mouse_section.dart';
 import 'package:settings/view/pages/mouse_and_touchpad/touchpad_section.dart';
 import 'package:settings/view/pages/settings_page.dart';
-import 'package:ubuntu_service/ubuntu_service.dart';
+import 'package:watch_it/watch_it.dart';
+import 'package:yaru/yaru.dart';
 
 class MouseAndTouchpadPage extends StatelessWidget {
   const MouseAndTouchpadPage({super.key});
 
   static Widget create(BuildContext context) {
     return ChangeNotifierProvider<MouseAndTouchpadModel>(
-      create: (_) => MouseAndTouchpadModel(getService<SettingsService>()),
+      create: (_) => MouseAndTouchpadModel(di<GSettingsService>()),
       child: const MouseAndTouchpadPage(),
     );
   }

@@ -37,7 +37,7 @@ class SelectableSvgImage extends StatelessWidget {
               colorFilter: ColorFilter.mode(
                 selected
                     ? selectedColor
-                    : Theme.of(context).colorScheme.background,
+                    : Theme.of(context).colorScheme.surface,
                 selected ? BlendMode.srcIn : BlendMode.color,
               ),
               height: height,

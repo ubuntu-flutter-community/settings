@@ -5,10 +5,9 @@ import 'package:settings/l10n/l10n.dart';
 import 'package:settings/view/common/settings_section.dart';
 import 'package:settings/view/pages/power/battery_model.dart';
 import 'package:settings/view/pages/power/battery_widgets.dart';
-import 'package:ubuntu_service/ubuntu_service.dart';
 import 'package:upower/upower.dart';
+import 'package:watch_it/watch_it.dart';
 import 'package:yaru/yaru.dart';
-import 'package:yaru_widgets/yaru_widgets.dart';
 
 class BatterySection extends StatefulWidget {
   const BatterySection({super.key});
@@ -30,7 +29,7 @@ class _BatterySectionState extends State<BatterySection> {
     super.initState();
 
     final model = context.read<BatteryModel>();
-    model.init(getService<UPowerClient>());
+    model.init(di<UPowerClient>());
   }
 
   @override

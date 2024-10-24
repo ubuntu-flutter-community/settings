@@ -4,7 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:settings/l10n/l10n.dart';
 import 'package:settings/utils.dart';
 import 'package:settings/view/pages/wallpaper/wallpaper_model.dart';
-import 'package:yaru_widgets/yaru_widgets.dart';
+import 'package:yaru/yaru.dart';
 
 class ColorShadingOptionRow extends StatelessWidget {
   const ColorShadingOptionRow({

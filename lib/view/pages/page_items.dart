@@ -25,7 +25,7 @@ import 'package:settings/view/pages/search/search_page.dart';
 import 'package:settings/view/pages/settings_page_item.dart';
 import 'package:settings/view/pages/sound/sound_page.dart';
 import 'package:settings/view/pages/wallpaper/wallpaper_page.dart';
-import 'package:yaru_icons/yaru_icons.dart';
+import 'package:yaru/yaru.dart';
 
 List<SettingsPageItem> getPageItems(BuildContext context) => [
       SettingsPageItem(

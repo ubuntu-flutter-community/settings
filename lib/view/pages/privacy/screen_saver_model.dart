@@ -1,7 +1,7 @@
 import 'package:safe_change_notifier/safe_change_notifier.dart';
 import 'package:settings/schemas/schemas.dart';
-import 'package:settings/services/settings_service.dart';
 import 'package:settings/view/pages/power/power_settings.dart';
+import 'package:yaru/yaru.dart';
 
 const _lockEnabledKey = 'lock-enabled';
 const _lockDelayKey = 'lock-delay';
@@ -10,7 +10,7 @@ const _showInLockScreenKey = 'show-in-lock-screen';
 const _idleDelayKey = 'idle-delay';
 
 class ScreenSaverModel extends SafeChangeNotifier {
-  ScreenSaverModel(SettingsService service)
+  ScreenSaverModel(GSettingsService service)
       : _screenSaverSettings = service.lookup(schemaScreenSaver),
         _notificationSettings = service.lookup(schemaNotifications),
         _sessionSettings = service.lookup(schemaSession) {
@@ -18,9 +18,9 @@ class ScreenSaverModel extends SafeChangeNotifier {
     _notificationSettings?.addListener(notifyListeners);
     _sessionSettings?.addListener(notifyListeners);
   }
-  final Settings? _screenSaverSettings;
-  final Settings? _notificationSettings;
-  final Settings? _sessionSettings;
+  final GnomeSettings? _screenSaverSettings;
+  final GnomeSettings? _notificationSettings;
+  final GnomeSettings? _sessionSettings;
 
   @override
   void dispose() {

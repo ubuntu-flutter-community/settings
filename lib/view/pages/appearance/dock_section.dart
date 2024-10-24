@@ -9,7 +9,7 @@ import 'package:settings/view/common/settings_section.dart';
 import 'package:settings/view/common/yaru_slider_row.dart';
 import 'package:settings/view/common/yaru_switch_row.dart';
 import 'package:settings/view/pages/appearance/dock_model.dart';
-import 'package:yaru_widgets/yaru_widgets.dart';
+import 'package:yaru/yaru.dart';
 
 class DockSection extends StatelessWidget {
   const DockSection({super.key});
@@ -19,7 +19,7 @@ class DockSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final model = context.watch<DockModel>();
-    final unselectedColor = Theme.of(context).colorScheme.background;
+    final unselectedColor = Theme.of(context).colorScheme.surface;
     final selectedColor = Theme.of(context).brightness == Brightness.light
         ? Theme.of(context).primaryColor
         : lighten(Theme.of(context).primaryColor, 20);
