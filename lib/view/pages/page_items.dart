@@ -18,6 +18,7 @@ import 'package:settings/view/pages/multitasking/multi_tasking_page.dart';
 import 'package:settings/view/pages/notifications/notifications_page.dart';
 import 'package:settings/view/pages/online_accounts/online_accounts_page.dart';
 import 'package:settings/view/pages/power/power_page.dart';
+import 'package:settings/view/pages/printers/printers_page.dart';
 import 'package:settings/view/pages/privacy/privacy_page.dart';
 import 'package:settings/view/pages/region_and_language/region_and_language_page.dart';
 import 'package:settings/view/pages/removable_media/removable_media_page.dart';
@@ -139,10 +140,11 @@ List<SettingsPageItem> getPageItems(BuildContext context) => [
         hasAppBar: false,
       ),
       SettingsPageItem(
-        titleBuilder: (context) => const Text('Printers'),
+        titleBuilder: PrintersPage.createTitle,
         iconBuilder: (context, selected) => const Icon(YaruIcons.printer),
-        builder: (_) => const Center(child: Text('Printers')),
+        builder: PrintersPage.create,
         title: context.l10n.printersPageTitle,
+        searchMatches: PrintersPage.searchMatches,
       ),
       SettingsPageItem(
         titleBuilder: RemovableMediaPage.createTitle,
