@@ -45,7 +45,7 @@ class _KeyboardPageState extends State<KeyboardPage>
           backgroundColor: Theme.of(context).scaffoldBackgroundColor,
           title: const SizedBox(
             width: 400,
-            child: TabBar(
+            child: YaruTabBar(
               tabs: [
                 TitleBarTab(
                   text: 'Keyboard Settings',
